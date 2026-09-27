@@ -149,6 +149,8 @@ class MilestoneEditController extends FamilyAsyncNotifier<void, MilestoneRef> {
     required String description,
     DateTime? startDate,
     DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
   }) async {
     final trimmedTitle = title.trim();
     if (trimmedTitle.isEmpty) throw ArgumentError.value(title, 'title');
@@ -166,6 +168,8 @@ class MilestoneEditController extends FamilyAsyncNotifier<void, MilestoneRef> {
         description: description,
         startDate: startDate,
         dueDate: dueDate,
+        clearStartDate: clearStartDate,
+        clearDueDate: clearDueDate,
       );
       ref.invalidate(milestoneDetailProvider(arg));
       ref.invalidate(milestoneListControllerProvider);

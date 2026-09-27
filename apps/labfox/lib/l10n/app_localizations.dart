@@ -1082,6 +1082,18 @@ abstract class AppLocalizations {
   /// **'Could not update the milestone.'**
   String get milestoneUpdateError;
 
+  /// No description provided for @milestoneClearStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear start date'**
+  String get milestoneClearStartDate;
+
+  /// No description provided for @milestoneClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get milestoneClearDueDate;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:

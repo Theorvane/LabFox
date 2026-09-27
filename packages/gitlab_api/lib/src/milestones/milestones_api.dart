@@ -107,15 +107,25 @@ class MilestonesApi {
     String? description,
     String? startDate,
     String? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
   }) async {
+    if (clearStartDate && startDate != null) {
+      throw ArgumentError('Cannot set and clear the start date together');
+    }
+    if (clearDueDate && dueDate != null) {
+      throw ArgumentError('Cannot set and clear the due date together');
+    }
     try {
       final response = await _dio.put<dynamic>(
         '${_path(projectId)}/$milestoneId',
         data: {
           'title': title,
           'description': ?description,
-          'start_date': ?startDate,
-          'due_date': ?dueDate,
+          if (clearStartDate || startDate != null)
+            'start_date': clearStartDate ? '' : startDate,
+          if (clearDueDate || dueDate != null)
+            'due_date': clearDueDate ? '' : dueDate,
         },
       );
       if (response.statusCode != 200 || response.data is! Map) {

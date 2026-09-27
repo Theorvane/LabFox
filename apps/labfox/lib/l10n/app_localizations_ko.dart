@@ -509,6 +509,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get milestoneUpdateError => '마일스톤을 수정할 수 없습니다.';
 
   @override
+  String get milestoneClearStartDate => '시작일 지우기';
+
+  @override
+  String get milestoneClearDueDate => '마감일 지우기';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

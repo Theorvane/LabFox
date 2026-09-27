@@ -168,6 +168,8 @@
   "milestoneEdit": "Edit milestone",
   "milestoneSaveChanges": "Save changes",
   "milestoneUpdateError": "Could not update the milestone.",
+  "milestoneClearStartDate": "Clear start date",
+  "milestoneClearDueDate": "Clear due date",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"

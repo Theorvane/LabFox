@@ -47,6 +47,8 @@ class MilestonesRepository {
     required String description,
     DateTime? startDate,
     DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
   }) {
     final wireDate = DateFormat('yyyy-MM-dd');
     return client.milestones.update(
@@ -56,6 +58,8 @@ class MilestonesRepository {
       description: description,
       startDate: startDate == null ? null : wireDate.format(startDate),
       dueDate: dueDate == null ? null : wireDate.format(dueDate),
+      clearStartDate: clearStartDate,
+      clearDueDate: clearDueDate,
     );
   }
 }

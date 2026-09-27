@@ -164,6 +164,8 @@
   "milestoneEdit": "마일스톤 편집",
   "milestoneSaveChanges": "변경사항 저장",
   "milestoneUpdateError": "마일스톤을 수정할 수 없습니다.",
+  "milestoneClearStartDate": "시작일 지우기",
+  "milestoneClearDueDate": "마감일 지우기",
   "appTitle": "LabFox",
   "homeTitle": "홈",
   "homeSignedInAs": "{username} 님으로 로그인됨",

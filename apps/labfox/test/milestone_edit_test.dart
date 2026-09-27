@@ -34,6 +34,8 @@ class _Repository extends MilestonesRepository {
   String? lastDescription;
   DateTime? lastStartDate;
   DateTime? lastDueDate;
+  bool? lastClearStartDate;
+  bool? lastClearDueDate;
 
   @override
   Future<GitLabMilestone> update(
@@ -43,6 +45,8 @@ class _Repository extends MilestonesRepository {
     required String description,
     DateTime? startDate,
     DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
   }) async {
     updateCount++;
     expect(projectId, 7);
@@ -52,6 +56,8 @@ class _Repository extends MilestonesRepository {
     lastDescription = description;
     lastStartDate = startDate;
     lastDueDate = dueDate;
+    lastClearStartDate = clearStartDate;
+    lastClearDueDate = clearDueDate;
     current = current.copyWith(
       title: title,
       description: description,
@@ -228,6 +234,44 @@ void main() {
     await tester.tap(find.text('Save changes'));
     await tester.pumpAndSettle();
     expect(repository.lastStartDate, DateTime(2026, 10, 5));
+  });
+
+  testWidgets('clears only the start date and keeps the due date', (
+    tester,
+  ) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.tap(find.byTooltip('Edit milestone'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Clear start date'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save changes'));
+    await tester.pumpAndSettle();
+    expect(repository.lastClearStartDate, isTrue);
+    expect(repository.lastClearDueDate, isFalse);
+    expect(repository.lastStartDate, isNull);
+    expect(repository.lastDueDate, DateTime(2026, 10, 31));
+    expect(repository.current.startDate, isNull);
+    expect(repository.current.dueDate, DateTime(2026, 10, 31));
+  });
+
+  testWidgets('clears only the due date and keeps the start date', (
+    tester,
+  ) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.tap(find.byTooltip('Edit milestone'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Clear due date'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save changes'));
+    await tester.pumpAndSettle();
+    expect(repository.lastClearStartDate, isFalse);
+    expect(repository.lastClearDueDate, isTrue);
+    expect(repository.lastStartDate, DateTime(2026, 10, 1));
+    expect(repository.lastDueDate, isNull);
+    expect(repository.current.startDate, DateTime(2026, 10, 1));
+    expect(repository.current.dueDate, isNull);
   });
 
   testWidgets('does not offer project editing for group milestones', (

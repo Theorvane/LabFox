@@ -210,6 +210,43 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test('explicitly clears only selected milestone dates', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'iid': 3,
+          'title': '11.0',
+          'state': 'active',
+          'start_date': null,
+          'due_date': '2026-10-31',
+        },
+      );
+    });
+
+    final milestone = await client.milestones.update(
+      7,
+      12,
+      title: '11.0',
+      clearStartDate: true,
+      dueDate: '2026-10-31',
+    );
+    expect(request.data, {
+      'title': '11.0',
+      'start_date': '',
+      'due_date': '2026-10-31',
+    });
+    expect(milestone.startDate, isNull);
+    expect(milestone.dueDate, DateTime(2026, 10, 31));
+
+    await client.milestones.update(7, 12, title: '11.0', clearDueDate: true);
+    expect(request.data, {'title': '11.0', 'due_date': ''});
+  });
 }
 
 GitLabClient _client(

@@ -208,6 +208,9 @@ class _EditMilestoneDialogState extends ConsumerState<_EditMilestoneDialog> {
             description: _description.text,
             startDate: _startDate,
             dueDate: _dueDate,
+            clearStartDate:
+                widget.milestone.startDate != null && _startDate == null,
+            clearDueDate: widget.milestone.dueDate != null && _dueDate == null,
           );
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
@@ -248,28 +251,67 @@ class _EditMilestoneDialogState extends ConsumerState<_EditMilestoneDialog> {
                 ),
               ),
               const SizedBox(height: LabFoxSpacing.sm),
-              TextButton.icon(
-                onPressed: _saving ? null : () => _selectDate(start: true),
-                icon: const Icon(Icons.calendar_today_outlined),
-                label: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(l10n.milestoneStartDate),
-                    if (_startDate != null)
-                      Text(dateFormat.format(_startDate!)),
-                  ],
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _saving
+                          ? null
+                          : () => _selectDate(start: true),
+                      icon: const Icon(Icons.calendar_today_outlined),
+                      label: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l10n.milestoneStartDate),
+                          if (_startDate != null)
+                            Text(dateFormat.format(_startDate!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_startDate != null)
+                    IconButton(
+                      tooltip: l10n.milestoneClearStartDate,
+                      onPressed: _saving
+                          ? null
+                          : () => setState(() {
+                              _startDate = null;
+                              _error = null;
+                            }),
+                      icon: const Icon(Icons.close),
+                    ),
+                ],
               ),
-              TextButton.icon(
-                onPressed: _saving ? null : () => _selectDate(start: false),
-                icon: const Icon(Icons.event_outlined),
-                label: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(l10n.milestoneDueDate),
-                    if (_dueDate != null) Text(dateFormat.format(_dueDate!)),
-                  ],
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _saving
+                          ? null
+                          : () => _selectDate(start: false),
+                      icon: const Icon(Icons.event_outlined),
+                      label: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l10n.milestoneDueDate),
+                          if (_dueDate != null)
+                            Text(dateFormat.format(_dueDate!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_dueDate != null)
+                    IconButton(
+                      tooltip: l10n.milestoneClearDueDate,
+                      onPressed: _saving
+                          ? null
+                          : () => setState(() {
+                              _dueDate = null;
+                              _error = null;
+                            }),
+                      icon: const Icon(Icons.close),
+                    ),
+                ],
               ),
               if (_error != null)
                 Text(

@@ -164,6 +164,8 @@
   "milestoneEdit": "माइलस्टोन संपादित करें",
   "milestoneSaveChanges": "बदलाव सहेजें",
   "milestoneUpdateError": "माइलस्टोन अपडेट नहीं हो सका।",
+  "milestoneClearStartDate": "शुरू होने की तारीख हटाएं",
+  "milestoneClearDueDate": "नियत तारीख हटाएं",
   "appTitle": "LabFox",
   "homeTitle": "होम",
   "homeSignedInAs": "{username} के रूप में साइन इन",

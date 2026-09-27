@@ -508,6 +508,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneUpdateError => 'マイルストーンを更新できませんでした。';
 
   @override
+  String get milestoneClearStartDate => '開始日を消去';
+
+  @override
+  String get milestoneClearDueDate => '期限を消去';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

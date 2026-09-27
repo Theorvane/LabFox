@@ -164,6 +164,8 @@
   "milestoneEdit": "编辑里程碑",
   "milestoneSaveChanges": "保存更改",
   "milestoneUpdateError": "无法更新里程碑。",
+  "milestoneClearStartDate": "清除开始日期",
+  "milestoneClearDueDate": "清除截止日期",
   "appTitle": "LabFox",
   "homeTitle": "主页",
   "homeSignedInAs": "已登录为 {username}",

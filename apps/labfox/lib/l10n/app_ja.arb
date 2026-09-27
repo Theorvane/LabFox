@@ -164,6 +164,8 @@
   "milestoneEdit": "マイルストーンを編集",
   "milestoneSaveChanges": "変更を保存",
   "milestoneUpdateError": "マイルストーンを更新できませんでした。",
+  "milestoneClearStartDate": "開始日を消去",
+  "milestoneClearDueDate": "期限を消去",
   "appTitle": "LabFox",
   "homeTitle": "ホーム",
   "homeSignedInAs": "{username} としてサインイン中",
