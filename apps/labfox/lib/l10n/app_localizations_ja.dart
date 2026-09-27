@@ -1698,6 +1698,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetDeleteError => 'スニペットを削除できませんでした。';
 
   @override
+  String get snippetFileDeleteAction => 'ファイルを削除';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => 'このファイルを削除しますか？';
+
+  @override
+  String get snippetFileDeleteConfirmMessage => 'スニペットからこのファイルのみを完全に削除します。';
+
+  @override
+  String get snippetFileDeleteError => 'ファイルを削除できませんでした。';
+
+  @override
   String get snippetEditContent => '内容を編集';
 
   @override

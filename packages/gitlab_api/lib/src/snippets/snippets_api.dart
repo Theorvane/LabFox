@@ -43,6 +43,34 @@ class SnippetsApi {
     }
   }
 
+  /// Deletes one file from an existing multi-file project snippet.
+  Future<Snippet> deleteFile(
+    Object projectId,
+    int snippetId, {
+    required String filePath,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/snippets/$snippetId',
+        data: {
+          'files': [
+            {'action': 'delete', 'file_path': filePath},
+          ],
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a project snippet file',
+        );
+      }
+      return Snippet.fromJson(response.data!);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a project snippet file');
+    }
+  }
+
   /// Adds one file to an existing project snippet without replacing its files.
   Future<Snippet> addFile(
     Object projectId,

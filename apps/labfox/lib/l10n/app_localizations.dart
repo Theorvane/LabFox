@@ -3386,6 +3386,30 @@ abstract class AppLocalizations {
   /// **'Could not delete the snippet.'**
   String get snippetDeleteError;
 
+  /// No description provided for @snippetFileDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get snippetFileDeleteAction;
+
+  /// No description provided for @snippetFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this file?'**
+  String get snippetFileDeleteConfirmTitle;
+
+  /// No description provided for @snippetFileDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes only this file from the snippet.'**
+  String get snippetFileDeleteConfirmMessage;
+
+  /// No description provided for @snippetFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the file.'**
+  String get snippetFileDeleteError;
+
   /// No description provided for @snippetEditContent.
   ///
   /// In en, this message translates to:

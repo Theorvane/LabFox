@@ -19,6 +19,12 @@ class SnippetsRepository {
     filePath: filePath,
   );
 
+  Future<Snippet> deleteFile(
+    int projectId,
+    int snippetId, {
+    required String filePath,
+  }) => _client.snippets.deleteFile(projectId, snippetId, filePath: filePath);
+
   Future<Snippet> addFile(
     int projectId,
     int snippetId, {
