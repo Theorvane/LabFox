@@ -67,6 +67,12 @@ class IssuesRepository {
     );
   }
 
+  Future<Issue> updateLabels({
+    required int projectId,
+    required int iid,
+    required List<String> labels,
+  }) => _client.issues.updateLabels(projectId, iid: iid, labels: labels);
+
   Future<Issue?> setSubscription({
     required int projectId,
     required int iid,

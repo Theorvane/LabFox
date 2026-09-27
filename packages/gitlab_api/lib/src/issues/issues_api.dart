@@ -206,6 +206,31 @@ class IssuesApi {
     }
   }
 
+  /// Replaces an issue's labels, including clearing them with an empty value.
+  Future<Issue> updateLabels(
+    Object projectId, {
+    required int iid,
+    required List<String> labels,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'labels': labels.join(',')},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue labels',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue labels');
+    }
+  }
+
   /// Subscribes or unsubscribes the current user from issue notifications.
   /// Returns null for GitLab's idempotent 304 (already in the requested state).
   Future<Issue?> setSubscription(

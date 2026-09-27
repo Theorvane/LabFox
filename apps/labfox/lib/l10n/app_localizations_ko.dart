@@ -688,6 +688,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueEdit => '이슈 수정';
 
   @override
+  String get issueEditLabels => '라벨 수정';
+
+  @override
+  String get issueSaveLabels => '라벨 저장';
+
+  @override
+  String get issueLabelsEmpty => '사용 가능한 라벨이 없습니다';
+
+  @override
+  String get issueLabelsLoadError => '라벨을 불러올 수 없습니다.';
+
+  @override
+  String get issueLabelsSaveError => '라벨을 변경할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
   String get issueSaveChanges => '변경 사항 저장';
 
   @override

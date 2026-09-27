@@ -1430,6 +1430,36 @@ abstract class AppLocalizations {
   /// **'Edit issue'**
   String get issueEdit;
 
+  /// No description provided for @issueEditLabels.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit labels'**
+  String get issueEditLabels;
+
+  /// No description provided for @issueSaveLabels.
+  ///
+  /// In en, this message translates to:
+  /// **'Save labels'**
+  String get issueSaveLabels;
+
+  /// No description provided for @issueLabelsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No labels available'**
+  String get issueLabelsEmpty;
+
+  /// No description provided for @issueLabelsLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load labels.'**
+  String get issueLabelsLoadError;
+
+  /// No description provided for @issueLabelsSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update labels. Please try again.'**
+  String get issueLabelsSaveError;
+
   /// No description provided for @issueSaveChanges.
   ///
   /// In en, this message translates to:

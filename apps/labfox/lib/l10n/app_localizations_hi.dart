@@ -694,6 +694,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get issueEdit => 'समस्या संपादित करें';
 
   @override
+  String get issueEditLabels => 'लेबल संपादित करें';
+
+  @override
+  String get issueSaveLabels => 'लेबल सहेजें';
+
+  @override
+  String get issueLabelsEmpty => 'कोई लेबल उपलब्ध नहीं है';
+
+  @override
+  String get issueLabelsLoadError => 'लेबल लोड नहीं हो सके।';
+
+  @override
+  String get issueLabelsSaveError =>
+      'लेबल अपडेट नहीं हो सके। फिर से कोशिश करें।';
+
+  @override
   String get issueSaveChanges => 'बदलाव सहेजें';
 
   @override

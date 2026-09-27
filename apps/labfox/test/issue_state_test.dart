@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/issues/data/issues_repository.dart';
 import 'package:labfox/features/issues/presentation/controllers/issues_controllers.dart';
 import 'package:labfox/features/issues/presentation/issue_detail_screen.dart';
+import 'package:labfox/features/project_labels/presentation/controllers/project_labels_controller.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
 class _FakeRepo extends IssuesRepository {
@@ -17,10 +18,17 @@ class _FakeRepo extends IssuesRepository {
   String? lastDescription;
   bool? lastSubscription;
   int? lastTodoIid;
+  List<String>? lastLabels;
+  bool rejectLabels = false;
+  Issue? detailedAfterLabelUpdate;
+  int getCount = 0;
   bool todoAlreadyExists = false;
 
   @override
-  Future<Issue> get({required int projectId, required int iid}) async => _issue;
+  Future<Issue> get({required int projectId, required int iid}) async {
+    getCount++;
+    return detailedAfterLabelUpdate ?? _issue;
+  }
 
   @override
   Future<Issue> setOpen({
@@ -61,9 +69,92 @@ class _FakeRepo extends IssuesRepository {
     lastTodoIid = iid;
     return todoAlreadyExists ? null : const Todo(id: 112, state: 'pending');
   }
+
+  @override
+  Future<Issue> updateLabels({
+    required int projectId,
+    required int iid,
+    required List<String> labels,
+  }) async {
+    if (rejectLabels) throw const GitLabForbiddenException('Forbidden');
+    lastLabels = labels;
+    _issue = _issue.copyWith(
+      labels: labels.map((name) => Label(name: name)).toList(),
+    );
+    return _issue;
+  }
+}
+
+class _StubLabels extends ProjectLabelsController {
+  @override
+  Future<List<ProjectLabel>> build(int projectId) async => const [
+    ProjectLabel(id: 1, name: 'bug', color: '#ff0000'),
+    ProjectLabel(id: 2, name: 'review', color: '#00ff00'),
+  ];
+}
+
+class _EmptyLabels extends ProjectLabelsController {
+  @override
+  Future<List<ProjectLabel>> build(int projectId) async => const [];
 }
 
 void main() {
+  test('updateLabels refreshes issue detail state', () async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+
+    await container.read(issueControllerProvider(ref).notifier).updateLabels([
+      'bug',
+      'review',
+    ]);
+
+    expect(repo.lastLabels, ['bug', 'review']);
+    expect(
+      container
+          .read(issueControllerProvider(ref))
+          .value!
+          .labels
+          .map((label) => label.name),
+      ['bug', 'review'],
+    );
+  });
+
+  test('updateLabels reloads detailed label colors', () async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+    repo.detailedAfterLabelUpdate = const Issue(
+      id: 1,
+      iid: 5,
+      title: 'x',
+      state: 'opened',
+      labels: [Label(name: 'bug', color: '#ff0000')],
+    );
+
+    await container.read(issueControllerProvider(ref).notifier).updateLabels([
+      'bug',
+    ]);
+
+    expect(repo.getCount, 2);
+    expect(
+      container.read(issueControllerProvider(ref)).value!.labels.single.color,
+      '#ff0000',
+    );
+  });
+
   test('setOpen closes the issue via the repository', () async {
     final repo = _FakeRepo(
       const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
@@ -220,6 +311,150 @@ void main() {
     expect(repo.lastDescription, '');
     expect(find.text('New title'), findsOneWidget);
     expect(find.text('No description provided.'), findsOneWidget);
+  });
+
+  testWidgets('selects existing project labels for an issue', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        labels: [Label(name: 'bug')],
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectLabelsControllerProvider.overrideWith(_StubLabels.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit labels'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('review'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save labels'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastLabels, ['bug', 'review']);
+    expect(find.text('review'), findsOneWidget);
+  });
+
+  testWidgets('clears every issue label', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        labels: [Label(name: 'bug')],
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectLabelsControllerProvider.overrideWith(_StubLabels.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit labels'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(CheckboxListTile, 'bug'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save labels'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastLabels, isEmpty);
+    expect(find.text('bug'), findsNothing);
+  });
+
+  testWidgets('shows an empty picker when no labels are available', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectLabelsControllerProvider.overrideWith(_EmptyLabels.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit labels'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('No labels available'), findsOneWidget);
+  });
+
+  testWidgets('keeps label selection open on permission denial', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    )..rejectLabels = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectLabelsControllerProvider.overrideWith(_StubLabels.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit labels'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save labels'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Could not update labels. Please try again.'),
+      findsOneWidget,
+    );
+    expect(repo.lastLabels, isNull);
   });
 
   testWidgets('subscribes to issue notifications from the detail menu', (
