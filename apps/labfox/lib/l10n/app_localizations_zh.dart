@@ -338,6 +338,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseDeleteError => '无法删除发行版。';
 
   @override
+  String get releaseEditAssetLink => '编辑资源链接';
+
+  @override
+  String get releaseSaveLink => '保存链接';
+
+  @override
+  String get releaseAssetName => '链接名称';
+
+  @override
+  String get releaseAssetUrl => '链接 URL';
+
+  @override
+  String get releaseAssetNameRequired => '请输入链接名称。';
+
+  @override
+  String get releaseAssetUrlInvalid => '请输入 HTTP 或 HTTPS URL。';
+
+  @override
+  String get releaseAssetNameDuplicate => '已存在同名链接。';
+
+  @override
+  String get releaseAssetEditError => '无法更新资源链接。';
+
+  @override
   String get activityTitle => '动态';
 
   @override

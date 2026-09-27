@@ -338,6 +338,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseDeleteError => 'リリースを削除できませんでした。';
 
   @override
+  String get releaseEditAssetLink => 'アセットリンクを編集';
+
+  @override
+  String get releaseSaveLink => 'リンクを保存';
+
+  @override
+  String get releaseAssetName => 'リンク名';
+
+  @override
+  String get releaseAssetUrl => 'リンク URL';
+
+  @override
+  String get releaseAssetNameRequired => 'リンク名を入力してください。';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP または HTTPS の URL を入力してください。';
+
+  @override
+  String get releaseAssetNameDuplicate => '同じ名前のリンクが既にあります。';
+
+  @override
+  String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

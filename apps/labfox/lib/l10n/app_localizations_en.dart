@@ -344,6 +344,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseDeleteError => 'Could not delete the release.';
 
   @override
+  String get releaseEditAssetLink => 'Edit asset link';
+
+  @override
+  String get releaseSaveLink => 'Save link';
+
+  @override
+  String get releaseAssetName => 'Link name';
+
+  @override
+  String get releaseAssetUrl => 'Link URL';
+
+  @override
+  String get releaseAssetNameRequired => 'Enter a link name.';
+
+  @override
+  String get releaseAssetUrlInvalid => 'Enter an HTTP or HTTPS URL.';
+
+  @override
+  String get releaseAssetNameDuplicate =>
+      'A link with this name already exists.';
+
+  @override
+  String get releaseAssetEditError => 'Could not update the asset link.';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override

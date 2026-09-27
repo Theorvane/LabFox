@@ -746,6 +746,54 @@ abstract class AppLocalizations {
   /// **'Could not delete the release.'**
   String get releaseDeleteError;
 
+  /// No description provided for @releaseEditAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit asset link'**
+  String get releaseEditAssetLink;
+
+  /// No description provided for @releaseSaveLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Save link'**
+  String get releaseSaveLink;
+
+  /// No description provided for @releaseAssetName.
+  ///
+  /// In en, this message translates to:
+  /// **'Link name'**
+  String get releaseAssetName;
+
+  /// No description provided for @releaseAssetUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Link URL'**
+  String get releaseAssetUrl;
+
+  /// No description provided for @releaseAssetNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a link name.'**
+  String get releaseAssetNameRequired;
+
+  /// No description provided for @releaseAssetUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an HTTP or HTTPS URL.'**
+  String get releaseAssetUrlInvalid;
+
+  /// No description provided for @releaseAssetNameDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'A link with this name already exists.'**
+  String get releaseAssetNameDuplicate;
+
+  /// No description provided for @releaseAssetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the asset link.'**
+  String get releaseAssetEditError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

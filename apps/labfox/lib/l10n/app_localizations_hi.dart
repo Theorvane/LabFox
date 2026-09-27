@@ -341,6 +341,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseDeleteError => 'रिलीज़ हटाई नहीं जा सकी।';
 
   @override
+  String get releaseEditAssetLink => 'एसेट लिंक संपादित करें';
+
+  @override
+  String get releaseSaveLink => 'लिंक सहेजें';
+
+  @override
+  String get releaseAssetName => 'लिंक का नाम';
+
+  @override
+  String get releaseAssetUrl => 'लिंक URL';
+
+  @override
+  String get releaseAssetNameRequired => 'लिंक का नाम दर्ज करें।';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP या HTTPS URL दर्ज करें।';
+
+  @override
+  String get releaseAssetNameDuplicate => 'इस नाम का लिंक पहले से मौजूद है।';
+
+  @override
+  String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

@@ -339,6 +339,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseDeleteError => '릴리스를 삭제할 수 없습니다.';
 
   @override
+  String get releaseEditAssetLink => '자산 링크 편집';
+
+  @override
+  String get releaseSaveLink => '링크 저장';
+
+  @override
+  String get releaseAssetName => '링크 이름';
+
+  @override
+  String get releaseAssetUrl => '링크 URL';
+
+  @override
+  String get releaseAssetNameRequired => '링크 이름을 입력하세요.';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP 또는 HTTPS URL을 입력하세요.';
+
+  @override
+  String get releaseAssetNameDuplicate => '같은 이름의 링크가 이미 있습니다.';
+
+  @override
+  String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
+
+  @override
   String get activityTitle => '활동';
 
   @override
