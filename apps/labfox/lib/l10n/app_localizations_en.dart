@@ -286,6 +286,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseUpcoming => 'Upcoming';
 
   @override
+  String get releaseEdit => 'Edit release';
+
+  @override
+  String get releaseSave => 'Save release';
+
+  @override
+  String get releaseEditName => 'Release name';
+
+  @override
+  String get releaseEditDescription => 'Description (Markdown)';
+
+  @override
+  String get releaseNameRequired => 'Enter a release name.';
+
+  @override
+  String get releaseEditError => 'Could not update the release.';
+
+  @override
   String get releaseNew => 'New release';
 
   @override

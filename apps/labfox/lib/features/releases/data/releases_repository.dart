@@ -13,6 +13,18 @@ class ReleasesRepository {
   Future<GitLabRelease> get(int projectId, String tagName) =>
       client.releases.get(projectId, tagName);
 
+  Future<GitLabRelease> update(
+    int projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) => client.releases.update(
+    projectId,
+    tagName,
+    name: name,
+    description: description,
+  );
+
   Future<GitLabRelease> create(
     int projectId, {
     required String tagName,

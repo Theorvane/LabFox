@@ -59,6 +59,30 @@ class ReleasesApi {
     }
   }
 
+  Future<GitLabRelease> update(
+    Object projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+        data: {'name': name, 'description': description},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release');
+    }
+  }
+
   Future<GitLabRelease> create(
     Object projectId, {
     required String tagName,

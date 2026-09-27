@@ -282,6 +282,24 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseUpcoming => '예정';
 
   @override
+  String get releaseEdit => '릴리스 편집';
+
+  @override
+  String get releaseSave => '릴리스 저장';
+
+  @override
+  String get releaseEditName => '릴리스 이름';
+
+  @override
+  String get releaseEditDescription => '설명 (Markdown)';
+
+  @override
+  String get releaseNameRequired => '릴리스 이름을 입력하세요.';
+
+  @override
+  String get releaseEditError => '릴리스를 수정할 수 없습니다.';
+
+  @override
   String get releaseNew => '새 릴리스';
 
   @override
