@@ -140,6 +140,36 @@ final milestoneDetailProvider =
       return repository.get(key.projectId, key.milestoneId);
     });
 
+class MilestoneStateController extends FamilyAsyncNotifier<void, MilestoneRef> {
+  @override
+  Future<void> build(MilestoneRef arg) async {}
+
+  Future<GitLabMilestone> change({required bool close}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(milestonesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      final updated = await repository.setStateEvent(
+        arg.projectId,
+        arg.milestoneId,
+        stateEvent: close ? 'close' : 'activate',
+      );
+      ref.invalidate(milestoneDetailProvider(arg));
+      ref.invalidate(milestoneListControllerProvider);
+      state = const AsyncData(null);
+      return updated;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final milestoneStateControllerProvider =
+    AsyncNotifierProvider.family<MilestoneStateController, void, MilestoneRef>(
+      MilestoneStateController.new,
+    );
+
 final groupMilestonesRepositoryProvider =
     FutureProvider<GroupMilestonesRepository?>((ref) async {
       final client = await ref.watch(gitLabClientProvider.future);
