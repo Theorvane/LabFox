@@ -705,6 +705,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueEditDueDate => '期限を編集';
 
   @override
+  String get issueEditMilestone => 'マイルストーンを編集';
+
+  @override
+  String get issueNoMilestone => 'マイルストーンなし';
+
+  @override
+  String get issueMilestonesLoadError => 'マイルストーンを読み込めませんでした。';
+
+  @override
+  String get issueMilestoneSaveError => 'マイルストーンを更新できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get issueDueDate => '期限';
 
   @override

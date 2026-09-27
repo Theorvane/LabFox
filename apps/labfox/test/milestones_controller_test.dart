@@ -15,14 +15,17 @@ class _FakeRepository extends MilestonesRepository {
       );
 
   final requestedPages = <int>[];
+  final requestedAncestors = <bool>[];
 
   @override
   Future<Paginated<GitLabMilestone>> list(
     int projectId, {
     required String state,
     int page = 1,
+    bool includeAncestors = false,
   }) async {
     requestedPages.add(page);
+    requestedAncestors.add(includeAncestors);
     return page == 1
         ? const Paginated(
             items: [
@@ -60,5 +63,27 @@ void main() {
       12,
       13,
     ]);
+  });
+
+  test('keeps ancestor milestones enabled across pages', () async {
+    final repository = _FakeRepository();
+    final container = ProviderContainer(
+      overrides: [
+        milestonesRepositoryProvider.overrideWith((ref) async => repository),
+      ],
+    );
+    addTearDown(container.dispose);
+    final provider = milestoneListControllerProvider(
+      const MilestoneListRef(
+        projectId: 7,
+        state: 'active',
+        includeAncestors: true,
+      ),
+    );
+
+    await container.read(provider.future);
+    await container.read(provider.notifier).loadMore();
+
+    expect(repository.requestedAncestors, [true, true]);
   });
 }

@@ -713,6 +713,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get issueEditDueDate => 'नियत तारीख संपादित करें';
 
   @override
+  String get issueEditMilestone => 'माइलस्टोन संपादित करें';
+
+  @override
+  String get issueNoMilestone => 'कोई माइलस्टोन नहीं';
+
+  @override
+  String get issueMilestonesLoadError => 'माइलस्टोन लोड नहीं हो सके।';
+
+  @override
+  String get issueMilestoneSaveError =>
+      'माइलस्टोन अपडेट नहीं हो सका। अनुमतियाँ जाँचें और फिर कोशिश करें।';
+
+  @override
   String get issueDueDate => 'नियत तारीख';
 
   @override

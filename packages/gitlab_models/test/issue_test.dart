@@ -3,6 +3,20 @@ import 'package:test/test.dart';
 
 void main() {
   group('Issue', () {
+    test('parses an assigned milestone and preserves its global id', () {
+      final issue = Issue.fromJson(const {
+        'id': 1,
+        'iid': 5,
+        'title': 'x',
+        'state': 'opened',
+        'milestone': {'id': 17, 'iid': 2, 'title': 'v4.0', 'state': 'active'},
+      });
+
+      expect(issue.milestone?.id, 17);
+      expect(issue.milestone?.iid, 2);
+      expect(issue.milestone?.title, 'v4.0');
+    });
+
     test('parses an optional issue due date', () {
       final dated = Issue.fromJson(const {
         'id': 1,

@@ -18,11 +18,17 @@ class MilestonesApi {
     int page = 1,
     int perPage = 20,
     String? state,
+    bool includeAncestors = false,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
         _path(projectId),
-        queryParameters: {'page': page, 'per_page': perPage, 'state': ?state},
+        queryParameters: {
+          'page': page,
+          'per_page': perPage,
+          'state': ?state,
+          if (includeAncestors) 'include_ancestors': true,
+        },
       );
       if (response.statusCode != 200) {
         throw mapStatus(

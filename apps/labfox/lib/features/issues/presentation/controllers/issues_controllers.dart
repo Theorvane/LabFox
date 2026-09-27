@@ -162,6 +162,20 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(myIssuesControllerProvider);
   }
 
+  /// Assigns or clears a milestone and refreshes issue lists.
+  Future<void> updateMilestone(int milestoneId) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) throw StateError('No authenticated account');
+    final updated = await repo.updateMilestone(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      milestoneId: milestoneId,
+    );
+    state = AsyncData(updated);
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
+
   /// Applies the server response or the known target state for an idempotent
   /// 304 response, without treating an absent subscription field as false.
   Future<void> setSubscription(bool subscribed) async {

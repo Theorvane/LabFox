@@ -703,6 +703,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueEditDueDate => '编辑截止日期';
 
   @override
+  String get issueEditMilestone => '编辑里程碑';
+
+  @override
+  String get issueNoMilestone => '无里程碑';
+
+  @override
+  String get issueMilestonesLoadError => '无法加载里程碑。';
+
+  @override
+  String get issueMilestoneSaveError => '无法更新里程碑。请检查权限后重试。';
+
+  @override
   String get issueDueDate => '截止日期';
 
   @override

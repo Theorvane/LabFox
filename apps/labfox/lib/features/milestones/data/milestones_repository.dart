@@ -11,7 +11,13 @@ class MilestonesRepository {
     int projectId, {
     required String state,
     int page = 1,
-  }) => client.milestones.list(projectId, state: state, page: page);
+    bool includeAncestors = false,
+  }) => client.milestones.list(
+    projectId,
+    state: state,
+    page: page,
+    includeAncestors: includeAncestors,
+  );
 
   Future<GitLabMilestone> get(int projectId, int milestoneId) =>
       client.milestones.get(projectId, milestoneId);

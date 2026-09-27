@@ -9,6 +9,7 @@ import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../comments/presentation/widgets/comment_thread.dart';
+import '../../milestones/presentation/controllers/milestones_controller.dart';
 import '../../project_labels/presentation/controllers/project_labels_controller.dart';
 import 'controllers/issues_controllers.dart';
 import 'widgets/linked_issues_section.dart';
@@ -59,6 +60,14 @@ class IssueDetailScreen extends ConsumerWidget {
                       issueRef: issueRef,
                     ),
                   );
+                } else if (action == _IssueAction.editMilestone) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => _EditIssueMilestoneDialog(
+                      issue: data,
+                      issueRef: issueRef,
+                    ),
+                  );
                 } else if (action == _IssueAction.subscribe ||
                     action == _IssueAction.unsubscribe) {
                   _setSubscription(
@@ -103,6 +112,10 @@ class IssueDetailScreen extends ConsumerWidget {
                 PopupMenuItem(
                   value: _IssueAction.editDueDate,
                   child: Text(l10n.issueEditDueDate),
+                ),
+                PopupMenuItem(
+                  value: _IssueAction.editMilestone,
+                  child: Text(l10n.issueEditMilestone),
                 ),
                 PopupMenuItem(
                   value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
@@ -159,6 +172,16 @@ class IssueDetailScreen extends ConsumerWidget {
                 children: [
                   for (final label in data.labels)
                     GitLabLabel(name: label.name, color: label.color),
+                ],
+              ),
+            ],
+            if (data.milestone case final milestone?) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Row(
+                children: [
+                  const Icon(LabFoxIcons.milestone, size: 18),
+                  const SizedBox(width: LabFoxSpacing.sm),
+                  Flexible(child: Text(milestone.title)),
                 ],
               ),
             ],
@@ -252,11 +275,127 @@ enum _IssueAction {
   edit,
   editLabels,
   editDueDate,
+  editMilestone,
   close,
   reopen,
   subscribe,
   unsubscribe,
   addTodo,
+}
+
+class _EditIssueMilestoneDialog extends ConsumerStatefulWidget {
+  const _EditIssueMilestoneDialog({
+    required this.issue,
+    required this.issueRef,
+  });
+
+  final Issue issue;
+  final IssueRef issueRef;
+
+  @override
+  ConsumerState<_EditIssueMilestoneDialog> createState() =>
+      _EditIssueMilestoneDialogState();
+}
+
+class _EditIssueMilestoneDialogState
+    extends ConsumerState<_EditIssueMilestoneDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _select(int milestoneId) async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .updateMilestone(milestoneId);
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final listRef = MilestoneListRef(
+      projectId: widget.issueRef.projectId,
+      state: 'active',
+      includeAncestors: true,
+    );
+    final milestones = ref.watch(milestoneListControllerProvider(listRef));
+    final available = milestones.valueOrNull?.items ?? <GitLabMilestone>[];
+    final selected = widget.issue.milestone;
+    final includesSelected = available.any((item) => item.id == selected?.id);
+    return AlertDialog(
+      title: Text(l10n.issueEditMilestone),
+      content: SizedBox(
+        width: 480,
+        height: MediaQuery.sizeOf(context).height * 0.45,
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text(l10n.issueNoMilestone),
+              selected: selected == null,
+              onTap: _busy ? null : () => _select(0),
+            ),
+            if (selected != null && !includesSelected)
+              ListTile(
+                title: Text(selected.title),
+                selected: true,
+                onTap: _busy ? null : () => _select(selected.id),
+              ),
+            if (milestones.isLoading)
+              const Center(child: CircularProgressIndicator())
+            else if (milestones.hasError)
+              Column(
+                children: [
+                  Text(l10n.issueMilestonesLoadError),
+                  TextButton(
+                    onPressed: () => ref.invalidate(
+                      milestoneListControllerProvider(listRef),
+                    ),
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              )
+            else ...[
+              if (available.isEmpty && selected == null)
+                Text(l10n.milestonesEmpty),
+              for (final milestone in available)
+                ListTile(
+                  title: Text(milestone.title),
+                  selected: milestone.id == selected?.id,
+                  onTap: _busy ? null : () => _select(milestone.id),
+                ),
+              if (milestones.valueOrNull?.nextPage != null)
+                TextButton(
+                  onPressed: _busy
+                      ? null
+                      : () => ref
+                            .read(
+                              milestoneListControllerProvider(listRef).notifier,
+                            )
+                            .loadMore(),
+                  child: Text(l10n.milestoneLoadMore),
+                ),
+            ],
+            if (_failed) Text(l10n.issueMilestoneSaveError),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+      ],
+    );
+  }
 }
 
 class _EditIssueLabelsDialog extends ConsumerStatefulWidget {

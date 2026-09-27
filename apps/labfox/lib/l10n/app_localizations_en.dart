@@ -715,6 +715,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueEditDueDate => 'Edit due date';
 
   @override
+  String get issueEditMilestone => 'Edit milestone';
+
+  @override
+  String get issueNoMilestone => 'No milestone';
+
+  @override
+  String get issueMilestonesLoadError => 'Could not load milestones.';
+
+  @override
+  String get issueMilestoneSaveError =>
+      'Could not update the milestone. Check your permissions and try again.';
+
+  @override
   String get issueDueDate => 'Due date';
 
   @override

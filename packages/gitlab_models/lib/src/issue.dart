@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'gitlab_milestone.dart';
 import 'label.dart';
 import 'user.dart';
 
@@ -33,6 +34,7 @@ abstract class Issue with _$Issue {
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @JsonKey(name: 'due_date') DateTime? dueDate,
+    GitLabMilestone? milestone,
   }) = _Issue;
 
   const Issue._();

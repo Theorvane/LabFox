@@ -256,6 +256,31 @@ class IssuesApi {
     }
   }
 
+  /// Assigns a milestone by global ID; zero removes the current milestone.
+  Future<Issue> updateMilestone(
+    Object projectId, {
+    required int iid,
+    required int milestoneId,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'milestone_id': milestoneId},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue milestone',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue milestone');
+    }
+  }
+
   /// Subscribes or unsubscribes the current user from issue notifications.
   /// Returns null for GitLab's idempotent 304 (already in the requested state).
   Future<Issue?> setSubscription(

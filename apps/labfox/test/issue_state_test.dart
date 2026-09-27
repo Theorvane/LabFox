@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/issues/data/issues_repository.dart';
 import 'package:labfox/features/issues/presentation/controllers/issues_controllers.dart';
 import 'package:labfox/features/issues/presentation/issue_detail_screen.dart';
+import 'package:labfox/features/milestones/presentation/controllers/milestones_controller.dart';
 import 'package:labfox/features/project_labels/presentation/controllers/project_labels_controller.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
@@ -21,6 +22,8 @@ class _FakeRepo extends IssuesRepository {
   List<String>? lastLabels;
   String? lastDueDate;
   bool rejectDueDate = false;
+  int? lastMilestoneId;
+  bool rejectMilestone = false;
   bool rejectLabels = false;
   Issue? detailedAfterLabelUpdate;
   int getCount = 0;
@@ -81,6 +84,27 @@ class _FakeRepo extends IssuesRepository {
   }
 
   @override
+  Future<Issue> updateMilestone({
+    required int projectId,
+    required int iid,
+    required int milestoneId,
+  }) async {
+    if (rejectMilestone) throw const GitLabForbiddenException('Forbidden');
+    lastMilestoneId = milestoneId;
+    _issue = _issue.copyWith(
+      milestone: milestoneId == 0
+          ? null
+          : GitLabMilestone(
+              id: milestoneId,
+              iid: 2,
+              title: 'Group release',
+              state: 'active',
+            ),
+    );
+    return _issue;
+  }
+
+  @override
   Future<Todo?> createTodo({required int projectId, required int iid}) async {
     lastTodoIid = iid;
     return todoAlreadyExists ? null : const Todo(id: 112, state: 'pending');
@@ -114,7 +138,70 @@ class _EmptyLabels extends ProjectLabelsController {
   Future<List<ProjectLabel>> build(int projectId) async => const [];
 }
 
+class _StubMilestones extends MilestoneListController {
+  @override
+  Future<Paginated<GitLabMilestone>> build(MilestoneListRef arg) async {
+    expect(arg.includeAncestors, isTrue);
+    expect(arg.state, 'active');
+    return const Paginated(
+      items: [
+        GitLabMilestone(
+          id: 17,
+          iid: 2,
+          title: 'Project release',
+          state: 'active',
+        ),
+      ],
+      nextPage: 2,
+    );
+  }
+
+  @override
+  Future<void> loadMore() async {
+    state = const AsyncData(
+      Paginated(
+        items: [
+          GitLabMilestone(
+            id: 17,
+            iid: 2,
+            title: 'Project release',
+            state: 'active',
+          ),
+          GitLabMilestone(
+            id: 31,
+            iid: 3,
+            title: 'Group release',
+            state: 'active',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 void main() {
+  test('updateMilestone refreshes issue detail state', () async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+
+    await container
+        .read(issueControllerProvider(ref).notifier)
+        .updateMilestone(31);
+
+    expect(repo.lastMilestoneId, 31);
+    expect(
+      container.read(issueControllerProvider(ref)).value!.milestone?.id,
+      31,
+    );
+  });
+
   test('updateLabels refreshes issue detail state', () async {
     final repo = _FakeRepo(
       const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
@@ -493,6 +580,121 @@ void main() {
       findsOneWidget,
     );
     expect(repo.lastLabels, isNull);
+  });
+
+  testWidgets('selects a paginated ancestor milestone', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          milestoneListControllerProvider.overrideWith(_StubMilestones.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit milestone'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Load more'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Group release'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastMilestoneId, 31);
+    expect(find.text('Group release'), findsOneWidget);
+  });
+
+  testWidgets('clears a closed milestone absent from active list', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        milestone: GitLabMilestone(
+          id: 99,
+          iid: 4,
+          title: 'Old release',
+          state: 'closed',
+        ),
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          milestoneListControllerProvider.overrideWith(_StubMilestones.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit milestone'));
+    await tester.pumpAndSettle();
+    expect(find.text('Old release'), findsWidgets);
+    await tester.tap(find.text('No milestone'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastMilestoneId, 0);
+    expect(find.text('Old release'), findsNothing);
+  });
+
+  testWidgets('keeps milestone selection open on permission denial', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    )..rejectMilestone = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          milestoneListControllerProvider.overrideWith(_StubMilestones.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit milestone'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Project release'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastMilestoneId, isNull);
+    expect(find.text('Edit milestone'), findsOneWidget);
+    expect(
+      find.textContaining('Could not update the milestone'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('clears an existing issue due date', (tester) async {

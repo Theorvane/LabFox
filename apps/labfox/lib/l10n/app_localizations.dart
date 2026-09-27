@@ -1466,6 +1466,30 @@ abstract class AppLocalizations {
   /// **'Edit due date'**
   String get issueEditDueDate;
 
+  /// No description provided for @issueEditMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit milestone'**
+  String get issueEditMilestone;
+
+  /// No description provided for @issueNoMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'No milestone'**
+  String get issueNoMilestone;
+
+  /// No description provided for @issueMilestonesLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get issueMilestonesLoadError;
+
+  /// No description provided for @issueMilestoneSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the milestone. Check your permissions and try again.'**
+  String get issueMilestoneSaveError;
+
   /// No description provided for @issueDueDate.
   ///
   /// In en, this message translates to:
