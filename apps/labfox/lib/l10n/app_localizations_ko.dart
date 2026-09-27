@@ -1781,6 +1781,21 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab에서 이 페이지가 변경되었습니다. 다시 편집하기 전에 페이지를 새로고침하세요.';
 
   @override
+  String get wikiDeletePageAction => '페이지 삭제';
+
+  @override
+  String get wikiDeleteConfirmTitle => '이 위키 페이지를 삭제할까요?';
+
+  @override
+  String get wikiDeleteConfirmMessage => '프로젝트 위키에서 이 페이지가 영구적으로 삭제됩니다.';
+
+  @override
+  String get wikiDeleteError => '위키 페이지를 삭제할 수 없습니다.';
+
+  @override
+  String get wikiDeleteConflict => '페이지가 변경되었습니다. 삭제하기 전에 새로고침하세요.';
+
+  @override
   String get wikiReloadPage => '페이지 새로고침';
 
   @override

@@ -1816,6 +1816,23 @@ class AppLocalizationsEn extends AppLocalizations {
       'This page changed on GitLab. Reload it before editing again.';
 
   @override
+  String get wikiDeletePageAction => 'Delete page';
+
+  @override
+  String get wikiDeleteConfirmTitle => 'Delete this wiki page?';
+
+  @override
+  String get wikiDeleteConfirmMessage =>
+      'This permanently deletes the page from the project wiki.';
+
+  @override
+  String get wikiDeleteError => 'Could not delete the wiki page.';
+
+  @override
+  String get wikiDeleteConflict =>
+      'This page changed. Reload it before deleting.';
+
+  @override
   String get wikiReloadPage => 'Reload page';
 
   @override

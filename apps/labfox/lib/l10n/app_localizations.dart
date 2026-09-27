@@ -3542,6 +3542,36 @@ abstract class AppLocalizations {
   /// **'This page changed on GitLab. Reload it before editing again.'**
   String get wikiEditConflict;
 
+  /// No description provided for @wikiDeletePageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete page'**
+  String get wikiDeletePageAction;
+
+  /// No description provided for @wikiDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this wiki page?'**
+  String get wikiDeleteConfirmTitle;
+
+  /// No description provided for @wikiDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes the page from the project wiki.'**
+  String get wikiDeleteConfirmMessage;
+
+  /// No description provided for @wikiDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the wiki page.'**
+  String get wikiDeleteError;
+
+  /// No description provided for @wikiDeleteConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This page changed. Reload it before deleting.'**
+  String get wikiDeleteConflict;
+
   /// No description provided for @wikiReloadPage.
   ///
   /// In en, this message translates to:

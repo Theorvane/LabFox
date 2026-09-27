@@ -1812,6 +1812,23 @@ class AppLocalizationsHi extends AppLocalizations {
       'यह पृष्ठ GitLab पर बदल गया है। दोबारा संपादित करने से पहले इसे रीलोड करें।';
 
   @override
+  String get wikiDeletePageAction => 'पृष्ठ हटाएँ';
+
+  @override
+  String get wikiDeleteConfirmTitle => 'यह विकी पृष्ठ हटाएँ?';
+
+  @override
+  String get wikiDeleteConfirmMessage =>
+      'यह पृष्ठ परियोजना विकी से स्थायी रूप से हटा दिया जाएगा।';
+
+  @override
+  String get wikiDeleteError => 'विकी पृष्ठ हटाया नहीं जा सका।';
+
+  @override
+  String get wikiDeleteConflict =>
+      'यह पृष्ठ बदल गया है। हटाने से पहले इसे रीलोड करें।';
+
+  @override
   String get wikiReloadPage => 'पृष्ठ रीलोड करें';
 
   @override

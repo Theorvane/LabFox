@@ -15,6 +15,43 @@ const _original = WikiPage(
 );
 
 void main() {
+  test('refuses to delete a wiki page changed since it was opened', () async {
+    var deletes = 0;
+    final repository = _repository((request) {
+      if (request.method == 'DELETE') deletes++;
+      return (
+        status: 200,
+        body: {
+          'title': 'Install',
+          'slug': 'docs/install',
+          'content': '# Another editor changed this',
+          'format': 'markdown',
+        },
+      );
+    });
+
+    await expectLater(
+      repository.delete(projectId: 7, original: _original),
+      throwsA(isA<WikiEditConflictException>()),
+    );
+    expect(deletes, 0);
+  });
+
+  test('deletes an unchanged wiki page', () async {
+    var deletes = 0;
+    final repository = _repository((request) {
+      if (request.method == 'DELETE') {
+        deletes++;
+        return (status: 204, body: null);
+      }
+      return (status: 200, body: _original.toJson());
+    });
+
+    await repository.delete(projectId: 7, original: _original);
+
+    expect(deletes, 1);
+  });
+
   test(
     'refuses to overwrite a wiki page changed since the draft began',
     () async {

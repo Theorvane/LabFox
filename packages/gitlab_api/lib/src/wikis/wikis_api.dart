@@ -12,6 +12,24 @@ class WikisApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/wikis';
 
+  /// Deletes one page by its URL-encoded slug.
+  Future<void> delete(Object projectId, String slug) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(slug)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a wiki page',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a wiki page');
+    }
+  }
+
   /// Lists page titles and slugs without downloading all page bodies.
   Future<List<WikiPage>> list(Object projectId) async {
     try {
