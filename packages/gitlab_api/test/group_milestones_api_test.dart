@@ -71,6 +71,82 @@ void main() {
       );
     },
   );
+
+  test(
+    'creates a group milestone with optional dates and encoded group path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 201,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 55,
+            'iid': 9,
+            'group_id': 7,
+            'title': 'Release 1',
+            'state': 'active',
+            'start_date': '2026-10-01',
+            'due_date': '2026-10-31',
+          },
+        );
+      });
+      final milestone = await client.groupMilestones.create(
+        'team/subgroup',
+        title: 'Release 1',
+        description: 'Shipping scope',
+        startDate: '2026-10-01',
+        dueDate: '2026-10-31',
+      );
+      expect(request.method, 'POST');
+      expect(request.path, '/groups/team%2Fsubgroup/milestones');
+      expect(request.data, {
+        'title': 'Release 1',
+        'description': 'Shipping scope',
+        'start_date': '2026-10-01',
+        'due_date': '2026-10-31',
+      });
+      expect(milestone.id, 55);
+      expect(milestone.iid, 9);
+      expect(milestone.groupId, 7);
+    },
+  );
+
+  test(
+    'omits blank group milestone fields and maps forbidden create',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 201,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 55,
+            'iid': 9,
+            'group_id': 7,
+            'title': 'Release 1',
+            'state': 'active',
+          },
+        );
+      });
+      await client.groupMilestones.create(
+        7,
+        title: 'Release 1',
+        description: '',
+      );
+      expect(request.data, {'title': 'Release 1'});
+
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.groupMilestones.create(7, title: 'Release 1'),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

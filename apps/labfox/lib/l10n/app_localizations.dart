@@ -1064,6 +1064,90 @@ abstract class AppLocalizations {
   /// **'Clear date'**
   String get milestoneClearDate;
 
+  /// No description provided for @milestoneEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit milestone'**
+  String get milestoneEdit;
+
+  /// No description provided for @milestoneSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get milestoneSaveChanges;
+
+  /// No description provided for @milestoneUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the milestone.'**
+  String get milestoneUpdateError;
+
+  /// No description provided for @milestoneClearStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear start date'**
+  String get milestoneClearStartDate;
+
+  /// No description provided for @milestoneClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get milestoneClearDueDate;
+
+  /// No description provided for @milestoneClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close milestone'**
+  String get milestoneClose;
+
+  /// No description provided for @milestoneReactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactivate milestone'**
+  String get milestoneReactivate;
+
+  /// No description provided for @milestoneCloseConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Close this milestone?'**
+  String get milestoneCloseConfirmTitle;
+
+  /// No description provided for @milestoneCloseConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can reactivate it later.'**
+  String get milestoneCloseConfirmBody;
+
+  /// No description provided for @milestoneStateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the milestone state.'**
+  String get milestoneStateError;
+
+  /// No description provided for @milestoneDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete milestone'**
+  String get milestoneDelete;
+
+  /// No description provided for @milestoneDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this milestone?'**
+  String get milestoneDeleteConfirmTitle;
+
+  /// No description provided for @milestoneDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get milestoneDeleteConfirmBody;
+
+  /// No description provided for @milestoneDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the milestone.'**
+  String get milestoneDeleteError;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:

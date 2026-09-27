@@ -499,6 +499,48 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneClearDate => '日付を消去';
 
   @override
+  String get milestoneEdit => 'マイルストーンを編集';
+
+  @override
+  String get milestoneSaveChanges => '変更を保存';
+
+  @override
+  String get milestoneUpdateError => 'マイルストーンを更新できませんでした。';
+
+  @override
+  String get milestoneClearStartDate => '開始日を消去';
+
+  @override
+  String get milestoneClearDueDate => '期限を消去';
+
+  @override
+  String get milestoneClose => 'マイルストーンを閉じる';
+
+  @override
+  String get milestoneReactivate => 'マイルストーンを再開';
+
+  @override
+  String get milestoneCloseConfirmTitle => 'このマイルストーンを閉じますか？';
+
+  @override
+  String get milestoneCloseConfirmBody => '後で再開できます。';
+
+  @override
+  String get milestoneStateError => 'マイルストーンの状態を変更できませんでした。';
+
+  @override
+  String get milestoneDelete => 'マイルストーンを削除';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'このマイルストーンを削除しますか？';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'この操作は元に戻せません。';
+
+  @override
+  String get milestoneDeleteError => 'マイルストーンを削除できませんでした。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

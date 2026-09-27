@@ -500,6 +500,48 @@ class AppLocalizationsKo extends AppLocalizations {
   String get milestoneClearDate => '날짜 지우기';
 
   @override
+  String get milestoneEdit => '마일스톤 편집';
+
+  @override
+  String get milestoneSaveChanges => '변경사항 저장';
+
+  @override
+  String get milestoneUpdateError => '마일스톤을 수정할 수 없습니다.';
+
+  @override
+  String get milestoneClearStartDate => '시작일 지우기';
+
+  @override
+  String get milestoneClearDueDate => '마감일 지우기';
+
+  @override
+  String get milestoneClose => '마일스톤 닫기';
+
+  @override
+  String get milestoneReactivate => '마일스톤 다시 활성화';
+
+  @override
+  String get milestoneCloseConfirmTitle => '이 마일스톤을 닫을까요?';
+
+  @override
+  String get milestoneCloseConfirmBody => '나중에 다시 활성화할 수 있습니다.';
+
+  @override
+  String get milestoneStateError => '마일스톤 상태를 변경할 수 없습니다.';
+
+  @override
+  String get milestoneDelete => '마일스톤 삭제';
+
+  @override
+  String get milestoneDeleteConfirmTitle => '이 마일스톤을 삭제할까요?';
+
+  @override
+  String get milestoneDeleteConfirmBody => '이 작업은 되돌릴 수 없습니다.';
+
+  @override
+  String get milestoneDeleteError => '마일스톤을 삭제할 수 없습니다.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

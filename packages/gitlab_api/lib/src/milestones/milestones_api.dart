@@ -67,6 +67,24 @@ class MilestonesApi {
     }
   }
 
+  /// Deletes a project milestone by its global ID, not its project-local iid.
+  Future<void> delete(Object projectId, int milestoneId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$milestoneId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a milestone',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a milestone');
+    }
+  }
+
   Future<GitLabMilestone> create(
     Object projectId, {
     required String title,
@@ -96,6 +114,75 @@ class MilestonesApi {
       return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'creating a milestone');
+    }
+  }
+
+  /// Updates a project milestone by its global ID, not its project-local iid.
+  Future<GitLabMilestone> update(
+    Object projectId,
+    int milestoneId, {
+    required String title,
+    String? description,
+    String? startDate,
+    String? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
+  }) async {
+    if (clearStartDate && startDate != null) {
+      throw ArgumentError('Cannot set and clear the start date together');
+    }
+    if (clearDueDate && dueDate != null) {
+      throw ArgumentError('Cannot set and clear the due date together');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/$milestoneId',
+        data: {
+          'title': title,
+          'description': ?description,
+          if (clearStartDate || startDate != null)
+            'start_date': clearStartDate ? '' : startDate,
+          if (clearDueDate || dueDate != null)
+            'due_date': clearDueDate ? '' : dueDate,
+        },
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a milestone',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a milestone');
+    }
+  }
+
+  /// Changes a project milestone using its global ID, not its local iid.
+  Future<GitLabMilestone> setStateEvent(
+    Object projectId,
+    int milestoneId, {
+    required String stateEvent,
+  }) async {
+    if (stateEvent != 'close' && stateEvent != 'activate') {
+      throw ArgumentError.value(stateEvent, 'stateEvent');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/$milestoneId',
+        data: {'state_event': stateEvent},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'changing milestone state',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'changing milestone state');
     }
   }
 }

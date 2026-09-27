@@ -15,6 +15,25 @@ class _FakeRepository extends GroupMilestonesRepository {
       );
 
   final requestedPages = <int>[];
+  int createCalls = 0;
+
+  @override
+  Future<GitLabMilestone> create(
+    int groupId, {
+    required String title,
+    String? description,
+    DateTime? startDate,
+    DateTime? dueDate,
+  }) async {
+    createCalls++;
+    return GitLabMilestone(
+      id: 55,
+      iid: 9,
+      groupId: groupId,
+      title: title,
+      state: 'active',
+    );
+  }
 
   @override
   Future<Paginated<GitLabMilestone>> list(
@@ -75,4 +94,38 @@ void main() {
       13,
     ]);
   });
+
+  test(
+    'rejects blank titles and reversed dates before group creation',
+    () async {
+      final repository = _FakeRepository();
+      final container = ProviderContainer(
+        overrides: [
+          groupMilestonesRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      final provider = groupMilestoneListControllerProvider(
+        const GroupMilestoneListRef(groupId: 7, state: 'active'),
+      );
+      await container.read(provider.future);
+      await expectLater(
+        container.read(provider.notifier).create(title: '  '),
+        throwsArgumentError,
+      );
+      await expectLater(
+        container
+            .read(provider.notifier)
+            .create(
+              title: 'Release 1',
+              startDate: DateTime(2026, 11, 1),
+              dueDate: DateTime(2026, 10, 1),
+            ),
+        throwsArgumentError,
+      );
+      expect(repository.createCalls, 0);
+    },
+  );
 }

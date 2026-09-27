@@ -144,6 +144,177 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test(
+    'updates a project milestone using its global id and encoded path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'iid': 3,
+            'title': '11.0',
+            'description': 'Updated scope',
+            'start_date': '2026-10-01',
+            'due_date': '2026-10-31',
+            'state': 'active',
+          },
+        );
+      });
+
+      final milestone = await client.milestones.update(
+        'team/app',
+        12,
+        title: '11.0',
+        description: 'Updated scope',
+        startDate: '2026-10-01',
+        dueDate: '2026-10-31',
+      );
+
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/milestones/12');
+      expect(request.data, {
+        'title': '11.0',
+        'description': 'Updated scope',
+        'start_date': '2026-10-01',
+        'due_date': '2026-10-31',
+      });
+      expect(milestone.id, 12);
+      expect(milestone.iid, 3);
+      expect(milestone.dueDate, DateTime(2026, 10, 31));
+    },
+  );
+
+  test('omits unchanged optional dates and maps forbidden update', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {'id': 12, 'iid': 3, 'title': '11.0', 'state': 'active'},
+      );
+    });
+    await client.milestones.update(7, 12, title: '11.0');
+    expect(request.data, {'title': '11.0'});
+
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.milestones.update(7, 12, title: '11.0'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('explicitly clears only selected milestone dates', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'iid': 3,
+          'title': '11.0',
+          'state': 'active',
+          'start_date': null,
+          'due_date': '2026-10-31',
+        },
+      );
+    });
+
+    final milestone = await client.milestones.update(
+      7,
+      12,
+      title: '11.0',
+      clearStartDate: true,
+      dueDate: '2026-10-31',
+    );
+    expect(request.data, {
+      'title': '11.0',
+      'start_date': '',
+      'due_date': '2026-10-31',
+    });
+    expect(milestone.startDate, isNull);
+    expect(milestone.dueDate, DateTime(2026, 10, 31));
+
+    await client.milestones.update(7, 12, title: '11.0', clearDueDate: true);
+    expect(request.data, {'title': '11.0', 'due_date': ''});
+  });
+  for (final event in ['close', 'activate']) {
+    test('changes project milestone state with $event', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 42,
+            'iid': 4,
+            'title': 'Release 1',
+            'state': event == 'close' ? 'closed' : 'active',
+          },
+        );
+      });
+      final result = await client.milestones.setStateEvent(
+        'team/app',
+        42,
+        stateEvent: event,
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/milestones/42');
+      expect(request.data, {'state_event': event});
+      expect(result.id, 42);
+      expect(result.iid, 4);
+      expect(result.state, event == 'close' ? 'closed' : 'active');
+    });
+  }
+
+  test(
+    'rejects invalid milestone state events and maps forbidden writes',
+    () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.milestones.setStateEvent(7, 42, stateEvent: 'close'),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+      await expectLater(
+        client.milestones.setStateEvent(7, 42, stateEvent: 'reopen'),
+        throwsA(isA<ArgumentError>()),
+      );
+    },
+  );
+
+  test(
+    'deletes a project milestone by global ID and encoded project path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (status: 204, headers: const {}, body: null);
+      });
+      await client.milestones.delete('team/app', 42);
+      expect(request.method, 'DELETE');
+      expect(request.path, '/projects/team%2Fapp/milestones/42');
+
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.milestones.delete(7, 42),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

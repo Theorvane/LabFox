@@ -502,6 +502,49 @@ class AppLocalizationsHi extends AppLocalizations {
   String get milestoneClearDate => 'तिथि हटाएं';
 
   @override
+  String get milestoneEdit => 'माइलस्टोन संपादित करें';
+
+  @override
+  String get milestoneSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get milestoneUpdateError => 'माइलस्टोन अपडेट नहीं हो सका।';
+
+  @override
+  String get milestoneClearStartDate => 'शुरू होने की तारीख हटाएं';
+
+  @override
+  String get milestoneClearDueDate => 'नियत तारीख हटाएं';
+
+  @override
+  String get milestoneClose => 'माइलस्टोन बंद करें';
+
+  @override
+  String get milestoneReactivate => 'माइलस्टोन फिर सक्रिय करें';
+
+  @override
+  String get milestoneCloseConfirmTitle => 'क्या यह माइलस्टोन बंद करें?';
+
+  @override
+  String get milestoneCloseConfirmBody =>
+      'इसे बाद में फिर सक्रिय किया जा सकता है।';
+
+  @override
+  String get milestoneStateError => 'माइलस्टोन की स्थिति नहीं बदली जा सकी।';
+
+  @override
+  String get milestoneDelete => 'माइलस्टोन हटाएं';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'क्या यह माइलस्टोन हटाएं?';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'इसे वापस नहीं लाया जा सकता।';
+
+  @override
+  String get milestoneDeleteError => 'माइलस्टोन हटाया नहीं जा सका।';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
