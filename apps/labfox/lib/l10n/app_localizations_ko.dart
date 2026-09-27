@@ -1645,6 +1645,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetCreateError => '스니펫을 만들 수 없습니다.';
 
   @override
+  String get snippetEditAction => '스니펫 편집';
+
+  @override
+  String get snippetEditTitle => '스니펫 편집';
+
+  @override
+  String get snippetSaveChanges => '변경 사항 저장';
+
+  @override
+  String get snippetEditValidationError => '제목을 입력하세요.';
+
+  @override
+  String get snippetEditError => '스니펫을 저장할 수 없습니다.';
+
+  @override
   String get snippetDeleteAction => '스니펫 삭제';
 
   @override
