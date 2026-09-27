@@ -1671,6 +1671,34 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wikiCreateError => 'विकी पृष्ठ नहीं बनाया जा सका।';
 
   @override
+  String get wikiEditPageAction => 'संपादित करें';
+
+  @override
+  String get wikiEditPage => 'विकी पृष्ठ संपादित करें';
+
+  @override
+  String get wikiEditTitle => 'शीर्षक';
+
+  @override
+  String get wikiEditContent => 'सामग्री';
+
+  @override
+  String get wikiSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get wikiEditValidationError => 'शीर्षक और सामग्री दर्ज करें।';
+
+  @override
+  String get wikiEditError => 'विकी पृष्ठ सहेजा नहीं जा सका।';
+
+  @override
+  String get wikiEditConflict =>
+      'यह पृष्ठ GitLab पर बदल गया है। दोबारा संपादित करने से पहले इसे रीलोड करें।';
+
+  @override
+  String get wikiReloadPage => 'पृष्ठ रीलोड करें';
+
+  @override
   String get packageRegistryTitle => 'पैकेज रजिस्ट्री';
 
   @override

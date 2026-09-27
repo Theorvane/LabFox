@@ -1641,6 +1641,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wikiCreateError => 'Wikiページを作成できませんでした。';
 
   @override
+  String get wikiEditPageAction => '編集';
+
+  @override
+  String get wikiEditPage => 'Wikiページを編集';
+
+  @override
+  String get wikiEditTitle => 'タイトル';
+
+  @override
+  String get wikiEditContent => '内容';
+
+  @override
+  String get wikiSaveChanges => '変更を保存';
+
+  @override
+  String get wikiEditValidationError => 'タイトルと内容を入力してください。';
+
+  @override
+  String get wikiEditError => 'Wikiページを保存できませんでした。';
+
+  @override
+  String get wikiEditConflict => 'このページはGitLabで変更されました。再編集する前にページを再読み込みしてください。';
+
+  @override
+  String get wikiReloadPage => 'ページを再読み込み';
+
+  @override
   String get packageRegistryTitle => 'パッケージレジストリ';
 
   @override

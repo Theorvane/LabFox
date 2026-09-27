@@ -1675,6 +1675,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wikiCreateError => 'Could not create the wiki page.';
 
   @override
+  String get wikiEditPageAction => 'Edit';
+
+  @override
+  String get wikiEditPage => 'Edit wiki page';
+
+  @override
+  String get wikiEditTitle => 'Title';
+
+  @override
+  String get wikiEditContent => 'Content';
+
+  @override
+  String get wikiSaveChanges => 'Save changes';
+
+  @override
+  String get wikiEditValidationError => 'Enter a title and content.';
+
+  @override
+  String get wikiEditError => 'Could not save the wiki page.';
+
+  @override
+  String get wikiEditConflict =>
+      'This page changed on GitLab. Reload it before editing again.';
+
+  @override
+  String get wikiReloadPage => 'Reload page';
+
+  @override
   String get packageRegistryTitle => 'Package registry';
 
   @override

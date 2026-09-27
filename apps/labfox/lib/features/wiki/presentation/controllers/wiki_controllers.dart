@@ -65,6 +65,25 @@ class WikiPageController extends FamilyAsyncNotifier<WikiPage, WikiPageRef> {
     }
     return repository.page(arg.projectId, arg.slug);
   }
+
+  /// Saves a draft and refreshes the project page list after a successful write.
+  Future<WikiPage> save({
+    required WikiPage original,
+    required String title,
+    required String content,
+  }) async {
+    final repository = await ref.read(wikiRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    final updated = await repository.update(
+      projectId: arg.projectId,
+      original: original,
+      title: title,
+      content: content,
+    );
+    state = AsyncData(updated);
+    ref.invalidate(wikiPagesControllerProvider(arg.projectId));
+    return updated;
+  }
 }
 
 final wikiPageControllerProvider =

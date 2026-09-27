@@ -51,6 +51,10 @@ class _StubPage extends WikiPageController {
   _StubPage(this.value);
 
   final AsyncValue<WikiPage> value;
+  String? lastSavedTitle;
+  String? lastSavedContent;
+  bool rejectSave = false;
+  bool conflictOnSave = false;
 
   @override
   Future<WikiPage> build(WikiPageRef arg) => value.when(
@@ -58,6 +62,26 @@ class _StubPage extends WikiPageController {
     loading: () => Completer<WikiPage>().future,
     error: Future.error,
   );
+
+  @override
+  Future<WikiPage> save({
+    required WikiPage original,
+    required String title,
+    required String content,
+  }) async {
+    if (conflictOnSave) throw const WikiEditConflictException();
+    if (rejectSave) throw const GitLabForbiddenException('Forbidden');
+    lastSavedTitle = title;
+    lastSavedContent = content;
+    final updated = WikiPage(
+      title: title,
+      slug: title == original.title ? original.slug : 'docs/new-title',
+      content: content,
+      format: original.format,
+    );
+    state = AsyncData(updated);
+    return updated;
+  }
 }
 
 class _FakeWikiRepository extends WikiRepository {
@@ -91,6 +115,7 @@ Future<void> _pump(
   String initialLocation = '/projects/1/wikis',
   Size? size,
   _StubPages? pagesController,
+  _StubPage? pageController,
 }) async {
   if (size != null) {
     tester.view.physicalSize = size;
@@ -121,7 +146,9 @@ Future<void> _pump(
         wikiPagesControllerProvider.overrideWith(
           () => pagesController ?? _StubPages(pages),
         ),
-        wikiPageControllerProvider.overrideWith(() => _StubPage(page)),
+        wikiPageControllerProvider.overrideWith(
+          () => pageController ?? _StubPage(page),
+        ),
       ],
       child: MaterialApp.router(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -312,6 +339,38 @@ void main() {
         'Getting-Started',
       );
     });
+
+    testWidgets('edits a wiki page at width $width', (tester) async {
+      final controller = _StubPage(const AsyncData(_page));
+      await _pump(
+        tester,
+        pages: const AsyncData(_pages),
+        page: const AsyncData(_page),
+        pageController: controller,
+        initialLocation: Routes.wikiPage(1, 'docs/install'),
+        size: Size(width, 800),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Edit'));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Title'),
+        'New title',
+      );
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Content'),
+        '# Revised',
+      );
+      await tester.tap(find.text('Save changes'));
+      await tester.pumpAndSettle();
+
+      expect(controller.lastSavedTitle, 'New title');
+      expect(controller.lastSavedContent, '# Revised');
+      expect(
+        tester.widget<WikiPageScreen>(find.byType(WikiPageScreen)).slug,
+        'docs/new-title',
+      );
+    });
   }
 
   testWidgets('keeps the wiki draft after a permission error', (tester) async {
@@ -337,5 +396,53 @@ void main() {
     expect(find.text('Draft'), findsOneWidget);
     expect(find.text('Keep me'), findsOneWidget);
     expect(find.text('Create page'), findsOneWidget);
+  });
+
+  testWidgets('keeps a stale wiki draft and offers reload', (tester) async {
+    final controller = _StubPage(const AsyncData(_page))..conflictOnSave = true;
+    await _pump(
+      tester,
+      pages: const AsyncData(_pages),
+      page: const AsyncData(_page),
+      pageController: controller,
+      initialLocation: Routes.wikiPage(1, 'docs/install'),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'My draft',
+    );
+    await tester.tap(find.text('Save changes'));
+    await tester.pumpAndSettle();
+
+    expect(find.textContaining('This page changed on GitLab'), findsOneWidget);
+    expect(find.text('My draft'), findsOneWidget);
+    expect(find.text('Reload page'), findsOneWidget);
+  });
+
+  testWidgets('keeps a wiki draft on permission denial', (tester) async {
+    final controller = _StubPage(const AsyncData(_page))..rejectSave = true;
+    await _pump(
+      tester,
+      pages: const AsyncData(_pages),
+      page: const AsyncData(_page),
+      pageController: controller,
+      initialLocation: Routes.wikiPage(1, 'docs/install'),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'My draft',
+    );
+    await tester.tap(find.text('Save changes'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Could not save the wiki page.'), findsOneWidget);
+    expect(find.text('My draft'), findsOneWidget);
+    expect(find.text('Save changes'), findsOneWidget);
   });
 }
