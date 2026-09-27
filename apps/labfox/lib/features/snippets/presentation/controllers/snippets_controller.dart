@@ -85,6 +85,9 @@ class UpdateSnippetContentController extends AutoDisposeAsyncNotifier<void> {
       );
       final key = SnippetRef(projectId, snippetId);
       ref.invalidate(snippetRawProvider(key));
+      ref.invalidate(
+        snippetFileProvider(SnippetFileRef(projectId, snippetId, filePath)),
+      );
       ref.invalidate(projectSnippetProvider(key));
       ref.invalidate(projectSnippetsProvider(projectId));
       state = const AsyncData(null);

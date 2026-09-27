@@ -702,11 +702,30 @@ class SnippetFileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final content = ref.watch(
       snippetFileProvider(SnippetFileRef(projectId, snippetId, path)),
     );
     return Scaffold(
-      appBar: AppBar(title: Text(path.split('/').last)),
+      appBar: AppBar(
+        title: Text(path.split('/').last),
+        actions: [
+          if (content case AsyncData<String>(value: final text))
+            IconButton(
+              tooltip: l10n.snippetEditContent,
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) => _EditSnippetContentDialog(
+                  projectId: projectId,
+                  snippetId: snippetId,
+                  filePath: path,
+                  initialContent: text,
+                ),
+              ),
+            ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
         child: _Content(content: content),
