@@ -1635,6 +1635,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetCreateError => '无法创建代码片段。';
 
   @override
+  String get snippetDeleteAction => '删除代码片段';
+
+  @override
+  String get snippetDeleteConfirmTitle => '删除此代码片段？';
+
+  @override
+  String get snippetDeleteConfirmMessage => '代码片段及其文件将被永久删除。';
+
+  @override
+  String get snippetDeleteButton => '删除';
+
+  @override
+  String get snippetDeleteError => '无法删除代码片段。';
+
+  @override
   String get homeRecents => '最近';
 
   @override
