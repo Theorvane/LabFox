@@ -1761,6 +1761,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiCreatePage => '创建页面';
 
   @override
+  String get wikiChooseTemplate => '选择模板';
+
+  @override
+  String get wikiReplaceTemplateContent => '要用此模板替换当前内容吗？';
+
+  @override
+  String get wikiApplyTemplate => '应用模板';
+
+  @override
+  String get wikiTemplateLoadError => '无法加载模板。';
+
+  @override
   String get wikiCreateValidationError => '请输入标题和内容。';
 
   @override

@@ -155,6 +155,8 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
   bool _busy = false;
   bool _invalid = false;
   bool _failed = false;
+  bool _templateFailed = false;
+  String? _selectedTemplate;
 
   @override
   void dispose() {
@@ -193,9 +195,68 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
     }
   }
 
+  Future<void> _applyTemplate(String slug) async {
+    final l10n = AppLocalizations.of(context);
+    if (_content.text.isNotEmpty) {
+      final replace = await showDialog<bool>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          content: Text(l10n.wikiReplaceTemplateContent),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(dialogContext).pop(true),
+              child: Text(l10n.wikiApplyTemplate),
+            ),
+          ],
+        ),
+      );
+      if (replace != true || !mounted) return;
+    }
+    setState(() {
+      _busy = true;
+      _templateFailed = false;
+    });
+    try {
+      final template = await ref.read(
+        wikiPageControllerProvider(
+          WikiPageRef(projectId: widget.projectId, slug: slug),
+        ).future,
+      );
+      if (template.format != null && template.format != 'markdown') {
+        throw StateError('Unsupported wiki template format');
+      }
+      if (mounted) {
+        setState(() {
+          _content.text = template.content ?? '';
+          _selectedTemplate = slug;
+          _invalid = false;
+        });
+      }
+    } on Exception {
+      if (mounted) setState(() => _templateFailed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
+    final templates =
+        ref
+            .watch(wikiPagesControllerProvider(widget.projectId))
+            .valueOrNull
+            ?.where(
+              (page) =>
+                  page.slug.startsWith('templates/') &&
+                  (page.format == null || page.format == 'markdown'),
+            )
+            .toList() ??
+        const <WikiPage>[];
     return AlertDialog(
       title: Text(widget.isTemplate ? l10n.wikiNewTemplate : l10n.wikiNewPage),
       scrollable: true,
@@ -214,6 +275,26 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
                     : l10n.wikiPageTitle,
               ),
             ),
+            if (templates.isNotEmpty) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              DropdownButton<String>(
+                value: _selectedTemplate,
+                isExpanded: true,
+                hint: Text(l10n.wikiChooseTemplate),
+                onChanged: _busy
+                    ? null
+                    : (slug) {
+                        if (slug != null) _applyTemplate(slug);
+                      },
+                items: [
+                  for (final template in templates)
+                    DropdownMenuItem<String>(
+                      value: template.slug,
+                      child: Text(template.title),
+                    ),
+                ],
+              ),
+            ],
             const SizedBox(height: LabFoxSpacing.md),
             TextField(
               controller: _content,
@@ -236,6 +317,10 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
                     ? l10n.wikiCreateTemplateError
                     : l10n.wikiCreateError,
               ),
+            ],
+            if (_templateFailed) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.wikiTemplateLoadError),
             ],
           ],
         ),

@@ -1771,6 +1771,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get wikiCreatePage => '페이지 만들기';
 
   @override
+  String get wikiChooseTemplate => '템플릿 선택';
+
+  @override
+  String get wikiReplaceTemplateContent => '현재 내용을 이 템플릿으로 바꾸시겠습니까?';
+
+  @override
+  String get wikiApplyTemplate => '템플릿 적용';
+
+  @override
+  String get wikiTemplateLoadError => '템플릿을 불러올 수 없습니다.';
+
+  @override
   String get wikiCreateValidationError => '제목과 내용을 입력하세요.';
 
   @override
