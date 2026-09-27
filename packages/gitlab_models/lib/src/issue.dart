@@ -32,6 +32,7 @@ abstract class Issue with _$Issue {
     bool? subscribed,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'due_date') DateTime? dueDate,
   }) = _Issue;
 
   const Issue._();
