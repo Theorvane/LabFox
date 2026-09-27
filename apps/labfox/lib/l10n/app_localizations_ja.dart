@@ -1644,6 +1644,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetCreateError => 'スニペットを作成できませんでした。';
 
   @override
+  String get snippetAddFile => 'ファイルを追加';
+
+  @override
+  String get snippetFileAddValidationError => '重複しない相対ファイルパスと内容を入力してください。';
+
+  @override
+  String get snippetFileAddError => 'ファイルを追加できませんでした。';
+
+  @override
   String get snippetEditAction => 'スニペットを編集';
 
   @override

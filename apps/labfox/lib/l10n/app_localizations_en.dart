@@ -1679,6 +1679,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetCreateError => 'Could not create the snippet.';
 
   @override
+  String get snippetAddFile => 'Add file';
+
+  @override
+  String get snippetFileAddValidationError =>
+      'Enter a unique relative file path and content.';
+
+  @override
+  String get snippetFileAddError => 'Could not add the file.';
+
+  @override
   String get snippetEditAction => 'Edit snippet';
 
   @override
