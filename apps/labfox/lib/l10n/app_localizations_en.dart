@@ -286,6 +286,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseUpcoming => 'Upcoming';
 
   @override
+  String get releaseNew => 'New release';
+
+  @override
+  String get releaseCreate => 'Create release';
+
+  @override
+  String get releaseTagName => 'Tag name';
+
+  @override
+  String get releaseRef => 'Create tag from ref (optional)';
+
+  @override
+  String get releaseRefHelp => 'Leave blank if the tag already exists.';
+
+  @override
+  String get releaseName => 'Release name (optional)';
+
+  @override
+  String get releaseDescription => 'Description (Markdown)';
+
+  @override
+  String get releaseTagRequired => 'Enter a tag name.';
+
+  @override
+  String get releaseCreateError => 'Could not create the release.';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override

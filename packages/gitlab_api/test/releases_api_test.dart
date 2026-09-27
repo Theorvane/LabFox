@@ -60,6 +60,51 @@ void main() {
       throwsA(isA<GitLabNotFoundException>()),
     );
   });
+
+  test('creates a release with optional ref and Markdown notes', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: const <String, List<String>>{},
+        body: {
+          'name': 'Version 2',
+          'tag_name': 'release/2',
+          'description': '## Changes',
+        },
+      );
+    });
+    final created = await client.releases.create(
+      'team/app',
+      tagName: 'release/2',
+      ref: 'main',
+      name: 'Version 2',
+      description: '## Changes',
+    );
+    expect(request.method, 'POST');
+    expect(request.path, '/projects/team%2Fapp/releases');
+    expect(request.data, {
+      'tag_name': 'release/2',
+      'ref': 'main',
+      'name': 'Version 2',
+      'description': '## Changes',
+    });
+    expect(created.tagName, 'release/2');
+
+    await client.releases.create(7, tagName: 'v1');
+    expect(request.data, {'tag_name': 'v1'});
+  });
+
+  test('maps forbidden release creation', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.create(7, tagName: 'v2'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(
