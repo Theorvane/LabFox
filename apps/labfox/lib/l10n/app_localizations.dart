@@ -3482,6 +3482,30 @@ abstract class AppLocalizations {
   /// **'Create page'**
   String get wikiCreatePage;
 
+  /// No description provided for @wikiChooseTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a template'**
+  String get wikiChooseTemplate;
+
+  /// No description provided for @wikiReplaceTemplateContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the current content with this template?'**
+  String get wikiReplaceTemplateContent;
+
+  /// No description provided for @wikiApplyTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply template'**
+  String get wikiApplyTemplate;
+
+  /// No description provided for @wikiTemplateLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the template.'**
+  String get wikiTemplateLoadError;
+
   /// No description provided for @wikiCreateValidationError.
   ///
   /// In en, this message translates to:
