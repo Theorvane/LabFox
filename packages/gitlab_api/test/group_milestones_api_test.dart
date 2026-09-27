@@ -147,6 +147,75 @@ void main() {
       );
     },
   );
+  test('updates group milestone fields and explicitly clears dates', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 55,
+          'iid': 9,
+          'group_id': 7,
+          'title': 'Release 2',
+          'state': 'active',
+          'start_date': null,
+          'due_date': '2026-10-31',
+        },
+      );
+    });
+    final result = await client.groupMilestones.update(
+      'team/subgroup',
+      55,
+      title: 'Release 2',
+      description: 'Updated scope',
+      clearStartDate: true,
+      dueDate: '2026-10-31',
+    );
+    expect(request.method, 'PUT');
+    expect(request.path, '/groups/team%2Fsubgroup/milestones/55');
+    expect(request.data, {
+      'title': 'Release 2',
+      'description': 'Updated scope',
+      'start_date': '',
+      'due_date': '2026-10-31',
+    });
+    expect(result.id, 55);
+    expect(result.iid, 9);
+    expect(result.startDate, isNull);
+
+    await client.groupMilestones.update(
+      7,
+      55,
+      title: 'Release 2',
+      clearDueDate: true,
+    );
+    expect(request.data, {'title': 'Release 2', 'due_date': ''});
+  });
+
+  test(
+    'maps forbidden group milestone updates and rejects conflicting dates',
+    () async {
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.groupMilestones.update(7, 55, title: 'Release 2'),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+      await expectLater(
+        forbidden.groupMilestones.update(
+          7,
+          55,
+          title: 'Release 2',
+          startDate: '2026-10-01',
+          clearStartDate: true,
+        ),
+        throwsA(isA<ArgumentError>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

@@ -365,3 +365,55 @@ final groupMilestoneDetailProvider =
       if (repository == null) throw StateError('No authenticated account');
       return repository.get(key.groupId, key.milestoneId);
     });
+
+class GroupMilestoneEditController
+    extends FamilyAsyncNotifier<void, GroupMilestoneRef> {
+  @override
+  Future<void> build(GroupMilestoneRef arg) async {}
+
+  Future<GitLabMilestone> save({
+    required String title,
+    required String description,
+    DateTime? startDate,
+    DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
+  }) async {
+    final trimmedTitle = title.trim();
+    if (trimmedTitle.isEmpty) throw ArgumentError.value(title, 'title');
+    if (startDate != null && dueDate != null && startDate.isAfter(dueDate)) {
+      throw ArgumentError.value(dueDate, 'dueDate');
+    }
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(
+        groupMilestonesRepositoryProvider.future,
+      );
+      if (repository == null) throw StateError('No authenticated account');
+      final updated = await repository.update(
+        arg.groupId,
+        arg.milestoneId,
+        title: trimmedTitle,
+        description: description,
+        startDate: startDate,
+        dueDate: dueDate,
+        clearStartDate: clearStartDate,
+        clearDueDate: clearDueDate,
+      );
+      ref.invalidate(groupMilestoneDetailProvider(arg));
+      ref.invalidate(groupMilestoneListControllerProvider);
+      state = const AsyncData(null);
+      return updated;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final groupMilestoneEditControllerProvider =
+    AsyncNotifierProvider.family<
+      GroupMilestoneEditController,
+      void,
+      GroupMilestoneRef
+    >(GroupMilestoneEditController.new);
