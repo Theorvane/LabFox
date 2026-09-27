@@ -17,6 +17,16 @@ class GroupMilestonesRepository {
   Future<GitLabMilestone> get(int groupId, int milestoneId) =>
       client.groupMilestones.get(groupId, milestoneId);
 
+  Future<GitLabMilestone> setStateEvent(
+    int groupId,
+    int milestoneId, {
+    required String stateEvent,
+  }) => client.groupMilestones.setStateEvent(
+    groupId,
+    milestoneId,
+    stateEvent: stateEvent,
+  );
+
   Future<GitLabMilestone> create(
     int groupId, {
     required String title,

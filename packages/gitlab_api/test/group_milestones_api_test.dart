@@ -147,6 +147,54 @@ void main() {
       );
     },
   );
+  for (final event in ['close', 'activate']) {
+    test('changes group milestone state with $event', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 42,
+            'iid': 4,
+            'group_id': 7,
+            'title': 'Release 1',
+            'state': event == 'close' ? 'closed' : 'active',
+          },
+        );
+      });
+      final result = await client.groupMilestones.setStateEvent(
+        'team/subgroup',
+        42,
+        stateEvent: event,
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/groups/team%2Fsubgroup/milestones/42');
+      expect(request.data, {'state_event': event});
+      expect(result.id, 42);
+      expect(result.iid, 4);
+      expect(result.state, event == 'close' ? 'closed' : 'active');
+    });
+  }
+
+  test(
+    'rejects invalid group state events and maps forbidden writes',
+    () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.groupMilestones.setStateEvent(7, 42, stateEvent: 'close'),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+      await expectLater(
+        client.groupMilestones.setStateEvent(7, 42, stateEvent: 'reopen'),
+        throwsA(isA<ArgumentError>()),
+      );
+    },
+  );
+
   test('updates group milestone fields and explicitly clears dates', () async {
     late RequestOptions request;
     final client = _client((options) {

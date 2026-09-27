@@ -66,7 +66,8 @@ class MilestoneDetailScreen extends ConsumerWidget {
   Future<void> _changeState(
     BuildContext context,
     WidgetRef ref,
-    MilestoneRef key, {
+    MilestoneRef? projectKey,
+    GroupMilestoneRef? groupKey, {
     required bool close,
   }) async {
     final l10n = AppLocalizations.of(context);
@@ -91,9 +92,15 @@ class MilestoneDetailScreen extends ConsumerWidget {
       if (!context.mounted || confirmed != true) return;
     }
     try {
-      await ref
-          .read(milestoneStateControllerProvider(key).notifier)
-          .change(close: close);
+      if (projectKey != null) {
+        await ref
+            .read(milestoneStateControllerProvider(projectKey).notifier)
+            .change(close: close);
+      } else {
+        await ref
+            .read(groupMilestoneStateControllerProvider(groupKey!).notifier)
+            .change(close: close);
+      }
     } catch (_) {
       if (!context.mounted) return;
       ScaffoldMessenger.of(
@@ -114,9 +121,9 @@ class MilestoneDetailScreen extends ConsumerWidget {
     final milestone = projectKey == null
         ? ref.watch(groupMilestoneDetailProvider(groupKey!))
         : ref.watch(milestoneDetailProvider(projectKey));
-    final changing =
-        projectKey != null &&
-        ref.watch(milestoneStateControllerProvider(projectKey)).isLoading;
+    final changing = projectKey != null
+        ? ref.watch(milestoneStateControllerProvider(projectKey)).isLoading
+        : ref.watch(groupMilestoneStateControllerProvider(groupKey!)).isLoading;
     final deleting =
         projectKey != null &&
         ref.watch(milestoneDeleteControllerProvider(projectKey)).isLoading;
@@ -146,9 +153,8 @@ class MilestoneDetailScreen extends ConsumerWidget {
                 ),
               ),
             ),
-          if (projectKey != null &&
-              (milestone.valueOrNull?.state == 'active' ||
-                  milestone.valueOrNull?.state == 'closed'))
+          if (milestone.valueOrNull?.state == 'active' ||
+              milestone.valueOrNull?.state == 'closed')
             IconButton(
               tooltip: milestone.valueOrNull!.state == 'closed'
                   ? l10n.milestoneReactivate
@@ -164,6 +170,7 @@ class MilestoneDetailScreen extends ConsumerWidget {
                       context,
                       ref,
                       projectKey,
+                      groupKey,
                       close: milestone.valueOrNull!.state != 'closed',
                     ),
             ),

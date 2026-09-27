@@ -417,3 +417,38 @@ final groupMilestoneEditControllerProvider =
       void,
       GroupMilestoneRef
     >(GroupMilestoneEditController.new);
+
+class GroupMilestoneStateController
+    extends FamilyAsyncNotifier<void, GroupMilestoneRef> {
+  @override
+  Future<void> build(GroupMilestoneRef arg) async {}
+
+  Future<GitLabMilestone> change({required bool close}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(
+        groupMilestonesRepositoryProvider.future,
+      );
+      if (repository == null) throw StateError('No authenticated account');
+      final updated = await repository.setStateEvent(
+        arg.groupId,
+        arg.milestoneId,
+        stateEvent: close ? 'close' : 'activate',
+      );
+      ref.invalidate(groupMilestoneDetailProvider(arg));
+      ref.invalidate(groupMilestoneListControllerProvider);
+      state = const AsyncData(null);
+      return updated;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final groupMilestoneStateControllerProvider =
+    AsyncNotifierProvider.family<
+      GroupMilestoneStateController,
+      void,
+      GroupMilestoneRef
+    >(GroupMilestoneStateController.new);
