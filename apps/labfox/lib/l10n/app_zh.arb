@@ -379,5 +379,9 @@
   "issueEditError": "无法保存议题。请检查权限后重试。",
   "issueSubscribe": "订阅通知",
   "issueUnsubscribe": "取消订阅通知",
-  "issueSubscriptionError": "无法更新议题通知。请重试。"
+  "issueSubscriptionError": "无法更新议题通知。请重试。",
+  "issueAddTodo": "添加到待办事项",
+  "issueTodoAdded": "已添加到待办事项。",
+  "issueTodoExists": "该议题已在待办事项中。",
+  "issueTodoError": "无法将议题添加到待办事项。请重试。"
 }

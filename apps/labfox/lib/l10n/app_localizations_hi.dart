@@ -711,6 +711,19 @@ class AppLocalizationsHi extends AppLocalizations {
       'समस्या की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
 
   @override
+  String get issueAddTodo => 'कार्य सूची में जोड़ें';
+
+  @override
+  String get issueTodoAdded => 'आपकी कार्य सूची में जोड़ दिया गया।';
+
+  @override
+  String get issueTodoExists => 'यह समस्या पहले से आपकी कार्य सूची में है।';
+
+  @override
+  String get issueTodoError =>
+      'समस्या को कार्य सूची में नहीं जोड़ा जा सका। फिर प्रयास करें।';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

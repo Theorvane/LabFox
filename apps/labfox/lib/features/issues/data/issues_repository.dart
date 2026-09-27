@@ -78,4 +78,8 @@ class IssuesRepository {
       subscribed: subscribed,
     );
   }
+
+  Future<Todo?> createTodo({required int projectId, required int iid}) {
+    return _client.issues.createTodo(projectId, iid: iid);
+  }
 }

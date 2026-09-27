@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
 import '../../../../core/auth/gitlab_client_provider.dart';
+import '../../../inbox/presentation/controllers/inbox_controllers.dart';
 import '../../data/issues_repository.dart';
 
 final issuesRepositoryProvider = FutureProvider<IssuesRepository?>((ref) async {
@@ -140,6 +141,19 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     } else {
       state = AsyncData(await repo.get(projectId: arg.projectId, iid: arg.iid));
     }
+  }
+
+  /// Returns true when a new to-do item was created; false for GitLab's 304
+  /// response when the issue is already in the current user's inbox.
+  Future<bool> createTodo() async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) {
+      throw StateError('No authenticated account');
+    }
+    final todo = await repo.createTodo(projectId: arg.projectId, iid: arg.iid);
+    if (todo == null) return false;
+    ref.invalidate(inboxControllerProvider);
+    return true;
   }
 }
 

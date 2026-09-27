@@ -16,6 +16,8 @@ class _FakeRepo extends IssuesRepository {
   String? lastTitle;
   String? lastDescription;
   bool? lastSubscription;
+  int? lastTodoIid;
+  bool todoAlreadyExists = false;
 
   @override
   Future<Issue> get({required int projectId, required int iid}) async => _issue;
@@ -52,6 +54,12 @@ class _FakeRepo extends IssuesRepository {
   }) async {
     lastSubscription = subscribed;
     return null;
+  }
+
+  @override
+  Future<Todo?> createTodo({required int projectId, required int iid}) async {
+    lastTodoIid = iid;
+    return todoAlreadyExists ? null : const Todo(id: 112, state: 'pending');
   }
 }
 
@@ -124,6 +132,30 @@ void main() {
     expect(
       container.read(issueControllerProvider(ref)).value!.subscribed,
       isTrue,
+    );
+  });
+
+  test('createTodo returns whether a new item was added', () async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+
+    expect(
+      await container.read(issueControllerProvider(ref).notifier).createTodo(),
+      isTrue,
+    );
+    expect(repo.lastTodoIid, 5);
+
+    repo.todoAlreadyExists = true;
+    expect(
+      await container.read(issueControllerProvider(ref).notifier).createTodo(),
+      isFalse,
     );
   });
 
@@ -226,5 +258,31 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('Unsubscribe from notifications'), findsOneWidget);
+  });
+
+  testWidgets('adds the issue to the current user to-do list', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add to To-Do'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastTodoIid, 5);
+    expect(find.text('Added to your To-Do list.'), findsOneWidget);
   });
 }

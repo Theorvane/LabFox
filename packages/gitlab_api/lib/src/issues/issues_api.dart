@@ -233,6 +233,29 @@ class IssuesApi {
     }
   }
 
+  /// Adds the issue to the current user's to-do list. Returns null when
+  /// GitLab reports 304 because a pending item already exists.
+  Future<Todo?> createTodo(Object projectId, {required int iid}) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid/todo',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if ((response.statusCode != 200 && response.statusCode != 201) ||
+          data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding the issue to your to-do list',
+        );
+      }
+      return Todo.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding the issue to your to-do list');
+    }
+  }
+
   /// A single issue by its `iid` — the per-project number a user sees, never
   /// the global `id`.
   Future<Issue> get(Object projectId, {required int iid}) async {

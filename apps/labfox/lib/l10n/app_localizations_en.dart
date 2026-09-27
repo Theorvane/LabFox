@@ -713,6 +713,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not update issue notifications. Please try again.';
 
   @override
+  String get issueAddTodo => 'Add to To-Do';
+
+  @override
+  String get issueTodoAdded => 'Added to your To-Do list.';
+
+  @override
+  String get issueTodoExists => 'This issue is already in your To-Do list.';
+
+  @override
+  String get issueTodoError =>
+      'Could not add the issue to your To-Do list. Please try again.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

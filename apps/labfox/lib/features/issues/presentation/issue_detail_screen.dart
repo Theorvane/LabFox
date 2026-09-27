@@ -51,6 +51,8 @@ class IssueDetailScreen extends ConsumerWidget {
                     issueRef,
                     action == _IssueAction.subscribe,
                   );
+                } else if (action == _IssueAction.addTodo) {
+                  _createTodo(context, ref, issueRef);
                 } else {
                   _setOpen(
                     context,
@@ -61,6 +63,10 @@ class IssueDetailScreen extends ConsumerWidget {
                 }
               },
               itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: _IssueAction.addTodo,
+                  child: Text(l10n.issueAddTodo),
+                ),
                 if (data.subscribed case final subscribed?)
                   PopupMenuItem(
                     value: subscribed
@@ -174,9 +180,35 @@ class IssueDetailScreen extends ConsumerWidget {
       }
     }
   }
+
+  Future<void> _createTodo(
+    BuildContext context,
+    WidgetRef ref,
+    IssueRef issueRef,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    try {
+      final created = await ref
+          .read(issueControllerProvider(issueRef).notifier)
+          .createTodo();
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(created ? l10n.issueTodoAdded : l10n.issueTodoExists),
+          ),
+        );
+      }
+    } on GitLabException {
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.issueTodoError)));
+      }
+    }
+  }
 }
 
-enum _IssueAction { edit, close, reopen, subscribe, unsubscribe }
+enum _IssueAction { edit, close, reopen, subscribe, unsubscribe, addTodo }
 
 class _EditIssueDialog extends ConsumerStatefulWidget {
   const _EditIssueDialog({required this.issue, required this.issueRef});

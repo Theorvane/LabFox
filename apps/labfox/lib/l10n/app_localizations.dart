@@ -1460,6 +1460,30 @@ abstract class AppLocalizations {
   /// **'Could not update issue notifications. Please try again.'**
   String get issueSubscriptionError;
 
+  /// No description provided for @issueAddTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to To-Do'**
+  String get issueAddTodo;
+
+  /// No description provided for @issueTodoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your To-Do list.'**
+  String get issueTodoAdded;
+
+  /// No description provided for @issueTodoExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This issue is already in your To-Do list.'**
+  String get issueTodoExists;
+
+  /// No description provided for @issueTodoError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the issue to your To-Do list. Please try again.'**
+  String get issueTodoError;
+
   /// Menu action that reopens the issue
   ///
   /// In en, this message translates to:
