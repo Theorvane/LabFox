@@ -38,4 +38,7 @@ class ReleasesRepository {
     name: name,
     description: description,
   );
+
+  Future<void> delete(int projectId, String tagName) =>
+      client.releases.delete(projectId, tagName);
 }

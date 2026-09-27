@@ -331,6 +331,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseCreateError => 'Could not create the release.';
 
   @override
+  String get releaseDelete => 'Delete release';
+
+  @override
+  String get releaseDeleteConfirmTitle => 'Delete this release?';
+
+  @override
+  String get releaseDeleteConfirmBody =>
+      'The release and its notes will be deleted. The Git tag will remain.';
+
+  @override
+  String get releaseDeleteError => 'Could not delete the release.';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override

@@ -327,6 +327,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseCreateError => '릴리스를 만들 수 없습니다.';
 
   @override
+  String get releaseDelete => '릴리스 삭제';
+
+  @override
+  String get releaseDeleteConfirmTitle => '이 릴리스를 삭제할까요?';
+
+  @override
+  String get releaseDeleteConfirmBody => '릴리스와 릴리스 노트가 삭제됩니다. Git 태그는 유지됩니다.';
+
+  @override
+  String get releaseDeleteError => '릴리스를 삭제할 수 없습니다.';
+
+  @override
   String get activityTitle => '활동';
 
   @override

@@ -326,6 +326,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseCreateError => 'リリースを作成できませんでした。';
 
   @override
+  String get releaseDelete => 'リリースを削除';
+
+  @override
+  String get releaseDeleteConfirmTitle => 'このリリースを削除しますか？';
+
+  @override
+  String get releaseDeleteConfirmBody => 'リリースとリリースノートが削除されます。Git タグは残ります。';
+
+  @override
+  String get releaseDeleteError => 'リリースを削除できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

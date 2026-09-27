@@ -142,6 +142,27 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test('deletes only the release at an encoded tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const <String, List<String>>{}, body: null);
+    });
+    await client.releases.delete('team/app', 'release/2');
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
+  });
+
+  test('maps forbidden release deletion', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.delete(7, 'v2'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(
