@@ -373,5 +373,8 @@
   "groupSubgroupsEmpty": "サブグループはありません。",
   "groupProjects": "プロジェクト",
   "groupProjectsEmpty": "このグループにプロジェクトはありません。",
-  "groupLoadMore": "さらに読み込む"
+  "groupLoadMore": "さらに読み込む",
+  "issueEdit": "イシューを編集",
+  "issueSaveChanges": "変更を保存",
+  "issueEditError": "イシューを保存できません。権限を確認して再試行してください。"
 }

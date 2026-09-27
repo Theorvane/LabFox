@@ -373,5 +373,8 @@
   "groupSubgroupsEmpty": "कोई उपसमूह नहीं है।",
   "groupProjects": "प्रोजेक्ट",
   "groupProjectsEmpty": "इस समूह में कोई प्रोजेक्ट नहीं है।",
-  "groupLoadMore": "और लोड करें"
+  "groupLoadMore": "और लोड करें",
+  "issueEdit": "समस्या संपादित करें",
+  "issueSaveChanges": "बदलाव सहेजें",
+  "issueEditError": "समस्या सहेजी नहीं जा सकी। अनुमतियाँ जाँचें और फिर प्रयास करें।"
 }

@@ -685,6 +685,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueClose => 'Close issue';
 
   @override
+  String get issueEdit => '이슈 수정';
+
+  @override
+  String get issueSaveChanges => '변경 사항 저장';
+
+  @override
+  String get issueEditError => '이슈를 저장할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

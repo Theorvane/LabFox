@@ -99,6 +99,26 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     state = AsyncData(updated);
     ref.invalidate(issuesControllerProvider);
   }
+
+  /// Saves editable fields and refreshes detail and list consumers.
+  Future<void> updateDetails({
+    required String title,
+    required String description,
+  }) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) {
+      throw StateError('No authenticated account');
+    }
+    final updated = await repo.update(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      title: title,
+      description: description,
+    );
+    state = AsyncData(updated);
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
 }
 
 final issueControllerProvider =

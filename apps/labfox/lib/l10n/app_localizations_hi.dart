@@ -691,6 +691,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get issueClose => 'Close issue';
 
   @override
+  String get issueEdit => 'समस्या संपादित करें';
+
+  @override
+  String get issueSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get issueEditError =>
+      'समस्या सहेजी नहीं जा सकी। अनुमतियाँ जाँचें और फिर प्रयास करें।';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

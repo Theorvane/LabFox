@@ -693,6 +693,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueClose => 'Close issue';
 
   @override
+  String get issueEdit => 'Edit issue';
+
+  @override
+  String get issueSaveChanges => 'Save changes';
+
+  @override
+  String get issueEditError =>
+      'Could not save the issue. Check your permissions and try again.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

@@ -174,6 +174,42 @@ void main() {
     });
   });
 
+  group('IssuesApi.update', () {
+    test('PUTs title and empty description by project issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'Updated', 'state': 'opened'},
+        );
+      });
+
+      final issue = await client.issues.update(
+        7,
+        iid: 5,
+        title: 'Updated',
+        description: '',
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/7/issues/5');
+      expect(captured.data, {'title': 'Updated', 'description': ''});
+      expect(issue.title, 'Updated');
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.update(7, iid: 5, title: 'New', description: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.listAssignedToMe', () {
     test('lists open issues assigned to the current user', () async {
       late RequestOptions captured;

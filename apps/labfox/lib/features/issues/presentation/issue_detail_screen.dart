@@ -12,7 +12,7 @@ import 'controllers/issues_controllers.dart';
 import 'widgets/linked_issues_section.dart';
 
 /// One issue: title, state, author, labels, the rendered description, and its
-/// comment thread. The overflow menu closes or reopens the issue.
+/// comment thread. The overflow menu edits, closes, or reopens the issue.
 class IssueDetailScreen extends ConsumerWidget {
   const IssueDetailScreen({
     required this.projectId,
@@ -35,11 +35,30 @@ class IssueDetailScreen extends ConsumerWidget {
         actions: [
           ShareLinkButton(url: issue.valueOrNull?.webUrl),
           if (issue.valueOrNull case final data?)
-            PopupMenuButton<bool>(
-              onSelected: (open) => _setOpen(context, ref, issueRef, open),
+            PopupMenuButton<_IssueAction>(
+              onSelected: (action) {
+                if (action == _IssueAction.edit) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) =>
+                        _EditIssueDialog(issue: data, issueRef: issueRef),
+                  );
+                } else {
+                  _setOpen(
+                    context,
+                    ref,
+                    issueRef,
+                    action == _IssueAction.reopen,
+                  );
+                }
+              },
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  value: !data.isOpen,
+                  value: _IssueAction.edit,
+                  child: Text(l10n.issueEdit),
+                ),
+                PopupMenuItem(
+                  value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
                   child: Text(data.isOpen ? l10n.issueClose : l10n.issueReopen),
                 ),
               ],
@@ -117,6 +136,111 @@ class IssueDetailScreen extends ConsumerWidget {
         ).showSnackBar(SnackBar(content: Text(l10n.issueStateError)));
       }
     }
+  }
+}
+
+enum _IssueAction { edit, close, reopen }
+
+class _EditIssueDialog extends ConsumerStatefulWidget {
+  const _EditIssueDialog({required this.issue, required this.issueRef});
+
+  final Issue issue;
+  final IssueRef issueRef;
+
+  @override
+  ConsumerState<_EditIssueDialog> createState() => _EditIssueDialogState();
+}
+
+class _EditIssueDialogState extends ConsumerState<_EditIssueDialog> {
+  final _formKey = GlobalKey<FormState>();
+  late final _title = TextEditingController(text: widget.issue.title);
+  late final _description = TextEditingController(
+    text: widget.issue.description ?? '',
+  );
+  bool _busy = false;
+  bool _failed = false;
+
+  @override
+  void dispose() {
+    _title.dispose();
+    _description.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .updateDetails(
+            title: _title.text.trim(),
+            description: _description.text,
+          );
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.issueEdit),
+      content: SizedBox(
+        width: 480,
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  controller: _title,
+                  enabled: !_busy,
+                  decoration: InputDecoration(
+                    labelText: l10n.newIssueTitleLabel,
+                  ),
+                  validator: (value) => value == null || value.trim().isEmpty
+                      ? l10n.newIssueTitleRequired
+                      : null,
+                ),
+                const SizedBox(height: LabFoxSpacing.md),
+                TextFormField(
+                  controller: _description,
+                  enabled: !_busy,
+                  minLines: 3,
+                  maxLines: 8,
+                  decoration: InputDecoration(
+                    labelText: l10n.newIssueDescriptionLabel,
+                  ),
+                ),
+                if (_failed) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  Text(l10n.issueEditError),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _save,
+          child: Text(l10n.issueSaveChanges),
+        ),
+      ],
+    );
   }
 }
 

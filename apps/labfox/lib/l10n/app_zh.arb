@@ -373,5 +373,8 @@
   "groupSubgroupsEmpty": "没有子群组。",
   "groupProjects": "项目",
   "groupProjectsEmpty": "此群组中没有项目。",
-  "groupLoadMore": "加载更多"
+  "groupLoadMore": "加载更多",
+  "issueEdit": "编辑议题",
+  "issueSaveChanges": "保存更改",
+  "issueEditError": "无法保存议题。请检查权限后重试。"
 }

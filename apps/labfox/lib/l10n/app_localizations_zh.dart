@@ -682,6 +682,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueClose => 'Close issue';
 
   @override
+  String get issueEdit => '编辑议题';
+
+  @override
+  String get issueSaveChanges => '保存更改';
+
+  @override
+  String get issueEditError => '无法保存议题。请检查权限后重试。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

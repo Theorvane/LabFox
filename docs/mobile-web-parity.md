@@ -25,8 +25,8 @@ work, not as a fixed denominator.
 - Update the snapshot, evidence, and issue/PR links in the same PR that changes
   a row. Do not calculate a GitLab parity percentage from this incomplete list.
 
-Snapshot (2026-09-27): **18 known work packages**, **1 in review**, **17
-queued**, **0 packages shipped**. This is a lower bound on remaining work,
+Snapshot (2026-09-27): **18 known work packages**, **1 shipped**, **1 in
+review**, **16 queued**. This is a lower bound on remaining work,
 **not 18 PRs** or an ETA. The shipped baseline is excluded from that count.
 
 ## Shipped baseline by workflow
@@ -37,7 +37,7 @@ queued**, **0 packages shipped**. This is a lower bound on remaining work,
 | Productivity | Home, to-do inbox/completion, project/issue/MR search | [home](../apps/labfox/lib/features/home/presentation/), [inbox](../apps/labfox/lib/features/inbox/presentation/), [search](../apps/labfox/lib/features/search/presentation/) | Search scopes and notification settings. |
 | Groups and projects | Group/subgroup/project browsing, project overview and activity | [groups](../apps/labfox/lib/features/groups/presentation/), [projects](../apps/labfox/lib/features/project_overview/presentation/) | Settings and management. |
 | Repository | Tree/files, branches, tags, commits; branch/tag creation | [repository](../apps/labfox/lib/features/repository/presentation/), [branches](../apps/labfox/lib/features/branches/presentation/), [tags](../apps/labfox/lib/features/tags/presentation/) | Advanced repository operations. |
-| Protection | Project protected branch, tag, and environment rule browsing | [branches](../apps/labfox/lib/features/protected_branches/presentation/), [tags](../apps/labfox/lib/features/protected_tags/presentation/), [environments](../apps/labfox/lib/features/protected_environments/presentation/) | Rule writes and group rules. |
+| Protection | Project protected branch, tag, and environment rule browsing; group protected environment browsing | [branches](../apps/labfox/lib/features/protected_branches/presentation/), [tags](../apps/labfox/lib/features/protected_tags/presentation/), [project/group environments](../apps/labfox/lib/features/protected_environments/presentation/) | Rule writes. |
 | Collaboration | Issues, linked issues, MRs, comments, diff, approval/merge/rebase actions | [issues](../apps/labfox/lib/features/issues/presentation/), [MRs](../apps/labfox/lib/features/merge_requests/presentation/), [diff](../apps/labfox/lib/features/diff/presentation/) | Full editing, boards, advanced review. |
 | CI/CD execution | Pipelines/jobs/logs/actions; schedules/run; environments/deployments | [pipelines](../apps/labfox/lib/features/pipelines/presentation/), [jobs](../apps/labfox/lib/features/jobs/presentation/), [schedules](../apps/labfox/lib/features/pipeline_schedules/presentation/) | Configuration, variables, runners, schedule edits. |
 | Planning metadata | Project/group milestones and labels; project/group member browsing | [milestones](../apps/labfox/lib/features/milestones/presentation/), [labels](../apps/labfox/lib/features/project_labels/presentation/), [members](../apps/labfox/lib/features/members/presentation/) | Editing and administration. |
@@ -51,11 +51,11 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 
 | ID | Priority | Work package and acceptance boundary | Status | Tracking |
 | --- | --- | --- | --- | --- |
-| MW-01 | P1 | Group protected environments: list/detail, deploy/approval rules, role/tier errors, narrow/wide tests. | In review | [#326](https://github.com/Theorvane/labfox/issues/326), [PR #328](https://github.com/Theorvane/labfox/pull/328) |
+| MW-01 | P1 | Group protected environments: list/detail, deploy/approval rules, role/tier errors, narrow/wide tests. | Shipped | [#326](https://github.com/Theorvane/labfox/issues/326), [PR #328](https://github.com/Theorvane/labfox/pull/328) |
 | MW-02 | P1 | Project protection-rule creation, update, and removal with permission checks. | Queued | Issue needed |
 | MW-03 | P1 | Project/group settings inventory and authorized general/repository/CI changes. | Queued | Issue needed |
 | MW-04 | P1 | Member invitations, role/expiry changes, and removal for groups/projects. | Queued | Issue needed |
-| MW-05 | P0 | Issue/work-item editing, metadata, types, and validated state transitions. | Queued | Issue needed |
+| MW-05 | P0 | Issue/work-item editing, metadata, types, and validated state transitions. | In review | [#329](https://github.com/Theorvane/labfox/issues/329), [PR #330](https://github.com/Theorvane/labfox/pull/330) cover title and description editing only; remaining metadata and work-item actions need separate issues. |
 | MW-06 | P1 | Boards and iterations: discover mobile-web behavior, then list/detail/mutations. | Queued | Issue needed |
 | MW-07 | P0 | Advanced MR review: audit inline discussions/suggestions and finish missing review/approval flows. | Queued | Issue needed |
 | MW-08 | P1 | CI/CD configuration: pipeline editor, variables, triggers, and schedule editing. | Queued | Issue needed |

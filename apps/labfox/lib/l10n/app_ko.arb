@@ -373,5 +373,8 @@
   "groupSubgroupsEmpty": "하위 그룹이 없습니다.",
   "groupProjects": "프로젝트",
   "groupProjectsEmpty": "이 그룹에 프로젝트가 없습니다.",
-  "groupLoadMore": "더 보기"
+  "groupLoadMore": "더 보기",
+  "issueEdit": "이슈 수정",
+  "issueSaveChanges": "변경 사항 저장",
+  "issueEditError": "이슈를 저장할 수 없습니다. 권한을 확인하고 다시 시도하세요."
 }

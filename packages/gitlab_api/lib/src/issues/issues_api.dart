@@ -180,6 +180,32 @@ class IssuesApi {
     }
   }
 
+  /// Updates an issue's title and description. An empty description clears it.
+  Future<Issue> update(
+    Object projectId, {
+    required int iid,
+    required String title,
+    required String description,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'title': title, 'description': description},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue');
+    }
+  }
+
   /// A single issue by its `iid` — the per-project number a user sees, never
   /// the global `id`.
   Future<Issue> get(Object projectId, {required int iid}) async {

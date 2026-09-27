@@ -1424,6 +1424,24 @@ abstract class AppLocalizations {
   /// **'Close issue'**
   String get issueClose;
 
+  /// No description provided for @issueEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit issue'**
+  String get issueEdit;
+
+  /// No description provided for @issueSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get issueSaveChanges;
+
+  /// No description provided for @issueEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the issue. Check your permissions and try again.'**
+  String get issueEditError;
+
   /// Menu action that reopens the issue
   ///
   /// In en, this message translates to:

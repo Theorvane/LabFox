@@ -52,4 +52,18 @@ class IssuesRepository {
   }) {
     return _client.issues.setOpen(projectId, iid: iid, open: open);
   }
+
+  Future<Issue> update({
+    required int projectId,
+    required int iid,
+    required String title,
+    required String description,
+  }) {
+    return _client.issues.update(
+      projectId,
+      iid: iid,
+      title: title,
+      description: description,
+    );
+  }
 }

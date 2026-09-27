@@ -684,6 +684,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueClose => 'Close issue';
 
   @override
+  String get issueEdit => 'イシューを編集';
+
+  @override
+  String get issueSaveChanges => '変更を保存';
+
+  @override
+  String get issueEditError => 'イシューを保存できません。権限を確認して再試行してください。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override
