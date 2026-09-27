@@ -3272,6 +3272,36 @@ abstract class AppLocalizations {
   /// **'Could not create the snippet.'**
   String get snippetCreateError;
 
+  /// No description provided for @snippetDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete snippet'**
+  String get snippetDeleteAction;
+
+  /// No description provided for @snippetDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this snippet?'**
+  String get snippetDeleteConfirmTitle;
+
+  /// No description provided for @snippetDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes the snippet and its files.'**
+  String get snippetDeleteConfirmMessage;
+
+  /// No description provided for @snippetDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get snippetDeleteButton;
+
+  /// No description provided for @snippetDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the snippet.'**
+  String get snippetDeleteError;
+
   /// Home section title for recently opened projects
   ///
   /// In en, this message translates to:

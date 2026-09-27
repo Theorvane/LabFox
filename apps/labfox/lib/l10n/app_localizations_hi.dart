@@ -1672,6 +1672,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetCreateError => 'स्निपेट नहीं बनाया जा सका।';
 
   @override
+  String get snippetDeleteAction => 'स्निपेट हटाएँ';
+
+  @override
+  String get snippetDeleteConfirmTitle => 'यह स्निपेट हटाएँ?';
+
+  @override
+  String get snippetDeleteConfirmMessage =>
+      'स्निपेट और इसकी फ़ाइलें स्थायी रूप से हटा दी जाएँगी।';
+
+  @override
+  String get snippetDeleteButton => 'हटाएँ';
+
+  @override
+  String get snippetDeleteError => 'स्निपेट हटाया नहीं जा सका।';
+
+  @override
   String get homeRecents => 'हाल ही में';
 
   @override

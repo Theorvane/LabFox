@@ -47,6 +47,24 @@ class SnippetsApi {
     }
   }
 
+  /// Deletes one project snippet after the server confirms the request.
+  Future<void> delete(Object projectId, int snippetId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/snippets/$snippetId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a project snippet',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a project snippet');
+    }
+  }
+
   Future<Paginated<Snippet>> list(
     int projectId, {
     int page = 1,
