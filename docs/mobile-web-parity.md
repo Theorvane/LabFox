@@ -6,7 +6,7 @@ screen. GitLab behavior varies by version, tier, role, project settings, and
 feature flags. A route or API method proves only the named slice, not a whole
 feature area.
 
-Baseline: `dev` at `04d7c5f` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
+Baseline: `dev` at `a9189c9` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
 records the original scope; `AGENTS.md` §9 records the expansion. Use GitLab's
 [project feature catalog](https://docs.gitlab.com/user/project/organize_work_with_projects/),
 [project settings](https://docs.gitlab.com/user/project/settings/), and
@@ -41,7 +41,7 @@ progress**, **15 queued**. This is a lower bound on remaining work,
 | Collaboration | Issues, linked issues, issue title/description, due-date, label, assignee, milestone, confidentiality, and discussion-lock editing; MRs, comments, diff, approval/merge/rebase actions | [issues](../apps/labfox/lib/features/issues/presentation/), [MRs](../apps/labfox/lib/features/merge_requests/presentation/), [diff](../apps/labfox/lib/features/diff/presentation/) | Remaining metadata editing, boards, advanced review. |
 | CI/CD execution | Pipelines/jobs/logs/actions; schedules/run; environments/deployments | [pipelines](../apps/labfox/lib/features/pipelines/presentation/), [jobs](../apps/labfox/lib/features/jobs/presentation/), [schedules](../apps/labfox/lib/features/pipeline_schedules/presentation/) | Configuration, variables, runners, schedule edits. |
 | Planning metadata | Project/group milestones and labels; project/group member browsing | [milestones](../apps/labfox/lib/features/milestones/presentation/), [labels](../apps/labfox/lib/features/project_labels/presentation/), [members](../apps/labfox/lib/features/members/presentation/) | Editing and administration. |
-| Content and distribution | Releases/assets, snippets/files, wiki pages, packages/files, container repositories/tags | [releases](../apps/labfox/lib/features/releases/presentation/), [wiki](../apps/labfox/lib/features/wiki/presentation/), [packages](../apps/labfox/lib/features/package_registry/presentation/), [registry](../apps/labfox/lib/features/container_registry/presentation/) | Authoring and management. |
+| Content and distribution | Releases/assets, snippets/files, wiki page reading and Markdown creation, packages/files, container repositories/tags | [releases](../apps/labfox/lib/features/releases/presentation/), [wiki](../apps/labfox/lib/features/wiki/presentation/), [packages](../apps/labfox/lib/features/package_registry/presentation/), [registry](../apps/labfox/lib/features/container_registry/presentation/) | Editing, deletion, history, and other management. |
 
 ## Known work packages
 
@@ -59,7 +59,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | MW-06 | P1 | Boards and iterations: discover mobile-web behavior, then list/detail/mutations. | Queued | Issue needed |
 | MW-07 | P0 | Advanced MR review: audit inline discussions/suggestions and finish missing review/approval flows. | Queued | Issue needed |
 | MW-08 | P1 | CI/CD configuration: pipeline editor, variables, triggers, and schedule editing. | Queued | Issue needed |
-| MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351), [PR #352](https://github.com/Theorvane/labfox/pull/352) cover Markdown page creation in review. Editing, deletion, history, templates, and conflict handling remain. |
+| MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351), [PR #352](https://github.com/Theorvane/labfox/pull/352) shipped Markdown page creation; [#353](https://github.com/Theorvane/labfox/issues/353), [PR #354](https://github.com/Theorvane/labfox/pull/354) cover editing with best-effort stale-draft detection in review. Deletion, history, templates, and atomic conflict protection remain. |
 | MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | Queued | Issue needed |
 | MW-11 | P1 | Release and milestone creation/editing/closure/deletion. | Queued | Issue needed |
 | MW-12 | P1 | Package/container management, cleanup, and protection by tier. | Queued | Issue needed |

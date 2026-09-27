@@ -3272,6 +3272,60 @@ abstract class AppLocalizations {
   /// **'Could not create the wiki page.'**
   String get wikiCreateError;
 
+  /// No description provided for @wikiEditPageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get wikiEditPageAction;
+
+  /// No description provided for @wikiEditPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit wiki page'**
+  String get wikiEditPage;
+
+  /// No description provided for @wikiEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get wikiEditTitle;
+
+  /// No description provided for @wikiEditContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get wikiEditContent;
+
+  /// No description provided for @wikiSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get wikiSaveChanges;
+
+  /// No description provided for @wikiEditValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title and content.'**
+  String get wikiEditValidationError;
+
+  /// No description provided for @wikiEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the wiki page.'**
+  String get wikiEditError;
+
+  /// No description provided for @wikiEditConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This page changed on GitLab. Reload it before editing again.'**
+  String get wikiEditConflict;
+
+  /// No description provided for @wikiReloadPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload page'**
+  String get wikiReloadPage;
+
   /// Project package registry title and entry
   ///
   /// In en, this message translates to:

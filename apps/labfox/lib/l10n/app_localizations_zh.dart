@@ -1635,6 +1635,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiCreateError => '无法创建维基页面。';
 
   @override
+  String get wikiEditPageAction => '编辑';
+
+  @override
+  String get wikiEditPage => '编辑 Wiki 页面';
+
+  @override
+  String get wikiEditTitle => '标题';
+
+  @override
+  String get wikiEditContent => '内容';
+
+  @override
+  String get wikiSaveChanges => '保存更改';
+
+  @override
+  String get wikiEditValidationError => '请输入标题和内容。';
+
+  @override
+  String get wikiEditError => '无法保存 Wiki 页面。';
+
+  @override
+  String get wikiEditConflict => '此页面已在 GitLab 上更改。请重新加载后再编辑。';
+
+  @override
+  String get wikiReloadPage => '重新加载页面';
+
+  @override
   String get packageRegistryTitle => '软件包仓库';
 
   @override

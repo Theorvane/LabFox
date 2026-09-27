@@ -78,4 +78,33 @@ class WikisApi {
       throw mapError(error, context: 'creating a wiki page');
     }
   }
+
+  /// Updates an existing page by its original, URL-encoded slug.
+  Future<WikiPage> update(
+    Object projectId, {
+    required String slug,
+    required String title,
+    required String content,
+    String? format,
+  }) async {
+    final payload = {'title': title, 'content': content};
+    if (format != null) payload['format'] = format;
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '${_path(projectId)}/${Uri.encodeComponent(slug)}',
+        data: payload,
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a wiki page',
+        );
+      }
+      return WikiPage.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a wiki page');
+    }
+  }
 }

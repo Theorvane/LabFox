@@ -98,6 +98,48 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test('updates a nested wiki page and preserves its format', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        body: {
+          'title': 'New title',
+          'slug': 'docs/New-title',
+          'content': 'Revised & tested',
+          'format': 'asciidoc',
+        },
+      );
+    });
+
+    final page = await client.wikis.update(
+      'team/project',
+      slug: 'docs/old-title',
+      title: 'New title',
+      content: 'Revised & tested',
+      format: 'asciidoc',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/wikis/docs%2Fold-title');
+    expect(request.data, {
+      'title': 'New title',
+      'content': 'Revised & tested',
+      'format': 'asciidoc',
+    });
+    expect(page.slug, 'docs/New-title');
+  });
+
+  test('maps permission errors while updating a wiki page', () async {
+    final client = _client((_) => (status: 403, body: const {}));
+
+    await expectLater(
+      client.wikis.update(7, slug: 'home', title: 'Home', content: 'Text'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(

@@ -1645,6 +1645,34 @@ class AppLocalizationsKo extends AppLocalizations {
   String get wikiCreateError => '위키 페이지를 만들 수 없습니다.';
 
   @override
+  String get wikiEditPageAction => '편집';
+
+  @override
+  String get wikiEditPage => '위키 페이지 편집';
+
+  @override
+  String get wikiEditTitle => '제목';
+
+  @override
+  String get wikiEditContent => '내용';
+
+  @override
+  String get wikiSaveChanges => '변경 사항 저장';
+
+  @override
+  String get wikiEditValidationError => '제목과 내용을 입력하세요.';
+
+  @override
+  String get wikiEditError => '위키 페이지를 저장할 수 없습니다.';
+
+  @override
+  String get wikiEditConflict =>
+      'GitLab에서 이 페이지가 변경되었습니다. 다시 편집하기 전에 페이지를 새로고침하세요.';
+
+  @override
+  String get wikiReloadPage => '페이지 새로고침';
+
+  @override
   String get packageRegistryTitle => '패키지 레지스트리';
 
   @override
