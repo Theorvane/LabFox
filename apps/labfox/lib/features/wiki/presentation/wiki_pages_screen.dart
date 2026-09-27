@@ -34,7 +34,9 @@ class WikiPagesScreen extends ConsumerWidget {
                 builder: (_) => _CreateWikiPageDialog(projectId: projectId),
               );
               if (created != null && context.mounted) {
-                unawaited(context.push(Routes.wikiPage(projectId, created.slug)));
+                unawaited(
+                  context.push(Routes.wikiPage(projectId, created.slug)),
+                );
               }
             },
             icon: const Icon(Icons.add),
