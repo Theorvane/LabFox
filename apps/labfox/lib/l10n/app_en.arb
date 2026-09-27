@@ -175,6 +175,10 @@
   "milestoneCloseConfirmTitle": "Close this milestone?",
   "milestoneCloseConfirmBody": "You can reactivate it later.",
   "milestoneStateError": "Could not change the milestone state.",
+  "milestoneDelete": "Delete milestone",
+  "milestoneDeleteConfirmTitle": "Delete this milestone?",
+  "milestoneDeleteConfirmBody": "This cannot be undone.",
+  "milestoneDeleteError": "Could not delete the milestone.",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"

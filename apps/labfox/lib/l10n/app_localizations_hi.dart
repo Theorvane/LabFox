@@ -533,6 +533,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String get milestoneStateError => 'माइलस्टोन की स्थिति नहीं बदली जा सकी।';
 
   @override
+  String get milestoneDelete => 'माइलस्टोन हटाएं';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'क्या यह माइलस्टोन हटाएं?';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'इसे वापस नहीं लाया जा सकता।';
+
+  @override
+  String get milestoneDeleteError => 'माइलस्टोन हटाया नहीं जा सका।';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

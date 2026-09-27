@@ -529,6 +529,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneStateError => 'マイルストーンの状態を変更できませんでした。';
 
   @override
+  String get milestoneDelete => 'マイルストーンを削除';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'このマイルストーンを削除しますか？';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'この操作は元に戻せません。';
+
+  @override
+  String get milestoneDeleteError => 'マイルストーンを削除できませんでした。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

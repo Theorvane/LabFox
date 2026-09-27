@@ -27,6 +27,42 @@ class MilestoneDetailScreen extends ConsumerWidget {
   final int? groupId;
   final int milestoneId;
 
+  Future<void> _delete(
+    BuildContext context,
+    WidgetRef ref,
+    MilestoneRef key,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.milestoneDeleteConfirmTitle),
+        content: Text(l10n.milestoneDeleteConfirmBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.milestoneDelete),
+          ),
+        ],
+      ),
+    );
+    if (!context.mounted || confirmed != true) return;
+    try {
+      await ref.read(milestoneDeleteControllerProvider(key).notifier).delete();
+      if (!context.mounted) return;
+      context.go(Routes.milestones(key.projectId));
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.milestoneDeleteError)));
+    }
+  }
+
   Future<void> _changeState(
     BuildContext context,
     WidgetRef ref,
@@ -81,6 +117,9 @@ class MilestoneDetailScreen extends ConsumerWidget {
     final changing =
         projectKey != null &&
         ref.watch(milestoneStateControllerProvider(projectKey)).isLoading;
+    final deleting =
+        projectKey != null &&
+        ref.watch(milestoneDeleteControllerProvider(projectKey)).isLoading;
     return Scaffold(
       appBar: AppBar(
         title: Text(milestone.valueOrNull?.title ?? l10n.milestonesTitle),
@@ -126,6 +165,14 @@ class MilestoneDetailScreen extends ConsumerWidget {
                       projectKey,
                       close: milestone.valueOrNull!.state != 'closed',
                     ),
+            ),
+          if (projectKey != null && milestone.valueOrNull != null)
+            IconButton(
+              tooltip: l10n.milestoneDelete,
+              icon: const Icon(Icons.delete_outline),
+              onPressed: deleting || changing
+                  ? null
+                  : () => _delete(context, ref, projectKey),
             ),
         ],
       ),
