@@ -15,6 +15,7 @@ class _FakeRepo extends IssuesRepository {
   bool? lastOpen;
   String? lastTitle;
   String? lastDescription;
+  bool? lastSubscription;
 
   @override
   Future<Issue> get({required int projectId, required int iid}) async => _issue;
@@ -41,6 +42,16 @@ class _FakeRepo extends IssuesRepository {
     lastDescription = description;
     _issue = _issue.copyWith(title: title, description: description);
     return _issue;
+  }
+
+  @override
+  Future<Issue?> setSubscription({
+    required int projectId,
+    required int iid,
+    required bool subscribed,
+  }) async {
+    lastSubscription = subscribed;
+    return null;
   }
 }
 
@@ -86,6 +97,34 @@ void main() {
     expect(repo.lastTitle, 'New');
     expect(repo.lastDescription, '');
     expect(container.read(issueControllerProvider(ref)).value!.title, 'New');
+  });
+
+  test('setSubscription handles an idempotent response', () async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'x',
+        state: 'opened',
+        subscribed: false,
+      ),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+
+    await container
+        .read(issueControllerProvider(ref).notifier)
+        .setSubscription(true);
+
+    expect(repo.lastSubscription, isTrue);
+    expect(
+      container.read(issueControllerProvider(ref)).value!.subscribed,
+      isTrue,
+    );
   });
 
   testWidgets('the detail menu offers Close for an open issue', (tester) async {
@@ -149,5 +188,43 @@ void main() {
     expect(repo.lastDescription, '');
     expect(find.text('New title'), findsOneWidget);
     expect(find.text('No description provided.'), findsOneWidget);
+  });
+
+  testWidgets('subscribes to issue notifications from the detail menu', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        subscribed: false,
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Subscribe to notifications'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastSubscription, isTrue);
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('Unsubscribe from notifications'), findsOneWidget);
   });
 }

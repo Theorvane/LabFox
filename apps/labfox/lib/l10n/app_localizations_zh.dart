@@ -691,6 +691,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueEditError => '无法保存议题。请检查权限后重试。';
 
   @override
+  String get issueSubscribe => '订阅通知';
+
+  @override
+  String get issueUnsubscribe => '取消订阅通知';
+
+  @override
+  String get issueSubscriptionError => '无法更新议题通知。请重试。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

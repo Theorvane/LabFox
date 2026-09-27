@@ -119,6 +119,28 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(issuesControllerProvider);
     ref.invalidate(myIssuesControllerProvider);
   }
+
+  /// Applies the server response or the known target state for an idempotent
+  /// 304 response, without treating an absent subscription field as false.
+  Future<void> setSubscription(bool subscribed) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) {
+      throw StateError('No authenticated account');
+    }
+    final updated = await repo.setSubscription(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      subscribed: subscribed,
+    );
+    final current = state.valueOrNull;
+    if (updated != null) {
+      state = AsyncData(updated.copyWith(subscribed: subscribed));
+    } else if (current != null) {
+      state = AsyncData(current.copyWith(subscribed: subscribed));
+    } else {
+      state = AsyncData(await repo.get(projectId: arg.projectId, iid: arg.iid));
+    }
+  }
 }
 
 final issueControllerProvider =

@@ -693,6 +693,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueEditError => 'イシューを保存できません。権限を確認して再試行してください。';
 
   @override
+  String get issueSubscribe => '通知を購読';
+
+  @override
+  String get issueUnsubscribe => '通知の購読を解除';
+
+  @override
+  String get issueSubscriptionError => 'イシューの通知を変更できません。再試行してください。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

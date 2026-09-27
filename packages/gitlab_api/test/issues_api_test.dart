@@ -210,6 +210,66 @@ void main() {
     });
   });
 
+  group('IssuesApi.setSubscription', () {
+    test('subscribes by issue iid and returns the updated issue', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Issue',
+            'state': 'opened',
+            'subscribed': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setSubscription(
+        7,
+        iid: 5,
+        subscribed: true,
+      );
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/issues/5/subscribe');
+      expect(issue?.subscribed, isTrue);
+    });
+
+    test(
+      'treats an idempotent 304 as success without a response issue',
+      () async {
+        late RequestOptions captured;
+        final client = _client((o) {
+          captured = o;
+          return (status: 304, headers: const {}, body: null);
+        });
+
+        final issue = await client.issues.setSubscription(
+          7,
+          iid: 5,
+          subscribed: false,
+        );
+
+        expect(captured.path, '/projects/7/issues/5/unsubscribe');
+        expect(issue, isNull);
+      },
+    );
+
+    test('maps permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setSubscription(7, iid: 5, subscribed: true),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.listAssignedToMe', () {
     test('lists open issues assigned to the current user', () async {
       late RequestOptions captured;
