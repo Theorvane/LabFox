@@ -206,6 +206,31 @@ class IssuesApi {
     }
   }
 
+  /// Sets or clears an issue due date; an empty value clears the date.
+  Future<Issue> updateDueDate(
+    Object projectId, {
+    required int iid,
+    required String dueDate,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'due_date': dueDate},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue due date',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue due date');
+    }
+  }
+
   /// Subscribes or unsubscribes the current user from issue notifications.
   /// Returns null for GitLab's idempotent 304 (already in the requested state).
   Future<Issue?> setSubscription(

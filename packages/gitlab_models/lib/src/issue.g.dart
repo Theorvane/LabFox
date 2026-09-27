@@ -33,6 +33,9 @@ _Issue _$IssueFromJson(Map<String, dynamic> json) => _Issue(
   updatedAt: json['updated_at'] == null
       ? null
       : DateTime.parse(json['updated_at'] as String),
+  dueDate: json['due_date'] == null
+      ? null
+      : DateTime.parse(json['due_date'] as String),
 );
 
 Map<String, dynamic> _$IssueToJson(_Issue instance) => <String, dynamic>{
@@ -50,4 +53,5 @@ Map<String, dynamic> _$IssueToJson(_Issue instance) => <String, dynamic>{
   'subscribed': instance.subscribed,
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),
+  'due_date': instance.dueDate?.toIso8601String(),
 };

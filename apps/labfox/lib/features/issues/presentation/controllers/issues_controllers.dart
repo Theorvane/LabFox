@@ -121,6 +121,22 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(myIssuesControllerProvider);
   }
 
+  /// Updates the date and refreshes issue lists that show due-date metadata.
+  Future<void> updateDueDate(String dueDate) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) {
+      throw StateError('No authenticated account');
+    }
+    final updated = await repo.updateDueDate(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      dueDate: dueDate,
+    );
+    state = AsyncData(updated);
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
+
   /// Applies the server response or the known target state for an idempotent
   /// 304 response, without treating an absent subscription field as false.
   Future<void> setSubscription(bool subscribed) async {
