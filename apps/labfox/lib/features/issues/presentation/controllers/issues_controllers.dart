@@ -121,6 +121,31 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(myIssuesControllerProvider);
   }
 
+  /// Saves label membership and refreshes detail and list consumers.
+  Future<void> updateLabels(List<String> labels) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) {
+      throw StateError('No authenticated account');
+    }
+    final updated = await repo.updateLabels(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      labels: labels,
+    );
+    // Update responses can contain bare label names. Reload the detailed
+    // resource so its color metadata remains visible on the detail screen.
+    Issue detailed;
+    try {
+      detailed = await repo.get(projectId: arg.projectId, iid: arg.iid);
+    } on GitLabException {
+      // The write succeeded; keep its response if the follow-up read fails.
+      detailed = updated;
+    }
+    state = AsyncData(detailed);
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
+
   /// Updates the date and refreshes issue lists that show due-date metadata.
   Future<void> updateDueDate(String dueDate) async {
     final repo = await ref.read(issuesRepositoryProvider.future);
