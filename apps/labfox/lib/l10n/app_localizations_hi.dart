@@ -283,6 +283,33 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseUpcoming => 'आगामी';
 
   @override
+  String get releaseNew => 'नई रिलीज़';
+
+  @override
+  String get releaseCreate => 'रिलीज़ बनाएँ';
+
+  @override
+  String get releaseTagName => 'टैग का नाम';
+
+  @override
+  String get releaseRef => 'टैग बनाने का रेफ़ (वैकल्पिक)';
+
+  @override
+  String get releaseRefHelp => 'यदि टैग पहले से मौजूद है, तो खाली छोड़ दें।';
+
+  @override
+  String get releaseName => 'रिलीज़ का नाम (वैकल्पिक)';
+
+  @override
+  String get releaseDescription => 'विवरण (Markdown)';
+
+  @override
+  String get releaseTagRequired => 'टैग का नाम दर्ज करें।';
+
+  @override
+  String get releaseCreateError => 'रिलीज़ नहीं बनाई जा सकी।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

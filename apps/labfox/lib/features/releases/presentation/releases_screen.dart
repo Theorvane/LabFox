@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -14,6 +17,17 @@ class ReleasesScreen extends ConsumerWidget {
 
   final int projectId;
 
+  Future<void> _openCreate(BuildContext context) async {
+    final created = await showDialog<GitLabRelease>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => _CreateReleaseDialog(projectId: projectId),
+    );
+    if (created != null && context.mounted) {
+      unawaited(context.push(Routes.release(projectId, created.tagName)));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -21,6 +35,13 @@ class ReleasesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.releasesTitle),
+        actions: [
+          TextButton.icon(
+            onPressed: () => _openCreate(context),
+            icon: const Icon(Icons.add),
+            label: Text(l10n.releaseNew),
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
@@ -109,6 +130,122 @@ class ReleasesScreen extends ConsumerWidget {
                 ),
               ),
       ),
+    );
+  }
+}
+
+class _CreateReleaseDialog extends ConsumerStatefulWidget {
+  const _CreateReleaseDialog({required this.projectId});
+
+  final int projectId;
+
+  @override
+  ConsumerState<_CreateReleaseDialog> createState() =>
+      _CreateReleaseDialogState();
+}
+
+class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
+  final _tag = TextEditingController();
+  final _ref = TextEditingController();
+  final _name = TextEditingController();
+  final _description = TextEditingController();
+  bool _saving = false;
+  String? _error;
+
+  @override
+  void dispose() {
+    _tag.dispose();
+    _ref.dispose();
+    _name.dispose();
+    _description.dispose();
+    super.dispose();
+  }
+
+  Future<void> _create() async {
+    final l10n = AppLocalizations.of(context);
+    if (_tag.text.trim().isEmpty) {
+      setState(() => _error = l10n.releaseTagRequired);
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      final created = await ref
+          .read(releaseListControllerProvider(widget.projectId).notifier)
+          .create(
+            tagName: _tag.text,
+            ref: _ref.text,
+            name: _name.text,
+            description: _description.text,
+          );
+      if (!mounted) return;
+      Navigator.of(context).pop(created);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        _error = l10n.releaseCreateError;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      scrollable: true,
+      title: Text(l10n.releaseNew),
+      content: SizedBox(
+        width: 480,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _tag,
+              enabled: !_saving,
+              decoration: InputDecoration(labelText: l10n.releaseTagName),
+            ),
+            TextField(
+              controller: _ref,
+              enabled: !_saving,
+              decoration: InputDecoration(
+                labelText: l10n.releaseRef,
+                helperText: l10n.releaseRefHelp,
+              ),
+            ),
+            TextField(
+              controller: _name,
+              enabled: !_saving,
+              decoration: InputDecoration(labelText: l10n.releaseName),
+            ),
+            TextField(
+              controller: _description,
+              enabled: !_saving,
+              maxLines: 5,
+              decoration: InputDecoration(labelText: l10n.releaseDescription),
+            ),
+            if (_error != null) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(
+                _error!,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _saving ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _saving ? null : _create,
+          child: Text(l10n.releaseCreate),
+        ),
+      ],
     );
   }
 }

@@ -64,6 +64,29 @@ class ReleaseListController
       _loadingMore = false;
     }
   }
+
+  Future<GitLabRelease> create({
+    required String tagName,
+    String? ref,
+    String? name,
+    String? description,
+  }) async {
+    final trimmedTag = tagName.trim();
+    if (trimmedTag.isEmpty) throw ArgumentError.value(tagName, 'tagName');
+    final repository = await this.ref.read(releasesRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    final created = await repository.create(
+      arg,
+      tagName: trimmedTag,
+      ref: ref?.trim().isEmpty == true ? null : ref?.trim(),
+      name: name?.trim().isEmpty == true ? null : name?.trim(),
+      description: description?.trim().isEmpty == true
+          ? null
+          : description?.trim(),
+    );
+    this.ref.invalidateSelf();
+    return created;
+  }
 }
 
 final releaseListControllerProvider =

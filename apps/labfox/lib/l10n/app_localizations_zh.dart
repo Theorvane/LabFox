@@ -281,6 +281,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseUpcoming => '即将发布';
 
   @override
+  String get releaseNew => '新建发行版';
+
+  @override
+  String get releaseCreate => '创建发行版';
+
+  @override
+  String get releaseTagName => '标签名称';
+
+  @override
+  String get releaseRef => '创建标签所用的引用（可选）';
+
+  @override
+  String get releaseRefHelp => '如果标签已存在，请留空。';
+
+  @override
+  String get releaseName => '发行版名称（可选）';
+
+  @override
+  String get releaseDescription => '描述（Markdown）';
+
+  @override
+  String get releaseTagRequired => '请输入标签名称。';
+
+  @override
+  String get releaseCreateError => '无法创建发行版。';
+
+  @override
   String get activityTitle => '动态';
 
   @override
