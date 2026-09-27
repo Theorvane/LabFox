@@ -37,6 +37,25 @@ void main() {
     expect(page.items.single.dueDate, DateTime(2026, 10, 1));
   });
 
+  test('includes ancestor-group milestones for issue selection', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 200, headers: const {}, body: const []);
+    });
+
+    await client.milestones.list(
+      7,
+      state: 'active',
+      includeAncestors: true,
+      page: 2,
+    );
+
+    expect(request.queryParameters['include_ancestors'], true);
+    expect(request.queryParameters['state'], 'active');
+    expect(request.queryParameters['page'], 2);
+  });
+
   test(
     'gets a milestone using its global id and maps forbidden access',
     () async {

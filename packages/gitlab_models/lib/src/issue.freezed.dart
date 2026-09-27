@@ -17,7 +17,7 @@ mixin _$Issue {
 
  int get id; int get iid; String get title; String get state;// Present in list and search responses; lets a search hit route to its
 // project. Absent when a single issue is fetched under a known project.
-@JsonKey(name: 'project_id') int? get projectId; String? get description; User? get author; List<User> get assignees;@JsonKey(fromJson: Label.listFromJson) List<Label> get labels;@JsonKey(name: 'web_url') String? get webUrl;@JsonKey(name: 'user_notes_count') int get commentCount; bool? get subscribed;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;@JsonKey(name: 'due_date') DateTime? get dueDate;
+@JsonKey(name: 'project_id') int? get projectId; String? get description; User? get author; List<User> get assignees;@JsonKey(fromJson: Label.listFromJson) List<Label> get labels;@JsonKey(name: 'web_url') String? get webUrl;@JsonKey(name: 'user_notes_count') int get commentCount; bool? get subscribed;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;@JsonKey(name: 'due_date') DateTime? get dueDate; GitLabMilestone? get milestone;
 /// Create a copy of Issue
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +30,16 @@ $IssueCopyWith<Issue> get copyWith => _$IssueCopyWithImpl<Issue>(this as Issue, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Issue&&(identical(other.id, id) || other.id == id)&&(identical(other.iid, iid) || other.iid == iid)&&(identical(other.title, title) || other.title == title)&&(identical(other.state, state) || other.state == state)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&const DeepCollectionEquality().equals(other.assignees, assignees)&&const DeepCollectionEquality().equals(other.labels, labels)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.commentCount, commentCount) || other.commentCount == commentCount)&&(identical(other.subscribed, subscribed) || other.subscribed == subscribed)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Issue&&(identical(other.id, id) || other.id == id)&&(identical(other.iid, iid) || other.iid == iid)&&(identical(other.title, title) || other.title == title)&&(identical(other.state, state) || other.state == state)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&const DeepCollectionEquality().equals(other.assignees, assignees)&&const DeepCollectionEquality().equals(other.labels, labels)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.commentCount, commentCount) || other.commentCount == commentCount)&&(identical(other.subscribed, subscribed) || other.subscribed == subscribed)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.milestone, milestone) || other.milestone == milestone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,iid,title,state,projectId,description,author,const DeepCollectionEquality().hash(assignees),const DeepCollectionEquality().hash(labels),webUrl,commentCount,subscribed,createdAt,updatedAt,dueDate);
+int get hashCode => Object.hash(runtimeType,id,iid,title,state,projectId,description,author,const DeepCollectionEquality().hash(assignees),const DeepCollectionEquality().hash(labels),webUrl,commentCount,subscribed,createdAt,updatedAt,dueDate,milestone);
 
 @override
 String toString() {
-  return 'Issue(id: $id, iid: $iid, title: $title, state: $state, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, webUrl: $webUrl, commentCount: $commentCount, subscribed: $subscribed, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate)';
+  return 'Issue(id: $id, iid: $iid, title: $title, state: $state, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, webUrl: $webUrl, commentCount: $commentCount, subscribed: $subscribed, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate, milestone: $milestone)';
 }
 
 
@@ -50,11 +50,11 @@ abstract mixin class $IssueCopyWith<$Res>  {
   factory $IssueCopyWith(Issue value, $Res Function(Issue) _then) = _$IssueCopyWithImpl;
 @useResult
 $Res call({
- int id, int iid, String title, String state,@JsonKey(name: 'project_id') int? projectId, String? description, User? author, List<User> assignees,@JsonKey(fromJson: Label.listFromJson) List<Label> labels,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'user_notes_count') int commentCount, bool? subscribed,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'due_date') DateTime? dueDate
+ int id, int iid, String title, String state,@JsonKey(name: 'project_id') int? projectId, String? description, User? author, List<User> assignees,@JsonKey(fromJson: Label.listFromJson) List<Label> labels,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'user_notes_count') int commentCount, bool? subscribed,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'due_date') DateTime? dueDate, GitLabMilestone? milestone
 });
 
 
-$UserCopyWith<$Res>? get author;
+$UserCopyWith<$Res>? get author;$GitLabMilestoneCopyWith<$Res>? get milestone;
 
 }
 /// @nodoc
@@ -67,7 +67,7 @@ class _$IssueCopyWithImpl<$Res>
 
 /// Create a copy of Issue
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? iid = null,Object? title = null,Object? state = null,Object? projectId = freezed,Object? description = freezed,Object? author = freezed,Object? assignees = null,Object? labels = null,Object? webUrl = freezed,Object? commentCount = null,Object? subscribed = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? dueDate = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? iid = null,Object? title = null,Object? state = null,Object? projectId = freezed,Object? description = freezed,Object? author = freezed,Object? assignees = null,Object? labels = null,Object? webUrl = freezed,Object? commentCount = null,Object? subscribed = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? dueDate = freezed,Object? milestone = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,iid: null == iid ? _self.iid : iid // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,8 @@ as int,subscribed: freezed == subscribed ? _self.subscribed : subscribed // igno
 as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,milestone: freezed == milestone ? _self.milestone : milestone // ignore: cast_nullable_to_non_nullable
+as GitLabMilestone?,
   ));
 }
 /// Create a copy of Issue
@@ -98,6 +99,18 @@ $UserCopyWith<$Res>? get author {
 
   return $UserCopyWith<$Res>(_self.author!, (value) {
     return _then(_self.copyWith(author: value));
+  });
+}/// Create a copy of Issue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GitLabMilestoneCopyWith<$Res>? get milestone {
+    if (_self.milestone == null) {
+    return null;
+  }
+
+  return $GitLabMilestoneCopyWith<$Res>(_self.milestone!, (value) {
+    return _then(_self.copyWith(milestone: value));
   });
 }
 }
@@ -181,10 +194,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate,  GitLabMilestone? milestone)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Issue() when $default != null:
-return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate);case _:
+return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate,_that.milestone);case _:
   return orElse();
 
 }
@@ -202,10 +215,10 @@ return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate,  GitLabMilestone? milestone)  $default,) {final _that = this;
 switch (_that) {
 case _Issue():
-return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate);case _:
+return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate,_that.milestone);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -222,10 +235,10 @@ return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int iid,  String title,  String state, @JsonKey(name: 'project_id')  int? projectId,  String? description,  User? author,  List<User> assignees, @JsonKey(fromJson: Label.listFromJson)  List<Label> labels, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'user_notes_count')  int commentCount,  bool? subscribed, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt, @JsonKey(name: 'due_date')  DateTime? dueDate,  GitLabMilestone? milestone)?  $default,) {final _that = this;
 switch (_that) {
 case _Issue() when $default != null:
-return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate);case _:
+return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that.description,_that.author,_that.assignees,_that.labels,_that.webUrl,_that.commentCount,_that.subscribed,_that.createdAt,_that.updatedAt,_that.dueDate,_that.milestone);case _:
   return null;
 
 }
@@ -237,7 +250,7 @@ return $default(_that.id,_that.iid,_that.title,_that.state,_that.projectId,_that
 @JsonSerializable()
 
 class _Issue extends Issue {
-  const _Issue({required this.id, required this.iid, required this.title, required this.state, @JsonKey(name: 'project_id') this.projectId, this.description, this.author, final  List<User> assignees = const <User>[], @JsonKey(fromJson: Label.listFromJson) final  List<Label> labels = const <Label>[], @JsonKey(name: 'web_url') this.webUrl, @JsonKey(name: 'user_notes_count') this.commentCount = 0, this.subscribed, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt, @JsonKey(name: 'due_date') this.dueDate}): _assignees = assignees,_labels = labels,super._();
+  const _Issue({required this.id, required this.iid, required this.title, required this.state, @JsonKey(name: 'project_id') this.projectId, this.description, this.author, final  List<User> assignees = const <User>[], @JsonKey(fromJson: Label.listFromJson) final  List<Label> labels = const <Label>[], @JsonKey(name: 'web_url') this.webUrl, @JsonKey(name: 'user_notes_count') this.commentCount = 0, this.subscribed, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt, @JsonKey(name: 'due_date') this.dueDate, this.milestone}): _assignees = assignees,_labels = labels,super._();
   factory _Issue.fromJson(Map<String, dynamic> json) => _$IssueFromJson(json);
 
 @override final  int id;
@@ -269,6 +282,7 @@ class _Issue extends Issue {
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 @override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
 @override@JsonKey(name: 'due_date') final  DateTime? dueDate;
+@override final  GitLabMilestone? milestone;
 
 /// Create a copy of Issue
 /// with the given fields replaced by the non-null parameter values.
@@ -283,16 +297,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Issue&&(identical(other.id, id) || other.id == id)&&(identical(other.iid, iid) || other.iid == iid)&&(identical(other.title, title) || other.title == title)&&(identical(other.state, state) || other.state == state)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&const DeepCollectionEquality().equals(other._assignees, _assignees)&&const DeepCollectionEquality().equals(other._labels, _labels)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.commentCount, commentCount) || other.commentCount == commentCount)&&(identical(other.subscribed, subscribed) || other.subscribed == subscribed)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Issue&&(identical(other.id, id) || other.id == id)&&(identical(other.iid, iid) || other.iid == iid)&&(identical(other.title, title) || other.title == title)&&(identical(other.state, state) || other.state == state)&&(identical(other.projectId, projectId) || other.projectId == projectId)&&(identical(other.description, description) || other.description == description)&&(identical(other.author, author) || other.author == author)&&const DeepCollectionEquality().equals(other._assignees, _assignees)&&const DeepCollectionEquality().equals(other._labels, _labels)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.commentCount, commentCount) || other.commentCount == commentCount)&&(identical(other.subscribed, subscribed) || other.subscribed == subscribed)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.dueDate, dueDate) || other.dueDate == dueDate)&&(identical(other.milestone, milestone) || other.milestone == milestone));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,iid,title,state,projectId,description,author,const DeepCollectionEquality().hash(_assignees),const DeepCollectionEquality().hash(_labels),webUrl,commentCount,subscribed,createdAt,updatedAt,dueDate);
+int get hashCode => Object.hash(runtimeType,id,iid,title,state,projectId,description,author,const DeepCollectionEquality().hash(_assignees),const DeepCollectionEquality().hash(_labels),webUrl,commentCount,subscribed,createdAt,updatedAt,dueDate,milestone);
 
 @override
 String toString() {
-  return 'Issue(id: $id, iid: $iid, title: $title, state: $state, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, webUrl: $webUrl, commentCount: $commentCount, subscribed: $subscribed, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate)';
+  return 'Issue(id: $id, iid: $iid, title: $title, state: $state, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, webUrl: $webUrl, commentCount: $commentCount, subscribed: $subscribed, createdAt: $createdAt, updatedAt: $updatedAt, dueDate: $dueDate, milestone: $milestone)';
 }
 
 
@@ -303,11 +317,11 @@ abstract mixin class _$IssueCopyWith<$Res> implements $IssueCopyWith<$Res> {
   factory _$IssueCopyWith(_Issue value, $Res Function(_Issue) _then) = __$IssueCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int iid, String title, String state,@JsonKey(name: 'project_id') int? projectId, String? description, User? author, List<User> assignees,@JsonKey(fromJson: Label.listFromJson) List<Label> labels,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'user_notes_count') int commentCount, bool? subscribed,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'due_date') DateTime? dueDate
+ int id, int iid, String title, String state,@JsonKey(name: 'project_id') int? projectId, String? description, User? author, List<User> assignees,@JsonKey(fromJson: Label.listFromJson) List<Label> labels,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'user_notes_count') int commentCount, bool? subscribed,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt,@JsonKey(name: 'due_date') DateTime? dueDate, GitLabMilestone? milestone
 });
 
 
-@override $UserCopyWith<$Res>? get author;
+@override $UserCopyWith<$Res>? get author;@override $GitLabMilestoneCopyWith<$Res>? get milestone;
 
 }
 /// @nodoc
@@ -320,7 +334,7 @@ class __$IssueCopyWithImpl<$Res>
 
 /// Create a copy of Issue
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? iid = null,Object? title = null,Object? state = null,Object? projectId = freezed,Object? description = freezed,Object? author = freezed,Object? assignees = null,Object? labels = null,Object? webUrl = freezed,Object? commentCount = null,Object? subscribed = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? dueDate = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? iid = null,Object? title = null,Object? state = null,Object? projectId = freezed,Object? description = freezed,Object? author = freezed,Object? assignees = null,Object? labels = null,Object? webUrl = freezed,Object? commentCount = null,Object? subscribed = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? dueDate = freezed,Object? milestone = freezed,}) {
   return _then(_Issue(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,iid: null == iid ? _self.iid : iid // ignore: cast_nullable_to_non_nullable
@@ -337,7 +351,8 @@ as int,subscribed: freezed == subscribed ? _self.subscribed : subscribed // igno
 as bool?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,dueDate: freezed == dueDate ? _self.dueDate : dueDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,milestone: freezed == milestone ? _self.milestone : milestone // ignore: cast_nullable_to_non_nullable
+as GitLabMilestone?,
   ));
 }
 
@@ -352,6 +367,18 @@ $UserCopyWith<$Res>? get author {
 
   return $UserCopyWith<$Res>(_self.author!, (value) {
     return _then(_self.copyWith(author: value));
+  });
+}/// Create a copy of Issue
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$GitLabMilestoneCopyWith<$Res>? get milestone {
+    if (_self.milestone == null) {
+    return null;
+  }
+
+  return $GitLabMilestoneCopyWith<$Res>(_self.milestone!, (value) {
+    return _then(_self.copyWith(milestone: value));
   });
 }
 }

@@ -706,6 +706,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueEditDueDate => '마감일 수정';
 
   @override
+  String get issueEditMilestone => '마일스톤 편집';
+
+  @override
   String get issueEditAssignees => '담당자 편집';
 
   @override
@@ -716,6 +719,15 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get issueAssigneesSaveError => '담당자를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueNoMilestone => '마일스톤 없음';
+
+  @override
+  String get issueMilestonesLoadError => '마일스톤을 불러올 수 없습니다.';
+
+  @override
+  String get issueMilestoneSaveError => '마일스톤을 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
   String get issueDueDate => '마감일';

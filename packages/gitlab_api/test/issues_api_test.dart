@@ -266,6 +266,67 @@ void main() {
     });
   });
 
+  group('IssuesApi.updateMilestone', () {
+    test('uses global milestone id and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'milestone': {
+              'id': 17,
+              'iid': 2,
+              'title': 'v4.0',
+              'state': 'active',
+            },
+          },
+        );
+      });
+
+      final issue = await client.issues.updateMilestone(
+        'team/project',
+        iid: 5,
+        milestoneId: 17,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'milestone_id': 17});
+      expect(issue.milestone?.id, 17);
+    });
+
+    test('sends zero to clear the milestone', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateMilestone(7, iid: 5, milestoneId: 0);
+      expect(captured.data, {'milestone_id': 0});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateMilestone(7, iid: 5, milestoneId: 0),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.updateDueDate', () {
     test('sets a date by project path and issue iid', () async {
       late RequestOptions captured;

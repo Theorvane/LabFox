@@ -14,19 +14,25 @@ final milestonesRepositoryProvider = FutureProvider<MilestonesRepository?>((
 });
 
 class MilestoneListRef {
-  const MilestoneListRef({required this.projectId, required this.state});
+  const MilestoneListRef({
+    required this.projectId,
+    required this.state,
+    this.includeAncestors = false,
+  });
 
   final int projectId;
   final String state;
+  final bool includeAncestors;
 
   @override
   bool operator ==(Object other) =>
       other is MilestoneListRef &&
       projectId == other.projectId &&
-      state == other.state;
+      state == other.state &&
+      includeAncestors == other.includeAncestors;
 
   @override
-  int get hashCode => Object.hash(projectId, state);
+  int get hashCode => Object.hash(projectId, state, includeAncestors);
 }
 
 class MilestoneRef {
@@ -54,7 +60,11 @@ class MilestoneListController
   Future<Paginated<GitLabMilestone>> build(MilestoneListRef arg) async {
     final repository = await ref.watch(milestonesRepositoryProvider.future);
     if (repository == null) throw StateError('No authenticated account');
-    return repository.list(arg.projectId, state: arg.state);
+    return repository.list(
+      arg.projectId,
+      state: arg.state,
+      includeAncestors: arg.includeAncestors,
+    );
   }
 
   Future<void> loadMore() async {
@@ -70,6 +80,7 @@ class MilestoneListController
         arg.projectId,
         state: arg.state,
         page: page,
+        includeAncestors: arg.includeAncestors,
       );
       state = AsyncData(
         Paginated(
