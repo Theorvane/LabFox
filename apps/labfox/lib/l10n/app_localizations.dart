@@ -3242,6 +3242,12 @@ abstract class AppLocalizations {
   /// **'Visibility'**
   String get snippetVisibilityField;
 
+  /// No description provided for @snippetVisibilityUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current visibility'**
+  String get snippetVisibilityUnchanged;
+
   /// No description provided for @snippetPrivate.
   ///
   /// In en, this message translates to:

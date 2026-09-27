@@ -453,6 +453,11 @@ class _EditSnippetDialogState extends ConsumerState<_EditSnippetDialog> {
   late final TextEditingController _description = TextEditingController(
     text: widget.snippet.description ?? '',
   );
+  late String? _visibility = switch (widget.snippet.visibility) {
+    'private' => 'private',
+    'public' => 'public',
+    _ => null,
+  };
   bool _busy = false;
   bool _invalid = false;
   bool _failed = false;
@@ -486,6 +491,9 @@ class _EditSnippetDialogState extends ConsumerState<_EditSnippetDialog> {
             snippetId: widget.snippet.id,
             title: title,
             description: _description.text.trim(),
+            visibility: _visibility == widget.snippet.visibility
+                ? null
+                : _visibility,
           );
       if (mounted) Navigator.of(context).pop();
     } on Exception {
@@ -518,6 +526,32 @@ class _EditSnippetDialogState extends ConsumerState<_EditSnippetDialog> {
               decoration: InputDecoration(
                 labelText: l10n.snippetDescriptionField,
               ),
+            ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            DropdownButtonFormField<String>(
+              initialValue: _visibility,
+              isExpanded: true,
+              hint: Text(
+                l10n.snippetVisibilityUnchanged,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              decoration: InputDecoration(
+                labelText: l10n.snippetVisibilityField,
+              ),
+              items: [
+                DropdownMenuItem(
+                  value: 'private',
+                  child: Text(l10n.snippetPrivate),
+                ),
+                DropdownMenuItem(
+                  value: 'public',
+                  child: Text(l10n.snippetPublic),
+                ),
+              ],
+              onChanged: _busy
+                  ? null
+                  : (value) => setState(() => _visibility = value),
             ),
             if (_invalid) ...[
               const SizedBox(height: LabFoxSpacing.sm),

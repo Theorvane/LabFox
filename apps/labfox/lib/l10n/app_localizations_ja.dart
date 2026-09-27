@@ -1626,6 +1626,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetVisibilityField => '公開範囲';
 
   @override
+  String get snippetVisibilityUnchanged => '現在の公開範囲を維持';
+
+  @override
   String get snippetPrivate => '非公開';
 
   @override

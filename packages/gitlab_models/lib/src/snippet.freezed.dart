@@ -281,7 +281,7 @@ as String?,
 /// @nodoc
 mixin _$Snippet {
 
- int get id; String get title; String? get description;@JsonKey(name: 'file_name') String? get fileName; List<SnippetFile> get files;@JsonKey(name: 'web_url') String? get webUrl;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+ int get id; String get title; String? get description; String? get visibility;@JsonKey(name: 'file_name') String? get fileName; List<SnippetFile> get files;@JsonKey(name: 'web_url') String? get webUrl;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
 /// Create a copy of Snippet
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -294,16 +294,16 @@ $SnippetCopyWith<Snippet> get copyWith => _$SnippetCopyWithImpl<Snippet>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Snippet&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&const DeepCollectionEquality().equals(other.files, files)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Snippet&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&const DeepCollectionEquality().equals(other.files, files)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,fileName,const DeepCollectionEquality().hash(files),webUrl,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,title,description,visibility,fileName,const DeepCollectionEquality().hash(files),webUrl,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'Snippet(id: $id, title: $title, description: $description, fileName: $fileName, files: $files, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Snippet(id: $id, title: $title, description: $description, visibility: $visibility, fileName: $fileName, files: $files, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -314,7 +314,7 @@ abstract mixin class $SnippetCopyWith<$Res>  {
   factory $SnippetCopyWith(Snippet value, $Res Function(Snippet) _then) = _$SnippetCopyWithImpl;
 @useResult
 $Res call({
- int id, String title, String? description,@JsonKey(name: 'file_name') String? fileName, List<SnippetFile> files,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ int id, String title, String? description, String? visibility,@JsonKey(name: 'file_name') String? fileName, List<SnippetFile> files,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -331,11 +331,12 @@ class _$SnippetCopyWithImpl<$Res>
 
 /// Create a copy of Snippet
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = freezed,Object? fileName = freezed,Object? files = null,Object? webUrl = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? description = freezed,Object? visibility = freezed,Object? fileName = freezed,Object? files = null,Object? webUrl = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
 as String?,fileName: freezed == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
 as String?,files: null == files ? _self.files : files // ignore: cast_nullable_to_non_nullable
 as List<SnippetFile>,webUrl: freezed == webUrl ? _self.webUrl : webUrl // ignore: cast_nullable_to_non_nullable
@@ -426,10 +427,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String? description, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String title,  String? description,  String? visibility, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Snippet() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.title,_that.description,_that.visibility,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -447,10 +448,10 @@ return $default(_that.id,_that.title,_that.description,_that.fileName,_that.file
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String? description, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String title,  String? description,  String? visibility, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Snippet():
-return $default(_that.id,_that.title,_that.description,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.title,_that.description,_that.visibility,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -467,10 +468,10 @@ return $default(_that.id,_that.title,_that.description,_that.fileName,_that.file
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String? description, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String title,  String? description,  String? visibility, @JsonKey(name: 'file_name')  String? fileName,  List<SnippetFile> files, @JsonKey(name: 'web_url')  String? webUrl, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Snippet() when $default != null:
-return $default(_that.id,_that.title,_that.description,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.title,_that.description,_that.visibility,_that.fileName,_that.files,_that.webUrl,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -482,12 +483,13 @@ return $default(_that.id,_that.title,_that.description,_that.fileName,_that.file
 @JsonSerializable()
 
 class _Snippet implements Snippet {
-  const _Snippet({required this.id, required this.title, this.description, @JsonKey(name: 'file_name') this.fileName, final  List<SnippetFile> files = const [], @JsonKey(name: 'web_url') this.webUrl, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt}): _files = files;
+  const _Snippet({required this.id, required this.title, this.description, this.visibility, @JsonKey(name: 'file_name') this.fileName, final  List<SnippetFile> files = const [], @JsonKey(name: 'web_url') this.webUrl, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt}): _files = files;
   factory _Snippet.fromJson(Map<String, dynamic> json) => _$SnippetFromJson(json);
 
 @override final  int id;
 @override final  String title;
 @override final  String? description;
+@override final  String? visibility;
 @override@JsonKey(name: 'file_name') final  String? fileName;
  final  List<SnippetFile> _files;
 @override@JsonKey() List<SnippetFile> get files {
@@ -513,16 +515,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Snippet&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&const DeepCollectionEquality().equals(other._files, _files)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Snippet&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.description, description) || other.description == description)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.fileName, fileName) || other.fileName == fileName)&&const DeepCollectionEquality().equals(other._files, _files)&&(identical(other.webUrl, webUrl) || other.webUrl == webUrl)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,title,description,fileName,const DeepCollectionEquality().hash(_files),webUrl,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,title,description,visibility,fileName,const DeepCollectionEquality().hash(_files),webUrl,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'Snippet(id: $id, title: $title, description: $description, fileName: $fileName, files: $files, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Snippet(id: $id, title: $title, description: $description, visibility: $visibility, fileName: $fileName, files: $files, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -533,7 +535,7 @@ abstract mixin class _$SnippetCopyWith<$Res> implements $SnippetCopyWith<$Res> {
   factory _$SnippetCopyWith(_Snippet value, $Res Function(_Snippet) _then) = __$SnippetCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String title, String? description,@JsonKey(name: 'file_name') String? fileName, List<SnippetFile> files,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ int id, String title, String? description, String? visibility,@JsonKey(name: 'file_name') String? fileName, List<SnippetFile> files,@JsonKey(name: 'web_url') String? webUrl,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -550,11 +552,12 @@ class __$SnippetCopyWithImpl<$Res>
 
 /// Create a copy of Snippet
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = freezed,Object? fileName = freezed,Object? files = null,Object? webUrl = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? description = freezed,Object? visibility = freezed,Object? fileName = freezed,Object? files = null,Object? webUrl = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_Snippet(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
 as String?,fileName: freezed == fileName ? _self.fileName : fileName // ignore: cast_nullable_to_non_nullable
 as String?,files: null == files ? _self._files : files // ignore: cast_nullable_to_non_nullable
 as List<SnippetFile>,webUrl: freezed == webUrl ? _self.webUrl : webUrl // ignore: cast_nullable_to_non_nullable

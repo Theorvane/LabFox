@@ -1656,6 +1656,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetVisibilityField => 'दृश्यता';
 
   @override
+  String get snippetVisibilityUnchanged => 'मौजूदा दृश्यता बनाए रखें';
+
+  @override
   String get snippetPrivate => 'निजी';
 
   @override

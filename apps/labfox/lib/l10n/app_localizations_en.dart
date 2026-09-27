@@ -1660,6 +1660,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetVisibilityField => 'Visibility';
 
   @override
+  String get snippetVisibilityUnchanged => 'Keep current visibility';
+
+  @override
   String get snippetPrivate => 'Private';
 
   @override
