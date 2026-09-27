@@ -19,6 +19,18 @@ class WikiPagesController extends FamilyAsyncNotifier<List<WikiPage>, int> {
     }
     return repository.pages(arg);
   }
+
+  /// Creates a page, then reloads the list so it appears after navigation.
+  Future<WikiPage> create({
+    required String title,
+    required String content,
+  }) async {
+    final repository = await ref.read(wikiRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    final page = await repository.create(arg, title: title, content: content);
+    ref.invalidateSelf();
+    return page;
+  }
 }
 
 final wikiPagesControllerProvider =

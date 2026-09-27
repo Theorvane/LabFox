@@ -1653,6 +1653,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wikiPageError => 'यह विकी पृष्ठ लोड नहीं हो सका।';
 
   @override
+  String get wikiNewPage => 'नया पृष्ठ';
+
+  @override
+  String get wikiPageTitle => 'शीर्षक';
+
+  @override
+  String get wikiPageContent => 'सामग्री';
+
+  @override
+  String get wikiCreatePage => 'पृष्ठ बनाएं';
+
+  @override
+  String get wikiCreateValidationError => 'शीर्षक और सामग्री दर्ज करें।';
+
+  @override
+  String get wikiCreateError => 'विकी पृष्ठ नहीं बनाया जा सका।';
+
+  @override
   String get packageRegistryTitle => 'पैकेज रजिस्ट्री';
 
   @override

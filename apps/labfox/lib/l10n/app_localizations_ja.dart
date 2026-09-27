@@ -1623,6 +1623,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wikiPageError => 'このWikiページを読み込めませんでした。';
 
   @override
+  String get wikiNewPage => '新しいページ';
+
+  @override
+  String get wikiPageTitle => 'タイトル';
+
+  @override
+  String get wikiPageContent => '内容';
+
+  @override
+  String get wikiCreatePage => 'ページを作成';
+
+  @override
+  String get wikiCreateValidationError => 'タイトルと内容を入力してください。';
+
+  @override
+  String get wikiCreateError => 'Wikiページを作成できませんでした。';
+
+  @override
   String get packageRegistryTitle => 'パッケージレジストリ';
 
   @override

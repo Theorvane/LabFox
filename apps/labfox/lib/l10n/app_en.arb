@@ -1417,6 +1417,12 @@
   "@wikiPageError": {
     "description": "Shown when reading a wiki page fails"
   },
+  "wikiNewPage": "New page",
+  "wikiPageTitle": "Title",
+  "wikiPageContent": "Content",
+  "wikiCreatePage": "Create page",
+  "wikiCreateValidationError": "Enter a title and content.",
+  "wikiCreateError": "Could not create the wiki page.",
   "packageRegistryTitle": "Package registry",
   "@packageRegistryTitle": {"description": "Project package registry title and entry"},
   "packageRegistryEmpty": "No packages yet.",

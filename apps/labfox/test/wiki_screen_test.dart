@@ -5,9 +5,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 import 'package:labfox/app/router.dart';
+import 'package:labfox/features/wiki/data/wiki_repository.dart';
 import 'package:labfox/features/wiki/presentation/controllers/wiki_controllers.dart';
 import 'package:labfox/features/wiki/presentation/wiki_page_screen.dart';
 import 'package:labfox/features/wiki/presentation/wiki_pages_screen.dart';
@@ -17,6 +19,9 @@ class _StubPages extends WikiPagesController {
   _StubPages(this.value);
 
   final AsyncValue<List<WikiPage>> value;
+  String? lastCreatedTitle;
+  String? lastCreatedContent;
+  bool rejectCreate = false;
 
   @override
   Future<List<WikiPage>> build(int projectId) => value.when(
@@ -24,6 +29,22 @@ class _StubPages extends WikiPagesController {
     loading: () => Completer<List<WikiPage>>().future,
     error: Future.error,
   );
+
+  @override
+  Future<WikiPage> create({
+    required String title,
+    required String content,
+  }) async {
+    if (rejectCreate) throw const GitLabForbiddenException('Forbidden');
+    lastCreatedTitle = title;
+    lastCreatedContent = content;
+    return WikiPage(
+      title: title,
+      slug: 'Getting-Started',
+      content: content,
+      format: 'markdown',
+    );
+  }
 }
 
 class _StubPage extends WikiPageController {
@@ -39,12 +60,37 @@ class _StubPage extends WikiPageController {
   );
 }
 
+class _FakeWikiRepository extends WikiRepository {
+  _FakeWikiRepository()
+    : super(GitLabClient(baseUrl: 'https://example.com', token: 'x'));
+
+  int listCalls = 0;
+  WikiPage? created;
+
+  @override
+  Future<List<WikiPage>> pages(int projectId) async {
+    listCalls++;
+    return [?created];
+  }
+
+  @override
+  Future<WikiPage> create(
+    int projectId, {
+    required String title,
+    required String content,
+  }) async {
+    created = WikiPage(title: title, slug: 'server-slug', content: content);
+    return created!;
+  }
+}
+
 Future<void> _pump(
   WidgetTester tester, {
   required AsyncValue<List<WikiPage>> pages,
   required AsyncValue<WikiPage> page,
   String initialLocation = '/projects/1/wikis',
   Size? size,
+  _StubPages? pagesController,
 }) async {
   if (size != null) {
     tester.view.physicalSize = size;
@@ -72,7 +118,9 @@ Future<void> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
-        wikiPagesControllerProvider.overrideWith(() => _StubPages(pages)),
+        wikiPagesControllerProvider.overrideWith(
+          () => pagesController ?? _StubPages(pages),
+        ),
         wikiPageControllerProvider.overrideWith(() => _StubPage(page)),
       ],
       child: MaterialApp.router(
@@ -97,6 +145,30 @@ const _page = WikiPage(
 );
 
 void main() {
+  test('creating a wiki page reloads the project page list', () async {
+    final repository = _FakeWikiRepository();
+    final container = ProviderContainer(
+      overrides: [
+        wikiRepositoryProvider.overrideWith((ref) async => repository),
+      ],
+    );
+    addTearDown(container.dispose);
+    expect(
+      await container.read(wikiPagesControllerProvider(7).future),
+      isEmpty,
+    );
+
+    final created = await container
+        .read(wikiPagesControllerProvider(7).notifier)
+        .create(title: 'New page', content: '# Body');
+    expect(created.slug, 'server-slug');
+    expect(
+      (await container.read(wikiPagesControllerProvider(7).future)).single.slug,
+      'server-slug',
+    );
+    expect(repository.listCalls, 2);
+  });
+
   testWidgets('lists wiki pages and opens a nested page inside the app', (
     tester,
   ) async {
@@ -200,5 +272,70 @@ void main() {
       tester.widget<WikiPageScreen>(find.byType(WikiPageScreen)).slug,
       'home',
     );
+  });
+
+  for (final width in [390.0, 1200.0]) {
+    testWidgets('creates a page from an empty wiki at width $width', (
+      tester,
+    ) async {
+      final controller = _StubPages(const AsyncData(<WikiPage>[]));
+      await _pump(
+        tester,
+        pages: const AsyncData(<WikiPage>[]),
+        page: const AsyncData(_page),
+        pagesController: controller,
+        size: Size(width, 800),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('New page'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Create page'));
+      await tester.pumpAndSettle();
+      expect(controller.lastCreatedTitle, isNull);
+      expect(find.text('Enter a title and content.'), findsOneWidget);
+
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Title'),
+        'Getting Started',
+      );
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Content'),
+        '# Hello',
+      );
+      await tester.tap(find.text('Create page'));
+      await tester.pumpAndSettle();
+
+      expect(controller.lastCreatedTitle, 'Getting Started');
+      expect(controller.lastCreatedContent, '# Hello');
+      expect(
+        tester.widget<WikiPageScreen>(find.byType(WikiPageScreen)).slug,
+        'Getting-Started',
+      );
+    });
+  }
+
+  testWidgets('keeps the wiki draft after a permission error', (tester) async {
+    final controller = _StubPages(const AsyncData(_pages))..rejectCreate = true;
+    await _pump(
+      tester,
+      pages: const AsyncData(_pages),
+      page: const AsyncData(_page),
+      pagesController: controller,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New page'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.widgetWithText(TextField, 'Title'), 'Draft');
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'Keep me',
+    );
+    await tester.tap(find.text('Create page'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Could not create the wiki page.'), findsOneWidget);
+    expect(find.text('Draft'), findsOneWidget);
+    expect(find.text('Keep me'), findsOneWidget);
+    expect(find.text('Create page'), findsOneWidget);
   });
 }

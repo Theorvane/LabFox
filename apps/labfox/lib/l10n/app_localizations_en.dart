@@ -1657,6 +1657,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wikiPageError => 'Could not load this wiki page.';
 
   @override
+  String get wikiNewPage => 'New page';
+
+  @override
+  String get wikiPageTitle => 'Title';
+
+  @override
+  String get wikiPageContent => 'Content';
+
+  @override
+  String get wikiCreatePage => 'Create page';
+
+  @override
+  String get wikiCreateValidationError => 'Enter a title and content.';
+
+  @override
+  String get wikiCreateError => 'Could not create the wiki page.';
+
+  @override
   String get packageRegistryTitle => 'Package registry';
 
   @override
