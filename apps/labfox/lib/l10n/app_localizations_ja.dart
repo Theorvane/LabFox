@@ -1641,6 +1641,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetCreateError => 'スニペットを作成できませんでした。';
 
   @override
+  String get snippetEditAction => 'スニペットを編集';
+
+  @override
+  String get snippetEditTitle => 'スニペットを編集';
+
+  @override
+  String get snippetSaveChanges => '変更を保存';
+
+  @override
+  String get snippetEditValidationError => 'タイトルを入力してください。';
+
+  @override
+  String get snippetEditError => 'スニペットを保存できませんでした。';
+
+  @override
   String get homeRecents => '最近';
 
   @override

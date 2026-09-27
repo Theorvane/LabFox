@@ -1676,6 +1676,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetCreateError => 'Could not create the snippet.';
 
   @override
+  String get snippetEditAction => 'Edit snippet';
+
+  @override
+  String get snippetEditTitle => 'Edit snippet';
+
+  @override
+  String get snippetSaveChanges => 'Save changes';
+
+  @override
+  String get snippetEditValidationError => 'Enter a title.';
+
+  @override
+  String get snippetEditError => 'Could not save the snippet.';
+
+  @override
   String get homeRecents => 'Recent';
 
   @override

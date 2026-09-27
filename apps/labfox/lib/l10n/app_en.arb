@@ -1408,6 +1408,11 @@
   "snippetCreate": "Create snippet",
   "snippetCreateValidationError": "Enter a title, file path, and content.",
   "snippetCreateError": "Could not create the snippet.",
+  "snippetEditAction": "Edit snippet",
+  "snippetEditTitle": "Edit snippet",
+  "snippetSaveChanges": "Save changes",
+  "snippetEditValidationError": "Enter a title.",
+  "snippetEditError": "Could not save the snippet.",
   "homeRecents": "Recent",
   "@homeRecents": {
     "description": "Home section title for recently opened projects"

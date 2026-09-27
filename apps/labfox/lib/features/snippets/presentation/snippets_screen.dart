@@ -265,6 +265,18 @@ class SnippetDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(snippet.valueOrNull?.title ?? l10n.snippetsTitle),
+        actions: [
+          if (snippet.valueOrNull case final item?)
+            IconButton(
+              tooltip: l10n.snippetEditAction,
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) =>
+                    _EditSnippetDialog(projectId: projectId, snippet: item),
+              ),
+            ),
+        ],
       ),
       body: snippet.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -274,6 +286,114 @@ class SnippetDetailScreen extends ConsumerWidget {
         ),
         data: (item) => _SnippetBody(projectId: projectId, snippet: item),
       ),
+    );
+  }
+}
+
+class _EditSnippetDialog extends ConsumerStatefulWidget {
+  const _EditSnippetDialog({required this.projectId, required this.snippet});
+
+  final int projectId;
+  final Snippet snippet;
+
+  @override
+  ConsumerState<_EditSnippetDialog> createState() => _EditSnippetDialogState();
+}
+
+class _EditSnippetDialogState extends ConsumerState<_EditSnippetDialog> {
+  late final TextEditingController _title = TextEditingController(
+    text: widget.snippet.title,
+  );
+  late final TextEditingController _description = TextEditingController(
+    text: widget.snippet.description ?? '',
+  );
+  bool _busy = false;
+  bool _invalid = false;
+  bool _failed = false;
+
+  @override
+  void dispose() {
+    _title.dispose();
+    _description.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final title = _title.text.trim();
+    if (title.isEmpty) {
+      setState(() {
+        _invalid = true;
+        _failed = false;
+      });
+      return;
+    }
+    setState(() {
+      _busy = true;
+      _invalid = false;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(updateSnippetControllerProvider.notifier)
+          .updateMetadata(
+            projectId: widget.projectId,
+            snippetId: widget.snippet.id,
+            title: title,
+            description: _description.text.trim(),
+          );
+      if (mounted) Navigator.of(context).pop();
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetEditTitle),
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 560),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _title,
+              enabled: !_busy,
+              decoration: InputDecoration(labelText: l10n.snippetTitleField),
+            ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            TextField(
+              controller: _description,
+              enabled: !_busy,
+              decoration: InputDecoration(
+                labelText: l10n.snippetDescriptionField,
+              ),
+            ),
+            if (_invalid) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetEditValidationError),
+            ],
+            if (_failed) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetEditError),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _save,
+          child: Text(l10n.snippetSaveChanges),
+        ),
+      ],
     );
   }
 }

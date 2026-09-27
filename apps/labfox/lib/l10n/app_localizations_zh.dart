@@ -1635,6 +1635,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetCreateError => '无法创建代码片段。';
 
   @override
+  String get snippetEditAction => '编辑代码片段';
+
+  @override
+  String get snippetEditTitle => '编辑代码片段';
+
+  @override
+  String get snippetSaveChanges => '保存更改';
+
+  @override
+  String get snippetEditValidationError => '请输入标题。';
+
+  @override
+  String get snippetEditError => '无法保存代码片段。';
+
+  @override
   String get homeRecents => '最近';
 
   @override

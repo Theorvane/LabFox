@@ -3272,6 +3272,36 @@ abstract class AppLocalizations {
   /// **'Could not create the snippet.'**
   String get snippetCreateError;
 
+  /// No description provided for @snippetEditAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit snippet'**
+  String get snippetEditAction;
+
+  /// No description provided for @snippetEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit snippet'**
+  String get snippetEditTitle;
+
+  /// No description provided for @snippetSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get snippetSaveChanges;
+
+  /// No description provided for @snippetEditValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title.'**
+  String get snippetEditValidationError;
+
+  /// No description provided for @snippetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the snippet.'**
+  String get snippetEditError;
+
   /// Home section title for recently opened projects
   ///
   /// In en, this message translates to:

@@ -1672,6 +1672,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetCreateError => 'स्निपेट नहीं बनाया जा सका।';
 
   @override
+  String get snippetEditAction => 'स्निपेट संपादित करें';
+
+  @override
+  String get snippetEditTitle => 'स्निपेट संपादित करें';
+
+  @override
+  String get snippetSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get snippetEditValidationError => 'शीर्षक दर्ज करें।';
+
+  @override
+  String get snippetEditError => 'स्निपेट सहेजा नहीं जा सका।';
+
+  @override
   String get homeRecents => 'हाल ही में';
 
   @override
