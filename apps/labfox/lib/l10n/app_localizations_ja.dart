@@ -326,6 +326,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseCreateError => 'リリースを作成できませんでした。';
 
   @override
+  String get releaseAddAssetLink => 'アセットリンクを追加';
+
+  @override
+  String get releaseAddLink => 'リンクを追加';
+
+  @override
+  String get releaseAssetName => 'リンク名';
+
+  @override
+  String get releaseAssetUrl => 'リンク URL';
+
+  @override
+  String get releaseAssetNameRequired => 'リンク名を入力してください。';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP または HTTPS の URL を入力してください。';
+
+  @override
+  String get releaseAssetNameDuplicate => '同じ名前のリンクが既にあります。';
+
+  @override
+  String get releaseAssetCreateError => 'アセットリンクを追加できませんでした。';
+
+  @override
+  String get releaseNoAssets => 'アセットはまだありません。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

@@ -142,6 +142,56 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test('creates an asset link for an encoded release tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Desktop package',
+          'url': 'https://example.com/app.zip',
+          'link_type': 'package',
+        },
+      );
+    });
+    final link = await client.releases.createAssetLink(
+      'team/app',
+      'release/2',
+      name: 'Desktop package',
+      url: 'https://example.com/app.zip',
+      linkType: 'package',
+    );
+    expect(request.method, 'POST');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links',
+    );
+    expect(request.data, {
+      'name': 'Desktop package',
+      'url': 'https://example.com/app.zip',
+      'link_type': 'package',
+    });
+    expect(link.id, 12);
+  });
+
+  test('maps forbidden asset link creation', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.createAssetLink(
+        7,
+        'v2',
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(

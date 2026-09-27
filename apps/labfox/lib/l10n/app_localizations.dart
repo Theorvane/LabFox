@@ -722,6 +722,60 @@ abstract class AppLocalizations {
   /// **'Could not create the release.'**
   String get releaseCreateError;
 
+  /// No description provided for @releaseAddAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add asset link'**
+  String get releaseAddAssetLink;
+
+  /// No description provided for @releaseAddLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get releaseAddLink;
+
+  /// No description provided for @releaseAssetName.
+  ///
+  /// In en, this message translates to:
+  /// **'Link name'**
+  String get releaseAssetName;
+
+  /// No description provided for @releaseAssetUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Link URL'**
+  String get releaseAssetUrl;
+
+  /// No description provided for @releaseAssetNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a link name.'**
+  String get releaseAssetNameRequired;
+
+  /// No description provided for @releaseAssetUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an HTTP or HTTPS URL.'**
+  String get releaseAssetUrlInvalid;
+
+  /// No description provided for @releaseAssetNameDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'A link with this name already exists.'**
+  String get releaseAssetNameDuplicate;
+
+  /// No description provided for @releaseAssetCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the asset link.'**
+  String get releaseAssetCreateError;
+
+  /// No description provided for @releaseNoAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'No assets yet.'**
+  String get releaseNoAssets;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

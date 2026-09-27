@@ -328,6 +328,33 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseCreateError => 'रिलीज़ नहीं बनाई जा सकी।';
 
   @override
+  String get releaseAddAssetLink => 'एसेट लिंक जोड़ें';
+
+  @override
+  String get releaseAddLink => 'लिंक जोड़ें';
+
+  @override
+  String get releaseAssetName => 'लिंक का नाम';
+
+  @override
+  String get releaseAssetUrl => 'लिंक URL';
+
+  @override
+  String get releaseAssetNameRequired => 'लिंक का नाम दर्ज करें।';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP या HTTPS URL दर्ज करें।';
+
+  @override
+  String get releaseAssetNameDuplicate => 'इस नाम का लिंक पहले से मौजूद है।';
+
+  @override
+  String get releaseAssetCreateError => 'एसेट लिंक नहीं जोड़ा जा सका।';
+
+  @override
+  String get releaseNoAssets => 'अभी कोई एसेट नहीं है।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

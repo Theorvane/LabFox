@@ -38,4 +38,12 @@ class ReleasesRepository {
     name: name,
     description: description,
   );
+
+  Future<ReleaseAssetLink> createAssetLink(
+    int projectId,
+    String tagName, {
+    required String name,
+    required String url,
+  }) =>
+      client.releases.createAssetLink(projectId, tagName, name: name, url: url);
 }

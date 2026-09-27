@@ -112,4 +112,35 @@ class ReleasesApi {
       throw mapError(error, context: 'creating a release');
     }
   }
+
+  Future<ReleaseAssetLink> createAssetLink(
+    Object projectId,
+    String tagName, {
+    required String name,
+    required String url,
+    String? directAssetPath,
+    String? linkType,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links',
+        data: {
+          'name': name,
+          'url': url,
+          'direct_asset_path': ?directAssetPath,
+          'link_type': ?linkType,
+        },
+      );
+      if (response.statusCode != 201 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a release asset link',
+        );
+      }
+      return ReleaseAssetLink.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a release asset link');
+    }
+  }
 }
