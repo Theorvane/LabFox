@@ -299,6 +299,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseEditError => 'リリースを更新できませんでした。';
 
   @override
+  String get releaseNew => '新しいリリース';
+
+  @override
+  String get releaseCreate => 'リリースを作成';
+
+  @override
+  String get releaseTagName => 'タグ名';
+
+  @override
+  String get releaseRef => 'タグ作成元のref（任意）';
+
+  @override
+  String get releaseRefHelp => 'タグがすでに存在する場合は空欄にしてください。';
+
+  @override
+  String get releaseName => 'リリース名（任意）';
+
+  @override
+  String get releaseDescription => '説明（Markdown）';
+
+  @override
+  String get releaseTagRequired => 'タグ名を入力してください。';
+
+  @override
+  String get releaseCreateError => 'リリースを作成できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

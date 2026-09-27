@@ -300,6 +300,33 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseEditError => '릴리스를 수정할 수 없습니다.';
 
   @override
+  String get releaseNew => '새 릴리스';
+
+  @override
+  String get releaseCreate => '릴리스 만들기';
+
+  @override
+  String get releaseTagName => '태그 이름';
+
+  @override
+  String get releaseRef => '태그를 만들 기준 ref (선택 사항)';
+
+  @override
+  String get releaseRefHelp => '태그가 이미 있으면 비워 두세요.';
+
+  @override
+  String get releaseName => '릴리스 이름 (선택 사항)';
+
+  @override
+  String get releaseDescription => '설명 (Markdown)';
+
+  @override
+  String get releaseTagRequired => '태그 이름을 입력하세요.';
+
+  @override
+  String get releaseCreateError => '릴리스를 만들 수 없습니다.';
+
+  @override
   String get activityTitle => '활동';
 
   @override

@@ -82,4 +82,34 @@ class ReleasesApi {
       throw mapError(error, context: 'updating a release');
     }
   }
+
+  Future<GitLabRelease> create(
+    Object projectId, {
+    required String tagName,
+    String? ref,
+    String? name,
+    String? description,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {
+          'tag_name': tagName,
+          'ref': ?ref,
+          'name': ?name,
+          'description': ?description,
+        },
+      );
+      if (response.statusCode != 201 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a release',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a release');
+    }
+  }
 }

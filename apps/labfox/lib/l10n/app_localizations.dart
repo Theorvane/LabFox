@@ -668,6 +668,60 @@ abstract class AppLocalizations {
   /// **'Could not update the release.'**
   String get releaseEditError;
 
+  /// No description provided for @releaseNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New release'**
+  String get releaseNew;
+
+  /// No description provided for @releaseCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create release'**
+  String get releaseCreate;
+
+  /// No description provided for @releaseTagName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name'**
+  String get releaseTagName;
+
+  /// No description provided for @releaseRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag from ref (optional)'**
+  String get releaseRef;
+
+  /// No description provided for @releaseRefHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank if the tag already exists.'**
+  String get releaseRefHelp;
+
+  /// No description provided for @releaseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name (optional)'**
+  String get releaseName;
+
+  /// No description provided for @releaseDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseDescription;
+
+  /// No description provided for @releaseTagRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a tag name.'**
+  String get releaseTagRequired;
+
+  /// No description provided for @releaseCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the release.'**
+  String get releaseCreateError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

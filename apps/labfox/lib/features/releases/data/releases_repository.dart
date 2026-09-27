@@ -24,4 +24,18 @@ class ReleasesRepository {
     name: name,
     description: description,
   );
+
+  Future<GitLabRelease> create(
+    int projectId, {
+    required String tagName,
+    String? ref,
+    String? name,
+    String? description,
+  }) => client.releases.create(
+    projectId,
+    tagName: tagName,
+    ref: ref,
+    name: name,
+    description: description,
+  );
 }
