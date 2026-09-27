@@ -264,6 +264,25 @@ void main() {
       );
     },
   );
+
+  test('deletes a group milestone by global ID and encoded path', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const {}, body: null);
+    });
+    await client.groupMilestones.delete('team/subgroup', 42);
+    expect(request.method, 'DELETE');
+    expect(request.path, '/groups/team%2Fsubgroup/milestones/42');
+
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.groupMilestones.delete(7, 42),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(
