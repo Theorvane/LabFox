@@ -1620,6 +1620,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetVisibilityField => '可见性';
 
   @override
+  String get snippetVisibilityUnchanged => '保持当前可见性';
+
+  @override
   String get snippetPrivate => '私有';
 
   @override

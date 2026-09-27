@@ -113,6 +113,7 @@ class UpdateSnippetController extends AutoDisposeAsyncNotifier<void> {
     required int snippetId,
     required String title,
     required String description,
+    String? visibility,
   }) async {
     state = const AsyncLoading();
     try {
@@ -122,6 +123,7 @@ class UpdateSnippetController extends AutoDisposeAsyncNotifier<void> {
         snippetId,
         title: title,
         description: description,
+        visibility: visibility,
       );
       ref.invalidate(projectSnippetsProvider(projectId));
       ref.invalidate(projectSnippetProvider(SnippetRef(projectId, snippetId)));
