@@ -281,6 +281,24 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseUpcoming => '予定';
 
   @override
+  String get releaseEdit => 'リリースを編集';
+
+  @override
+  String get releaseSave => 'リリースを保存';
+
+  @override
+  String get releaseEditName => 'リリース名';
+
+  @override
+  String get releaseEditDescription => '説明（Markdown）';
+
+  @override
+  String get releaseNameRequired => 'リリース名を入力してください。';
+
+  @override
+  String get releaseEditError => 'リリースを更新できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

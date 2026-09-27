@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project Releases endpoints.
+/// Project Releases endpoints.
 class ReleasesApi {
   const ReleasesApi(this._dio);
 
@@ -56,6 +56,30 @@ class ReleasesApi {
       return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a release');
+    }
+  }
+
+  Future<GitLabRelease> update(
+    Object projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+        data: {'name': name, 'description': description},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release');
     }
   }
 }

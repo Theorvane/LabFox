@@ -60,6 +60,44 @@ void main() {
       throwsA(isA<GitLabNotFoundException>()),
     );
   });
+
+  test(
+    'updates release name and Markdown description by encoded tag',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'name': 'Version 2',
+            'tag_name': 'release/2',
+            'description': '',
+          },
+        );
+      });
+      final updated = await client.releases.update(
+        'team/app',
+        'release/2',
+        name: 'Version 2',
+        description: '',
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
+      expect(request.data, {'name': 'Version 2', 'description': ''});
+      expect(updated.tagName, 'release/2');
+      expect(updated.name, 'Version 2');
+
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.releases.update(7, 'v2', name: 'Version 2', description: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

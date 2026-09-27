@@ -1,7 +1,7 @@
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-/// Read-only project Releases data for one authenticated GitLab client.
+/// Project Releases data for one authenticated GitLab client.
 class ReleasesRepository {
   const ReleasesRepository(this.client);
 
@@ -12,4 +12,16 @@ class ReleasesRepository {
 
   Future<GitLabRelease> get(int projectId, String tagName) =>
       client.releases.get(projectId, tagName);
+
+  Future<GitLabRelease> update(
+    int projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) => client.releases.update(
+    projectId,
+    tagName,
+    name: name,
+    description: description,
+  );
 }

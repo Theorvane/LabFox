@@ -632,6 +632,42 @@ abstract class AppLocalizations {
   /// **'Upcoming'**
   String get releaseUpcoming;
 
+  /// No description provided for @releaseEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release'**
+  String get releaseEdit;
+
+  /// No description provided for @releaseSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release'**
+  String get releaseSave;
+
+  /// No description provided for @releaseEditName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name'**
+  String get releaseEditName;
+
+  /// No description provided for @releaseEditDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseEditDescription;
+
+  /// No description provided for @releaseNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a release name.'**
+  String get releaseNameRequired;
+
+  /// No description provided for @releaseEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release.'**
+  String get releaseEditError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

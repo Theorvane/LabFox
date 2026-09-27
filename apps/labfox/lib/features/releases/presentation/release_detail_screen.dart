@@ -29,6 +29,21 @@ class ReleaseDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(release.valueOrNull?.name ?? tagName),
+        actions: [
+          if (release.valueOrNull != null)
+            IconButton(
+              tooltip: l10n.releaseEdit,
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => _EditReleaseDialog(
+                  keyRef: key,
+                  release: release.valueOrNull!,
+                ),
+              ),
+            ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
@@ -91,6 +106,109 @@ class ReleaseDetailScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _EditReleaseDialog extends ConsumerStatefulWidget {
+  const _EditReleaseDialog({required this.keyRef, required this.release});
+
+  final ReleaseRef keyRef;
+  final GitLabRelease release;
+
+  @override
+  ConsumerState<_EditReleaseDialog> createState() => _EditReleaseDialogState();
+}
+
+class _EditReleaseDialogState extends ConsumerState<_EditReleaseDialog> {
+  late final TextEditingController _name;
+  late final TextEditingController _description;
+  bool _saving = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.release.name);
+    _description = TextEditingController(text: widget.release.description);
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _description.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final l10n = AppLocalizations.of(context);
+    if (_name.text.trim().isEmpty) {
+      setState(() => _error = l10n.releaseNameRequired);
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      await ref
+          .read(releaseEditControllerProvider(widget.keyRef).notifier)
+          .save(name: _name.text, description: _description.text);
+      if (!mounted) return;
+      Navigator.of(context).pop();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        _error = l10n.releaseEditError;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      scrollable: true,
+      title: Text(l10n.releaseEdit),
+      content: SizedBox(
+        width: 480,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _name,
+              enabled: !_saving,
+              decoration: InputDecoration(labelText: l10n.releaseEditName),
+            ),
+            TextField(
+              controller: _description,
+              enabled: !_saving,
+              maxLines: 6,
+              decoration: InputDecoration(
+                labelText: l10n.releaseEditDescription,
+              ),
+            ),
+            if (_error != null) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(
+                _error!,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _saving ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _saving ? null : _save,
+          child: Text(l10n.releaseSave),
+        ),
+      ],
     );
   }
 }
