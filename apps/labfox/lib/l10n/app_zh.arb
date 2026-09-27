@@ -379,5 +379,8 @@
   "issueEditError": "无法保存议题。请检查权限后重试。",
   "issueSubscribe": "订阅通知",
   "issueUnsubscribe": "取消订阅通知",
-  "issueSubscriptionError": "无法更新议题通知。请重试。"
+  "issueSubscriptionError": "无法更新议题通知。请重试。",
+  "mrSubscribe": "订阅通知",
+  "mrUnsubscribe": "取消订阅通知",
+  "mrSubscriptionError": "无法更新合并请求通知。请重试。"
 }

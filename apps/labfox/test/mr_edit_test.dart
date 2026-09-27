@@ -50,6 +50,16 @@ class _FakeRepo extends MrActionsRepository {
   Future<void> rebase({required int projectId, required int iid}) async {
     calls.add('rebase');
   }
+
+  @override
+  Future<MergeRequest?> setSubscription({
+    required int projectId,
+    required int iid,
+    required bool subscribed,
+  }) async {
+    calls.add('setSubscription:$subscribed');
+    return null;
+  }
 }
 
 void main() {
@@ -71,11 +81,13 @@ void main() {
       await notifier.setOpen(false);
       await notifier.setDraft(draft: true, title: 'Add OAuth');
       await notifier.rebase();
+      await notifier.setSubscription(true);
 
       expect(repo.calls, [
         'setOpen:false',
         'setDraft:true:Add OAuth',
         'rebase',
+        'setSubscription:true',
       ]);
     },
   );

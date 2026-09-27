@@ -69,7 +69,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | MW-16 | P2 | Instance/group administration and runner inventory/actions, role-gated. | Queued | Issue needed |
 | MW-17 | P1 | Broader search scopes, filters, and deep-link coverage. | Queued | Issue needed |
 | MW-18 | P0 | Cross-cutting comparison by role, tier, self-hosted version, and viewport; record every missing action. | Queued | Issue needed |
-| MW-19 | P0 | Issue/MR notification subscriptions and to-do shortcuts, including idempotent actions and error states. | In progress | [#331](https://github.com/Theorvane/labfox/issues/331), [PR #332](https://github.com/Theorvane/labfox/pull/332) cover issue subscriptions only; MR and to-do actions need separate issues. |
+| MW-19 | P0 | Issue/MR notification subscriptions and to-do shortcuts, including idempotent actions and error states. | In progress | [#331](https://github.com/Theorvane/labfox/issues/331), [PR #332](https://github.com/Theorvane/labfox/pull/332) shipped issue subscriptions; [#333](https://github.com/Theorvane/labfox/issues/333), [PR #334](https://github.com/Theorvane/labfox/pull/334) cover issue to-do creation; [#335](https://github.com/Theorvane/labfox/issues/335) covers MR subscriptions. MR to-do creation remains. |
 
 ## Procedure for the next slice
 

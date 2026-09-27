@@ -108,7 +108,7 @@ class MergeRequestDetailScreen extends ConsumerWidget {
   }
 }
 
-enum _MrAction { close, reopen, rebase, toggleDraft }
+enum _MrAction { close, reopen, rebase, toggleDraft, subscribe, unsubscribe }
 
 /// The overflow menu on a merge request: close/reopen, rebase, and toggle draft
 /// — the state edits GitLab exposes, offered by the MR's current state.
@@ -122,6 +122,11 @@ class _MrMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final items = <PopupMenuEntry<_MrAction>>[
+      if (mr.subscribed case final subscribed?)
+        PopupMenuItem(
+          value: subscribed ? _MrAction.unsubscribe : _MrAction.subscribe,
+          child: Text(subscribed ? l10n.mrUnsubscribe : l10n.mrSubscribe),
+        ),
       if (mr.isOpen) ...[
         PopupMenuItem(
           value: _MrAction.toggleDraft,
@@ -158,12 +163,22 @@ class _MrMenu extends ConsumerWidget {
           await notifier.rebase();
         case _MrAction.toggleDraft:
           await notifier.setDraft(draft: !mr.isDraft, title: mr.title);
+        case _MrAction.subscribe:
+          await notifier.setSubscription(true);
+        case _MrAction.unsubscribe:
+          await notifier.setSubscription(false);
       }
     } on GitLabException {
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.mrActionError)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              action == _MrAction.subscribe || action == _MrAction.unsubscribe
+                  ? l10n.mrSubscriptionError
+                  : l10n.mrActionError,
+            ),
+          ),
+        );
       }
     }
   }

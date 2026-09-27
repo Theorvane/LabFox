@@ -711,6 +711,16 @@ class AppLocalizationsHi extends AppLocalizations {
       'समस्या की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
 
   @override
+  String get mrSubscribe => 'सूचनाओं की सदस्यता लें';
+
+  @override
+  String get mrUnsubscribe => 'सूचनाओं की सदस्यता छोड़ें';
+
+  @override
+  String get mrSubscriptionError =>
+      'मर्ज अनुरोध की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

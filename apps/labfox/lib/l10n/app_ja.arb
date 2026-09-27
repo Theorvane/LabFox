@@ -379,5 +379,8 @@
   "issueEditError": "イシューを保存できません。権限を確認して再試行してください。",
   "issueSubscribe": "通知を購読",
   "issueUnsubscribe": "通知の購読を解除",
-  "issueSubscriptionError": "イシューの通知を変更できません。再試行してください。"
+  "issueSubscriptionError": "イシューの通知を変更できません。再試行してください。",
+  "mrSubscribe": "通知を購読",
+  "mrUnsubscribe": "通知の購読を解除",
+  "mrSubscriptionError": "マージリクエストの通知を変更できません。再試行してください。"
 }

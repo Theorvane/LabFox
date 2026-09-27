@@ -322,6 +322,66 @@ void main() {
       expect(page.items.single.iid, 9);
     });
   });
+
+  group('MergeRequestsApi.setSubscription', () {
+    test('subscribes by merge request iid', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 77,
+            'iid': 5,
+            'title': 'Review me',
+            'state': 'opened',
+            'source_branch': 'feature',
+            'target_branch': 'main',
+            'subscribed': true,
+          },
+        );
+      });
+
+      final mr = await client.mergeRequests.setSubscription(
+        7,
+        iid: 5,
+        subscribed: true,
+      );
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/merge_requests/5/subscribe');
+      expect(mr?.subscribed, isTrue);
+    });
+
+    test('unsubscribes and accepts an idempotent 304 response', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (status: 304, headers: const {}, body: null);
+      });
+
+      final mr = await client.mergeRequests.setSubscription(
+        7,
+        iid: 5,
+        subscribed: false,
+      );
+
+      expect(captured.path, '/projects/7/merge_requests/5/unsubscribe');
+      expect(mr, isNull);
+    });
+
+    test('maps permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+
+      await expectLater(
+        client.mergeRequests.setSubscription(7, iid: 5, subscribed: true),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
 }
 
 GitLabClient _client(

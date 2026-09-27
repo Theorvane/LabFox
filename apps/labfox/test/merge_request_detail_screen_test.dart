@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_actions_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/merge_request_detail_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
@@ -23,11 +24,29 @@ class _StubMR extends MergeRequestController {
   }
 }
 
-Future<void> _pump(WidgetTester tester, AsyncValue<MergeRequest> value) async {
+class _StubSubscription extends MrActionsController {
+  bool? lastSubscribed;
+
+  @override
+  Future<void> build(MergeRequestRef arg) async {}
+
+  @override
+  Future<void> setSubscription(bool subscribed) async {
+    lastSubscribed = subscribed;
+  }
+}
+
+Future<void> _pump(
+  WidgetTester tester,
+  AsyncValue<MergeRequest> value, {
+  _StubSubscription? subscription,
+}) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         mergeRequestControllerProvider.overrideWith(() => _StubMR(value)),
+        if (subscription != null)
+          mrActionsControllerProvider.overrideWith(() => subscription),
       ],
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -39,18 +58,22 @@ Future<void> _pump(WidgetTester tester, AsyncValue<MergeRequest> value) async {
   await tester.pump();
 }
 
-MergeRequest _mr({String state = 'opened', List<Label> labels = const []}) =>
-    MergeRequest(
-      id: 55123,
-      iid: 142,
-      title: 'Add OAuth authentication',
-      state: state,
-      sourceBranch: 'feature/oauth',
-      targetBranch: 'develop',
-      description: 'Adds the OAuth flow.',
-      webUrl: 'https://gitlab.com/acme/backend/-/merge_requests/142',
-      labels: labels,
-    );
+MergeRequest _mr({
+  String state = 'opened',
+  List<Label> labels = const [],
+  bool? subscribed,
+}) => MergeRequest(
+  id: 55123,
+  iid: 142,
+  title: 'Add OAuth authentication',
+  state: state,
+  sourceBranch: 'feature/oauth',
+  targetBranch: 'develop',
+  description: 'Adds the OAuth flow.',
+  webUrl: 'https://gitlab.com/acme/backend/-/merge_requests/142',
+  labels: labels,
+  subscribed: subscribed,
+);
 
 void main() {
   testWidgets('renders branches, state, labels, and description', (
@@ -85,5 +108,26 @@ void main() {
 
     expect(find.text('Merged'), findsOneWidget);
     expect(find.text('Closed'), findsNothing);
+  });
+
+  testWidgets('offers notification subscription on a merge request', (
+    tester,
+  ) async {
+    final subscription = _StubSubscription();
+    await _pump(
+      tester,
+      AsyncData(_mr(state: 'merged', subscribed: false)),
+      subscription: subscription,
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Subscribe to notifications'));
+    await tester.pumpAndSettle();
+
+    expect(subscription.lastSubscribed, isTrue);
   });
 }

@@ -700,6 +700,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueSubscriptionError => '无法更新议题通知。请重试。';
 
   @override
+  String get mrSubscribe => '订阅通知';
+
+  @override
+  String get mrUnsubscribe => '取消订阅通知';
+
+  @override
+  String get mrSubscriptionError => '无法更新合并请求通知。请重试。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override
