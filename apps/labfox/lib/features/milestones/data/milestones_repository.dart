@@ -23,6 +23,9 @@ class MilestonesRepository {
   Future<GitLabMilestone> get(int projectId, int milestoneId) =>
       client.milestones.get(projectId, milestoneId);
 
+  Future<void> delete(int projectId, int milestoneId) =>
+      client.milestones.delete(projectId, milestoneId);
+
   Future<GitLabMilestone> create(
     int projectId, {
     required String title,

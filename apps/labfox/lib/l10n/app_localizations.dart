@@ -1124,6 +1124,30 @@ abstract class AppLocalizations {
   /// **'Could not change the milestone state.'**
   String get milestoneStateError;
 
+  /// No description provided for @milestoneDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete milestone'**
+  String get milestoneDelete;
+
+  /// No description provided for @milestoneDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this milestone?'**
+  String get milestoneDeleteConfirmTitle;
+
+  /// No description provided for @milestoneDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get milestoneDeleteConfirmBody;
+
+  /// No description provided for @milestoneDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the milestone.'**
+  String get milestoneDeleteError;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:
