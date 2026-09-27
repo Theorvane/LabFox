@@ -276,6 +276,28 @@ class SnippetDetailScreen extends ConsumerWidget {
                     _EditSnippetDialog(projectId: projectId, snippet: item),
               ),
             ),
+          if (snippet.hasValue)
+            IconButton(
+              tooltip: l10n.snippetDeleteAction,
+              icon: const Icon(Icons.delete_outline),
+              onPressed: () async {
+                final deleted = await showDialog<bool>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) => _DeleteSnippetDialog(
+                    projectId: projectId,
+                    snippetId: snippetId,
+                  ),
+                );
+                if (deleted == true && context.mounted) {
+                  if (context.canPop()) {
+                    context.pop();
+                  } else {
+                    context.go(Routes.snippets(projectId));
+                  }
+                }
+              },
+            ),
         ],
       ),
       body: snippet.when(
@@ -392,6 +414,71 @@ class _EditSnippetDialogState extends ConsumerState<_EditSnippetDialog> {
         FilledButton(
           onPressed: _busy ? null : _save,
           child: Text(l10n.snippetSaveChanges),
+        ),
+      ],
+    );
+  }
+}
+
+class _DeleteSnippetDialog extends ConsumerStatefulWidget {
+  const _DeleteSnippetDialog({
+    required this.projectId,
+    required this.snippetId,
+  });
+
+  final int projectId;
+  final int snippetId;
+
+  @override
+  ConsumerState<_DeleteSnippetDialog> createState() =>
+      _DeleteSnippetDialogState();
+}
+
+class _DeleteSnippetDialogState extends ConsumerState<_DeleteSnippetDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _delete() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(deleteSnippetControllerProvider.notifier)
+          .delete(projectId: widget.projectId, snippetId: widget.snippetId);
+      if (mounted) Navigator.of(context).pop(true);
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetDeleteConfirmTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.snippetDeleteConfirmMessage),
+          if (_failed) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(l10n.snippetDeleteError),
+          ],
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(false),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _delete,
+          child: Text(l10n.snippetDeleteButton),
         ),
       ],
     );

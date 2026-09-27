@@ -90,6 +90,28 @@ void main() {
     );
   });
 
+  test('deletes a project snippet using the encoded project path', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const {}, body: {});
+    });
+
+    await client.snippets.delete('team/project', 73);
+
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+  });
+
+  test('maps a forbidden project snippet deletion', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.delete(42, 73),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test('lists project snippets using the next-page header', () async {
     late RequestOptions request;
     final client = _client((options) {

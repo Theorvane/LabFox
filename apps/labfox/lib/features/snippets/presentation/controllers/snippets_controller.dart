@@ -99,6 +99,29 @@ final updateSnippetControllerProvider =
       UpdateSnippetController.new,
     );
 
+class DeleteSnippetController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<void> delete({required int projectId, required int snippetId}) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      await repository.delete(projectId, snippetId);
+      ref.invalidate(projectSnippetsProvider(projectId));
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final deleteSnippetControllerProvider =
+    AsyncNotifierProvider.autoDispose<DeleteSnippetController, void>(
+      DeleteSnippetController.new,
+    );
+
 class SnippetRef {
   const SnippetRef(this.projectId, this.snippetId);
   final int projectId;

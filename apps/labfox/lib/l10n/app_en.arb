@@ -1413,6 +1413,11 @@
   "snippetSaveChanges": "Save changes",
   "snippetEditValidationError": "Enter a title.",
   "snippetEditError": "Could not save the snippet.",
+  "snippetDeleteAction": "Delete snippet",
+  "snippetDeleteConfirmTitle": "Delete this snippet?",
+  "snippetDeleteConfirmMessage": "This permanently deletes the snippet and its files.",
+  "snippetDeleteButton": "Delete",
+  "snippetDeleteError": "Could not delete the snippet.",
   "homeRecents": "Recent",
   "@homeRecents": {
     "description": "Home section title for recently opened projects"

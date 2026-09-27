@@ -1660,6 +1660,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetEditError => '스니펫을 저장할 수 없습니다.';
 
   @override
+  String get snippetDeleteAction => '스니펫 삭제';
+
+  @override
+  String get snippetDeleteConfirmTitle => '이 스니펫을 삭제할까요?';
+
+  @override
+  String get snippetDeleteConfirmMessage => '스니펫과 파일이 영구적으로 삭제됩니다.';
+
+  @override
+  String get snippetDeleteButton => '삭제';
+
+  @override
+  String get snippetDeleteError => '스니펫을 삭제할 수 없습니다.';
+
+  @override
   String get homeRecents => '최근';
 
   @override

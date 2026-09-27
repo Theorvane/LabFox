@@ -35,6 +35,9 @@ class SnippetsRepository {
     content: content,
   );
 
+  Future<void> delete(int projectId, int snippetId) =>
+      _client.snippets.delete(projectId, snippetId);
+
   Future<List<Snippet>> list(int projectId) async {
     final items = <Snippet>[];
     var page = 1;
