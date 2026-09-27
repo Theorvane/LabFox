@@ -33,4 +33,27 @@ class GroupMilestonesRepository {
       dueDate: dueDate == null ? null : wireDate.format(dueDate),
     );
   }
+
+  Future<GitLabMilestone> update(
+    int groupId,
+    int milestoneId, {
+    required String title,
+    required String description,
+    DateTime? startDate,
+    DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
+  }) {
+    final wireDate = DateFormat('yyyy-MM-dd');
+    return client.groupMilestones.update(
+      groupId,
+      milestoneId,
+      title: title,
+      description: description,
+      startDate: startDate == null ? null : wireDate.format(startDate),
+      dueDate: dueDate == null ? null : wireDate.format(dueDate),
+      clearStartDate: clearStartDate,
+      clearDueDate: clearDueDate,
+    );
+  }
 }
