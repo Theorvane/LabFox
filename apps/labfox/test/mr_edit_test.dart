@@ -9,6 +9,7 @@ import 'package:labfox/features/merge_requests/presentation/controllers/mr_actio
 class _FakeRepo extends MrActionsRepository {
   _FakeRepo() : super(GitLabClient(baseUrl: 'https://gitlab.com', token: 'x'));
   final calls = <String>[];
+  bool todoAlreadyExists = false;
 
   @override
   Future<MergeRequestApprovals?> approvals({
@@ -50,6 +51,12 @@ class _FakeRepo extends MrActionsRepository {
   Future<void> rebase({required int projectId, required int iid}) async {
     calls.add('rebase');
   }
+
+  @override
+  Future<Todo?> createTodo({required int projectId, required int iid}) async {
+    calls.add('createTodo:$projectId:$iid');
+    return todoAlreadyExists ? null : const Todo(id: 113, state: 'pending');
+  }
 }
 
 void main() {
@@ -71,11 +78,16 @@ void main() {
       await notifier.setOpen(false);
       await notifier.setDraft(draft: true, title: 'Add OAuth');
       await notifier.rebase();
+      expect(await notifier.createTodo(), isTrue);
+      repo.todoAlreadyExists = true;
+      expect(await notifier.createTodo(), isFalse);
 
       expect(repo.calls, [
         'setOpen:false',
         'setDraft:true:Add OAuth',
         'rebase',
+        'createTodo:7:5',
+        'createTodo:7:5',
       ]);
     },
   );

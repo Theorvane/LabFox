@@ -715,6 +715,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueTodoError => '이슈를 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.';
 
   @override
+  String get mrAddTodo => '할 일에 추가';
+
+  @override
+  String get mrTodoAdded => '할 일 목록에 추가했습니다.';
+
+  @override
+  String get mrTodoExists => '이 병합 요청은 이미 할 일 목록에 있습니다.';
+
+  @override
+  String get mrTodoError => '병합 요청을 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

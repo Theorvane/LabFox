@@ -383,5 +383,9 @@
   "issueAddTodo": "添加到待办事项",
   "issueTodoAdded": "已添加到待办事项。",
   "issueTodoExists": "该议题已在待办事项中。",
-  "issueTodoError": "无法将议题添加到待办事项。请重试。"
+  "issueTodoError": "无法将议题添加到待办事项。请重试。",
+  "mrAddTodo": "添加到待办事项",
+  "mrTodoAdded": "已添加到待办事项。",
+  "mrTodoExists": "该合并请求已在待办事项中。",
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
 }

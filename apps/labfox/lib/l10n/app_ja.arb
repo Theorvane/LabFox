@@ -383,5 +383,9 @@
   "issueAddTodo": "To-Do に追加",
   "issueTodoAdded": "To-Do リストに追加しました。",
   "issueTodoExists": "このイシューは既に To-Do リストにあります。",
-  "issueTodoError": "イシューを To-Do リストに追加できません。再試行してください。"
+  "issueTodoError": "イシューを To-Do リストに追加できません。再試行してください。",
+  "mrAddTodo": "To-Do に追加",
+  "mrTodoAdded": "To-Do リストに追加しました。",
+  "mrTodoExists": "このマージリクエストは既に To-Do リストにあります。",
+  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。"
 }
