@@ -500,6 +500,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get milestoneClearDate => '날짜 지우기';
 
   @override
+  String get milestoneEdit => '마일스톤 편집';
+
+  @override
+  String get milestoneSaveChanges => '변경사항 저장';
+
+  @override
+  String get milestoneUpdateError => '마일스톤을 수정할 수 없습니다.';
+
+  @override
+  String get milestoneClearStartDate => '시작일 지우기';
+
+  @override
+  String get milestoneClearDueDate => '마감일 지우기';
+
+  @override
   String get milestoneClose => '마일스톤 닫기';
 
   @override

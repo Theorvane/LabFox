@@ -499,6 +499,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneClearDate => '日付を消去';
 
   @override
+  String get milestoneEdit => 'マイルストーンを編集';
+
+  @override
+  String get milestoneSaveChanges => '変更を保存';
+
+  @override
+  String get milestoneUpdateError => 'マイルストーンを更新できませんでした。';
+
+  @override
+  String get milestoneClearStartDate => '開始日を消去';
+
+  @override
+  String get milestoneClearDueDate => '期限を消去';
+
+  @override
   String get milestoneClose => 'マイルストーンを閉じる';
 
   @override
