@@ -140,14 +140,15 @@ class MilestoneDetailScreen extends ConsumerWidget {
                 ),
         ),
         actions: [
-          if (projectKey != null && milestone.valueOrNull != null)
+          if (milestone.valueOrNull != null)
             IconButton(
               tooltip: l10n.milestoneEdit,
               icon: const Icon(Icons.edit_outlined),
               onPressed: () => showDialog<void>(
                 context: context,
                 builder: (context) => _EditMilestoneDialog(
-                  keyRef: projectKey,
+                  projectKey: projectKey,
+                  groupKey: groupKey,
                   milestone: milestone.valueOrNull!,
                 ),
               ),
@@ -248,9 +249,14 @@ class MilestoneDetailScreen extends ConsumerWidget {
 }
 
 class _EditMilestoneDialog extends ConsumerStatefulWidget {
-  const _EditMilestoneDialog({required this.keyRef, required this.milestone});
+  const _EditMilestoneDialog({
+    required this.projectKey,
+    required this.groupKey,
+    required this.milestone,
+  }) : assert((projectKey == null) != (groupKey == null));
 
-  final MilestoneRef keyRef;
+  final MilestoneRef? projectKey;
+  final GroupMilestoneRef? groupKey;
   final GitLabMilestone milestone;
 
   @override
@@ -318,17 +324,35 @@ class _EditMilestoneDialogState extends ConsumerState<_EditMilestoneDialog> {
       _error = null;
     });
     try {
-      await ref
-          .read(milestoneEditControllerProvider(widget.keyRef).notifier)
-          .save(
-            title: _title.text,
-            description: _description.text,
-            startDate: _startDate,
-            dueDate: _dueDate,
-            clearStartDate:
-                widget.milestone.startDate != null && _startDate == null,
-            clearDueDate: widget.milestone.dueDate != null && _dueDate == null,
-          );
+      if (widget.projectKey != null) {
+        await ref
+            .read(milestoneEditControllerProvider(widget.projectKey!).notifier)
+            .save(
+              title: _title.text,
+              description: _description.text,
+              startDate: _startDate,
+              dueDate: _dueDate,
+              clearStartDate:
+                  widget.milestone.startDate != null && _startDate == null,
+              clearDueDate:
+                  widget.milestone.dueDate != null && _dueDate == null,
+            );
+      } else {
+        await ref
+            .read(
+              groupMilestoneEditControllerProvider(widget.groupKey!).notifier,
+            )
+            .save(
+              title: _title.text,
+              description: _description.text,
+              startDate: _startDate,
+              dueDate: _dueDate,
+              clearStartDate:
+                  widget.milestone.startDate != null && _startDate == null,
+              clearDueDate:
+                  widget.milestone.dueDate != null && _dueDate == null,
+            );
+      }
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
       if (mounted) setState(() => _error = l10n.milestoneUpdateError);

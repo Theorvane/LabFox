@@ -273,11 +273,4 @@ void main() {
     expect(repository.current.startDate, DateTime(2026, 10, 1));
     expect(repository.current.dueDate, isNull);
   });
-
-  testWidgets('does not offer project editing for group milestones', (
-    tester,
-  ) async {
-    await _pump(tester, _Repository(), group: true);
-    expect(find.byTooltip('Edit milestone'), findsNothing);
-  });
 }
