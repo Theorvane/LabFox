@@ -724,6 +724,19 @@ class AppLocalizationsHi extends AppLocalizations {
       'समस्या को कार्य सूची में नहीं जोड़ा जा सका। फिर प्रयास करें।';
 
   @override
+  String get mrAddTodo => 'कार्य सूची में जोड़ें';
+
+  @override
+  String get mrTodoAdded => 'आपकी कार्य सूची में जोड़ दिया गया।';
+
+  @override
+  String get mrTodoExists => 'यह मर्ज अनुरोध पहले से आपकी कार्य सूची में है।';
+
+  @override
+  String get mrTodoError =>
+      'मर्ज अनुरोध को कार्य सूची में नहीं जोड़ा जा सका। फिर प्रयास करें।';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override
