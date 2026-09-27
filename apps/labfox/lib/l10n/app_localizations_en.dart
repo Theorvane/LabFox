@@ -505,6 +505,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneClearDate => 'Clear date';
 
   @override
+  String get milestoneEdit => 'Edit milestone';
+
+  @override
+  String get milestoneSaveChanges => 'Save changes';
+
+  @override
+  String get milestoneUpdateError => 'Could not update the milestone.';
+
+  @override
+  String get milestoneClearStartDate => 'Clear start date';
+
+  @override
+  String get milestoneClearDueDate => 'Clear due date';
+
+  @override
   String get milestoneClose => 'Close milestone';
 
   @override

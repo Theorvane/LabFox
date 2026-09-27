@@ -40,6 +40,29 @@ class MilestonesRepository {
     );
   }
 
+  Future<GitLabMilestone> update(
+    int projectId,
+    int milestoneId, {
+    required String title,
+    required String description,
+    DateTime? startDate,
+    DateTime? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
+  }) {
+    final wireDate = DateFormat('yyyy-MM-dd');
+    return client.milestones.update(
+      projectId,
+      milestoneId,
+      title: title,
+      description: description,
+      startDate: startDate == null ? null : wireDate.format(startDate),
+      dueDate: dueDate == null ? null : wireDate.format(dueDate),
+      clearStartDate: clearStartDate,
+      clearDueDate: clearDueDate,
+    );
+  }
+
   Future<GitLabMilestone> setStateEvent(
     int projectId,
     int milestoneId, {

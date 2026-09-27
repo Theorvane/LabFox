@@ -502,6 +502,21 @@ class AppLocalizationsHi extends AppLocalizations {
   String get milestoneClearDate => 'तिथि हटाएं';
 
   @override
+  String get milestoneEdit => 'माइलस्टोन संपादित करें';
+
+  @override
+  String get milestoneSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get milestoneUpdateError => 'माइलस्टोन अपडेट नहीं हो सका।';
+
+  @override
+  String get milestoneClearStartDate => 'शुरू होने की तारीख हटाएं';
+
+  @override
+  String get milestoneClearDueDate => 'नियत तारीख हटाएं';
+
+  @override
   String get milestoneClose => 'माइलस्टोन बंद करें';
 
   @override

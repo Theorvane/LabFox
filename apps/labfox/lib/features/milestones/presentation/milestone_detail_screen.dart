@@ -94,6 +94,18 @@ class MilestoneDetailScreen extends ConsumerWidget {
                 ),
         ),
         actions: [
+          if (projectKey != null && milestone.valueOrNull != null)
+            IconButton(
+              tooltip: l10n.milestoneEdit,
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (context) => _EditMilestoneDialog(
+                  keyRef: projectKey,
+                  milestone: milestone.valueOrNull!,
+                ),
+              ),
+            ),
           if (projectKey != null &&
               (milestone.valueOrNull?.state == 'active' ||
                   milestone.valueOrNull?.state == 'closed'))
@@ -177,6 +189,212 @@ class MilestoneDetailScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _EditMilestoneDialog extends ConsumerStatefulWidget {
+  const _EditMilestoneDialog({required this.keyRef, required this.milestone});
+
+  final MilestoneRef keyRef;
+  final GitLabMilestone milestone;
+
+  @override
+  ConsumerState<_EditMilestoneDialog> createState() =>
+      _EditMilestoneDialogState();
+}
+
+class _EditMilestoneDialogState extends ConsumerState<_EditMilestoneDialog> {
+  late final TextEditingController _title;
+  late final TextEditingController _description;
+  DateTime? _startDate;
+  DateTime? _dueDate;
+  bool _saving = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _title = TextEditingController(text: widget.milestone.title);
+    _description = TextEditingController(text: widget.milestone.description);
+    _startDate = widget.milestone.startDate;
+    _dueDate = widget.milestone.dueDate;
+  }
+
+  @override
+  void dispose() {
+    _title.dispose();
+    _description.dispose();
+    super.dispose();
+  }
+
+  Future<void> _selectDate({required bool start}) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: (start ? _startDate : _dueDate) ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      helpText: AppLocalizations.of(context).milestoneChooseDate,
+    );
+    if (selected == null || !mounted) return;
+    setState(() {
+      if (start) {
+        _startDate = selected;
+      } else {
+        _dueDate = selected;
+      }
+      _error = null;
+    });
+  }
+
+  Future<void> _save() async {
+    final l10n = AppLocalizations.of(context);
+    if (_title.text.trim().isEmpty) {
+      setState(() => _error = l10n.milestoneTitleRequired);
+      return;
+    }
+    if (_startDate != null &&
+        _dueDate != null &&
+        _startDate!.isAfter(_dueDate!)) {
+      setState(() => _error = l10n.milestoneDateOrderError);
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      await ref
+          .read(milestoneEditControllerProvider(widget.keyRef).notifier)
+          .save(
+            title: _title.text,
+            description: _description.text,
+            startDate: _startDate,
+            dueDate: _dueDate,
+            clearStartDate:
+                widget.milestone.startDate != null && _startDate == null,
+            clearDueDate: widget.milestone.dueDate != null && _dueDate == null,
+          );
+      if (mounted) Navigator.of(context).pop();
+    } catch (_) {
+      if (mounted) setState(() => _error = l10n.milestoneUpdateError);
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final dateFormat = DateFormat.yMMMd(
+      Localizations.localeOf(context).toString(),
+    );
+    return AlertDialog(
+      title: Text(l10n.milestoneEdit),
+      content: SingleChildScrollView(
+        child: SizedBox(
+          width: 480,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: _title,
+                decoration: InputDecoration(
+                  labelText: l10n.milestoneTitleField,
+                ),
+              ),
+              const SizedBox(height: LabFoxSpacing.sm),
+              TextField(
+                controller: _description,
+                minLines: 3,
+                maxLines: 6,
+                decoration: InputDecoration(
+                  labelText: l10n.milestoneDescriptionField,
+                ),
+              ),
+              const SizedBox(height: LabFoxSpacing.sm),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _saving
+                          ? null
+                          : () => _selectDate(start: true),
+                      icon: const Icon(Icons.calendar_today_outlined),
+                      label: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l10n.milestoneStartDate),
+                          if (_startDate != null)
+                            Text(dateFormat.format(_startDate!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_startDate != null)
+                    IconButton(
+                      tooltip: l10n.milestoneClearStartDate,
+                      onPressed: _saving
+                          ? null
+                          : () => setState(() {
+                              _startDate = null;
+                              _error = null;
+                            }),
+                      icon: const Icon(Icons.close),
+                    ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextButton.icon(
+                      onPressed: _saving
+                          ? null
+                          : () => _selectDate(start: false),
+                      icon: const Icon(Icons.event_outlined),
+                      label: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(l10n.milestoneDueDate),
+                          if (_dueDate != null)
+                            Text(dateFormat.format(_dueDate!)),
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (_dueDate != null)
+                    IconButton(
+                      tooltip: l10n.milestoneClearDueDate,
+                      onPressed: _saving
+                          ? null
+                          : () => setState(() {
+                              _dueDate = null;
+                              _error = null;
+                            }),
+                      icon: const Icon(Icons.close),
+                    ),
+                ],
+              ),
+              if (_error != null)
+                Text(
+                  _error!,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _saving ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _saving ? null : _save,
+          child: Text(l10n.milestoneSaveChanges),
+        ),
+      ],
     );
   }
 }
