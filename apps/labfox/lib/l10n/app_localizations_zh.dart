@@ -353,6 +353,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseNoAssets => '暂无资源。';
 
   @override
+  String get releaseDelete => '删除发行版';
+
+  @override
+  String get releaseDeleteConfirmTitle => '删除此发行版？';
+
+  @override
+  String get releaseDeleteConfirmBody => '发行版及其说明将被删除。Git 标签会保留。';
+
+  @override
+  String get releaseDeleteError => '无法删除发行版。';
+
+  @override
   String get activityTitle => '动态';
 
   @override

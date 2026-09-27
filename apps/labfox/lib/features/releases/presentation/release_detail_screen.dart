@@ -21,6 +21,42 @@ class ReleaseDetailScreen extends ConsumerWidget {
   final int projectId;
   final String tagName;
 
+  Future<void> _delete(
+    BuildContext context,
+    WidgetRef ref,
+    ReleaseRef key,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.releaseDeleteConfirmTitle),
+        content: Text(l10n.releaseDeleteConfirmBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.releaseDelete),
+          ),
+        ],
+      ),
+    );
+    if (!context.mounted || confirmed != true) return;
+    try {
+      await ref.read(releaseDeleteControllerProvider(key).notifier).delete();
+      if (!context.mounted) return;
+      context.go(Routes.releases(projectId));
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.releaseDeleteError)));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -29,6 +65,11 @@ class ReleaseDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(release.valueOrNull?.name ?? tagName),
+        leading: BackButton(
+          onPressed: () => context.canPop()
+              ? context.pop()
+              : context.go(Routes.releases(projectId)),
+        ),
         actions: [
           if (release.valueOrNull != null)
             IconButton(
@@ -43,12 +84,16 @@ class ReleaseDetailScreen extends ConsumerWidget {
                 ),
               ),
             ),
+          if (release.hasValue)
+            IconButton(
+              tooltip: l10n.releaseDelete,
+              icon: const Icon(Icons.delete_outline),
+              onPressed:
+                  ref.watch(releaseDeleteControllerProvider(key)).isLoading
+                  ? null
+                  : () => _delete(context, ref, key),
+            ),
         ],
-        leading: BackButton(
-          onPressed: () => context.canPop()
-              ? context.pop()
-              : context.go(Routes.releases(projectId)),
-        ),
       ),
       body: release.when(
         loading: () => const Center(child: CircularProgressIndicator()),

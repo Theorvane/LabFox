@@ -143,4 +143,22 @@ class ReleasesApi {
       throw mapError(error, context: 'creating a release asset link');
     }
   }
+
+  /// Deletes the release record without deleting its Git tag.
+  Future<void> delete(Object projectId, String tagName) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a release',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a release');
+    }
+  }
 }

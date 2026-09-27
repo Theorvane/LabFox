@@ -355,6 +355,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseNoAssets => 'अभी कोई एसेट नहीं है।';
 
   @override
+  String get releaseDelete => 'रिलीज़ हटाएँ';
+
+  @override
+  String get releaseDeleteConfirmTitle => 'यह रिलीज़ हटाएँ?';
+
+  @override
+  String get releaseDeleteConfirmBody =>
+      'रिलीज़ और उसके नोट हट जाएँगे। Git टैग बना रहेगा।';
+
+  @override
+  String get releaseDeleteError => 'रिलीज़ हटाई नहीं जा सकी।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override
