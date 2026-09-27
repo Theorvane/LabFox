@@ -61,6 +61,24 @@ class GroupMilestonesApi {
     }
   }
 
+  /// Deletes a group milestone by global ID, not its group-local iid.
+  Future<void> delete(Object groupId, int milestoneId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(groupId)}/$milestoneId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a group milestone',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a group milestone');
+    }
+  }
+
   Future<GitLabMilestone> create(
     Object groupId, {
     required String title,

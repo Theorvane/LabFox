@@ -366,6 +366,35 @@ final groupMilestoneDetailProvider =
       return repository.get(key.groupId, key.milestoneId);
     });
 
+class GroupMilestoneDeleteController
+    extends FamilyAsyncNotifier<void, GroupMilestoneRef> {
+  @override
+  Future<void> build(GroupMilestoneRef arg) async {}
+
+  Future<void> delete() async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(
+        groupMilestonesRepositoryProvider.future,
+      );
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.delete(arg.groupId, arg.milestoneId);
+      ref.invalidate(groupMilestoneListControllerProvider);
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final groupMilestoneDeleteControllerProvider =
+    AsyncNotifierProvider.family<
+      GroupMilestoneDeleteController,
+      void,
+      GroupMilestoneRef
+    >(GroupMilestoneDeleteController.new);
+
 class GroupMilestoneEditController
     extends FamilyAsyncNotifier<void, GroupMilestoneRef> {
   @override
