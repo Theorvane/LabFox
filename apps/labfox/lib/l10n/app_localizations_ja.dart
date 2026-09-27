@@ -1653,6 +1653,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetFileAddError => 'ファイルを追加できませんでした。';
 
   @override
+  String get snippetFileMoveAction => 'ファイルを移動';
+
+  @override
+  String get snippetFileMoveTitle => 'ファイルの移動または名前の変更';
+
+  @override
+  String get snippetFileMovePathField => '新しいファイルパス';
+
+  @override
+  String get snippetFileMoveValidationError => '別の未使用の相対ファイルパスを入力してください。';
+
+  @override
+  String get snippetFileMoveError => 'ファイルを移動できませんでした。';
+
+  @override
   String get snippetEditAction => 'スニペットを編集';
 
   @override

@@ -99,6 +99,59 @@ final addSnippetFileControllerProvider =
       AddSnippetFileController.new,
     );
 
+bool isValidSnippetFilePath(String path) =>
+    path.isNotEmpty &&
+    !path.startsWith('/') &&
+    !path.contains('\\') &&
+    !path.split('/').any((part) => part.isEmpty || part == '.' || part == '..');
+
+class MoveSnippetFileController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<Snippet> move({
+    required int projectId,
+    required int snippetId,
+    required String previousPath,
+    required String filePath,
+  }) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      final snippet = await repository.get(projectId, snippetId);
+      if (!isValidSnippetFilePath(filePath) ||
+          filePath == previousPath ||
+          !snippet.files.any((file) => file.path == previousPath) ||
+          snippet.files.any((file) => file.path == filePath)) {
+        throw StateError('Snippet file path cannot be moved');
+      }
+      final updated = await repository.moveFile(
+        projectId,
+        snippetId,
+        previousPath: previousPath,
+        filePath: filePath,
+      );
+      final key = SnippetRef(projectId, snippetId);
+      ref.invalidate(projectSnippetProvider(key));
+      ref.invalidate(projectSnippetsProvider(projectId));
+      ref.invalidate(snippetRawProvider(key));
+      ref.invalidate(
+        snippetFileProvider(SnippetFileRef(projectId, snippetId, previousPath)),
+      );
+      state = const AsyncData(null);
+      return updated;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final moveSnippetFileControllerProvider =
+    AsyncNotifierProvider.autoDispose<MoveSnippetFileController, void>(
+      MoveSnippetFileController.new,
+    );
+
 class UpdateSnippetContentController extends AutoDisposeAsyncNotifier<void> {
   @override
   void build() {}

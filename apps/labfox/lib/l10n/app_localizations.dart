@@ -3296,6 +3296,36 @@ abstract class AppLocalizations {
   /// **'Could not add the file.'**
   String get snippetFileAddError;
 
+  /// No description provided for @snippetFileMoveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Move file'**
+  String get snippetFileMoveAction;
+
+  /// No description provided for @snippetFileMoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move or rename file'**
+  String get snippetFileMoveTitle;
+
+  /// No description provided for @snippetFileMovePathField.
+  ///
+  /// In en, this message translates to:
+  /// **'New file path'**
+  String get snippetFileMovePathField;
+
+  /// No description provided for @snippetFileMoveValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a different, unused relative file path.'**
+  String get snippetFileMoveValidationError;
+
+  /// No description provided for @snippetFileMoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not move the file.'**
+  String get snippetFileMoveError;
+
   /// No description provided for @snippetEditAction.
   ///
   /// In en, this message translates to:
