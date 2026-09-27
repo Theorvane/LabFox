@@ -382,5 +382,9 @@
   "issueSubscriptionError": "イシューの通知を変更できません。再試行してください。",
   "mrSubscribe": "通知を購読",
   "mrUnsubscribe": "通知の購読を解除",
-  "mrSubscriptionError": "マージリクエストの通知を変更できません。再試行してください。"
+  "mrSubscriptionError": "マージリクエストの通知を変更できません。再試行してください。",
+  "issueAddTodo": "To-Do に追加",
+  "issueTodoAdded": "To-Do リストに追加しました。",
+  "issueTodoExists": "このイシューは既に To-Do リストにあります。",
+  "issueTodoError": "イシューを To-Do リストに追加できません。再試行してください。"
 }

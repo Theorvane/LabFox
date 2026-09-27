@@ -709,6 +709,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mrSubscriptionError => '无法更新合并请求通知。请重试。';
 
   @override
+  String get issueAddTodo => '添加到待办事项';
+
+  @override
+  String get issueTodoAdded => '已添加到待办事项。';
+
+  @override
+  String get issueTodoExists => '该议题已在待办事项中。';
+
+  @override
+  String get issueTodoError => '无法将议题添加到待办事项。请重试。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

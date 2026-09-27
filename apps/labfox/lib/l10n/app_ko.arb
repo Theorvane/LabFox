@@ -382,5 +382,9 @@
   "issueSubscriptionError": "이슈 알림을 변경할 수 없습니다. 다시 시도하세요.",
   "mrSubscribe": "알림 구독",
   "mrUnsubscribe": "알림 구독 해제",
-  "mrSubscriptionError": "병합 요청 알림을 변경할 수 없습니다. 다시 시도하세요."
+  "mrSubscriptionError": "병합 요청 알림을 변경할 수 없습니다. 다시 시도하세요.",
+  "issueAddTodo": "할 일에 추가",
+  "issueTodoAdded": "할 일 목록에 추가했습니다.",
+  "issueTodoExists": "이 이슈는 이미 할 일 목록에 있습니다.",
+  "issueTodoError": "이슈를 할 일 목록에 추가할 수 없습니다. 다시 시도하세요."
 }

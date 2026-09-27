@@ -382,5 +382,9 @@
   "issueSubscriptionError": "无法更新议题通知。请重试。",
   "mrSubscribe": "订阅通知",
   "mrUnsubscribe": "取消订阅通知",
-  "mrSubscriptionError": "无法更新合并请求通知。请重试。"
+  "mrSubscriptionError": "无法更新合并请求通知。请重试。",
+  "issueAddTodo": "添加到待办事项",
+  "issueTodoAdded": "已添加到待办事项。",
+  "issueTodoExists": "该议题已在待办事项中。",
+  "issueTodoError": "无法将议题添加到待办事项。请重试。"
 }

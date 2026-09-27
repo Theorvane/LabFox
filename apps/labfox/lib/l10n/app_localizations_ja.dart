@@ -711,6 +711,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get mrSubscriptionError => 'マージリクエストの通知を変更できません。再試行してください。';
 
   @override
+  String get issueAddTodo => 'To-Do に追加';
+
+  @override
+  String get issueTodoAdded => 'To-Do リストに追加しました。';
+
+  @override
+  String get issueTodoExists => 'このイシューは既に To-Do リストにあります。';
+
+  @override
+  String get issueTodoError => 'イシューを To-Do リストに追加できません。再試行してください。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override
