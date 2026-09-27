@@ -1707,6 +1707,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetDeleteError => 'Could not delete the snippet.';
 
   @override
+  String get snippetEditContent => 'Edit content';
+
+  @override
+  String get snippetSaveContent => 'Save content';
+
+  @override
+  String get snippetContentSaveError => 'Could not save snippet content.';
+
+  @override
   String get homeRecents => 'Recent';
 
   @override

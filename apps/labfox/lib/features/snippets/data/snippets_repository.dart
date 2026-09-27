@@ -7,6 +7,18 @@ class SnippetsRepository {
 
   final GitLabClient _client;
 
+  Future<Snippet> updateFileContent(
+    int projectId,
+    int snippetId, {
+    required String filePath,
+    required String content,
+  }) => _client.snippets.updateFileContent(
+    projectId,
+    snippetId,
+    filePath: filePath,
+    content: content,
+  );
+
   Future<Snippet> updateMetadata(
     int projectId,
     int snippetId, {

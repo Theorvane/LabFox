@@ -6,6 +6,52 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('updates one snippet file using the files action payload', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {'id': 73, 'title': 'Deploy helper'},
+      );
+    });
+
+    final snippet = await client.snippets.updateFileContent(
+      'team/project',
+      73,
+      filePath: 'scripts/deploy.sh',
+      content: 'echo ready',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+    expect(request.data, {
+      'files': [
+        {
+          'action': 'update',
+          'file_path': 'scripts/deploy.sh',
+          'content': 'echo ready',
+        },
+      ],
+    });
+    expect(snippet.id, 73);
+  });
+
+  test('maps forbidden snippet file updates', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.updateFileContent(
+        42,
+        73,
+        filePath: 'deploy.sh',
+        content: 'echo ready',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test('updates snippet metadata without a files payload', () async {
     late RequestOptions request;
     final client = _client((options) {
