@@ -1770,6 +1770,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiEditConflict => '此页面已在 GitLab 上更改。请重新加载后再编辑。';
 
   @override
+  String get wikiDeletePageAction => '删除页面';
+
+  @override
+  String get wikiDeleteConfirmTitle => '删除此维基页面？';
+
+  @override
+  String get wikiDeleteConfirmMessage => '此页面将从项目维基中永久删除。';
+
+  @override
+  String get wikiDeleteError => '无法删除维基页面。';
+
+  @override
+  String get wikiDeleteConflict => '此页面已更改。请重新加载后再删除。';
+
+  @override
   String get wikiReloadPage => '重新加载页面';
 
   @override

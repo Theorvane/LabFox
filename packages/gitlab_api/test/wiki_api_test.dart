@@ -6,6 +6,28 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('deletes a nested wiki slug as one encoded path segment', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, body: null);
+    });
+
+    await client.wikis.delete('team/project', 'docs/install');
+
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fproject/wikis/docs%2Finstall');
+  });
+
+  test('maps forbidden wiki page deletion', () async {
+    final client = _client((_) => (status: 403, body: const {}));
+
+    await expectLater(
+      client.wikis.delete(7, 'home'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test('lists wiki pages without requesting full content', () async {
     late RequestOptions request;
     final client = _client((options) {
