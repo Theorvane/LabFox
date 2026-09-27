@@ -104,3 +104,28 @@ final releaseDetailProvider = FutureProvider.family<GitLabRelease, ReleaseRef>((
   if (repository == null) throw StateError('No authenticated account');
   return repository.get(key.projectId, key.tagName);
 });
+
+class ReleaseDeleteController extends FamilyAsyncNotifier<void, ReleaseRef> {
+  @override
+  Future<void> build(ReleaseRef arg) async {}
+
+  Future<void> delete() async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(releasesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.delete(arg.projectId, arg.tagName);
+      ref.invalidate(releaseListControllerProvider(arg.projectId));
+      ref.invalidate(releaseDetailProvider(arg));
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final releaseDeleteControllerProvider =
+    AsyncNotifierProvider.family<ReleaseDeleteController, void, ReleaseRef>(
+      ReleaseDeleteController.new,
+    );

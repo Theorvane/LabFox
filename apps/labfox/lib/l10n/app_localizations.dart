@@ -686,6 +686,30 @@ abstract class AppLocalizations {
   /// **'Could not create the release.'**
   String get releaseCreateError;
 
+  /// No description provided for @releaseDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete release'**
+  String get releaseDelete;
+
+  /// No description provided for @releaseDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this release?'**
+  String get releaseDeleteConfirmTitle;
+
+  /// No description provided for @releaseDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The release and its notes will be deleted. The Git tag will remain.'**
+  String get releaseDeleteConfirmBody;
+
+  /// No description provided for @releaseDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the release.'**
+  String get releaseDeleteError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:
