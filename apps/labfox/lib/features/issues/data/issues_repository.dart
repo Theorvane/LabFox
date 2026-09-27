@@ -89,6 +89,16 @@ class IssuesRepository {
     milestoneId: milestoneId,
   );
 
+  Future<Issue> updateAssignees({
+    required int projectId,
+    required int iid,
+    required List<int> assigneeIds,
+  }) => _client.issues.updateAssignees(
+    projectId,
+    iid: iid,
+    assigneeIds: assigneeIds,
+  );
+
   Future<Issue?> setSubscription({
     required int projectId,
     required int iid,

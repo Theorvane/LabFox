@@ -718,6 +718,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueEditMilestone => 'Edit milestone';
 
   @override
+  String get issueEditAssignees => 'Edit assignees';
+
+  @override
+  String get issueAssignees => 'Assignees';
+
+  @override
+  String get issueSaveAssignees => 'Save assignees';
+
+  @override
+  String get issueAssigneesSaveError =>
+      'Could not update assignees. Check your permissions and try again.';
+
+  @override
   String get issueNoMilestone => 'No milestone';
 
   @override

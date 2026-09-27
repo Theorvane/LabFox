@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/issues/data/issues_repository.dart';
 import 'package:labfox/features/issues/presentation/controllers/issues_controllers.dart';
 import 'package:labfox/features/issues/presentation/issue_detail_screen.dart';
+import 'package:labfox/features/members/presentation/controllers/members_controller.dart';
 import 'package:labfox/features/milestones/presentation/controllers/milestones_controller.dart';
 import 'package:labfox/features/project_labels/presentation/controllers/project_labels_controller.dart';
 import 'package:labfox/l10n/app_localizations.dart';
@@ -25,6 +26,8 @@ class _FakeRepo extends IssuesRepository {
   int? lastMilestoneId;
   bool rejectMilestone = false;
   bool rejectLabels = false;
+  List<int>? lastAssigneeIds;
+  bool rejectAssignees = false;
   Issue? detailedAfterLabelUpdate;
   int getCount = 0;
   bool todoAlreadyExists = false;
@@ -105,6 +108,23 @@ class _FakeRepo extends IssuesRepository {
   }
 
   @override
+  Future<Issue> updateAssignees({
+    required int projectId,
+    required int iid,
+    required List<int> assigneeIds,
+  }) async {
+    if (rejectAssignees) throw const GitLabForbiddenException('Forbidden');
+    lastAssigneeIds = assigneeIds;
+    _issue = _issue.copyWith(
+      assignees: [
+        for (final id in assigneeIds)
+          User(id: id, username: 'user$id', name: 'User $id'),
+      ],
+    );
+    return _issue;
+  }
+
+  @override
   Future<Todo?> createTodo({required int projectId, required int iid}) async {
     lastTodoIid = iid;
     return todoAlreadyExists ? null : const Todo(id: 112, state: 'pending');
@@ -179,7 +199,69 @@ class _StubMilestones extends MilestoneListController {
   }
 }
 
+class _StubMembers extends ProjectMembersController {
+  @override
+  Future<Paginated<ProjectMember>> build(MemberListRef arg) async {
+    if (arg.query == 'bob') {
+      return const Paginated(
+        items: [
+          ProjectMember(id: 2, username: 'bob', name: 'Bob', accessLevel: 30),
+        ],
+      );
+    }
+    return const Paginated(
+      items: [
+        ProjectMember(id: 1, username: 'alice', name: 'Alice', accessLevel: 30),
+      ],
+      nextPage: 2,
+    );
+  }
+
+  @override
+  Future<void> loadMore() async {
+    state = const AsyncData(
+      Paginated(
+        items: [
+          ProjectMember(
+            id: 1,
+            username: 'alice',
+            name: 'Alice',
+            accessLevel: 30,
+          ),
+          ProjectMember(id: 2, username: 'bob', name: 'Bob', accessLevel: 30),
+        ],
+      ),
+    );
+  }
+}
+
 void main() {
+  test('updateAssignees refreshes issue detail state', () async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
+    );
+    final container = ProviderContainer(
+      overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+    );
+    addTearDown(container.dispose);
+    const ref = IssueRef(projectId: 7, iid: 5);
+    await container.read(issueControllerProvider(ref).future);
+
+    await container.read(issueControllerProvider(ref).notifier).updateAssignees(
+      [1, 2],
+    );
+
+    expect(repo.lastAssigneeIds, [1, 2]);
+    expect(
+      container
+          .read(issueControllerProvider(ref))
+          .value!
+          .assignees
+          .map((user) => user.id),
+      [1, 2],
+    );
+  });
+
   test('updateMilestone refreshes issue detail state', () async {
     final repo = _FakeRepo(
       const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
@@ -580,6 +662,124 @@ void main() {
       findsOneWidget,
     );
     expect(repo.lastLabels, isNull);
+  });
+
+  testWidgets(
+    'adds an assignee while preserving one absent from member search',
+    (tester) async {
+      final repo = _FakeRepo(
+        const Issue(
+          id: 1,
+          iid: 5,
+          title: 'Bug',
+          state: 'opened',
+          assignees: [User(id: 99, username: 'former', name: 'Former')],
+        ),
+      );
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            issuesRepositoryProvider.overrideWith((ref) async => repo),
+            projectMembersControllerProvider.overrideWith(_StubMembers.new),
+          ],
+          child: const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: IssueDetailScreen(projectId: 7, iid: 5),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Edit assignees'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.widgetWithText(CheckboxListTile, 'Alice'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save assignees'));
+      await tester.pumpAndSettle();
+
+      expect(repo.lastAssigneeIds, [99, 1]);
+    },
+  );
+
+  testWidgets('loads more members and clears all assignees', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        assignees: [User(id: 1, username: 'alice', name: 'Alice')],
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectMembersControllerProvider.overrideWith(_StubMembers.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit assignees'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Load more'));
+    await tester.pumpAndSettle();
+    expect(find.text('Bob'), findsOneWidget);
+    await tester.tap(find.widgetWithText(CheckboxListTile, 'Alice'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).last, 'bob');
+    await tester.pumpAndSettle();
+    expect(find.text('Bob'), findsOneWidget);
+    await tester.tap(find.text('Save assignees'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastAssigneeIds, isEmpty);
+  });
+
+  testWidgets('keeps assignee picker open on permission denial', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    )..rejectAssignees = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          issuesRepositoryProvider.overrideWith((ref) async => repo),
+          projectMembersControllerProvider.overrideWith(_StubMembers.new),
+        ],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Edit assignees'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save assignees'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Edit assignees'), findsOneWidget);
+    expect(find.textContaining('Could not update assignees'), findsOneWidget);
   });
 
   testWidgets('selects a paginated ancestor milestone', (tester) async {

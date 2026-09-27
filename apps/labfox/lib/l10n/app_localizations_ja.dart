@@ -708,6 +708,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueEditMilestone => 'マイルストーンを編集';
 
   @override
+  String get issueEditAssignees => '担当者を編集';
+
+  @override
+  String get issueAssignees => '担当者';
+
+  @override
+  String get issueSaveAssignees => '担当者を保存';
+
+  @override
+  String get issueAssigneesSaveError => '担当者を更新できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get issueNoMilestone => 'マイルストーンなし';
 
   @override

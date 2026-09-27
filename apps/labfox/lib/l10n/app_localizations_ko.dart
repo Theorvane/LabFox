@@ -709,6 +709,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueEditMilestone => '마일스톤 편집';
 
   @override
+  String get issueEditAssignees => '담당자 편집';
+
+  @override
+  String get issueAssignees => '담당자';
+
+  @override
+  String get issueSaveAssignees => '담당자 저장';
+
+  @override
+  String get issueAssigneesSaveError => '담당자를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get issueNoMilestone => '마일스톤 없음';
 
   @override

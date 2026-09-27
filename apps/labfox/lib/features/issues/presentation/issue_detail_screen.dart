@@ -9,6 +9,7 @@ import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../comments/presentation/widgets/comment_thread.dart';
+import '../../members/presentation/controllers/members_controller.dart';
 import '../../milestones/presentation/controllers/milestones_controller.dart';
 import '../../project_labels/presentation/controllers/project_labels_controller.dart';
 import 'controllers/issues_controllers.dart';
@@ -68,6 +69,14 @@ class IssueDetailScreen extends ConsumerWidget {
                       issueRef: issueRef,
                     ),
                   );
+                } else if (action == _IssueAction.editAssignees) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => _EditIssueAssigneesDialog(
+                      issue: data,
+                      issueRef: issueRef,
+                    ),
+                  );
                 } else if (action == _IssueAction.subscribe ||
                     action == _IssueAction.unsubscribe) {
                   _setSubscription(
@@ -116,6 +125,10 @@ class IssueDetailScreen extends ConsumerWidget {
                 PopupMenuItem(
                   value: _IssueAction.editMilestone,
                   child: Text(l10n.issueEditMilestone),
+                ),
+                PopupMenuItem(
+                  value: _IssueAction.editAssignees,
+                  child: Text(l10n.issueEditAssignees),
                 ),
                 PopupMenuItem(
                   value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
@@ -182,6 +195,17 @@ class IssueDetailScreen extends ConsumerWidget {
                   const Icon(LabFoxIcons.milestone, size: 18),
                   const SizedBox(width: LabFoxSpacing.sm),
                   Flexible(child: Text(milestone.title)),
+                ],
+              ),
+            ],
+            if (data.assignees.isNotEmpty) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              Text(l10n.issueAssignees),
+              Wrap(
+                spacing: LabFoxSpacing.sm,
+                children: [
+                  for (final user in data.assignees)
+                    Chip(label: Text(user.name)),
                 ],
               ),
             ],
@@ -276,6 +300,7 @@ enum _IssueAction {
   editLabels,
   editDueDate,
   editMilestone,
+  editAssignees,
   close,
   reopen,
   subscribe,
@@ -508,6 +533,151 @@ class _EditIssueLabelsDialogState
         FilledButton(
           onPressed: _busy || !labels.hasValue ? null : _save,
           child: Text(l10n.issueSaveLabels),
+        ),
+      ],
+    );
+  }
+}
+
+class _EditIssueAssigneesDialog extends ConsumerStatefulWidget {
+  const _EditIssueAssigneesDialog({
+    required this.issue,
+    required this.issueRef,
+  });
+
+  final Issue issue;
+  final IssueRef issueRef;
+
+  @override
+  ConsumerState<_EditIssueAssigneesDialog> createState() =>
+      _EditIssueAssigneesDialogState();
+}
+
+class _EditIssueAssigneesDialogState
+    extends ConsumerState<_EditIssueAssigneesDialog> {
+  late final Set<int> _selected = {
+    for (final user in widget.issue.assignees) user.id,
+  };
+  String _query = '';
+  bool _busy = false;
+  bool _failed = false;
+
+  void _toggle(int id, bool selected) => setState(() {
+    if (selected) {
+      _selected.add(id);
+    } else {
+      _selected.remove(id);
+    }
+  });
+
+  Future<void> _save() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .updateAssignees(_selected.toList());
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final memberRef = MemberListRef(
+      projectId: widget.issueRef.projectId,
+      query: _query,
+    );
+    final members = ref.watch(projectMembersControllerProvider(memberRef));
+    final available = members.valueOrNull?.items ?? <ProjectMember>[];
+    final listedIds = available.map((member) => member.id).toSet();
+    return AlertDialog(
+      title: Text(l10n.issueEditAssignees),
+      content: SizedBox(
+        width: 480,
+        height: 400,
+        child: Column(
+          children: [
+            TextField(
+              enabled: !_busy,
+              decoration: InputDecoration(labelText: l10n.projectMembersSearch),
+              onChanged: (value) => setState(() => _query = value.trim()),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  for (final user in widget.issue.assignees)
+                    if (!listedIds.contains(user.id))
+                      CheckboxListTile(
+                        title: Text(user.name),
+                        subtitle: Text(user.username),
+                        value: _selected.contains(user.id),
+                        onChanged: _busy
+                            ? null
+                            : (value) => _toggle(user.id, value ?? false),
+                      ),
+                  if (members.isLoading)
+                    const Center(child: CircularProgressIndicator())
+                  else if (members.hasError)
+                    Column(
+                      children: [
+                        Text(l10n.projectMembersError),
+                        TextButton(
+                          onPressed: () => ref.invalidate(
+                            projectMembersControllerProvider(memberRef),
+                          ),
+                          child: Text(l10n.retry),
+                        ),
+                      ],
+                    )
+                  else ...[
+                    if (available.isEmpty && widget.issue.assignees.isEmpty)
+                      Text(l10n.projectMembersEmpty),
+                    for (final member in available)
+                      if (member.state == null || member.state == 'active')
+                        CheckboxListTile(
+                          title: Text(member.name),
+                          subtitle: Text(member.username),
+                          value: _selected.contains(member.id),
+                          onChanged: _busy
+                              ? null
+                              : (value) => _toggle(member.id, value ?? false),
+                        ),
+                    if (members.valueOrNull?.nextPage != null)
+                      TextButton(
+                        onPressed: _busy
+                            ? null
+                            : () => ref
+                                  .read(
+                                    projectMembersControllerProvider(
+                                      memberRef,
+                                    ).notifier,
+                                  )
+                                  .loadMore(),
+                        child: Text(l10n.projectMembersLoadMore),
+                      ),
+                  ],
+                ],
+              ),
+            ),
+            if (_failed) Text(l10n.issueAssigneesSaveError),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _save,
+          child: Text(l10n.issueSaveAssignees),
         ),
       ],
     );
