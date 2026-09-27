@@ -6,6 +6,52 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('moves a snippet file using its previous and new paths', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {'id': 73, 'title': 'Deploy helper'},
+      );
+    });
+
+    final snippet = await client.snippets.moveFile(
+      'team/project',
+      73,
+      previousPath: 'scripts/deploy.sh',
+      filePath: 'bin/deploy.sh',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+    expect(request.data, {
+      'files': [
+        {
+          'action': 'move',
+          'previous_path': 'scripts/deploy.sh',
+          'file_path': 'bin/deploy.sh',
+        },
+      ],
+    });
+    expect(snippet.id, 73);
+  });
+
+  test('maps forbidden snippet file moves', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.moveFile(
+        42,
+        73,
+        previousPath: 'deploy.sh',
+        filePath: 'renamed.sh',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test('deletes one snippet file using the files action payload', () async {
     late RequestOptions request;
     final client = _client((options) {

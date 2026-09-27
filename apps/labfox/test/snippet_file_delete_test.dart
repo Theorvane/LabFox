@@ -84,7 +84,7 @@ void main() {
       await tester.tap(find.byTooltip('Delete file'));
       await tester.pumpAndSettle();
       expect(find.text('Delete this file?'), findsOneWidget);
-      expect(find.text('scripts/deploy.sh'), findsOneWidget);
+      expect(find.text('scripts/deploy.sh'), findsWidgets);
       expect(repository.deletedPath, isNull);
 
       await tester.tap(find.text('Cancel'));

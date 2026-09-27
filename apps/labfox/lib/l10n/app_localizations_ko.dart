@@ -1657,6 +1657,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetFileAddError => '파일을 추가할 수 없습니다.';
 
   @override
+  String get snippetFileMoveAction => '파일 이동';
+
+  @override
+  String get snippetFileMoveTitle => '파일 이동 또는 이름 변경';
+
+  @override
+  String get snippetFileMovePathField => '새 파일 경로';
+
+  @override
+  String get snippetFileMoveValidationError => '중복되지 않는 다른 상대 파일 경로를 입력하세요.';
+
+  @override
+  String get snippetFileMoveError => '파일을 이동할 수 없습니다.';
+
+  @override
   String get snippetEditAction => '스니펫 편집';
 
   @override

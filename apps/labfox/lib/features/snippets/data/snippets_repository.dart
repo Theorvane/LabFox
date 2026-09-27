@@ -7,6 +7,18 @@ class SnippetsRepository {
 
   final GitLabClient _client;
 
+  Future<Snippet> moveFile(
+    int projectId,
+    int snippetId, {
+    required String previousPath,
+    required String filePath,
+  }) => _client.snippets.moveFile(
+    projectId,
+    snippetId,
+    previousPath: previousPath,
+    filePath: filePath,
+  );
+
   Future<Snippet> deleteFile(
     int projectId,
     int snippetId, {

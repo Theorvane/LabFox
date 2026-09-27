@@ -1647,6 +1647,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetFileAddError => '无法添加文件。';
 
   @override
+  String get snippetFileMoveAction => '移动文件';
+
+  @override
+  String get snippetFileMoveTitle => '移动或重命名文件';
+
+  @override
+  String get snippetFileMovePathField => '新文件路径';
+
+  @override
+  String get snippetFileMoveValidationError => '请输入不同且未使用的相对文件路径。';
+
+  @override
+  String get snippetFileMoveError => '无法移动文件。';
+
+  @override
   String get snippetEditAction => '编辑代码片段';
 
   @override

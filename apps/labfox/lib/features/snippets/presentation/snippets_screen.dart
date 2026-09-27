@@ -683,6 +683,7 @@ class _SnippetBody extends ConsumerWidget {
               _SingleSnippetContent(
                 projectId: projectId,
                 snippetId: snippet.id,
+                existingPaths: files.map((file) => file.path).toList(),
                 filePath: files.isNotEmpty
                     ? files.first.path
                     : snippet.fileName,
@@ -699,11 +700,13 @@ class _SingleSnippetContent extends ConsumerWidget {
   const _SingleSnippetContent({
     required this.projectId,
     required this.snippetId,
+    required this.existingPaths,
     required this.filePath,
   });
 
   final int projectId;
   final int snippetId;
+  final List<String> existingPaths;
   final String? filePath;
 
   @override
@@ -737,6 +740,21 @@ class _SingleSnippetContent extends ConsumerWidget {
                   ),
                   icon: const Icon(Icons.edit_outlined),
                   label: Text(l10n.snippetEditContent),
+                ),
+            if (filePath case final path?)
+              if (existingPaths.contains(path))
+                IconButton(
+                  tooltip: l10n.snippetFileMoveAction,
+                  icon: const Icon(Icons.drive_file_move_outline),
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (_) => _MoveSnippetFileDialog(
+                      projectId: projectId,
+                      snippetId: snippetId,
+                      previousPath: path,
+                      existingPaths: existingPaths,
+                    ),
+                  ),
                 ),
           ],
         ),
@@ -872,6 +890,30 @@ class SnippetFileScreen extends ConsumerWidget {
         title: Text(path.split('/').last),
         actions: [
           if (snippet.valueOrNull case final item?)
+            if (item.files.any((file) => file.path == path))
+              IconButton(
+                tooltip: l10n.snippetFileMoveAction,
+                icon: const Icon(Icons.drive_file_move_outline),
+                onPressed: () async {
+                  final newPath = await showDialog<String>(
+                    context: context,
+                    builder: (_) => _MoveSnippetFileDialog(
+                      projectId: projectId,
+                      snippetId: snippetId,
+                      previousPath: path,
+                      existingPaths: item.files
+                          .map((file) => file.path)
+                          .toList(),
+                    ),
+                  );
+                  if (newPath != null && context.mounted) {
+                    context.go(
+                      Routes.snippetFile(projectId, snippetId, newPath),
+                    );
+                  }
+                },
+              ),
+          if (snippet.valueOrNull case final item?)
             if (item.files.length > 1 &&
                 item.files.any((file) => file.path == path))
               IconButton(
@@ -896,8 +938,128 @@ class SnippetFileScreen extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
-        child: _Content(content: content),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(path, style: LabFoxTextRoles.of(context).sectionHeader),
+            const SizedBox(height: LabFoxSpacing.sm),
+            Expanded(child: _Content(content: content)),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class _MoveSnippetFileDialog extends ConsumerStatefulWidget {
+  const _MoveSnippetFileDialog({
+    required this.projectId,
+    required this.snippetId,
+    required this.previousPath,
+    required this.existingPaths,
+  });
+
+  final int projectId;
+  final int snippetId;
+  final String previousPath;
+  final List<String> existingPaths;
+
+  @override
+  ConsumerState<_MoveSnippetFileDialog> createState() =>
+      _MoveSnippetFileDialogState();
+}
+
+class _MoveSnippetFileDialogState
+    extends ConsumerState<_MoveSnippetFileDialog> {
+  late final TextEditingController _filePath = TextEditingController(
+    text: widget.previousPath,
+  );
+  bool _busy = false;
+  bool _invalid = false;
+  bool _failed = false;
+
+  @override
+  void dispose() {
+    _filePath.dispose();
+    super.dispose();
+  }
+
+  Future<void> _move() async {
+    final filePath = _filePath.text.trim();
+    if (!isValidSnippetFilePath(filePath) ||
+        filePath == widget.previousPath ||
+        widget.existingPaths.contains(filePath)) {
+      setState(() {
+        _invalid = true;
+        _failed = false;
+      });
+      return;
+    }
+    setState(() {
+      _busy = true;
+      _invalid = false;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(moveSnippetFileControllerProvider.notifier)
+          .move(
+            projectId: widget.projectId,
+            snippetId: widget.snippetId,
+            previousPath: widget.previousPath,
+            filePath: filePath,
+          );
+      if (mounted) Navigator.of(context).pop(filePath);
+    } on StateError {
+      if (mounted) setState(() => _invalid = true);
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetFileMoveTitle),
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 560),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.previousPath),
+            const SizedBox(height: LabFoxSpacing.sm),
+            TextField(
+              controller: _filePath,
+              enabled: !_busy,
+              decoration: InputDecoration(
+                labelText: l10n.snippetFileMovePathField,
+              ),
+            ),
+            if (_invalid) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetFileMoveValidationError),
+            ],
+            if (_failed) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetFileMoveError),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _move,
+          child: Text(l10n.snippetFileMoveAction),
+        ),
+      ],
     );
   }
 }
