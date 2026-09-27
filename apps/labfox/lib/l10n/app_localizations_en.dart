@@ -1679,6 +1679,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetCreateError => 'Could not create the snippet.';
 
   @override
+  String get snippetAddFile => 'Add file';
+
+  @override
+  String get snippetFileAddValidationError =>
+      'Enter a unique relative file path and content.';
+
+  @override
+  String get snippetFileAddError => 'Could not add the file.';
+
+  @override
   String get snippetEditAction => 'Edit snippet';
 
   @override
@@ -1708,6 +1718,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get snippetDeleteError => 'Could not delete the snippet.';
+
+  @override
+  String get snippetFileDeleteAction => 'Delete file';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => 'Delete this file?';
+
+  @override
+  String get snippetFileDeleteConfirmMessage =>
+      'This permanently deletes only this file from the snippet.';
+
+  @override
+  String get snippetFileDeleteError => 'Could not delete the file.';
 
   @override
   String get snippetEditContent => 'Edit content';

@@ -64,6 +64,41 @@ final createSnippetControllerProvider =
       CreateSnippetController.new,
     );
 
+class AddSnippetFileController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<Snippet> addFile({
+    required int projectId,
+    required int snippetId,
+    required String filePath,
+    required String content,
+  }) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      final snippet = await repository.addFile(
+        projectId,
+        snippetId,
+        filePath: filePath,
+        content: content,
+      );
+      ref.invalidate(projectSnippetProvider(SnippetRef(projectId, snippetId)));
+      ref.invalidate(projectSnippetsProvider(projectId));
+      state = const AsyncData(null);
+      return snippet;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final addSnippetFileControllerProvider =
+    AsyncNotifierProvider.autoDispose<AddSnippetFileController, void>(
+      AddSnippetFileController.new,
+    );
+
 class UpdateSnippetContentController extends AutoDisposeAsyncNotifier<void> {
   @override
   void build() {}
@@ -102,6 +137,43 @@ class UpdateSnippetContentController extends AutoDisposeAsyncNotifier<void> {
 final updateSnippetContentControllerProvider =
     AsyncNotifierProvider.autoDispose<UpdateSnippetContentController, void>(
       UpdateSnippetContentController.new,
+    );
+
+class DeleteSnippetFileController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<void> delete({
+    required int projectId,
+    required int snippetId,
+    required String filePath,
+  }) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      final snippet = await repository.get(projectId, snippetId);
+      if (snippet.files.length < 2 ||
+          !snippet.files.any((file) => file.path == filePath)) {
+        throw StateError('Snippet file cannot be deleted');
+      }
+      await repository.deleteFile(projectId, snippetId, filePath: filePath);
+      final key = SnippetRef(projectId, snippetId);
+      ref.invalidate(projectSnippetProvider(key));
+      ref.invalidate(projectSnippetsProvider(projectId));
+      ref.invalidate(
+        snippetFileProvider(SnippetFileRef(projectId, snippetId, filePath)),
+      );
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final deleteSnippetFileControllerProvider =
+    AsyncNotifierProvider.autoDispose<DeleteSnippetFileController, void>(
+      DeleteSnippetFileController.new,
     );
 
 class UpdateSnippetController extends AutoDisposeAsyncNotifier<void> {

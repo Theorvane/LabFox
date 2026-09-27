@@ -11,6 +11,12 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/snippets_controller.dart';
 
+bool _validSnippetFilePath(String path) =>
+    path.isNotEmpty &&
+    !path.startsWith('/') &&
+    !path.contains('\\') &&
+    !path.split('/').any((part) => part.isEmpty || part == '.' || part == '..');
+
 /// A project's snippets, styled as compact GitLab work items.
 class SnippetsScreen extends ConsumerWidget {
   const SnippetsScreen({required this.projectId, super.key});
@@ -121,12 +127,7 @@ class _CreateSnippetDialogState extends ConsumerState<_CreateSnippetDialog> {
     final filePath = _filePath.text.trim();
     final content = _content.text;
     if (title.isEmpty ||
-        filePath.isEmpty ||
-        filePath.startsWith('/') ||
-        filePath.contains('\\') ||
-        filePath
-            .split('/')
-            .any((part) => part.isEmpty || part == '.' || part == '..') ||
+        !_validSnippetFilePath(filePath) ||
         content.trim().isEmpty) {
       setState(() {
         _invalid = true;
@@ -268,6 +269,16 @@ class SnippetDetailScreen extends ConsumerWidget {
         actions: [
           if (snippet.valueOrNull case final item?)
             IconButton(
+              tooltip: l10n.snippetAddFile,
+              icon: const Icon(Icons.note_add_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) =>
+                    _AddSnippetFileDialog(projectId: projectId, snippet: item),
+              ),
+            ),
+          if (snippet.valueOrNull case final item?)
+            IconButton(
               tooltip: l10n.snippetEditAction,
               icon: const Icon(Icons.edit_outlined),
               onPressed: () => showDialog<void>(
@@ -308,6 +319,119 @@ class SnippetDetailScreen extends ConsumerWidget {
         ),
         data: (item) => _SnippetBody(projectId: projectId, snippet: item),
       ),
+    );
+  }
+}
+
+class _AddSnippetFileDialog extends ConsumerStatefulWidget {
+  const _AddSnippetFileDialog({required this.projectId, required this.snippet});
+
+  final int projectId;
+  final Snippet snippet;
+
+  @override
+  ConsumerState<_AddSnippetFileDialog> createState() =>
+      _AddSnippetFileDialogState();
+}
+
+class _AddSnippetFileDialogState extends ConsumerState<_AddSnippetFileDialog> {
+  final _filePath = TextEditingController();
+  final _content = TextEditingController();
+  bool _busy = false;
+  bool _invalid = false;
+  bool _failed = false;
+
+  @override
+  void dispose() {
+    _filePath.dispose();
+    _content.dispose();
+    super.dispose();
+  }
+
+  Future<void> _add() async {
+    final filePath = _filePath.text.trim();
+    final existingPaths = widget.snippet.files.map((file) => file.path).toSet();
+    if (widget.snippet.fileName case final name?) existingPaths.add(name);
+    if (!_validSnippetFilePath(filePath) ||
+        existingPaths.contains(filePath) ||
+        _content.text.trim().isEmpty) {
+      setState(() {
+        _invalid = true;
+        _failed = false;
+      });
+      return;
+    }
+    setState(() {
+      _busy = true;
+      _invalid = false;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(addSnippetFileControllerProvider.notifier)
+          .addFile(
+            projectId: widget.projectId,
+            snippetId: widget.snippet.id,
+            filePath: filePath,
+            content: _content.text,
+          );
+      if (mounted) Navigator.of(context).pop();
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetAddFile),
+      scrollable: true,
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 560),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _filePath,
+              enabled: !_busy,
+              decoration: InputDecoration(labelText: l10n.snippetFilePathField),
+            ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            TextField(
+              controller: _content,
+              enabled: !_busy,
+              minLines: 6,
+              maxLines: 12,
+              decoration: InputDecoration(
+                labelText: l10n.snippetContentField,
+                alignLabelWithHint: true,
+              ),
+            ),
+            if (_invalid) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetFileAddValidationError),
+            ],
+            if (_failed) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetFileAddError),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _add,
+          child: Text(l10n.snippetAddFile),
+        ),
+      ],
     );
   }
 }
@@ -737,6 +861,9 @@ class SnippetFileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
+    final snippet = ref.watch(
+      projectSnippetProvider(SnippetRef(projectId, snippetId)),
+    );
     final content = ref.watch(
       snippetFileProvider(SnippetFileRef(projectId, snippetId, path)),
     );
@@ -758,12 +885,107 @@ class SnippetFileScreen extends ConsumerWidget {
                 ),
               ),
             ),
+          if (snippet.valueOrNull case final item?)
+            if (item.files.length > 1 &&
+                item.files.any((file) => file.path == path))
+              IconButton(
+                tooltip: l10n.snippetFileDeleteAction,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () async {
+                  final deleted = await showDialog<bool>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => _DeleteSnippetFileDialog(
+                      projectId: projectId,
+                      snippetId: snippetId,
+                      filePath: path,
+                    ),
+                  );
+                  if (deleted == true && context.mounted) {
+                    context.go(Routes.snippet(projectId, snippetId));
+                  }
+                },
+              ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
         child: _Content(content: content),
       ),
+    );
+  }
+}
+
+class _DeleteSnippetFileDialog extends ConsumerStatefulWidget {
+  const _DeleteSnippetFileDialog({
+    required this.projectId,
+    required this.snippetId,
+    required this.filePath,
+  });
+
+  final int projectId;
+  final int snippetId;
+  final String filePath;
+
+  @override
+  ConsumerState<_DeleteSnippetFileDialog> createState() =>
+      _DeleteSnippetFileDialogState();
+}
+
+class _DeleteSnippetFileDialogState
+    extends ConsumerState<_DeleteSnippetFileDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _delete() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(deleteSnippetFileControllerProvider.notifier)
+          .delete(
+            projectId: widget.projectId,
+            snippetId: widget.snippetId,
+            filePath: widget.filePath,
+          );
+      if (mounted) Navigator.of(context).pop(true);
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetFileDeleteConfirmTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.filePath),
+          const SizedBox(height: LabFoxSpacing.sm),
+          Text(l10n.snippetFileDeleteConfirmMessage),
+          if (_failed) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(l10n.snippetFileDeleteError),
+          ],
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(false),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _delete,
+          child: Text(l10n.snippetFileDeleteAction),
+        ),
+      ],
     );
   }
 }

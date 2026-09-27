@@ -3278,6 +3278,24 @@ abstract class AppLocalizations {
   /// **'Could not create the snippet.'**
   String get snippetCreateError;
 
+  /// No description provided for @snippetAddFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add file'**
+  String get snippetAddFile;
+
+  /// No description provided for @snippetFileAddValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a unique relative file path and content.'**
+  String get snippetFileAddValidationError;
+
+  /// No description provided for @snippetFileAddError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the file.'**
+  String get snippetFileAddError;
+
   /// No description provided for @snippetEditAction.
   ///
   /// In en, this message translates to:
@@ -3337,6 +3355,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not delete the snippet.'**
   String get snippetDeleteError;
+
+  /// No description provided for @snippetFileDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get snippetFileDeleteAction;
+
+  /// No description provided for @snippetFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this file?'**
+  String get snippetFileDeleteConfirmTitle;
+
+  /// No description provided for @snippetFileDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes only this file from the snippet.'**
+  String get snippetFileDeleteConfirmMessage;
+
+  /// No description provided for @snippetFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the file.'**
+  String get snippetFileDeleteError;
 
   /// No description provided for @snippetEditContent.
   ///

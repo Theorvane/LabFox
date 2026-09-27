@@ -1638,6 +1638,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetCreateError => '无法创建代码片段。';
 
   @override
+  String get snippetAddFile => '添加文件';
+
+  @override
+  String get snippetFileAddValidationError => '请输入不重复的相对文件路径和内容。';
+
+  @override
+  String get snippetFileAddError => '无法添加文件。';
+
+  @override
   String get snippetEditAction => '编辑代码片段';
 
   @override
@@ -1666,6 +1675,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get snippetDeleteError => '无法删除代码片段。';
+
+  @override
+  String get snippetFileDeleteAction => '删除文件';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => '删除此文件？';
+
+  @override
+  String get snippetFileDeleteConfirmMessage => '只会从代码片段中永久删除此文件。';
+
+  @override
+  String get snippetFileDeleteError => '无法删除文件。';
 
   @override
   String get snippetEditContent => '编辑内容';

@@ -1644,6 +1644,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetCreateError => 'スニペットを作成できませんでした。';
 
   @override
+  String get snippetAddFile => 'ファイルを追加';
+
+  @override
+  String get snippetFileAddValidationError => '重複しない相対ファイルパスと内容を入力してください。';
+
+  @override
+  String get snippetFileAddError => 'ファイルを追加できませんでした。';
+
+  @override
   String get snippetEditAction => 'スニペットを編集';
 
   @override
@@ -1672,6 +1681,18 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get snippetDeleteError => 'スニペットを削除できませんでした。';
+
+  @override
+  String get snippetFileDeleteAction => 'ファイルを削除';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => 'このファイルを削除しますか？';
+
+  @override
+  String get snippetFileDeleteConfirmMessage => 'スニペットからこのファイルのみを完全に削除します。';
+
+  @override
+  String get snippetFileDeleteError => 'ファイルを削除できませんでした。';
 
   @override
   String get snippetEditContent => '内容を編集';

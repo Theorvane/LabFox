@@ -1648,6 +1648,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetCreateError => '스니펫을 만들 수 없습니다.';
 
   @override
+  String get snippetAddFile => '파일 추가';
+
+  @override
+  String get snippetFileAddValidationError => '중복되지 않는 상대 파일 경로와 내용을 입력하세요.';
+
+  @override
+  String get snippetFileAddError => '파일을 추가할 수 없습니다.';
+
+  @override
   String get snippetEditAction => '스니펫 편집';
 
   @override
@@ -1676,6 +1685,18 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get snippetDeleteError => '스니펫을 삭제할 수 없습니다.';
+
+  @override
+  String get snippetFileDeleteAction => '파일 삭제';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => '이 파일을 삭제할까요?';
+
+  @override
+  String get snippetFileDeleteConfirmMessage => '스니펫에서 이 파일만 영구적으로 삭제됩니다.';
+
+  @override
+  String get snippetFileDeleteError => '파일을 삭제할 수 없습니다.';
 
   @override
   String get snippetEditContent => '내용 편집';

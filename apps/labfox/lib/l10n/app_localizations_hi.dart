@@ -1675,6 +1675,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetCreateError => 'स्निपेट नहीं बनाया जा सका।';
 
   @override
+  String get snippetAddFile => 'फ़ाइल जोड़ें';
+
+  @override
+  String get snippetFileAddValidationError =>
+      'अद्वितीय सापेक्ष फ़ाइल पथ और सामग्री दर्ज करें।';
+
+  @override
+  String get snippetFileAddError => 'फ़ाइल नहीं जोड़ी जा सकी।';
+
+  @override
   String get snippetEditAction => 'स्निपेट संपादित करें';
 
   @override
@@ -1704,6 +1714,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get snippetDeleteError => 'स्निपेट हटाया नहीं जा सका।';
+
+  @override
+  String get snippetFileDeleteAction => 'फ़ाइल हटाएँ';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => 'यह फ़ाइल हटाएँ?';
+
+  @override
+  String get snippetFileDeleteConfirmMessage =>
+      'स्निपेट से केवल यह फ़ाइल स्थायी रूप से हटाई जाएगी।';
+
+  @override
+  String get snippetFileDeleteError => 'फ़ाइल हटाई नहीं जा सकी।';
 
   @override
   String get snippetEditContent => 'सामग्री संपादित करें';
