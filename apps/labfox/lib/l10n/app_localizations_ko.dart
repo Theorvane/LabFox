@@ -706,6 +706,30 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueEditDueDate => '마감일 수정';
 
   @override
+  String get issueConfidential => '기밀';
+
+  @override
+  String get issueMakeConfidential => '기밀로 설정';
+
+  @override
+  String get issueRemoveConfidentiality => '기밀 해제';
+
+  @override
+  String get issueMakeConfidentialExplanation =>
+      '이 이슈의 접근 권한이 제한됩니다. 계속하시겠습니까?';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      '프로젝트를 볼 수 있는 모든 사람에게 이 이슈가 표시됩니다. 계속하시겠습니까?';
+
+  @override
+  String get issueConfidentialityConfirm => '확인';
+
+  @override
+  String get issueConfidentialityError =>
+      '기밀 상태를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get issueEditMilestone => '마일스톤 편집';
 
   @override

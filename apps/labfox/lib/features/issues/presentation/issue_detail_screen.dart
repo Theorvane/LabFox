@@ -77,6 +77,15 @@ class IssueDetailScreen extends ConsumerWidget {
                       issueRef: issueRef,
                     ),
                   );
+                } else if (action == _IssueAction.makeConfidential ||
+                    action == _IssueAction.removeConfidentiality) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => _ConfirmIssueConfidentialityDialog(
+                      issueRef: issueRef,
+                      confidential: action == _IssueAction.makeConfidential,
+                    ),
+                  );
                 } else if (action == _IssueAction.subscribe ||
                     action == _IssueAction.unsubscribe) {
                   _setSubscription(
@@ -130,6 +139,17 @@ class IssueDetailScreen extends ConsumerWidget {
                   value: _IssueAction.editAssignees,
                   child: Text(l10n.issueEditAssignees),
                 ),
+                if (data.confidential case final confidential?)
+                  PopupMenuItem(
+                    value: confidential
+                        ? _IssueAction.removeConfidentiality
+                        : _IssueAction.makeConfidential,
+                    child: Text(
+                      confidential
+                          ? l10n.issueRemoveConfidentiality
+                          : l10n.issueMakeConfidential,
+                    ),
+                  ),
                 PopupMenuItem(
                   value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
                   child: Text(data.isOpen ? l10n.issueClose : l10n.issueReopen),
@@ -301,11 +321,83 @@ enum _IssueAction {
   editDueDate,
   editMilestone,
   editAssignees,
+  makeConfidential,
+  removeConfidentiality,
   close,
   reopen,
   subscribe,
   unsubscribe,
   addTodo,
+}
+
+class _ConfirmIssueConfidentialityDialog extends ConsumerStatefulWidget {
+  const _ConfirmIssueConfidentialityDialog({
+    required this.issueRef,
+    required this.confidential,
+  });
+
+  final IssueRef issueRef;
+  final bool confidential;
+
+  @override
+  ConsumerState<_ConfirmIssueConfidentialityDialog> createState() =>
+      _ConfirmIssueConfidentialityDialogState();
+}
+
+class _ConfirmIssueConfidentialityDialogState
+    extends ConsumerState<_ConfirmIssueConfidentialityDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _confirm() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .setConfidential(widget.confidential);
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(
+        widget.confidential
+            ? l10n.issueMakeConfidential
+            : l10n.issueRemoveConfidentiality,
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            widget.confidential
+                ? l10n.issueMakeConfidentialExplanation
+                : l10n.issueRemoveConfidentialityExplanation,
+          ),
+          if (_failed) Text(l10n.issueConfidentialityError),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _confirm,
+          child: Text(l10n.issueConfidentialityConfirm),
+        ),
+      ],
+    );
+  }
 }
 
 class _EditIssueMilestoneDialog extends ConsumerStatefulWidget {
@@ -900,6 +992,11 @@ class _IssueHeader extends StatelessWidget {
               icon: open ? LabFoxIcons.issueOpen : LabFoxIcons.issueClosed,
               filled: true,
             ),
+            if (issue.confidential == true)
+              Chip(
+                avatar: const Icon(Icons.lock_outline, size: 18),
+                label: Text(l10n.issueConfidential),
+              ),
             if (issue.author != null) ...[
               UserAvatar(user: issue.author!),
               MetaText(issue.author!.username),

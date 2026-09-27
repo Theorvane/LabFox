@@ -3,6 +3,19 @@ import 'package:test/test.dart';
 
 void main() {
   group('Issue', () {
+    test('distinguishes confidential, public, and absent values', () {
+      const base = {'id': 1, 'iid': 5, 'title': 'x', 'state': 'opened'};
+      expect(
+        Issue.fromJson({...base, 'confidential': true}).confidential,
+        isTrue,
+      );
+      expect(
+        Issue.fromJson({...base, 'confidential': false}).confidential,
+        isFalse,
+      );
+      expect(Issue.fromJson(base).confidential, isNull);
+    });
+
     test('parses an assigned milestone and preserves its global id', () {
       final issue = Issue.fromJson(const {
         'id': 1,

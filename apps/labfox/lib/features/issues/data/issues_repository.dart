@@ -89,6 +89,16 @@ class IssuesRepository {
     milestoneId: milestoneId,
   );
 
+  Future<Issue> setConfidential({
+    required int projectId,
+    required int iid,
+    required bool confidential,
+  }) => _client.issues.setConfidential(
+    projectId,
+    iid: iid,
+    confidential: confidential,
+  );
+
   Future<Issue> updateAssignees({
     required int projectId,
     required int iid,

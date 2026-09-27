@@ -715,6 +715,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueEditDueDate => 'Edit due date';
 
   @override
+  String get issueConfidential => 'Confidential';
+
+  @override
+  String get issueMakeConfidential => 'Make confidential';
+
+  @override
+  String get issueRemoveConfidentiality => 'Remove confidentiality';
+
+  @override
+  String get issueMakeConfidentialExplanation =>
+      'Access to this issue will be restricted. Continue?';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      'This issue will become visible to everyone who can see the project. Continue?';
+
+  @override
+  String get issueConfidentialityConfirm => 'Confirm';
+
+  @override
+  String get issueConfidentialityError =>
+      'Could not update confidentiality. Check your permissions and try again.';
+
+  @override
   String get issueEditMilestone => 'Edit milestone';
 
   @override
