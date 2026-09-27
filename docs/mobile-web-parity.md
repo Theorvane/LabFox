@@ -25,8 +25,8 @@ work, not as a fixed denominator.
 - Update the snapshot, evidence, and issue/PR links in the same PR that changes
   a row. Do not calculate a GitLab parity percentage from this incomplete list.
 
-Snapshot (2026-09-27): **19 known work packages**, **1 shipped**, **4 in
-progress**, **14 queued**. This is a lower bound on remaining work,
+Snapshot (2026-09-27): **19 known work packages**, **1 shipped**, **3 in
+progress**, **1 in review**, **14 queued**. This is a lower bound on remaining work,
 **not 18 PRs** or an ETA. The shipped baseline is excluded from that count.
 
 ## Shipped baseline by workflow
@@ -60,7 +60,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | MW-07 | P0 | Advanced MR review: audit inline discussions/suggestions and finish missing review/approval flows. | Queued | Issue needed |
 | MW-08 | P1 | CI/CD configuration: pipeline editor, variables, triggers, and schedule editing. | Queued | Issue needed |
 | MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351), [PR #352](https://github.com/Theorvane/labfox/pull/352) shipped Markdown page creation; [#353](https://github.com/Theorvane/labfox/issues/353), [PR #354](https://github.com/Theorvane/labfox/pull/354) shipped editing with best-effort stale-draft detection. Deletion, history, templates, and atomic conflict protection remain. |
-| MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | In progress | [#355](https://github.com/Theorvane/labfox/issues/355) adds single-file project snippet creation. Multi-file editing, deletion, and broader visibility management remain. |
+| MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | In review | [#355](https://github.com/Theorvane/labfox/issues/355), [PR #356](https://github.com/Theorvane/labfox/pull/356) add single-file project snippet creation. Multi-file editing, deletion, and broader visibility management remain. |
 | MW-11 | P1 | Release and milestone creation/editing/closure/deletion. | Queued | Issue needed |
 | MW-12 | P1 | Package/container management, cleanup, and protection by tier. | Queued | Issue needed |
 | MW-13 | P2 | Security: inventory and implement vulnerability, policy, and scan views by role. | Queued | Issue needed |
