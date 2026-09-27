@@ -10,6 +10,35 @@ class SnippetsApi {
 
   final Dio _dio;
 
+  /// Adds one file to an existing project snippet without replacing its files.
+  Future<Snippet> addFile(
+    Object projectId,
+    int snippetId, {
+    required String filePath,
+    required String content,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/snippets/$snippetId',
+        data: {
+          'files': [
+            {'action': 'create', 'file_path': filePath, 'content': content},
+          ],
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding a project snippet file',
+        );
+      }
+      return Snippet.fromJson(response.data!);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding a project snippet file');
+    }
+  }
+
   /// Updates one existing project snippet file without changing metadata.
   Future<Snippet> updateFileContent(
     Object projectId,

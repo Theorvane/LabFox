@@ -1672,6 +1672,16 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetCreateError => 'स्निपेट नहीं बनाया जा सका।';
 
   @override
+  String get snippetAddFile => 'फ़ाइल जोड़ें';
+
+  @override
+  String get snippetFileAddValidationError =>
+      'अद्वितीय सापेक्ष फ़ाइल पथ और सामग्री दर्ज करें।';
+
+  @override
+  String get snippetFileAddError => 'फ़ाइल नहीं जोड़ी जा सकी।';
+
+  @override
   String get snippetEditAction => 'स्निपेट संपादित करें';
 
   @override

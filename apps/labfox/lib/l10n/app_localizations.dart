@@ -3272,6 +3272,24 @@ abstract class AppLocalizations {
   /// **'Could not create the snippet.'**
   String get snippetCreateError;
 
+  /// No description provided for @snippetAddFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add file'**
+  String get snippetAddFile;
+
+  /// No description provided for @snippetFileAddValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a unique relative file path and content.'**
+  String get snippetFileAddValidationError;
+
+  /// No description provided for @snippetFileAddError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the file.'**
+  String get snippetFileAddError;
+
   /// No description provided for @snippetEditAction.
   ///
   /// In en, this message translates to:
