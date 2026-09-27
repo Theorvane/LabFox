@@ -156,6 +156,15 @@
   "milestoneStartDate": "Start date",
   "milestoneDueDate": "Due date",
   "milestoneLoadMore": "Load more",
+  "milestoneNew": "New milestone",
+  "milestoneCreate": "Create milestone",
+  "milestoneTitleField": "Title",
+  "milestoneDescriptionField": "Description",
+  "milestoneTitleRequired": "Enter a milestone title.",
+  "milestoneDateOrderError": "Start date must be on or before due date.",
+  "milestoneCreateError": "Could not create the milestone.",
+  "milestoneChooseDate": "Choose date",
+  "milestoneClearDate": "Clear date",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"

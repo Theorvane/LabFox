@@ -1010,6 +1010,60 @@ abstract class AppLocalizations {
   /// **'Load more'**
   String get milestoneLoadMore;
 
+  /// No description provided for @milestoneNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New milestone'**
+  String get milestoneNew;
+
+  /// No description provided for @milestoneCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create milestone'**
+  String get milestoneCreate;
+
+  /// No description provided for @milestoneTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get milestoneTitleField;
+
+  /// No description provided for @milestoneDescriptionField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get milestoneDescriptionField;
+
+  /// No description provided for @milestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get milestoneTitleRequired;
+
+  /// No description provided for @milestoneDateOrderError.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date must be on or before due date.'**
+  String get milestoneDateOrderError;
+
+  /// No description provided for @milestoneCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the milestone.'**
+  String get milestoneCreateError;
+
+  /// No description provided for @milestoneChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose date'**
+  String get milestoneChooseDate;
+
+  /// No description provided for @milestoneClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get milestoneClearDate;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:
