@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project milestone endpoints.
+/// Project milestone endpoints.
 class MilestonesApi {
   const MilestonesApi(this._dio);
 
@@ -64,6 +64,38 @@ class MilestonesApi {
       return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a milestone');
+    }
+  }
+
+  Future<GitLabMilestone> create(
+    Object projectId, {
+    required String title,
+    String? description,
+    String? startDate,
+    String? dueDate,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {
+          'title': title,
+          if (description != null && description.isNotEmpty)
+            'description': description,
+          'start_date': ?startDate,
+          'due_date': ?dueDate,
+        },
+      );
+      if (response.statusCode != 201 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a milestone',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a milestone');
     }
   }
 }

@@ -474,6 +474,34 @@ class AppLocalizationsHi extends AppLocalizations {
   String get milestoneLoadMore => 'और लोड करें';
 
   @override
+  String get milestoneNew => 'नया माइलस्टोन';
+
+  @override
+  String get milestoneCreate => 'माइलस्टोन बनाएं';
+
+  @override
+  String get milestoneTitleField => 'शीर्षक';
+
+  @override
+  String get milestoneDescriptionField => 'विवरण';
+
+  @override
+  String get milestoneTitleRequired => 'माइलस्टोन का शीर्षक दर्ज करें।';
+
+  @override
+  String get milestoneDateOrderError =>
+      'आरंभ तिथि नियत तिथि के बाद नहीं हो सकती।';
+
+  @override
+  String get milestoneCreateError => 'माइलस्टोन नहीं बनाया जा सका।';
+
+  @override
+  String get milestoneChooseDate => 'तिथि चुनें';
+
+  @override
+  String get milestoneClearDate => 'तिथि हटाएं';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

@@ -477,6 +477,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneLoadMore => 'Load more';
 
   @override
+  String get milestoneNew => 'New milestone';
+
+  @override
+  String get milestoneCreate => 'Create milestone';
+
+  @override
+  String get milestoneTitleField => 'Title';
+
+  @override
+  String get milestoneDescriptionField => 'Description';
+
+  @override
+  String get milestoneTitleRequired => 'Enter a milestone title.';
+
+  @override
+  String get milestoneDateOrderError =>
+      'Start date must be on or before due date.';
+
+  @override
+  String get milestoneCreateError => 'Could not create the milestone.';
+
+  @override
+  String get milestoneChooseDate => 'Choose date';
+
+  @override
+  String get milestoneClearDate => 'Clear date';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

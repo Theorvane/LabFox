@@ -81,6 +81,69 @@ void main() {
       );
     },
   );
+
+  test(
+    'creates a project milestone with optional fields and encoded path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 201,
+          headers: <String, List<String>>{},
+          body: {
+            'id': 42,
+            'iid': 4,
+            'title': 'Release 1',
+            'state': 'active',
+            'description': 'Shipping scope',
+            'start_date': '2026-10-01',
+            'due_date': '2026-10-31',
+          },
+        );
+      });
+
+      final created = await client.milestones.create(
+        'team/app',
+        title: 'Release 1',
+        description: 'Shipping scope',
+        startDate: '2026-10-01',
+        dueDate: '2026-10-31',
+      );
+      expect(request.method, 'POST');
+      expect(request.path, '/projects/team%2Fapp/milestones');
+      expect(request.data, {
+        'title': 'Release 1',
+        'description': 'Shipping scope',
+        'start_date': '2026-10-01',
+        'due_date': '2026-10-31',
+      });
+      expect(created.id, 42);
+      expect(created.iid, 4);
+    },
+  );
+
+  test('omits blank optional fields and maps a forbidden create', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: <String, List<String>>{},
+        body: {'id': 42, 'iid': 4, 'title': 'Release 1', 'state': 'active'},
+      );
+    });
+    await client.milestones.create(7, title: 'Release 1', description: '');
+    expect(request.data, {'title': 'Release 1'});
+
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.milestones.create(7, title: 'Release 1'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(
