@@ -472,6 +472,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get milestoneLoadMore => '加载更多';
 
   @override
+  String get milestoneNew => '新建里程碑';
+
+  @override
+  String get milestoneCreate => '创建里程碑';
+
+  @override
+  String get milestoneTitleField => '标题';
+
+  @override
+  String get milestoneDescriptionField => '描述';
+
+  @override
+  String get milestoneTitleRequired => '请输入里程碑标题。';
+
+  @override
+  String get milestoneDateOrderError => '开始日期不能晚于截止日期。';
+
+  @override
+  String get milestoneCreateError => '无法创建里程碑。';
+
+  @override
+  String get milestoneChooseDate => '选择日期';
+
+  @override
+  String get milestoneClearDate => '清除日期';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
@@ -1738,6 +1765,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wikiCreatePage => '创建页面';
+
+  @override
+  String get wikiChooseTemplate => '选择模板';
+
+  @override
+  String get wikiReplaceTemplateContent => '要用此模板替换当前内容吗？';
+
+  @override
+  String get wikiApplyTemplate => '应用模板';
+
+  @override
+  String get wikiTemplateLoadError => '无法加载模板。';
 
   @override
   String get wikiCreateValidationError => '请输入标题和内容。';

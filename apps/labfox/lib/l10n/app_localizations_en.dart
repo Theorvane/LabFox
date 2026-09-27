@@ -477,6 +477,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneLoadMore => 'Load more';
 
   @override
+  String get milestoneNew => 'New milestone';
+
+  @override
+  String get milestoneCreate => 'Create milestone';
+
+  @override
+  String get milestoneTitleField => 'Title';
+
+  @override
+  String get milestoneDescriptionField => 'Description';
+
+  @override
+  String get milestoneTitleRequired => 'Enter a milestone title.';
+
+  @override
+  String get milestoneDateOrderError =>
+      'Start date must be on or before due date.';
+
+  @override
+  String get milestoneCreateError => 'Could not create the milestone.';
+
+  @override
+  String get milestoneChooseDate => 'Choose date';
+
+  @override
+  String get milestoneClearDate => 'Clear date';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
@@ -1783,6 +1811,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wikiCreatePage => 'Create page';
+
+  @override
+  String get wikiChooseTemplate => 'Choose a template';
+
+  @override
+  String get wikiReplaceTemplateContent =>
+      'Replace the current content with this template?';
+
+  @override
+  String get wikiApplyTemplate => 'Apply template';
+
+  @override
+  String get wikiTemplateLoadError => 'Could not load the template.';
 
   @override
   String get wikiCreateValidationError => 'Enter a title and content.';

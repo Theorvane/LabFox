@@ -51,17 +51,21 @@ class _StubPage extends WikiPageController {
   _StubPage(this.value);
 
   final AsyncValue<WikiPage> value;
+  WikiPageRef? lastLoadedRef;
   String? lastSavedTitle;
   String? lastSavedContent;
   bool rejectSave = false;
   bool conflictOnSave = false;
 
   @override
-  Future<WikiPage> build(WikiPageRef arg) => value.when(
-    data: Future.value,
-    loading: () => Completer<WikiPage>().future,
-    error: Future.error,
-  );
+  Future<WikiPage> build(WikiPageRef arg) {
+    lastLoadedRef = arg;
+    return value.when(
+      data: Future.value,
+      loading: () => Completer<WikiPage>().future,
+      error: Future.error,
+    );
+  }
 
   @override
   Future<WikiPage> save({
@@ -164,6 +168,17 @@ const _pages = <WikiPage>[
   WikiPage(title: 'Home', slug: 'home'),
   WikiPage(title: 'Install', slug: 'docs/install'),
 ];
+const _pagesWithTemplates = <WikiPage>[
+  ..._pages,
+  WikiPage(title: 'Starter', slug: 'templates/starter', format: 'markdown'),
+  WikiPage(title: 'Other format', slug: 'templates/other', format: 'asciidoc'),
+];
+const _template = WikiPage(
+  title: 'Starter',
+  slug: 'templates/starter',
+  content: '# Template body',
+  format: 'markdown',
+);
 const _page = WikiPage(
   title: 'Install',
   slug: 'docs/install',
@@ -302,6 +317,46 @@ void main() {
   });
 
   for (final width in [390.0, 1200.0]) {
+    testWidgets('creates a page from a Markdown template at width $width', (
+      tester,
+    ) async {
+      final controller = _StubPages(const AsyncData(_pagesWithTemplates));
+      final templateController = _StubPage(const AsyncData(_template));
+      await _pump(
+        tester,
+        pages: const AsyncData(_pagesWithTemplates),
+        page: const AsyncData(_template),
+        pagesController: controller,
+        pageController: templateController,
+        size: Size(width, 800),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('New page'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Choose a template'), findsOneWidget);
+      await tester.ensureVisible(find.byType(DropdownButton<String>));
+      await tester.tap(find.byType(DropdownButton<String>));
+      await tester.pumpAndSettle();
+      expect(
+        find.widgetWithText(DropdownMenuItem<String>, 'Other format'),
+        findsNothing,
+      );
+      await tester.tap(find.text('Starter').last);
+      await tester.pumpAndSettle();
+      expect(templateController.lastLoadedRef?.slug, 'templates/starter');
+      expect(find.text('# Template body'), findsOneWidget);
+
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Title'),
+        'New guide',
+      );
+      await tester.tap(find.text('Create page'));
+      await tester.pumpAndSettle();
+      expect(controller.lastCreatedTitle, 'New guide');
+      expect(controller.lastCreatedContent, '# Template body');
+    });
+
     testWidgets('creates a page from an empty wiki at width $width', (
       tester,
     ) async {
@@ -372,6 +427,73 @@ void main() {
       );
     });
   }
+
+  testWidgets('confirms before a template replaces an existing draft', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      pages: const AsyncData(_pagesWithTemplates),
+      page: const AsyncData(_template),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New page'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'My draft',
+    );
+    await tester.ensureVisible(find.byType(DropdownButton<String>));
+    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Starter').last);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('Replace the current content with this template?'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Cancel').last);
+    await tester.pumpAndSettle();
+    expect(find.text('My draft'), findsOneWidget);
+
+    await tester.ensureVisible(find.byType(DropdownButton<String>));
+    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Starter').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Apply template'));
+    await tester.pumpAndSettle();
+    expect(find.text('# Template body'), findsOneWidget);
+  });
+
+  testWidgets('preserves draft when loading a template fails', (tester) async {
+    await _pump(
+      tester,
+      pages: const AsyncData(_pagesWithTemplates),
+      page: AsyncError(
+        const GitLabForbiddenException('Forbidden'),
+        StackTrace.current,
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('New page'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'My draft',
+    );
+    await tester.ensureVisible(find.byType(DropdownButton<String>));
+    await tester.tap(find.byType(DropdownButton<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Starter').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Apply template'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('My draft'), findsOneWidget);
+    expect(find.text('Could not load the template.'), findsOneWidget);
+  });
 
   testWidgets('keeps the wiki draft after a permission error', (tester) async {
     final controller = _StubPages(const AsyncData(_pages))..rejectCreate = true;

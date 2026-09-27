@@ -473,6 +473,33 @@ class AppLocalizationsKo extends AppLocalizations {
   String get milestoneLoadMore => '더 보기';
 
   @override
+  String get milestoneNew => '새 마일스톤';
+
+  @override
+  String get milestoneCreate => '마일스톤 만들기';
+
+  @override
+  String get milestoneTitleField => '제목';
+
+  @override
+  String get milestoneDescriptionField => '설명';
+
+  @override
+  String get milestoneTitleRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get milestoneDateOrderError => '시작일은 마감일보다 늦을 수 없습니다.';
+
+  @override
+  String get milestoneCreateError => '마일스톤을 만들 수 없습니다.';
+
+  @override
+  String get milestoneChooseDate => '날짜 선택';
+
+  @override
+  String get milestoneClearDate => '날짜 지우기';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
@@ -1748,6 +1775,18 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get wikiCreatePage => '페이지 만들기';
+
+  @override
+  String get wikiChooseTemplate => '템플릿 선택';
+
+  @override
+  String get wikiReplaceTemplateContent => '현재 내용을 이 템플릿으로 바꾸시겠습니까?';
+
+  @override
+  String get wikiApplyTemplate => '템플릿 적용';
+
+  @override
+  String get wikiTemplateLoadError => '템플릿을 불러올 수 없습니다.';
 
   @override
   String get wikiCreateValidationError => '제목과 내용을 입력하세요.';

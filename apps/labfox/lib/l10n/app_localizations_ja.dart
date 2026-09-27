@@ -472,6 +472,33 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneLoadMore => 'さらに読み込む';
 
   @override
+  String get milestoneNew => '新しいマイルストーン';
+
+  @override
+  String get milestoneCreate => 'マイルストーンを作成';
+
+  @override
+  String get milestoneTitleField => 'タイトル';
+
+  @override
+  String get milestoneDescriptionField => '説明';
+
+  @override
+  String get milestoneTitleRequired => 'マイルストーンのタイトルを入力してください。';
+
+  @override
+  String get milestoneDateOrderError => '開始日は期限以前にしてください。';
+
+  @override
+  String get milestoneCreateError => 'マイルストーンを作成できませんでした。';
+
+  @override
+  String get milestoneChooseDate => '日付を選択';
+
+  @override
+  String get milestoneClearDate => '日付を消去';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
@@ -1744,6 +1771,18 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get wikiCreatePage => 'ページを作成';
+
+  @override
+  String get wikiChooseTemplate => 'テンプレートを選択';
+
+  @override
+  String get wikiReplaceTemplateContent => '現在の内容をこのテンプレートで置き換えますか？';
+
+  @override
+  String get wikiApplyTemplate => 'テンプレートを適用';
+
+  @override
+  String get wikiTemplateLoadError => 'テンプレートを読み込めませんでした。';
 
   @override
   String get wikiCreateValidationError => 'タイトルと内容を入力してください。';

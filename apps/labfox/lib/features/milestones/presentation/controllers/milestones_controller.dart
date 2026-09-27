@@ -96,6 +96,34 @@ class MilestoneListController
       _loadingMore = false;
     }
   }
+
+  Future<GitLabMilestone> create({
+    required String title,
+    String? description,
+    DateTime? startDate,
+    DateTime? dueDate,
+  }) async {
+    final trimmedTitle = title.trim();
+    if (trimmedTitle.isEmpty) throw ArgumentError.value(title, 'title');
+    if (startDate != null && dueDate != null && startDate.isAfter(dueDate)) {
+      throw ArgumentError('Start date must not follow due date');
+    }
+    final repository = await ref.read(milestonesRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    final created = await repository.create(
+      arg.projectId,
+      title: trimmedTitle,
+      description: description,
+      startDate: startDate,
+      dueDate: dueDate,
+    );
+    ref.invalidate(
+      milestoneListControllerProvider(
+        MilestoneListRef(projectId: arg.projectId, state: 'active'),
+      ),
+    );
+    return created;
+  }
 }
 
 final milestoneListControllerProvider =
