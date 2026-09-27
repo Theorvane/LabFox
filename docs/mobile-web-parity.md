@@ -6,7 +6,7 @@ screen. GitLab behavior varies by version, tier, role, project settings, and
 feature flags. A route or API method proves only the named slice, not a whole
 feature area.
 
-Baseline: `dev` at `e51eb90` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
+Baseline: `dev` at `32fe6e1` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
 records the original scope; `AGENTS.md` §9 records the expansion. Use GitLab's
 [project feature catalog](https://docs.gitlab.com/user/project/organize_work_with_projects/),
 [project settings](https://docs.gitlab.com/user/project/settings/), and

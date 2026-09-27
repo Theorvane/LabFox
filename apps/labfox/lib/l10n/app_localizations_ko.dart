@@ -1648,6 +1648,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetCreateError => '스니펫을 만들 수 없습니다.';
 
   @override
+  String get snippetAddFile => '파일 추가';
+
+  @override
+  String get snippetFileAddValidationError => '중복되지 않는 상대 파일 경로와 내용을 입력하세요.';
+
+  @override
+  String get snippetFileAddError => '파일을 추가할 수 없습니다.';
+
+  @override
   String get snippetEditAction => '스니펫 편집';
 
   @override
