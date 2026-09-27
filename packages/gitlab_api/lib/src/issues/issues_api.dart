@@ -256,6 +256,31 @@ class IssuesApi {
     }
   }
 
+  /// Locks or unlocks an issue discussion.
+  Future<Issue> setDiscussionLocked(
+    Object projectId, {
+    required int iid,
+    required bool locked,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'discussion_locked': locked},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue discussion lock',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue discussion lock');
+    }
+  }
+
   /// Sets or clears the issue's confidential flag.
   Future<Issue> setConfidential(
     Object projectId, {

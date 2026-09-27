@@ -32,6 +32,7 @@ abstract class Issue with _$Issue {
     @JsonKey(name: 'user_notes_count') @Default(0) int commentCount,
     bool? subscribed,
     bool? confidential,
+    @JsonKey(name: 'discussion_locked') bool? discussionLocked,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     @JsonKey(name: 'due_date') DateTime? dueDate,

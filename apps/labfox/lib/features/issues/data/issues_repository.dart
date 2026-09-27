@@ -99,6 +99,12 @@ class IssuesRepository {
     confidential: confidential,
   );
 
+  Future<Issue> setDiscussionLocked({
+    required int projectId,
+    required int iid,
+    required bool locked,
+  }) => _client.issues.setDiscussionLocked(projectId, iid: iid, locked: locked);
+
   Future<Issue> updateAssignees({
     required int projectId,
     required int iid,

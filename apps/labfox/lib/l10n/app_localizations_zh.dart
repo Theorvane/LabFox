@@ -725,6 +725,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueConfidentialityError => '无法更新机密状态。请检查权限后重试。';
 
   @override
+  String get issueDiscussionLocked => '讨论已锁定';
+
+  @override
+  String get issueLockDiscussion => '锁定讨论';
+
+  @override
+  String get issueUnlockDiscussion => '解锁讨论';
+
+  @override
+  String get issueLockDiscussionExplanation => '只有项目成员可以添加或编辑评论。是否继续？';
+
+  @override
+  String get issueUnlockDiscussionExplanation => '可以访问此议题的用户将能够再次发表评论。是否继续？';
+
+  @override
+  String get issueDiscussionLockConfirm => '确认';
+
+  @override
+  String get issueDiscussionLockError => '无法更改讨论锁定状态。请检查权限后重试。';
+
+  @override
   String get issueEditMilestone => '编辑里程碑';
 
   @override

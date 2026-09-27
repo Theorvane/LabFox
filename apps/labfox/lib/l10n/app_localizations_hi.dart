@@ -737,6 +737,30 @@ class AppLocalizationsHi extends AppLocalizations {
       'गोपनीयता अपडेट नहीं हो सकी। अनुमतियाँ जाँचें और फिर कोशिश करें।';
 
   @override
+  String get issueDiscussionLocked => 'चर्चा लॉक है';
+
+  @override
+  String get issueLockDiscussion => 'चर्चा लॉक करें';
+
+  @override
+  String get issueUnlockDiscussion => 'चर्चा अनलॉक करें';
+
+  @override
+  String get issueLockDiscussionExplanation =>
+      'केवल प्रोजेक्ट सदस्य टिप्पणियाँ जोड़ या संपादित कर सकेंगे। जारी रखें?';
+
+  @override
+  String get issueUnlockDiscussionExplanation =>
+      'इस इश्यू तक पहुँच वाले लोग फिर से टिप्पणी कर सकेंगे। जारी रखें?';
+
+  @override
+  String get issueDiscussionLockConfirm => 'पुष्टि करें';
+
+  @override
+  String get issueDiscussionLockError =>
+      'चर्चा लॉक नहीं बदल सका। अनुमतियाँ जाँचें और फिर कोशिश करें।';
+
+  @override
   String get issueEditMilestone => 'माइलस्टोन संपादित करें';
 
   @override

@@ -3,6 +3,19 @@ import 'package:test/test.dart';
 
 void main() {
   group('Issue', () {
+    test('distinguishes locked, unlocked, and absent discussions', () {
+      const base = {'id': 1, 'iid': 5, 'title': 'x', 'state': 'opened'};
+      expect(
+        Issue.fromJson({...base, 'discussion_locked': true}).discussionLocked,
+        isTrue,
+      );
+      expect(
+        Issue.fromJson({...base, 'discussion_locked': false}).discussionLocked,
+        isFalse,
+      );
+      expect(Issue.fromJson(base).discussionLocked, isNull);
+    });
+
     test('distinguishes confidential, public, and absent values', () {
       const base = {'id': 1, 'iid': 5, 'title': 'x', 'state': 'opened'};
       expect(

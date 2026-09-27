@@ -190,6 +190,20 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(myIssuesControllerProvider);
   }
 
+  /// Changes discussion access and updates detail and issue-list consumers.
+  Future<void> setDiscussionLocked(bool locked) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) throw StateError('No authenticated account');
+    final updated = await repo.setDiscussionLocked(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      locked: locked,
+    );
+    state = AsyncData(updated.copyWith(discussionLocked: locked));
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
+
   /// Replaces the issue assignees and refreshes affected lists.
   Future<void> updateAssignees(List<int> assigneeIds) async {
     final repo = await ref.read(issuesRepositoryProvider.future);
