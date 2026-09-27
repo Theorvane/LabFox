@@ -59,7 +59,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | MW-06 | P1 | Boards and iterations: discover mobile-web behavior, then list/detail/mutations. | Queued | Issue needed |
 | MW-07 | P0 | Advanced MR review: audit inline discussions/suggestions and finish missing review/approval flows. | Queued | Issue needed |
 | MW-08 | P1 | CI/CD configuration: pipeline editor, variables, triggers, and schedule editing. | Queued | Issue needed |
-| MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351) covers Markdown page creation. Editing, deletion, history, templates, and conflict handling remain. |
+| MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351), [PR #352](https://github.com/Theorvane/labfox/pull/352) cover Markdown page creation in review. Editing, deletion, history, templates, and conflict handling remain. |
 | MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | Queued | Issue needed |
 | MW-11 | P1 | Release and milestone creation/editing/closure/deletion. | Queued | Issue needed |
 | MW-12 | P1 | Package/container management, cleanup, and protection by tier. | Queued | Issue needed |
