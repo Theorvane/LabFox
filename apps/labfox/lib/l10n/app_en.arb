@@ -1419,6 +1419,9 @@
   "snippetDeleteConfirmMessage": "This permanently deletes the snippet and its files.",
   "snippetDeleteButton": "Delete",
   "snippetDeleteError": "Could not delete the snippet.",
+  "snippetEditContent": "Edit content",
+  "snippetSaveContent": "Save content",
+  "snippetContentSaveError": "Could not save snippet content.",
   "homeRecents": "Recent",
   "@homeRecents": {
     "description": "Home section title for recently opened projects"

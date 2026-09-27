@@ -64,6 +64,43 @@ final createSnippetControllerProvider =
       CreateSnippetController.new,
     );
 
+class UpdateSnippetContentController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<Snippet> saveContent({
+    required int projectId,
+    required int snippetId,
+    required String filePath,
+    required String content,
+  }) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      final snippet = await repository.updateFileContent(
+        projectId,
+        snippetId,
+        filePath: filePath,
+        content: content,
+      );
+      final key = SnippetRef(projectId, snippetId);
+      ref.invalidate(snippetRawProvider(key));
+      ref.invalidate(projectSnippetProvider(key));
+      ref.invalidate(projectSnippetsProvider(projectId));
+      state = const AsyncData(null);
+      return snippet;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final updateSnippetContentControllerProvider =
+    AsyncNotifierProvider.autoDispose<UpdateSnippetContentController, void>(
+      UpdateSnippetContentController.new,
+    );
+
 class UpdateSnippetController extends AutoDisposeAsyncNotifier<void> {
   @override
   void build() {}

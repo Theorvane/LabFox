@@ -10,6 +10,35 @@ class SnippetsApi {
 
   final Dio _dio;
 
+  /// Updates one existing project snippet file without changing metadata.
+  Future<Snippet> updateFileContent(
+    Object projectId,
+    int snippetId, {
+    required String filePath,
+    required String content,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/snippets/$snippetId',
+        data: {
+          'files': [
+            {'action': 'update', 'file_path': filePath, 'content': content},
+          ],
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating project snippet content',
+        );
+      }
+      return Snippet.fromJson(response.data!);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating project snippet content');
+    }
+  }
+
   /// Updates project snippet metadata without changing any files.
   Future<Snippet> updateMetadata(
     Object projectId,
