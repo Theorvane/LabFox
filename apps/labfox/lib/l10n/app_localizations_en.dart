@@ -520,6 +520,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneStateError => 'Could not change the milestone state.';
 
   @override
+  String get milestoneDelete => 'Delete milestone';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'Delete this milestone?';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'This cannot be undone.';
+
+  @override
+  String get milestoneDeleteError => 'Could not delete the milestone.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

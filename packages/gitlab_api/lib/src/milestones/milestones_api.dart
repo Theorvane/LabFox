@@ -67,6 +67,24 @@ class MilestonesApi {
     }
   }
 
+  /// Deletes a project milestone by its global ID, not its project-local iid.
+  Future<void> delete(Object projectId, int milestoneId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$milestoneId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a milestone',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a milestone');
+    }
+  }
+
   Future<GitLabMilestone> create(
     Object projectId, {
     required String title,

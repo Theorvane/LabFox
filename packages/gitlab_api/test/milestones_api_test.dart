@@ -192,6 +192,28 @@ void main() {
       );
     },
   );
+
+  test(
+    'deletes a project milestone by global ID and encoded project path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (status: 204, headers: const {}, body: null);
+      });
+      await client.milestones.delete('team/app', 42);
+      expect(request.method, 'DELETE');
+      expect(request.path, '/projects/team%2Fapp/milestones/42');
+
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.milestones.delete(7, 42),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

@@ -140,6 +140,31 @@ final milestoneDetailProvider =
       return repository.get(key.projectId, key.milestoneId);
     });
 
+class MilestoneDeleteController
+    extends FamilyAsyncNotifier<void, MilestoneRef> {
+  @override
+  Future<void> build(MilestoneRef arg) async {}
+
+  Future<void> delete() async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(milestonesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.delete(arg.projectId, arg.milestoneId);
+      ref.invalidate(milestoneListControllerProvider);
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final milestoneDeleteControllerProvider =
+    AsyncNotifierProvider.family<MilestoneDeleteController, void, MilestoneRef>(
+      MilestoneDeleteController.new,
+    );
+
 class MilestoneStateController extends FamilyAsyncNotifier<void, MilestoneRef> {
   @override
   Future<void> build(MilestoneRef arg) async {}
