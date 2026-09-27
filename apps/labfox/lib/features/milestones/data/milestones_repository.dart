@@ -39,4 +39,14 @@ class MilestonesRepository {
       dueDate: dueDate == null ? null : wireDate.format(dueDate),
     );
   }
+
+  Future<GitLabMilestone> setStateEvent(
+    int projectId,
+    int milestoneId, {
+    required String stateEvent,
+  }) => client.milestones.setStateEvent(
+    projectId,
+    milestoneId,
+    stateEvent: stateEvent,
+  );
 }

@@ -500,6 +500,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get milestoneClearDate => '날짜 지우기';
 
   @override
+  String get milestoneClose => '마일스톤 닫기';
+
+  @override
+  String get milestoneReactivate => '마일스톤 다시 활성화';
+
+  @override
+  String get milestoneCloseConfirmTitle => '이 마일스톤을 닫을까요?';
+
+  @override
+  String get milestoneCloseConfirmBody => '나중에 다시 활성화할 수 있습니다.';
+
+  @override
+  String get milestoneStateError => '마일스톤 상태를 변경할 수 없습니다.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

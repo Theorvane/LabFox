@@ -1064,6 +1064,36 @@ abstract class AppLocalizations {
   /// **'Clear date'**
   String get milestoneClearDate;
 
+  /// No description provided for @milestoneClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close milestone'**
+  String get milestoneClose;
+
+  /// No description provided for @milestoneReactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactivate milestone'**
+  String get milestoneReactivate;
+
+  /// No description provided for @milestoneCloseConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Close this milestone?'**
+  String get milestoneCloseConfirmTitle;
+
+  /// No description provided for @milestoneCloseConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can reactivate it later.'**
+  String get milestoneCloseConfirmBody;
+
+  /// No description provided for @milestoneStateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the milestone state.'**
+  String get milestoneStateError;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:
