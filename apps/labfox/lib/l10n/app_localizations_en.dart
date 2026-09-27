@@ -1785,6 +1785,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wikiCreatePage => 'Create page';
 
   @override
+  String get wikiChooseTemplate => 'Choose a template';
+
+  @override
+  String get wikiReplaceTemplateContent =>
+      'Replace the current content with this template?';
+
+  @override
+  String get wikiApplyTemplate => 'Apply template';
+
+  @override
+  String get wikiTemplateLoadError => 'Could not load the template.';
+
+  @override
   String get wikiCreateValidationError => 'Enter a title and content.';
 
   @override

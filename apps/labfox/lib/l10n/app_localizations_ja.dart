@@ -1746,6 +1746,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wikiCreatePage => 'ページを作成';
 
   @override
+  String get wikiChooseTemplate => 'テンプレートを選択';
+
+  @override
+  String get wikiReplaceTemplateContent => '現在の内容をこのテンプレートで置き換えますか？';
+
+  @override
+  String get wikiApplyTemplate => 'テンプレートを適用';
+
+  @override
+  String get wikiTemplateLoadError => 'テンプレートを読み込めませんでした。';
+
+  @override
   String get wikiCreateValidationError => 'タイトルと内容を入力してください。';
 
   @override
