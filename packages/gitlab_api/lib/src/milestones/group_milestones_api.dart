@@ -152,4 +152,32 @@ class GroupMilestonesApi {
       throw mapError(error, context: 'updating a group milestone');
     }
   }
+
+  /// [milestoneId] is global, not the group-local iid.
+  Future<GitLabMilestone> setStateEvent(
+    Object groupId,
+    int milestoneId, {
+    required String stateEvent,
+  }) async {
+    if (stateEvent != 'close' && stateEvent != 'activate') {
+      throw ArgumentError.value(stateEvent, 'stateEvent');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(groupId)}/$milestoneId',
+        data: {'state_event': stateEvent},
+      );
+      if (response.statusCode != 200 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'changing group milestone state',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'changing group milestone state');
+    }
+  }
 }
