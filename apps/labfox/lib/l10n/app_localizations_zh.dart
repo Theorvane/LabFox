@@ -1647,6 +1647,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetFileAddError => '无法添加文件。';
 
   @override
+  String get snippetFileMoveAction => '移动文件';
+
+  @override
+  String get snippetFileMoveTitle => '移动或重命名文件';
+
+  @override
+  String get snippetFileMovePathField => '新文件路径';
+
+  @override
+  String get snippetFileMoveValidationError => '请输入不同且未使用的相对文件路径。';
+
+  @override
+  String get snippetFileMoveError => '无法移动文件。';
+
+  @override
   String get snippetEditAction => '编辑代码片段';
 
   @override
@@ -1753,6 +1768,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get wikiEditConflict => '此页面已在 GitLab 上更改。请重新加载后再编辑。';
+
+  @override
+  String get wikiDeletePageAction => '删除页面';
+
+  @override
+  String get wikiDeleteConfirmTitle => '删除此维基页面？';
+
+  @override
+  String get wikiDeleteConfirmMessage => '此页面将从项目维基中永久删除。';
+
+  @override
+  String get wikiDeleteError => '无法删除维基页面。';
+
+  @override
+  String get wikiDeleteConflict => '此页面已更改。请重新加载后再删除。';
 
   @override
   String get wikiReloadPage => '重新加载页面';

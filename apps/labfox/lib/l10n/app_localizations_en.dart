@@ -1689,6 +1689,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetFileAddError => 'Could not add the file.';
 
   @override
+  String get snippetFileMoveAction => 'Move file';
+
+  @override
+  String get snippetFileMoveTitle => 'Move or rename file';
+
+  @override
+  String get snippetFileMovePathField => 'New file path';
+
+  @override
+  String get snippetFileMoveValidationError =>
+      'Enter a different, unused relative file path.';
+
+  @override
+  String get snippetFileMoveError => 'Could not move the file.';
+
+  @override
   String get snippetEditAction => 'Edit snippet';
 
   @override
@@ -1798,6 +1814,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wikiEditConflict =>
       'This page changed on GitLab. Reload it before editing again.';
+
+  @override
+  String get wikiDeletePageAction => 'Delete page';
+
+  @override
+  String get wikiDeleteConfirmTitle => 'Delete this wiki page?';
+
+  @override
+  String get wikiDeleteConfirmMessage =>
+      'This permanently deletes the page from the project wiki.';
+
+  @override
+  String get wikiDeleteError => 'Could not delete the wiki page.';
+
+  @override
+  String get wikiDeleteConflict =>
+      'This page changed. Reload it before deleting.';
 
   @override
   String get wikiReloadPage => 'Reload page';

@@ -56,6 +56,22 @@ class WikiPageScreen extends ConsumerWidget {
               icon: const Icon(Icons.edit_outlined),
               label: Text(l10n.wikiEditPageAction),
             ),
+          if (page.valueOrNull case final current?)
+            IconButton(
+              tooltip: l10n.wikiDeletePageAction,
+              icon: const Icon(Icons.delete_outline),
+              onPressed: () async {
+                final deleted = await showDialog<bool>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) =>
+                      _DeleteWikiPageDialog(page: current, pageRef: pageRef),
+                );
+                if (deleted == true && context.mounted) {
+                  context.go(Routes.wiki(projectId));
+                }
+              },
+            ),
         ],
         leading: BackButton(
           onPressed: () => context.canPop()
@@ -143,6 +159,88 @@ class WikiPageScreen extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DeleteWikiPageDialog extends ConsumerStatefulWidget {
+  const _DeleteWikiPageDialog({required this.page, required this.pageRef});
+
+  final WikiPage page;
+  final WikiPageRef pageRef;
+
+  @override
+  ConsumerState<_DeleteWikiPageDialog> createState() =>
+      _DeleteWikiPageDialogState();
+}
+
+class _DeleteWikiPageDialogState extends ConsumerState<_DeleteWikiPageDialog> {
+  bool _busy = false;
+  bool _failed = false;
+  bool _conflict = false;
+
+  Future<void> _delete() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+      _conflict = false;
+    });
+    try {
+      await ref
+          .read(wikiPageControllerProvider(widget.pageRef).notifier)
+          .delete(original: widget.page);
+      if (mounted) Navigator.of(context).pop(true);
+    } on WikiEditConflictException {
+      if (mounted) setState(() => _conflict = true);
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  void _reload() {
+    ref.invalidate(wikiPageControllerProvider(widget.pageRef));
+    Navigator.of(context).pop(false);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.wikiDeleteConfirmTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.page.title),
+          const SizedBox(height: LabFoxSpacing.sm),
+          Text(l10n.wikiDeleteConfirmMessage),
+          if (_failed) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(l10n.wikiDeleteError),
+          ],
+          if (_conflict) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(l10n.wikiDeleteConflict),
+          ],
+        ],
+      ),
+      actions: [
+        if (_conflict)
+          TextButton(
+            onPressed: _busy ? null : _reload,
+            child: Text(l10n.wikiReloadPage),
+          ),
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(false),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy || _conflict ? null : _delete,
+          child: Text(l10n.wikiDeletePageAction),
+        ),
+      ],
     );
   }
 }

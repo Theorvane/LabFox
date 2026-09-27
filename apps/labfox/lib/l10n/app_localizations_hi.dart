@@ -1685,6 +1685,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetFileAddError => 'फ़ाइल नहीं जोड़ी जा सकी।';
 
   @override
+  String get snippetFileMoveAction => 'फ़ाइल स्थानांतरित करें';
+
+  @override
+  String get snippetFileMoveTitle => 'फ़ाइल स्थानांतरित करें या नाम बदलें';
+
+  @override
+  String get snippetFileMovePathField => 'नया फ़ाइल पथ';
+
+  @override
+  String get snippetFileMoveValidationError =>
+      'कोई अलग, अप्रयुक्त सापेक्ष फ़ाइल पथ दर्ज करें।';
+
+  @override
+  String get snippetFileMoveError => 'फ़ाइल स्थानांतरित नहीं की जा सकी।';
+
+  @override
   String get snippetEditAction => 'स्निपेट संपादित करें';
 
   @override
@@ -1794,6 +1810,23 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get wikiEditConflict =>
       'यह पृष्ठ GitLab पर बदल गया है। दोबारा संपादित करने से पहले इसे रीलोड करें।';
+
+  @override
+  String get wikiDeletePageAction => 'पृष्ठ हटाएँ';
+
+  @override
+  String get wikiDeleteConfirmTitle => 'यह विकी पृष्ठ हटाएँ?';
+
+  @override
+  String get wikiDeleteConfirmMessage =>
+      'यह पृष्ठ परियोजना विकी से स्थायी रूप से हटा दिया जाएगा।';
+
+  @override
+  String get wikiDeleteError => 'विकी पृष्ठ हटाया नहीं जा सका।';
+
+  @override
+  String get wikiDeleteConflict =>
+      'यह पृष्ठ बदल गया है। हटाने से पहले इसे रीलोड करें।';
 
   @override
   String get wikiReloadPage => 'पृष्ठ रीलोड करें';

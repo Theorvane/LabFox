@@ -1657,6 +1657,21 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetFileAddError => '파일을 추가할 수 없습니다.';
 
   @override
+  String get snippetFileMoveAction => '파일 이동';
+
+  @override
+  String get snippetFileMoveTitle => '파일 이동 또는 이름 변경';
+
+  @override
+  String get snippetFileMovePathField => '새 파일 경로';
+
+  @override
+  String get snippetFileMoveValidationError => '중복되지 않는 다른 상대 파일 경로를 입력하세요.';
+
+  @override
+  String get snippetFileMoveError => '파일을 이동할 수 없습니다.';
+
+  @override
   String get snippetEditAction => '스니펫 편집';
 
   @override
@@ -1764,6 +1779,21 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get wikiEditConflict =>
       'GitLab에서 이 페이지가 변경되었습니다. 다시 편집하기 전에 페이지를 새로고침하세요.';
+
+  @override
+  String get wikiDeletePageAction => '페이지 삭제';
+
+  @override
+  String get wikiDeleteConfirmTitle => '이 위키 페이지를 삭제할까요?';
+
+  @override
+  String get wikiDeleteConfirmMessage => '프로젝트 위키에서 이 페이지가 영구적으로 삭제됩니다.';
+
+  @override
+  String get wikiDeleteError => '위키 페이지를 삭제할 수 없습니다.';
+
+  @override
+  String get wikiDeleteConflict => '페이지가 변경되었습니다. 삭제하기 전에 새로고침하세요.';
 
   @override
   String get wikiReloadPage => '페이지 새로고침';

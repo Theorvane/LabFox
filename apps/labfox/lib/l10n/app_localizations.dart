@@ -3296,6 +3296,36 @@ abstract class AppLocalizations {
   /// **'Could not add the file.'**
   String get snippetFileAddError;
 
+  /// No description provided for @snippetFileMoveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Move file'**
+  String get snippetFileMoveAction;
+
+  /// No description provided for @snippetFileMoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move or rename file'**
+  String get snippetFileMoveTitle;
+
+  /// No description provided for @snippetFileMovePathField.
+  ///
+  /// In en, this message translates to:
+  /// **'New file path'**
+  String get snippetFileMovePathField;
+
+  /// No description provided for @snippetFileMoveValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a different, unused relative file path.'**
+  String get snippetFileMoveValidationError;
+
+  /// No description provided for @snippetFileMoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not move the file.'**
+  String get snippetFileMoveError;
+
   /// No description provided for @snippetEditAction.
   ///
   /// In en, this message translates to:
@@ -3511,6 +3541,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This page changed on GitLab. Reload it before editing again.'**
   String get wikiEditConflict;
+
+  /// No description provided for @wikiDeletePageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete page'**
+  String get wikiDeletePageAction;
+
+  /// No description provided for @wikiDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this wiki page?'**
+  String get wikiDeleteConfirmTitle;
+
+  /// No description provided for @wikiDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes the page from the project wiki.'**
+  String get wikiDeleteConfirmMessage;
+
+  /// No description provided for @wikiDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the wiki page.'**
+  String get wikiDeleteError;
+
+  /// No description provided for @wikiDeleteConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This page changed. Reload it before deleting.'**
+  String get wikiDeleteConflict;
 
   /// No description provided for @wikiReloadPage.
   ///

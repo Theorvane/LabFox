@@ -66,6 +66,14 @@ class WikiPageController extends FamilyAsyncNotifier<WikiPage, WikiPageRef> {
     return repository.page(arg.projectId, arg.slug);
   }
 
+  /// Deletes the viewed page and refreshes the project wiki list.
+  Future<void> delete({required WikiPage original}) async {
+    final repository = await ref.read(wikiRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.delete(projectId: arg.projectId, original: original);
+    ref.invalidate(wikiPagesControllerProvider(arg.projectId));
+  }
+
   /// Saves a draft and refreshes the project page list after a successful write.
   Future<WikiPage> save({
     required WikiPage original,
