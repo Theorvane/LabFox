@@ -746,6 +746,36 @@ abstract class AppLocalizations {
   /// **'Could not delete the release.'**
   String get releaseDeleteError;
 
+  /// No description provided for @releaseDeleteAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete asset link'**
+  String get releaseDeleteAssetLink;
+
+  /// No description provided for @releaseDeleteLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete link'**
+  String get releaseDeleteLink;
+
+  /// No description provided for @releaseAssetDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this asset link?'**
+  String get releaseAssetDeleteConfirmTitle;
+
+  /// No description provided for @releaseAssetDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the link named {name}. The linked file will not be deleted.'**
+  String releaseAssetDeleteConfirmBody(String name);
+
+  /// No description provided for @releaseAssetDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the asset link.'**
+  String get releaseAssetDeleteError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

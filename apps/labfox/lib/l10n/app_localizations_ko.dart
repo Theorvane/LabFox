@@ -339,6 +339,23 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseDeleteError => '릴리스를 삭제할 수 없습니다.';
 
   @override
+  String get releaseDeleteAssetLink => '자산 링크 삭제';
+
+  @override
+  String get releaseDeleteLink => '링크 삭제';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => '이 자산 링크를 삭제할까요?';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '$name 링크를 제거합니다. 연결된 파일은 삭제되지 않습니다.';
+  }
+
+  @override
+  String get releaseAssetDeleteError => '자산 링크를 삭제할 수 없습니다.';
+
+  @override
   String get activityTitle => '활동';
 
   @override

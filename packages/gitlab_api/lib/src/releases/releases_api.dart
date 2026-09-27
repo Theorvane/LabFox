@@ -130,4 +130,26 @@ class ReleasesApi {
       throw mapError(error, context: 'deleting a release');
     }
   }
+
+  /// Removes only the asset link record, not the release or linked file.
+  Future<void> deleteAssetLink(
+    Object projectId,
+    String tagName,
+    int linkId,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a release asset link',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a release asset link');
+    }
+  }
 }

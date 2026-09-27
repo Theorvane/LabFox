@@ -338,6 +338,23 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseDeleteError => 'リリースを削除できませんでした。';
 
   @override
+  String get releaseDeleteAssetLink => 'アセットリンクを削除';
+
+  @override
+  String get releaseDeleteLink => 'リンクを削除';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => 'このアセットリンクを削除しますか？';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '$name というリンクを削除します。リンク先のファイルは削除されません。';
+  }
+
+  @override
+  String get releaseAssetDeleteError => 'アセットリンクを削除できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

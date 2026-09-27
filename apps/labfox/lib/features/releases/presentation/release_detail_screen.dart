@@ -116,7 +116,7 @@ class ReleaseDetailScreen extends ConsumerWidget {
             builder: (context, constraints) {
               final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
               final metadata = _Metadata(release: data);
-              final content = _Content(release: data);
+              final content = _Content(release: data, keyRef: key);
               return ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
@@ -292,8 +292,45 @@ class _Metadata extends StatelessWidget {
 }
 
 class _Content extends ConsumerWidget {
-  const _Content({required this.release});
+  const _Content({required this.release, required this.keyRef});
   final GitLabRelease release;
+  final ReleaseRef keyRef;
+
+  Future<void> _deleteLink(
+    BuildContext context,
+    WidgetRef ref,
+    ReleaseAssetLink link,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.releaseAssetDeleteConfirmTitle),
+        content: Text(l10n.releaseAssetDeleteConfirmBody(link.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(l10n.releaseDeleteLink),
+          ),
+        ],
+      ),
+    );
+    if (!context.mounted || confirmed != true) return;
+    try {
+      await ref
+          .read(releaseAssetLinkDeleteControllerProvider(keyRef).notifier)
+          .delete(link.id);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.releaseAssetDeleteError)));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -301,6 +338,9 @@ class _Content extends ConsumerWidget {
     final open = ref.watch(linkOpenerProvider);
     final links = release.assets?.links ?? const <ReleaseAssetLink>[];
     final sources = release.assets?.sources ?? const <ReleaseSource>[];
+    final deleting = ref
+        .watch(releaseAssetLinkDeleteControllerProvider(keyRef))
+        .isLoading;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -332,6 +372,13 @@ class _Content extends ConsumerWidget {
                     name: asset.name,
                     url: asset.directAssetUrl ?? asset.url,
                     open: open,
+                    deleteAction: IconButton(
+                      tooltip: l10n.releaseDeleteAssetLink,
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: deleting
+                          ? null
+                          : () => _deleteLink(context, ref, asset),
+                    ),
                   ),
                 for (final source in sources)
                   _AssetTile(name: source.format, url: source.url, open: open),
@@ -344,10 +391,16 @@ class _Content extends ConsumerWidget {
 }
 
 class _AssetTile extends StatelessWidget {
-  const _AssetTile({required this.name, required this.url, required this.open});
+  const _AssetTile({
+    required this.name,
+    required this.url,
+    required this.open,
+    this.deleteAction,
+  });
   final String name;
   final String url;
   final Future<void> Function(Uri) open;
+  final Widget? deleteAction;
 
   @override
   Widget build(BuildContext context) {
@@ -357,7 +410,10 @@ class _AssetTile extends StatelessWidget {
     return ListTile(
       leading: const Icon(LabFoxIcons.file),
       title: Text(name),
-      trailing: const Icon(LabFoxIcons.openInBrowser),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [const Icon(LabFoxIcons.openInBrowser), ?deleteAction],
+      ),
       onTap: supported ? () => open(uri) : null,
     );
   }

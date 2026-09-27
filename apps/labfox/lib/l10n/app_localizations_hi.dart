@@ -341,6 +341,23 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseDeleteError => 'रिलीज़ हटाई नहीं जा सकी।';
 
   @override
+  String get releaseDeleteAssetLink => 'एसेट लिंक हटाएँ';
+
+  @override
+  String get releaseDeleteLink => 'लिंक हटाएँ';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => 'यह एसेट लिंक हटाएँ?';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '$name नाम का लिंक हट जाएगा। लिंक की गई फ़ाइल नहीं हटेगी।';
+  }
+
+  @override
+  String get releaseAssetDeleteError => 'एसेट लिंक हटाया नहीं जा सका।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

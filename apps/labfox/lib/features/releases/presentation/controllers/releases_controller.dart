@@ -165,3 +165,31 @@ final releaseDeleteControllerProvider =
     AsyncNotifierProvider.family<ReleaseDeleteController, void, ReleaseRef>(
       ReleaseDeleteController.new,
     );
+
+class ReleaseAssetLinkDeleteController
+    extends FamilyAsyncNotifier<void, ReleaseRef> {
+  @override
+  Future<void> build(ReleaseRef arg) async {}
+
+  Future<void> delete(int linkId) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(releasesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.deleteAssetLink(arg.projectId, arg.tagName, linkId);
+      ref.invalidate(releaseDetailProvider(arg));
+      ref.invalidate(releaseListControllerProvider(arg.projectId));
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final releaseAssetLinkDeleteControllerProvider =
+    AsyncNotifierProvider.family<
+      ReleaseAssetLinkDeleteController,
+      void,
+      ReleaseRef
+    >(ReleaseAssetLinkDeleteController.new);

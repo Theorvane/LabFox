@@ -338,6 +338,23 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseDeleteError => '无法删除发行版。';
 
   @override
+  String get releaseDeleteAssetLink => '删除资源链接';
+
+  @override
+  String get releaseDeleteLink => '删除链接';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => '删除此资源链接？';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '将移除名为 $name 的链接。链接指向的文件不会被删除。';
+  }
+
+  @override
+  String get releaseAssetDeleteError => '无法删除资源链接。';
+
+  @override
   String get activityTitle => '动态';
 
   @override
