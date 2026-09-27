@@ -270,6 +270,46 @@ void main() {
     });
   });
 
+  group('IssuesApi.createTodo', () {
+    test('creates a to-do item using the project issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 201,
+          headers: const {},
+          body: {'id': 112, 'state': 'pending', 'target_type': 'Issue'},
+        );
+      });
+
+      final todo = await client.issues.createTodo(7, iid: 5);
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/issues/5/todo');
+      expect(todo?.id, 112);
+      expect(todo?.isPending, isTrue);
+    });
+
+    test('returns null when the issue is already in the to-do list', () async {
+      final client = _client(
+        (_) => (status: 304, headers: const {}, body: null),
+      );
+
+      expect(await client.issues.createTodo(7, iid: 5), isNull);
+    });
+
+    test('maps a forbidden response', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+
+      await expectLater(
+        client.issues.createTodo(7, iid: 5),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.listAssignedToMe', () {
     test('lists open issues assigned to the current user', () async {
       late RequestOptions captured;

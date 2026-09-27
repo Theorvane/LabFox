@@ -441,6 +441,10 @@
   "issueSubscribe": "Subscribe to notifications",
   "issueUnsubscribe": "Unsubscribe from notifications",
   "issueSubscriptionError": "Could not update issue notifications. Please try again.",
+  "issueAddTodo": "Add to To-Do",
+  "issueTodoAdded": "Added to your To-Do list.",
+  "issueTodoExists": "This issue is already in your To-Do list.",
+  "issueTodoError": "Could not add the issue to your To-Do list. Please try again.",
   "@issueClose": {
     "description": "Menu action that closes the issue"
   },

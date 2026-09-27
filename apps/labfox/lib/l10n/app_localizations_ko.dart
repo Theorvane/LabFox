@@ -703,6 +703,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueSubscriptionError => '이슈 알림을 변경할 수 없습니다. 다시 시도하세요.';
 
   @override
+  String get issueAddTodo => '할 일에 추가';
+
+  @override
+  String get issueTodoAdded => '할 일 목록에 추가했습니다.';
+
+  @override
+  String get issueTodoExists => '이 이슈는 이미 할 일 목록에 있습니다.';
+
+  @override
+  String get issueTodoError => '이슈를 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override
