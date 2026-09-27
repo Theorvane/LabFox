@@ -499,6 +499,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneClearDate => '日付を消去';
 
   @override
+  String get milestoneEdit => 'マイルストーンを編集';
+
+  @override
+  String get milestoneSaveChanges => '変更を保存';
+
+  @override
+  String get milestoneUpdateError => 'マイルストーンを更新できませんでした。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

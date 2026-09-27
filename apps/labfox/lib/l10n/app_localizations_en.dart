@@ -505,6 +505,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneClearDate => 'Clear date';
 
   @override
+  String get milestoneEdit => 'Edit milestone';
+
+  @override
+  String get milestoneSaveChanges => 'Save changes';
+
+  @override
+  String get milestoneUpdateError => 'Could not update the milestone.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

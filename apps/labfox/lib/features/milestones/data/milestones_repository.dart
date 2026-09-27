@@ -39,4 +39,23 @@ class MilestonesRepository {
       dueDate: dueDate == null ? null : wireDate.format(dueDate),
     );
   }
+
+  Future<GitLabMilestone> update(
+    int projectId,
+    int milestoneId, {
+    required String title,
+    required String description,
+    DateTime? startDate,
+    DateTime? dueDate,
+  }) {
+    final wireDate = DateFormat('yyyy-MM-dd');
+    return client.milestones.update(
+      projectId,
+      milestoneId,
+      title: title,
+      description: description,
+      startDate: startDate == null ? null : wireDate.format(startDate),
+      dueDate: dueDate == null ? null : wireDate.format(dueDate),
+    );
+  }
 }

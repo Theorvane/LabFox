@@ -499,6 +499,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get milestoneClearDate => '清除日期';
 
   @override
+  String get milestoneEdit => '编辑里程碑';
+
+  @override
+  String get milestoneSaveChanges => '保存更改';
+
+  @override
+  String get milestoneUpdateError => '无法更新里程碑。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

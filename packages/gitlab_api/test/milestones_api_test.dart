@@ -144,6 +144,72 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test(
+    'updates a project milestone using its global id and encoded path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'iid': 3,
+            'title': '11.0',
+            'description': 'Updated scope',
+            'start_date': '2026-10-01',
+            'due_date': '2026-10-31',
+            'state': 'active',
+          },
+        );
+      });
+
+      final milestone = await client.milestones.update(
+        'team/app',
+        12,
+        title: '11.0',
+        description: 'Updated scope',
+        startDate: '2026-10-01',
+        dueDate: '2026-10-31',
+      );
+
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/milestones/12');
+      expect(request.data, {
+        'title': '11.0',
+        'description': 'Updated scope',
+        'start_date': '2026-10-01',
+        'due_date': '2026-10-31',
+      });
+      expect(milestone.id, 12);
+      expect(milestone.iid, 3);
+      expect(milestone.dueDate, DateTime(2026, 10, 31));
+    },
+  );
+
+  test('omits unchanged optional dates and maps forbidden update', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {'id': 12, 'iid': 3, 'title': '11.0', 'state': 'active'},
+      );
+    });
+    await client.milestones.update(7, 12, title: '11.0');
+    expect(request.data, {'title': '11.0'});
+
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.milestones.update(7, 12, title: '11.0'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(

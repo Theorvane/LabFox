@@ -502,6 +502,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get milestoneClearDate => 'तिथि हटाएं';
 
   @override
+  String get milestoneEdit => 'माइलस्टोन संपादित करें';
+
+  @override
+  String get milestoneSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get milestoneUpdateError => 'माइलस्टोन अपडेट नहीं हो सका।';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

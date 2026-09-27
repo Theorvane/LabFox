@@ -165,6 +165,9 @@
   "milestoneCreateError": "Could not create the milestone.",
   "milestoneChooseDate": "Choose date",
   "milestoneClearDate": "Clear date",
+  "milestoneEdit": "Edit milestone",
+  "milestoneSaveChanges": "Save changes",
+  "milestoneUpdateError": "Could not update the milestone.",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"
