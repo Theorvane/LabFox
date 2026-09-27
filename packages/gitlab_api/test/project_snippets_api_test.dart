@@ -6,6 +6,42 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('deletes one snippet file using the files action payload', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {'id': 73, 'title': 'Deploy helper'},
+      );
+    });
+
+    final snippet = await client.snippets.deleteFile(
+      'team/project',
+      73,
+      filePath: 'scripts/deploy.sh',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+    expect(request.data, {
+      'files': [
+        {'action': 'delete', 'file_path': 'scripts/deploy.sh'},
+      ],
+    });
+    expect(snippet.id, 73);
+  });
+
+  test('maps forbidden snippet file deletion', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.deleteFile(42, 73, filePath: 'deploy.sh'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test(
     'adds one file to a project snippet without replacing other files',
     () async {
