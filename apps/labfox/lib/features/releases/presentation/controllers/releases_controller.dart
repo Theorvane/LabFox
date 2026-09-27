@@ -104,3 +104,39 @@ final releaseDetailProvider = FutureProvider.family<GitLabRelease, ReleaseRef>((
   if (repository == null) throw StateError('No authenticated account');
   return repository.get(key.projectId, key.tagName);
 });
+
+class ReleaseEditController extends FamilyAsyncNotifier<void, ReleaseRef> {
+  @override
+  Future<void> build(ReleaseRef arg) async {}
+
+  Future<GitLabRelease> save({
+    required String name,
+    required String description,
+  }) async {
+    final trimmedName = name.trim();
+    if (trimmedName.isEmpty) throw ArgumentError.value(name, 'name');
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(releasesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      final updated = await repository.update(
+        arg.projectId,
+        arg.tagName,
+        name: trimmedName,
+        description: description.trim(),
+      );
+      ref.invalidate(releaseDetailProvider(arg));
+      ref.invalidate(releaseListControllerProvider(arg.projectId));
+      state = const AsyncData(null);
+      return updated;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final releaseEditControllerProvider =
+    AsyncNotifierProvider.family<ReleaseEditController, void, ReleaseRef>(
+      ReleaseEditController.new,
+    );

@@ -283,6 +283,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseUpcoming => 'आगामी';
 
   @override
+  String get releaseEdit => 'रिलीज़ संपादित करें';
+
+  @override
+  String get releaseSave => 'रिलीज़ सहेजें';
+
+  @override
+  String get releaseEditName => 'रिलीज़ का नाम';
+
+  @override
+  String get releaseEditDescription => 'विवरण (Markdown)';
+
+  @override
+  String get releaseNameRequired => 'रिलीज़ का नाम दर्ज करें।';
+
+  @override
+  String get releaseEditError => 'रिलीज़ अपडेट नहीं हो सकी।';
+
+  @override
   String get releaseNew => 'नई रिलीज़';
 
   @override

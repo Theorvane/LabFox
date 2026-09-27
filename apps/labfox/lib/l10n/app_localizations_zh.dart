@@ -281,6 +281,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseUpcoming => '即将发布';
 
   @override
+  String get releaseEdit => '编辑发行版';
+
+  @override
+  String get releaseSave => '保存发行版';
+
+  @override
+  String get releaseEditName => '发行版名称';
+
+  @override
+  String get releaseEditDescription => '描述（Markdown）';
+
+  @override
+  String get releaseNameRequired => '请输入发行版名称。';
+
+  @override
+  String get releaseEditError => '无法更新发行版。';
+
+  @override
   String get releaseNew => '新建发行版';
 
   @override
