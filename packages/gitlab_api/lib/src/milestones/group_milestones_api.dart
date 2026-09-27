@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only group milestone endpoints.
+/// Group milestone endpoints.
 class GroupMilestonesApi {
   const GroupMilestonesApi(this._dio);
 
@@ -58,6 +58,38 @@ class GroupMilestonesApi {
       return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a group milestone');
+    }
+  }
+
+  Future<GitLabMilestone> create(
+    Object groupId, {
+    required String title,
+    String? description,
+    String? startDate,
+    String? dueDate,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(groupId),
+        data: {
+          'title': title,
+          if (description != null && description.isNotEmpty)
+            'description': description,
+          'start_date': ?startDate,
+          'due_date': ?dueDate,
+        },
+      );
+      if (response.statusCode != 201 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a group milestone',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a group milestone');
     }
   }
 }

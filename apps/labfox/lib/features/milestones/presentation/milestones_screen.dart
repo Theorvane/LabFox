@@ -29,15 +29,24 @@ class MilestonesScreen extends ConsumerStatefulWidget {
 class _MilestonesScreenState extends ConsumerState<MilestonesScreen> {
   String _state = 'active';
 
-  Future<void> _openCreate(int projectId) async {
+  Future<void> _openCreate({int? projectId, int? groupId}) async {
     final created = await showDialog<GitLabMilestone>(
       context: context,
       barrierDismissible: false,
-      builder: (_) =>
-          _CreateMilestoneDialog(projectId: projectId, listState: _state),
+      builder: (_) => _CreateMilestoneDialog(
+        projectId: projectId,
+        groupId: groupId,
+        listState: _state,
+      ),
     );
     if (created != null && mounted) {
-      unawaited(context.push(Routes.milestone(projectId, created.id)));
+      unawaited(
+        context.push(
+          projectId == null
+              ? Routes.groupMilestone(groupId!, created.id)
+              : Routes.milestone(projectId, created.id),
+        ),
+      );
     }
   }
 
@@ -59,9 +68,10 @@ class _MilestonesScreenState extends ConsumerState<MilestonesScreen> {
       appBar: AppBar(
         title: Text(l10n.milestonesTitle),
         actions: [
-          if (projectId != null)
+          if (projectId != null || groupId != null)
             TextButton.icon(
-              onPressed: () => _openCreate(projectId),
+              onPressed: () =>
+                  _openCreate(projectId: projectId, groupId: groupId),
               icon: const Icon(Icons.add),
               label: Text(l10n.milestoneNew),
             ),
@@ -212,11 +222,13 @@ class _MilestonesScreenState extends ConsumerState<MilestonesScreen> {
 
 class _CreateMilestoneDialog extends ConsumerStatefulWidget {
   const _CreateMilestoneDialog({
-    required this.projectId,
+    this.projectId,
+    this.groupId,
     required this.listState,
-  });
+  }) : assert((projectId == null) != (groupId == null));
 
-  final int projectId;
+  final int? projectId;
+  final int? groupId;
   final String listState;
 
   @override
@@ -284,21 +296,37 @@ class _CreateMilestoneDialogState
       _failed = false;
     });
     try {
-      final created = await ref
-          .read(
-            milestoneListControllerProvider(
-              MilestoneListRef(
-                projectId: widget.projectId,
-                state: widget.listState,
-              ),
-            ).notifier,
-          )
-          .create(
-            title: title,
-            description: _description.text.trim(),
-            startDate: _startDate,
-            dueDate: _dueDate,
-          );
+      final created = widget.projectId == null
+          ? await ref
+                .read(
+                  groupMilestoneListControllerProvider(
+                    GroupMilestoneListRef(
+                      groupId: widget.groupId!,
+                      state: widget.listState,
+                    ),
+                  ).notifier,
+                )
+                .create(
+                  title: title,
+                  description: _description.text.trim(),
+                  startDate: _startDate,
+                  dueDate: _dueDate,
+                )
+          : await ref
+                .read(
+                  milestoneListControllerProvider(
+                    MilestoneListRef(
+                      projectId: widget.projectId!,
+                      state: widget.listState,
+                    ),
+                  ).notifier,
+                )
+                .create(
+                  title: title,
+                  description: _description.text.trim(),
+                  startDate: _startDate,
+                  dueDate: _dueDate,
+                );
       if (mounted) Navigator.of(context).pop(created);
     } on GitLabException {
       if (mounted) setState(() => _failed = true);
@@ -319,12 +347,16 @@ class _CreateMilestoneDialogState
         Row(
           children: [
             Expanded(child: Text(label)),
-            OutlinedButton(
-              onPressed: _busy ? null : () => _chooseDate(start: start),
-              child: Text(
-                date == null
-                    ? l10n.milestoneChooseDate
-                    : dateFormat.format(date),
+            Flexible(
+              child: OutlinedButton(
+                onPressed: _busy ? null : () => _chooseDate(start: start),
+                child: Text(
+                  date == null
+                      ? l10n.milestoneChooseDate
+                      : dateFormat.format(date),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             if (date != null)
