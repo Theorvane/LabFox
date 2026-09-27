@@ -231,6 +231,31 @@ class IssuesApi {
     }
   }
 
+  /// Replaces issue assignees. An empty list removes every assignee.
+  Future<Issue> updateAssignees(
+    Object projectId, {
+    required int iid,
+    required List<int> assigneeIds,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'assignee_ids': assigneeIds},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue assignees',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue assignees');
+    }
+  }
+
   /// Subscribes or unsubscribes the current user from issue notifications.
   /// Returns null for GitLab's idempotent 304 (already in the requested state).
   Future<Issue?> setSubscription(

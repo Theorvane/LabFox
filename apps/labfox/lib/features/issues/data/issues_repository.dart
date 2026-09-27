@@ -73,6 +73,16 @@ class IssuesRepository {
     required String dueDate,
   }) => _client.issues.updateDueDate(projectId, iid: iid, dueDate: dueDate);
 
+  Future<Issue> updateAssignees({
+    required int projectId,
+    required int iid,
+    required List<int> assigneeIds,
+  }) => _client.issues.updateAssignees(
+    projectId,
+    iid: iid,
+    assigneeIds: assigneeIds,
+  );
+
   Future<Issue?> setSubscription({
     required int projectId,
     required int iid,

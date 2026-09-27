@@ -137,6 +137,20 @@ class IssueController extends FamilyAsyncNotifier<Issue, IssueRef> {
     ref.invalidate(myIssuesControllerProvider);
   }
 
+  /// Replaces the issue assignees and refreshes affected lists.
+  Future<void> updateAssignees(List<int> assigneeIds) async {
+    final repo = await ref.read(issuesRepositoryProvider.future);
+    if (repo == null) throw StateError('No authenticated account');
+    final updated = await repo.updateAssignees(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      assigneeIds: assigneeIds,
+    );
+    state = AsyncData(updated);
+    ref.invalidate(issuesControllerProvider);
+    ref.invalidate(myIssuesControllerProvider);
+  }
+
   /// Applies the server response or the known target state for an idempotent
   /// 304 response, without treating an absent subscription field as false.
   Future<void> setSubscription(bool subscribed) async {

@@ -266,6 +266,67 @@ void main() {
     });
   });
 
+  group('IssuesApi.updateAssignees', () {
+    test('replaces assignees by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'x',
+            'state': 'opened',
+            'assignees': [
+              {'id': 7, 'username': 'alice', 'name': 'Alice'},
+              {'id': 8, 'username': 'bob', 'name': 'Bob'},
+            ],
+          },
+        );
+      });
+
+      final issue = await client.issues.updateAssignees(
+        'team/project',
+        iid: 5,
+        assigneeIds: [7, 8],
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {
+        'assignee_ids': [7, 8],
+      });
+      expect(issue.assignees.map((user) => user.id), [7, 8]);
+    });
+
+    test('sends an empty array to unassign everyone', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateAssignees(7, iid: 5, assigneeIds: []);
+      expect(captured.data, {'assignee_ids': <int>[]});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateAssignees(7, iid: 5, assigneeIds: [8]),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.setSubscription', () {
     test('subscribes by issue iid and returns the updated issue', () async {
       late RequestOptions captured;

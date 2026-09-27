@@ -1436,6 +1436,30 @@ abstract class AppLocalizations {
   /// **'Edit due date'**
   String get issueEditDueDate;
 
+  /// No description provided for @issueEditAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit assignees'**
+  String get issueEditAssignees;
+
+  /// No description provided for @issueAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignees'**
+  String get issueAssignees;
+
+  /// No description provided for @issueSaveAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Save assignees'**
+  String get issueSaveAssignees;
+
+  /// No description provided for @issueAssigneesSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update assignees. Check your permissions and try again.'**
+  String get issueAssigneesSaveError;
+
   /// No description provided for @issueDueDate.
   ///
   /// In en, this message translates to:
