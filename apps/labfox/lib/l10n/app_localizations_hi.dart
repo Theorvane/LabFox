@@ -710,6 +710,27 @@ class AppLocalizationsHi extends AppLocalizations {
       'लेबल अपडेट नहीं हो सके। फिर से कोशिश करें।';
 
   @override
+  String get issueEditDueDate => 'नियत तारीख संपादित करें';
+
+  @override
+  String get issueDueDate => 'नियत तारीख';
+
+  @override
+  String issueDueDateValue(String date) {
+    return 'नियत तारीख: $date';
+  }
+
+  @override
+  String get issueSelectDueDate => 'तारीख चुनें';
+
+  @override
+  String get issueClearDueDate => 'नियत तारीख हटाएँ';
+
+  @override
+  String get issueDueDateError =>
+      'नियत तारीख अपडेट नहीं हो सकी। फिर से कोशिश करें।';
+
+  @override
   String get issueSaveChanges => 'बदलाव सहेजें';
 
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
@@ -50,6 +51,14 @@ class IssueDetailScreen extends ConsumerWidget {
                     builder: (_) =>
                         _EditIssueLabelsDialog(issue: data, issueRef: issueRef),
                   );
+                } else if (action == _IssueAction.editDueDate) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => _EditIssueDueDateDialog(
+                      issue: data,
+                      issueRef: issueRef,
+                    ),
+                  );
                 } else if (action == _IssueAction.subscribe ||
                     action == _IssueAction.unsubscribe) {
                   _setSubscription(
@@ -92,6 +101,10 @@ class IssueDetailScreen extends ConsumerWidget {
                   child: Text(l10n.issueEditLabels),
                 ),
                 PopupMenuItem(
+                  value: _IssueAction.editDueDate,
+                  child: Text(l10n.issueEditDueDate),
+                ),
+                PopupMenuItem(
                   value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
                   child: Text(data.isOpen ? l10n.issueClose : l10n.issueReopen),
                 ),
@@ -122,6 +135,22 @@ class IssueDetailScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(LabFoxSpacing.md),
           children: [
             _IssueHeader(issue: data),
+            if (data.dueDate case final dueDate?) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Row(
+                children: [
+                  const Icon(Icons.event_outlined, size: 18),
+                  const SizedBox(width: LabFoxSpacing.sm),
+                  Text(
+                    l10n.issueDueDateValue(
+                      MaterialLocalizations.of(
+                        context,
+                      ).formatMediumDate(dueDate),
+                    ),
+                  ),
+                ],
+              ),
+            ],
             if (data.labels.isNotEmpty) ...[
               const SizedBox(height: LabFoxSpacing.md),
               Wrap(
@@ -222,6 +251,7 @@ class IssueDetailScreen extends ConsumerWidget {
 enum _IssueAction {
   edit,
   editLabels,
+  editDueDate,
   close,
   reopen,
   subscribe,
@@ -339,6 +369,83 @@ class _EditIssueLabelsDialogState
         FilledButton(
           onPressed: _busy || !labels.hasValue ? null : _save,
           child: Text(l10n.issueSaveLabels),
+        ),
+      ],
+    );
+  }
+}
+
+class _EditIssueDueDateDialog extends ConsumerStatefulWidget {
+  const _EditIssueDueDateDialog({required this.issue, required this.issueRef});
+
+  final Issue issue;
+  final IssueRef issueRef;
+
+  @override
+  ConsumerState<_EditIssueDueDateDialog> createState() =>
+      _EditIssueDueDateDialogState();
+}
+
+class _EditIssueDueDateDialogState
+    extends ConsumerState<_EditIssueDueDateDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _update(DateTime? date) async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .updateDueDate(
+            date == null ? '' : DateFormat('yyyy-MM-dd').format(date),
+          );
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _pickDate() async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: widget.issue.dueDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (selected != null && mounted) await _update(selected);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.issueEditDueDate),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.issue.dueDate case final dueDate?)
+            Text(MaterialLocalizations.of(context).formatMediumDate(dueDate)),
+          if (_failed) Text(l10n.issueDueDateError),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        if (widget.issue.dueDate != null)
+          TextButton(
+            onPressed: _busy ? null : () => _update(null),
+            child: Text(l10n.issueClearDueDate),
+          ),
+        FilledButton(
+          onPressed: _busy ? null : _pickDate,
+          child: Text(l10n.issueSelectDueDate),
         ),
       ],
     );

@@ -3,6 +3,26 @@ import 'package:test/test.dart';
 
 void main() {
   group('Issue', () {
+    test('parses an optional issue due date', () {
+      final dated = Issue.fromJson(const {
+        'id': 1,
+        'iid': 5,
+        'title': 'x',
+        'state': 'opened',
+        'due_date': '2026-10-15',
+      });
+      final undated = Issue.fromJson(const {
+        'id': 1,
+        'iid': 6,
+        'title': 'y',
+        'state': 'opened',
+        'due_date': null,
+      });
+
+      expect(dated.dueDate, DateTime(2026, 10, 15));
+      expect(undated.dueDate, isNull);
+    });
+
     test('keeps iid and id distinct', () {
       // The number a user sees (#282) is the iid; id is the global identifier.
       // Flattening them would route to the wrong resource.

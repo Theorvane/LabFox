@@ -700,6 +700,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueLabelsSaveError => '无法更新标签，请重试。';
 
   @override
+  String get issueEditDueDate => '编辑截止日期';
+
+  @override
+  String get issueDueDate => '截止日期';
+
+  @override
+  String issueDueDateValue(String date) {
+    return '截止日期：$date';
+  }
+
+  @override
+  String get issueSelectDueDate => '选择日期';
+
+  @override
+  String get issueClearDueDate => '清除截止日期';
+
+  @override
+  String get issueDueDateError => '无法更新截止日期，请重试。';
+
+  @override
   String get issueSaveChanges => '保存更改';
 
   @override

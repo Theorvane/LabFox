@@ -712,6 +712,27 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not update labels. Please try again.';
 
   @override
+  String get issueEditDueDate => 'Edit due date';
+
+  @override
+  String get issueDueDate => 'Due date';
+
+  @override
+  String issueDueDateValue(String date) {
+    return 'Due date: $date';
+  }
+
+  @override
+  String get issueSelectDueDate => 'Select date';
+
+  @override
+  String get issueClearDueDate => 'Clear due date';
+
+  @override
+  String get issueDueDateError =>
+      'Could not update the due date. Please try again.';
+
+  @override
   String get issueSaveChanges => 'Save changes';
 
   @override

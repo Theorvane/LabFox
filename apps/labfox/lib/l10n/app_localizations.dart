@@ -1460,6 +1460,42 @@ abstract class AppLocalizations {
   /// **'Could not update labels. Please try again.'**
   String get issueLabelsSaveError;
 
+  /// No description provided for @issueEditDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit due date'**
+  String get issueEditDueDate;
+
+  /// No description provided for @issueDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get issueDueDate;
+
+  /// No description provided for @issueDueDateValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date: {date}'**
+  String issueDueDateValue(String date);
+
+  /// No description provided for @issueSelectDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get issueSelectDueDate;
+
+  /// No description provided for @issueClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get issueClearDueDate;
+
+  /// No description provided for @issueDueDateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the due date. Please try again.'**
+  String get issueDueDateError;
+
   /// No description provided for @issueSaveChanges.
   ///
   /// In en, this message translates to:

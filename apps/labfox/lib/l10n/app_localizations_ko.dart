@@ -703,6 +703,26 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueLabelsSaveError => '라벨을 변경할 수 없습니다. 다시 시도해 주세요.';
 
   @override
+  String get issueEditDueDate => '마감일 수정';
+
+  @override
+  String get issueDueDate => '마감일';
+
+  @override
+  String issueDueDateValue(String date) {
+    return '마감일: $date';
+  }
+
+  @override
+  String get issueSelectDueDate => '날짜 선택';
+
+  @override
+  String get issueClearDueDate => '마감일 지우기';
+
+  @override
+  String get issueDueDateError => '마감일을 변경할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
   String get issueSaveChanges => '변경 사항 저장';
 
   @override

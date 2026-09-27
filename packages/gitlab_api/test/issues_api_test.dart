@@ -266,6 +266,62 @@ void main() {
     });
   });
 
+  group('IssuesApi.updateDueDate', () {
+    test('sets a date by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'due_date': '2026-10-15',
+          },
+        );
+      });
+
+      final issue = await client.issues.updateDueDate(
+        'team/project',
+        iid: 5,
+        dueDate: '2026-10-15',
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'due_date': '2026-10-15'});
+      expect(issue.dueDate, DateTime(2026, 10, 15));
+    });
+
+    test('sends an empty date to clear it', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateDueDate(7, iid: 5, dueDate: '');
+      expect(captured.data, {'due_date': ''});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateDueDate(7, iid: 5, dueDate: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.setSubscription', () {
     test('subscribes by issue iid and returns the updated issue', () async {
       late RequestOptions captured;

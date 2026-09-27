@@ -702,6 +702,26 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueLabelsSaveError => 'ラベルを更新できませんでした。もう一度お試しください。';
 
   @override
+  String get issueEditDueDate => '期限を編集';
+
+  @override
+  String get issueDueDate => '期限';
+
+  @override
+  String issueDueDateValue(String date) {
+    return '期限: $date';
+  }
+
+  @override
+  String get issueSelectDueDate => '日付を選択';
+
+  @override
+  String get issueClearDueDate => '期限を削除';
+
+  @override
+  String get issueDueDateError => '期限を更新できませんでした。もう一度お試しください。';
+
+  @override
   String get issueSaveChanges => '変更を保存';
 
   @override
