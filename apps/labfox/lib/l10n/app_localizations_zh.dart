@@ -326,6 +326,33 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseCreateError => '无法创建发行版。';
 
   @override
+  String get releaseAddAssetLink => '添加资源链接';
+
+  @override
+  String get releaseAddLink => '添加链接';
+
+  @override
+  String get releaseAssetName => '链接名称';
+
+  @override
+  String get releaseAssetUrl => '链接 URL';
+
+  @override
+  String get releaseAssetNameRequired => '请输入链接名称。';
+
+  @override
+  String get releaseAssetUrlInvalid => '请输入 HTTP 或 HTTPS URL。';
+
+  @override
+  String get releaseAssetNameDuplicate => '已存在同名链接。';
+
+  @override
+  String get releaseAssetCreateError => '无法添加资源链接。';
+
+  @override
+  String get releaseNoAssets => '暂无资源。';
+
+  @override
   String get releaseDelete => '删除发行版';
 
   @override

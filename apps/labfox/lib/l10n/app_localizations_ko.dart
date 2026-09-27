@@ -327,6 +327,33 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseCreateError => '릴리스를 만들 수 없습니다.';
 
   @override
+  String get releaseAddAssetLink => '자산 링크 추가';
+
+  @override
+  String get releaseAddLink => '링크 추가';
+
+  @override
+  String get releaseAssetName => '링크 이름';
+
+  @override
+  String get releaseAssetUrl => '링크 URL';
+
+  @override
+  String get releaseAssetNameRequired => '링크 이름을 입력하세요.';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP 또는 HTTPS URL을 입력하세요.';
+
+  @override
+  String get releaseAssetNameDuplicate => '같은 이름의 링크가 이미 있습니다.';
+
+  @override
+  String get releaseAssetCreateError => '자산 링크를 추가할 수 없습니다.';
+
+  @override
+  String get releaseNoAssets => '아직 자산이 없습니다.';
+
+  @override
   String get releaseDelete => '릴리스 삭제';
 
   @override
