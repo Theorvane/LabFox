@@ -685,6 +685,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueEdit => '编辑议题';
 
   @override
+  String get issueEditLabels => '编辑标签';
+
+  @override
+  String get issueSaveLabels => '保存标签';
+
+  @override
+  String get issueLabelsEmpty => '没有可用标签';
+
+  @override
+  String get issueLabelsLoadError => '无法加载标签。';
+
+  @override
+  String get issueLabelsSaveError => '无法更新标签，请重试。';
+
+  @override
   String get issueEditDueDate => '编辑截止日期';
 
   @override

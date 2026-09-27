@@ -687,6 +687,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueEdit => 'イシューを編集';
 
   @override
+  String get issueEditLabels => 'ラベルを編集';
+
+  @override
+  String get issueSaveLabels => 'ラベルを保存';
+
+  @override
+  String get issueLabelsEmpty => '利用できるラベルがありません';
+
+  @override
+  String get issueLabelsLoadError => 'ラベルを読み込めませんでした。';
+
+  @override
+  String get issueLabelsSaveError => 'ラベルを更新できませんでした。もう一度お試しください。';
+
+  @override
   String get issueEditDueDate => '期限を編集';
 
   @override

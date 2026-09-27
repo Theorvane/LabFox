@@ -10,6 +10,7 @@ import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../comments/presentation/widgets/comment_thread.dart';
 import '../../members/presentation/controllers/members_controller.dart';
+import '../../project_labels/presentation/controllers/project_labels_controller.dart';
 import 'controllers/issues_controllers.dart';
 import 'widgets/linked_issues_section.dart';
 
@@ -44,6 +45,12 @@ class IssueDetailScreen extends ConsumerWidget {
                     context: context,
                     builder: (_) =>
                         _EditIssueDialog(issue: data, issueRef: issueRef),
+                  );
+                } else if (action == _IssueAction.editLabels) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) =>
+                        _EditIssueLabelsDialog(issue: data, issueRef: issueRef),
                   );
                 } else if (action == _IssueAction.editDueDate) {
                   showDialog<void>(
@@ -97,6 +104,10 @@ class IssueDetailScreen extends ConsumerWidget {
                 PopupMenuItem(
                   value: _IssueAction.edit,
                   child: Text(l10n.issueEdit),
+                ),
+                PopupMenuItem(
+                  value: _IssueAction.editLabels,
+                  child: Text(l10n.issueEditLabels),
                 ),
                 PopupMenuItem(
                   value: _IssueAction.editDueDate,
@@ -263,6 +274,7 @@ class IssueDetailScreen extends ConsumerWidget {
 
 enum _IssueAction {
   edit,
+  editLabels,
   editDueDate,
   editAssignees,
   close,
@@ -270,6 +282,122 @@ enum _IssueAction {
   subscribe,
   unsubscribe,
   addTodo,
+}
+
+class _EditIssueLabelsDialog extends ConsumerStatefulWidget {
+  const _EditIssueLabelsDialog({required this.issue, required this.issueRef});
+
+  final Issue issue;
+  final IssueRef issueRef;
+
+  @override
+  ConsumerState<_EditIssueLabelsDialog> createState() =>
+      _EditIssueLabelsDialogState();
+}
+
+class _EditIssueLabelsDialogState
+    extends ConsumerState<_EditIssueLabelsDialog> {
+  late final Set<String> _selected = {
+    for (final label in widget.issue.labels) label.name,
+  };
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _save() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .updateLabels(_selected.toList());
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final labels = ref.watch(
+      projectLabelsControllerProvider(widget.issueRef.projectId),
+    );
+    return AlertDialog(
+      title: Text(l10n.issueEditLabels),
+      content: SizedBox(
+        width: 480,
+        height: MediaQuery.sizeOf(context).height * 0.45,
+        child: Column(
+          children: [
+            Expanded(
+              child: labels.when(
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (_, _) => Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.issueLabelsLoadError),
+                      TextButton(
+                        onPressed: () => ref.invalidate(
+                          projectLabelsControllerProvider(
+                            widget.issueRef.projectId,
+                          ),
+                        ),
+                        child: Text(l10n.retry),
+                      ),
+                    ],
+                  ),
+                ),
+                data: (available) {
+                  final names = <String>{
+                    for (final label in available) label.name,
+                    for (final label in widget.issue.labels) label.name,
+                  }.toList();
+                  if (names.isEmpty) {
+                    return Center(child: Text(l10n.issueLabelsEmpty));
+                  }
+                  return ListView.builder(
+                    itemCount: names.length,
+                    itemBuilder: (context, index) {
+                      final name = names[index];
+                      return CheckboxListTile(
+                        title: Text(name),
+                        value: _selected.contains(name),
+                        onChanged: _busy
+                            ? null
+                            : (checked) => setState(() {
+                                if (checked == true) {
+                                  _selected.add(name);
+                                } else {
+                                  _selected.remove(name);
+                                }
+                              }),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            if (_failed) Text(l10n.issueLabelsSaveError),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy || !labels.hasValue ? null : _save,
+          child: Text(l10n.issueSaveLabels),
+        ),
+      ],
+    );
+  }
 }
 
 class _EditIssueAssigneesDialog extends ConsumerStatefulWidget {

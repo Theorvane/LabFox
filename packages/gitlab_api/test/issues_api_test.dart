@@ -210,6 +210,62 @@ void main() {
     });
   });
 
+  group('IssuesApi.updateLabels', () {
+    test('replaces labels by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'x',
+            'state': 'opened',
+            'labels': ['bug', 'review'],
+          },
+        );
+      });
+
+      final issue = await client.issues.updateLabels(
+        'team/project',
+        iid: 5,
+        labels: ['bug', 'review'],
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'labels': 'bug,review'});
+      expect(issue.labels.map((label) => label.name), ['bug', 'review']);
+    });
+
+    test('sends an empty string to clear all labels', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateLabels(7, iid: 5, labels: []);
+      expect(captured.data, {'labels': ''});
+    });
+
+    test('maps a forbidden response', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateLabels(7, iid: 5, labels: ['bug']),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.updateDueDate', () {
     test('sets a date by project path and issue iid', () async {
       late RequestOptions captured;

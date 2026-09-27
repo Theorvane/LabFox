@@ -696,6 +696,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueEdit => 'Edit issue';
 
   @override
+  String get issueEditLabels => 'Edit labels';
+
+  @override
+  String get issueSaveLabels => 'Save labels';
+
+  @override
+  String get issueLabelsEmpty => 'No labels available';
+
+  @override
+  String get issueLabelsLoadError => 'Could not load labels.';
+
+  @override
+  String get issueLabelsSaveError =>
+      'Could not update labels. Please try again.';
+
+  @override
   String get issueEditDueDate => 'Edit due date';
 
   @override
