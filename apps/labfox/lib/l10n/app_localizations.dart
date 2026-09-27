@@ -3302,6 +3302,24 @@ abstract class AppLocalizations {
   /// **'Could not delete the snippet.'**
   String get snippetDeleteError;
 
+  /// No description provided for @snippetEditContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit content'**
+  String get snippetEditContent;
+
+  /// No description provided for @snippetSaveContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save content'**
+  String get snippetSaveContent;
+
+  /// No description provided for @snippetContentSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save snippet content.'**
+  String get snippetContentSaveError;
+
   /// Home section title for recently opened projects
   ///
   /// In en, this message translates to:

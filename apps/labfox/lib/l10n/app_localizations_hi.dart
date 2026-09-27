@@ -1688,6 +1688,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetDeleteError => 'स्निपेट हटाया नहीं जा सका।';
 
   @override
+  String get snippetEditContent => 'सामग्री संपादित करें';
+
+  @override
+  String get snippetSaveContent => 'सामग्री सहेजें';
+
+  @override
+  String get snippetContentSaveError => 'स्निपेट सामग्री सहेजी नहीं जा सकी।';
+
+  @override
   String get homeRecents => 'हाल ही में';
 
   @override

@@ -375,7 +375,6 @@ class _SnippetBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
     final files = snippet.files;
     return Center(
       child: ConstrainedBox(
@@ -405,22 +404,168 @@ class _SnippetBody extends ConsumerWidget {
                   ),
                 )
             else ...[
-              Text(
-                files.isNotEmpty
+              _SingleSnippetContent(
+                projectId: projectId,
+                snippetId: snippet.id,
+                filePath: files.isNotEmpty
                     ? files.first.path
-                    : (snippet.fileName ?? l10n.snippetContent),
-                style: LabFoxTextRoles.of(context).sectionHeader,
-              ),
-              const SizedBox(height: LabFoxSpacing.sm),
-              _Content(
-                content: ref.watch(
-                  snippetRawProvider(SnippetRef(projectId, snippet.id)),
-                ),
+                    : snippet.fileName,
               ),
             ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _SingleSnippetContent extends ConsumerWidget {
+  const _SingleSnippetContent({
+    required this.projectId,
+    required this.snippetId,
+    required this.filePath,
+  });
+
+  final int projectId;
+  final int snippetId;
+  final String? filePath;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final content = ref.watch(
+      snippetRawProvider(SnippetRef(projectId, snippetId)),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                filePath ?? l10n.snippetContent,
+                style: LabFoxTextRoles.of(context).sectionHeader,
+              ),
+            ),
+            if (filePath case final path?)
+              if (content.valueOrNull case final text?)
+                TextButton.icon(
+                  onPressed: () => showDialog<void>(
+                    context: context,
+                    builder: (_) => _EditSnippetContentDialog(
+                      projectId: projectId,
+                      snippetId: snippetId,
+                      filePath: path,
+                      initialContent: text,
+                    ),
+                  ),
+                  icon: const Icon(Icons.edit_outlined),
+                  label: Text(l10n.snippetEditContent),
+                ),
+          ],
+        ),
+        const SizedBox(height: LabFoxSpacing.sm),
+        _Content(content: content),
+      ],
+    );
+  }
+}
+
+class _EditSnippetContentDialog extends ConsumerStatefulWidget {
+  const _EditSnippetContentDialog({
+    required this.projectId,
+    required this.snippetId,
+    required this.filePath,
+    required this.initialContent,
+  });
+
+  final int projectId;
+  final int snippetId;
+  final String filePath;
+  final String initialContent;
+
+  @override
+  ConsumerState<_EditSnippetContentDialog> createState() =>
+      _EditSnippetContentDialogState();
+}
+
+class _EditSnippetContentDialogState
+    extends ConsumerState<_EditSnippetContentDialog> {
+  late final TextEditingController _content = TextEditingController(
+    text: widget.initialContent,
+  );
+  bool _busy = false;
+  bool _failed = false;
+
+  @override
+  void dispose() {
+    _content.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(updateSnippetContentControllerProvider.notifier)
+          .saveContent(
+            projectId: widget.projectId,
+            snippetId: widget.snippetId,
+            filePath: widget.filePath,
+            content: _content.text,
+          );
+      if (mounted) Navigator.of(context).pop();
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetEditContent),
+      scrollable: true,
+      content: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 640),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(widget.filePath),
+            const SizedBox(height: LabFoxSpacing.sm),
+            TextField(
+              controller: _content,
+              enabled: !_busy,
+              minLines: 8,
+              maxLines: 14,
+              decoration: InputDecoration(
+                labelText: l10n.snippetContentField,
+                alignLabelWithHint: true,
+              ),
+            ),
+            if (_failed) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(l10n.snippetContentSaveError),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _save,
+          child: Text(l10n.snippetSaveContent),
+        ),
+      ],
     );
   }
 }

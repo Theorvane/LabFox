@@ -1656,6 +1656,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetDeleteError => 'スニペットを削除できませんでした。';
 
   @override
+  String get snippetEditContent => '内容を編集';
+
+  @override
+  String get snippetSaveContent => '内容を保存';
+
+  @override
+  String get snippetContentSaveError => 'スニペットの内容を保存できませんでした。';
+
+  @override
   String get homeRecents => '最近';
 
   @override
