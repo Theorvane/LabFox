@@ -266,6 +266,47 @@ void main() {
     });
   });
 
+  group('IssuesApi.setDiscussionLocked', () {
+    test('updates discussion lock by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'discussion_locked': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setDiscussionLocked(
+        'team/project',
+        iid: 5,
+        locked: true,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'discussion_locked': true});
+      expect(issue.discussionLocked, isTrue);
+    });
+
+    test('maps permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setDiscussionLocked(7, iid: 5, locked: false),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.setConfidential', () {
     test('updates confidentiality by issue iid', () async {
       late RequestOptions captured;

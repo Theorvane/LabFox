@@ -86,6 +86,15 @@ class IssueDetailScreen extends ConsumerWidget {
                       confidential: action == _IssueAction.makeConfidential,
                     ),
                   );
+                } else if (action == _IssueAction.lockDiscussion ||
+                    action == _IssueAction.unlockDiscussion) {
+                  showDialog<void>(
+                    context: context,
+                    builder: (_) => _ConfirmIssueDiscussionLockDialog(
+                      issueRef: issueRef,
+                      locked: action == _IssueAction.lockDiscussion,
+                    ),
+                  );
                 } else if (action == _IssueAction.subscribe ||
                     action == _IssueAction.unsubscribe) {
                   _setSubscription(
@@ -150,6 +159,17 @@ class IssueDetailScreen extends ConsumerWidget {
                           : l10n.issueMakeConfidential,
                     ),
                   ),
+                if (data.discussionLocked case final locked?)
+                  PopupMenuItem(
+                    value: locked
+                        ? _IssueAction.unlockDiscussion
+                        : _IssueAction.lockDiscussion,
+                    child: Text(
+                      locked
+                          ? l10n.issueUnlockDiscussion
+                          : l10n.issueLockDiscussion,
+                    ),
+                  ),
                 PopupMenuItem(
                   value: data.isOpen ? _IssueAction.close : _IssueAction.reopen,
                   child: Text(data.isOpen ? l10n.issueClose : l10n.issueReopen),
@@ -181,6 +201,16 @@ class IssueDetailScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(LabFoxSpacing.md),
           children: [
             _IssueHeader(issue: data),
+            if (data.discussionLocked == true) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Row(
+                children: [
+                  const Icon(Icons.lock_outline, size: 18),
+                  const SizedBox(width: LabFoxSpacing.sm),
+                  Text(l10n.issueDiscussionLocked),
+                ],
+              ),
+            ],
             if (data.dueDate case final dueDate?) ...[
               const SizedBox(height: LabFoxSpacing.sm),
               Row(
@@ -323,11 +353,81 @@ enum _IssueAction {
   editAssignees,
   makeConfidential,
   removeConfidentiality,
+  lockDiscussion,
+  unlockDiscussion,
   close,
   reopen,
   subscribe,
   unsubscribe,
   addTodo,
+}
+
+class _ConfirmIssueDiscussionLockDialog extends ConsumerStatefulWidget {
+  const _ConfirmIssueDiscussionLockDialog({
+    required this.issueRef,
+    required this.locked,
+  });
+
+  final IssueRef issueRef;
+  final bool locked;
+
+  @override
+  ConsumerState<_ConfirmIssueDiscussionLockDialog> createState() =>
+      _ConfirmIssueDiscussionLockDialogState();
+}
+
+class _ConfirmIssueDiscussionLockDialogState
+    extends ConsumerState<_ConfirmIssueDiscussionLockDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _confirm() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(issueControllerProvider(widget.issueRef).notifier)
+          .setDiscussionLocked(widget.locked);
+      if (mounted) Navigator.of(context).pop();
+    } on GitLabException {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(
+        widget.locked ? l10n.issueLockDiscussion : l10n.issueUnlockDiscussion,
+      ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            widget.locked
+                ? l10n.issueLockDiscussionExplanation
+                : l10n.issueUnlockDiscussionExplanation,
+          ),
+          if (_failed) Text(l10n.issueDiscussionLockError),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _confirm,
+          child: Text(l10n.issueDiscussionLockConfirm),
+        ),
+      ],
+    );
+  }
 }
 
 class _ConfirmIssueConfidentialityDialog extends ConsumerStatefulWidget {

@@ -31,6 +31,9 @@ class _FakeRepo extends IssuesRepository {
   bool? lastConfidential;
   bool rejectConfidential = false;
   bool omitConfidentialResponse = false;
+  bool? lastDiscussionLocked;
+  bool rejectDiscussionLock = false;
+  bool omitDiscussionLockResponse = false;
   Issue? detailedAfterLabelUpdate;
   int getCount = 0;
   bool todoAlreadyExists = false;
@@ -121,6 +124,20 @@ class _FakeRepo extends IssuesRepository {
     _issue = _issue.copyWith(confidential: confidential);
     return omitConfidentialResponse
         ? _issue.copyWith(confidential: null)
+        : _issue;
+  }
+
+  @override
+  Future<Issue> setDiscussionLocked({
+    required int projectId,
+    required int iid,
+    required bool locked,
+  }) async {
+    if (rejectDiscussionLock) throw const GitLabForbiddenException('Forbidden');
+    lastDiscussionLocked = locked;
+    _issue = _issue.copyWith(discussionLocked: locked);
+    return omitDiscussionLockResponse
+        ? _issue.copyWith(discussionLocked: null)
         : _issue;
   }
 
@@ -1212,5 +1229,115 @@ void main() {
 
     expect(repo.lastTodoIid, 5);
     expect(find.text('Added to your To-Do list.'), findsOneWidget);
+  });
+
+  testWidgets('confirms locking and unlocking an issue discussion', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        discussionLocked: false,
+      ),
+    )..omitDiscussionLockResponse = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byWidgetPredicate((w) => w is PopupMenuButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Lock discussion'));
+    await tester.pumpAndSettle();
+    expect(repo.lastDiscussionLocked, isNull);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(repo.lastDiscussionLocked, isNull);
+
+    await tester.tap(find.byWidgetPredicate((w) => w is PopupMenuButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Lock discussion'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+    expect(repo.lastDiscussionLocked, isTrue);
+    expect(find.text('Discussion locked'), findsOneWidget);
+    await tester.tap(find.byWidgetPredicate((w) => w is PopupMenuButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Unlock discussion'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+    expect(repo.lastDiscussionLocked, isFalse);
+    expect(find.text('Discussion locked'), findsNothing);
+  });
+
+  testWidgets('hides the discussion action when lock state is absent', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(id: 1, iid: 5, title: 'Bug', state: 'opened'),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byWidgetPredicate((w) => w is PopupMenuButton));
+    await tester.pumpAndSettle();
+    expect(find.text('Lock discussion'), findsNothing);
+    expect(find.text('Unlock discussion'), findsNothing);
+  });
+
+  testWidgets('permission denial retains discussion lock confirmation', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        discussionLocked: false,
+      ),
+    )..rejectDiscussionLock = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byWidgetPredicate((w) => w is PopupMenuButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Lock discussion'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+    expect(repo.lastDiscussionLocked, isNull);
+    expect(
+      find.textContaining('Could not change the discussion lock.'),
+      findsOneWidget,
+    );
+    expect(find.text('Confirm'), findsOneWidget);
   });
 }

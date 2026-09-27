@@ -1508,6 +1508,48 @@ abstract class AppLocalizations {
   /// **'Could not update confidentiality. Check your permissions and try again.'**
   String get issueConfidentialityError;
 
+  /// No description provided for @issueDiscussionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion locked'**
+  String get issueDiscussionLocked;
+
+  /// No description provided for @issueLockDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock discussion'**
+  String get issueLockDiscussion;
+
+  /// No description provided for @issueUnlockDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock discussion'**
+  String get issueUnlockDiscussion;
+
+  /// No description provided for @issueLockDiscussionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Only project members will be able to add or edit comments. Continue?'**
+  String get issueLockDiscussionExplanation;
+
+  /// No description provided for @issueUnlockDiscussionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Others with access to this issue will be able to comment again. Continue?'**
+  String get issueUnlockDiscussionExplanation;
+
+  /// No description provided for @issueDiscussionLockConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get issueDiscussionLockConfirm;
+
+  /// No description provided for @issueDiscussionLockError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the discussion lock. Check your permissions and try again.'**
+  String get issueDiscussionLockError;
+
   /// No description provided for @issueEditMilestone.
   ///
   /// In en, this message translates to:

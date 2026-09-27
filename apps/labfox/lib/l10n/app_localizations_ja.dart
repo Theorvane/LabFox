@@ -727,6 +727,30 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueConfidentialityError => '機密設定を更新できませんでした。権限を確認して再試行してください。';
 
   @override
+  String get issueDiscussionLocked => 'ディスカッションはロックされています';
+
+  @override
+  String get issueLockDiscussion => 'ディスカッションをロック';
+
+  @override
+  String get issueUnlockDiscussion => 'ディスカッションのロックを解除';
+
+  @override
+  String get issueLockDiscussionExplanation =>
+      'プロジェクトメンバーのみコメントを追加・編集できます。続行しますか？';
+
+  @override
+  String get issueUnlockDiscussionExplanation =>
+      'このイシューにアクセスできるユーザーが再びコメントできます。続行しますか？';
+
+  @override
+  String get issueDiscussionLockConfirm => '確認';
+
+  @override
+  String get issueDiscussionLockError =>
+      'ディスカッションのロックを変更できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get issueEditMilestone => 'マイルストーンを編集';
 
   @override

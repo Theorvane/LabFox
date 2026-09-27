@@ -739,6 +739,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not update confidentiality. Check your permissions and try again.';
 
   @override
+  String get issueDiscussionLocked => 'Discussion locked';
+
+  @override
+  String get issueLockDiscussion => 'Lock discussion';
+
+  @override
+  String get issueUnlockDiscussion => 'Unlock discussion';
+
+  @override
+  String get issueLockDiscussionExplanation =>
+      'Only project members will be able to add or edit comments. Continue?';
+
+  @override
+  String get issueUnlockDiscussionExplanation =>
+      'Others with access to this issue will be able to comment again. Continue?';
+
+  @override
+  String get issueDiscussionLockConfirm => 'Confirm';
+
+  @override
+  String get issueDiscussionLockError =>
+      'Could not change the discussion lock. Check your permissions and try again.';
+
+  @override
   String get issueEditMilestone => 'Edit milestone';
 
   @override

@@ -28,6 +28,7 @@ _Issue _$IssueFromJson(Map<String, dynamic> json) => _Issue(
   commentCount: (json['user_notes_count'] as num?)?.toInt() ?? 0,
   subscribed: json['subscribed'] as bool?,
   confidential: json['confidential'] as bool?,
+  discussionLocked: json['discussion_locked'] as bool?,
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
@@ -56,6 +57,7 @@ Map<String, dynamic> _$IssueToJson(_Issue instance) => <String, dynamic>{
   'user_notes_count': instance.commentCount,
   'subscribed': instance.subscribed,
   'confidential': instance.confidential,
+  'discussion_locked': instance.discussionLocked,
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),
   'due_date': instance.dueDate?.toIso8601String(),

@@ -730,6 +730,30 @@ class AppLocalizationsKo extends AppLocalizations {
       '기밀 상태를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
+  String get issueDiscussionLocked => '토론 잠김';
+
+  @override
+  String get issueLockDiscussion => '토론 잠그기';
+
+  @override
+  String get issueUnlockDiscussion => '토론 잠금 해제';
+
+  @override
+  String get issueLockDiscussionExplanation =>
+      '프로젝트 멤버만 댓글을 추가하거나 수정할 수 있습니다. 계속하시겠습니까?';
+
+  @override
+  String get issueUnlockDiscussionExplanation =>
+      '이 이슈에 접근할 수 있는 사용자가 다시 댓글을 남길 수 있습니다. 계속하시겠습니까?';
+
+  @override
+  String get issueDiscussionLockConfirm => '확인';
+
+  @override
+  String get issueDiscussionLockError =>
+      '토론 잠금 상태를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get issueEditMilestone => '마일스톤 편집';
 
   @override
