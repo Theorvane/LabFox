@@ -1617,6 +1617,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiPageError => '无法加载此 Wiki 页面。';
 
   @override
+  String get wikiNewPage => '新建页面';
+
+  @override
+  String get wikiPageTitle => '标题';
+
+  @override
+  String get wikiPageContent => '内容';
+
+  @override
+  String get wikiCreatePage => '创建页面';
+
+  @override
+  String get wikiCreateValidationError => '请输入标题和内容。';
+
+  @override
+  String get wikiCreateError => '无法创建维基页面。';
+
+  @override
   String get packageRegistryTitle => '软件包仓库';
 
   @override

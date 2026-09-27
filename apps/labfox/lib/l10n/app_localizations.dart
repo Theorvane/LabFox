@@ -3236,6 +3236,42 @@ abstract class AppLocalizations {
   /// **'Could not load this wiki page.'**
   String get wikiPageError;
 
+  /// No description provided for @wikiNewPage.
+  ///
+  /// In en, this message translates to:
+  /// **'New page'**
+  String get wikiNewPage;
+
+  /// No description provided for @wikiPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get wikiPageTitle;
+
+  /// No description provided for @wikiPageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get wikiPageContent;
+
+  /// No description provided for @wikiCreatePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create page'**
+  String get wikiCreatePage;
+
+  /// No description provided for @wikiCreateValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title and content.'**
+  String get wikiCreateValidationError;
+
+  /// No description provided for @wikiCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the wiki page.'**
+  String get wikiCreateError;
+
   /// Project package registry title and entry
   ///
   /// In en, this message translates to:

@@ -52,4 +52,30 @@ class WikisApi {
       throw mapError(error, context: 'reading a wiki page');
     }
   }
+
+  /// Creates a Markdown page and returns its server-generated slug.
+  Future<WikiPage> create(
+    Object projectId, {
+    required String title,
+    required String content,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        _path(projectId),
+        data: {'title': title, 'content': content, 'format': 'markdown'},
+      );
+      final data = response.data;
+      if ((response.statusCode != 201 && response.statusCode != 200) ||
+          data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a wiki page',
+        );
+      }
+      return WikiPage.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a wiki page');
+    }
+  }
 }

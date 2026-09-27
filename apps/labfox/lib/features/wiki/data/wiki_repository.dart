@@ -11,4 +11,10 @@ class WikiRepository {
 
   Future<WikiPage> page(int projectId, String slug) =>
       _client.wikis.get(projectId, slug);
+
+  Future<WikiPage> create(
+    int projectId, {
+    required String title,
+    required String content,
+  }) => _client.wikis.create(projectId, title: title, content: content);
 }

@@ -55,6 +55,49 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test(
+    'creates a markdown page and returns the server-generated slug',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 201,
+          body: {
+            'title': 'Getting Started',
+            'slug': 'Getting-Started',
+            'content': '# Hello\n\nUse / and & safely.',
+            'format': 'markdown',
+          },
+        );
+      });
+
+      final page = await client.wikis.create(
+        'team/project',
+        title: 'Getting Started',
+        content: '# Hello\n\nUse / and & safely.',
+      );
+
+      expect(request.method, 'POST');
+      expect(request.path, '/projects/team%2Fproject/wikis');
+      expect(request.data, {
+        'title': 'Getting Started',
+        'content': '# Hello\n\nUse / and & safely.',
+        'format': 'markdown',
+      });
+      expect(page.slug, 'Getting-Started');
+    },
+  );
+
+  test('maps permission errors while creating a wiki page', () async {
+    final client = _client((_) => (status: 403, body: const {}));
+
+    await expectLater(
+      client.wikis.create(7, title: 'Title', content: 'Body'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
 }
 
 GitLabClient _client(
