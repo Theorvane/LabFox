@@ -170,6 +170,11 @@
   "milestoneUpdateError": "Could not update the milestone.",
   "milestoneClearStartDate": "Clear start date",
   "milestoneClearDueDate": "Clear due date",
+  "milestoneClose": "Close milestone",
+  "milestoneReactivate": "Reactivate milestone",
+  "milestoneCloseConfirmTitle": "Close this milestone?",
+  "milestoneCloseConfirmBody": "You can reactivate it later.",
+  "milestoneStateError": "Could not change the milestone state.",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"

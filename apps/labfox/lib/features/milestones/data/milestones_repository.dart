@@ -62,4 +62,14 @@ class MilestonesRepository {
       clearDueDate: clearDueDate,
     );
   }
+
+  Future<GitLabMilestone> setStateEvent(
+    int projectId,
+    int milestoneId, {
+    required String stateEvent,
+  }) => client.milestones.setStateEvent(
+    projectId,
+    milestoneId,
+    stateEvent: stateEvent,
+  );
 }

@@ -520,6 +520,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get milestoneClearDueDate => 'Clear due date';
 
   @override
+  String get milestoneClose => 'Close milestone';
+
+  @override
+  String get milestoneReactivate => 'Reactivate milestone';
+
+  @override
+  String get milestoneCloseConfirmTitle => 'Close this milestone?';
+
+  @override
+  String get milestoneCloseConfirmBody => 'You can reactivate it later.';
+
+  @override
+  String get milestoneStateError => 'Could not change the milestone state.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

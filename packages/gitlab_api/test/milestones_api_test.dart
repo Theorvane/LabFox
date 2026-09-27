@@ -247,6 +247,52 @@ void main() {
     await client.milestones.update(7, 12, title: '11.0', clearDueDate: true);
     expect(request.data, {'title': '11.0', 'due_date': ''});
   });
+  for (final event in ['close', 'activate']) {
+    test('changes project milestone state with $event', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 42,
+            'iid': 4,
+            'title': 'Release 1',
+            'state': event == 'close' ? 'closed' : 'active',
+          },
+        );
+      });
+      final result = await client.milestones.setStateEvent(
+        'team/app',
+        42,
+        stateEvent: event,
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/milestones/42');
+      expect(request.data, {'state_event': event});
+      expect(result.id, 42);
+      expect(result.iid, 4);
+      expect(result.state, event == 'close' ? 'closed' : 'active');
+    });
+  }
+
+  test(
+    'rejects invalid milestone state events and maps forbidden writes',
+    () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.milestones.setStateEvent(7, 42, stateEvent: 'close'),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+      await expectLater(
+        client.milestones.setStateEvent(7, 42, stateEvent: 'reopen'),
+        throwsA(isA<ArgumentError>()),
+      );
+    },
+  );
 }
 
 GitLabClient _client(

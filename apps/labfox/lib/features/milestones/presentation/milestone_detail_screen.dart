@@ -27,6 +27,45 @@ class MilestoneDetailScreen extends ConsumerWidget {
   final int? groupId;
   final int milestoneId;
 
+  Future<void> _changeState(
+    BuildContext context,
+    WidgetRef ref,
+    MilestoneRef key, {
+    required bool close,
+  }) async {
+    final l10n = AppLocalizations.of(context);
+    if (close) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(l10n.milestoneCloseConfirmTitle),
+          content: Text(l10n.milestoneCloseConfirmBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(l10n.milestoneClose),
+            ),
+          ],
+        ),
+      );
+      if (!context.mounted || confirmed != true) return;
+    }
+    try {
+      await ref
+          .read(milestoneStateControllerProvider(key).notifier)
+          .change(close: close);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.milestoneStateError)));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -39,6 +78,9 @@ class MilestoneDetailScreen extends ConsumerWidget {
     final milestone = projectKey == null
         ? ref.watch(groupMilestoneDetailProvider(groupKey!))
         : ref.watch(milestoneDetailProvider(projectKey));
+    final changing =
+        projectKey != null &&
+        ref.watch(milestoneStateControllerProvider(projectKey)).isLoading;
     return Scaffold(
       appBar: AppBar(
         title: Text(milestone.valueOrNull?.title ?? l10n.milestonesTitle),
@@ -63,6 +105,27 @@ class MilestoneDetailScreen extends ConsumerWidget {
                   milestone: milestone.valueOrNull!,
                 ),
               ),
+            ),
+          if (projectKey != null &&
+              (milestone.valueOrNull?.state == 'active' ||
+                  milestone.valueOrNull?.state == 'closed'))
+            IconButton(
+              tooltip: milestone.valueOrNull!.state == 'closed'
+                  ? l10n.milestoneReactivate
+                  : l10n.milestoneClose,
+              icon: Icon(
+                milestone.valueOrNull!.state == 'closed'
+                    ? Icons.restart_alt
+                    : Icons.task_alt_outlined,
+              ),
+              onPressed: changing
+                  ? null
+                  : () => _changeState(
+                      context,
+                      ref,
+                      projectKey,
+                      close: milestone.valueOrNull!.state != 'closed',
+                    ),
             ),
         ],
       ),

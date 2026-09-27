@@ -514,6 +514,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get milestoneClearDueDate => '清除截止日期';
 
   @override
+  String get milestoneClose => '关闭里程碑';
+
+  @override
+  String get milestoneReactivate => '重新激活里程碑';
+
+  @override
+  String get milestoneCloseConfirmTitle => '关闭此里程碑？';
+
+  @override
+  String get milestoneCloseConfirmBody => '稍后可以重新激活。';
+
+  @override
+  String get milestoneStateError => '无法更改里程碑状态。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override

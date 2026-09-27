@@ -514,6 +514,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get milestoneClearDueDate => '期限を消去';
 
   @override
+  String get milestoneClose => 'マイルストーンを閉じる';
+
+  @override
+  String get milestoneReactivate => 'マイルストーンを再開';
+
+  @override
+  String get milestoneCloseConfirmTitle => 'このマイルストーンを閉じますか？';
+
+  @override
+  String get milestoneCloseConfirmBody => '後で再開できます。';
+
+  @override
+  String get milestoneStateError => 'マイルストーンの状態を変更できませんでした。';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
