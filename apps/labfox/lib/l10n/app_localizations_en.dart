@@ -715,6 +715,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get issueEditDueDate => 'Edit due date';
 
   @override
+  String get issueEditAssignees => 'Edit assignees';
+
+  @override
+  String get issueAssignees => 'Assignees';
+
+  @override
+  String get issueSaveAssignees => 'Save assignees';
+
+  @override
+  String get issueAssigneesSaveError =>
+      'Could not update assignees. Check your permissions and try again.';
+
+  @override
   String get issueDueDate => 'Due date';
 
   @override

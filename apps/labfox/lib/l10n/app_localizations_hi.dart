@@ -713,6 +713,19 @@ class AppLocalizationsHi extends AppLocalizations {
   String get issueEditDueDate => 'नियत तारीख संपादित करें';
 
   @override
+  String get issueEditAssignees => 'असाइनी संपादित करें';
+
+  @override
+  String get issueAssignees => 'असाइनी';
+
+  @override
+  String get issueSaveAssignees => 'असाइनी सहेजें';
+
+  @override
+  String get issueAssigneesSaveError =>
+      'असाइनी अपडेट नहीं हो सके। अनुमतियाँ जाँचें और फिर कोशिश करें।';
+
+  @override
   String get issueDueDate => 'नियत तारीख';
 
   @override

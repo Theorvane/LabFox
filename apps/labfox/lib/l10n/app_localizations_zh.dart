@@ -703,6 +703,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueEditDueDate => '编辑截止日期';
 
   @override
+  String get issueEditAssignees => '编辑指派人';
+
+  @override
+  String get issueAssignees => '指派人';
+
+  @override
+  String get issueSaveAssignees => '保存指派人';
+
+  @override
+  String get issueAssigneesSaveError => '无法更新指派人。请检查权限后重试。';
+
+  @override
   String get issueDueDate => '截止日期';
 
   @override
