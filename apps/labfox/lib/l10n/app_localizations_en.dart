@@ -1776,6 +1776,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wikiNewPage => 'New page';
 
   @override
+  String get wikiPagesSection => 'Pages';
+
+  @override
+  String get wikiTemplatesSection => 'Templates';
+
+  @override
+  String get wikiTemplateEmpty => 'No templates yet.';
+
+  @override
+  String get wikiNewTemplate => 'New template';
+
+  @override
+  String get wikiTemplateTitle => 'Template title';
+
+  @override
+  String get wikiCreateTemplate => 'Create template';
+
+  @override
+  String get wikiCreateTemplateError => 'Could not create the template.';
+
+  @override
   String get wikiPageTitle => 'Title';
 
   @override

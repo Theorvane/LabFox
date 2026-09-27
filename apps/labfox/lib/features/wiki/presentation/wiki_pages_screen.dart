@@ -19,6 +19,20 @@ class WikiPagesScreen extends ConsumerWidget {
 
   final int projectId;
 
+  Future<void> _openCreate(
+    BuildContext context, {
+    required bool template,
+  }) async {
+    final created = await showDialog<WikiPage>(
+      context: context,
+      builder: (_) =>
+          _CreateWikiPageDialog(projectId: projectId, isTemplate: template),
+    );
+    if (created != null && context.mounted) {
+      unawaited(context.push(Routes.wikiPage(projectId, created.slug)));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
@@ -27,18 +41,13 @@ class WikiPagesScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(l10n.wikiTitle),
         actions: [
+          IconButton(
+            tooltip: l10n.wikiNewTemplate,
+            onPressed: () => _openCreate(context, template: true),
+            icon: const Icon(Icons.post_add_outlined),
+          ),
           TextButton.icon(
-            onPressed: () async {
-              final created = await showDialog<WikiPage>(
-                context: context,
-                builder: (_) => _CreateWikiPageDialog(projectId: projectId),
-              );
-              if (created != null && context.mounted) {
-                unawaited(
-                  context.push(Routes.wikiPage(projectId, created.slug)),
-                );
-              }
-            },
+            onPressed: () => _openCreate(context, template: false),
             icon: const Icon(Icons.add),
             label: Text(l10n.wikiNewPage),
           ),
@@ -55,43 +64,85 @@ class WikiPagesScreen extends ConsumerWidget {
           message: l10n.wikiListError,
           onRetry: () => ref.invalidate(wikiPagesControllerProvider(projectId)),
         ),
-        data: (items) => items.isEmpty
-            ? Center(child: Text(l10n.wikiEmpty))
-            : RefreshIndicator(
-                onRefresh: () =>
-                    ref.refresh(wikiPagesControllerProvider(projectId).future),
-                child: ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  children: [
-                    Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 800),
-                        child: Padding(
-                          padding: const EdgeInsets.all(LabFoxSpacing.md),
-                          child: Card.outlined(
-                            margin: EdgeInsets.zero,
-                            child: WikiPageLinks(
-                              pages: items,
-                              onOpen: (slug) => context.push(
-                                Routes.wikiPage(projectId, slug),
-                              ),
-                            ),
+        data: (items) {
+          final templates = items
+              .where((page) => page.slug.startsWith('templates/'))
+              .toList();
+          final ordinary = items
+              .where((page) => !page.slug.startsWith('templates/'))
+              .toList();
+          Widget section(
+            String title,
+            String emptyMessage,
+            List<WikiPage> pages,
+          ) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: LabFoxSpacing.sm),
+              Card.outlined(
+                margin: EdgeInsets.zero,
+                child: pages.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.all(LabFoxSpacing.md),
+                        child: Text(emptyMessage),
+                      )
+                    : WikiPageLinks(
+                        pages: pages,
+                        onOpen: (slug) =>
+                            context.push(Routes.wikiPage(projectId, slug)),
+                      ),
+              ),
+            ],
+          );
+
+          return RefreshIndicator(
+            onRefresh: () =>
+                ref.refresh(wikiPagesControllerProvider(projectId).future),
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Padding(
+                      padding: const EdgeInsets.all(LabFoxSpacing.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          section(
+                            l10n.wikiPagesSection,
+                            l10n.wikiEmpty,
+                            ordinary,
                           ),
-                        ),
+                          const SizedBox(height: LabFoxSpacing.lg),
+                          section(
+                            l10n.wikiTemplatesSection,
+                            l10n.wikiTemplateEmpty,
+                            templates,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 }
 
 class _CreateWikiPageDialog extends ConsumerStatefulWidget {
-  const _CreateWikiPageDialog({required this.projectId});
+  const _CreateWikiPageDialog({
+    required this.projectId,
+    required this.isTemplate,
+  });
 
   final int projectId;
+  final bool isTemplate;
 
   @override
   ConsumerState<_CreateWikiPageDialog> createState() =>
@@ -128,9 +179,12 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
       _failed = false;
     });
     try {
-      final page = await ref
-          .read(wikiPagesControllerProvider(widget.projectId).notifier)
-          .create(title: title, content: content);
+      final controller = ref.read(
+        wikiPagesControllerProvider(widget.projectId).notifier,
+      );
+      final page = widget.isTemplate
+          ? await controller.createTemplate(title: title, content: content)
+          : await controller.create(title: title, content: content);
       if (mounted) Navigator.of(context).pop(page);
     } on GitLabException {
       if (mounted) setState(() => _failed = true);
@@ -143,7 +197,7 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     return AlertDialog(
-      title: Text(l10n.wikiNewPage),
+      title: Text(widget.isTemplate ? l10n.wikiNewTemplate : l10n.wikiNewPage),
       scrollable: true,
       content: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 560),
@@ -154,7 +208,11 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
             TextField(
               controller: _title,
               enabled: !_busy,
-              decoration: InputDecoration(labelText: l10n.wikiPageTitle),
+              decoration: InputDecoration(
+                labelText: widget.isTemplate
+                    ? l10n.wikiTemplateTitle
+                    : l10n.wikiPageTitle,
+              ),
             ),
             const SizedBox(height: LabFoxSpacing.md),
             TextField(
@@ -173,7 +231,11 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
             ],
             if (_failed) ...[
               const SizedBox(height: LabFoxSpacing.sm),
-              Text(l10n.wikiCreateError),
+              Text(
+                widget.isTemplate
+                    ? l10n.wikiCreateTemplateError
+                    : l10n.wikiCreateError,
+              ),
             ],
           ],
         ),
@@ -185,7 +247,9 @@ class _CreateWikiPageDialogState extends ConsumerState<_CreateWikiPageDialog> {
         ),
         FilledButton(
           onPressed: _busy ? null : _create,
-          child: Text(l10n.wikiCreatePage),
+          child: Text(
+            widget.isTemplate ? l10n.wikiCreateTemplate : l10n.wikiCreatePage,
+          ),
         ),
       ],
     );

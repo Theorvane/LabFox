@@ -1772,6 +1772,27 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wikiNewPage => 'नया पृष्ठ';
 
   @override
+  String get wikiPagesSection => 'पृष्ठ';
+
+  @override
+  String get wikiTemplatesSection => 'टेम्पलेट';
+
+  @override
+  String get wikiTemplateEmpty => 'अभी कोई टेम्पलेट नहीं है।';
+
+  @override
+  String get wikiNewTemplate => 'नया टेम्पलेट';
+
+  @override
+  String get wikiTemplateTitle => 'टेम्पलेट का शीर्षक';
+
+  @override
+  String get wikiCreateTemplate => 'टेम्पलेट बनाएं';
+
+  @override
+  String get wikiCreateTemplateError => 'टेम्पलेट नहीं बनाया जा सका।';
+
+  @override
   String get wikiPageTitle => 'शीर्षक';
 
   @override

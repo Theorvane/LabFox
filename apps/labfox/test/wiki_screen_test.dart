@@ -45,6 +45,22 @@ class _StubPages extends WikiPagesController {
       format: 'markdown',
     );
   }
+
+  @override
+  Future<WikiPage> createTemplate({
+    required String title,
+    required String content,
+  }) async {
+    if (rejectCreate) throw const GitLabForbiddenException('Forbidden');
+    lastCreatedTitle = title;
+    lastCreatedContent = content;
+    return WikiPage(
+      title: title,
+      slug: 'templates/Getting-Started',
+      content: content,
+      format: 'markdown',
+    );
+  }
 }
 
 class _StubPage extends WikiPageController {
@@ -164,6 +180,10 @@ const _pages = <WikiPage>[
   WikiPage(title: 'Home', slug: 'home'),
   WikiPage(title: 'Install', slug: 'docs/install'),
 ];
+const _pagesWithTemplate = <WikiPage>[
+  ..._pages,
+  WikiPage(title: 'Starter', slug: 'templates/starter'),
+];
 const _page = WikiPage(
   title: 'Install',
   slug: 'docs/install',
@@ -194,6 +214,73 @@ void main() {
       'server-slug',
     );
     expect(repository.listCalls, 2);
+  });
+
+  test(
+    'creating a wiki template uses the templates directory and reloads',
+    () async {
+      final repository = _FakeWikiRepository();
+      final container = ProviderContainer(
+        overrides: [
+          wikiRepositoryProvider.overrideWith((ref) async => repository),
+        ],
+      );
+      addTearDown(container.dispose);
+      expect(
+        await container.read(wikiPagesControllerProvider(7).future),
+        isEmpty,
+      );
+
+      await container
+          .read(wikiPagesControllerProvider(7).notifier)
+          .createTemplate(title: 'Starter', content: '# Body');
+      expect(repository.created?.title, 'templates/Starter');
+      expect(repository.created?.content, '# Body');
+      expect(
+        (await container.read(
+          wikiPagesControllerProvider(7).future,
+        )).single.slug,
+        'server-slug',
+      );
+      expect(repository.listCalls, 2);
+    },
+  );
+
+  testWidgets('separates template pages from ordinary wiki pages', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      pages: const AsyncData(_pagesWithTemplate),
+      page: const AsyncData(_page),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Pages'), findsOneWidget);
+    expect(find.text('Templates'), findsOneWidget);
+    expect(find.text('Home'), findsOneWidget);
+    expect(find.text('Starter'), findsOneWidget);
+    await tester.tap(find.text('Starter'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<WikiPageScreen>(find.byType(WikiPageScreen)).slug,
+      'templates/starter',
+    );
+  });
+
+  testWidgets('shows an ordinary-page empty state beside templates', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      pages: const AsyncData(<WikiPage>[
+        WikiPage(title: 'Starter', slug: 'templates/starter'),
+      ]),
+      page: const AsyncData(_page),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('No wiki pages yet.'), findsOneWidget);
+    expect(find.text('Starter'), findsOneWidget);
   });
 
   testWidgets('lists wiki pages and opens a nested page inside the app', (
@@ -302,6 +389,37 @@ void main() {
   });
 
   for (final width in [390.0, 1200.0]) {
+    testWidgets('creates a Markdown template at width $width', (tester) async {
+      final controller = _StubPages(const AsyncData(<WikiPage>[]));
+      await _pump(
+        tester,
+        pages: const AsyncData(<WikiPage>[]),
+        page: const AsyncData(_page),
+        pagesController: controller,
+        size: Size(width, 800),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.byTooltip('New template'));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Template title'),
+        'Getting Started',
+      );
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Content'),
+        '# Welcome',
+      );
+      await tester.tap(find.text('Create template'));
+      await tester.pumpAndSettle();
+
+      expect(controller.lastCreatedTitle, 'Getting Started');
+      expect(controller.lastCreatedContent, '# Welcome');
+      expect(
+        tester.widget<WikiPageScreen>(find.byType(WikiPageScreen)).slug,
+        'templates/Getting-Started',
+      );
+    });
+
     testWidgets('creates a page from an empty wiki at width $width', (
       tester,
     ) async {
@@ -372,6 +490,32 @@ void main() {
       );
     });
   }
+
+  testWidgets('keeps a template draft on permission denial', (tester) async {
+    final controller = _StubPages(const AsyncData(_pages))..rejectCreate = true;
+    await _pump(
+      tester,
+      pages: const AsyncData(_pages),
+      page: const AsyncData(_page),
+      pagesController: controller,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('New template'));
+    await tester.pumpAndSettle();
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Template title'),
+      'Draft',
+    );
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Content'),
+      'Keep me',
+    );
+    await tester.tap(find.text('Create template'));
+    await tester.pumpAndSettle();
+    expect(find.text('Could not create the template.'), findsOneWidget);
+    expect(find.text('Draft'), findsOneWidget);
+    expect(find.text('Keep me'), findsOneWidget);
+  });
 
   testWidgets('keeps the wiki draft after a permission error', (tester) async {
     final controller = _StubPages(const AsyncData(_pages))..rejectCreate = true;
