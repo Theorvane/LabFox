@@ -703,6 +703,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueEditDueDate => '编辑截止日期';
 
   @override
+  String get issueConfidential => '机密';
+
+  @override
+  String get issueMakeConfidential => '设为机密';
+
+  @override
+  String get issueRemoveConfidentiality => '取消机密';
+
+  @override
+  String get issueMakeConfidentialExplanation => '此议题的访问权限将受到限制。是否继续？';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      '所有可以查看项目的用户都将看到此议题。是否继续？';
+
+  @override
+  String get issueConfidentialityConfirm => '确认';
+
+  @override
+  String get issueConfidentialityError => '无法更新机密状态。请检查权限后重试。';
+
+  @override
   String get issueEditMilestone => '编辑里程碑';
 
   @override

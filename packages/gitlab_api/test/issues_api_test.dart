@@ -266,6 +266,47 @@ void main() {
     });
   });
 
+  group('IssuesApi.setConfidential', () {
+    test('updates confidentiality by issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'confidential': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setConfidential(
+        'team/project',
+        iid: 5,
+        confidential: true,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'confidential': true});
+      expect(issue.confidential, isTrue);
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setConfidential(7, iid: 5, confidential: false),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.updateMilestone', () {
     test('uses global milestone id and issue iid', () async {
       late RequestOptions captured;

@@ -28,6 +28,9 @@ class _FakeRepo extends IssuesRepository {
   bool rejectLabels = false;
   List<int>? lastAssigneeIds;
   bool rejectAssignees = false;
+  bool? lastConfidential;
+  bool rejectConfidential = false;
+  bool omitConfidentialResponse = false;
   Issue? detailedAfterLabelUpdate;
   int getCount = 0;
   bool todoAlreadyExists = false;
@@ -105,6 +108,20 @@ class _FakeRepo extends IssuesRepository {
             ),
     );
     return _issue;
+  }
+
+  @override
+  Future<Issue> setConfidential({
+    required int projectId,
+    required int iid,
+    required bool confidential,
+  }) async {
+    if (rejectConfidential) throw const GitLabForbiddenException('Forbidden');
+    lastConfidential = confidential;
+    _issue = _issue.copyWith(confidential: confidential);
+    return omitConfidentialResponse
+        ? _issue.copyWith(confidential: null)
+        : _issue;
   }
 
   @override
@@ -236,6 +253,37 @@ class _StubMembers extends ProjectMembersController {
 }
 
 void main() {
+  test(
+    'setConfidential retains requested state when response omits field',
+    () async {
+      final repo = _FakeRepo(
+        const Issue(
+          id: 1,
+          iid: 5,
+          title: 'x',
+          state: 'opened',
+          confidential: false,
+        ),
+      )..omitConfidentialResponse = true;
+      final container = ProviderContainer(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+      );
+      addTearDown(container.dispose);
+      const ref = IssueRef(projectId: 7, iid: 5);
+      await container.read(issueControllerProvider(ref).future);
+
+      await container
+          .read(issueControllerProvider(ref).notifier)
+          .setConfidential(true);
+
+      expect(repo.lastConfidential, isTrue);
+      expect(
+        container.read(issueControllerProvider(ref)).value!.confidential,
+        isTrue,
+      );
+    },
+  );
+
   test('updateAssignees refreshes issue detail state', () async {
     final repo = _FakeRepo(
       const Issue(id: 1, iid: 5, title: 'x', state: 'opened'),
@@ -518,6 +566,101 @@ void main() {
     expect(repo.lastDescription, '');
     expect(find.text('New title'), findsOneWidget);
     expect(find.text('No description provided.'), findsOneWidget);
+  });
+
+  testWidgets('confidentiality change requires confirmation', (tester) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        confidential: false,
+      ),
+    );
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Make confidential'));
+    await tester.pumpAndSettle();
+    expect(repo.lastConfidential, isNull);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(repo.lastConfidential, isNull);
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Make confidential'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+    expect(repo.lastConfidential, isTrue);
+    expect(find.text('Confidential'), findsOneWidget);
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Remove confidentiality'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+    expect(repo.lastConfidential, isFalse);
+    expect(find.text('Confidential'), findsNothing);
+  });
+
+  testWidgets('permission denial keeps confidentiality confirmation open', (
+    tester,
+  ) async {
+    final repo = _FakeRepo(
+      const Issue(
+        id: 1,
+        iid: 5,
+        title: 'Bug',
+        state: 'opened',
+        confidential: true,
+      ),
+    )..rejectConfidential = true;
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [issuesRepositoryProvider.overrideWith((ref) async => repo)],
+        child: const MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: IssueDetailScreen(projectId: 7, iid: 5),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Remove confidentiality'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Confirm'));
+    await tester.pumpAndSettle();
+
+    expect(repo.lastConfidential, isNull);
+    expect(
+      find.textContaining('Could not update confidentiality'),
+      findsOneWidget,
+    );
+    expect(find.text('Confirm'), findsOneWidget);
   });
 
   testWidgets('selects existing project labels for an issue', (tester) async {

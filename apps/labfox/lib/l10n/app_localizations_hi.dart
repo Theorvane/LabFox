@@ -713,6 +713,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get issueEditDueDate => 'नियत तारीख संपादित करें';
 
   @override
+  String get issueConfidential => 'गोपनीय';
+
+  @override
+  String get issueMakeConfidential => 'गोपनीय बनाएं';
+
+  @override
+  String get issueRemoveConfidentiality => 'गोपनीयता हटाएं';
+
+  @override
+  String get issueMakeConfidentialExplanation =>
+      'इस इश्यू तक पहुँच सीमित हो जाएगी। जारी रखें?';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      'प्रोजेक्ट देखने वाले सभी लोगों को यह इश्यू दिखाई देगा। जारी रखें?';
+
+  @override
+  String get issueConfidentialityConfirm => 'पुष्टि करें';
+
+  @override
+  String get issueConfidentialityError =>
+      'गोपनीयता अपडेट नहीं हो सकी। अनुमतियाँ जाँचें और फिर कोशिश करें।';
+
+  @override
   String get issueEditMilestone => 'माइलस्टोन संपादित करें';
 
   @override

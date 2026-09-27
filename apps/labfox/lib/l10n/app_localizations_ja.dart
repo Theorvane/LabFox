@@ -705,6 +705,28 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueEditDueDate => '期限を編集';
 
   @override
+  String get issueConfidential => '機密';
+
+  @override
+  String get issueMakeConfidential => '機密にする';
+
+  @override
+  String get issueRemoveConfidentiality => '機密を解除';
+
+  @override
+  String get issueMakeConfidentialExplanation => 'このイシューへのアクセスが制限されます。続行しますか？';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      'プロジェクトを閲覧できる全員にこのイシューが表示されます。続行しますか？';
+
+  @override
+  String get issueConfidentialityConfirm => '確認';
+
+  @override
+  String get issueConfidentialityError => '機密設定を更新できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get issueEditMilestone => 'マイルストーンを編集';
 
   @override

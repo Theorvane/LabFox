@@ -1466,6 +1466,48 @@ abstract class AppLocalizations {
   /// **'Edit due date'**
   String get issueEditDueDate;
 
+  /// No description provided for @issueConfidential.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidential'**
+  String get issueConfidential;
+
+  /// No description provided for @issueMakeConfidential.
+  ///
+  /// In en, this message translates to:
+  /// **'Make confidential'**
+  String get issueMakeConfidential;
+
+  /// No description provided for @issueRemoveConfidentiality.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove confidentiality'**
+  String get issueRemoveConfidentiality;
+
+  /// No description provided for @issueMakeConfidentialExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Access to this issue will be restricted. Continue?'**
+  String get issueMakeConfidentialExplanation;
+
+  /// No description provided for @issueRemoveConfidentialityExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'This issue will become visible to everyone who can see the project. Continue?'**
+  String get issueRemoveConfidentialityExplanation;
+
+  /// No description provided for @issueConfidentialityConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get issueConfidentialityConfirm;
+
+  /// No description provided for @issueConfidentialityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update confidentiality. Check your permissions and try again.'**
+  String get issueConfidentialityError;
+
   /// No description provided for @issueEditMilestone.
   ///
   /// In en, this message translates to:

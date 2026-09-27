@@ -256,6 +256,31 @@ class IssuesApi {
     }
   }
 
+  /// Sets or clears the issue's confidential flag.
+  Future<Issue> setConfidential(
+    Object projectId, {
+    required int iid,
+    required bool confidential,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'confidential': confidential},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue confidentiality',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue confidentiality');
+    }
+  }
+
   /// Assigns a milestone by global ID; zero removes the current milestone.
   Future<Issue> updateMilestone(
     Object projectId, {
