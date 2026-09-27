@@ -24,6 +24,46 @@ final projectSnippetsProvider = FutureProvider.family<List<Snippet>, int>((
   return (await _repository(ref)).list(projectId);
 });
 
+/// Creates a project snippet and reloads the list after a successful write.
+class CreateSnippetController extends AutoDisposeAsyncNotifier<void> {
+  @override
+  void build() {}
+
+  Future<Snippet> create({
+    required int projectId,
+    required String title,
+    required String description,
+    required String visibility,
+    required String filePath,
+    required String content,
+  }) async {
+    final repository = await ref.read(snippetsRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    state = const AsyncLoading();
+    try {
+      final snippet = await repository.create(
+        projectId,
+        title: title,
+        description: description,
+        visibility: visibility,
+        filePath: filePath,
+        content: content,
+      );
+      ref.invalidate(projectSnippetsProvider(projectId));
+      state = const AsyncData(null);
+      return snippet;
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final createSnippetControllerProvider =
+    AsyncNotifierProvider.autoDispose<CreateSnippetController, void>(
+      CreateSnippetController.new,
+    );
+
 class SnippetRef {
   const SnippetRef(this.projectId, this.snippetId);
   final int projectId;

@@ -1602,6 +1602,39 @@ class AppLocalizationsZh extends AppLocalizations {
   String get snippetContentError => '无法加载代码片段内容。';
 
   @override
+  String get snippetNew => '新建代码片段';
+
+  @override
+  String get snippetTitleField => '标题';
+
+  @override
+  String get snippetDescriptionField => '描述';
+
+  @override
+  String get snippetFilePathField => '文件路径';
+
+  @override
+  String get snippetContentField => '内容';
+
+  @override
+  String get snippetVisibilityField => '可见性';
+
+  @override
+  String get snippetPrivate => '私有';
+
+  @override
+  String get snippetPublic => '公开';
+
+  @override
+  String get snippetCreate => '创建代码片段';
+
+  @override
+  String get snippetCreateValidationError => '请输入标题、文件路径和内容。';
+
+  @override
+  String get snippetCreateError => '无法创建代码片段。';
+
+  @override
   String get homeRecents => '最近';
 
   @override

@@ -7,6 +7,22 @@ class SnippetsRepository {
 
   final GitLabClient _client;
 
+  Future<Snippet> create(
+    int projectId, {
+    required String title,
+    required String description,
+    required String visibility,
+    required String filePath,
+    required String content,
+  }) => _client.snippets.create(
+    projectId,
+    title: title,
+    description: description,
+    visibility: visibility,
+    filePath: filePath,
+    content: content,
+  );
+
   Future<List<Snippet>> list(int projectId) async {
     final items = <Snippet>[];
     var page = 1;

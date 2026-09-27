@@ -6,6 +6,57 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'creates a project snippet with one file and explicit visibility',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 201,
+          headers: const {},
+          body: {'id': 73, 'title': 'Deploy helper', 'visibility': 'private'},
+        );
+      });
+
+      final snippet = await client.snippets.create(
+        'team/project',
+        title: 'Deploy helper',
+        description: 'Release command',
+        visibility: 'private',
+        filePath: 'scripts/deploy.sh',
+        content: '#!/bin/sh\necho ok',
+      );
+
+      expect(request.method, 'POST');
+      expect(request.path, '/projects/team%2Fproject/snippets');
+      expect(request.data, {
+        'title': 'Deploy helper',
+        'description': 'Release command',
+        'visibility': 'private',
+        'files': [
+          {'file_path': 'scripts/deploy.sh', 'content': '#!/bin/sh\necho ok'},
+        ],
+      });
+      expect(snippet.id, 73);
+    },
+  );
+
+  test('maps permission denial while creating a project snippet', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.create(
+        42,
+        title: 'Example',
+        visibility: 'public',
+        filePath: 'example.txt',
+        content: 'hello',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test('lists project snippets using the next-page header', () async {
     late RequestOptions request;
     final client = _client((options) {
