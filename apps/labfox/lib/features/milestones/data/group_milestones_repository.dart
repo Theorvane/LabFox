@@ -17,6 +17,9 @@ class GroupMilestonesRepository {
   Future<GitLabMilestone> get(int groupId, int milestoneId) =>
       client.groupMilestones.get(groupId, milestoneId);
 
+  Future<void> delete(int groupId, int milestoneId) =>
+      client.groupMilestones.delete(groupId, milestoneId);
+
   Future<GitLabMilestone> setStateEvent(
     int groupId,
     int milestoneId, {
