@@ -1710,6 +1710,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetDeleteError => 'Could not delete the snippet.';
 
   @override
+  String get snippetFileDeleteAction => 'Delete file';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => 'Delete this file?';
+
+  @override
+  String get snippetFileDeleteConfirmMessage =>
+      'This permanently deletes only this file from the snippet.';
+
+  @override
+  String get snippetFileDeleteError => 'Could not delete the file.';
+
+  @override
   String get snippetEditContent => 'Edit content';
 
   @override

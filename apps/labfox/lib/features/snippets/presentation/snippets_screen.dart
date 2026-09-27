@@ -736,15 +736,118 @@ class SnippetFileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final snippet = ref.watch(
+      projectSnippetProvider(SnippetRef(projectId, snippetId)),
+    );
     final content = ref.watch(
       snippetFileProvider(SnippetFileRef(projectId, snippetId, path)),
     );
     return Scaffold(
-      appBar: AppBar(title: Text(path.split('/').last)),
+      appBar: AppBar(
+        title: Text(path.split('/').last),
+        actions: [
+          if (snippet.valueOrNull case final item?)
+            if (item.files.length > 1 &&
+                item.files.any((file) => file.path == path))
+              IconButton(
+                tooltip: l10n.snippetFileDeleteAction,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () async {
+                  final deleted = await showDialog<bool>(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) => _DeleteSnippetFileDialog(
+                      projectId: projectId,
+                      snippetId: snippetId,
+                      filePath: path,
+                    ),
+                  );
+                  if (deleted == true && context.mounted) {
+                    context.go(Routes.snippet(projectId, snippetId));
+                  }
+                },
+              ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
         child: _Content(content: content),
       ),
+    );
+  }
+}
+
+class _DeleteSnippetFileDialog extends ConsumerStatefulWidget {
+  const _DeleteSnippetFileDialog({
+    required this.projectId,
+    required this.snippetId,
+    required this.filePath,
+  });
+
+  final int projectId;
+  final int snippetId;
+  final String filePath;
+
+  @override
+  ConsumerState<_DeleteSnippetFileDialog> createState() =>
+      _DeleteSnippetFileDialogState();
+}
+
+class _DeleteSnippetFileDialogState
+    extends ConsumerState<_DeleteSnippetFileDialog> {
+  bool _busy = false;
+  bool _failed = false;
+
+  Future<void> _delete() async {
+    setState(() {
+      _busy = true;
+      _failed = false;
+    });
+    try {
+      await ref
+          .read(deleteSnippetFileControllerProvider.notifier)
+          .delete(
+            projectId: widget.projectId,
+            snippetId: widget.snippetId,
+            filePath: widget.filePath,
+          );
+      if (mounted) Navigator.of(context).pop(true);
+    } on Exception {
+      if (mounted) setState(() => _failed = true);
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.snippetFileDeleteConfirmTitle),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.filePath),
+          const SizedBox(height: LabFoxSpacing.sm),
+          Text(l10n.snippetFileDeleteConfirmMessage),
+          if (_failed) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(l10n.snippetFileDeleteError),
+          ],
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: _busy ? null : () => Navigator.of(context).pop(false),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _busy ? null : _delete,
+          child: Text(l10n.snippetFileDeleteAction),
+        ),
+      ],
     );
   }
 }
