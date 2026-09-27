@@ -206,6 +206,33 @@ class IssuesApi {
     }
   }
 
+  /// Subscribes or unsubscribes the current user from issue notifications.
+  /// Returns null for GitLab's idempotent 304 (already in the requested state).
+  Future<Issue?> setSubscription(
+    Object projectId, {
+    required int iid,
+    required bool subscribed,
+  }) async {
+    try {
+      final action = subscribed ? 'subscribe' : 'unsubscribe';
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid/$action',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue notifications',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue notifications');
+    }
+  }
+
   /// A single issue by its `iid` — the per-project number a user sees, never
   /// the global `id`.
   Future<Issue> get(Object projectId, {required int iid}) async {

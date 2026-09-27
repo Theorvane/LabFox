@@ -1442,6 +1442,24 @@ abstract class AppLocalizations {
   /// **'Could not save the issue. Check your permissions and try again.'**
   String get issueEditError;
 
+  /// No description provided for @issueSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to notifications'**
+  String get issueSubscribe;
+
+  /// No description provided for @issueUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe from notifications'**
+  String get issueUnsubscribe;
+
+  /// No description provided for @issueSubscriptionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update issue notifications. Please try again.'**
+  String get issueSubscriptionError;
+
   /// Menu action that reopens the issue
   ///
   /// In en, this message translates to:

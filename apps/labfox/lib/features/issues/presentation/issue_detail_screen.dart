@@ -43,6 +43,14 @@ class IssueDetailScreen extends ConsumerWidget {
                     builder: (_) =>
                         _EditIssueDialog(issue: data, issueRef: issueRef),
                   );
+                } else if (action == _IssueAction.subscribe ||
+                    action == _IssueAction.unsubscribe) {
+                  _setSubscription(
+                    context,
+                    ref,
+                    issueRef,
+                    action == _IssueAction.subscribe,
+                  );
                 } else {
                   _setOpen(
                     context,
@@ -53,6 +61,15 @@ class IssueDetailScreen extends ConsumerWidget {
                 }
               },
               itemBuilder: (context) => [
+                if (data.subscribed case final subscribed?)
+                  PopupMenuItem(
+                    value: subscribed
+                        ? _IssueAction.unsubscribe
+                        : _IssueAction.subscribe,
+                    child: Text(
+                      subscribed ? l10n.issueUnsubscribe : l10n.issueSubscribe,
+                    ),
+                  ),
                 PopupMenuItem(
                   value: _IssueAction.edit,
                   child: Text(l10n.issueEdit),
@@ -137,9 +154,29 @@ class IssueDetailScreen extends ConsumerWidget {
       }
     }
   }
+
+  Future<void> _setSubscription(
+    BuildContext context,
+    WidgetRef ref,
+    IssueRef issueRef,
+    bool subscribed,
+  ) async {
+    final l10n = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(issueControllerProvider(issueRef).notifier)
+          .setSubscription(subscribed);
+    } on GitLabException {
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.issueSubscriptionError)));
+      }
+    }
+  }
 }
 
-enum _IssueAction { edit, close, reopen }
+enum _IssueAction { edit, close, reopen, subscribe, unsubscribe }
 
 class _EditIssueDialog extends ConsumerStatefulWidget {
   const _EditIssueDialog({required this.issue, required this.issueRef});

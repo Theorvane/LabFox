@@ -105,5 +105,24 @@ void main() {
       });
       expect(issue.labels, isEmpty);
     });
+
+    test('keeps subscription state distinct from an absent field', () {
+      final subscribed = Issue.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+        'subscribed': true,
+      });
+      final absent = Issue.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+      });
+
+      expect(subscribed.subscribed, isTrue);
+      expect(absent.subscribed, isNull);
+    });
   });
 }

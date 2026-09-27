@@ -701,6 +701,16 @@ class AppLocalizationsHi extends AppLocalizations {
       'समस्या सहेजी नहीं जा सकी। अनुमतियाँ जाँचें और फिर प्रयास करें।';
 
   @override
+  String get issueSubscribe => 'सूचनाओं की सदस्यता लें';
+
+  @override
+  String get issueUnsubscribe => 'सूचनाओं की सदस्यता छोड़ें';
+
+  @override
+  String get issueSubscriptionError =>
+      'समस्या की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

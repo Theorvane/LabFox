@@ -694,6 +694,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueEditError => '이슈를 저장할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
+  String get issueSubscribe => '알림 구독';
+
+  @override
+  String get issueUnsubscribe => '알림 구독 해제';
+
+  @override
+  String get issueSubscriptionError => '이슈 알림을 변경할 수 없습니다. 다시 시도하세요.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

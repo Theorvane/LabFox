@@ -438,6 +438,9 @@
   "issueEdit": "Edit issue",
   "issueSaveChanges": "Save changes",
   "issueEditError": "Could not save the issue. Check your permissions and try again.",
+  "issueSubscribe": "Subscribe to notifications",
+  "issueUnsubscribe": "Unsubscribe from notifications",
+  "issueSubscriptionError": "Could not update issue notifications. Please try again.",
   "@issueClose": {
     "description": "Menu action that closes the issue"
   },

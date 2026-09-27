@@ -66,4 +66,16 @@ class IssuesRepository {
       description: description,
     );
   }
+
+  Future<Issue?> setSubscription({
+    required int projectId,
+    required int iid,
+    required bool subscribed,
+  }) {
+    return _client.issues.setSubscription(
+      projectId,
+      iid: iid,
+      subscribed: subscribed,
+    );
+  }
 }

@@ -703,6 +703,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not save the issue. Check your permissions and try again.';
 
   @override
+  String get issueSubscribe => 'Subscribe to notifications';
+
+  @override
+  String get issueUnsubscribe => 'Unsubscribe from notifications';
+
+  @override
+  String get issueSubscriptionError =>
+      'Could not update issue notifications. Please try again.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

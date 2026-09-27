@@ -376,5 +376,8 @@
   "groupLoadMore": "加载更多",
   "issueEdit": "编辑议题",
   "issueSaveChanges": "保存更改",
-  "issueEditError": "无法保存议题。请检查权限后重试。"
+  "issueEditError": "无法保存议题。请检查权限后重试。",
+  "issueSubscribe": "订阅通知",
+  "issueUnsubscribe": "取消订阅通知",
+  "issueSubscriptionError": "无法更新议题通知。请重试。"
 }

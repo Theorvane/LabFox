@@ -29,6 +29,7 @@ abstract class Issue with _$Issue {
     List<Label> labels,
     @JsonKey(name: 'web_url') String? webUrl,
     @JsonKey(name: 'user_notes_count') @Default(0) int commentCount,
+    bool? subscribed,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _Issue;
