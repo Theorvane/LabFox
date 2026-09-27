@@ -362,6 +362,7 @@
   "snippetFilePathField": "文件路径",
   "snippetContentField": "内容",
   "snippetVisibilityField": "可见性",
+  "snippetVisibilityUnchanged": "保持当前可见性",
   "snippetPrivate": "私有",
   "snippetPublic": "公开",
   "snippetCreate": "创建代码片段",

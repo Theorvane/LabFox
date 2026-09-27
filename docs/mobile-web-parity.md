@@ -6,7 +6,7 @@ screen. GitLab behavior varies by version, tier, role, project settings, and
 feature flags. A route or API method proves only the named slice, not a whole
 feature area.
 
-Baseline: `dev` at `bef06be` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
+Baseline: `dev` at `e51eb90` (2026-09-27). The [roadmap](../.agents/docs/roadmap.md)
 records the original scope; `AGENTS.md` §9 records the expansion. Use GitLab's
 [project feature catalog](https://docs.gitlab.com/user/project/organize_work_with_projects/),
 [project settings](https://docs.gitlab.com/user/project/settings/), and
@@ -60,7 +60,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | MW-07 | P0 | Advanced MR review: audit inline discussions/suggestions and finish missing review/approval flows. | Queued | Issue needed |
 | MW-08 | P1 | CI/CD configuration: pipeline editor, variables, triggers, and schedule editing. | Queued | Issue needed |
 | MW-09 | P1 | Wiki creation/editing/deletion and history with conflict handling. | In progress | [#351](https://github.com/Theorvane/labfox/issues/351), [PR #352](https://github.com/Theorvane/labfox/pull/352) shipped Markdown page creation; [#353](https://github.com/Theorvane/labfox/issues/353), [PR #354](https://github.com/Theorvane/labfox/pull/354) shipped editing with best-effort stale-draft detection. Deletion, history, templates, and atomic conflict protection remain. |
-| MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | In progress | [#355](https://github.com/Theorvane/labfox/issues/355), [PR #356](https://github.com/Theorvane/labfox/pull/356) shipped single-file project snippet creation; [#357](https://github.com/Theorvane/labfox/issues/357), [PR #358](https://github.com/Theorvane/labfox/pull/358) shipped deletion with confirmation; [#359](https://github.com/Theorvane/labfox/issues/359), [PR #360](https://github.com/Theorvane/labfox/pull/360) shipped title and description editing; [#361](https://github.com/Theorvane/labfox/issues/361), [PR #362](https://github.com/Theorvane/labfox/pull/362) cover single-file content editing in review. Multi-file operations and broader visibility management remain. |
+| MW-10 | P1 | Snippet creation/editing/deletion, files, and visibility. | In progress | [#355](https://github.com/Theorvane/labfox/issues/355), [PR #356](https://github.com/Theorvane/labfox/pull/356) shipped single-file project snippet creation; [#357](https://github.com/Theorvane/labfox/issues/357), [PR #358](https://github.com/Theorvane/labfox/pull/358) shipped deletion with confirmation; [#359](https://github.com/Theorvane/labfox/issues/359), [PR #360](https://github.com/Theorvane/labfox/pull/360) shipped title and description editing; [#361](https://github.com/Theorvane/labfox/issues/361), [PR #362](https://github.com/Theorvane/labfox/pull/362) shipped single-file content editing; [#363](https://github.com/Theorvane/labfox/issues/363), [PR #364](https://github.com/Theorvane/labfox/pull/364) cover private/public visibility editing in review. Multi-file operations and broader visibility management remain. |
 | MW-11 | P1 | Release and milestone creation/editing/closure/deletion. | Queued | Issue needed |
 | MW-12 | P1 | Package/container management, cleanup, and protection by tier. | Queued | Issue needed |
 | MW-13 | P2 | Security: inventory and implement vulnerability, policy, and scan views by role. | Queued | Issue needed |
