@@ -732,6 +732,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get issueTodoError => '无法将议题添加到待办事项。请重试。';
 
   @override
+  String get mrAddTodo => '添加到待办事项';
+
+  @override
+  String get mrTodoAdded => '已添加到待办事项。';
+
+  @override
+  String get mrTodoExists => '该合并请求已在待办事项中。';
+
+  @override
+  String get mrTodoError => '无法将合并请求添加到待办事项。请重试。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

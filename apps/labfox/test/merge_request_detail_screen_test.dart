@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_actions_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/merge_request_detail_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
@@ -23,11 +24,30 @@ class _StubMR extends MergeRequestController {
   }
 }
 
-Future<void> _pump(WidgetTester tester, AsyncValue<MergeRequest> value) async {
+class _StubTodoAction extends MrActionsController {
+  bool called = false;
+
+  @override
+  Future<void> build(MergeRequestRef arg) async {}
+
+  @override
+  Future<bool> createTodo() async {
+    called = true;
+    return true;
+  }
+}
+
+Future<void> _pump(
+  WidgetTester tester,
+  AsyncValue<MergeRequest> value, {
+  _StubTodoAction? todoAction,
+}) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         mergeRequestControllerProvider.overrideWith(() => _StubMR(value)),
+        if (todoAction != null)
+          mrActionsControllerProvider.overrideWith(() => todoAction),
       ],
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -85,5 +105,23 @@ void main() {
 
     expect(find.text('Merged'), findsOneWidget);
     expect(find.text('Closed'), findsNothing);
+  });
+
+  testWidgets('adds a merge request to the current user to-do list', (
+    tester,
+  ) async {
+    final action = _StubTodoAction();
+    await _pump(tester, AsyncData(_mr(state: 'merged')), todoAction: action);
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add to To-Do'));
+    await tester.pumpAndSettle();
+
+    expect(action.called, isTrue);
+    expect(find.text('Added to your To-Do list.'), findsOneWidget);
   });
 }
