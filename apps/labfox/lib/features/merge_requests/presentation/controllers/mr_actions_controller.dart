@@ -5,6 +5,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
 import '../../../../core/auth/gitlab_client_provider.dart';
+import '../../../inbox/presentation/controllers/inbox_controllers.dart';
 import '../../data/mr_actions_repository.dart';
 import 'merge_requests_controllers.dart';
 
@@ -85,6 +86,20 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
       subscribed: subscribed,
     );
   });
+
+  /// Returns false when GitLab reports that a to-do already exists (304).
+  Future<bool> createTodo() async {
+    var created = false;
+    await _run((repo) async {
+      final todo = await repo.createTodo(
+        projectId: arg.projectId,
+        iid: arg.iid,
+      );
+      created = todo != null;
+      if (created) ref.invalidate(inboxControllerProvider);
+    });
+    return created;
+  }
 
   /// Names the action only. No project, iid, title, or branch ever leaves the
   /// device (`PRIVACY.md`).

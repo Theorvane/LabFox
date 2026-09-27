@@ -1502,6 +1502,30 @@ abstract class AppLocalizations {
   /// **'Could not add the issue to your To-Do list. Please try again.'**
   String get issueTodoError;
 
+  /// No description provided for @mrAddTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to To-Do'**
+  String get mrAddTodo;
+
+  /// No description provided for @mrTodoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your To-Do list.'**
+  String get mrTodoAdded;
+
+  /// No description provided for @mrTodoExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This merge request is already in your To-Do list.'**
+  String get mrTodoExists;
+
+  /// No description provided for @mrTodoError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the merge request to your To-Do list. Please try again.'**
+  String get mrTodoError;
+
   /// Menu action that reopens the issue
   ///
   /// In en, this message translates to:

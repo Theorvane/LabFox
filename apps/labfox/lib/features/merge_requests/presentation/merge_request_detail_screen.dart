@@ -108,7 +108,15 @@ class MergeRequestDetailScreen extends ConsumerWidget {
   }
 }
 
-enum _MrAction { close, reopen, rebase, toggleDraft, subscribe, unsubscribe }
+enum _MrAction {
+  close,
+  reopen,
+  rebase,
+  toggleDraft,
+  subscribe,
+  unsubscribe,
+  addTodo,
+}
 
 /// The overflow menu on a merge request: close/reopen, rebase, and toggle draft
 /// — the state edits GitLab exposes, offered by the MR's current state.
@@ -122,6 +130,7 @@ class _MrMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final items = <PopupMenuEntry<_MrAction>>[
+      PopupMenuItem(value: _MrAction.addTodo, child: Text(l10n.mrAddTodo)),
       if (mr.subscribed case final subscribed?)
         PopupMenuItem(
           value: subscribed ? _MrAction.unsubscribe : _MrAction.subscribe,
@@ -167,6 +176,15 @@ class _MrMenu extends ConsumerWidget {
           await notifier.setSubscription(true);
         case _MrAction.unsubscribe:
           await notifier.setSubscription(false);
+        case _MrAction.addTodo:
+          final created = await notifier.createTodo();
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(created ? l10n.mrTodoAdded : l10n.mrTodoExists),
+              ),
+            );
+          }
       }
     } on GitLabException {
       if (context.mounted) {
@@ -175,6 +193,8 @@ class _MrMenu extends ConsumerWidget {
             content: Text(
               action == _MrAction.subscribe || action == _MrAction.unsubscribe
                   ? l10n.mrSubscriptionError
+                  : action == _MrAction.addTodo
+                  ? l10n.mrTodoError
                   : l10n.mrActionError,
             ),
           ),

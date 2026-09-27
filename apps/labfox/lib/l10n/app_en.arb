@@ -448,6 +448,10 @@
   "issueTodoAdded": "Added to your To-Do list.",
   "issueTodoExists": "This issue is already in your To-Do list.",
   "issueTodoError": "Could not add the issue to your To-Do list. Please try again.",
+  "mrAddTodo": "Add to To-Do",
+  "mrTodoAdded": "Added to your To-Do list.",
+  "mrTodoExists": "This merge request is already in your To-Do list.",
+  "mrTodoError": "Could not add the merge request to your To-Do list. Please try again.",
   "@issueClose": {
     "description": "Menu action that closes the issue"
   },

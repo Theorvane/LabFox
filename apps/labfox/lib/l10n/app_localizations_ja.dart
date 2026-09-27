@@ -723,6 +723,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueTodoError => 'イシューを To-Do リストに追加できません。再試行してください。';
 
   @override
+  String get mrAddTodo => 'To-Do に追加';
+
+  @override
+  String get mrTodoAdded => 'To-Do リストに追加しました。';
+
+  @override
+  String get mrTodoExists => 'このマージリクエストは既に To-Do リストにあります。';
+
+  @override
+  String get mrTodoError => 'マージリクエストを To-Do リストに追加できません。再試行してください。';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

@@ -62,4 +62,7 @@ class MrActionsRepository {
     iid: iid,
     subscribed: subscribed,
   );
+
+  Future<Todo?> createTodo({required int projectId, required int iid}) =>
+      _client.mergeRequests.createTodo(projectId, iid: iid);
 }

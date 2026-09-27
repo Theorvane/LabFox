@@ -197,6 +197,32 @@ class MergeRequestsApi {
     }
   }
 
+  /// Adds the merge request to the current user's to-do list. Returns null
+  /// for GitLab's idempotent 304 when an item already exists.
+  Future<Todo?> createTodo(Object projectId, {required int iid}) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/todo',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if ((response.statusCode != 200 && response.statusCode != 201) ||
+          data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding the merge request to your to-do list',
+        );
+      }
+      return Todo.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'adding the merge request to your to-do list',
+      );
+    }
+  }
+
   /// Closes or reopens a merge request. `PUT` with `state_event`.
   Future<MergeRequest> setOpen(
     Object projectId, {

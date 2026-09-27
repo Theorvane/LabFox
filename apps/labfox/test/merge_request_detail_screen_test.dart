@@ -24,8 +24,9 @@ class _StubMR extends MergeRequestController {
   }
 }
 
-class _StubSubscription extends MrActionsController {
+class _StubActions extends MrActionsController {
   bool? lastSubscribed;
+  bool called = false;
 
   @override
   Future<void> build(MergeRequestRef arg) async {}
@@ -34,19 +35,25 @@ class _StubSubscription extends MrActionsController {
   Future<void> setSubscription(bool subscribed) async {
     lastSubscribed = subscribed;
   }
+
+  @override
+  Future<bool> createTodo() async {
+    called = true;
+    return true;
+  }
 }
 
 Future<void> _pump(
   WidgetTester tester,
   AsyncValue<MergeRequest> value, {
-  _StubSubscription? subscription,
+  _StubActions? actions,
 }) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         mergeRequestControllerProvider.overrideWith(() => _StubMR(value)),
-        if (subscription != null)
-          mrActionsControllerProvider.overrideWith(() => subscription),
+        if (actions != null)
+          mrActionsControllerProvider.overrideWith(() => actions),
       ],
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -113,11 +120,11 @@ void main() {
   testWidgets('offers notification subscription on a merge request', (
     tester,
   ) async {
-    final subscription = _StubSubscription();
+    final actions = _StubActions();
     await _pump(
       tester,
       AsyncData(_mr(state: 'merged', subscribed: false)),
-      subscription: subscription,
+      actions: actions,
     );
     await tester.pumpAndSettle();
 
@@ -128,6 +135,24 @@ void main() {
     await tester.tap(find.text('Subscribe to notifications'));
     await tester.pumpAndSettle();
 
-    expect(subscription.lastSubscribed, isTrue);
+    expect(actions.lastSubscribed, isTrue);
+  });
+
+  testWidgets('adds a merge request to the current user to-do list', (
+    tester,
+  ) async {
+    final actions = _StubActions();
+    await _pump(tester, AsyncData(_mr(state: 'merged')), actions: actions);
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Add to To-Do'));
+    await tester.pumpAndSettle();
+
+    expect(actions.called, isTrue);
+    expect(find.text('Added to your To-Do list.'), findsOneWidget);
   });
 }

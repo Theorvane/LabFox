@@ -736,6 +736,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not add the issue to your To-Do list. Please try again.';
 
   @override
+  String get mrAddTodo => 'Add to To-Do';
+
+  @override
+  String get mrTodoAdded => 'Added to your To-Do list.';
+
+  @override
+  String get mrTodoExists =>
+      'This merge request is already in your To-Do list.';
+
+  @override
+  String get mrTodoError =>
+      'Could not add the merge request to your To-Do list. Please try again.';
+
+  @override
   String get issueReopen => 'Reopen issue';
 
   @override

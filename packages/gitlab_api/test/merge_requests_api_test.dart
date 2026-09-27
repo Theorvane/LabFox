@@ -382,6 +382,46 @@ void main() {
       );
     });
   });
+
+  group('MergeRequestsApi.createTodo', () {
+    test('creates a to-do using the MR iid', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 201,
+          headers: const {},
+          body: {'id': 113, 'state': 'pending', 'target_type': 'MergeRequest'},
+        );
+      });
+
+      final todo = await client.mergeRequests.createTodo(7, iid: 5);
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/merge_requests/5/todo');
+      expect(todo?.id, 113);
+      expect(todo?.isPending, isTrue);
+    });
+
+    test('returns null for an already existing to-do', () async {
+      final client = _client(
+        (_) => (status: 304, headers: const {}, body: null),
+      );
+
+      expect(await client.mergeRequests.createTodo(7, iid: 5), isNull);
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+
+      await expectLater(
+        client.mergeRequests.createTodo(7, iid: 5),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
 }
 
 GitLabClient _client(
