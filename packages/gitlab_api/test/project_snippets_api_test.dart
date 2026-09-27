@@ -6,6 +6,39 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('updates snippet metadata without a files payload', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {'id': 73, 'title': 'Revised', 'description': 'New notes'},
+      );
+    });
+
+    final snippet = await client.snippets.updateMetadata(
+      'team/project',
+      73,
+      title: 'Revised',
+      description: 'New notes',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+    expect(request.data, {'title': 'Revised', 'description': 'New notes'});
+    expect(snippet.title, 'Revised');
+  });
+
+  test('maps forbidden snippet metadata updates', () async {
+    final client = _client((_) => (status: 403, headers: const {}, body: {}));
+
+    await expectLater(
+      client.snippets.updateMetadata(42, 73, title: 'Revised', description: ''),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
   test(
     'creates a project snippet with one file and explicit visibility',
     () async {
