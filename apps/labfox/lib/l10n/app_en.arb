@@ -1397,6 +1397,17 @@
   "snippetError": "Couldn't load this snippet.",
   "snippetContent": "Content",
   "snippetContentError": "Couldn't load snippet content.",
+  "snippetNew": "New snippet",
+  "snippetTitleField": "Title",
+  "snippetDescriptionField": "Description",
+  "snippetFilePathField": "File path",
+  "snippetContentField": "Content",
+  "snippetVisibilityField": "Visibility",
+  "snippetPrivate": "Private",
+  "snippetPublic": "Public",
+  "snippetCreate": "Create snippet",
+  "snippetCreateValidationError": "Enter a title, file path, and content.",
+  "snippetCreateError": "Could not create the snippet.",
   "homeRecents": "Recent",
   "@homeRecents": {
     "description": "Home section title for recently opened projects"

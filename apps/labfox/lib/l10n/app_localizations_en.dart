@@ -1642,6 +1642,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get snippetContentError => 'Couldn\'t load snippet content.';
 
   @override
+  String get snippetNew => 'New snippet';
+
+  @override
+  String get snippetTitleField => 'Title';
+
+  @override
+  String get snippetDescriptionField => 'Description';
+
+  @override
+  String get snippetFilePathField => 'File path';
+
+  @override
+  String get snippetContentField => 'Content';
+
+  @override
+  String get snippetVisibilityField => 'Visibility';
+
+  @override
+  String get snippetPrivate => 'Private';
+
+  @override
+  String get snippetPublic => 'Public';
+
+  @override
+  String get snippetCreate => 'Create snippet';
+
+  @override
+  String get snippetCreateValidationError =>
+      'Enter a title, file path, and content.';
+
+  @override
+  String get snippetCreateError => 'Could not create the snippet.';
+
+  @override
   String get homeRecents => 'Recent';
 
   @override

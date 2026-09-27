@@ -3206,6 +3206,72 @@ abstract class AppLocalizations {
   /// **'Couldn\'t load snippet content.'**
   String get snippetContentError;
 
+  /// No description provided for @snippetNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New snippet'**
+  String get snippetNew;
+
+  /// No description provided for @snippetTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get snippetTitleField;
+
+  /// No description provided for @snippetDescriptionField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get snippetDescriptionField;
+
+  /// No description provided for @snippetFilePathField.
+  ///
+  /// In en, this message translates to:
+  /// **'File path'**
+  String get snippetFilePathField;
+
+  /// No description provided for @snippetContentField.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get snippetContentField;
+
+  /// No description provided for @snippetVisibilityField.
+  ///
+  /// In en, this message translates to:
+  /// **'Visibility'**
+  String get snippetVisibilityField;
+
+  /// No description provided for @snippetPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
+  String get snippetPrivate;
+
+  /// No description provided for @snippetPublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Public'**
+  String get snippetPublic;
+
+  /// No description provided for @snippetCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create snippet'**
+  String get snippetCreate;
+
+  /// No description provided for @snippetCreateValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title, file path, and content.'**
+  String get snippetCreateValidationError;
+
+  /// No description provided for @snippetCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the snippet.'**
+  String get snippetCreateError;
+
   /// Home section title for recently opened projects
   ///
   /// In en, this message translates to:

@@ -1608,6 +1608,39 @@ class AppLocalizationsJa extends AppLocalizations {
   String get snippetContentError => 'スニペットの内容を読み込めませんでした。';
 
   @override
+  String get snippetNew => '新しいスニペット';
+
+  @override
+  String get snippetTitleField => 'タイトル';
+
+  @override
+  String get snippetDescriptionField => '説明';
+
+  @override
+  String get snippetFilePathField => 'ファイルパス';
+
+  @override
+  String get snippetContentField => '内容';
+
+  @override
+  String get snippetVisibilityField => '公開範囲';
+
+  @override
+  String get snippetPrivate => '非公開';
+
+  @override
+  String get snippetPublic => '公開';
+
+  @override
+  String get snippetCreate => 'スニペットを作成';
+
+  @override
+  String get snippetCreateValidationError => 'タイトル、ファイルパス、内容を入力してください。';
+
+  @override
+  String get snippetCreateError => 'スニペットを作成できませんでした。';
+
+  @override
   String get homeRecents => '最近';
 
   @override

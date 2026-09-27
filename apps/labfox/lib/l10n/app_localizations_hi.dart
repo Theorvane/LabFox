@@ -1638,6 +1638,40 @@ class AppLocalizationsHi extends AppLocalizations {
   String get snippetContentError => 'स्निपेट सामग्री लोड नहीं हो सकी।';
 
   @override
+  String get snippetNew => 'नया स्निपेट';
+
+  @override
+  String get snippetTitleField => 'शीर्षक';
+
+  @override
+  String get snippetDescriptionField => 'विवरण';
+
+  @override
+  String get snippetFilePathField => 'फ़ाइल पथ';
+
+  @override
+  String get snippetContentField => 'सामग्री';
+
+  @override
+  String get snippetVisibilityField => 'दृश्यता';
+
+  @override
+  String get snippetPrivate => 'निजी';
+
+  @override
+  String get snippetPublic => 'सार्वजनिक';
+
+  @override
+  String get snippetCreate => 'स्निपेट बनाएं';
+
+  @override
+  String get snippetCreateValidationError =>
+      'शीर्षक, फ़ाइल पथ और सामग्री दर्ज करें।';
+
+  @override
+  String get snippetCreateError => 'स्निपेट नहीं बनाया जा सका।';
+
+  @override
   String get homeRecents => 'हाल ही में';
 
   @override

@@ -10,6 +10,43 @@ class SnippetsApi {
 
   final Dio _dio;
 
+  /// Creates a single-file project snippet using the supported files array.
+  Future<Snippet> create(
+    Object projectId, {
+    required String title,
+    String? description,
+    required String visibility,
+    required String filePath,
+    required String content,
+  }) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/snippets',
+        data: {
+          'title': title,
+          if (description != null && description.isNotEmpty)
+            'description': description,
+          'visibility': visibility,
+          'files': [
+            {'file_path': filePath, 'content': content},
+          ],
+        },
+      );
+      final data = response.data;
+      if ((response.statusCode != 201 && response.statusCode != 200) ||
+          data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a project snippet',
+        );
+      }
+      return Snippet.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a project snippet');
+    }
+  }
+
   Future<Paginated<Snippet>> list(
     int projectId, {
     int page = 1,

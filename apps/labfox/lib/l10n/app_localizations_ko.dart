@@ -1612,6 +1612,39 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetContentError => '스니펫 내용을 불러올 수 없습니다.';
 
   @override
+  String get snippetNew => '새 스니펫';
+
+  @override
+  String get snippetTitleField => '제목';
+
+  @override
+  String get snippetDescriptionField => '설명';
+
+  @override
+  String get snippetFilePathField => '파일 경로';
+
+  @override
+  String get snippetContentField => '내용';
+
+  @override
+  String get snippetVisibilityField => '공개 범위';
+
+  @override
+  String get snippetPrivate => '비공개';
+
+  @override
+  String get snippetPublic => '공개';
+
+  @override
+  String get snippetCreate => '스니펫 만들기';
+
+  @override
+  String get snippetCreateValidationError => '제목, 파일 경로, 내용을 입력하세요.';
+
+  @override
+  String get snippetCreateError => '스니펫을 만들 수 없습니다.';
+
+  @override
   String get homeRecents => '최근';
 
   @override
