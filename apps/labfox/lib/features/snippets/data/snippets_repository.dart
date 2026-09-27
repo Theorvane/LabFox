@@ -12,11 +12,13 @@ class SnippetsRepository {
     int snippetId, {
     required String title,
     required String description,
+    String? visibility,
   }) => _client.snippets.updateMetadata(
     projectId,
     snippetId,
     title: title,
     description: description,
+    visibility: visibility,
   );
 
   Future<Snippet> create(

@@ -18,6 +18,7 @@ _Snippet _$SnippetFromJson(Map<String, dynamic> json) => _Snippet(
   id: (json['id'] as num).toInt(),
   title: json['title'] as String,
   description: json['description'] as String?,
+  visibility: json['visibility'] as String?,
   fileName: json['file_name'] as String?,
   files:
       (json['files'] as List<dynamic>?)
@@ -37,6 +38,7 @@ Map<String, dynamic> _$SnippetToJson(_Snippet instance) => <String, dynamic>{
   'id': instance.id,
   'title': instance.title,
   'description': instance.description,
+  'visibility': instance.visibility,
   'file_name': instance.fileName,
   'files': instance.files.map((e) => e.toJson()).toList(),
   'web_url': instance.webUrl,

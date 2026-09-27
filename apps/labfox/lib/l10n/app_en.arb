@@ -1403,6 +1403,7 @@
   "snippetFilePathField": "File path",
   "snippetContentField": "Content",
   "snippetVisibilityField": "Visibility",
+  "snippetVisibilityUnchanged": "Keep current visibility",
   "snippetPrivate": "Private",
   "snippetPublic": "Public",
   "snippetCreate": "Create snippet",

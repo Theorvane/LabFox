@@ -1630,6 +1630,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get snippetVisibilityField => '공개 범위';
 
   @override
+  String get snippetVisibilityUnchanged => '현재 공개 범위 유지';
+
+  @override
   String get snippetPrivate => '비공개';
 
   @override

@@ -16,11 +16,17 @@ class SnippetsApi {
     int snippetId, {
     required String title,
     required String description,
+    String? visibility,
   }) async {
     try {
+      final payload = <String, String>{
+        'title': title,
+        'description': description,
+      };
+      if (visibility != null) payload['visibility'] = visibility;
       final response = await _dio.put<Map<String, dynamic>>(
         '/projects/${Uri.encodeComponent(projectId.toString())}/snippets/$snippetId',
-        data: {'title': title, 'description': description},
+        data: payload,
       );
       if (response.statusCode != 200 || response.data == null) {
         throw mapStatus(

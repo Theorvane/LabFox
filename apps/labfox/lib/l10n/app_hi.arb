@@ -362,6 +362,7 @@
   "snippetFilePathField": "फ़ाइल पथ",
   "snippetContentField": "सामग्री",
   "snippetVisibilityField": "दृश्यता",
+  "snippetVisibilityUnchanged": "मौजूदा दृश्यता बनाए रखें",
   "snippetPrivate": "निजी",
   "snippetPublic": "सार्वजनिक",
   "snippetCreate": "स्निपेट बनाएं",

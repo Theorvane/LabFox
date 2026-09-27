@@ -362,6 +362,7 @@
   "snippetFilePathField": "ファイルパス",
   "snippetContentField": "内容",
   "snippetVisibilityField": "公開範囲",
+  "snippetVisibilityUnchanged": "現在の公開範囲を維持",
   "snippetPrivate": "非公開",
   "snippetPublic": "公開",
   "snippetCreate": "スニペットを作成",

@@ -17,6 +17,7 @@ class _FakeRepository extends SnippetsRepository {
     id: 73,
     title: 'Deploy helper',
     description: 'Old notes',
+    visibility: 'private',
   );
   bool rejectUpdate = false;
   int getCalls = 0;
@@ -44,10 +45,15 @@ class _FakeRepository extends SnippetsRepository {
     int snippetId, {
     required String title,
     required String description,
+    String? visibility,
   }) async {
     updateCalls++;
     if (rejectUpdate) throw const GitLabForbiddenException('Forbidden');
-    return snippet = snippet.copyWith(title: title, description: description);
+    return snippet = snippet.copyWith(
+      title: title,
+      description: description,
+      visibility: visibility ?? snippet.visibility,
+    );
   }
 }
 
@@ -120,6 +126,63 @@ void main() {
     });
   }
 
+  for (final width in [390.0, 1200.0]) {
+    testWidgets(
+      'changes visibility from a direct detail link at width $width',
+      (tester) async {
+        final repository = _FakeRepository();
+        await _pump(tester, repository, width);
+        await tester.tap(find.byTooltip('Edit snippet'));
+        await tester.pumpAndSettle();
+
+        final visibility = find.widgetWithText(
+          DropdownButtonFormField<String>,
+          'Visibility',
+        );
+        expect(visibility, findsOneWidget);
+        expect(
+          tester
+              .widget<DropdownButtonFormField<String>>(visibility)
+              .initialValue,
+          'private',
+        );
+        await tester.tap(visibility);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Public').last);
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Save changes'));
+        await tester.pumpAndSettle();
+
+        expect(repository.snippet.visibility, 'public');
+        expect(repository.snippet.title, 'Deploy helper');
+      },
+    );
+  }
+
+  testWidgets('does not guess visibility when the API omits it', (
+    tester,
+  ) async {
+    final repository = _FakeRepository();
+    repository.snippet = repository.snippet.copyWith(visibility: null);
+    await _pump(tester, repository, 390);
+    await tester.tap(find.byTooltip('Edit snippet'));
+    await tester.pumpAndSettle();
+
+    final visibility = find.widgetWithText(
+      DropdownButtonFormField<String>,
+      'Visibility',
+    );
+    expect(visibility, findsOneWidget);
+    expect(
+      tester.widget<DropdownButtonFormField<String>>(visibility).initialValue,
+      isNull,
+    );
+    expect(find.text('Keep current visibility'), findsOneWidget);
+    await tester.tap(find.text('Save changes'));
+    await tester.pumpAndSettle();
+    expect(repository.snippet.visibility, isNull);
+  });
+
   testWidgets('retains the edit draft after a forbidden update', (
     tester,
   ) async {
@@ -128,12 +191,27 @@ void main() {
     await tester.tap(find.byTooltip('Edit snippet'));
     await tester.pumpAndSettle();
     await tester.enterText(find.widgetWithText(TextField, 'Title'), 'Draft');
+    await tester.tap(
+      find.widgetWithText(DropdownButtonFormField<String>, 'Visibility'),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Public').last);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Save changes'));
     await tester.pumpAndSettle();
 
     expect(find.text('Could not save the snippet.'), findsOneWidget);
     expect(find.text('Draft'), findsOneWidget);
     expect(repository.snippet.title, 'Deploy helper');
+    expect(repository.snippet.visibility, 'private');
+    expect(
+      tester
+          .widget<DropdownButtonFormField<String>>(
+            find.widgetWithText(DropdownButtonFormField<String>, 'Visibility'),
+          )
+          .initialValue,
+      'public',
+    );
   });
 
   testWidgets('rejects an empty title without calling the API', (tester) async {

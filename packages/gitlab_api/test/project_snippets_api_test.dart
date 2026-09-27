@@ -39,6 +39,35 @@ void main() {
     );
   });
 
+  test('updates project snippet visibility with metadata', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {'id': 73, 'title': 'Deploy helper', 'visibility': 'public'},
+      );
+    });
+
+    final snippet = await client.snippets.updateMetadata(
+      'team/project',
+      73,
+      title: 'Deploy helper',
+      description: 'Notes',
+      visibility: 'public',
+    );
+
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fproject/snippets/73');
+    expect(request.data, {
+      'title': 'Deploy helper',
+      'description': 'Notes',
+      'visibility': 'public',
+    });
+    expect(snippet.visibility, 'public');
+  });
+
   test(
     'creates a project snippet with one file and explicit visibility',
     () async {

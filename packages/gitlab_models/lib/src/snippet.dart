@@ -22,6 +22,7 @@ abstract class Snippet with _$Snippet {
     required int id,
     required String title,
     String? description,
+    String? visibility,
     @JsonKey(name: 'file_name') String? fileName,
     @Default([]) List<SnippetFile> files,
     @JsonKey(name: 'web_url') String? webUrl,
