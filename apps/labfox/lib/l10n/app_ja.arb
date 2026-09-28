@@ -547,5 +547,11 @@
   "mrAddTodo": "To-Do に追加",
   "mrTodoAdded": "To-Do リストに追加しました。",
   "mrTodoExists": "このマージリクエストは既に To-Do リストにあります。",
-  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。"
+  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。",
+  "packageFileDelete": "ファイルを削除",
+  "packageFileDeleteConfirmTitle": "パッケージファイルを削除しますか？",
+  "packageFileDeleteConfirmBody": "「{packageName}」から「{fileName}」を削除しますか？この操作は取り消せません。",
+  "packageFileDeleteWarning": "ファイルを削除するとパッケージが破損し、使用やパッケージマネージャーからの取得ができなくなる可能性があります。",
+  "packageFileDeleteForbidden": "このファイルを削除できません。パッケージが保護されているか、権限がない可能性があります。",
+  "packageFileDeleteError": "ファイルを削除できませんでした。再試行してください。"
 }

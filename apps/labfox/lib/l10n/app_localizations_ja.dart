@@ -2022,4 +2022,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get packageFileDelete => 'ファイルを削除';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'パッケージファイルを削除しますか？';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '「$packageName」から「$fileName」を削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'ファイルを削除するとパッケージが破損し、使用やパッケージマネージャーからの取得ができなくなる可能性があります。';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'このファイルを削除できません。パッケージが保護されているか、権限がない可能性があります。';
+
+  @override
+  String get packageFileDeleteError => 'ファイルを削除できませんでした。再試行してください。';
 }

@@ -2016,4 +2016,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get packageFileDelete => '删除文件';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '删除软件包文件？';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '从“$packageName”中删除“$fileName”？此操作无法撤销。';
+  }
+
+  @override
+  String get packageFileDeleteWarning => '删除文件可能损坏软件包，导致其无法使用或无法通过软件包管理器获取。';
+
+  @override
+  String get packageFileDeleteForbidden => '无法删除此文件。软件包可能受保护，或您没有权限。';
+
+  @override
+  String get packageFileDeleteError => '无法删除此文件。请重试。';
 }

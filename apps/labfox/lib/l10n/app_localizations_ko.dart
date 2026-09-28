@@ -2027,4 +2027,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get packageFileDelete => '파일 삭제';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '패키지 파일을 삭제할까요?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '“$packageName”에서 “$fileName”을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      '파일을 삭제하면 패키지가 손상되어 사용할 수 없거나 패키지 관리자로 가져올 수 없게 될 수 있습니다.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      '이 파일을 삭제할 수 없습니다. 패키지가 보호되어 있거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get packageFileDeleteError => '파일을 삭제할 수 없습니다. 다시 시도하세요.';
 }

@@ -1557,5 +1557,12 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "packageFileDelete": "Delete file",
+  "packageFileDeleteConfirmTitle": "Delete package file?",
+  "packageFileDeleteConfirmBody": "Delete “{fileName}” from “{packageName}”? This cannot be undone.",
+  "packageFileDeleteWarning": "Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.",
+  "packageFileDeleteForbidden": "You cannot delete this file. The package may be protected or you may not have permission.",
+  "packageFileDeleteError": "Could not delete this file. Try again.",
+  "@packageFileDeleteConfirmBody": {"description": "Confirmation identifying the file and its package", "placeholders": {"fileName": {"type": "String"}, "packageName": {"type": "String"}}}
 }

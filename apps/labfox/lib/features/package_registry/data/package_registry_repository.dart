@@ -9,6 +9,9 @@ class PackageRegistryRepository {
 
   final GitLabClient _client;
 
+  Future<void> deleteFile(int projectId, int packageId, int fileId) =>
+      _client.packages.deleteFile(projectId, packageId, fileId);
+
   Future<Paginated<GitLabPackage>> list(int projectId, {int page = 1}) =>
       _client.packages.list(projectId, page: page);
 

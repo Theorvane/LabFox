@@ -547,5 +547,11 @@
   "mrAddTodo": "添加到待办事项",
   "mrTodoAdded": "已添加到待办事项。",
   "mrTodoExists": "该合并请求已在待办事项中。",
-  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。",
+  "packageFileDelete": "删除文件",
+  "packageFileDeleteConfirmTitle": "删除软件包文件？",
+  "packageFileDeleteConfirmBody": "从“{packageName}”中删除“{fileName}”？此操作无法撤销。",
+  "packageFileDeleteWarning": "删除文件可能损坏软件包，导致其无法使用或无法通过软件包管理器获取。",
+  "packageFileDeleteForbidden": "无法删除此文件。软件包可能受保护，或您没有权限。",
+  "packageFileDeleteError": "无法删除此文件。请重试。"
 }

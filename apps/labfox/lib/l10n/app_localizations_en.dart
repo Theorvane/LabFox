@@ -2068,4 +2068,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get packageFileDelete => 'Delete file';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'Delete package file?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return 'Delete “$fileName” from “$packageName”? This cannot be undone.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'You cannot delete this file. The package may be protected or you may not have permission.';
+
+  @override
+  String get packageFileDeleteError => 'Could not delete this file. Try again.';
 }
