@@ -172,7 +172,7 @@ class ReleasesApi {
       final response = await _dio.delete<dynamic>(
         '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
       );
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 204) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,

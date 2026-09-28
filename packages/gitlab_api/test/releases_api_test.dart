@@ -245,6 +245,11 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+
+  test('accepts no-content success for asset link deletion', () async {
+    final client = _client((_) => (status: 204, headers: const {}, body: null));
+    await client.releases.deleteAssetLink(7, 'v2', 12);
+  });
 }
 
 GitLabClient _client(
