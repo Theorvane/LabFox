@@ -27,6 +27,14 @@ class ContainerRegistryScreen extends ConsumerWidget {
               ? context.pop()
               : context.go(Routes.projectOverview(projectId)),
         ),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerPolicyTitle,
+            icon: const Icon(Icons.auto_delete_outlined),
+            onPressed: () =>
+                context.push(Routes.containerCleanupPolicy(projectId)),
+          ),
+        ],
       ),
       body: repositories.when(
         loading: () => const Center(child: CircularProgressIndicator()),

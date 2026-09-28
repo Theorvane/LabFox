@@ -4033,6 +4033,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy'**
+  String get containerPolicyTitle;
+
+  /// No description provided for @containerPolicyAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report a cleanup policy.'**
+  String get containerPolicyAbsent;
+
+  /// No description provided for @containerPolicyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the cleanup policy.'**
+  String get containerPolicyError;
+
+  /// No description provided for @containerPolicyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view this project cleanup policy.'**
+  String get containerPolicyForbidden;
+
+  /// No description provided for @containerPolicyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project is not accessible, or cleanup policy information is unavailable.'**
+  String get containerPolicyUnavailable;
+
+  /// No description provided for @containerPolicyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.'**
+  String get containerPolicyHint;
+
+  /// No description provided for @containerPolicyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get containerPolicyStatus;
+
+  /// No description provided for @containerPolicyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get containerPolicyEnabled;
+
+  /// No description provided for @containerPolicyDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get containerPolicyDisabled;
+
+  /// No description provided for @containerPolicyNotReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get containerPolicyNotReported;
+
+  /// No description provided for @containerPolicyCadence.
+  ///
+  /// In en, this message translates to:
+  /// **'Run interval'**
+  String get containerPolicyCadence;
+
+  /// No description provided for @containerPolicyKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags to keep per image'**
+  String get containerPolicyKeepCount;
+
+  /// No description provided for @containerPolicyAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tags older than'**
+  String get containerPolicyAge;
+
+  /// No description provided for @containerPolicyDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern'**
+  String get containerPolicyDeletePattern;
+
+  /// No description provided for @containerPolicyLegacyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (legacy)'**
+  String get containerPolicyLegacyPattern;
+
+  /// No description provided for @containerPolicyKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern'**
+  String get containerPolicyKeepPattern;
+
+  /// No description provided for @containerPolicyEmptyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty pattern'**
+  String get containerPolicyEmptyPattern;
+
+  /// No description provided for @containerPolicyEmptySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty setting'**
+  String get containerPolicyEmptySetting;
+
+  /// No description provided for @containerPolicyNextRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run reported by GitLab (local time)'**
+  String get containerPolicyNextRun;
+
+  /// No description provided for @containerPolicyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String containerPolicyDays(int count);
+
+  /// No description provided for @containerPolicyMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month} other{{count} months}}'**
+  String containerPolicyMonths(int count);
 }
 
 class _AppLocalizationsDelegate

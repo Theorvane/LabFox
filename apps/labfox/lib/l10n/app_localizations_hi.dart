@@ -2064,4 +2064,95 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerPolicyTitle => 'सफ़ाई नीति';
+
+  @override
+  String get containerPolicyAbsent =>
+      'GitLab ने सफ़ाई नीति की जानकारी नहीं दी।';
+
+  @override
+  String get containerPolicyError => 'सफ़ाई नीति लोड नहीं हो सकी।';
+
+  @override
+  String get containerPolicyForbidden =>
+      'इस प्रोजेक्ट की सफ़ाई नीति देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'प्रोजेक्ट सुलभ नहीं है या सफ़ाई नीति की जानकारी उपलब्ध नहीं है।';
+
+  @override
+  String get containerPolicyHint =>
+      'इस प्रोजेक्ट की सभी कंटेनर इमेज रिपॉज़िटरी के लिए केवल-पढ़ने योग्य सेटिंग। सफ़ाई मिलते टैग असमकालिक रूप से हटाती है, जबकि रखने के नियम, latest, संरक्षित और अपरिवर्तनीय टैग सुरक्षित रहते हैं। कई बार चलाना पड़ सकता है; टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerPolicyStatus => 'स्थिति';
+
+  @override
+  String get containerPolicyEnabled => 'सक्रिय';
+
+  @override
+  String get containerPolicyDisabled => 'निष्क्रिय';
+
+  @override
+  String get containerPolicyNotReported => 'जानकारी नहीं दी गई';
+
+  @override
+  String get containerPolicyCadence => 'चलने का अंतराल';
+
+  @override
+  String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
+
+  @override
+  String get containerPolicyDeletePattern => 'हटाने का पैटर्न';
+
+  @override
+  String get containerPolicyLegacyPattern => 'हटाने का पैटर्न (पुराना)';
+
+  @override
+  String get containerPolicyKeepPattern => 'रखने का पैटर्न';
+
+  @override
+  String get containerPolicyEmptyPattern => 'खाली पैटर्न';
+
+  @override
+  String get containerPolicyEmptySetting => 'खाली सेटिंग';
+
+  @override
+  String get containerPolicyNextRun =>
+      'GitLab द्वारा बताया अगला रन (स्थानीय समय)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString महीने',
+      one: '1 महीना',
+    );
+    return '$_temp0';
+  }
 }

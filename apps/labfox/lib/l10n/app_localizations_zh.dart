@@ -2016,4 +2016,90 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerPolicyTitle => '清理策略';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab 未报告清理策略。';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyHint =>
+      '此项目所有容器镜像仓库的只读设置。清理异步删除匹配标签，同时遵循保留规则并保留 latest、受保护和不可变标签。某些标签可能需要多次运行才能清理；删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab 报告的下次运行时间（本地时间）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 个月',
+    );
+    return '$_temp0';
+  }
 }

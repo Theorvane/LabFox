@@ -2022,4 +2022,91 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerPolicyTitle => 'クリーンアップポリシー';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab からクリーンアップポリシーが報告されていません。';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyHint =>
+      'このプロジェクトのすべてのコンテナイメージリポジトリに適用される読み取り専用設定です。一致するタグを非同期で削除し、保持ルール、latest、保護されたタグと不変タグを維持します。複数回の実行が必要な場合があり、タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab が報告した次回実行日時（現地時間）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString日',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countStringか月',
+    );
+    return '$_temp0';
+  }
 }
