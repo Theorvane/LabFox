@@ -2016,4 +2016,36 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

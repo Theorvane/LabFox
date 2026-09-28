@@ -547,5 +547,14 @@
   "mrAddTodo": "To-Do に追加",
   "mrTodoAdded": "To-Do リストに追加しました。",
   "mrTodoExists": "このマージリクエストは既に To-Do リストにあります。",
-  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。"
+  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。",
+  "containerRepositoryProtectionTitle": "リポジトリ保護ルール",
+  "containerRepositoryProtectionEmpty": "リポジトリ保護ルールはありません。",
+  "containerRepositoryProtectionError": "リポジトリ保護ルールを読み込めませんでした。",
+  "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
+  "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
+  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
+  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }

@@ -1557,5 +1557,16 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "containerRepositoryProtectionTitle": "Repository protection rules",
+  "containerRepositoryProtectionEmpty": "No repository protection rules.",
+  "containerRepositoryProtectionError": "Could not load repository protection rules.",
+  "containerRepositoryProtectionForbidden": "You do not have permission to view repository protection rules.",
+  "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
+  "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
+  "containerRepositoryProtectionRoleUnset": "Not specified by rule",
+  "containerRepositoryProtectionRoleAdmin": "Administrator",
+  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}}
 }

@@ -547,5 +547,14 @@
   "mrAddTodo": "添加到待办事项",
   "mrTodoAdded": "已添加到待办事项。",
   "mrTodoExists": "该合并请求已在待办事项中。",
-  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。",
+  "containerRepositoryProtectionTitle": "仓库保护规则",
+  "containerRepositoryProtectionEmpty": "没有仓库保护规则。",
+  "containerRepositoryProtectionError": "无法加载仓库保护规则。",
+  "containerRepositoryProtectionForbidden": "您没有查看仓库保护规则的权限。",
+  "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
+  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
+  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
+  "containerRepositoryProtectionRoleUnset": "规则未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理员"
 }

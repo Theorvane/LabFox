@@ -13,6 +13,36 @@ class ContainerRegistryApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
 
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      return (response.data as List<dynamic>)
+          .map(
+            (item) => ContainerRepositoryProtectionRule.fromJson(
+              item as Map<String, dynamic>,
+            ),
+          )
+          .toList(growable: false);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
+
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(
     Object projectId, {
