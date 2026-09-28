@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => 'निष्पादन सेटिंग संपादित करें';
+
+  @override
+  String get pipelineScheduleExecutionSave => 'सहेजें';
+
+  @override
+  String get pipelineScheduleExecutionActive => 'सक्रिय';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'रेफ़ दर्ज करें।';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab रेफ़ की जाँच करता है। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें। सहेजने पर भविष्य के रन पुनर्निर्धारित होते हैं; cron, समय क्षेत्र, वेरिएबल और इनपुट नहीं बदलते।';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      'निष्पादन सेटिंग अपडेट नहीं की जा सकीं। अनुमतियाँ और रेफ़ जाँचें, फिर दोबारा प्रयास करें।';
+
+  @override
   String get protectedTagsTitle => 'सुरक्षित टैग';
 
   @override

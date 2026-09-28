@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '実行設定を編集';
+
+  @override
+  String get pipelineScheduleExecutionSave => '保存';
+
+  @override
+  String get pipelineScheduleExecutionActive => '有効';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => '参照を入力してください。';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab が参照を検証します。ブランチとタグが同名の場合は完全な参照を入力してください。保存すると今後の実行予定が再計算され、cron、タイムゾーン、変数、入力は変更されません。';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      '実行設定を更新できませんでした。権限と参照を確認して再試行してください。';
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override

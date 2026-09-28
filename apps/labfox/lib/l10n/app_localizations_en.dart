@@ -9,6 +9,26 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => 'Edit execution settings';
+
+  @override
+  String get pipelineScheduleExecutionSave => 'Save';
+
+  @override
+  String get pipelineScheduleExecutionActive => 'Active';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'Enter a ref.';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      'Could not update execution settings. Check your permissions and ref, then try again.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override
