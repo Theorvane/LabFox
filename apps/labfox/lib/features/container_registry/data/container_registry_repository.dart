@@ -1,11 +1,27 @@
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-/// Read-only container image browsing for one authenticated GitLab client.
+/// Container image browsing and cleanup for one authenticated GitLab client.
 class ContainerRegistryRepository {
   const ContainerRegistryRepository(this.client);
 
   final GitLabClient client;
+
+  Future<void> cleanupTags(
+    int projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) => client.containerRegistry.deleteTags(
+    projectId,
+    repositoryId,
+    nameRegexDelete: nameRegexDelete,
+    nameRegexKeep: nameRegexKeep,
+    keepN: keepN,
+    olderThan: olderThan,
+  );
 
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {

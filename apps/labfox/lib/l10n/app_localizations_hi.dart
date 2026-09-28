@@ -2064,4 +2064,75 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerCleanupTitle => 'टैग साफ़ करें';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'प्रोजेक्ट $projectId, इमेज रिपॉज़िटरी $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'मेल खाने वाले टैग स्थायी रूप से हटेंगे। latest और संरक्षित टैग शामिल नहीं हैं। रखने का पैटर्न हटाने के पैटर्न पर प्राथमिकता रखता है।';
+
+  @override
+  String get containerCleanupLimits =>
+      'सफ़ाई हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे असमकालिक रूप से होती है और कुछ मिलते टैग ही हट सकते हैं। आयु और क्रम मैनिफ़ेस्ट बनने के समय पर आधारित हैं, पुश समय पर नहीं। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerCleanupDeletePattern => 'हटाने का पैटर्न (RE2, आवश्यक)';
+
+  @override
+  String get containerCleanupKeepPattern => 'रखने का पैटर्न (RE2, वैकल्पिक)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'नवीनतम मिलते टैग रखने की संख्या (वैकल्पिक)';
+
+  @override
+  String get containerCleanupAge => 'इससे पुराने टैग ही हटाएँ';
+
+  @override
+  String get containerCleanupNoAge => 'आयु सीमा नहीं';
+
+  @override
+  String get containerCleanupDay => '1 दिन';
+
+  @override
+  String get containerCleanupWeek => '7 दिन';
+
+  @override
+  String get containerCleanupMonth => '1 महीना';
+
+  @override
+  String get containerCleanupRequired => 'हटाने का स्पष्ट पैटर्न दर्ज करें।';
+
+  @override
+  String get containerCleanupCountError =>
+      'शून्य या धनात्मक पूर्णांक दर्ज करें या खाली छोड़ें।';
+
+  @override
+  String get containerCleanupSchedule => 'सफ़ाई शेड्यूल करें';
+
+  @override
+  String get containerCleanupScheduled =>
+      'सफ़ाई शेड्यूल हुई। प्रक्रिया पूरी होने तक टैग रह सकते हैं; प्रगति देखने के लिए बाद में रीफ़्रेश करें।';
+
+  @override
+  String get containerCleanupError =>
+      'सफ़ाई शेड्यूल नहीं हो सकी। कनेक्शन जाँचें और पुनः प्रयास करें।';
+
+  @override
+  String get containerCleanupForbidden =>
+      'इस रिपॉज़िटरी के टैग साफ़ करने की अनुमति नहीं है।';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'सफ़ाई अनुरोध सीमित है। हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे सफ़ाई हो सकती है। बाद में प्रयास करें।';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab ने सफ़ाई मानदंड अस्वीकार किए। RE2 पैटर्न और रखने की सेटिंग जाँचें।';
 }

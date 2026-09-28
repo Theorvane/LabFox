@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
@@ -12,6 +12,37 @@ class ContainerRegistryApi {
 
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Schedules asynchronous tag cleanup; acceptance does not mean completion.
+  Future<void> deleteTags(
+    Object projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags',
+        data: {
+          'name_regex_delete': nameRegexDelete,
+          'name_regex_keep': ?nameRegexKeep,
+          'keep_n': ?keepN,
+          'older_than': ?olderThan,
+        },
+      );
+      if (response.statusCode != 202) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'scheduling container tag cleanup',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'scheduling container tag cleanup');
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(

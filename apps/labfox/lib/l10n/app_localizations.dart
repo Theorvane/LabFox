@@ -4033,6 +4033,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerCleanupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean up tags'**
+  String get containerCleanupTitle;
+
+  /// No description provided for @containerCleanupTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}, image repository {repositoryId}'**
+  String containerCleanupTarget(String projectId, String repositoryId);
+
+  /// No description provided for @containerCleanupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.'**
+  String get containerCleanupWarning;
+
+  /// No description provided for @containerCleanupLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.'**
+  String get containerCleanupLimits;
+
+  /// No description provided for @containerCleanupDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (RE2, required)'**
+  String get containerCleanupDeletePattern;
+
+  /// No description provided for @containerCleanupKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern (RE2, optional)'**
+  String get containerCleanupKeepPattern;
+
+  /// No description provided for @containerCleanupKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep newest matching tags (optional)'**
+  String get containerCleanupKeepCount;
+
+  /// No description provided for @containerCleanupAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Only remove tags older than'**
+  String get containerCleanupAge;
+
+  /// No description provided for @containerCleanupNoAge.
+  ///
+  /// In en, this message translates to:
+  /// **'No age limit'**
+  String get containerCleanupNoAge;
+
+  /// No description provided for @containerCleanupDay.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day'**
+  String get containerCleanupDay;
+
+  /// No description provided for @containerCleanupWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'7 days'**
+  String get containerCleanupWeek;
+
+  /// No description provided for @containerCleanupMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 month'**
+  String get containerCleanupMonth;
+
+  /// No description provided for @containerCleanupRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an explicit delete pattern.'**
+  String get containerCleanupRequired;
+
+  /// No description provided for @containerCleanupCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a non-negative whole number or leave blank.'**
+  String get containerCleanupCountError;
+
+  /// No description provided for @containerCleanupSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule cleanup'**
+  String get containerCleanupSchedule;
+
+  /// No description provided for @containerCleanupScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.'**
+  String get containerCleanupScheduled;
+
+  /// No description provided for @containerCleanupError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule cleanup. Check your connection and try again.'**
+  String get containerCleanupError;
+
+  /// No description provided for @containerCleanupForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to clean up tags in this repository.'**
+  String get containerCleanupForbidden;
+
+  /// No description provided for @containerCleanupRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.'**
+  String get containerCleanupRateLimited;
+
+  /// No description provided for @containerCleanupInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.'**
+  String get containerCleanupInvalid;
 }
 
 class _AppLocalizationsDelegate
