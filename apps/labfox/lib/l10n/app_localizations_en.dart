@@ -398,6 +398,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseAssetEditError => 'Could not update the asset link.';
 
   @override
+  String get releaseAssetType => 'Link type';
+
+  @override
+  String get releaseAssetKeepType => 'Keep current type';
+
+  @override
+  String get releaseAssetTypeOther => 'Other';
+
+  @override
+  String get releaseAssetTypeRunbook => 'Runbook';
+
+  @override
+  String get releaseAssetTypeImage => 'Image';
+
+  @override
+  String get releaseAssetTypePackage => 'Package';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override
