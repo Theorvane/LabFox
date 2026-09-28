@@ -104,6 +104,30 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
+
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
+
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
+
+  /// No description provided for @pipelineScheduleDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

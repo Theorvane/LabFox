@@ -18,4 +18,7 @@ class PipelineSchedulesRepository {
 
   Future<void> play(int projectId, int scheduleId) =>
       client.pipelineSchedules.play(projectId, scheduleId);
+
+  Future<void> delete(int projectId, int scheduleId) =>
+      client.pipelineSchedules.delete(projectId, scheduleId);
 }

@@ -9,6 +9,22 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleDelete => 'Delete schedule';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle =>
+      'Delete this pipeline schedule?';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'The pipeline schedule \"$name\" will be permanently deleted. This cannot be undone.';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'Could not delete this pipeline schedule. Check your permissions and try again.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override

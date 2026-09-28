@@ -1,4 +1,9 @@
 {
+  "pipelineScheduleDelete": "Delete schedule",
+  "pipelineScheduleDeleteConfirmTitle": "Delete this pipeline schedule?",
+  "pipelineScheduleDeleteConfirmBody": "The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.",
+  "pipelineScheduleDeleteError": "Could not delete this pipeline schedule. Check your permissions and try again.",
+  "@pipelineScheduleDeleteConfirmBody": {"placeholders": {"name": {"type": "String"}}},
   "@@locale": "en",
   "protectedTagsTitle": "Protected tags",
   "protectedTagsEmpty": "No protected tag rules found.",

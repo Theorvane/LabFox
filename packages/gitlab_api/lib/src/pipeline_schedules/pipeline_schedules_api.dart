@@ -63,6 +63,24 @@ class PipelineSchedulesApi {
     }
   }
 
+  /// Deletes a schedule, discarding any returned schedule metadata.
+  Future<void> delete(Object projectId, int scheduleId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$scheduleId',
+      );
+      if (response.statusCode != 200 && response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a pipeline schedule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a pipeline schedule');
+    }
+  }
+
   /// Runs the schedule now without changing its next planned run.
   Future<void> play(Object projectId, int scheduleId) async {
     try {

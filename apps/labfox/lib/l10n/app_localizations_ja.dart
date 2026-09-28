@@ -9,6 +9,21 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleDelete => 'スケジュールを削除';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle => 'このパイプラインスケジュールを削除しますか？';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'パイプラインスケジュール「$name」は完全に削除されます。この操作は元に戻せません。';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override

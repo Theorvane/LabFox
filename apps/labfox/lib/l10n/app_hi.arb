@@ -1,4 +1,8 @@
 {
+  "pipelineScheduleDelete": "शेड्यूल हटाएँ",
+  "pipelineScheduleDeleteConfirmTitle": "यह पाइपलाइन शेड्यूल हटाएँ?",
+  "pipelineScheduleDeleteConfirmBody": "पाइपलाइन शेड्यूल \"{name}\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।",
+  "pipelineScheduleDeleteError": "इस पाइपलाइन शेड्यूल को हटाया नहीं जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।",
   "@@locale": "hi",
   "protectedTagsTitle": "सुरक्षित टैग",
   "protectedTagsEmpty": "कोई सुरक्षित टैग नियम नहीं मिला।",

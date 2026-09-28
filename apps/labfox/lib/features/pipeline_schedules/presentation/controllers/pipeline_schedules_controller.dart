@@ -147,3 +147,40 @@ final pipelineScheduleActionControllerProvider =
       void,
       PipelineScheduleRef
     >(PipelineScheduleActionController.new);
+
+class PipelineScheduleDeleteController
+    extends FamilyAsyncNotifier<void, PipelineScheduleRef> {
+  @override
+  void build(PipelineScheduleRef arg) {}
+
+  Future<void> delete() async {
+    if (state.isLoading) return;
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(
+        pipelineSchedulesRepositoryProvider.future,
+      );
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.delete(arg.projectId, arg.scheduleId);
+      ref.invalidate(pipelineScheduleDetailProvider(arg));
+      for (final active in <bool?>[null, true, false]) {
+        ref.invalidate(
+          pipelineScheduleListControllerProvider(
+            PipelineScheduleListRef(projectId: arg.projectId, active: active),
+          ),
+        );
+      }
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final pipelineScheduleDeleteControllerProvider =
+    AsyncNotifierProvider.family<
+      PipelineScheduleDeleteController,
+      void,
+      PipelineScheduleRef
+    >(PipelineScheduleDeleteController.new);

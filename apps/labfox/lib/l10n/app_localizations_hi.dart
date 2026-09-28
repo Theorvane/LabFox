@@ -9,6 +9,21 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle => 'यह पाइपलाइन शेड्यूल हटाएँ?';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'पाइपलाइन शेड्यूल \"$name\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'इस पाइपलाइन शेड्यूल को हटाया नहीं जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।';
+
+  @override
   String get protectedTagsTitle => 'सुरक्षित टैग';
 
   @override

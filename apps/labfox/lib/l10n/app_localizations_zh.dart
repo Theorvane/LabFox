@@ -9,6 +9,20 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleDelete => '删除计划';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle => '删除此流水线计划？';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '流水线计划“$name”将被永久删除。此操作无法撤销。';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError => '无法删除此流水线计划。请检查权限并重试。';
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override

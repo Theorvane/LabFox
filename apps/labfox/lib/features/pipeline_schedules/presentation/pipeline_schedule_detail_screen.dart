@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/pipeline_schedules_controller.dart';
+import 'widgets/pipeline_schedule_delete_dialog.dart';
 
 /// A restorable pipeline schedule detail with an explicit run-now action.
 class PipelineScheduleDetailScreen extends ConsumerWidget {
@@ -19,6 +20,23 @@ class PipelineScheduleDetailScreen extends ConsumerWidget {
 
   final int projectId;
   final int scheduleId;
+
+  Future<void> _delete(
+    BuildContext context,
+    PipelineScheduleRef key,
+    String description,
+  ) async {
+    final deleted = await showDialog<bool>(
+      context: context,
+      builder: (_) => PipelineScheduleDeleteDialog(
+        scheduleRef: key,
+        description: description,
+      ),
+    );
+    if (context.mounted && deleted == true) {
+      context.go(Routes.pipelineSchedules(projectId));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,6 +84,7 @@ class PipelineScheduleDetailScreen extends ConsumerWidget {
                 schedule: data,
                 projectId: projectId,
                 actionBusy: action.isLoading,
+                onDelete: () => _delete(context, key, data.description),
                 onPlay: () async {
                   try {
                     await ref
@@ -197,11 +216,13 @@ class _ScheduleRelated extends StatelessWidget {
     required this.projectId,
     required this.actionBusy,
     required this.onPlay,
+    required this.onDelete,
   });
   final PipelineSchedule schedule;
   final int projectId;
   final bool actionBusy;
   final VoidCallback onPlay;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -218,6 +239,15 @@ class _ScheduleRelated extends StatelessWidget {
               onPressed: actionBusy ? null : onPlay,
               icon: const Icon(LabFoxIcons.pipeline),
               label: Text(l10n.pipelineScheduleRunNow),
+            ),
+            const SizedBox(height: LabFoxSpacing.md),
+            OutlinedButton.icon(
+              onPressed: actionBusy ? null : onDelete,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              icon: const Icon(Icons.delete_outline),
+              label: Text(l10n.pipelineScheduleDelete),
             ),
             if (pipeline != null) ...[
               const SizedBox(height: LabFoxSpacing.md),
