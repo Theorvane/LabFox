@@ -2016,4 +2016,114 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '项目 $projectId — 所有镜像仓库';
+  }
+
+  @override
+  String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationForbidden => '您无权更改此清理策略。';
+
+  @override
+  String get containerActivationStale => '策略已更改或不再报告。请在保存前重新加载并检查。';
+
+  @override
+  String get containerActivationReload => '重新加载策略';
+
+  @override
+  String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
+
+  @override
+  String get containerCreateTitle => '创建停用的清理策略';
+
+  @override
+  String get containerCreateSave => '确认创建停用策略';
+
+  @override
+  String get containerCreateWarning =>
+      '为所有镜像仓库保存停用的策略。这不会启用清理。以后启用前请检查所有条件：匹配的标签可能被永久删除。默认保留模式 .* 保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，使用 GitLab RE2 整个标签匹配规则。验证可能推迟到启用时进行。请求被接受不代表清理完成或存储空间已回收。';
+
+  @override
+  String get containerCreateAcknowledge => '我已检查这些条件，并了解启用是单独的操作。';
+
+  @override
+  String get containerCreateExisting => '此项目已有清理策略。创建不会覆盖它；请使用现有设置。';
+
+  @override
+  String get containerCreateUnknown => 'GitLab 未报告是否存在策略。请在 GitLab 中检查；创建已被阻止。';
+
+  @override
+  String get containerCreateAccepted => '停用的清理策略创建请求已被接受。';
+
+  @override
+  String get containerCreateInvalid => 'GitLab 拒绝这些策略设置。请检查条件，然后修改或重试。';
+
+  @override
+  String get containerCreateDaily => '每天';
+
+  @override
+  String get containerCreateWeekly => '每周';
+
+  @override
+  String get containerCreateFortnightly => '每两周';
+
+  @override
+  String get containerCreateMonthly => '每月';
+
+  @override
+  String get containerCreateQuarterly => '每三个月';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days天';
+  }
 }

@@ -2064,4 +2064,125 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerPolicyStatus => 'स्थिति';
+
+  @override
+  String get containerPolicyEnabled => 'सक्रिय';
+
+  @override
+  String get containerPolicyDisabled => 'निष्क्रिय';
+
+  @override
+  String get containerPolicyNotReported => 'जानकारी नहीं दी गई';
+
+  @override
+  String get containerPolicyCadence => 'चलने का अंतराल';
+
+  @override
+  String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
+
+  @override
+  String get containerPolicyDeletePattern => 'हटाने का पैटर्न';
+
+  @override
+  String get containerPolicyLegacyPattern => 'हटाने का पैटर्न (पुराना)';
+
+  @override
+  String get containerPolicyKeepPattern => 'रखने का पैटर्न';
+
+  @override
+  String get containerPolicyEmptyPattern => 'खाली पैटर्न';
+
+  @override
+  String get containerPolicyError => 'सफ़ाई नीति लोड नहीं हो सकी।';
+
+  @override
+  String get containerPolicyForbidden =>
+      'इस प्रोजेक्ट की सफ़ाई नीति देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'प्रोजेक्ट सुलभ नहीं है या सफ़ाई नीति की जानकारी उपलब्ध नहीं है।';
+
+  @override
+  String get containerPolicyEmptySetting => 'खाली सेटिंग';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'प्रोजेक्ट $projectId — सभी इमेज रिपॉज़िटरी';
+  }
+
+  @override
+  String get containerActivationError =>
+      'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerActivationForbidden =>
+      'इस सफ़ाई नीति को बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerActivationStale =>
+      'नीति बदल गई है या जानकारी नहीं मिल रही। सहेजने से पहले फिर लोड कर समीक्षा करें।';
+
+  @override
+  String get containerActivationReload => 'नीति फिर लोड करें';
+
+  @override
+  String get containerActivationRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और दोबारा प्रयास से पहले नीति फिर लोड करें।';
+
+  @override
+  String get containerCreateTitle => 'निष्क्रिय क्लीनअप नीति बनाएँ';
+
+  @override
+  String get containerCreateSave => 'निष्क्रिय नीति बनाने की पुष्टि करें';
+
+  @override
+  String get containerCreateWarning =>
+      'सभी इमेज रिपॉज़िटरी के लिए निष्क्रिय नीति सहेजें। इससे क्लीनअप सक्रिय नहीं होगा। बाद में सक्रिय करने से पहले सभी शर्तों की समीक्षा करें; मेल खाने वाले टैग स्थायी रूप से हट सकते हैं। डिफ़ॉल्ट रखने वाला पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित सुरक्षा नहीं देता। पैटर्न ठीक वैसे भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग से मिलान करता है। सत्यापन सक्रिय करने तक टल सकता है। स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
+
+  @override
+  String get containerCreateAcknowledge =>
+      'मैंने शर्तों की समीक्षा की है और समझता हूँ कि सक्रिय करना अलग कार्रवाई है।';
+
+  @override
+  String get containerCreateExisting =>
+      'इस प्रोजेक्ट में पहले से क्लीनअप नीति है। बनाने से उसे बदला नहीं जाएगा; मौजूदा सेटिंग इस्तेमाल करें।';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab ने नीति मौजूद होने की जानकारी नहीं दी। GitLab में समीक्षा करें; नीति बनाना रोका गया है।';
+
+  @override
+  String get containerCreateAccepted =>
+      'निष्क्रिय क्लीनअप नीति बनाने का अनुरोध स्वीकार हुआ।';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab ने नीति की सेटिंग अस्वीकार की। शर्तों की समीक्षा करें, फिर संपादित करें या पुनः प्रयास करें।';
+
+  @override
+  String get containerCreateDaily => 'हर दिन';
+
+  @override
+  String get containerCreateWeekly => 'हर सप्ताह';
+
+  @override
+  String get containerCreateFortnightly => 'हर दो सप्ताह';
+
+  @override
+  String get containerCreateMonthly => 'हर महीने';
+
+  @override
+  String get containerCreateQuarterly => 'हर तीन महीने';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days दिन';
+  }
 }

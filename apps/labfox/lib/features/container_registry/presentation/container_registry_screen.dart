@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'widgets/cleanup_policy_create_dialog.dart';
 
 /// Project container image repositories.
 class ContainerRegistryScreen extends ConsumerWidget {
@@ -22,6 +23,24 @@ class ContainerRegistryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerRegistryTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerCreateTitle,
+            icon: const Icon(Icons.add_task_outlined),
+            onPressed: () async {
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => CleanupPolicyCreateDialog(projectId: projectId),
+              );
+              if (accepted == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.containerCreateAccepted)),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

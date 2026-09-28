@@ -2022,4 +2022,120 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'プロジェクト $projectId — すべてのイメージリポジトリ';
+  }
+
+  @override
+  String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
+
+  @override
+  String get containerActivationStale =>
+      'ポリシーが変更されたか、報告されなくなりました。保存する前に再読み込みして確認してください。';
+
+  @override
+  String get containerActivationReload => 'ポリシーを再読み込み';
+
+  @override
+  String get containerActivationRateLimited =>
+      'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+
+  @override
+  String get containerCreateSave => '無効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateWarning =>
+      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+
+  @override
+  String get containerCreateExisting =>
+      'このプロジェクトには既存のクリーンアップポリシーがあります。作成では上書きしません。既存の設定を使用してください。';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
+
+  @override
+  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab が設定を拒否しました。条件を確認し、編集するか再試行してください。';
+
+  @override
+  String get containerCreateDaily => '毎日';
+
+  @override
+  String get containerCreateWeekly => '毎週';
+
+  @override
+  String get containerCreateFortnightly => '2週間ごと';
+
+  @override
+  String get containerCreateMonthly => '毎月';
+
+  @override
+  String get containerCreateQuarterly => '3か月ごと';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days日';
+  }
 }

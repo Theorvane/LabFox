@@ -2068,4 +2068,131 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerPolicyStatus => 'Status';
+
+  @override
+  String get containerPolicyEnabled => 'Enabled';
+
+  @override
+  String get containerPolicyDisabled => 'Disabled';
+
+  @override
+  String get containerPolicyNotReported => 'Not reported';
+
+  @override
+  String get containerPolicyCadence => 'Run interval';
+
+  @override
+  String get containerPolicyKeepCount => 'Matching tags to keep per image';
+
+  @override
+  String get containerPolicyAge => 'Remove tags older than';
+
+  @override
+  String get containerPolicyDeletePattern => 'Delete pattern';
+
+  @override
+  String get containerPolicyLegacyPattern => 'Delete pattern (legacy)';
+
+  @override
+  String get containerPolicyKeepPattern => 'Keep pattern';
+
+  @override
+  String get containerPolicyEmptyPattern => 'Empty pattern';
+
+  @override
+  String get containerPolicyError => 'Could not load the cleanup policy.';
+
+  @override
+  String get containerPolicyForbidden =>
+      'You do not have permission to view this project cleanup policy.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'The project is not accessible, or cleanup policy information is unavailable.';
+
+  @override
+  String get containerPolicyEmptySetting => 'Empty setting';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'Project $projectId — all image repositories';
+  }
+
+  @override
+  String get containerActivationError =>
+      'Could not confirm the update. Reload the policy and try again.';
+
+  @override
+  String get containerActivationForbidden =>
+      'You do not have permission to change this cleanup policy.';
+
+  @override
+  String get containerActivationStale =>
+      'The policy changed or is no longer reported. Reload and review it before saving.';
+
+  @override
+  String get containerActivationReload => 'Reload policy';
+
+  @override
+  String get containerActivationRateLimited =>
+      'Too many requests. Wait and reload the policy before trying again.';
+
+  @override
+  String get containerCreateTitle => 'Create disabled cleanup policy';
+
+  @override
+  String get containerCreateSave => 'Confirm disabled policy creation';
+
+  @override
+  String get containerCreateWarning =>
+      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+
+  @override
+  String get containerCreateAcknowledge =>
+      'I have reviewed these criteria and understand that activation is a separate action.';
+
+  @override
+  String get containerCreateExisting =>
+      'This project already has a cleanup policy. Creation will not replace it; use its existing settings.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
+
+  @override
+  String get containerCreateAccepted =>
+      'Disabled cleanup policy creation accepted.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab rejected these policy settings. Review the criteria, then edit or retry.';
+
+  @override
+  String get containerCreateDaily => 'Every day';
+
+  @override
+  String get containerCreateWeekly => 'Every week';
+
+  @override
+  String get containerCreateFortnightly => 'Every two weeks';
+
+  @override
+  String get containerCreateMonthly => 'Every month';
+
+  @override
+  String get containerCreateQuarterly => 'Every three months';
+
+  @override
+  String containerCreateDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
 }
