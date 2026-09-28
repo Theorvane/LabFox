@@ -394,6 +394,39 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
 
   @override
+  String get releaseMilestonesEdit => 'रिलीज़ माइलस्टोन संपादित करें';
+
+  @override
+  String get releaseMilestonesTitle => 'माइलस्टोन';
+
+  @override
+  String get releaseMilestonesHelp =>
+      'सटीक माइलस्टोन शीर्षक डालें। समूह माइलस्टोन की उपलब्धता आपके GitLab प्लान और परियोजना समूह पर निर्भर है।';
+
+  @override
+  String get releaseMilestoneTitle => 'माइलस्टोन शीर्षक';
+
+  @override
+  String get releaseMilestoneAdd => 'माइलस्टोन जोड़ें';
+
+  @override
+  String get releaseMilestonesSave => 'माइलस्टोन सहेजें';
+
+  @override
+  String get releaseMilestonesError => 'रिलीज़ माइलस्टोन अपडेट नहीं हो सके।';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'माइलस्टोन शीर्षक डालें।';
+
+  @override
+  String get releaseMilestoneDuplicate => 'यह माइलस्टोन पहले से चुना गया है।';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title हटाएँ';
+  }
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

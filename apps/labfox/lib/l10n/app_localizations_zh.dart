@@ -391,6 +391,39 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetEditError => '无法更新资源链接。';
 
   @override
+  String get releaseMilestonesEdit => '编辑发布里程碑';
+
+  @override
+  String get releaseMilestonesTitle => '里程碑';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '请输入准确的里程碑标题。群组里程碑是否可用取决于您的 GitLab 计划和项目群组。';
+
+  @override
+  String get releaseMilestoneTitle => '里程碑标题';
+
+  @override
+  String get releaseMilestoneAdd => '添加里程碑';
+
+  @override
+  String get releaseMilestonesSave => '保存里程碑';
+
+  @override
+  String get releaseMilestonesError => '无法更新发布里程碑。';
+
+  @override
+  String get releaseMilestoneTitleRequired => '请输入里程碑标题。';
+
+  @override
+  String get releaseMilestoneDuplicate => '此里程碑已选中。';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '移除 $title';
+  }
+
+  @override
   String get activityTitle => '动态';
 
   @override

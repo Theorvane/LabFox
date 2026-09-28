@@ -398,6 +398,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseAssetEditError => 'Could not update the asset link.';
 
   @override
+  String get releaseMilestonesEdit => 'Edit release milestones';
+
+  @override
+  String get releaseMilestonesTitle => 'Milestones';
+
+  @override
+  String get releaseMilestonesHelp =>
+      'Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.';
+
+  @override
+  String get releaseMilestoneTitle => 'Milestone title';
+
+  @override
+  String get releaseMilestoneAdd => 'Add milestone';
+
+  @override
+  String get releaseMilestonesSave => 'Save milestones';
+
+  @override
+  String get releaseMilestonesError => 'Could not update release milestones.';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'Enter a milestone title.';
+
+  @override
+  String get releaseMilestoneDuplicate => 'This milestone is already selected.';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return 'Remove $title';
+  }
+
+  @override
   String get activityTitle => 'Activity';
 
   @override

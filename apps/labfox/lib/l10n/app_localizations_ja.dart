@@ -391,6 +391,39 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
 
   @override
+  String get releaseMilestonesEdit => 'リリースのマイルストーンを編集';
+
+  @override
+  String get releaseMilestonesTitle => 'マイルストーン';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '正確なマイルストーン名を入力してください。グループマイルストーンの利用可否は GitLab プランとプロジェクトのグループによって異なります。';
+
+  @override
+  String get releaseMilestoneTitle => 'マイルストーン名';
+
+  @override
+  String get releaseMilestoneAdd => 'マイルストーンを追加';
+
+  @override
+  String get releaseMilestonesSave => 'マイルストーンを保存';
+
+  @override
+  String get releaseMilestonesError => 'リリースのマイルストーンを更新できませんでした。';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'マイルストーン名を入力してください。';
+
+  @override
+  String get releaseMilestoneDuplicate => 'このマイルストーンは選択済みです。';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title を削除';
+  }
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

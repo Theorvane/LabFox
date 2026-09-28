@@ -848,6 +848,66 @@ abstract class AppLocalizations {
   /// **'Could not update the asset link.'**
   String get releaseAssetEditError;
 
+  /// No description provided for @releaseMilestonesEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release milestones'**
+  String get releaseMilestonesEdit;
+
+  /// No description provided for @releaseMilestonesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get releaseMilestonesTitle;
+
+  /// No description provided for @releaseMilestonesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.'**
+  String get releaseMilestonesHelp;
+
+  /// No description provided for @releaseMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title'**
+  String get releaseMilestoneTitle;
+
+  /// No description provided for @releaseMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseMilestoneAdd;
+
+  /// No description provided for @releaseMilestonesSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save milestones'**
+  String get releaseMilestonesSave;
+
+  /// No description provided for @releaseMilestonesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update release milestones.'**
+  String get releaseMilestonesError;
+
+  /// No description provided for @releaseMilestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseMilestoneTitleRequired;
+
+  /// No description provided for @releaseMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseMilestoneDuplicate;
+
+  /// No description provided for @releaseMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {title}'**
+  String releaseMilestoneRemove(String title);
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:
