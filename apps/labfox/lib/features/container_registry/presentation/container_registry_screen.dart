@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'widgets/cleanup_policy_activation_dialog.dart';
 
 /// Project container image repositories.
 class ContainerRegistryScreen extends ConsumerWidget {
@@ -27,6 +28,25 @@ class ContainerRegistryScreen extends ConsumerWidget {
               ? context.pop()
               : context.go(Routes.projectOverview(projectId)),
         ),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerActivationTitle,
+            icon: const Icon(Icons.power_settings_new),
+            onPressed: () async {
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>
+                    CleanupPolicyActivationDialog(projectId: projectId),
+              );
+              if (accepted == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.containerActivationAccepted)),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: repositories.when(
         loading: () => const Center(child: CircularProgressIndicator()),

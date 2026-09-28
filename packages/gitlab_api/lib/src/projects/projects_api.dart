@@ -10,6 +10,31 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Changes only cleanup policy activation, preserving all retention settings.
+  Future<Project> setCleanupPolicyEnabled(
+    Object projectId, {
+    required bool enabled,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'enabled': enabled},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy activation',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy activation');
+    }
+  }
+
   /// The projects the current user is a member of.
   ///
   /// Defaults to membership, most recently active first — the order that puts

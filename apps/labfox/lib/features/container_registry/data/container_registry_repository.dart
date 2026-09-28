@@ -7,6 +7,16 @@ class ContainerRegistryRepository {
 
   final GitLabClient client;
 
+  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
+      (await client.projects.get(projectId)).containerExpirationPolicy;
+
+  Future<void> setCleanupPolicyEnabled(
+    int projectId, {
+    required bool enabled,
+  }) async {
+    await client.projects.setCleanupPolicyEnabled(projectId, enabled: enabled);
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,

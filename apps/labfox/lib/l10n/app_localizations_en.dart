@@ -2068,4 +2068,108 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerPolicyStatus => 'Status';
+
+  @override
+  String get containerPolicyEnabled => 'Enabled';
+
+  @override
+  String get containerPolicyDisabled => 'Disabled';
+
+  @override
+  String get containerPolicyNotReported => 'Not reported';
+
+  @override
+  String get containerPolicyCadence => 'Run interval';
+
+  @override
+  String get containerPolicyKeepCount => 'Matching tags to keep per image';
+
+  @override
+  String get containerPolicyAge => 'Remove tags older than';
+
+  @override
+  String get containerPolicyDeletePattern => 'Delete pattern';
+
+  @override
+  String get containerPolicyLegacyPattern => 'Delete pattern (legacy)';
+
+  @override
+  String get containerPolicyKeepPattern => 'Keep pattern';
+
+  @override
+  String get containerPolicyEmptyPattern => 'Empty pattern';
+
+  @override
+  String get containerPolicyError => 'Could not load the cleanup policy.';
+
+  @override
+  String get containerPolicyForbidden =>
+      'You do not have permission to view this project cleanup policy.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'The project is not accessible, or cleanup policy information is unavailable.';
+
+  @override
+  String get containerPolicyEmptySetting => 'Empty setting';
+
+  @override
+  String get containerActivationIncomplete =>
+      'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.';
+
+  @override
+  String get containerActivationTitle => 'Change cleanup policy status';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'Project $projectId — all image repositories';
+  }
+
+  @override
+  String get containerActivationEnable => 'Enable cleanup';
+
+  @override
+  String get containerActivationDisable => 'Disable cleanup';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.';
+
+  @override
+  String get containerActivationUnknown =>
+      'A known activation status is required. Review policy settings in GitLab.';
+
+  @override
+  String get containerActivationError =>
+      'Could not confirm the update. Reload the policy and try again.';
+
+  @override
+  String get containerActivationForbidden =>
+      'You do not have permission to change this cleanup policy.';
+
+  @override
+  String get containerActivationStale =>
+      'The policy changed or is no longer reported. Reload and review it before saving.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab rejected this status change. Review the existing policy settings in GitLab.';
+
+  @override
+  String get containerActivationReload => 'Reload policy';
+
+  @override
+  String get containerActivationAccepted =>
+      'Cleanup policy status update accepted.';
+
+  @override
+  String get containerActivationRateLimited =>
+      'Too many requests. Wait and reload the policy before trying again.';
 }

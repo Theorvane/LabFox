@@ -2027,4 +2027,104 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerPolicyStatus => '상태';
+
+  @override
+  String get containerPolicyEnabled => '활성화';
+
+  @override
+  String get containerPolicyDisabled => '비활성화';
+
+  @override
+  String get containerPolicyNotReported => '보고되지 않음';
+
+  @override
+  String get containerPolicyCadence => '실행 주기';
+
+  @override
+  String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
+
+  @override
+  String get containerPolicyAge => '제거할 태그의 최소 나이';
+
+  @override
+  String get containerPolicyDeletePattern => '삭제 패턴';
+
+  @override
+  String get containerPolicyLegacyPattern => '삭제 패턴 (구형)';
+
+  @override
+  String get containerPolicyKeepPattern => '보존 패턴';
+
+  @override
+  String get containerPolicyEmptyPattern => '빈 패턴';
+
+  @override
+  String get containerPolicyError => '정리 정책을 불러오지 못했습니다.';
+
+  @override
+  String get containerPolicyForbidden => '이 프로젝트의 정리 정책을 볼 권한이 없습니다.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      '프로젝트에 접근할 수 없거나 정리 정책 정보를 사용할 수 없습니다.';
+
+  @override
+  String get containerPolicyEmptySetting => '빈 설정값';
+
+  @override
+  String get containerActivationIncomplete =>
+      '정리를 활성화하려면 주기, 보존 개수, 나이 제한 및 삭제 패턴이 보고되어야 합니다. GitLab에서 정책을 확인하세요.';
+
+  @override
+  String get containerActivationTitle => '정리 정책 상태 변경';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '프로젝트 $projectId — 모든 이미지 저장소';
+  }
+
+  @override
+  String get containerActivationEnable => '정리 활성화';
+
+  @override
+  String get containerActivationDisable => '정리 비활성화';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '이 프로젝트 전체 정책을 활성화하면 예약 실행에서 일치하는 태그가 영구 삭제될 수 있습니다. 표시된 보존 설정과 패턴은 변경되지 않습니다. 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '보존 설정이나 패턴을 변경하지 않고 이 프로젝트의 향후 예약 정리를 비활성화합니다. 이미 실행 중인 정리 작업이 취소된다고 가정하지 마세요.';
+
+  @override
+  String get containerActivationUnknown =>
+      '확인된 활성 상태가 필요합니다. GitLab에서 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationError => '변경을 확인하지 못했습니다. 정책을 다시 불러오고 재시도하세요.';
+
+  @override
+  String get containerActivationForbidden => '이 정리 정책을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerActivationStale =>
+      '정책이 변경되었거나 더 이상 보고되지 않습니다. 저장하기 전에 다시 불러와 확인하세요.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab이 상태 변경을 거부했습니다. GitLab에서 기존 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationReload => '정책 다시 불러오기';
+
+  @override
+  String get containerActivationAccepted => '정리 정책 상태 변경이 접수되었습니다.';
+
+  @override
+  String get containerActivationRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 정책을 다시 불러와 재시도하세요.';
 }

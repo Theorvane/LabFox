@@ -2022,4 +2022,104 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String get containerActivationIncomplete =>
+      'クリーンアップを有効化するには、実行間隔、保持数、期間制限、削除パターンが報告されている必要があります。GitLab でポリシーを確認してください。';
+
+  @override
+  String get containerActivationTitle => 'クリーンアップポリシーの状態を変更';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'プロジェクト $projectId — すべてのイメージリポジトリ';
+  }
+
+  @override
+  String get containerActivationEnable => 'クリーンアップを有効化';
+
+  @override
+  String get containerActivationDisable => 'クリーンアップを無効化';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'プロジェクト全体のポリシーを有効化すると、定期実行で一致するタグが完全に削除される可能性があります。表示された保持設定とパターンは変更しません。タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '保持設定やパターンを変更せず、このプロジェクトの今後の定期クリーンアップを無効化します。実行中のジョブがキャンセルされるとは限りません。';
+
+  @override
+  String get containerActivationUnknown =>
+      '既知の有効化状態が必要です。GitLab でポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
+
+  @override
+  String get containerActivationStale =>
+      'ポリシーが変更されたか、報告されなくなりました。保存する前に再読み込みして確認してください。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab が状態変更を拒否しました。GitLab で既存のポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationReload => 'ポリシーを再読み込み';
+
+  @override
+  String get containerActivationAccepted => 'クリーンアップポリシーの状態更新が受け付けられました。';
+
+  @override
+  String get containerActivationRateLimited =>
+      'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
 }

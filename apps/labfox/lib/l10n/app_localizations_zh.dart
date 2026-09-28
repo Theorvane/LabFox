@@ -2016,4 +2016,100 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String get containerActivationIncomplete =>
+      '启用清理需要已报告的运行间隔、保留数量、时间限制和删除模式。请在 GitLab 中检查策略。';
+
+  @override
+  String get containerActivationTitle => '更改清理策略状态';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '项目 $projectId — 所有镜像仓库';
+  }
+
+  @override
+  String get containerActivationEnable => '启用清理';
+
+  @override
+  String get containerActivationDisable => '禁用清理';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '启用此项目级策略可能在计划运行时永久删除匹配标签。显示的保留设置和模式不会更改。删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '禁用此项目未来的计划清理，不更改保留设置或模式。请勿假定正在运行的清理任务会被取消。';
+
+  @override
+  String get containerActivationUnknown => '需要已知的启用状态。请在 GitLab 中检查策略设置。';
+
+  @override
+  String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationForbidden => '您无权更改此清理策略。';
+
+  @override
+  String get containerActivationStale => '策略已更改或不再报告。请在保存前重新加载并检查。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab 拒绝了此状态更改。请在 GitLab 中检查现有策略设置。';
+
+  @override
+  String get containerActivationReload => '重新加载策略';
+
+  @override
+  String get containerActivationAccepted => '清理策略状态更新已接受。';
+
+  @override
+  String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
 }
