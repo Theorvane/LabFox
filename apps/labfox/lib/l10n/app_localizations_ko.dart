@@ -182,6 +182,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelineScheduleLastPipeline => '마지막 파이프라인';
 
   @override
+  String get pipelineScheduleHistoryTitle => '실행 이력';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '이 일정에서 실행된 파이프라인이 아직 없습니다.';
+
+  @override
+  String get pipelineScheduleHistoryError => '실행 이력을 불러올 수 없습니다.';
+
+  @override
   String pipelineSchedulePipelineNumber(int number) {
     return '파이프라인 #$number';
   }

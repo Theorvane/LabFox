@@ -186,6 +186,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pipelineScheduleLastPipeline => 'Last pipeline';
 
   @override
+  String get pipelineScheduleHistoryTitle => 'Execution history';
+
+  @override
+  String get pipelineScheduleHistoryEmpty =>
+      'No pipelines have run for this schedule yet.';
+
+  @override
+  String get pipelineScheduleHistoryError =>
+      'Could not load execution history.';
+
+  @override
   String pipelineSchedulePipelineNumber(int number) {
     return 'Pipeline #$number';
   }

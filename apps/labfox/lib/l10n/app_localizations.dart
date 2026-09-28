@@ -440,6 +440,24 @@ abstract class AppLocalizations {
   /// **'Last pipeline'**
   String get pipelineScheduleLastPipeline;
 
+  /// No description provided for @pipelineScheduleHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution history'**
+  String get pipelineScheduleHistoryTitle;
+
+  /// No description provided for @pipelineScheduleHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines have run for this schedule yet.'**
+  String get pipelineScheduleHistoryEmpty;
+
+  /// No description provided for @pipelineScheduleHistoryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load execution history.'**
+  String get pipelineScheduleHistoryError;
+
   /// No description provided for @pipelineSchedulePipelineNumber.
   ///
   /// In en, this message translates to:

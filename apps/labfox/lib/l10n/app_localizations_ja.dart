@@ -181,6 +181,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelineScheduleLastPipeline => '前回のパイプライン';
 
   @override
+  String get pipelineScheduleHistoryTitle => '実行履歴';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => 'このスケジュールで実行されたパイプラインはまだありません。';
+
+  @override
+  String get pipelineScheduleHistoryError => '実行履歴を読み込めませんでした。';
+
+  @override
   String pipelineSchedulePipelineNumber(int number) {
     return 'パイプライン #$number';
   }

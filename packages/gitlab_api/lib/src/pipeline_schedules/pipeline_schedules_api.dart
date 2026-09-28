@@ -13,6 +13,35 @@ class PipelineSchedulesApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/pipeline_schedules';
 
+  /// Pipelines belonging to this schedule, newest first.
+  Future<Paginated<Pipeline>> listPipelines(
+    Object projectId,
+    int scheduleId, {
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '${_path(projectId)}/$scheduleId/pipelines',
+        queryParameters: {'page': page, 'per_page': perPage, 'sort': 'desc'},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing schedule pipelines',
+        );
+      }
+      final items = (response.data as List<dynamic>? ?? const [])
+          .cast<Map<String, dynamic>>()
+          .map(Pipeline.fromJson)
+          .toList(growable: false);
+      return Paginated.fromHeaders(items, response.headers.map);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing schedule pipelines');
+    }
+  }
+
   Future<Paginated<PipelineSchedule>> list(
     Object projectId, {
     bool? active,
