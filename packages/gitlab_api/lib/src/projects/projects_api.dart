@@ -10,6 +10,67 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Reads policy presence separately from a reduced or omitted project field.
+  Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading cleanup policy presence',
+        );
+      }
+      final data = response.data as Map<String, dynamic>;
+      return ContainerCleanupPolicySnapshot.fromJson({
+        'reported': data.containsKey('container_expiration_policy'),
+        'policy': data['container_expiration_policy'],
+      });
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading cleanup policy presence');
+    }
+  }
+
+  /// Saves a complete policy draft disabled; activation is a separate action.
+  Future<Project> createDisabledCleanupPolicy(
+    Object projectId, {
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'enabled': false,
+            'cadence': cadence,
+            'keep_n': keepN,
+            'older_than': olderThan,
+            'name_regex_delete': nameRegexDelete,
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating disabled cleanup policy',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating disabled cleanup policy');
+    }
+  }
+
   /// The projects the current user is a member of.
   ///
   /// Defaults to membership, most recently active first — the order that puts

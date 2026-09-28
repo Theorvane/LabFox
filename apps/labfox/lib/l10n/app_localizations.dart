@@ -4033,6 +4033,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerPolicyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get containerPolicyStatus;
+
+  /// No description provided for @containerPolicyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get containerPolicyEnabled;
+
+  /// No description provided for @containerPolicyDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get containerPolicyDisabled;
+
+  /// No description provided for @containerPolicyNotReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get containerPolicyNotReported;
+
+  /// No description provided for @containerPolicyCadence.
+  ///
+  /// In en, this message translates to:
+  /// **'Run interval'**
+  String get containerPolicyCadence;
+
+  /// No description provided for @containerPolicyKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags to keep per image'**
+  String get containerPolicyKeepCount;
+
+  /// No description provided for @containerPolicyAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tags older than'**
+  String get containerPolicyAge;
+
+  /// No description provided for @containerPolicyDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern'**
+  String get containerPolicyDeletePattern;
+
+  /// No description provided for @containerPolicyLegacyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (legacy)'**
+  String get containerPolicyLegacyPattern;
+
+  /// No description provided for @containerPolicyKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern'**
+  String get containerPolicyKeepPattern;
+
+  /// No description provided for @containerPolicyEmptyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty pattern'**
+  String get containerPolicyEmptyPattern;
+
+  /// No description provided for @containerPolicyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the cleanup policy.'**
+  String get containerPolicyError;
+
+  /// No description provided for @containerPolicyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view this project cleanup policy.'**
+  String get containerPolicyForbidden;
+
+  /// No description provided for @containerPolicyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project is not accessible, or cleanup policy information is unavailable.'**
+  String get containerPolicyUnavailable;
+
+  /// No description provided for @containerPolicyEmptySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty setting'**
+  String get containerPolicyEmptySetting;
+
+  /// No description provided for @containerActivationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — all image repositories'**
+  String containerActivationTarget(String projectId);
+
+  /// No description provided for @containerActivationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the update. Reload the policy and try again.'**
+  String get containerActivationError;
+
+  /// No description provided for @containerActivationForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this cleanup policy.'**
+  String get containerActivationForbidden;
+
+  /// No description provided for @containerActivationStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The policy changed or is no longer reported. Reload and review it before saving.'**
+  String get containerActivationStale;
+
+  /// No description provided for @containerActivationReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload policy'**
+  String get containerActivationReload;
+
+  /// No description provided for @containerActivationRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and reload the policy before trying again.'**
+  String get containerActivationRateLimited;
+
+  /// No description provided for @containerCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create disabled cleanup policy'**
+  String get containerCreateTitle;
+
+  /// No description provided for @containerCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm disabled policy creation'**
+  String get containerCreateSave;
+
+  /// No description provided for @containerCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.'**
+  String get containerCreateWarning;
+
+  /// No description provided for @containerCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed these criteria and understand that activation is a separate action.'**
+  String get containerCreateAcknowledge;
+
+  /// No description provided for @containerCreateExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'This project already has a cleanup policy. Creation will not replace it; use its existing settings.'**
+  String get containerCreateExisting;
+
+  /// No description provided for @containerCreateUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.'**
+  String get containerCreateUnknown;
+
+  /// No description provided for @containerCreateAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled cleanup policy creation accepted.'**
+  String get containerCreateAccepted;
+
+  /// No description provided for @containerCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected these policy settings. Review the criteria, then edit or retry.'**
+  String get containerCreateInvalid;
+
+  /// No description provided for @containerCreateDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get containerCreateDaily;
+
+  /// No description provided for @containerCreateWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week'**
+  String get containerCreateWeekly;
+
+  /// No description provided for @containerCreateFortnightly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every two weeks'**
+  String get containerCreateFortnightly;
+
+  /// No description provided for @containerCreateMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every month'**
+  String get containerCreateMonthly;
+
+  /// No description provided for @containerCreateQuarterly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every three months'**
+  String get containerCreateQuarterly;
+
+  /// No description provided for @containerCreateDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, one{1 day} other{{days} days}}'**
+  String containerCreateDays(int days);
 }
 
 class _AppLocalizationsDelegate
