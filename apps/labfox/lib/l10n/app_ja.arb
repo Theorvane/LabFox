@@ -1,4 +1,11 @@
 {
+  "releaseCreationMilestoneTitle": "マイルストーンのタイトル（任意）",
+  "releaseCreationMilestoneAdd": "マイルストーンを追加",
+  "releaseCreationMilestoneRequired": "マイルストーンのタイトルを入力してください。",
+  "releaseCreationMilestoneDuplicate": "このマイルストーンは既に選択されています。",
+  "releaseCreationMilestoneRemove": "マイルストーン {title} を削除",
+  "releaseCreationMilestoneHelp": "既存のタイトルを1つずつ正確に入力してください。グループマイルストーンの利用可否はGitLabのプランによって異なります。",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "ja",
   "protectedTagsTitle": "保護されたタグ",
   "protectedTagsEmpty": "保護タグのルールがありません。",

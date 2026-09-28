@@ -6,6 +6,39 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('creates with exact milestone titles including commas', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: const <String, List<String>>{},
+        body: {'name': 'v2', 'tag_name': 'v2'},
+      );
+    });
+    await client.releases.create(
+      'team/app',
+      tagName: 'v2',
+      milestones: ['Release, phase 1', 'Sprint 2'],
+    );
+    expect(request.path, '/projects/team%2Fapp/releases');
+    expect(request.data, {
+      'tag_name': 'v2',
+      'milestones': ['Release, phase 1', 'Sprint 2'],
+    });
+    await client.releases.create(7, tagName: 'v2', milestones: []);
+    expect(request.data, {'tag_name': 'v2'});
+  });
+
+  test('maps rejected milestone associations during creation', () async {
+    final client = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      client.releases.create(7, tagName: 'v2', milestones: ['Sprint 2']),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
   test('lists releases with pagination and parses assets', () async {
     late RequestOptions request;
     final client = _client((options) {

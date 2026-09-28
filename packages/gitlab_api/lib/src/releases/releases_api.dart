@@ -89,6 +89,7 @@ class ReleasesApi {
     String? ref,
     String? name,
     String? description,
+    List<String>? milestones,
   }) async {
     try {
       final response = await _dio.post<dynamic>(
@@ -98,6 +99,8 @@ class ReleasesApi {
           'ref': ?ref,
           'name': ?name,
           'description': ?description,
+          if (milestones != null && milestones.isNotEmpty)
+            'milestones': List<String>.unmodifiable(milestones),
         },
       );
       if (response.statusCode != 201 || response.data is! Map) {

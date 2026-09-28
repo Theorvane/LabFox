@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releaseCreationMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title (optional)'**
+  String get releaseCreationMilestoneTitle;
+
+  /// No description provided for @releaseCreationMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseCreationMilestoneAdd;
+
+  /// No description provided for @releaseCreationMilestoneRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseCreationMilestoneRequired;
+
+  /// No description provided for @releaseCreationMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseCreationMilestoneDuplicate;
+
+  /// No description provided for @releaseCreationMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releaseCreationMilestoneRemove(String title);
+
+  /// No description provided for @releaseCreationMilestoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.'**
+  String get releaseCreationMilestoneHelp;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

@@ -1,4 +1,11 @@
 {
+  "releaseCreationMilestoneTitle": "마일스톤 제목(선택 사항)",
+  "releaseCreationMilestoneAdd": "마일스톤 추가",
+  "releaseCreationMilestoneRequired": "마일스톤 제목을 입력하세요.",
+  "releaseCreationMilestoneDuplicate": "이미 선택된 마일스톤입니다.",
+  "releaseCreationMilestoneRemove": "마일스톤 {title} 제거",
+  "releaseCreationMilestoneHelp": "기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "ko",
   "protectedTagsTitle": "보호 태그",
   "protectedTagsEmpty": "보호 태그 규칙이 없습니다.",

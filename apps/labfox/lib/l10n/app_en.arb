@@ -1,4 +1,11 @@
 {
+  "releaseCreationMilestoneTitle": "Milestone title (optional)",
+  "releaseCreationMilestoneAdd": "Add milestone",
+  "releaseCreationMilestoneRequired": "Enter a milestone title.",
+  "releaseCreationMilestoneDuplicate": "This milestone is already selected.",
+  "releaseCreationMilestoneRemove": "Remove milestone {title}",
+  "releaseCreationMilestoneHelp": "Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "en",
   "protectedTagsTitle": "Protected tags",
   "protectedTagsEmpty": "No protected tag rules found.",

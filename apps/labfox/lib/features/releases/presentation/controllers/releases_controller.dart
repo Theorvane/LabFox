@@ -70,6 +70,7 @@ class ReleaseListController
     String? ref,
     String? name,
     String? description,
+    List<String>? milestones,
   }) async {
     final trimmedTag = tagName.trim();
     if (trimmedTag.isEmpty) throw ArgumentError.value(tagName, 'tagName');
@@ -83,6 +84,9 @@ class ReleaseListController
       description: description?.trim().isEmpty == true
           ? null
           : description?.trim(),
+      milestones: milestones == null || milestones.isEmpty
+          ? null
+          : List<String>.unmodifiable(milestones),
     );
     this.ref.invalidateSelf();
     return created;
