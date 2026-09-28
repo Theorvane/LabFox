@@ -10,6 +10,31 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Changes only matching-tag retention count, preserving other policy settings.
+  Future<Project> setCleanupPolicyKeepCount(
+    Object projectId, {
+    required int keepN,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'keep_n': keepN},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy retention count',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy retention count');
+    }
+  }
+
   /// The projects the current user is a member of.
   ///
   /// Defaults to membership, most recently active first — the order that puts
