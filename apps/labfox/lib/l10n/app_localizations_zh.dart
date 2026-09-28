@@ -2016,4 +2016,93 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '项目 $projectId — 所有镜像仓库';
+  }
+
+  @override
+  String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationForbidden => '您无权更改此清理策略。';
+
+  @override
+  String get containerActivationStale => '策略已更改或不再报告。请在保存前重新加载并检查。';
+
+  @override
+  String get containerActivationReload => '重新加载策略';
+
+  @override
+  String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
+
+  @override
+  String get containerKeepPatternClearTitle => '清除清理保留模式';
+
+  @override
+  String get containerKeepPatternClearSave => '确认移除保留模式';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      '移除此项目的保留模式后，所有镜像仓库中原先保留的标签可能在计划清理时被永久删除。latest 标签及其他保留和保护规则仍然适用；这不会立即删除标签。请检查下方当前条件。仅发送空的保留模式字符串。其他策略字段不变，但 GitLab 可能重新安排下次运行。请求被接受不代表清理完成或存储空间已回收。';
+
+  @override
+  String get containerKeepPatternClearAcknowledge => '我了解原先保留的标签可能成为永久删除的对象。';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      '必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。';
+
+  @override
+  String get containerKeepPatternClearAccepted => '保留模式移除请求已被接受。';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
 }

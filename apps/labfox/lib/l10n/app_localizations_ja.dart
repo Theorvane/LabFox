@@ -2022,4 +2022,97 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'プロジェクト $projectId — すべてのイメージリポジトリ';
+  }
+
+  @override
+  String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
+
+  @override
+  String get containerActivationStale =>
+      'ポリシーが変更されたか、報告されなくなりました。保存する前に再読み込みして確認してください。';
+
+  @override
+  String get containerActivationReload => 'ポリシーを再読み込み';
+
+  @override
+  String get containerActivationRateLimited =>
+      'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerKeepPatternClearTitle => 'クリーンアップ保持パターンを削除';
+
+  @override
+  String get containerKeepPatternClearSave => '保持パターンの削除を確認';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      'プロジェクト全体の保持パターンを削除すると、すべてのイメージリポジトリで以前保持されていたタグが定期クリーンアップによる完全削除の対象になる場合があります。latest タグと他の保持・保護ルールは引き続き適用され、タグが直ちに削除されるわけではありません。以下の現在の条件を確認してください。空の保持パターン文字列のみ送信します。他のポリシーフィールドは変更しませんが、GitLab が次回実行を再設定する場合があります。リクエストの受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerKeepPatternClearAcknowledge =>
+      '以前保持されていたタグが完全削除の対象になる場合があることを理解しました。';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      '有効状態、実行間隔、保持数、期間、有効な削除パターン、および空でない保持パターンの報告が必要です。空または未報告の保持パターンはここでは削除できません。ポリシーは作成しません。';
+
+  @override
+  String get containerKeepPatternClearAccepted => '保持パターン削除リクエストが受理されました。';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。';
 }
