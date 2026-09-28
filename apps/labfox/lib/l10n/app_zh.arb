@@ -1,4 +1,11 @@
 {
+  "releaseScheduleEdit": "编辑发布日期",
+  "releaseScheduleChangeDate": "更改日期",
+  "releaseScheduleChangeTime": "更改时间",
+  "releaseScheduleSave": "保存发布日期",
+  "releaseScheduleError": "无法更新发布日期。",
+  "releaseScheduleHelp": "时间使用设备时区（{zone}）。选择未来日期会安排即将发布的版本。",
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "@@locale": "zh",
   "protectedTagsTitle": "受保护标签",
   "protectedTagsEmpty": "没有受保护标签规则。",

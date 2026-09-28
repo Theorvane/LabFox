@@ -25,6 +25,12 @@ class ReleasesRepository {
     description: description,
   );
 
+  Future<GitLabRelease> updateReleasedAt(
+    int projectId,
+    String tagName,
+    DateTime releasedAt,
+  ) => client.releases.updateReleasedAt(projectId, tagName, releasedAt);
+
   Future<GitLabRelease> create(
     int projectId, {
     required String tagName,

@@ -83,6 +83,30 @@ class ReleasesApi {
     }
   }
 
+  /// Changes publication time without replacing other release metadata.
+  Future<GitLabRelease> updateReleasedAt(
+    Object projectId,
+    String tagName,
+    DateTime releasedAt,
+  ) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+        data: {'released_at': releasedAt.toUtc().toIso8601String()},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release date',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release date');
+    }
+  }
+
   Future<GitLabRelease> create(
     Object projectId, {
     required String tagName,

@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => 'リリース日時を編集';
+
+  @override
+  String get releaseScheduleChangeDate => '日付を変更';
+
+  @override
+  String get releaseScheduleChangeTime => '時刻を変更';
+
+  @override
+  String get releaseScheduleSave => 'リリース日時を保存';
+
+  @override
+  String get releaseScheduleError => 'リリース日時を更新できませんでした。';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '時刻にはデバイスのタイムゾーン（$zone）を使用します。未来の日時は予定リリースとして設定されます。';
+  }
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override

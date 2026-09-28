@@ -1,4 +1,11 @@
 {
+  "releaseScheduleEdit": "रिलीज़ की तारीख संपादित करें",
+  "releaseScheduleChangeDate": "तारीख बदलें",
+  "releaseScheduleChangeTime": "समय बदलें",
+  "releaseScheduleSave": "रिलीज़ की तारीख सहेजें",
+  "releaseScheduleError": "रिलीज़ की तारीख अपडेट नहीं हो सकी।",
+  "releaseScheduleHelp": "समय आपके डिवाइस के समय क्षेत्र ({zone}) में है। भविष्य की तारीख आगामी रिलीज़ निर्धारित करती है।",
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "@@locale": "hi",
   "protectedTagsTitle": "सुरक्षित टैग",
   "protectedTagsEmpty": "कोई सुरक्षित टैग नियम नहीं मिला।",

@@ -1,4 +1,11 @@
 {
+  "releaseScheduleEdit": "リリース日時を編集",
+  "releaseScheduleChangeDate": "日付を変更",
+  "releaseScheduleChangeTime": "時刻を変更",
+  "releaseScheduleSave": "リリース日時を保存",
+  "releaseScheduleError": "リリース日時を更新できませんでした。",
+  "releaseScheduleHelp": "時刻にはデバイスのタイムゾーン（{zone}）を使用します。未来の日時は予定リリースとして設定されます。",
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "@@locale": "ja",
   "protectedTagsTitle": "保護されたタグ",
   "protectedTagsEmpty": "保護タグのルールがありません。",
