@@ -2068,4 +2068,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryDelete => 'Delete repository';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle =>
+      'Delete image repository?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return 'Delete “$path” and all its tags? This cannot be undone.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'You cannot delete this repository. Check your permissions and protection rules.';
+
+  @override
+  String get containerRepositoryDeleteError =>
+      'Could not schedule repository deletion. Try again.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => 'Deletion scheduled';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'Repository deletion has been scheduled. Refresh to check progress.';
 }

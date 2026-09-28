@@ -2064,4 +2064,34 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerRepositoryDelete => 'रिपॉज़िटरी हटाएँ';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => 'इमेज रिपॉज़िटरी हटाएँ?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '“$path” और उसके सभी टैग हटाएँ? इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      'हटाना पृष्ठभूमि में निर्धारित होता है और इसमें समय लग सकता है। प्रगति देखने के लिए रजिस्ट्री रीफ़्रेश करें।';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'आप यह रिपॉज़िटरी नहीं हटा सकते। अपनी अनुमतियाँ और सुरक्षा नियम जाँचें।';
+
+  @override
+  String get containerRepositoryDeleteError =>
+      'रिपॉज़िटरी हटाना निर्धारित नहीं किया जा सका। फिर प्रयास करें।';
+
+  @override
+  String get containerRepositoryDeletionScheduled => 'हटाना निर्धारित है';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'रिपॉज़िटरी हटाना निर्धारित हो गया है। प्रगति देखने के लिए रीफ़्रेश करें।';
 }

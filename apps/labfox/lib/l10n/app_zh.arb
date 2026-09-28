@@ -547,5 +547,13 @@
   "mrAddTodo": "添加到待办事项",
   "mrTodoAdded": "已添加到待办事项。",
   "mrTodoExists": "该合并请求已在待办事项中。",
-  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。",
+  "containerRepositoryDelete": "删除仓库",
+  "containerRepositoryDeleteConfirmTitle": "删除镜像仓库？",
+  "containerRepositoryDeleteConfirmBody": "删除“{path}”及其所有标签？此操作无法撤销。",
+  "containerRepositoryDeleteWarning": "删除操作将在后台执行，可能需要一些时间。刷新镜像仓库列表以查看进度。",
+  "containerRepositoryDeleteForbidden": "无法删除此仓库。请检查您的权限和保护规则。",
+  "containerRepositoryDeleteError": "无法安排仓库删除。请重试。",
+  "containerRepositoryDeletionScheduled": "已安排删除",
+  "containerRepositoryDeletionNotice": "已安排删除仓库。请刷新以查看进度。"
 }

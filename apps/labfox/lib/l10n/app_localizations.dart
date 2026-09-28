@@ -4033,6 +4033,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerRepositoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete repository'**
+  String get containerRepositoryDelete;
+
+  /// No description provided for @containerRepositoryDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete image repository?'**
+  String get containerRepositoryDeleteConfirmTitle;
+
+  /// Confirmation identifying the complete image repository
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{path}” and all its tags? This cannot be undone.'**
+  String containerRepositoryDeleteConfirmBody(String path);
+
+  /// No description provided for @containerRepositoryDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.'**
+  String get containerRepositoryDeleteWarning;
+
+  /// No description provided for @containerRepositoryDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this repository. Check your permissions and protection rules.'**
+  String get containerRepositoryDeleteForbidden;
+
+  /// No description provided for @containerRepositoryDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule repository deletion. Try again.'**
+  String get containerRepositoryDeleteError;
+
+  /// No description provided for @containerRepositoryDeletionScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion scheduled'**
+  String get containerRepositoryDeletionScheduled;
+
+  /// No description provided for @containerRepositoryDeletionNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository deletion has been scheduled. Refresh to check progress.'**
+  String get containerRepositoryDeletionNotice;
 }
 
 class _AppLocalizationsDelegate

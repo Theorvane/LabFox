@@ -2027,4 +2027,33 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerRepositoryDelete => '저장소 삭제';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => '이미지 저장소를 삭제할까요?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '“$path”와 모든 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '삭제는 비동기로 예약되며 시간이 걸릴 수 있습니다. 레지스트리를 새로고침해 진행 상태를 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      '이 저장소를 삭제할 수 없습니다. 권한과 보호 규칙을 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteError => '저장소 삭제를 예약할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '삭제 예약됨';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      '저장소 삭제가 예약되었습니다. 새로고침해 진행 상태를 확인하세요.';
 }

@@ -2016,4 +2016,31 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerRepositoryDelete => '删除仓库';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => '删除镜像仓库？';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '删除“$path”及其所有标签？此操作无法撤销。';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '删除操作将在后台执行，可能需要一些时间。刷新镜像仓库列表以查看进度。';
+
+  @override
+  String get containerRepositoryDeleteForbidden => '无法删除此仓库。请检查您的权限和保护规则。';
+
+  @override
+  String get containerRepositoryDeleteError => '无法安排仓库删除。请重试。';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '已安排删除';
+
+  @override
+  String get containerRepositoryDeletionNotice => '已安排删除仓库。请刷新以查看进度。';
 }
