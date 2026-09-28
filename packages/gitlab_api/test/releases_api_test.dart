@@ -248,6 +248,48 @@ void main() {
     expect(link.name, 'New package');
   });
 
+  test(
+    'updates a direct download path without changing the target URL',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'name': 'Package',
+            'url': 'https://example.com/app.zip',
+            'direct_asset_url': 'https://example.com/downloads/bin/app.zip',
+            'link_type': 'package',
+          },
+        );
+      });
+      final link = await client.releases.updateAssetLink(
+        'team/app',
+        'release/2',
+        12,
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+        directAssetPath: '/bin/app.zip',
+      );
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+      );
+      expect(request.data, {
+        'name': 'Package',
+        'url': 'https://example.com/app.zip',
+        'direct_asset_path': '/bin/app.zip',
+      });
+      expect(link.directAssetUrl, 'https://example.com/downloads/bin/app.zip');
+      expect(link.url, 'https://example.com/app.zip');
+      expect(link.linkType, 'package');
+    },
+  );
+
   test('maps forbidden asset link editing', () async {
     final forbidden = _client(
       (_) => (status: 403, headers: const {}, body: const {}),

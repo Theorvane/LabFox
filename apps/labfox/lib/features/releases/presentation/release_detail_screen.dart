@@ -552,6 +552,7 @@ class _EditAssetLinkDialog extends ConsumerStatefulWidget {
 }
 
 class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
+  final _directPath = TextEditingController();
   late final TextEditingController _name;
   late final TextEditingController _url;
   bool _saving = false;
@@ -568,6 +569,7 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
   void dispose() {
     _name.dispose();
     _url.dispose();
+    _directPath.dispose();
     super.dispose();
   }
 
@@ -575,6 +577,18 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
     final l10n = AppLocalizations.of(context);
     final name = _name.text.trim();
     final url = _url.text.trim();
+    final directPath = _directPath.text.trim();
+    final pathUri = Uri.tryParse(directPath);
+    if (directPath.isNotEmpty &&
+        (!directPath.startsWith('/') ||
+            pathUri == null ||
+            pathUri.hasAuthority ||
+            pathUri.hasScheme ||
+            pathUri.hasQuery ||
+            pathUri.hasFragment)) {
+      setState(() => _error = l10n.releaseAssetDirectPathInvalid);
+      return;
+    }
     final uri = Uri.tryParse(url);
     if (name.isEmpty) {
       setState(() => _error = l10n.releaseAssetNameRequired);
@@ -599,7 +613,12 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
     try {
       await ref
           .read(releaseAssetLinkEditControllerProvider(widget.keyRef).notifier)
-          .save(widget.link.id, name: name, url: url);
+          .save(
+            widget.link.id,
+            name: name,
+            url: url,
+            directAssetPath: directPath.isEmpty ? null : directPath,
+          );
       if (!mounted) return;
       Navigator.of(context).pop();
     } catch (_) {
@@ -632,6 +651,15 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
               enabled: !_saving,
               keyboardType: TextInputType.url,
               decoration: InputDecoration(labelText: l10n.releaseAssetUrl),
+            ),
+            TextField(
+              controller: _directPath,
+              enabled: !_saving,
+              decoration: InputDecoration(
+                labelText: l10n.releaseAssetDirectPath,
+                helperText: l10n.releaseAssetDirectPathHelp,
+                helperMaxLines: 3,
+              ),
             ),
             if (_error != null) ...[
               const SizedBox(height: LabFoxSpacing.sm),

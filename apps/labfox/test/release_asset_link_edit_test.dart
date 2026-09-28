@@ -43,6 +43,7 @@ class _Repository extends ReleasesRepository {
     int linkId, {
     required String name,
     required String url,
+    String? directAssetPath,
   }) async {
     expect(projectId, 7);
     expect(tagName, 'release/1');

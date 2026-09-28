@@ -209,6 +209,7 @@ class ReleaseAssetLinkEditController
     int linkId, {
     required String name,
     required String url,
+    String? directAssetPath,
   }) async {
     state = const AsyncLoading();
     try {
@@ -220,6 +221,7 @@ class ReleaseAssetLinkEditController
         linkId,
         name: name.trim(),
         url: url.trim(),
+        directAssetPath: directAssetPath,
       );
       ref.invalidate(releaseDetailProvider(arg));
       ref.invalidate(releaseListControllerProvider(arg.projectId));

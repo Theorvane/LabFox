@@ -848,6 +848,24 @@ abstract class AppLocalizations {
   /// **'Could not update the asset link.'**
   String get releaseAssetEditError;
 
+  /// No description provided for @releaseAssetDirectPath.
+  ///
+  /// In en, this message translates to:
+  /// **'New direct download path (optional)'**
+  String get releaseAssetDirectPath;
+
+  /// No description provided for @releaseAssetDirectPathHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.'**
+  String get releaseAssetDirectPathHelp;
+
+  /// No description provided for @releaseAssetDirectPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a path starting with /, without a host, query, or fragment.'**
+  String get releaseAssetDirectPathInvalid;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

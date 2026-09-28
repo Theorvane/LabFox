@@ -392,6 +392,17 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
 
   @override
+  String get releaseAssetDirectPath => '새 직접 다운로드 경로 (선택 사항)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '비워두면 현재 직접 다운로드 경로를 유지합니다. 변경하려면 /bin/app.zip 같은 경로를 입력하세요.';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      '호스트, 쿼리, 프래그먼트 없이 /로 시작하는 경로를 입력하세요.';
+
+  @override
   String get activityTitle => '활동';
 
   @override

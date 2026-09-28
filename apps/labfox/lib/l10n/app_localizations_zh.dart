@@ -391,6 +391,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetEditError => '无法更新资源链接。';
 
   @override
+  String get releaseAssetDirectPath => '新的直接下载路径（可选）';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '留空以保留当前直接下载路径。输入 /bin/app.zip 等路径以替换。';
+
+  @override
+  String get releaseAssetDirectPathInvalid => '请输入以 / 开头且不包含主机、查询或片段的路径。';
+
+  @override
   String get activityTitle => '动态';
 
   @override

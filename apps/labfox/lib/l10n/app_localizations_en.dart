@@ -398,6 +398,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseAssetEditError => 'Could not update the asset link.';
 
   @override
+  String get releaseAssetDirectPath => 'New direct download path (optional)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'Enter a path starting with /, without a host, query, or fragment.';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override
