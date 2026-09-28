@@ -301,6 +301,42 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+  test('deletes a release asset link by global link id', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Package',
+          'url': 'https://example.com/app.zip',
+        },
+      );
+    });
+    await client.releases.deleteAssetLink('team/app', 'release/2', 12);
+    expect(request.method, 'DELETE');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+    );
+  });
+
+  test('maps forbidden asset link deletion', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.deleteAssetLink(7, 'v2', 12),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('accepts no-content success for asset link deletion', () async {
+    final client = _client((_) => (status: 204, headers: const {}, body: null));
+    await client.releases.deleteAssetLink(7, 'v2', 12);
+  });
 }
 
 GitLabClient _client(
