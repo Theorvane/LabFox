@@ -2068,4 +2068,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerProtectionPatternTitle =>
+      'Edit repository protection pattern';
+
+  @override
+  String get containerProtectionPatternSave => 'Save pattern';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'I have reviewed the current rule and new pattern and understand the protection changes.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPatternError =>
+      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPatternReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'Repository protection pattern updated.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'The pattern was rejected or is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionPatternDraft => 'New repository path pattern';
 }

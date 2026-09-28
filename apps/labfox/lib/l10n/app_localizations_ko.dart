@@ -2027,4 +2027,87 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerProtectionPatternTitle => '저장소 보호 패턴 수정';
+
+  @override
+  String get containerProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      '패턴 변경은 기존에 일치하던 저장소의 보호를 해제하고 다른 저장소에 적용할 수 있습니다. 와일드카드(*)는 여러 저장소에 영향을 줍니다. 두 최소 역할은 변경되지 않으며 다른 규칙과 권한은 계속 적용됩니다. 이미지를 삭제하거나 내 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPatternError =>
+      '패턴 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPatternSaved => '저장소 보호 패턴이 변경되었습니다.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternDraft => '새 저장소 경로 패턴';
 }

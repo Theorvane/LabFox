@@ -4033,6 +4033,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerRepositoryProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
+
+  /// No description provided for @containerRepositoryProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerRepositoryProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
+
+  /// No description provided for @containerRepositoryProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit repository protection pattern'**
+  String get containerProtectionPatternTitle;
+
+  /// No description provided for @containerProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerProtectionPatternSave;
+
+  /// No description provided for @containerProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.'**
+  String get containerProtectionPatternWarning;
+
+  /// No description provided for @containerProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerProtectionPatternAcknowledge;
+
+  /// Exact project and repository protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPatternForbidden;
+
+  /// No description provided for @containerProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPatternError;
+
+  /// No description provided for @containerProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPatternStale;
+
+  /// No description provided for @containerProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPatternReload;
+
+  /// No description provided for @containerProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection pattern updated.'**
+  String get containerProtectionPatternSaved;
+
+  /// No description provided for @containerProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPatternMissing;
+
+  /// No description provided for @containerProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPatternRateLimited;
+
+  /// No description provided for @containerProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerProtectionPatternInvalid;
+
+  /// No description provided for @containerProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New repository path pattern'**
+  String get containerProtectionPatternDraft;
 }
 
 class _AppLocalizationsDelegate
