@@ -31,12 +31,14 @@ class ReleasesRepository {
     String? ref,
     String? name,
     String? description,
+    DateTime? releasedAt,
   }) => client.releases.create(
     projectId,
     tagName: tagName,
     ref: ref,
     name: name,
     description: description,
+    releasedAt: releasedAt,
   );
 
   Future<ReleaseAssetLink> createAssetLink(

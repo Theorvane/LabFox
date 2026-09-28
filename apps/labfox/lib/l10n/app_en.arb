@@ -1,4 +1,11 @@
 {
+  "releaseCreationDateLabel": "Publication date (optional)",
+  "releaseCreationDateDefault": "Publication time will be set by GitLab.",
+  "releaseCreationChooseDate": "Choose publication date",
+  "releaseCreationChooseTime": "Choose publication time",
+  "releaseCreationClearDate": "Use publication time from GitLab",
+  "releaseCreationDateHelp": "Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "@@locale": "en",
   "protectedTagsTitle": "Protected tags",
   "protectedTagsEmpty": "No protected tag rules found.",

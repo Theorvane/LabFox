@@ -89,6 +89,7 @@ class ReleasesApi {
     String? ref,
     String? name,
     String? description,
+    DateTime? releasedAt,
   }) async {
     try {
       final response = await _dio.post<dynamic>(
@@ -98,6 +99,7 @@ class ReleasesApi {
           'ref': ?ref,
           'name': ?name,
           'description': ?description,
+          'released_at': ?releasedAt?.toUtc().toIso8601String(),
         },
       );
       if (response.statusCode != 201 || response.data is! Map) {

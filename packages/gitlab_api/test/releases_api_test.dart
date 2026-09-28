@@ -6,6 +6,41 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  for (final date in [
+    DateTime.parse('2027-01-02T12:04:05+09:00'),
+    DateTime.utc(2020, 1, 2),
+  ]) {
+    test(
+      'creates a release with an explicit UTC publication time $date',
+      () async {
+        late RequestOptions request;
+        final client = _client((options) {
+          request = options;
+          return (
+            status: 201,
+            headers: const <String, List<String>>{},
+            body: {
+              'name': 'v2',
+              'tag_name': 'v2',
+              'released_at': date.toUtc().toIso8601String(),
+            },
+          );
+        });
+        final release = await client.releases.create(
+          'team/app',
+          tagName: 'v2',
+          releasedAt: date,
+        );
+        expect(request.method, 'POST');
+        expect(request.path, '/projects/team%2Fapp/releases');
+        expect(request.data, {
+          'tag_name': 'v2',
+          'released_at': date.toUtc().toIso8601String(),
+        });
+        expect(release.releasedAt, date.toUtc());
+      },
+    );
+  }
   test('lists releases with pagination and parses assets', () async {
     late RequestOptions request;
     final client = _client((options) {

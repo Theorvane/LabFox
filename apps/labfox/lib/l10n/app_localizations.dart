@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releaseCreationDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication date (optional)'**
+  String get releaseCreationDateLabel;
+
+  /// No description provided for @releaseCreationDateDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication time will be set by GitLab.'**
+  String get releaseCreationDateDefault;
+
+  /// No description provided for @releaseCreationChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication date'**
+  String get releaseCreationChooseDate;
+
+  /// No description provided for @releaseCreationChooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication time'**
+  String get releaseCreationChooseTime;
+
+  /// No description provided for @releaseCreationClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Use publication time from GitLab'**
+  String get releaseCreationClearDate;
+
+  /// No description provided for @releaseCreationDateHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
+  String releaseCreationDateHelp(String zone);
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

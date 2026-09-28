@@ -1,4 +1,11 @@
 {
+  "releaseCreationDateLabel": "공개 날짜(선택 사항)",
+  "releaseCreationDateDefault": "공개 시간은 GitLab에서 설정합니다.",
+  "releaseCreationChooseDate": "공개 날짜 선택",
+  "releaseCreationChooseTime": "공개 시간 선택",
+  "releaseCreationClearDate": "GitLab 공개 시간 사용",
+  "releaseCreationDateHelp": "시간대: {zone}. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "@@locale": "ko",
   "protectedTagsTitle": "보호 태그",
   "protectedTagsEmpty": "보호 태그 규칙이 없습니다.",
