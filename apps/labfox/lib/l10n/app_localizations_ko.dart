@@ -425,6 +425,24 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get releaseAssetType => '링크 유형';
+
+  @override
+  String get releaseAssetKeepType => '현재 유형 유지';
+
+  @override
+  String get releaseAssetTypeOther => '기타';
+
+  @override
+  String get releaseAssetTypeRunbook => '런북';
+
+  @override
+  String get releaseAssetTypeImage => '이미지';
+
+  @override
+  String get releaseAssetTypePackage => '패키지';
+
+  @override
   String get activityTitle => '활동';
 
   @override

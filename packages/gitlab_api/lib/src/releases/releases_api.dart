@@ -192,11 +192,12 @@ class ReleasesApi {
     int linkId, {
     required String name,
     required String url,
+    String? linkType,
   }) async {
     try {
       final response = await _dio.put<dynamic>(
         '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
-        data: {'name': name, 'url': url},
+        data: {'name': name, 'url': url, 'link_type': ?linkType},
       );
       if (response.statusCode != 200 || response.data is! Map) {
         throw mapStatus(
