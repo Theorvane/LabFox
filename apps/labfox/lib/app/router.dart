@@ -12,6 +12,7 @@ import '../features/branches/presentation/branches_screen.dart';
 import '../features/commits/presentation/commit_detail_screen.dart';
 import '../features/commits/presentation/commits_screen.dart';
 import '../features/container_registry/presentation/container_registry_screen.dart';
+import '../features/container_registry/presentation/container_repository_protection_screen.dart';
 import '../features/container_registry/presentation/container_repository_screen.dart';
 import '../features/container_registry/presentation/container_tag_screen.dart';
 import '../features/deployments/presentation/deployment_detail_screen.dart';
@@ -119,6 +120,8 @@ abstract final class Routes {
       '/projects/$id/snippets/$snippetId/file?path=${Uri.encodeQueryComponent(path)}';
   static String projectMembers(int id) => '/projects/$id/members';
   static String containerRegistry(int id) => '/projects/$id/container_registry';
+  static String containerRepositoryProtectionRules(int id) =>
+      '/projects/$id/container_registry/protection/repositories';
   static String containerRepository(int id, int repositoryId) =>
       '/projects/$id/container_registry/$repositoryId';
   static String containerTag(int id, int repositoryId, String tagName) =>
@@ -395,6 +398,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                   projectId: int.parse(state.pathParameters['id']!),
                 ),
                 routes: [
+                  GoRoute(
+                    path: 'protection/repositories',
+                    builder: (context, state) =>
+                        ContainerRepositoryProtectionScreen(
+                          projectId: int.parse(state.pathParameters['id']!),
+                        ),
+                  ),
                   GoRoute(
                     path: ':repositoryId',
                     builder: (context, state) => ContainerRepositoryScreen(

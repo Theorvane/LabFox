@@ -4,14 +4,68 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry browsing and protection endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
   final Dio _dio;
 
+  /// Deletes a rule, not the repositories or images matching its pattern.
+  Future<void> deleteRepositoryProtectionRule(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting container repository protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'deleting container repository protection rule',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      return (response.data as List<dynamic>)
+          .map(
+            (item) => ContainerRepositoryProtectionRule.fromJson(
+              item as Map<String, dynamic>,
+            ),
+          )
+          .toList(growable: false);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(

@@ -2068,4 +2068,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerProtectionRemoveTitle =>
+      'Delete repository protection rule';
+
+  @override
+  String get containerProtectionRemoveSave => 'Confirm rule deletion';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'Removing this rule can reduce push or delete restrictions for repositories matching this path pattern. Other rules and permissions still apply. This deletes only the protection rule, not repositories, tags, or images. Review the exact target and minimum roles; these roles do not describe your permissions.';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'I understand that this rule\'s protection restrictions will be removed.';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden =>
+      'You do not have permission to delete this repository protection rule.';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'Could not confirm rule deletion. Reload or retry.';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      'The rule changed since confirmation. Reload and review it before deleting.';
+
+  @override
+  String get containerProtectionRemoveReload => 'Reload rule';
+
+  @override
+  String get containerProtectionRemoveDeleted =>
+      'Repository protection rule deleted.';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'The rule was not found, is ambiguous, or is not accessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'Too many requests. Wait and retry.';
 }
