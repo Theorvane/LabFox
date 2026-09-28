@@ -377,6 +377,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
 
   @override
+  String get releaseAssetType => 'लिंक का प्रकार';
+
+  @override
+  String get releaseAssetKeepType => 'मौजूदा प्रकार रखें';
+
+  @override
+  String get releaseAssetTypeOther => 'अन्य';
+
+  @override
+  String get releaseAssetTypeRunbook => 'रनबुक';
+
+  @override
+  String get releaseAssetTypeImage => 'छवि';
+
+  @override
+  String get releaseAssetTypePackage => 'पैकेज';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override

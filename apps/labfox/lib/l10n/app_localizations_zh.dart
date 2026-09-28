@@ -374,6 +374,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetEditError => '无法更新资源链接。';
 
   @override
+  String get releaseAssetType => '链接类型';
+
+  @override
+  String get releaseAssetKeepType => '保留当前类型';
+
+  @override
+  String get releaseAssetTypeOther => '其他';
+
+  @override
+  String get releaseAssetTypeRunbook => '操作手册';
+
+  @override
+  String get releaseAssetTypeImage => '图片';
+
+  @override
+  String get releaseAssetTypePackage => '软件包';
+
+  @override
   String get activityTitle => '动态';
 
   @override

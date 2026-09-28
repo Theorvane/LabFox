@@ -248,6 +248,44 @@ void main() {
     expect(link.name, 'New package');
   });
 
+  for (final type in ['other', 'runbook', 'image', 'package']) {
+    test('updates an asset link with type $type', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'name': 'Asset',
+            'url': 'https://example.com/asset',
+            'link_type': type,
+          },
+        );
+      });
+      final link = await client.releases.updateAssetLink(
+        'team/app',
+        'release/2',
+        12,
+        name: 'Asset',
+        url: 'https://example.com/asset',
+        linkType: type,
+      );
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+      );
+      expect(request.data, {
+        'name': 'Asset',
+        'url': 'https://example.com/asset',
+        'link_type': type,
+      });
+      expect(link.linkType, type);
+    });
+  }
+
   test('maps forbidden asset link editing', () async {
     final forbidden = _client(
       (_) => (status: 403, headers: const {}, body: const {}),

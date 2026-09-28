@@ -506,6 +506,8 @@ class _EditAssetLinkDialog extends ConsumerStatefulWidget {
 }
 
 class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
+  static const _types = ['other', 'runbook', 'image', 'package'];
+  String? _linkType;
   late final TextEditingController _name;
   late final TextEditingController _url;
   bool _saving = false;
@@ -516,6 +518,9 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
     super.initState();
     _name = TextEditingController(text: widget.link.name);
     _url = TextEditingController(text: widget.link.url);
+    _linkType = _types.contains(widget.link.linkType)
+        ? widget.link.linkType
+        : null;
   }
 
   @override
@@ -553,7 +558,12 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
     try {
       await ref
           .read(releaseAssetLinkEditControllerProvider(widget.keyRef).notifier)
-          .save(widget.link.id, name: name, url: url);
+          .save(
+            widget.link.id,
+            name: name,
+            url: url,
+            linkType: _linkType == widget.link.linkType ? null : _linkType,
+          );
       if (!mounted) return;
       Navigator.of(context).pop();
     } catch (_) {
@@ -586,6 +596,34 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
               enabled: !_saving,
               keyboardType: TextInputType.url,
               decoration: InputDecoration(labelText: l10n.releaseAssetUrl),
+            ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            DropdownButtonFormField<String>(
+              initialValue: _linkType,
+              isExpanded: true,
+              decoration: InputDecoration(labelText: l10n.releaseAssetType),
+              hint: Text(l10n.releaseAssetKeepType),
+              items: [
+                DropdownMenuItem(
+                  value: 'other',
+                  child: Text(l10n.releaseAssetTypeOther),
+                ),
+                DropdownMenuItem(
+                  value: 'runbook',
+                  child: Text(l10n.releaseAssetTypeRunbook),
+                ),
+                DropdownMenuItem(
+                  value: 'image',
+                  child: Text(l10n.releaseAssetTypeImage),
+                ),
+                DropdownMenuItem(
+                  value: 'package',
+                  child: Text(l10n.releaseAssetTypePackage),
+                ),
+              ],
+              onChanged: _saving
+                  ? null
+                  : (value) => setState(() => _linkType = value),
             ),
             if (_error != null) ...[
               const SizedBox(height: LabFoxSpacing.sm),

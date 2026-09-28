@@ -56,11 +56,13 @@ class ReleasesRepository {
     int linkId, {
     required String name,
     required String url,
+    String? linkType,
   }) => client.releases.updateAssetLink(
     projectId,
     tagName,
     linkId,
     name: name,
     url: url,
+    linkType: linkType,
   );
 }
