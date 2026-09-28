@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'widgets/cleanup_policy_delete_pattern_dialog.dart';
 
 /// Project container image repositories.
 class ContainerRegistryScreen extends ConsumerWidget {
@@ -22,6 +23,25 @@ class ContainerRegistryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerRegistryTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerDeletePatternTitle,
+            icon: const Icon(Icons.filter_alt_outlined),
+            onPressed: () async {
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>
+                    CleanupPolicyDeletePatternDialog(projectId: projectId),
+              );
+              if (accepted == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.containerDeletePatternAccepted)),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

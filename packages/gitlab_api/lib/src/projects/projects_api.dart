@@ -10,6 +10,33 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Changes only the modern delete pattern, preserving exact RE2 input.
+  Future<Project> setCleanupPolicyDeletePattern(
+    Object projectId, {
+    required String nameRegexDelete,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'name_regex_delete': nameRegexDelete,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy delete pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy delete pattern');
+    }
+  }
+
   /// The projects the current user is a member of.
   ///
   /// Defaults to membership, most recently active first — the order that puts
