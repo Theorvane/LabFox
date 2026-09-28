@@ -4033,6 +4033,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerPolicyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get containerPolicyStatus;
+
+  /// No description provided for @containerPolicyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get containerPolicyEnabled;
+
+  /// No description provided for @containerPolicyDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get containerPolicyDisabled;
+
+  /// No description provided for @containerPolicyNotReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get containerPolicyNotReported;
+
+  /// No description provided for @containerPolicyCadence.
+  ///
+  /// In en, this message translates to:
+  /// **'Run interval'**
+  String get containerPolicyCadence;
+
+  /// No description provided for @containerPolicyKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags to keep per image'**
+  String get containerPolicyKeepCount;
+
+  /// No description provided for @containerPolicyAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tags older than'**
+  String get containerPolicyAge;
+
+  /// No description provided for @containerPolicyDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern'**
+  String get containerPolicyDeletePattern;
+
+  /// No description provided for @containerPolicyLegacyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (legacy)'**
+  String get containerPolicyLegacyPattern;
+
+  /// No description provided for @containerPolicyKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern'**
+  String get containerPolicyKeepPattern;
+
+  /// No description provided for @containerPolicyEmptyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty pattern'**
+  String get containerPolicyEmptyPattern;
+
+  /// No description provided for @containerPolicyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the cleanup policy.'**
+  String get containerPolicyError;
+
+  /// No description provided for @containerPolicyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view this project cleanup policy.'**
+  String get containerPolicyForbidden;
+
+  /// No description provided for @containerPolicyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project is not accessible, or cleanup policy information is unavailable.'**
+  String get containerPolicyUnavailable;
+
+  /// No description provided for @containerPolicyEmptySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty setting'**
+  String get containerPolicyEmptySetting;
+
+  /// No description provided for @containerActivationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — all image repositories'**
+  String containerActivationTarget(String projectId);
+
+  /// No description provided for @containerActivationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the update. Reload the policy and try again.'**
+  String get containerActivationError;
+
+  /// No description provided for @containerActivationForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this cleanup policy.'**
+  String get containerActivationForbidden;
+
+  /// No description provided for @containerActivationStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The policy changed or is no longer reported. Reload and review it before saving.'**
+  String get containerActivationStale;
+
+  /// No description provided for @containerActivationReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload policy'**
+  String get containerActivationReload;
+
+  /// No description provided for @containerActivationRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and reload the policy before trying again.'**
+  String get containerActivationRateLimited;
+
+  /// No description provided for @containerAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup age limit'**
+  String get containerAgeTitle;
+
+  /// No description provided for @containerAgeSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm age limit change'**
+  String get containerAgeSave;
+
+  /// No description provided for @containerAgeSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New age limit (GitLab API duration)'**
+  String get containerAgeSelect;
+
+  /// No description provided for @containerAgeWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerAgeWarning;
+
+  /// No description provided for @containerAgeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerAgeUnknown;
+
+  /// No description provided for @containerAgeAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup age limit update accepted.'**
+  String get containerAgeAccepted;
 }
 
 class _AppLocalizationsDelegate

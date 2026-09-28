@@ -2016,4 +2016,89 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '项目 $projectId — 所有镜像仓库';
+  }
+
+  @override
+  String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationForbidden => '您无权更改此清理策略。';
+
+  @override
+  String get containerActivationStale => '策略已更改或不再报告。请在保存前重新加载并检查。';
+
+  @override
+  String get containerActivationReload => '重新加载策略';
+
+  @override
+  String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
+
+  @override
+  String get containerAgeTitle => '编辑清理期限';
+
+  @override
+  String get containerAgeSave => '确认期限变更';
+
+  @override
+  String get containerAgeSelect => '新期限 (GitLab API 时长)';
+
+  @override
+  String get containerAgeWarning =>
+      '缩短项目级期限可能导致计划清理时从所有镜像仓库永久删除较新的匹配标签。请检查下面的启用状态和删除条件。其他设置保持不变，这不表示清理已完成。';
+
+  @override
+  String get containerAgeUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerAgeAccepted => '清理期限更新已接受。';
 }
