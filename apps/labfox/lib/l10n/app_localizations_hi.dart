@@ -2048,6 +2048,29 @@ class AppLocalizationsHi extends AppLocalizations {
   String get packageRegistryTitle => 'पैकेज रजिस्ट्री';
 
   @override
+  String get packageDelete => 'पैकेज हटाएँ';
+
+  @override
+  String get packageDeleteConfirmTitle => 'यह पैकेज हटाएँ?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name और उसकी सभी फ़ाइलें हटाएँ? इसे वापस नहीं किया जा सकता।';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'यदि अनुरोध अग्रेषण सक्षम है, तो इस पैकेज को हटाने से निर्भरता भ्रम हमले का जोखिम हो सकता है।';
+
+  @override
+  String get packageDeleteError =>
+      'यह पैकेज हटाया नहीं जा सका। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get packageDeleteForbidden =>
+      'यह पैकेज संरक्षित हो सकता है, या आपके पास इसे हटाने की अनुमति नहीं है।';
+
+  @override
   String get packageRegistryEmpty => 'अभी कोई पैकेज नहीं है।';
 
   @override

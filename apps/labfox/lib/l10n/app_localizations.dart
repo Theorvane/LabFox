@@ -3998,6 +3998,42 @@ abstract class AppLocalizations {
   /// **'Package registry'**
   String get packageRegistryTitle;
 
+  /// No description provided for @packageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package'**
+  String get packageDelete;
+
+  /// No description provided for @packageDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this package?'**
+  String get packageDeleteConfirmTitle;
+
+  /// No description provided for @packageDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name} and all its files? This cannot be undone.'**
+  String packageDeleteConfirmBody(String name);
+
+  /// No description provided for @packageDeleteForwardingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'If request forwarding is enabled, deleting this package can create a dependency confusion risk.'**
+  String get packageDeleteForwardingWarning;
+
+  /// No description provided for @packageDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this package. Please try again.'**
+  String get packageDeleteError;
+
+  /// No description provided for @packageDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'This package may be protected, or you may not have permission to delete it.'**
+  String get packageDeleteForbidden;
+
   /// Empty project package registry
   ///
   /// In en, this message translates to:
