@@ -2064,4 +2064,101 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerPolicyStatus => 'स्थिति';
+
+  @override
+  String get containerPolicyEnabled => 'सक्रिय';
+
+  @override
+  String get containerPolicyDisabled => 'निष्क्रिय';
+
+  @override
+  String get containerPolicyNotReported => 'जानकारी नहीं दी गई';
+
+  @override
+  String get containerPolicyCadence => 'चलने का अंतराल';
+
+  @override
+  String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
+
+  @override
+  String get containerPolicyDeletePattern => 'हटाने का पैटर्न';
+
+  @override
+  String get containerPolicyLegacyPattern => 'हटाने का पैटर्न (पुराना)';
+
+  @override
+  String get containerPolicyKeepPattern => 'रखने का पैटर्न';
+
+  @override
+  String get containerPolicyEmptyPattern => 'खाली पैटर्न';
+
+  @override
+  String get containerPolicyError => 'सफ़ाई नीति लोड नहीं हो सकी।';
+
+  @override
+  String get containerPolicyForbidden =>
+      'इस प्रोजेक्ट की सफ़ाई नीति देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'प्रोजेक्ट सुलभ नहीं है या सफ़ाई नीति की जानकारी उपलब्ध नहीं है।';
+
+  @override
+  String get containerPolicyEmptySetting => 'खाली सेटिंग';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'प्रोजेक्ट $projectId — सभी इमेज रिपॉज़िटरी';
+  }
+
+  @override
+  String get containerActivationError =>
+      'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerActivationForbidden =>
+      'इस सफ़ाई नीति को बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerActivationStale =>
+      'नीति बदल गई है या जानकारी नहीं मिल रही। सहेजने से पहले फिर लोड कर समीक्षा करें।';
+
+  @override
+  String get containerActivationReload => 'नीति फिर लोड करें';
+
+  @override
+  String get containerActivationRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और दोबारा प्रयास से पहले नीति फिर लोड करें।';
+
+  @override
+  String get containerKeepPatternTitle => 'सफ़ाई रखने का पैटर्न संपादित करें';
+
+  @override
+  String get containerKeepPatternSave =>
+      'रखने के पैटर्न में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerKeepPatternSelect => 'नया रखने का पैटर्न (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      'परियोजना के रखने के पैटर्न का दायरा घटाने से नियोजित सफ़ाई में हर रिपॉज़िटरी के पहले संरक्षित टैग स्थायी रूप से हटने के पात्र हो सकते हैं। नीचे सक्रिय स्थिति और हटाने/रखने के मानदंड जाँचें। GitLab RE2 उपयोग करता है और पूरे टैग नाम पर पैटर्न लागू करता है। इनपुट जैसा है वैसा भेजा जाता है और GitLab जाँचता है। अन्य सेटिंग नहीं बदलतीं और स्वीकृति सफ़ाई पूर्ण होने की पुष्टि नहीं है। खाली इनपुट पैटर्न नहीं मिटाता।';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, आयु और प्रभावी हटाने/रखने के पैटर्न ज्ञात होना आवश्यक है। रिपोर्ट किया खाली रखने का पैटर्न बदला जा सकता है, अज्ञात मान नहीं। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerKeepPatternAccepted =>
+      'सफ़ाई रखने के पैटर्न का अपडेट स्वीकार किया गया।';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 }

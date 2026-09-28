@@ -2022,4 +2022,96 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'プロジェクト $projectId — すべてのイメージリポジトリ';
+  }
+
+  @override
+  String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
+
+  @override
+  String get containerActivationStale =>
+      'ポリシーが変更されたか、報告されなくなりました。保存する前に再読み込みして確認してください。';
+
+  @override
+  String get containerActivationReload => 'ポリシーを再読み込み';
+
+  @override
+  String get containerActivationRateLimited =>
+      'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerKeepPatternTitle => 'クリーンアップ保持パターンを編集';
+
+  @override
+  String get containerKeepPatternSave => '保持パターンの変更を確認';
+
+  @override
+  String get containerKeepPatternSelect => '新しい保持パターン (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      'プロジェクト全体の保持パターンを狭めると、定期クリーンアップで各リポジトリの以前保持されたタグが完全削除の対象になる可能性があります。以下の有効状態と削除・保持条件を確認してください。GitLabはRE2を使い、タグ名全体にパターンを適用します。入力はそのまま送信されGitLabが検証します。他の設定は変更されず、受理は削除完了を意味しません。空の入力ではパターンを消去しません。';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      '有効状態、間隔、保持数、期限、有効な削除・保持パターンの報告が必要です。報告された空の保持パターンは変更できますが、未報告の値は変更できません。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerKeepPatternAccepted => 'クリーンアップ保持パターンの更新が受理されました。';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 }
