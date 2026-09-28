@@ -383,6 +383,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseAssetDeleteError => '자산 링크를 삭제할 수 없습니다.';
 
   @override
+  String get releaseEditAssetLink => '자산 링크 편집';
+
+  @override
+  String get releaseSaveLink => '링크 저장';
+
+  @override
+  String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
+
+  @override
   String get activityTitle => '활동';
 
   @override

@@ -382,6 +382,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetDeleteError => '无法删除资源链接。';
 
   @override
+  String get releaseEditAssetLink => '编辑资源链接';
+
+  @override
+  String get releaseSaveLink => '保存链接';
+
+  @override
+  String get releaseAssetEditError => '无法更新资源链接。';
+
+  @override
   String get activityTitle => '动态';
 
   @override

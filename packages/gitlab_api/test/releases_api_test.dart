@@ -214,6 +214,55 @@ void main() {
     );
   });
 
+  test('updates an asset link using its global id and encoded tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'New package',
+          'url': 'https://example.com/new.zip',
+        },
+      );
+    });
+    final link = await client.releases.updateAssetLink(
+      'team/app',
+      'release/2',
+      12,
+      name: 'New package',
+      url: 'https://example.com/new.zip',
+    );
+    expect(request.method, 'PUT');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+    );
+    expect(request.data, {
+      'name': 'New package',
+      'url': 'https://example.com/new.zip',
+    });
+    expect(link.id, 12);
+    expect(link.name, 'New package');
+  });
+
+  test('maps forbidden asset link editing', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.updateAssetLink(
+        7,
+        'v2',
+        12,
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
   test('deletes a release asset link by global link id', () async {
     late RequestOptions request;
     final client = _client((options) {

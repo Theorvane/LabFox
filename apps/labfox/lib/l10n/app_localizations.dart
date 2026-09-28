@@ -830,6 +830,24 @@ abstract class AppLocalizations {
   /// **'Could not delete the asset link.'**
   String get releaseAssetDeleteError;
 
+  /// No description provided for @releaseEditAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit asset link'**
+  String get releaseEditAssetLink;
+
+  /// No description provided for @releaseSaveLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Save link'**
+  String get releaseSaveLink;
+
+  /// No description provided for @releaseAssetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the asset link.'**
+  String get releaseAssetEditError;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

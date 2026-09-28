@@ -50,6 +50,19 @@ class ReleasesRepository {
   Future<void> delete(int projectId, String tagName) =>
       client.releases.delete(projectId, tagName);
 
+  Future<ReleaseAssetLink> updateAssetLink(
+    int projectId,
+    String tagName,
+    int linkId, {
+    required String name,
+    required String url,
+  }) => client.releases.updateAssetLink(
+    projectId,
+    tagName,
+    linkId,
+    name: name,
+    url: url,
+  );
   Future<void> deleteAssetLink(int projectId, String tagName, int linkId) =>
       client.releases.deleteAssetLink(projectId, tagName, linkId);
 }

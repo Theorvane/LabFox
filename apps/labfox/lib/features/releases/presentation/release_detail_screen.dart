@@ -401,6 +401,19 @@ class _Content extends ConsumerWidget {
                         ? null
                         : () => _deleteLink(context, ref, asset),
                   ),
+                  editAction: IconButton(
+                    tooltip: l10n.releaseEditAssetLink,
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => _EditAssetLinkDialog(
+                        keyRef: keyRef,
+                        link: asset,
+                        existingLinks: links,
+                      ),
+                    ),
+                  ),
                 ),
               for (final source in sources)
                 _AssetTile(name: source.format, url: source.url, open: open),
@@ -523,17 +536,140 @@ class _AddAssetLinkDialogState extends ConsumerState<_AddAssetLinkDialog> {
   }
 }
 
+class _EditAssetLinkDialog extends ConsumerStatefulWidget {
+  const _EditAssetLinkDialog({
+    required this.keyRef,
+    required this.link,
+    required this.existingLinks,
+  });
+  final ReleaseRef keyRef;
+  final ReleaseAssetLink link;
+  final List<ReleaseAssetLink> existingLinks;
+
+  @override
+  ConsumerState<_EditAssetLinkDialog> createState() =>
+      _EditAssetLinkDialogState();
+}
+
+class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
+  late final TextEditingController _name;
+  late final TextEditingController _url;
+  bool _saving = false;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.link.name);
+    _url = TextEditingController(text: widget.link.url);
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _url.dispose();
+    super.dispose();
+  }
+
+  Future<void> _save() async {
+    final l10n = AppLocalizations.of(context);
+    final name = _name.text.trim();
+    final url = _url.text.trim();
+    final uri = Uri.tryParse(url);
+    if (name.isEmpty) {
+      setState(() => _error = l10n.releaseAssetNameRequired);
+      return;
+    }
+    if (uri == null ||
+        !(uri.isScheme('http') || uri.isScheme('https')) ||
+        uri.host.isEmpty) {
+      setState(() => _error = l10n.releaseAssetUrlInvalid);
+      return;
+    }
+    if (widget.existingLinks.any(
+      (link) => link.id != widget.link.id && link.name == name,
+    )) {
+      setState(() => _error = l10n.releaseAssetNameDuplicate);
+      return;
+    }
+    setState(() {
+      _saving = true;
+      _error = null;
+    });
+    try {
+      await ref
+          .read(releaseAssetLinkEditControllerProvider(widget.keyRef).notifier)
+          .save(widget.link.id, name: name, url: url);
+      if (!mounted) return;
+      Navigator.of(context).pop();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _saving = false;
+        _error = l10n.releaseAssetEditError;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      scrollable: true,
+      title: Text(l10n.releaseEditAssetLink),
+      content: SizedBox(
+        width: 480,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _name,
+              enabled: !_saving,
+              decoration: InputDecoration(labelText: l10n.releaseAssetName),
+            ),
+            TextField(
+              controller: _url,
+              enabled: !_saving,
+              keyboardType: TextInputType.url,
+              decoration: InputDecoration(labelText: l10n.releaseAssetUrl),
+            ),
+            if (_error != null) ...[
+              const SizedBox(height: LabFoxSpacing.sm),
+              Text(
+                _error!,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ],
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _saving ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          onPressed: _saving ? null : _save,
+          child: Text(l10n.releaseSaveLink),
+        ),
+      ],
+    );
+  }
+}
+
 class _AssetTile extends StatelessWidget {
   const _AssetTile({
     required this.name,
     required this.url,
     required this.open,
     this.deleteAction,
+    this.editAction,
   });
   final String name;
   final String url;
   final Future<void> Function(Uri) open;
   final Widget? deleteAction;
+  final Widget? editAction;
 
   @override
   Widget build(BuildContext context) {
@@ -545,7 +681,11 @@ class _AssetTile extends StatelessWidget {
       title: Text(name),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [const Icon(LabFoxIcons.openInBrowser), ?deleteAction],
+        children: [
+          const Icon(LabFoxIcons.openInBrowser),
+          ?editAction,
+          ?deleteAction,
+        ],
       ),
       onTap: supported ? () => open(uri) : null,
     );
