@@ -161,4 +161,29 @@ class ReleasesApi {
       throw mapError(error, context: 'deleting a release');
     }
   }
+
+  Future<ReleaseAssetLink> updateAssetLink(
+    Object projectId,
+    String tagName,
+    int linkId, {
+    required String name,
+    required String url,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
+        data: {'name': name, 'url': url},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release asset link',
+        );
+      }
+      return ReleaseAssetLink.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release asset link');
+    }
+  }
 }

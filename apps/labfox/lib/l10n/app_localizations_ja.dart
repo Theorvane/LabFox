@@ -365,6 +365,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseDeleteError => 'リリースを削除できませんでした。';
 
   @override
+  String get releaseEditAssetLink => 'アセットリンクを編集';
+
+  @override
+  String get releaseSaveLink => 'リンクを保存';
+
+  @override
+  String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

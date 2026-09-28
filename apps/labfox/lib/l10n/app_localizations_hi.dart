@@ -368,6 +368,15 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseDeleteError => 'रिलीज़ हटाई नहीं जा सकी।';
 
   @override
+  String get releaseEditAssetLink => 'एसेट लिंक संपादित करें';
+
+  @override
+  String get releaseSaveLink => 'लिंक सहेजें';
+
+  @override
+  String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override
