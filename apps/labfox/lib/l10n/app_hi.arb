@@ -547,5 +547,11 @@
   "mrAddTodo": "कार्य सूची में जोड़ें",
   "mrTodoAdded": "आपकी कार्य सूची में जोड़ दिया गया।",
   "mrTodoExists": "यह मर्ज अनुरोध पहले से आपकी कार्य सूची में है।",
-  "mrTodoError": "मर्ज अनुरोध को कार्य सूची में नहीं जोड़ा जा सका। फिर प्रयास करें।"
+  "mrTodoError": "मर्ज अनुरोध को कार्य सूची में नहीं जोड़ा जा सका। फिर प्रयास करें।",
+  "containerTagDelete": "टैग हटाएँ",
+  "containerTagDeleteConfirmTitle": "कंटेनर टैग हटाएँ?",
+  "containerTagDeleteConfirmBody": "“{path}” पर टैग “{tagName}” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।",
+  "containerTagDeleteWarning": "इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।",
+  "containerTagDeleteForbidden": "आप यह टैग नहीं हटा सकते। यह सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।",
+  "containerTagDeleteError": "यह टैग नहीं हटाया जा सका। फिर प्रयास करें।"
 }

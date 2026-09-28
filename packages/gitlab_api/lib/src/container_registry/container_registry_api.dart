@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
@@ -12,6 +12,28 @@ class ContainerRegistryApi {
 
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Deletes one tag, not its blobs or the image repository.
+  Future<void> deleteTag(
+    Object projectId,
+    int repositoryId,
+    String tagName,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags/${Uri.encodeComponent(tagName)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a container tag',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a container tag');
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(

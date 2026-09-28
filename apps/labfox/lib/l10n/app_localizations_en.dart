@@ -2068,4 +2068,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerTagDelete => 'Delete tag';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'Delete container tag?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return 'Delete tag “$tagName” at “$path”? This cannot be undone.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'You cannot delete this tag. It may be protected or you may not have permission.';
+
+  @override
+  String get containerTagDeleteError => 'Could not delete this tag. Try again.';
 }

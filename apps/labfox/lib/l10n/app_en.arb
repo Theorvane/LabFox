@@ -1557,5 +1557,12 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "containerTagDelete": "Delete tag",
+  "containerTagDeleteConfirmTitle": "Delete container tag?",
+  "containerTagDeleteConfirmBody": "Delete tag “{tagName}” at “{path}”? This cannot be undone.",
+  "containerTagDeleteWarning": "This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.",
+  "containerTagDeleteForbidden": "You cannot delete this tag. It may be protected or you may not have permission.",
+  "containerTagDeleteError": "Could not delete this tag. Try again.",
+  "@containerTagDeleteConfirmBody": {"description": "Confirmation identifying a registry tag and its image path", "placeholders": {"tagName": {"type": "String"}, "path": {"type": "String"}}}
 }
