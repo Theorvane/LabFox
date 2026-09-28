@@ -4,11 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
+import 'package:labfox/core/ui/link_opener.dart';
 import 'package:labfox/features/releases/data/releases_repository.dart';
 import 'package:labfox/features/releases/presentation/controllers/releases_controller.dart';
 import 'package:labfox/features/releases/presentation/release_detail_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
-import 'package:labfox/core/ui/link_opener.dart';
 
 class _Repository extends ReleasesRepository {
   _Repository()
