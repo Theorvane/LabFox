@@ -9,6 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'Create schedule';
+
+  @override
+  String get pipelineScheduleCreateTitle => 'New pipeline schedule';
+
+  @override
+  String get pipelineScheduleCreateDescription => 'Description';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => 'Enter a value.';
+
+  @override
+  String get pipelineScheduleCreateActive => 'Active';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override

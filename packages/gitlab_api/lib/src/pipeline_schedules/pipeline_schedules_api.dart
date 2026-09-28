@@ -13,6 +13,38 @@ class PipelineSchedulesApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/pipeline_schedules';
 
+  Future<PipelineSchedule> create(
+    Object projectId, {
+    required String description,
+    required String ref,
+    required String cron,
+    String? cronTimezone,
+    bool? active,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {
+          'description': description,
+          'ref': ref,
+          'cron': cron,
+          'cron_timezone': ?cronTimezone,
+          'active': ?active,
+        },
+      );
+      if (response.statusCode != 201 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a pipeline schedule',
+        );
+      }
+      return PipelineSchedule.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a pipeline schedule');
+    }
+  }
+
   Future<Paginated<PipelineSchedule>> list(
     Object projectId, {
     bool? active,

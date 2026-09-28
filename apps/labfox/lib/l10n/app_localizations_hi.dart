@@ -9,6 +9,29 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'शेड्यूल बनाएँ';
+
+  @override
+  String get pipelineScheduleCreateTitle => 'नया पाइपलाइन शेड्यूल';
+
+  @override
+  String get pipelineScheduleCreateDescription => 'विवरण';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => 'कोई मान दर्ज करें।';
+
+  @override
+  String get pipelineScheduleCreateActive => 'सक्रिय';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab रेफ़, cron और समय क्षेत्र की जाँच करता है। UTC के लिए समय क्षेत्र खाली छोड़ें। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें।';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'इस पाइपलाइन शेड्यूल को बनाया नहीं जा सका। अनुमतियाँ, रेफ़, cron और समय क्षेत्र जाँचें।';
+
+  @override
   String get protectedTagsTitle => 'सुरक्षित टैग';
 
   @override

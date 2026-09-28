@@ -1,4 +1,11 @@
 {
+  "pipelineScheduleCreate": "शेड्यूल बनाएँ",
+  "pipelineScheduleCreateTitle": "नया पाइपलाइन शेड्यूल",
+  "pipelineScheduleCreateDescription": "विवरण",
+  "pipelineScheduleCreateFieldRequired": "कोई मान दर्ज करें।",
+  "pipelineScheduleCreateActive": "सक्रिय",
+  "pipelineScheduleCreateHint": "GitLab रेफ़, cron और समय क्षेत्र की जाँच करता है। UTC के लिए समय क्षेत्र खाली छोड़ें। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें।",
+  "pipelineScheduleCreateError": "इस पाइपलाइन शेड्यूल को बनाया नहीं जा सका। अनुमतियाँ, रेफ़, cron और समय क्षेत्र जाँचें।",
   "@@locale": "hi",
   "protectedTagsTitle": "सुरक्षित टैग",
   "protectedTagsEmpty": "कोई सुरक्षित टैग नियम नहीं मिला।",
