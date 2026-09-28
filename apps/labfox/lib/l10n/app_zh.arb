@@ -1,4 +1,10 @@
 {
+  "pipelineScheduleEdit": "编辑计划",
+  "pipelineScheduleSave": "保存",
+  "pipelineScheduleDescription": "描述",
+  "pipelineScheduleFieldRequired": "请输入一个值。",
+  "pipelineScheduleEditHint": "GitLab 会验证 cron 表达式和时区。保存将重新安排后续运行；引用、启用状态、变量和输入保持不变。",
+  "pipelineScheduleEditError": "无法更新此流水线计划。请检查权限、cron 表达式和时区。",
   "@@locale": "zh",
   "protectedTagsTitle": "受保护标签",
   "protectedTagsEmpty": "没有受保护标签规则。",

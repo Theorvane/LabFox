@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit schedule'**
+  String get pipelineScheduleEdit;
+
+  /// No description provided for @pipelineScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleSave;
+
+  /// No description provided for @pipelineScheduleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get pipelineScheduleDescription;
+
+  /// No description provided for @pipelineScheduleFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value.'**
+  String get pipelineScheduleFieldRequired;
+
+  /// No description provided for @pipelineScheduleEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.'**
+  String get pipelineScheduleEditHint;
+
+  /// No description provided for @pipelineScheduleEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update this pipeline schedule. Check your permissions, cron, and time zone.'**
+  String get pipelineScheduleEditError;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

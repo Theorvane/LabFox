@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => 'スケジュールを編集';
+
+  @override
+  String get pipelineScheduleSave => '保存';
+
+  @override
+  String get pipelineScheduleDescription => '説明';
+
+  @override
+  String get pipelineScheduleFieldRequired => '値を入力してください。';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab が cron 式とタイムゾーンを検証します。保存すると今後の実行予定が変更され、対象の参照、有効状態、変数、入力は保持されます。';
+
+  @override
+  String get pipelineScheduleEditError =>
+      'パイプラインスケジュールを更新できませんでした。権限、cron 式、タイムゾーンを確認してください。';
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override
