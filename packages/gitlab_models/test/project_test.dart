@@ -2,6 +2,39 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'parses direct namespace identity without changing display namespace',
+    () {
+      final project = Project.fromJson({
+        'id': 7,
+        'name': 'app',
+        'path_with_namespace': 'parent/direct/app',
+        'namespace': {'id': 42, 'kind': 'group', 'parent_id': 99},
+      });
+      expect(project.namespaceDetails?.id, 42);
+      expect(project.namespaceDetails?.kind, 'group');
+      expect(project.namespace, 'parent/direct');
+      expect(
+        Project.fromJson(project.toJson()).namespaceDetails,
+        project.namespaceDetails,
+      );
+    },
+  );
+  test('absent and reduced namespace payloads remain unknown', () {
+    for (final namespace in [
+      null,
+      <String, dynamic>{},
+      {'id': 42},
+    ]) {
+      final project = Project.fromJson({
+        'id': 7,
+        'name': 'app',
+        'path_with_namespace': 'user/app',
+        'namespace': namespace,
+      });
+      expect(project.namespaceDetails?.kind, isNull);
+    }
+  });
   test('Project parses container registry availability', () {
     final project = Project.fromJson({
       'id': 7,
