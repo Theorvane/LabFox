@@ -372,6 +372,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseDeleteError => 'Could not delete the release.';
 
   @override
+  String get releaseDeleteAssetLink => 'Delete asset link';
+
+  @override
+  String get releaseDeleteLink => 'Delete link';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => 'Delete this asset link?';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return 'This removes the link named $name. The linked file will not be deleted.';
+  }
+
+  @override
+  String get releaseAssetDeleteError => 'Could not delete the asset link.';
+
+  @override
   String get releaseEditAssetLink => 'Edit asset link';
 
   @override

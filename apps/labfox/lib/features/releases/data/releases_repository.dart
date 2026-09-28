@@ -63,4 +63,6 @@ class ReleasesRepository {
     name: name,
     url: url,
   );
+  Future<void> deleteAssetLink(int projectId, String tagName, int linkId) =>
+      client.releases.deleteAssetLink(projectId, tagName, linkId);
 }
