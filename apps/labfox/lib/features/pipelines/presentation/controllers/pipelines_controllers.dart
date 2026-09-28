@@ -94,11 +94,11 @@ Map<String, List<Job>> groupJobsByStage(List<Job> jobs) {
   return groups;
 }
 
-/// Runs retry / cancel on a pipeline, then refreshes the pipeline and its jobs
+/// Runs retry / cancel, then refreshes the project list, pipeline and its jobs
 /// so the new status comes from the server, not a local guess.
 class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
   @override
-  Future<void> build(PipelineRef arg) async {}
+  void build(PipelineRef arg) {}
 
   Future<void> retry() => _run(
     (repo) => repo.retry(projectId: arg.projectId, pipelineId: arg.pipelineId),
@@ -116,13 +116,15 @@ class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
     Future<void> Function(PipelinesRepository repo) action,
     String event,
   ) async {
-    final repo = await ref.read(pipelinesRepositoryProvider.future);
-    if (repo == null) {
-      throw StateError('No authenticated account');
-    }
+    if (state.isLoading) return;
     state = const AsyncLoading();
     try {
+      final repo = await ref.read(pipelinesRepositoryProvider.future);
+      if (repo == null) {
+        throw StateError('No authenticated account');
+      }
       await action(repo);
+      ref.invalidate(pipelinesControllerProvider(arg.projectId));
       ref.invalidate(pipelineDetailProvider(arg));
       ref.invalidate(pipelineJobsControllerProvider(arg));
       unawaited(ref.read(analyticsProvider).track(event));
