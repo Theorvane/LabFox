@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "选择项目里程碑",
+  "releasePickerSearch": "搜索项目里程碑",
+  "releasePickerEmpty": "未找到项目里程碑。",
+  "releasePickerError": "无法加载里程碑。",
+  "releasePickerMore": "加载更多里程碑",
+  "releasePickerUse": "使用里程碑",
+  "releasePickerRemove": "移除里程碑 {title}",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "zh",
   "protectedTagsTitle": "受保护标签",
   "protectedTagsEmpty": "没有受保护标签规则。",

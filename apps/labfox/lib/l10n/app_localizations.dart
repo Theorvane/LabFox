@@ -104,6 +104,48 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releasePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select project milestones'**
+  String get releasePickerTitle;
+
+  /// No description provided for @releasePickerSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search project milestones'**
+  String get releasePickerSearch;
+
+  /// No description provided for @releasePickerEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No project milestones found.'**
+  String get releasePickerEmpty;
+
+  /// No description provided for @releasePickerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get releasePickerError;
+
+  /// No description provided for @releasePickerMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more milestones'**
+  String get releasePickerMore;
+
+  /// No description provided for @releasePickerUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use milestones'**
+  String get releasePickerUse;
+
+  /// No description provided for @releasePickerRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releasePickerRemove(String title);
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "프로젝트 마일스톤 선택",
+  "releasePickerSearch": "프로젝트 마일스톤 검색",
+  "releasePickerEmpty": "프로젝트 마일스톤이 없습니다.",
+  "releasePickerError": "마일스톤을 불러오지 못했습니다.",
+  "releasePickerMore": "마일스톤 더 불러오기",
+  "releasePickerUse": "마일스톤 사용",
+  "releasePickerRemove": "마일스톤 {title} 제거",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "ko",
   "protectedTagsTitle": "보호 태그",
   "protectedTagsEmpty": "보호 태그 규칙이 없습니다.",

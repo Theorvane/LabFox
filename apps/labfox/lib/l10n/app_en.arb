@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "Select project milestones",
+  "releasePickerSearch": "Search project milestones",
+  "releasePickerEmpty": "No project milestones found.",
+  "releasePickerError": "Could not load milestones.",
+  "releasePickerMore": "Load more milestones",
+  "releasePickerUse": "Use milestones",
+  "releasePickerRemove": "Remove milestone {title}",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "@@locale": "en",
   "protectedTagsTitle": "Protected tags",
   "protectedTagsEmpty": "No protected tag rules found.",

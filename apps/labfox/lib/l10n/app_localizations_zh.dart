@@ -9,6 +9,29 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releasePickerTitle => '选择项目里程碑';
+
+  @override
+  String get releasePickerSearch => '搜索项目里程碑';
+
+  @override
+  String get releasePickerEmpty => '未找到项目里程碑。';
+
+  @override
+  String get releasePickerError => '无法加载里程碑。';
+
+  @override
+  String get releasePickerMore => '加载更多里程碑';
+
+  @override
+  String get releasePickerUse => '使用里程碑';
+
+  @override
+  String releasePickerRemove(String title) {
+    return '移除里程碑 $title';
+  }
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override

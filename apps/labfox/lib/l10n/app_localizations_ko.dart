@@ -9,6 +9,29 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releasePickerTitle => '프로젝트 마일스톤 선택';
+
+  @override
+  String get releasePickerSearch => '프로젝트 마일스톤 검색';
+
+  @override
+  String get releasePickerEmpty => '프로젝트 마일스톤이 없습니다.';
+
+  @override
+  String get releasePickerError => '마일스톤을 불러오지 못했습니다.';
+
+  @override
+  String get releasePickerMore => '마일스톤 더 불러오기';
+
+  @override
+  String get releasePickerUse => '마일스톤 사용';
+
+  @override
+  String releasePickerRemove(String title) {
+    return '마일스톤 $title 제거';
+  }
+
+  @override
   String get protectedTagsTitle => '보호 태그';
 
   @override
