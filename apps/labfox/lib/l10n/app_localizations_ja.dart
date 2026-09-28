@@ -402,6 +402,24 @@ class AppLocalizationsJa extends AppLocalizations {
       'ホスト、クエリ、フラグメントを含まない、/ で始まるパスを入力してください。';
 
   @override
+  String get releaseAssetType => 'リンクの種類';
+
+  @override
+  String get releaseAssetKeepType => '現在の種類を維持';
+
+  @override
+  String get releaseAssetTypeOther => 'その他';
+
+  @override
+  String get releaseAssetTypeRunbook => 'ランブック';
+
+  @override
+  String get releaseAssetTypeImage => '画像';
+
+  @override
+  String get releaseAssetTypePackage => 'パッケージ';
+
+  @override
   String get activityTitle => 'アクティビティ';
 
   @override

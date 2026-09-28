@@ -866,6 +866,42 @@ abstract class AppLocalizations {
   /// **'Enter a path starting with /, without a host, query, or fragment.'**
   String get releaseAssetDirectPathInvalid;
 
+  /// No description provided for @releaseAssetType.
+  ///
+  /// In en, this message translates to:
+  /// **'Link type'**
+  String get releaseAssetType;
+
+  /// No description provided for @releaseAssetKeepType.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current type'**
+  String get releaseAssetKeepType;
+
+  /// No description provided for @releaseAssetTypeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get releaseAssetTypeOther;
+
+  /// No description provided for @releaseAssetTypeRunbook.
+  ///
+  /// In en, this message translates to:
+  /// **'Runbook'**
+  String get releaseAssetTypeRunbook;
+
+  /// No description provided for @releaseAssetTypeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get releaseAssetTypeImage;
+
+  /// No description provided for @releaseAssetTypePackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get releaseAssetTypePackage;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:

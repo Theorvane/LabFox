@@ -34,6 +34,7 @@ class _Repository extends ReleasesRepository {
   );
   final edits = <({int linkId, String name, String url})>[];
   bool reject = false;
+  String? lastLinkType;
   @override
   Future<GitLabRelease> get(int projectId, String tagName) async => current;
   @override
@@ -44,12 +45,19 @@ class _Repository extends ReleasesRepository {
     required String name,
     required String url,
     String? directAssetPath,
+    String? linkType,
   }) async {
     expect(projectId, 7);
     expect(tagName, 'release/1');
     edits.add((linkId: linkId, name: name, url: url));
+    lastLinkType = linkType;
     if (reject) throw const GitLabForbiddenException('Forbidden');
-    final link = current.assets!.links.single.copyWith(name: name, url: url);
+    final previous = current.assets!.links.single;
+    final link = previous.copyWith(
+      name: name,
+      url: url,
+      linkType: linkType ?? previous.linkType,
+    );
     current = current.copyWith(assets: current.assets!.copyWith(links: [link]));
     return link;
   }
@@ -59,6 +67,7 @@ Future<void> _pump(
   WidgetTester tester,
   _Repository repository, {
   double width = 390,
+  Brightness brightness = Brightness.light,
 }) async {
   tester.view.physicalSize = Size(width, 800);
   tester.view.devicePixelRatio = 1;
@@ -81,6 +90,7 @@ Future<void> _pump(
         releasesRepositoryProvider.overrideWith((ref) async => repository),
       ],
       child: MaterialApp.router(
+        theme: ThemeData(brightness: brightness),
         routerConfig: router,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -91,6 +101,86 @@ Future<void> _pump(
 }
 
 void main() {
+  for (final width in [320.0, 390.0, 1200.0]) {
+    for (final brightness in Brightness.values) {
+      testWidgets(
+        'selects and saves link types at width $width in $brightness',
+        (tester) async {
+          final repository = _Repository();
+          await _pump(tester, repository, width: width, brightness: brightness);
+          for (final entry in {
+            'runbook': 'Runbook',
+            'image': 'Image',
+            'other': 'Other',
+            'package': 'Package',
+          }.entries) {
+            await tester.tap(find.byTooltip('Edit asset link'));
+            await tester.pumpAndSettle();
+            final dropdown = find.byType(DropdownButtonFormField<String>);
+            expect(dropdown, findsOneWidget);
+            expect(
+              tester
+                  .widget<DropdownButtonFormField<String>>(dropdown)
+                  .initialValue,
+              repository.current.assets!.links.single.linkType,
+            );
+            await tester.tap(dropdown);
+            await tester.pumpAndSettle();
+            await tester.tap(find.text(entry.value).last);
+            await tester.pumpAndSettle();
+            await tester.tap(find.text('Save link'));
+            await tester.pumpAndSettle();
+            expect(repository.lastLinkType, entry.key);
+            expect(repository.current.assets!.links.single.linkType, entry.key);
+            expect(
+              repository.current.assets!.links.single.directAssetUrl,
+              'https://example.com/download',
+            );
+            expect(find.byType(AlertDialog), findsNothing);
+          }
+          expect(tester.takeException(), isNull);
+        },
+      );
+    }
+  }
+
+  for (final type in [null, 'future_type']) {
+    testWidgets('preserves unchanged missing or unknown type $type', (
+      tester,
+    ) async {
+      final repository = _Repository();
+      repository.current = repository.current.copyWith(
+        assets: ReleaseAssets(
+          links: [
+            repository.current.assets!.links.single.copyWith(linkType: type),
+          ],
+        ),
+      );
+      await _pump(tester, repository);
+      await tester.tap(find.byTooltip('Edit asset link'));
+      await tester.pumpAndSettle();
+      expect(find.text('Keep current type'), findsOneWidget);
+      await tester.tap(find.text('Save link'));
+      await tester.pumpAndSettle();
+      expect(repository.lastLinkType, isNull);
+      expect(repository.current.assets!.links.single.linkType, type);
+    });
+  }
+
+  testWidgets('cancels a type change without saving', (tester) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.tap(find.byTooltip('Edit asset link'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Image').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(repository.edits, isEmpty);
+    expect(repository.current.assets!.links.single.linkType, 'package');
+  });
   testWidgets('rejects the name of another asset link', (tester) async {
     final repository = _Repository();
     repository.current = repository.current.copyWith(
@@ -144,6 +234,7 @@ void main() {
       expect(find.text('New package'), findsOneWidget);
       expect(find.byType(TextField), findsNothing);
       expect(repository.current.assets!.links.single.linkType, 'package');
+      expect(repository.lastLinkType, isNull);
     });
   }
   testWidgets('validates fields and preserves a rejected edit draft', (
@@ -168,11 +259,18 @@ void main() {
       find.byType(TextField).at(1),
       'https://example.com/new.zip',
     );
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Runbook').last);
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Save link'));
     await tester.pumpAndSettle();
     expect(find.text('Could not update the asset link.'), findsOneWidget);
     expect(find.text('Draft package'), findsOneWidget);
     expect(find.text('https://example.com/new.zip'), findsOneWidget);
     expect(find.text('Desktop package'), findsOneWidget);
+    expect(find.text('Runbook'), findsOneWidget);
+    expect(repository.lastLinkType, 'runbook');
+    expect(repository.current.assets!.links.single.linkType, 'package');
   });
 }

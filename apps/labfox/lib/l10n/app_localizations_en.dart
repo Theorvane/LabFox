@@ -409,6 +409,24 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter a path starting with /, without a host, query, or fragment.';
 
   @override
+  String get releaseAssetType => 'Link type';
+
+  @override
+  String get releaseAssetKeepType => 'Keep current type';
+
+  @override
+  String get releaseAssetTypeOther => 'Other';
+
+  @override
+  String get releaseAssetTypeRunbook => 'Runbook';
+
+  @override
+  String get releaseAssetTypeImage => 'Image';
+
+  @override
+  String get releaseAssetTypePackage => 'Package';
+
+  @override
   String get activityTitle => 'Activity';
 
   @override

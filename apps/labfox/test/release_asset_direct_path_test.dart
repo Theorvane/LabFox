@@ -45,6 +45,7 @@ class _Repository extends ReleasesRepository {
     required String name,
     required String url,
     String? directAssetPath,
+    String? linkType,
   }) async {
     expect(projectId, 7);
     expect(tagName, 'release/1');
@@ -56,6 +57,7 @@ class _Repository extends ReleasesRepository {
     final link = previous.copyWith(
       name: name,
       url: url,
+      linkType: linkType ?? previous.linkType,
       directAssetUrl: directAssetPath == null
           ? previous.directAssetUrl
           : 'https://example.com/downloads$directAssetPath',
@@ -111,6 +113,25 @@ Finder get _pathField =>
     find.widgetWithText(TextField, 'New direct download path (optional)');
 
 void main() {
+  testWidgets('saves path and type together without dropping either field', (
+    tester,
+  ) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.enterText(_pathField, '/bin/new.zip');
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Image').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Save link'));
+    await tester.pumpAndSettle();
+    expect(repository.paths, ['/bin/new.zip']);
+    expect(repository.current.assets!.links.single.linkType, 'image');
+    expect(
+      repository.current.assets!.links.single.directAssetUrl,
+      'https://example.com/downloads/bin/new.zip',
+    );
+  });
   for (final width in [320.0, 390.0, 1200.0]) {
     for (final brightness in Brightness.values) {
       testWidgets('changes direct path at $width in $brightness', (

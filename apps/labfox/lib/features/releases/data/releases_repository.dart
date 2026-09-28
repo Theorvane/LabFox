@@ -57,6 +57,7 @@ class ReleasesRepository {
     required String name,
     required String url,
     String? directAssetPath,
+    String? linkType,
   }) => client.releases.updateAssetLink(
     projectId,
     tagName,
@@ -64,6 +65,7 @@ class ReleasesRepository {
     name: name,
     url: url,
     directAssetPath: directAssetPath,
+    linkType: linkType,
   );
   Future<void> deleteAssetLink(int projectId, String tagName, int linkId) =>
       client.releases.deleteAssetLink(projectId, tagName, linkId);

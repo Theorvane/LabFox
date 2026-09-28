@@ -401,6 +401,24 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetDirectPathInvalid => '请输入以 / 开头且不包含主机、查询或片段的路径。';
 
   @override
+  String get releaseAssetType => '链接类型';
+
+  @override
+  String get releaseAssetKeepType => '保留当前类型';
+
+  @override
+  String get releaseAssetTypeOther => '其他';
+
+  @override
+  String get releaseAssetTypeRunbook => '操作手册';
+
+  @override
+  String get releaseAssetTypeImage => '图片';
+
+  @override
+  String get releaseAssetTypePackage => '软件包';
+
+  @override
   String get activityTitle => '动态';
 
   @override

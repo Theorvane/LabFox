@@ -403,6 +403,24 @@ class AppLocalizationsKo extends AppLocalizations {
       '호스트, 쿼리, 프래그먼트 없이 /로 시작하는 경로를 입력하세요.';
 
   @override
+  String get releaseAssetType => '링크 유형';
+
+  @override
+  String get releaseAssetKeepType => '현재 유형 유지';
+
+  @override
+  String get releaseAssetTypeOther => '기타';
+
+  @override
+  String get releaseAssetTypeRunbook => '런북';
+
+  @override
+  String get releaseAssetTypeImage => '이미지';
+
+  @override
+  String get releaseAssetTypePackage => '패키지';
+
+  @override
   String get activityTitle => '활동';
 
   @override
