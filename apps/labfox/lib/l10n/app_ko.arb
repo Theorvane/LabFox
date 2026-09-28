@@ -547,5 +547,15 @@
   "mrAddTodo": "할 일에 추가",
   "mrTodoAdded": "할 일 목록에 추가했습니다.",
   "mrTodoExists": "이 병합 요청은 이미 할 일 목록에 있습니다.",
-  "mrTodoError": "병합 요청을 할 일 목록에 추가할 수 없습니다. 다시 시도하세요."
+  "mrTodoError": "병합 요청을 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.",
+  "containerTagProtectionTitle": "태그 보호 규칙",
+  "containerTagProtectionEmpty": "태그 보호 규칙이 없습니다.",
+  "containerTagProtectionError": "태그 보호 규칙을 불러오지 못했습니다.",
+  "containerTagProtectionForbidden": "태그 보호 규칙을 볼 권한이 없습니다.",
+  "containerTagProtectionUnavailable": "이 인스턴스에서 태그 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.",
+  "containerTagProtectionPushRole": "푸시 최소 역할: {role}",
+  "containerTagProtectionDeleteRole": "삭제 최소 역할: {role}",
+  "containerTagProtectionRoleUnset": "규칙에 지정되지 않음",
+  "containerTagProtectionRoleAdmin": "관리자",
+  "containerTagProtectionHint": "Git 태그가 아닌 컨테이너 이미지 태그의 읽기 전용 규칙입니다. 최소 역할은 현재 사용자의 접근 권한을 확정하지 않습니다. GitLab 18.7 이상의 API가 필요합니다."
 }

@@ -1557,5 +1557,17 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "containerTagProtectionTitle": "Tag protection rules",
+  "containerTagProtectionEmpty": "No tag protection rules.",
+  "containerTagProtectionError": "Could not load tag protection rules.",
+  "containerTagProtectionForbidden": "You do not have permission to view tag protection rules.",
+  "containerTagProtectionUnavailable": "Tag protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerTagProtectionPushRole": "Minimum push role: {role}",
+  "@containerTagProtectionPushRole": {"placeholders": {"role": {"type": "String"}}},
+  "containerTagProtectionDeleteRole": "Minimum delete role: {role}",
+  "@containerTagProtectionDeleteRole": {"placeholders": {"role": {"type": "String"}}},
+  "containerTagProtectionRoleUnset": "Not specified by rule",
+  "containerTagProtectionRoleAdmin": "Administrator",
+  "containerTagProtectionHint": "Read-only rules for container image tags, not Git tags. Minimum roles do not confirm your current access. This API requires GitLab 18.7 or later."
 }

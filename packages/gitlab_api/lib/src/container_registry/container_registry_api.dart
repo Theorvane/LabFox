@@ -13,6 +13,31 @@ class ContainerRegistryApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
 
+  /// Lists project tag protection rules (available from GitLab 18.7).
+  Future<List<ContainerTagProtectionRule>> listTagProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container tag protection rules',
+        );
+      }
+      final data = (response.data as List<dynamic>)
+          .cast<Map<String, dynamic>>();
+      return data
+          .map(ContainerTagProtectionRule.fromJson)
+          .toList(growable: false);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing container tag protection rules');
+    }
+  }
+
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(
     Object projectId, {

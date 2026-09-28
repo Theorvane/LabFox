@@ -2068,4 +2068,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerTagProtectionTitle => 'Tag protection rules';
+
+  @override
+  String get containerTagProtectionEmpty => 'No tag protection rules.';
+
+  @override
+  String get containerTagProtectionError =>
+      'Could not load tag protection rules.';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'You do not have permission to view tag protection rules.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'Tag protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Read-only rules for container image tags, not Git tags. Minimum roles do not confirm your current access. This API requires GitLab 18.7 or later.';
 }

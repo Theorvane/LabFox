@@ -2027,4 +2027,40 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerTagProtectionTitle => '태그 보호 규칙';
+
+  @override
+  String get containerTagProtectionEmpty => '태그 보호 규칙이 없습니다.';
+
+  @override
+  String get containerTagProtectionError => '태그 보호 규칙을 불러오지 못했습니다.';
+
+  @override
+  String get containerTagProtectionForbidden => '태그 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      '이 인스턴스에서 태그 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '푸시 최소 역할: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '삭제 최소 역할: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Git 태그가 아닌 컨테이너 이미지 태그의 읽기 전용 규칙입니다. 최소 역할은 현재 사용자의 접근 권한을 확정하지 않습니다. GitLab 18.7 이상의 API가 필요합니다.';
 }

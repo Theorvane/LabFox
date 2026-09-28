@@ -7,6 +7,9 @@ class ContainerRegistryRepository {
 
   final GitLabClient client;
 
+  Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
+      client.containerRegistry.listTagProtectionRules(projectId);
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,

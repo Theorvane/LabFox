@@ -4033,6 +4033,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerTagProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules'**
+  String get containerTagProtectionTitle;
+
+  /// No description provided for @containerTagProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tag protection rules.'**
+  String get containerTagProtectionEmpty;
+
+  /// No description provided for @containerTagProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tag protection rules.'**
+  String get containerTagProtectionError;
+
+  /// No description provided for @containerTagProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view tag protection rules.'**
+  String get containerTagProtectionForbidden;
+
+  /// No description provided for @containerTagProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerTagProtectionUnavailable;
+
+  /// No description provided for @containerTagProtectionPushRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerTagProtectionPushRole(String role);
+
+  /// No description provided for @containerTagProtectionDeleteRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerTagProtectionDeleteRole(String role);
+
+  /// No description provided for @containerTagProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerTagProtectionRoleUnset;
+
+  /// No description provided for @containerTagProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerTagProtectionRoleAdmin;
+
+  /// No description provided for @containerTagProtectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only rules for container image tags, not Git tags. Minimum roles do not confirm your current access. This API requires GitLab 18.7 or later.'**
+  String get containerTagProtectionHint;
 }
 
 class _AppLocalizationsDelegate

@@ -2022,4 +2022,40 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerTagProtectionTitle => 'タグ保護ルール';
+
+  @override
+  String get containerTagProtectionEmpty => 'タグ保護ルールはありません。';
+
+  @override
+  String get containerTagProtectionError => 'タグ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerTagProtectionForbidden => 'タグ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'このインスタンスでタグ保護ルールが利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'プッシュの最低ロール: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '削除の最低ロール: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Git タグではなくコンテナイメージタグの読み取り専用ルールです。最低ロールは現在のアクセス権限を保証しません。GitLab 18.7 以降の API が必要です。';
 }

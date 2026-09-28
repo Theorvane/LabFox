@@ -2016,4 +2016,39 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerTagProtectionTitle => '标签保护规则';
+
+  @override
+  String get containerTagProtectionEmpty => '没有标签保护规则。';
+
+  @override
+  String get containerTagProtectionError => '无法加载标签保护规则。';
+
+  @override
+  String get containerTagProtectionForbidden => '您无权查看标签保护规则。';
+
+  @override
+  String get containerTagProtectionUnavailable => '此实例不支持标签保护规则，或项目无法访问。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '推送所需最低角色：$role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '删除所需最低角色：$role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerTagProtectionHint =>
+      '这是容器镜像标签的只读规则，而非 Git 标签规则。最低角色不代表您当前具有访问权限。此 API 需要 GitLab 18.7 或更高版本。';
 }

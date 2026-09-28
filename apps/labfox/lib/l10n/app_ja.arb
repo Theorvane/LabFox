@@ -547,5 +547,15 @@
   "mrAddTodo": "To-Do に追加",
   "mrTodoAdded": "To-Do リストに追加しました。",
   "mrTodoExists": "このマージリクエストは既に To-Do リストにあります。",
-  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。"
+  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。",
+  "containerTagProtectionTitle": "タグ保護ルール",
+  "containerTagProtectionEmpty": "タグ保護ルールはありません。",
+  "containerTagProtectionError": "タグ保護ルールを読み込めませんでした。",
+  "containerTagProtectionForbidden": "タグ保護ルールを表示する権限がありません。",
+  "containerTagProtectionUnavailable": "このインスタンスでタグ保護ルールが利用できないか、プロジェクトにアクセスできません。",
+  "containerTagProtectionPushRole": "プッシュの最低ロール: {role}",
+  "containerTagProtectionDeleteRole": "削除の最低ロール: {role}",
+  "containerTagProtectionRoleUnset": "ルールで未指定",
+  "containerTagProtectionRoleAdmin": "管理者",
+  "containerTagProtectionHint": "Git タグではなくコンテナイメージタグの読み取り専用ルールです。最低ロールは現在のアクセス権限を保証しません。GitLab 18.7 以降の API が必要です。"
 }
