@@ -1336,6 +1336,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelinesEmpty => '还没有流水线。';
 
   @override
+  String get pipelinesLoadMore => '加载更多';
+
+  @override
+  String get pipelinesLoadMoreError => '无法加载更多流水线。';
+
+  @override
   String get pipelineError => '无法加载此流水线。';
 
   @override

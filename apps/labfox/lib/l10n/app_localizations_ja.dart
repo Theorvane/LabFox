@@ -1342,6 +1342,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelinesEmpty => 'まだパイプラインはありません。';
 
   @override
+  String get pipelinesLoadMore => 'さらに読み込む';
+
+  @override
+  String get pipelinesLoadMoreError => '追加のパイプラインを読み込めませんでした。';
+
+  @override
   String get pipelineError => 'このパイプラインを読み込めませんでした。';
 
   @override

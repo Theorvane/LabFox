@@ -977,6 +977,8 @@
     "description": "Shown when the pipelines list fails"
   },
   "pipelinesEmpty": "No pipelines yet.",
+  "pipelinesLoadMore": "Load more",
+  "pipelinesLoadMoreError": "Could not load more pipelines.",
   "@pipelinesEmpty": {
     "description": "Shown when there are no pipelines"
   },

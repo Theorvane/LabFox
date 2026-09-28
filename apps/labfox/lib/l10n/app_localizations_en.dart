@@ -1370,6 +1370,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pipelinesEmpty => 'No pipelines yet.';
 
   @override
+  String get pipelinesLoadMore => 'Load more';
+
+  @override
+  String get pipelinesLoadMoreError => 'Could not load more pipelines.';
+
+  @override
   String get pipelineError => 'Could not load this pipeline.';
 
   @override
