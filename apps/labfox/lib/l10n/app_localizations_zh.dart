@@ -2016,4 +2016,79 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerProtectionCreateTitle => '创建仓库保护规则';
+
+  @override
+  String get containerProtectionCreateSave => '创建规则';
+
+  @override
+  String get containerProtectionCreatePattern => '仓库路径模式';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      '此规则限制与准确模式匹配的仓库中所选的推送和删除操作。通配符 (*) 可能影响多个仓库。未选择角色的操作不受此规则限制。其他规则和权限仍然适用。这些设置不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionCreateAcknowledge => '我已检查模式和最低角色，并了解其影响。';
+
+  @override
+  String get containerProtectionCreateUnset => '此规则不作限制';
+
+  @override
+  String get containerProtectionCreateCreated => '规则已创建。';
+
+  @override
+  String get containerProtectionCreateForbidden => '你没有创建此规则的权限。';
+
+  @override
+  String get containerProtectionCreateInvalid => '模式或角色被拒绝，或模式已被使用。请修改草稿后重试。';
+
+  @override
+  String get containerProtectionCreateError =>
+      '无法确认规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionCreatePush => '最低推送角色';
+
+  @override
+  String get containerProtectionCreateDelete => '最低删除角色';
 }

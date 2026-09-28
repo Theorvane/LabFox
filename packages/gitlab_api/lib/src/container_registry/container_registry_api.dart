@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
@@ -10,8 +11,78 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Creates a rule; omitted role fields impose no restriction from this rule.
+  Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
+    Object projectId, {
+    required String repositoryPathPattern,
+    String? minimumAccessLevelForPush,
+    String? minimumAccessLevelForDelete,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+        data: {
+          'repository_path_pattern': repositoryPathPattern,
+          'minimum_access_level_for_push': ?minimumAccessLevelForPush,
+          'minimum_access_level_for_delete': ?minimumAccessLevelForDelete,
+        },
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating container repository protection rule',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Creation response did not contain a valid protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'creating container repository protection rule',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      return (response.data as List<dynamic>)
+          .map(
+            (item) => ContainerRepositoryProtectionRule.fromJson(
+              item as Map<String, dynamic>,
+            ),
+          )
+          .toList(growable: false);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(

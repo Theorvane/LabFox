@@ -2022,4 +2022,82 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
+
+  @override
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
+
+  @override
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerProtectionCreateTitle => 'リポジトリ保護ルールを作成';
+
+  @override
+  String get containerProtectionCreateSave => 'ルールを作成';
+
+  @override
+  String get containerProtectionCreatePattern => 'リポジトリパスのパターン';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'このルールは、正確なパターンに一致するリポジトリの選択したプッシュと削除操作を制限します。ワイルドカード(*)は複数のリポジトリに影響します。未選択のロールは、その操作をこのルールでは制限しません。他のルールと権限は引き続き適用されます。この設定は自分のアクセス権を示すものではなく、イメージも削除しません。';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'パターンと最低ロールを確認し、その影響を理解しました。';
+
+  @override
+  String get containerProtectionCreateUnset => 'このルールによる制限なし';
+
+  @override
+  String get containerProtectionCreateCreated => 'ルールを作成しました。';
+
+  @override
+  String get containerProtectionCreateForbidden => 'このルールを作成する権限がありません。';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'パターンまたはロールが拒否されたか、パターンが既に使用されています。入力を編集して再試行してください。';
+
+  @override
+  String get containerProtectionCreateError =>
+      'ルールの作成を確認できませんでした。再試行の前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionCreatePush => '最低プッシュロール';
+
+  @override
+  String get containerProtectionCreateDelete => '最低削除ロール';
 }

@@ -4033,6 +4033,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerRepositoryProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
+
+  /// No description provided for @containerRepositoryProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerRepositoryProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
+
+  /// No description provided for @containerRepositoryProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create repository protection rule'**
+  String get containerProtectionCreateTitle;
+
+  /// No description provided for @containerProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerProtectionCreateSave;
+
+  /// No description provided for @containerProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository path pattern'**
+  String get containerProtectionCreatePattern;
+
+  /// Project identifier for repository protection creation
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.'**
+  String get containerProtectionCreateWarning;
+
+  /// No description provided for @containerProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the pattern and minimum roles and understand their impact.'**
+  String get containerProtectionCreateAcknowledge;
+
+  /// No description provided for @containerProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'No restriction from this rule'**
+  String get containerProtectionCreateUnset;
+
+  /// No description provided for @containerProtectionCreateCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was created.'**
+  String get containerProtectionCreateCreated;
+
+  /// No description provided for @containerProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerProtectionCreateForbidden;
+
+  /// No description provided for @containerProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.'**
+  String get containerProtectionCreateInvalid;
+
+  /// No description provided for @containerProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionCreateError;
+
+  /// No description provided for @containerProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerProtectionCreatePush;
+
+  /// No description provided for @containerProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerProtectionCreateDelete;
 }
 
 class _AppLocalizationsDelegate

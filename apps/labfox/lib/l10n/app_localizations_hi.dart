@@ -2064,4 +2064,86 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
+
+  @override
+  String get containerProtectionCreateTitle => 'रिपॉज़िटरी सुरक्षा नियम बनाएँ';
+
+  @override
+  String get containerProtectionCreateSave => 'नियम बनाएँ';
+
+  @override
+  String get containerProtectionCreatePattern => 'रिपॉज़िटरी पथ पैटर्न';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'यह नियम सटीक पैटर्न से मेल खाने वाली रिपॉज़िटरी में चुने गए पुश और हटाने के कार्यों को सीमित करता है। वाइल्डकार्ड (*) कई रिपॉज़िटरी को प्रभावित कर सकता है। न चुनी गई भूमिका के कार्य पर इस नियम से कोई प्रतिबंध नहीं लगता। अन्य नियम और अनुमतियाँ लागू रहती हैं। ये सेटिंग आपकी पहुँच नहीं बतातीं और इमेज नहीं हटातीं।';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'मैंने पैटर्न और न्यूनतम भूमिकाएँ जाँच ली हैं और उनका प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionCreateUnset => 'इस नियम से कोई प्रतिबंध नहीं';
+
+  @override
+  String get containerProtectionCreateCreated => 'नियम बनाया गया।';
+
+  @override
+  String get containerProtectionCreateForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'पैटर्न या भूमिकाएँ अस्वीकार हुईं या पैटर्न पहले से उपयोग में है। मसौदा बदलकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionCreateError =>
+      'नियम बनने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionCreatePush => 'न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerProtectionCreateDelete => 'न्यूनतम हटाने की भूमिका';
 }

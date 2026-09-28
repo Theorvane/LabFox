@@ -2068,4 +2068,87 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerProtectionCreateTitle =>
+      'Create repository protection rule';
+
+  @override
+  String get containerProtectionCreateSave => 'Create rule';
+
+  @override
+  String get containerProtectionCreatePattern => 'Repository path pattern';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'I have reviewed the pattern and minimum roles and understand their impact.';
+
+  @override
+  String get containerProtectionCreateUnset => 'No restriction from this rule';
+
+  @override
+  String get containerProtectionCreateCreated => 'The rule was created.';
+
+  @override
+  String get containerProtectionCreateForbidden =>
+      'You do not have permission to create this rule.';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionCreateError =>
+      'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionCreatePush => 'Minimum push role';
+
+  @override
+  String get containerProtectionCreateDelete => 'Minimum delete role';
 }
