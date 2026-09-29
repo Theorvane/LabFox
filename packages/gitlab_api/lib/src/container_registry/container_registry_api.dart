@@ -1,17 +1,86 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry browsing and protection endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
   final Dio _dio;
 
+  /// Changes only the minimum delete role; other criteria stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionDeleteRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_delete': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection delete role',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection delete role response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection delete role',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists project tag protection rules (available from GitLab 18.7).
+  Future<List<ContainerTagProtectionRule>> listTagProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container tag protection rules',
+        );
+      }
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerTagProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container tag protection rule list response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing container tag protection rules');
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(
