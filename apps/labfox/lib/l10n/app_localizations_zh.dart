@@ -2016,4 +2016,90 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerProtectionPushRoleTitle => '编辑最低推送角色';
+
+  @override
+  String get containerProtectionPushRoleSave => '保存推送角色';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      '更改最低推送角色会改变谁能向匹配的仓库推送。较低角色会削弱保护；较高角色可能阻断现有工作流程。路径模式和最低删除角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      '我已检查规则和新的最低推送角色，并了解访问权限的变化。';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      '无法确认推送角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionPushRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionPushRoleReload => '重新加载规则';
+
+  @override
+  String get containerProtectionPushRoleSaved => '最低推送角色已更新。';
+
+  @override
+  String get containerProtectionPushRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionPushRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionPushRoleInvalid => '推送角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerProtectionPushRoleDraft => '新的最低推送角色';
+
+  @override
+  String get containerProtectionPushRoleSelect => '选择推送角色';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
 }

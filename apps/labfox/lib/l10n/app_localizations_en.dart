@@ -2068,4 +2068,99 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerProtectionPushRoleTitle => 'Edit minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSave => 'Save push role';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      'Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'I have reviewed the rule and new minimum push role and understand the access changes.';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPushRoleReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPushRoleSaved => 'Minimum push role updated.';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'The push role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerProtectionPushRoleDraft => 'New minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'Select a push role';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
 }

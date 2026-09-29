@@ -1557,5 +1557,43 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "containerRepositoryProtectionTitle": "Repository protection rules",
+  "containerRepositoryProtectionEmpty": "No repository protection rules.",
+  "containerRepositoryProtectionError": "Could not load repository protection rules.",
+  "containerRepositoryProtectionForbidden": "You do not have permission to view repository protection rules.",
+  "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
+  "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
+  "containerRepositoryProtectionRoleUnset": "Not specified by rule",
+  "containerRepositoryProtectionRoleAdmin": "Administrator",
+  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "containerProtectionPushRoleTitle": "Edit minimum push role",
+  "containerProtectionPushRoleSave": "Save push role",
+  "containerProtectionPushRoleWarning": "Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.",
+  "containerProtectionPushRoleAcknowledge": "I have reviewed the rule and new minimum push role and understand the access changes.",
+  "containerProtectionPushRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionPushRoleForbidden": "You do not have permission to change this rule.",
+  "containerProtectionPushRoleError": "Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionPushRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionPushRoleReload": "Reload rule",
+  "containerProtectionPushRoleSaved": "Minimum push role updated.",
+  "containerProtectionPushRoleMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionPushRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionPushRoleInvalid": "The push role was rejected. Choose a supported role and retry.",
+  "containerProtectionPushRoleDraft": "New minimum push role",
+  "containerProtectionPushRoleSelect": "Select a push role",
+  "containerProtectionPushRoleUnknown": "The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerProtectionPushRoleTarget": {
+    "description": "Exact project and protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  }
 }

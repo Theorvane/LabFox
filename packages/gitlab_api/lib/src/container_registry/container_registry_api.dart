@@ -1,17 +1,89 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry browsing and protection endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
   final Dio _dio;
 
+  /// Changes only the minimum push role; pattern and delete role are omitted.
+  Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPushRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'minimum_access_level_for_push': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating repository protection push role',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection push role update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating repository protection push role',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerRepositoryProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container repository protection rule list response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(
