@@ -2016,4 +2016,87 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerTagProtectionTitle => '标签保护规则';
+
+  @override
+  String get containerTagProtectionEmpty => '没有标签保护规则。';
+
+  @override
+  String get containerTagProtectionError => '无法加载标签保护规则。';
+
+  @override
+  String get containerTagProtectionForbidden => '您无权查看标签保护规则。';
+
+  @override
+  String get containerTagProtectionUnavailable => '此实例不支持标签保护规则，或项目无法访问。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '推送所需最低角色：$role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '删除所需最低角色：$role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerTagProtectionHint =>
+      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+
+  @override
+  String get containerTagProtectionPatternTitle => '编辑标签保护模式';
+
+  @override
+  String get containerTagProtectionPatternSave => '保存模式';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '更改模式可能解除本项目中原先匹配的容器镜像标签的保护，并将保护应用于其他标签。通配符(*)可能影响多个标签。两个最低角色保持不变，其他规则和权限仍然适用。此操作不会删除标签或镜像，不影响 Git 标签，也不代表您的访问权限。';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '我已检查当前规则和新模式，并了解保护范围的变化。';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '您没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '无法确认模式更新。服务器可能已处理请求，请在重试前检查规则列表。';
+
+  @override
+  String get containerTagProtectionPatternStale => '规则在确认后已更改。保存前请重新加载并检查。';
+
+  @override
+  String get containerTagProtectionPatternReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPatternSaved => '标签保护模式已更新。';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPatternRateLimited => '请求过多。请稍后重试。';
+
+  @override
+  String get containerTagProtectionPatternInvalid => '模式被拒绝或已被使用。请编辑草稿后重试。';
+
+  @override
+  String get containerTagProtectionPatternDraft => '新容器标签模式';
 }
