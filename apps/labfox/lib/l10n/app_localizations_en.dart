@@ -2068,4 +2068,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerTagProtectionTitle => 'Tag protection rules';
+
+  @override
+  String get containerTagProtectionEmpty => 'No tag protection rules.';
+
+  @override
+  String get containerTagProtectionError =>
+      'Could not load tag protection rules.';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'You do not have permission to view tag protection rules.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'Tag protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; deletion requires 18.9 or later.';
+
+  @override
+  String get containerTagProtectionRemoveTitle => 'Delete tag protection rule';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'Delete rule';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'I understand and want to delete this exact rule.';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'You do not have permission to delete this rule.';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'The request failed and may have reached the server. Inspect the rule list before retrying.';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'This rule changed or is ambiguous. Reload it and confirm again.';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'Tag protection rule deleted.';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'Too many requests. Wait before retrying.';
 }

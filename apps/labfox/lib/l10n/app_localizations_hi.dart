@@ -2064,4 +2064,87 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerTagProtectionTitle => 'टैग सुरक्षा नियम';
+
+  @override
+  String get containerTagProtectionEmpty => 'कोई टैग सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerTagProtectionError => 'टैग सुरक्षा नियम लोड नहीं हो सके।';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'टैग सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'इस इंस्टेंस पर टैग सुरक्षा नियम उपलब्ध नहीं हैं, या प्रोजेक्ट सुलभ नहीं है।';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'पुश के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'व्यवस्थापक';
+
+  @override
+  String get containerTagProtectionHint =>
+      'ये कंटेनर इमेज टैग के नियम हैं, Git टैग के नहीं। न्यूनतम भूमिकाएँ आपकी वर्तमान पहुँच की पुष्टि नहीं करतीं। सूची के लिए GitLab 18.7 या बाद का संस्करण और हटाने के लिए 18.9 या बाद का संस्करण चाहिए।';
+
+  @override
+  String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'इस नियम को हटाने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश और हटाने की सुरक्षा हट जाती है। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ और इसी नियम को हटाना चाहता हूँ।';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'अनुरोध विफल हुआ लेकिन सर्वर तक पहुँच सकता है। पुनः प्रयास से पहले नियम सूची जाँचें।';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'नियम बदल गया है या अस्पष्ट है। दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'टैग सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।';
 }
