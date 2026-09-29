@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
@@ -35,9 +36,10 @@ class ProjectsApi {
     }
   }
 
-  /// Saves a complete policy draft disabled; activation is a separate action.
-  Future<Project> createDisabledCleanupPolicy(
+  /// Saves complete criteria with explicit activation, disabled by default.
+  Future<Project> createCleanupPolicy(
     Object projectId, {
+    bool enabled = false,
     required String cadence,
     required int keepN,
     required String olderThan,
@@ -49,7 +51,7 @@ class ProjectsApi {
         '/projects/${Uri.encodeComponent(projectId.toString())}',
         data: {
           'container_expiration_policy_attributes': {
-            'enabled': false,
+            'enabled': enabled,
             'cadence': cadence,
             'keep_n': keepN,
             'older_than': olderThan,
@@ -62,12 +64,18 @@ class ProjectsApi {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
-          context: 'creating disabled cleanup policy',
+          context: 'creating cleanup policy',
         );
       }
-      return Project.fromJson(response.data as Map<String, dynamic>);
+      try {
+        return Project.fromJson(response.data as Map<String, dynamic>);
+      } on TypeError {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      } on FormatException {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      }
     } on DioException catch (error) {
-      throw mapError(error, context: 'creating disabled cleanup policy');
+      throw mapError(error, context: 'creating cleanup policy');
     }
   }
 

@@ -2141,18 +2141,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many requests. Wait and reload the policy before trying again.';
 
   @override
-  String get containerCreateTitle => 'Create disabled cleanup policy';
+  String get containerCreateTitle => 'Create cleanup policy';
 
   @override
   String get containerCreateSave => 'Confirm disabled policy creation';
 
   @override
   String get containerCreateWarning =>
-      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+      'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.';
 
   @override
   String get containerCreateAcknowledge =>
-      'I have reviewed these criteria and understand that activation is a separate action.';
+      'I have reviewed these criteria and understand that this policy will stay disabled.';
 
   @override
   String get containerCreateExisting =>
@@ -2163,8 +2163,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
 
   @override
-  String get containerCreateAccepted =>
-      'Disabled cleanup policy creation accepted.';
+  String get containerCreateAccepted => 'Cleanup policy creation accepted.';
 
   @override
   String get containerCreateInvalid =>
@@ -2195,4 +2194,22 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get containerCreateEnable => 'Enable cleanup when creating';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.';
+
+  @override
+  String get containerCreateEnabledSave => 'Confirm enabled policy creation';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'The account changed. Close this dialog and reopen it to review the current project before creating a policy.';
 }

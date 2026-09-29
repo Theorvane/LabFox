@@ -10,16 +10,18 @@ class ContainerRegistryRepository {
   Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(int projectId) =>
       client.projects.cleanupPolicySnapshot(projectId);
 
-  Future<void> createDisabledCleanupPolicy(
+  Future<void> createCleanupPolicy(
     int projectId, {
+    bool enabled = false,
     required String cadence,
     required int keepN,
     required String olderThan,
     required String nameRegexDelete,
     required String nameRegexKeep,
   }) async {
-    await client.projects.createDisabledCleanupPolicy(
+    await client.projects.createCleanupPolicy(
       projectId,
+      enabled: enabled,
       cadence: cadence,
       keepN: keepN,
       olderThan: olderThan,

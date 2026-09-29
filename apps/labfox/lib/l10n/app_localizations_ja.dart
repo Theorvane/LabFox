@@ -2092,17 +2092,17 @@ class AppLocalizationsJa extends AppLocalizations {
       'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
 
   @override
-  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+  String get containerCreateTitle => 'クリーンアップポリシーを作成';
 
   @override
   String get containerCreateSave => '無効なポリシーの作成を確認';
 
   @override
   String get containerCreateWarning =>
-      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+      'すべてのイメージリポジトリのクリーンアップ条件を保存します。有効化を選択しない限り無効のままです。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を行いません。パターンは入力どおり送信され、GitLab RE2でタグ全体に一致します。無効時は検証が後回しになる場合があります。受理は処理完了や容量の解放を意味しません。';
 
   @override
-  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+  String get containerCreateAcknowledge => '条件を確認し、このポリシーが無効のままであることを理解しました。';
 
   @override
   String get containerCreateExisting =>
@@ -2113,7 +2113,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
 
   @override
-  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+  String get containerCreateAccepted => 'クリーンアップポリシーの作成が受理されました。';
 
   @override
   String get containerCreateInvalid =>
@@ -2138,4 +2138,22 @@ class AppLocalizationsJa extends AppLocalizations {
   String containerCreateDays(int days) {
     return '$days日';
   }
+
+  @override
+  String get containerCreateEnable => '作成時にクリーンアップを有効化';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '有効なポリシーは、スケジュールに従い、このプロジェクトのすべてのイメージリポジトリから一致するタグを完全に削除する可能性があります。実行間隔、保持数、期間、両方のパターンを確認してください。保護されたタグや不変タグの除外はGitLabが決定します。保存は削除や容量解放の完了を意味しません。';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'すべての条件を確認し、プロジェクト全体で一致するタグが定期的に完全削除されることに同意します。';
+
+  @override
+  String get containerCreateEnabledSave => '有効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直し、現在のプロジェクトを確認してからポリシーを作成してください。';
 }

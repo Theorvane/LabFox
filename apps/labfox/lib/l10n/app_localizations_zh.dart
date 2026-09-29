@@ -2083,17 +2083,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
 
   @override
-  String get containerCreateTitle => '创建停用的清理策略';
+  String get containerCreateTitle => '创建清理策略';
 
   @override
-  String get containerCreateSave => '确认创建停用策略';
+  String get containerCreateSave => '确认创建未启用的策略';
 
   @override
   String get containerCreateWarning =>
-      '为所有镜像仓库保存停用的策略。这不会启用清理。以后启用前请检查所有条件：匹配的标签可能被永久删除。默认保留模式 .* 保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，使用 GitLab RE2 整个标签匹配规则。验证可能推迟到启用时进行。请求被接受不代表清理完成或存储空间已回收。';
+      '为所有镜像仓库保存清理条件。除非选择启用，否则清理保持关闭。默认保留模式 .* 会保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，并使用 GitLab RE2 匹配完整标签。未启用时验证可能推迟。请求被接受不代表清理已完成或空间已释放。';
 
   @override
-  String get containerCreateAcknowledge => '我已检查这些条件，并了解启用是单独的操作。';
+  String get containerCreateAcknowledge => '我已检查这些条件，并了解此策略将保持关闭。';
 
   @override
   String get containerCreateExisting => '此项目已有清理策略。创建不会覆盖它；请使用现有设置。';
@@ -2102,7 +2102,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerCreateUnknown => 'GitLab 未报告是否存在策略。请在 GitLab 中检查；创建已被阻止。';
 
   @override
-  String get containerCreateAccepted => '停用的清理策略创建请求已被接受。';
+  String get containerCreateAccepted => '清理策略创建请求已被接受。';
 
   @override
   String get containerCreateInvalid => 'GitLab 拒绝这些策略设置。请检查条件，然后修改或重试。';
@@ -2126,4 +2126,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String containerCreateDays(int days) {
     return '$days天';
   }
+
+  @override
+  String get containerCreateEnable => '创建时启用清理';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '启用的策略可按计划永久删除此项目所有镜像仓库中匹配的标签。请检查执行间隔、保留数量、时间及两个模式。GitLab 决定受保护或不可变标签的排除规则；保存不代表删除已完成或空间已释放。';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      '我已检查所有条件，并接受此项目中匹配的标签被按计划永久删除。';
+
+  @override
+  String get containerCreateEnabledSave => '确认创建已启用的策略';
+
+  @override
+  String get containerCreateSessionChanged =>
+      '账户已更改。请关闭并重新打开此对话框，检查当前项目后再创建策略。';
 }

@@ -2137,18 +2137,18 @@ class AppLocalizationsHi extends AppLocalizations {
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और दोबारा प्रयास से पहले नीति फिर लोड करें।';
 
   @override
-  String get containerCreateTitle => 'निष्क्रिय क्लीनअप नीति बनाएँ';
+  String get containerCreateTitle => 'सफाई नीति बनाएँ';
 
   @override
   String get containerCreateSave => 'निष्क्रिय नीति बनाने की पुष्टि करें';
 
   @override
   String get containerCreateWarning =>
-      'सभी इमेज रिपॉज़िटरी के लिए निष्क्रिय नीति सहेजें। इससे क्लीनअप सक्रिय नहीं होगा। बाद में सक्रिय करने से पहले सभी शर्तों की समीक्षा करें; मेल खाने वाले टैग स्थायी रूप से हट सकते हैं। डिफ़ॉल्ट रखने वाला पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित सुरक्षा नहीं देता। पैटर्न ठीक वैसे भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग से मिलान करता है। सत्यापन सक्रिय करने तक टल सकता है। स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
+      'सभी इमेज रिपॉज़िटरी के लिए सफाई मानदंड सहेजें। सक्रियण चुनने तक सफाई निष्क्रिय रहती है। डिफ़ॉल्ट रखने का पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित संरक्षण नहीं देता। पैटर्न ठीक वैसे ही भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग का मिलान करता है। निष्क्रिय अवस्था में सत्यापन बाद में हो सकता है। स्वीकृति सफाई पूरी होने या संग्रहण खाली होने की पुष्टि नहीं करती।';
 
   @override
   String get containerCreateAcknowledge =>
-      'मैंने शर्तों की समीक्षा की है और समझता हूँ कि सक्रिय करना अलग कार्रवाई है।';
+      'मैंने मानदंडों की समीक्षा की है और समझता हूँ कि यह नीति निष्क्रिय रहेगी।';
 
   @override
   String get containerCreateExisting =>
@@ -2160,7 +2160,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerCreateAccepted =>
-      'निष्क्रिय क्लीनअप नीति बनाने का अनुरोध स्वीकार हुआ।';
+      'सफाई नीति बनाने का अनुरोध स्वीकार किया गया।';
 
   @override
   String get containerCreateInvalid =>
@@ -2185,4 +2185,22 @@ class AppLocalizationsHi extends AppLocalizations {
   String containerCreateDays(int days) {
     return '$days दिन';
   }
+
+  @override
+  String get containerCreateEnable => 'बनाते समय सफाई सक्रिय करें';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      'सक्रिय नीति अपने समयानुसार इस प्रोजेक्ट की सभी इमेज रिपॉज़िटरी में मेल खाने वाले टैग स्थायी रूप से हटा सकती है। आवृत्ति, रखने की संख्या, आयु और दोनों पैटर्न जाँचें। संरक्षित या अपरिवर्तनीय टैग के अपवाद GitLab तय करता है; सहेजना हटाने या संग्रहण खाली होने की पुष्टि नहीं करता।';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'मैंने हर मानदंड की समीक्षा की है और इस प्रोजेक्ट में मेल खाने वाले टैग के नियत समय पर स्थायी विलोपन को स्वीकार करता हूँ।';
+
+  @override
+  String get containerCreateEnabledSave => 'सक्रिय नीति बनाने की पुष्टि करें';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'खाता बदल गया है। नीति बनाने से पहले यह संवाद बंद करके फिर खोलें और वर्तमान प्रोजेक्ट की समीक्षा करें।';
 }
