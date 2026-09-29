@@ -6,6 +6,7 @@ import 'deployments/deployments_api.dart';
 import 'environments/environments_api.dart';
 import 'environments/protected_environments_api.dart';
 import 'events/events_api.dart';
+import 'graphql/graphql_api.dart';
 import 'groups/group_protected_environments_api.dart';
 import 'groups/groups_api.dart';
 import 'issues/issue_links_api.dart';
@@ -33,7 +34,7 @@ import 'todos/todos_api.dart';
 import 'users/users_api.dart';
 import 'wikis/wikis_api.dart';
 
-/// Entry point for every GitLab REST call.
+/// Account-bound entry point for GitLab REST and selected GraphQL queries.
 ///
 /// One client is bound to one account: a base URL and a token. Switching
 /// accounts means building a new client, never mutating this one, so a request
@@ -59,6 +60,23 @@ class GitLabClient {
       // GitLab returns 4xx as a normal response so error bodies can be read
       // and turned into domain exceptions rather than raw transport errors.
       ..validateStatus = (status) => status != null && status < 500;
+
+    final graphqlEndpoint = graphqlApiUrl(baseUrl);
+    // GitLab documents PAT header authentication using Bearer as well as
+    // OAuth. Convert only this endpoint's request copy, never REST defaults.
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (request, handler) {
+          if (request.uri.toString() == graphqlEndpoint) {
+            final pat = request.headers['PRIVATE-TOKEN'];
+            request.headers.remove('PRIVATE-TOKEN');
+            if (pat != null) request.headers['Authorization'] = 'Bearer $pat';
+          }
+          handler.next(request);
+        },
+      ),
+    );
+    graphql = GraphQLApi(_dio, endpoint: graphqlEndpoint);
 
     if (bearer && onUnauthorized != null) {
       _installRefreshRetry(onUnauthorized);
@@ -152,6 +170,7 @@ class GitLabClient {
   }
 
   late final UsersApi users;
+  late final GraphQLApi graphql;
   late final GroupsApi groups;
   late final GroupProtectedEnvironmentsApi groupProtectedEnvironments;
   late final ContainerRegistryApi containerRegistry;
@@ -201,6 +220,12 @@ class GitLabClient {
       return trimmed;
     }
     return '$trimmed/api/v4';
+  }
+
+  /// Derives the sibling GraphQL endpoint without losing a subpath install.
+  static String graphqlApiUrl(String instanceUrl) {
+    final rest = apiBaseUrl(instanceUrl);
+    return '${rest.substring(0, rest.length - '/api/v4'.length)}/api/graphql';
   }
 
   void close() => _dio.close();
