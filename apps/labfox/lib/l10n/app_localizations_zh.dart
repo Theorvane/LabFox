@@ -2016,4 +2016,92 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerTagProtectionTitle => '标签保护规则';
+
+  @override
+  String get containerTagProtectionEmpty => '没有标签保护规则。';
+
+  @override
+  String get containerTagProtectionError => '无法加载标签保护规则。';
+
+  @override
+  String get containerTagProtectionForbidden => '您无权查看标签保护规则。';
+
+  @override
+  String get containerTagProtectionUnavailable => '此实例不支持标签保护规则，或项目无法访问。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '推送所需最低角色：$role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '删除所需最低角色：$role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerTagProtectionHint =>
+      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+
+  @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionDeleteClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      '规则不存在、重复、无法访问，或此实例不支持更新（GitLab 18.9+）。确认前请重新加载。';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '清除最低删除角色';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '清除删除限制';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      '这会移除此规则的最低删除角色限制，并削弱整个项目中匹配容器标签的删除保护。标签模式和最低推送角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除标签或镜像。';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      '我已检查规则并了解移除此删除限制的影响。';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '无法确认删除限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '最低删除角色限制已清除。';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      '服务器拒绝清除此删除限制。请检查规则后重试。';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。';
 }

@@ -2068,4 +2068,101 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerTagProtectionTitle => 'Tag protection rules';
+
+  @override
+  String get containerTagProtectionEmpty => 'No tag protection rules.';
+
+  @override
+  String get containerTagProtectionError =>
+      'Could not load tag protection rules.';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'You do not have permission to view tag protection rules.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'Tag protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; editing requires 18.9 or later.';
+
+  @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle =>
+      'Clear minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteClearSave =>
+      'Clear delete restriction';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this delete restriction.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved =>
+      'Minimum delete-role restriction cleared.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'The server rejected clearing this delete restriction. Check the rule and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
 }
