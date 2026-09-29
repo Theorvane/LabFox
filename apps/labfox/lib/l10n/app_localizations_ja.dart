@@ -2022,4 +2022,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerImmutabilityTitle => 'イミュータブルタグのルール';
+
+  @override
+  String get containerImmutabilityEmpty => 'イミュータブルタグのルールはありません。';
+
+  @override
+  String get containerImmutabilityError =>
+      'ルールを読み込めませんでした。インスタンスの対応状況を確認して再試行してください。';
+
+  @override
+  String get containerImmutabilityForbidden => 'イミュータブルタグのルールを表示する権限がありません。';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'プロジェクトまたはルール一覧を利用できません。アクセス権、サブスクリプション、インスタンスの対応状況を確認してください。';
+
+  @override
+  String get containerImmutabilityHint =>
+      'イミュータブルタグにはUltimateと対応するレジストリが必要です。パターンはプロジェクトのすべてのコンテナリポジトリに適用され、クリーンアップポリシーを含め、一致するタグの上書きと削除を防ぎます。ルールの表示だけでは個々のタグの現在の保護状態は確認できません。変更の反映には時間がかかる場合があります。';
 }

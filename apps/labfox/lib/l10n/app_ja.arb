@@ -547,5 +547,11 @@
   "mrAddTodo": "To-Do に追加",
   "mrTodoAdded": "To-Do リストに追加しました。",
   "mrTodoExists": "このマージリクエストは既に To-Do リストにあります。",
-  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。"
+  "mrTodoError": "マージリクエストを To-Do リストに追加できません。再試行してください。",
+  "containerImmutabilityTitle": "イミュータブルタグのルール",
+  "containerImmutabilityEmpty": "イミュータブルタグのルールはありません。",
+  "containerImmutabilityError": "ルールを読み込めませんでした。インスタンスの対応状況を確認して再試行してください。",
+  "containerImmutabilityForbidden": "イミュータブルタグのルールを表示する権限がありません。",
+  "containerImmutabilityUnavailable": "プロジェクトまたはルール一覧を利用できません。アクセス権、サブスクリプション、インスタンスの対応状況を確認してください。",
+  "containerImmutabilityHint": "イミュータブルタグにはUltimateと対応するレジストリが必要です。パターンはプロジェクトのすべてのコンテナリポジトリに適用され、クリーンアップポリシーを含め、一致するタグの上書きと削除を防ぎます。ルールの表示だけでは個々のタグの現在の保護状態は確認できません。変更の反映には時間がかかる場合があります。"
 }

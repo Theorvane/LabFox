@@ -2027,4 +2027,25 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerImmutabilityTitle => '불변 태그 규칙';
+
+  @override
+  String get containerImmutabilityEmpty => '불변 태그 규칙이 없습니다.';
+
+  @override
+  String get containerImmutabilityError =>
+      '불변 태그 규칙을 불러오지 못했습니다. 인스턴스 지원 여부를 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityForbidden => '불변 태그 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '프로젝트 또는 규칙 목록을 사용할 수 없습니다. 접근 권한, 구독 및 인스턴스 지원 여부를 확인하세요.';
+
+  @override
+  String get containerImmutabilityHint =>
+      '불변 태그에는 Ultimate와 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용되며 정리 정책을 포함하여 일치하는 태그의 덮어쓰기와 삭제를 방지합니다. 규칙 조회만으로 개별 태그의 현재 보호 상태를 확인할 수 없습니다. 변경 사항이 반영되기까지 시간이 걸릴 수 있습니다.';
 }

@@ -1557,5 +1557,11 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "containerImmutabilityTitle": "Immutable tag rules",
+  "containerImmutabilityEmpty": "No immutable tag rules.",
+  "containerImmutabilityError": "Could not load immutable tag rules. Check instance support and retry.",
+  "containerImmutabilityForbidden": "You do not have permission to view immutable tag rules.",
+  "containerImmutabilityUnavailable": "The project or rule connection is unavailable. Check access, subscription, and instance support.",
+  "containerImmutabilityHint": "Immutable tags require Ultimate and a supported registry. These patterns apply across the project's container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag's current protection. Changes may take time to propagate."
 }

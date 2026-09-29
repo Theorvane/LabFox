@@ -4033,6 +4033,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerImmutabilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tag rules'**
+  String get containerImmutabilityTitle;
+
+  /// No description provided for @containerImmutabilityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No immutable tag rules.'**
+  String get containerImmutabilityEmpty;
+
+  /// No description provided for @containerImmutabilityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load immutable tag rules. Check instance support and retry.'**
+  String get containerImmutabilityError;
+
+  /// No description provided for @containerImmutabilityForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view immutable tag rules.'**
+  String get containerImmutabilityForbidden;
+
+  /// No description provided for @containerImmutabilityUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project or rule connection is unavailable. Check access, subscription, and instance support.'**
+  String get containerImmutabilityUnavailable;
+
+  /// No description provided for @containerImmutabilityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tags require Ultimate and a supported registry. These patterns apply across the project\'s container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag\'s current protection. Changes may take time to propagate.'**
+  String get containerImmutabilityHint;
 }
 
 class _AppLocalizationsDelegate

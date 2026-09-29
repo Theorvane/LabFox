@@ -2016,4 +2016,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerImmutabilityTitle => '不可变标签规则';
+
+  @override
+  String get containerImmutabilityEmpty => '没有不可变标签规则。';
+
+  @override
+  String get containerImmutabilityError => '无法加载不可变标签规则。请检查实例支持情况后重试。';
+
+  @override
+  String get containerImmutabilityForbidden => '你没有查看不可变标签规则的权限。';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '项目或规则列表不可用。请检查访问权限、订阅和实例支持情况。';
+
+  @override
+  String get containerImmutabilityHint =>
+      '不可变标签需要 Ultimate 和受支持的镜像仓库。这些模式适用于项目中的所有容器仓库，防止匹配标签被覆盖或删除，包括清理策略的删除。查看规则并不确认单个标签当前的保护状态。更改可能需要时间才能生效。';
 }

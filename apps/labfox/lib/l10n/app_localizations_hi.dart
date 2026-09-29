@@ -2064,4 +2064,26 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerImmutabilityTitle => 'अपरिवर्तनीय टैग नियम';
+
+  @override
+  String get containerImmutabilityEmpty => 'कोई अपरिवर्तनीय टैग नियम नहीं है।';
+
+  @override
+  String get containerImmutabilityError =>
+      'अपरिवर्तनीय टैग नियम लोड नहीं हुए। इंस्टेंस समर्थन जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerImmutabilityForbidden =>
+      'आपको अपरिवर्तनीय टैग नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'प्रोजेक्ट या नियम सूची उपलब्ध नहीं है। पहुँच, सदस्यता और इंस्टेंस समर्थन जाँचें।';
+
+  @override
+  String get containerImmutabilityHint =>
+      'अपरिवर्तनीय टैग के लिए Ultimate और समर्थित रजिस्ट्री आवश्यक हैं। ये पैटर्न प्रोजेक्ट की सभी कंटेनर रिपॉज़िटरी पर लागू होते हैं और सफ़ाई नीतियों सहित मेल खाने वाले टैग को ओवरराइट करने या हटाने से रोकते हैं। नियम देखना किसी टैग की वर्तमान सुरक्षा की पुष्टि नहीं करता। बदलाव लागू होने में समय लग सकता है।';
 }

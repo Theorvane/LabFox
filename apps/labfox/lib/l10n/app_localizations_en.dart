@@ -2068,4 +2068,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerImmutabilityTitle => 'Immutable tag rules';
+
+  @override
+  String get containerImmutabilityEmpty => 'No immutable tag rules.';
+
+  @override
+  String get containerImmutabilityError =>
+      'Could not load immutable tag rules. Check instance support and retry.';
+
+  @override
+  String get containerImmutabilityForbidden =>
+      'You do not have permission to view immutable tag rules.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'The project or rule connection is unavailable. Check access, subscription, and instance support.';
+
+  @override
+  String get containerImmutabilityHint =>
+      'Immutable tags require Ultimate and a supported registry. These patterns apply across the project\'s container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag\'s current protection. Changes may take time to propagate.';
 }
