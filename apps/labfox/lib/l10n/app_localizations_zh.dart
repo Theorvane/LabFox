@@ -2016,4 +2016,90 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerProtectionDeleteRoleTitle => '编辑最低删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '保存删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '更改最低删除角色会改变谁能删除匹配仓库中的镜像。较低角色会削弱删除保护；较高角色可能阻断现有清理流程。路径模式和最低推送角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限。保存规则不会删除镜像。';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      '我已检查规则和新的最低删除角色，并了解访问权限的变化。';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '无法确认删除角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionDeleteRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionDeleteRoleReload => '重新加载规则';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '最低删除角色已更新。';
+
+  @override
+  String get containerProtectionDeleteRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid => '删除角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '新的最低删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '选择删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '当前删除角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
 }

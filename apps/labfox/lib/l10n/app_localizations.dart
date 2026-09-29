@@ -4033,6 +4033,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerRepositoryProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
+
+  /// No description provided for @containerRepositoryProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerRepositoryProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
+
+  /// No description provided for @containerRepositoryProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerProtectionDeleteRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum delete role'**
+  String get containerProtectionDeleteRoleTitle;
+
+  /// No description provided for @containerProtectionDeleteRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save delete role'**
+  String get containerProtectionDeleteRoleSave;
+
+  /// No description provided for @containerProtectionDeleteRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.'**
+  String get containerProtectionDeleteRoleWarning;
+
+  /// No description provided for @containerProtectionDeleteRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum delete role and understand the access changes.'**
+  String get containerProtectionDeleteRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionDeleteRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionDeleteRoleForbidden;
+
+  /// No description provided for @containerProtectionDeleteRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionDeleteRoleError;
+
+  /// No description provided for @containerProtectionDeleteRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionDeleteRoleStale;
+
+  /// No description provided for @containerProtectionDeleteRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionDeleteRoleReload;
+
+  /// No description provided for @containerProtectionDeleteRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role updated.'**
+  String get containerProtectionDeleteRoleSaved;
+
+  /// No description provided for @containerProtectionDeleteRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionDeleteRoleMissing;
+
+  /// No description provided for @containerProtectionDeleteRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionDeleteRoleRateLimited;
+
+  /// No description provided for @containerProtectionDeleteRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The delete role was rejected. Choose a supported role and retry.'**
+  String get containerProtectionDeleteRoleInvalid;
+
+  /// No description provided for @containerProtectionDeleteRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum delete role'**
+  String get containerProtectionDeleteRoleDraft;
+
+  /// No description provided for @containerProtectionDeleteRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a delete role'**
+  String get containerProtectionDeleteRoleSelect;
+
+  /// No description provided for @containerProtectionDeleteRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerProtectionDeleteRoleUnknown;
 }
 
 class _AppLocalizationsDelegate
