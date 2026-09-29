@@ -2016,4 +2016,94 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get containerTagProtectionTitle => '标签保护规则';
+
+  @override
+  String get containerTagProtectionEmpty => '没有标签保护规则。';
+
+  @override
+  String get containerTagProtectionError => '无法加载标签保护规则。';
+
+  @override
+  String get containerTagProtectionForbidden => '您无权查看标签保护规则。';
+
+  @override
+  String get containerTagProtectionUnavailable => '此实例不支持标签保护规则，或项目无法访问。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '推送所需最低角色：$role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '删除所需最低角色：$role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerTagProtectionHint =>
+      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+
+  @override
+  String get containerTagProtectionPushRoleTitle => '编辑最低推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleSave => '保存推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '更改最低推送角色将改变本项目中可推送匹配容器镜像标签的人员范围。降低角色会削弱保护，提高角色可能阻止现有工作流程。标签模式和最低删除角色保持不变，其他规则和权限仍然适用。此操作不会删除标签或镜像，不影响 Git 标签，也不代表您的当前访问权限。';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      '我已检查规则和新的最低推送角色，并了解访问权限的变化。';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      '无法确认推送角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionPushRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionPushRoleReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '最低推送角色已更新。';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid => '推送角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '新的最低推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => '选择推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
 }
