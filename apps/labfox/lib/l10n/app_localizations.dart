@@ -4033,6 +4033,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerTagProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules'**
+  String get containerTagProtectionTitle;
+
+  /// No description provided for @containerTagProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tag protection rules.'**
+  String get containerTagProtectionEmpty;
+
+  /// No description provided for @containerTagProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tag protection rules.'**
+  String get containerTagProtectionError;
+
+  /// No description provided for @containerTagProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view tag protection rules.'**
+  String get containerTagProtectionForbidden;
+
+  /// No description provided for @containerTagProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerTagProtectionUnavailable;
+
+  /// No description provided for @containerTagProtectionPushRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerTagProtectionPushRole(String role);
+
+  /// No description provided for @containerTagProtectionDeleteRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerTagProtectionDeleteRole(String role);
+
+  /// No description provided for @containerTagProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerTagProtectionRoleUnset;
+
+  /// No description provided for @containerTagProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerTagProtectionRoleAdmin;
+
+  /// No description provided for @containerTagProtectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; creation requires 18.8 or later.'**
+  String get containerTagProtectionHint;
+
+  /// No description provided for @containerTagProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag protection rule'**
+  String get containerTagProtectionCreateTitle;
+
+  /// No description provided for @containerTagProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerTagProtectionCreateSave;
+
+  /// No description provided for @containerTagProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name pattern'**
+  String get containerTagProtectionCreatePattern;
+
+  /// No description provided for @containerTagProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerTagProtectionCreatePush;
+
+  /// No description provided for @containerTagProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerTagProtectionCreateDelete;
+
+  /// No description provided for @containerTagProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a role'**
+  String get containerTagProtectionCreateUnset;
+
+  /// No description provided for @containerTagProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.'**
+  String get containerTagProtectionCreateWarning;
+
+  /// No description provided for @containerTagProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.'**
+  String get containerTagProtectionCreateAcknowledge;
+
+  /// Project whose matching container tags will be protected
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerTagProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerTagProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerTagProtectionCreateForbidden;
+
+  /// No description provided for @containerTagProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag pattern or roles were rejected. Review both required roles and retry.'**
+  String get containerTagProtectionCreateInvalid;
+
+  /// No description provided for @containerTagProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionCreateError;
+
+  /// No description provided for @containerTagProtectionCreateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag rule was created.'**
+  String get containerTagProtectionCreateSaved;
+
+  /// No description provided for @containerTagProtectionCreateUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag rule creation requires GitLab 18.8 or later and an accessible project.'**
+  String get containerTagProtectionCreateUnavailable;
+
+  /// No description provided for @containerTagProtectionCreateRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionCreateRateLimited;
 }
 
 class _AppLocalizationsDelegate

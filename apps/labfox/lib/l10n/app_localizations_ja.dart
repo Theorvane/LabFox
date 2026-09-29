@@ -2022,4 +2022,93 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerTagProtectionTitle => 'タグ保護ルール';
+
+  @override
+  String get containerTagProtectionEmpty => 'タグ保護ルールはありません。';
+
+  @override
+  String get containerTagProtectionError => 'タグ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerTagProtectionForbidden => 'タグ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'このインスタンスでタグ保護ルールが利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'プッシュの最低ロール: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '削除の最低ロール: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Git タグではなくコンテナイメージタグのルールです。最低ロールは現在のアクセス権限を保証しません。表示には GitLab 18.7 以降、作成には 18.8 以降が必要です。';
+
+  @override
+  String get containerTagProtectionCreateTitle => 'タグ保護ルールを作成';
+
+  @override
+  String get containerTagProtectionCreateSave => 'ルールを作成';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'タグ名パターン';
+
+  @override
+  String get containerTagProtectionCreatePush => '最低プッシュロール';
+
+  @override
+  String get containerTagProtectionCreateDelete => '最低削除ロール';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'ロールを選択';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'このプロジェクト全体のルールは正確なglobパターンに一致するタグのプッシュと削除を制限します。ワイルドカードは多くのタグに影響し、既存のリリースやクリーンアップを妨げる可能性があります。両方のロールが必須です。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '正確なタグパターンと両方のロールを確認し、一致するタグへの影響を理解しました。';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => 'このルールを作成する権限がありません。';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'タグパターンまたはロールが拒否されました。必須の両ロールを確認して再試行してください。';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'タグルールの作成を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'タグルールを作成しました。';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'タグルールの作成にはGitLab 18.8以降とアクセス可能なプロジェクトが必要です。';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
 }
