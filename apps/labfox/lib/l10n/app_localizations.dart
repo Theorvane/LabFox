@@ -4033,6 +4033,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @protectedTagUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect tag rule'**
+  String get protectedTagUnprotectTitle;
+
+  /// No description provided for @protectedTagUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {name}'**
+  String protectedTagUnprotectTarget(String projectId, String name);
+
+  /// No description provided for @protectedTagUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.'**
+  String get protectedTagUnprotectWarning;
+
+  /// No description provided for @protectedTagUnprotectAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{description}\nRole level: {role}; user ID: {user}; group ID: {group}; deploy key ID: {key}'**
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  );
+
+  /// No description provided for @protectedTagUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get protectedTagUnprotectUnreported;
+
+  /// No description provided for @protectedTagUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the exact rule name or pattern'**
+  String get protectedTagUnprotectName;
+
+  /// No description provided for @protectedTagUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the protection loss for all tags matching this rule and want to remove this rule.'**
+  String get protectedTagUnprotectAcknowledge;
+
+  /// No description provided for @protectedTagUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before reviewing the rule.'**
+  String get protectedTagUnprotectAuth;
+
+  /// No description provided for @protectedTagUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.'**
+  String get protectedTagUnprotectForbidden;
+
+  /// No description provided for @protectedTagUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.'**
+  String get protectedTagUnprotectUnavailable;
+
+  /// No description provided for @protectedTagUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Reload and confirm the current permissions before removing it.'**
+  String get protectedTagUnprotectStale;
+
+  /// No description provided for @protectedTagUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload and confirm the rule again.'**
+  String get protectedTagUnprotectRateLimited;
+
+  /// No description provided for @protectedTagUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request could not be confirmed. Reload the rule and confirm again before retrying.'**
+  String get protectedTagUnprotectError;
+
+  /// No description provided for @protectedTagUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get protectedTagUnprotectReload;
+
+  /// No description provided for @protectedTagUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project.'**
+  String get protectedTagUnprotectSessionChanged;
+
+  /// No description provided for @protectedTagUnprotectAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule removed. No tags were deleted.'**
+  String get protectedTagUnprotectAccepted;
 }
 
 class _AppLocalizationsDelegate

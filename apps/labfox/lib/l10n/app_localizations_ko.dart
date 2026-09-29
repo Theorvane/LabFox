@@ -2027,4 +2027,71 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get protectedTagUnprotectTitle => '태그 보호 규칙 해제';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return '프로젝트 $projectId — 규칙 $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      '저장소 태그 보호 규칙을 제거합니다. 태그는 삭제되지 않습니다. 와일드카드는 현재 및 향후 여러 태그에 영향을 줄 수 있습니다. 보호 해제로 더 많은 사용자가 일치하는 태그를 만들거나 삭제할 수 있으며 태그 파이프라인과 작업의 접근 권한도 바뀔 수 있습니다. 다른 일치 규칙이 태그를 계속 보호할 수 있으며 실제 접근 권한은 GitLab이 결정합니다. 아래의 현재 생성 권한을 검토하세요.';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\n역할 수준: $role; 사용자 ID: $user; 그룹 ID: $group; 배포 키 ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '보고되지 않음';
+
+  @override
+  String get protectedTagUnprotectName => '정확한 규칙 이름 또는 패턴을 다시 입력하세요';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      '이 규칙에 일치하는 모든 태그의 보호가 해제됨을 이해하며 이 규칙을 제거하겠습니다.';
+
+  @override
+  String get protectedTagUnprotectAuth => '세션이 거부되었습니다. 다시 로그인한 뒤 규칙을 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab이 보호 해제 권한을 거부했습니다. Maintainer 또는 Owner 역할이 필요합니다.';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      '규칙이 없거나 비공개이거나 이 인스턴스에서 사용할 수 없습니다. 새로 불러와 확인하세요. 다른 규칙은 제거되지 않습니다.';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      '규칙이 변경되었습니다. 새로 불러와 현재 권한을 확인한 뒤 제거하세요.';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab이 요청 횟수를 제한하고 있습니다. 잠시 기다린 뒤 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectError =>
+      '요청 결과를 확인할 수 없습니다. 재시도 전에 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectReload => '규칙 다시 불러오기';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      '태그 보호 규칙이 제거되었습니다. 태그는 삭제되지 않았습니다.';
 }
