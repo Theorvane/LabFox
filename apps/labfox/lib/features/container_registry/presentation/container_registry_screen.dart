@@ -22,6 +22,15 @@ class ContainerRegistryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerRegistryTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(LabFoxIcons.private),
+            tooltip: l10n.containerRepositoryProtectionTitle,
+            onPressed: () => context.push(
+              Routes.containerRepositoryProtectionRules(projectId),
+            ),
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

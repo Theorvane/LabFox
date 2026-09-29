@@ -4033,6 +4033,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @containerRepositoryProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
+
+  /// No description provided for @containerRepositoryProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerRepositoryProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
+
+  /// No description provided for @containerRepositoryProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPushClearTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPushClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPushClearForbidden;
+
+  /// No description provided for @containerProtectionPushClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPushClearStale;
+
+  /// No description provided for @containerProtectionPushClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPushClearReload;
+
+  /// No description provided for @containerProtectionPushClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPushClearMissing;
+
+  /// No description provided for @containerProtectionPushClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPushClearRateLimited;
+
+  /// No description provided for @containerProtectionPushClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum push role'**
+  String get containerProtectionPushClearTitle;
+
+  /// No description provided for @containerProtectionPushClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear push restriction'**
+  String get containerProtectionPushClearSave;
+
+  /// No description provided for @containerProtectionPushClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum push-role restriction for matching repositories and weakens push protection. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.'**
+  String get containerProtectionPushClearWarning;
+
+  /// No description provided for @containerProtectionPushClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this push restriction.'**
+  String get containerProtectionPushClearAcknowledge;
+
+  /// No description provided for @containerProtectionPushClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPushClearError;
+
+  /// No description provided for @containerProtectionPushClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push-role restriction cleared.'**
+  String get containerProtectionPushClearSaved;
+
+  /// No description provided for @containerProtectionPushClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this push restriction. Check the rule and retry.'**
+  String get containerProtectionPushClearInvalid;
+
+  /// No description provided for @containerProtectionPushClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerProtectionPushClearBlocked;
 }
 
 class _AppLocalizationsDelegate
