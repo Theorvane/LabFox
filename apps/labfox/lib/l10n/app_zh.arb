@@ -547,5 +547,31 @@
   "mrAddTodo": "添加到待办事项",
   "mrTodoAdded": "已添加到待办事项。",
   "mrTodoExists": "该合并请求已在待办事项中。",
-  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。",
+  "containerImmutabilityTitle": "不可变标签规则",
+  "containerImmutabilityEmpty": "没有不可变标签规则。",
+  "containerImmutabilityError": "无法加载不可变标签规则。请检查实例支持情况后重试。",
+  "containerImmutabilityForbidden": "你没有查看不可变标签规则的权限。",
+  "containerImmutabilityUnavailable": "项目或规则列表不可用。请检查访问权限、订阅和实例支持情况。",
+  "containerImmutabilityHint": "不可变标签需要 Ultimate 和受支持的镜像仓库。这些模式适用于项目中的所有容器仓库，防止匹配标签被覆盖或删除，包括清理策略的删除。查看规则并不确认单个标签当前的保护状态。更改可能需要时间才能生效。",
+  "containerImmutabilityDeleteTitle": "删除不可变规则",
+  "containerImmutabilityDeleteButton": "删除规则",
+  "containerImmutabilityDeleteDone": "不可变规则已删除。",
+  "containerImmutabilityDeleteProject": "项目 {projectId}",
+  "containerImmutabilityDeleteRuleId": "规则ID",
+  "containerImmutabilityDeleteConfirm": "输入完全相同的模式",
+  "containerImmutabilityDeleteImpact": "删除此规则会移除其对项目中所有容器仓库的保护。匹配的标签可能可以被覆盖或删除，包括通过清理策略删除。移除最后一条不可变规则可能允许直接删除清单。其他规则和权限仍可能适用。此操作不会删除镜像或标签。需要Owner权限，变更生效可能需要一些时间。",
+  "containerImmutabilityDeleteAcknowledge": "我了解项目范围的保护丢失风险。",
+  "containerImmutabilityDeleteUncertain": "无法确认删除结果。请求可能已经成功。重试前请重新加载规则。",
+  "containerImmutabilityDeleteReload": "重新加载规则",
+  "containerImmutabilityDeleteRejected": "规则已更改或GitLab拒绝了请求。重试前请重新加载并确认当前规则。",
+  "containerImmutabilityDeleteAuth": "会话被拒绝。删除规则前请重新登录。",
+  "containerImmutabilityDeleteAccountChanged": "账户已更改。请关闭此对话框，然后为所选账户重新打开。",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  }
 }

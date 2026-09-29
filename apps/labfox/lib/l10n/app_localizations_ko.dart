@@ -2027,4 +2027,72 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerImmutabilityTitle => '불변 태그 규칙';
+
+  @override
+  String get containerImmutabilityEmpty => '불변 태그 규칙이 없습니다.';
+
+  @override
+  String get containerImmutabilityError =>
+      '불변 태그 규칙을 불러오지 못했습니다. 인스턴스 지원 여부를 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityForbidden => '불변 태그 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '프로젝트 또는 규칙 목록을 사용할 수 없습니다. 접근 권한, 구독 및 인스턴스 지원 여부를 확인하세요.';
+
+  @override
+  String get containerImmutabilityHint =>
+      '불변 태그에는 Ultimate와 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용되며 정리 정책을 포함하여 일치하는 태그의 덮어쓰기와 삭제를 방지합니다. 규칙 조회만으로 개별 태그의 현재 보호 상태를 확인할 수 없습니다. 변경 사항이 반영되기까지 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityDeleteTitle => 'Immutable 규칙 삭제';
+
+  @override
+  String get containerImmutabilityDeleteButton => '규칙 삭제';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'Immutable 규칙을 삭제했습니다.';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => '규칙 ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => '정확한 패턴을 입력하세요';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      '이 규칙을 삭제하면 프로젝트의 모든 컨테이너 저장소에서 해당 보호가 해제됩니다. 일치하는 태그를 덮어쓰거나 정리 정책을 통해 삭제할 수 있게 될 수 있습니다. 마지막 Immutable 규칙을 제거하면 매니페스트 직접 삭제가 허용될 수 있습니다. 다른 규칙 및 권한은 계속 적용될 수 있습니다. 이미지나 태그 자체를 삭제하지는 않습니다. Owner 권한이 필요하며 변경 적용에 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      '프로젝트 전체에서 보호가 해제되는 영향을 이해했습니다.';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      '삭제 결과를 확인하지 못했습니다. 요청이 이미 성공했을 수 있으므로 재시도 전에 규칙을 다시 불러오세요.';
+
+  @override
+  String get containerImmutabilityDeleteReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      '규칙이 변경되었거나 GitLab이 요청을 거부했습니다. 재시도 전에 현재 규칙을 다시 불러오고 확인하세요.';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      '세션이 거부되었습니다. 규칙 삭제 전에 다시 로그인하세요.';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 선택한 계정에서 다시 여세요.';
 }

@@ -11,6 +11,7 @@ import '../features/auth/presentation/sign_in_screen.dart';
 import '../features/branches/presentation/branches_screen.dart';
 import '../features/commits/presentation/commit_detail_screen.dart';
 import '../features/commits/presentation/commits_screen.dart';
+import '../features/container_registry/presentation/container_immutability_screen.dart';
 import '../features/container_registry/presentation/container_registry_screen.dart';
 import '../features/container_registry/presentation/container_repository_screen.dart';
 import '../features/container_registry/presentation/container_tag_screen.dart';
@@ -119,6 +120,8 @@ abstract final class Routes {
       '/projects/$id/snippets/$snippetId/file?path=${Uri.encodeQueryComponent(path)}';
   static String projectMembers(int id) => '/projects/$id/members';
   static String containerRegistry(int id) => '/projects/$id/container_registry';
+  static String containerImmutability(int id) =>
+      '/projects/$id/container_registry/immutable_rules';
   static String containerRepository(int id, int repositoryId) =>
       '/projects/$id/container_registry/$repositoryId';
   static String containerTag(int id, int repositoryId, String tagName) =>
@@ -395,6 +398,12 @@ final routerProvider = Provider<GoRouter>((ref) {
                   projectId: int.parse(state.pathParameters['id']!),
                 ),
                 routes: [
+                  GoRoute(
+                    path: 'immutable_rules',
+                    builder: (context, state) => ContainerImmutabilityScreen(
+                      projectId: int.parse(state.pathParameters['id']!),
+                    ),
+                  ),
                   GoRoute(
                     path: ':repositoryId',
                     builder: (context, state) => ContainerRepositoryScreen(
