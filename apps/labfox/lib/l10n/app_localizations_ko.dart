@@ -2027,4 +2027,88 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
+
+  @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 일치하는 저장소의 삭제 보호가 약해집니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
 }

@@ -2022,4 +2022,89 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
+
+  @override
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
+
+  @override
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '最低削除ロールを解除';
+
+  @override
+  String get containerProtectionDeleteClearSave => '削除制限を解除';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'このルールの最低削除ロール制限を解除し、一致するリポジトリの削除保護を弱めます。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'ルールを確認し、この削除制限を解除する影響を理解しました。';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '削除制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '最低削除ロール制限を解除しました。';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'サーバーが削除制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。';
 }

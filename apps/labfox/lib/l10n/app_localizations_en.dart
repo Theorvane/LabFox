@@ -2068,4 +2068,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'Reload rule';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionDeleteClearTitle => 'Clear minimum delete role';
+
+  @override
+  String get containerProtectionDeleteClearSave => 'Clear delete restriction';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'This removes this rule\'s minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this delete restriction.';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionDeleteClearSaved =>
+      'Minimum delete-role restriction cleared.';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'The server rejected clearing this delete restriction. Check the rule and retry.';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
 }

@@ -1,17 +1,90 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project container registry endpoints.
+/// Project container registry browsing and protection endpoints.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
   final Dio _dio;
 
+  /// Clears only the minimum delete role; pattern and push role are omitted.
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionDeleteRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'minimum_access_level_for_delete': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing repository protection delete role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_delete')) {
+          throw const FormatException('Missing cleared delete role');
+        }
+        return ContainerRepositoryProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection delete role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing repository protection delete role',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerRepositoryProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container repository protection rule list response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
 
   /// Lists image repositories in a project.
   Future<Paginated<RegistryRepository>> listRepositories(

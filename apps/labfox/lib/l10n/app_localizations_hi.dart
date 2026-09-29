@@ -2064,4 +2064,95 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
+
+  @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteClearTitle =>
+      'न्यूनतम हटाने की भूमिका हटाएँ';
+
+  @override
+  String get containerProtectionDeleteClearSave => 'हटाने की प्रतिबंध हटाएँ';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'यह इस नियम का न्यूनतम हटाने की भूमिका का प्रतिबंध हटाता है और मेल खाने वाली रिपॉज़िटरी की हटाने की सुरक्षा कम करता है। पथ पैटर्न और न्यूनतम पुश भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; इससे सभी को पहुँच नहीं मिलती और इमेज नहीं हटतीं।';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस हटाने की प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      'हटाने की प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionDeleteClearSaved =>
+      'न्यूनतम हटाने की-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'सर्वर ने हटाने की प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान हटाने की भूमिका और समर्थित गैर-खाली पुश भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
 }
