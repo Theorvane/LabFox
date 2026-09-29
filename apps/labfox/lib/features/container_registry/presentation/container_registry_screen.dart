@@ -21,6 +21,14 @@ class ContainerRegistryScreen extends ConsumerWidget {
     );
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.lock_outline),
+            tooltip: l10n.containerImmutabilityTitle,
+            onPressed: () =>
+                context.push(Routes.containerImmutability(projectId)),
+          ),
+        ],
         title: Text(l10n.containerRegistryTitle),
         leading: BackButton(
           onPressed: () => context.canPop()
