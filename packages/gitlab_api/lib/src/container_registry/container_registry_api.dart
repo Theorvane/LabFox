@@ -64,13 +64,19 @@ class ContainerRegistryApi {
           context: 'listing container repository protection rules',
         );
       }
-      return (response.data as List<dynamic>)
-          .map(
-            (item) => ContainerRepositoryProtectionRule.fromJson(
-              item as Map<String, dynamic>,
-            ),
-          )
-          .toList(growable: false);
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerRepositoryProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container repository protection rule list response',
+        );
+      }
     } on DioException catch (error) {
       throw mapError(
         error,

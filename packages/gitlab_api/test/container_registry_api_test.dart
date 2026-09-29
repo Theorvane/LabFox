@@ -6,6 +6,48 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  const validRule = {
+    'id': 2,
+    'project_id': 7,
+    'repository_path_pattern': 'team/app/*',
+    'minimum_access_level_for_push': null,
+    'minimum_access_level_for_delete': 'owner',
+  };
+  final malformed = <String, Object?>{
+    'null body': null,
+    'object instead of array': {'private-fixture': true},
+    'string instead of array': 'private-fixture',
+    'scalar instead of array': 7,
+    'non-object item': ['private-fixture'],
+    'missing required fields': [{}],
+    'invalid required field type': [
+      {...validRule, 'id': 'private-fixture'},
+    ],
+    'invalid optional role type': [
+      {...validRule, 'minimum_access_level_for_push': 40},
+    ],
+    'mixed valid and invalid items': [validRule, 'private-fixture'],
+  };
+  for (final entry in malformed.entries) {
+    test(
+      'malformed protection rule list maps to safe domain error: ${entry.key}',
+      () async {
+        final client = _client(
+          (_) => (status: 200, headers: const {}, body: entry.value),
+        );
+        await expectLater(
+          client.containerRegistry.listRepositoryProtectionRules(7),
+          throwsA(
+            isA<GitLabServerException>().having(
+              (error) => error.message,
+              'safe message',
+              isNot(contains('private-fixture')),
+            ),
+          ),
+        );
+      },
+    );
+  }
   test(
     'lists repository protection rules using an encoded project path',
     () async {
