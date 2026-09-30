@@ -83,6 +83,7 @@ Future<void> pumpProtect(
         protectedTagsRepositoryProvider.overrideWith((ref) async => repository),
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(brightness: dark ? Brightness.dark : Brightness.light),
         locale: Locale(locale),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
