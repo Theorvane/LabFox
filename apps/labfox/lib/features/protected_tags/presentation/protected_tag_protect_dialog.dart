@@ -129,14 +129,18 @@ class _ProtectedTagProtectDialogState
   String _message(AppLocalizations l10n, bool sessionChanged) {
     if (sessionChanged) return l10n.protectedTagProtectSessionChanged;
     if (_existing) return l10n.protectedTagProtectExisting;
-    if (_error is GitLabForbiddenException)
+    if (_error is GitLabForbiddenException) {
       return l10n.protectedTagProtectForbidden;
-    if (_error is GitLabAuthException)
+    }
+    if (_error is GitLabAuthException) {
       return l10n.protectedTagProtectUnauthorized;
-    if (_error is GitLabRateLimitException)
+    }
+    if (_error is GitLabRateLimitException) {
       return l10n.protectedTagProtectRateLimited;
-    if (_error is GitLabNotFoundException)
+    }
+    if (_error is GitLabNotFoundException) {
       return l10n.protectedTagProtectUnavailable;
+    }
     if (_needsReload) return l10n.protectedTagProtectUncertain;
     return l10n.protectedTagProtectLoadError;
   }
