@@ -54,7 +54,7 @@ void main() {
     );
   });
 
-  test('discards a page fetched before the list is refreshed', () async {
+  test('an invalidated list discards an older page result', () async {
     final repository = _Repository()
       ..pendingPage = Completer<Paginated<ProtectedBranch>>();
     final container = ProviderContainer(

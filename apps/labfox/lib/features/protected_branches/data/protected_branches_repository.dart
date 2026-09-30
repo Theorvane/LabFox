@@ -13,10 +13,20 @@ class ProtectedBranchesRepository {
   Future<ProtectedBranch> get(int projectId, String name) =>
       client.protectedBranches.get(projectId, name);
 
+  Future<ProtectedBranch> updateForcePush(
+    int projectId,
+    String name, {
+    required bool allowForcePush,
+  }) => client.protectedBranches.updateForcePush(
+    projectId,
+    name,
+    allowForcePush: allowForcePush,
+  );
+
   Future<void> unprotect(int projectId, String name) =>
       client.protectedBranches.unprotect(projectId, name);
 
-  /// Scan the full inventory before acting on an exact rule name.
+  /// Read every page so an exact name cannot be confused with another rule.
   Future<ProtectedBranch> findUnique(int projectId, String name) async {
     ProtectedBranch? found;
     var page = 1;

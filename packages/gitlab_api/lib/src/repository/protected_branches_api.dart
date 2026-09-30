@@ -84,6 +84,49 @@ class ProtectedBranchesApi {
     }
   }
 
+  /// Changes only the force-push flag of an exact project rule.
+  Future<ProtectedBranch> updateForcePush(
+    Object projectId,
+    String name, {
+    required bool allowForcePush,
+  }) async {
+    if (name.trim().isEmpty) throw ArgumentError('Exact rule name required');
+    try {
+      final response = await _dio.patch<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {'allow_force_push': allowForcePush},
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating protected branch force push',
+        );
+      }
+      final raw = response.data;
+      if (!_validRule(raw) ||
+          (raw as Map<String, dynamic>)['name'] != name ||
+          raw['allow_force_push'] != allowForcePush) {
+        throw const GitLabServerException(
+          'Unconfirmed protected branch update',
+        );
+      }
+      try {
+        return ProtectedBranch.fromJson(raw);
+      } on TypeError {
+        throw const GitLabServerException('Malformed protected branch update');
+      } on FormatException {
+        throw const GitLabServerException('Malformed protected branch update');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating protected branch force push');
+    }
+  }
+
   /// Removes only the named project rule, not the underlying branch.
   Future<void> unprotect(Object projectId, String name) async {
     if (name.trim().isEmpty) throw ArgumentError('Exact rule name required');
@@ -111,6 +154,7 @@ class ProtectedBranchesApi {
     if (raw is! Map<String, dynamic> ||
         raw['name'] is! String ||
         (raw['name'] as String).isEmpty ||
+        raw['allow_force_push'] is! bool ||
         raw['push_access_levels'] is! List ||
         raw['merge_access_levels'] is! List) {
       return false;

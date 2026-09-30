@@ -94,6 +94,118 @@ final protectedBranchDetailProvider =
       return repository.get(key.projectId, key.name);
     });
 
+/// Session-bound, best-effort update of one frozen project rule.
+class ProtectedBranchForcePushController
+    extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedBranchRef arg) {
+    ref.watch(protectedBranchesRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedBranch> inspect() async {
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    final listed = await repository.findUnique(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.get(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (listed != detail) {
+      throw const GitLabConflictException('Protection rule changed');
+    }
+    return detail;
+  }
+
+  Future<void> setForcePush({
+    required ProtectedBranch expected,
+    required bool allowForcePush,
+  }) async {
+    if (state.isLoading) throw StateError('Branch update is already pending');
+    if (expected.name != arg.name || expected.name.trim().isEmpty) {
+      throw ArgumentError('Exact frozen rule identity required');
+    }
+    if (expected.allowForcePush == allowForcePush) {
+      throw ArgumentError('Force-push value must change');
+    }
+    if (expected.inherited == true) {
+      throw const GitLabForbiddenException('Inherited protection rule');
+    }
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedBranchesControllerProvider(arg.projectId));
+      ref.invalidate(protectedBranchDetailProvider(arg));
+      ref.invalidate(branchesControllerProvider(arg.projectId));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      if (current.inherited == true) {
+        throw const GitLabForbiddenException('Inherited protection rule');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      final changed = await repository.updateForcePush(
+        arg.projectId,
+        arg.name,
+        allowForcePush: allowForcePush,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (changed != expected.copyWith(allowForcePush: allowForcePush)) {
+        throw const GitLabConflictException('Unconfirmed protection update');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedBranchForcePushControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedBranchForcePushController,
+      void,
+      ProtectedBranchRef
+    >(ProtectedBranchForcePushController.new);
+
 /// Best-effort compare-and-unprotect for an exact project rule.
 class ProtectedBranchUnprotectController
     extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
