@@ -2215,4 +2215,72 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get protectedTagUnprotectAccepted =>
       'Tag protection rule removed. No tags were deleted.';
+
+  @override
+  String get protectedBranchForcePushEditTitle => 'Edit force push';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed =>
+      'Force push is currently allowed.';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked =>
+      'Force push is currently blocked.';
+
+  @override
+  String get protectedBranchForcePushAllow => 'Allow force push';
+
+  @override
+  String get protectedBranchForcePushSave => 'Save setting';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      'Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      'Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      'I understand this change for matching branches.';
+
+  @override
+  String get protectedBranchForcePushReload => 'Check rule again';
+
+  @override
+  String get protectedBranchForcePushSuccess => 'Force-push setting updated.';
+
+  @override
+  String get protectedBranchForcePushAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchForcePushForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchForcePushStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchForcePushError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
 }

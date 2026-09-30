@@ -2148,4 +2148,62 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedTagUnprotectAccepted => '标签保护规则已移除。未删除任何标签。';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '编辑强制推送';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '目前允许强制推送。';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '目前禁止强制推送。';
+
+  @override
+  String get protectedBranchForcePushAllow => '允许强制推送';
+
+  @override
+  String get protectedBranchForcePushSave => '保存设置';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '允许强制推送可能改写匹配分支的历史。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '禁止强制推送会改变成员在匹配分支上的工作方式。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchForcePushAcknowledge => '我了解此更改对匹配分支的影响。';
+
+  @override
+  String get protectedBranchForcePushReload => '重新检查规则';
+
+  @override
+  String get protectedBranchForcePushSuccess => '强制推送设置已更新。';
+
+  @override
+  String get protectedBranchForcePushAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchForcePushForbidden => '您没有权限更改此规则。';
+
+  @override
+  String get protectedBranchForcePushUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedBranchForcePushStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedBranchForcePushRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchForcePushError => '无法确认此更改。重试前请先检查规则。';
+
+  @override
+  String get protectedBranchForcePushSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
 }

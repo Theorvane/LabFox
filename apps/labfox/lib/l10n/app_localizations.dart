@@ -4267,6 +4267,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tag protection rule removed. No tags were deleted.'**
   String get protectedTagUnprotectAccepted;
+
+  /// No description provided for @protectedBranchForcePushEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit force push'**
+  String get protectedBranchForcePushEditTitle;
+
+  /// No description provided for @protectedBranchForcePushEditTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchForcePushEditTarget(String project, String name);
+
+  /// No description provided for @protectedBranchForcePushCurrentAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently allowed.'**
+  String get protectedBranchForcePushCurrentAllowed;
+
+  /// No description provided for @protectedBranchForcePushCurrentBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently blocked.'**
+  String get protectedBranchForcePushCurrentBlocked;
+
+  /// No description provided for @protectedBranchForcePushAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow force push'**
+  String get protectedBranchForcePushAllow;
+
+  /// No description provided for @protectedBranchForcePushSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save setting'**
+  String get protectedBranchForcePushSave;
+
+  /// No description provided for @protectedBranchForcePushEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushEnableWarning;
+
+  /// No description provided for @protectedBranchForcePushDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushDisableWarning;
+
+  /// No description provided for @protectedBranchForcePushAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this change for matching branches.'**
+  String get protectedBranchForcePushAcknowledge;
+
+  /// No description provided for @protectedBranchForcePushReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchForcePushReload;
+
+  /// No description provided for @protectedBranchForcePushSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Force-push setting updated.'**
+  String get protectedBranchForcePushSuccess;
+
+  /// No description provided for @protectedBranchForcePushAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchForcePushAuth;
+
+  /// No description provided for @protectedBranchForcePushForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get protectedBranchForcePushForbidden;
+
+  /// No description provided for @protectedBranchForcePushUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchForcePushUnavailable;
+
+  /// No description provided for @protectedBranchForcePushStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchForcePushStale;
+
+  /// No description provided for @protectedBranchForcePushRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchForcePushRateLimited;
+
+  /// No description provided for @protectedBranchForcePushError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchForcePushError;
+
+  /// No description provided for @protectedBranchForcePushSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchForcePushSessionChanged;
 }
 
 class _AppLocalizationsDelegate

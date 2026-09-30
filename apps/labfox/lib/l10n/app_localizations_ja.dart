@@ -2166,4 +2166,65 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get protectedTagUnprotectAccepted => 'タグ保護ルールを削除しました。タグは削除されていません。';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '強制プッシュを編集';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '現在、強制プッシュは許可されています。';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '現在、強制プッシュは禁止されています。';
+
+  @override
+  String get protectedBranchForcePushAllow => '強制プッシュを許可';
+
+  @override
+  String get protectedBranchForcePushSave => '設定を保存';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '強制プッシュを許可すると、対象ブランチの履歴を書き換えられます。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '強制プッシュを禁止すると、対象ブランチでの作業方法が変わります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchForcePushAcknowledge => '対象ブランチへの変更の影響を理解しました。';
+
+  @override
+  String get protectedBranchForcePushReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchForcePushSuccess => '強制プッシュ設定を更新しました。';
+
+  @override
+  String get protectedBranchForcePushAuth => 'このルールを変更するには再度サインインしてください。';
+
+  @override
+  String get protectedBranchForcePushForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchForcePushStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab がリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchForcePushError => '変更を確認できません。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
 }

@@ -2211,4 +2211,73 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get protectedTagUnprotectAccepted =>
       'टैग सुरक्षा नियम हटा दिया गया। कोई टैग नहीं हटाया गया।';
+
+  @override
+  String get protectedBranchForcePushEditTitle => 'फ़ोर्स पुश संपादित करें';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed =>
+      'फ़ोर्स पुश अभी अनुमत है।';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked =>
+      'फ़ोर्स पुश अभी अवरुद्ध है।';
+
+  @override
+  String get protectedBranchForcePushAllow => 'फ़ोर्स पुश की अनुमति दें';
+
+  @override
+  String get protectedBranchForcePushSave => 'सेटिंग सहेजें';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      'फ़ोर्स पुश की अनुमति देने से मिलान वाली ब्रांचों का इतिहास फिर लिखा जा सकता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      'फ़ोर्स पुश रोकने से मिलान वाली ब्रांचों पर काम करने का तरीका बदलता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      'मैं मिलान वाली ब्रांचों पर इस बदलाव का प्रभाव समझता/समझती हूं।';
+
+  @override
+  String get protectedBranchForcePushReload => 'नियम फिर जांचें';
+
+  @override
+  String get protectedBranchForcePushSuccess =>
+      'फ़ोर्स पुश सेटिंग अपडेट की गई।';
+
+  @override
+  String get protectedBranchForcePushAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchForcePushForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जांचें।';
+
+  @override
+  String get protectedBranchForcePushStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जांचें।';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchForcePushError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
 }

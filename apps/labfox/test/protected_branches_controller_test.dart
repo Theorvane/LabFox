@@ -17,15 +17,13 @@ class _Repository extends ProtectedBranchesRepository {
       );
 
   final pages = <int>[];
-  Completer<Paginated<ProtectedBranch>>? pendingSecondPage;
+  Completer<Paginated<ProtectedBranch>>? pendingPage;
 
   @override
   Future<Paginated<ProtectedBranch>> list(int projectId, {int page = 1}) async {
     expect(projectId, 7);
     pages.add(page);
-    if (page == 2 && pendingSecondPage != null) {
-      return pendingSecondPage!.future;
-    }
+    if (page == 2 && pendingPage != null) return pendingPage!.future;
     return page == 1
         ? const Paginated(items: [ProtectedBranch(name: 'main')], nextPage: 2)
         : const Paginated(items: [ProtectedBranch(name: 'release/*')]);
@@ -56,9 +54,9 @@ void main() {
     );
   });
 
-  test('an invalidated rule list ignores an older page result', () async {
-    final repository = _Repository();
-    repository.pendingSecondPage = Completer<Paginated<ProtectedBranch>>();
+  test('an invalidated list discards an older page result', () async {
+    final repository = _Repository()
+      ..pendingPage = Completer<Paginated<ProtectedBranch>>();
     final container = ProviderContainer(
       overrides: [
         protectedBranchesRepositoryProvider.overrideWith(
@@ -69,14 +67,14 @@ void main() {
     addTearDown(container.dispose);
     final provider = protectedBranchesControllerProvider(7);
     await container.read(provider.future);
-    final pending = container.read(provider.notifier).loadMore();
+    final stale = container.read(provider.notifier).loadMore();
     await Future<void>.delayed(Duration.zero);
     container.invalidate(provider);
     await container.read(provider.future);
-    repository.pendingSecondPage!.complete(
-      const Paginated(items: [ProtectedBranch(name: 'stale/*')]),
+    repository.pendingPage!.complete(
+      const Paginated(items: [ProtectedBranch(name: 'stale')]),
     );
-    await pending;
+    await stale;
     expect(
       container.read(provider).requireValue.items.map((rule) => rule.name),
       ['main'],

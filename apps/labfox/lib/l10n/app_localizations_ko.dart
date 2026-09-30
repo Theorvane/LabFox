@@ -2171,4 +2171,67 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get protectedTagUnprotectAccepted =>
       '태그 보호 규칙이 제거되었습니다. 태그는 삭제되지 않았습니다.';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '강제 푸시 수정';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '현재 강제 푸시가 허용됩니다.';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '현재 강제 푸시가 차단됩니다.';
+
+  @override
+  String get protectedBranchForcePushAllow => '강제 푸시 허용';
+
+  @override
+  String get protectedBranchForcePushSave => '설정 저장';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '강제 푸시를 허용하면 일치하는 브랜치의 기록을 다시 쓸 수 있습니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '강제 푸시를 차단하면 일치하는 브랜치에서 구성원의 작업 방식이 바뀝니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      '일치하는 브랜치에 미치는 이 변경의 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchForcePushReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchForcePushSuccess => '강제 푸시 설정을 변경했습니다.';
+
+  @override
+  String get protectedBranchForcePushAuth => '이 규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchForcePushForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushError =>
+      '변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
 }
