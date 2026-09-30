@@ -394,6 +394,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
 
   @override
+  String get releaseAssetDirectPath => 'नया सीधा डाउनलोड पथ (वैकल्पिक)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      'खाली छोड़ने पर मौजूदा सीधा डाउनलोड पथ बना रहेगा। बदलने के लिए /bin/app.zip जैसा पथ डालें।';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'होस्ट, क्वेरी या फ़्रैगमेंट के बिना / से शुरू होने वाला पथ डालें।';
+
+  @override
   String get releaseAssetType => 'लिंक का प्रकार';
 
   @override

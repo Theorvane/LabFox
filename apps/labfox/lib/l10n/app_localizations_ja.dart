@@ -391,6 +391,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
 
   @override
+  String get releaseAssetDirectPath => '新しい直接ダウンロードパス（任意）';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '空欄の場合は現在の直接ダウンロードパスを維持します。変更するには /bin/app.zip などのパスを入力してください。';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'ホスト、クエリ、フラグメントを含まない、/ で始まるパスを入力してください。';
+
+  @override
   String get releaseAssetType => 'リンクの種類';
 
   @override
