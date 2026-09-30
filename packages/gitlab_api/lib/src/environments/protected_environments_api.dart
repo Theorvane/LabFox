@@ -5,7 +5,7 @@ import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project protected environments (Premium/Ultimate).
+/// Project protected environments (Premium/Ultimate).
 class ProtectedEnvironmentsApi {
   const ProtectedEnvironmentsApi(this._dio);
 
@@ -222,7 +222,7 @@ class ProtectedEnvironmentsApi {
   Future<ProtectedEnvironment> get(Object projectId, String name) =>
       _get(projectId, name, requireComplete: false);
 
-  /// Requires the full rule before a destructive protected-environment write.
+  /// Requires the full rule before a permission-changing write.
   Future<ProtectedEnvironment> getComplete(Object projectId, String name) =>
       _get(projectId, name, requireComplete: true);
 
