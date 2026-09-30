@@ -2337,6 +2337,27 @@ class AppLocalizationsJa extends AppLocalizations {
       'ワイルドカードを含まない正確な環境名を入力してください。';
 
   @override
+  String get protectedEnvironmentDeployRoleTitle => 'デプロイロールを追加';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '選択したロールにデプロイ権限が付与されます。既存のデプロイ権限と承認ルールは維持されます。';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'デプロイ権限が拡大することを理解しました。';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => 'デプロイロールを追加しました。';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => 'デプロイ権限を変更する権限がありません。';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'デプロイロールの変更を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
   String get protectedEnvironmentUnprotectTitle => '環境の保護を解除';
 
   @override

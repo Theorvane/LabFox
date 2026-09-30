@@ -2345,6 +2345,27 @@ class AppLocalizationsKo extends AppLocalizations {
       '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
 
   @override
+  String get protectedEnvironmentDeployRoleTitle => '배포 역할 추가';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '선택한 역할에 배포 권한이 부여됩니다. 기존 배포 권한과 승인 규칙은 유지됩니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      '배포 권한이 확대되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '배포 역할이 추가되었습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '배포 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      '배포 역할 변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
   String get protectedEnvironmentUnprotectTitle => '환경 보호 해제';
 
   @override

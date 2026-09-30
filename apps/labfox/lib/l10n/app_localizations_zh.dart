@@ -2310,6 +2310,25 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
 
   @override
+  String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '所选角色将获得部署权限。现有部署授权和审批规则保持不变。';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge => '我了解这会扩大部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '已添加部署角色。';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '您没有权限更改部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleError => '无法确认部署角色变更。重试前请检查规则。';
+
+  @override
   String get protectedEnvironmentUnprotectTitle => '取消环境保护';
 
   @override

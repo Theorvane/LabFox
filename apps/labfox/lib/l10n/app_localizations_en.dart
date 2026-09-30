@@ -2401,6 +2401,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter an exact environment name without wildcards.';
 
   @override
+  String get protectedEnvironmentDeployRoleTitle => 'Add deploy role';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'I understand this expands deployment access.';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => 'Deploy role added.';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden =>
+      'You do not have permission to change deploy access.';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'Could not confirm the deploy role update. Check the rule before trying again.';
+
+  @override
   String get protectedEnvironmentUnprotectTitle => 'Unprotect environment';
 
   @override

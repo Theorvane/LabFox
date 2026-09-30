@@ -5,7 +5,7 @@ import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project protected environments (Premium/Ultimate).
+/// Project protected environments (Premium/Ultimate).
 class ProtectedEnvironmentsApi {
   const ProtectedEnvironmentsApi(this._dio);
 
@@ -13,6 +13,62 @@ class ProtectedEnvironmentsApi {
 
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
+
+  /// Adds one role-based deploy grant to an existing project rule.
+  Future<void> addDeployRole(
+    Object projectId,
+    String name, {
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact environment name and supported role required');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List ||
+          (raw['deploy_access_levels'] as List)
+                  .where(
+                    (entry) =>
+                        entry is Map<String, dynamic> &&
+                        entry['id'] is int &&
+                        (entry['id'] as int) > 0 &&
+                        entry['access_level'] == accessLevel &&
+                        entry['user_id'] == null &&
+                        entry['group_id'] == null,
+                  )
+                  .length !=
+              1) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role update',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment deploy role');
+    }
+  }
 
   /// Removes one project protection rule without deleting the environment.
   Future<void> unprotect(Object projectId, String name) async {
@@ -166,7 +222,7 @@ class ProtectedEnvironmentsApi {
   Future<ProtectedEnvironment> get(Object projectId, String name) =>
       _get(projectId, name, requireComplete: false);
 
-  /// Requires the full rule before a destructive protected-environment write.
+  /// Requires the full rule before a permission-changing write.
   Future<ProtectedEnvironment> getComplete(Object projectId, String name) =>
       _get(projectId, name, requireComplete: true);
 

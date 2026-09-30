@@ -40,6 +40,16 @@ class ProtectedEnvironmentsRepository {
   Future<void> unprotect(int projectId, String name) =>
       client.protectedEnvironments.unprotect(projectId, name);
 
+  Future<void> addDeployRole(
+    int projectId,
+    String name, {
+    required int accessLevel,
+  }) => client.protectedEnvironments.addDeployRole(
+    projectId,
+    name,
+    accessLevel: accessLevel,
+  );
+
   Future<void> ensureNameAvailable(int projectId, String name) async {
     var page = 1;
     while (true) {

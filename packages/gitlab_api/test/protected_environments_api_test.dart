@@ -6,6 +6,124 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('adds one role grant with an encoded, non-retrying PUT', () async {
+    late RequestOptions request;
+    var calls = 0;
+    final client = _client((options) {
+      calls++;
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {
+          'name': 'review/production',
+          'deploy_access_levels': [
+            {'id': 12, 'access_level': 30, 'user_id': null, 'group_id': null},
+          ],
+        },
+      );
+    });
+    await client.protectedEnvironments.addDeployRole(
+      'team/app',
+      'review/production',
+      accessLevel: 30,
+    );
+    expect(calls, 1);
+    expect(request.method, 'PUT');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+    );
+    expect(request.data, {
+      'deploy_access_levels': [
+        {'access_level': 30},
+      ],
+    });
+    expect(request.followRedirects, isFalse);
+    expect(request.extra['labfox_no_auth_retry'], isTrue);
+  });
+
+  for (final status in [201, 301, 400, 401, 403, 404, 409, 422, 429, 500]) {
+    test('add deploy role rejects HTTP $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.protectedEnvironments.addDeployRole(
+          7,
+          'production',
+          accessLevel: 30,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  test(
+    'add deploy role rejects unsupported role and unconfirmed response',
+    () async {
+      final client = _client(
+        (_) => (
+          status: 200,
+          headers: const {},
+          body: {'name': 'production', 'deploy_access_levels': []},
+        ),
+      );
+      await expectLater(
+        client.protectedEnvironments.addDeployRole(
+          7,
+          'production',
+          accessLevel: 30,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+      await expectLater(
+        client.protectedEnvironments.addDeployRole(
+          7,
+          'production',
+          accessLevel: 60,
+        ),
+        throwsArgumentError,
+      );
+    },
+  );
+
+  test('add deploy role does not refresh or replay OAuth 401', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (status) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.addDeployRole(
+        7,
+        'production',
+        accessLevel: 30,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('unprotects the exact encoded project rule with one DELETE', () async {
     late RequestOptions request;
     var calls = 0;

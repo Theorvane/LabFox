@@ -286,6 +286,129 @@ final protectedEnvironmentUnprotectControllerProvider =
       ProtectedEnvironmentRef
     >(ProtectedEnvironmentUnprotectController.new);
 
+/// Adds one deploy role after comparing a complete, frozen project rule.
+class ProtectedEnvironmentAddDeployRoleController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> add({
+    required ProtectedEnvironment expected,
+    required int accessLevel,
+  }) async {
+    if (state.isLoading) throw StateError('Deploy role update already pending');
+    if (expected.name != arg.name || !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact environment rule and supported role required');
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      if (current.deployAccessLevels.any(
+        (grant) =>
+            grant.accessLevel == accessLevel &&
+            grant.userId == null &&
+            grant.groupId == null,
+      )) {
+        throw const GitLabConflictException('Deploy role already granted');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.addDeployRole(
+        arg.projectId,
+        arg.name,
+        accessLevel: accessLevel,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final updated = await repository.getComplete(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final added = updated.deployAccessLevels
+          .where((grant) => !expected.deployAccessLevels.contains(grant))
+          .toList();
+      if (updated.copyWith(deployAccessLevels: expected.deployAccessLevels) !=
+              expected ||
+          updated.deployAccessLevels.length !=
+              expected.deployAccessLevels.length + 1 ||
+          !expected.deployAccessLevels.every(
+            updated.deployAccessLevels.contains,
+          ) ||
+          added.length != 1 ||
+          added.single.id == null ||
+          added.single.id! <= 0 ||
+          added.single.accessLevel != accessLevel ||
+          added.single.userId != null ||
+          added.single.groupId != null) {
+        throw const GitLabServerException('Unconfirmed deploy role update');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentAddDeployRoleControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentAddDeployRoleController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentAddDeployRoleController.new);
+
 class GroupProtectedEnvironmentsController
     extends FamilyAsyncNotifier<Paginated<ProtectedEnvironment>, int> {
   bool _loadingMore = false;
