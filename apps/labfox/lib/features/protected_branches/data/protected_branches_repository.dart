@@ -23,6 +23,18 @@ class ProtectedBranchesRepository {
     allowForcePush: allowForcePush,
   );
 
+  Future<ProtectedBranch> updateMergeRole(
+    int projectId,
+    String name, {
+    required int accessRecordId,
+    required int accessLevel,
+  }) => client.protectedBranches.updateMergeRole(
+    projectId,
+    name,
+    accessRecordId: accessRecordId,
+    accessLevel: accessLevel,
+  );
+
   Future<void> unprotect(int projectId, String name) =>
       client.protectedBranches.unprotect(projectId, name);
 

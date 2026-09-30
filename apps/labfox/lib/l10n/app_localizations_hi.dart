@@ -2204,6 +2204,73 @@ class AppLocalizationsHi extends AppLocalizations {
       'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
 
   @override
+  String get protectedBranchMergeRoleEditTitle => 'मर्ज अनुमति संपादित करें';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return 'वर्तमान मर्ज अनुमति: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'कोई नहीं';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'मर्ज अनुमति बदलने से इस नियम से मेल खाने वाली सभी ब्रांच प्रभावित होंगी। वाइल्डकार्ड कई ब्रांच और मर्ज अनुरोध कार्यप्रवाह प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      'मैं मेल खाने वाली ब्रांच की मर्ज अनुमति में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'मर्ज अनुमति सहेजें';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'मर्ज अनुमति अपडेट की गई।';
+
+  @override
+  String get protectedBranchMergeRoleAuth =>
+      'नियम बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchMergeRoleForbidden =>
+      'आपको मर्ज अनुमति बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
   String get protectedBranchUnprotectTitle => 'ब्रांच नियम से सुरक्षा हटाएं';
 
   @override

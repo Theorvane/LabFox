@@ -2140,6 +2140,65 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedBranchForcePushSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
 
   @override
+  String get protectedBranchMergeRoleEditTitle => '编辑合并权限';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '当前合并权限：$role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => '无人';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => '维护者';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      '更改合并权限会影响所有匹配此规则的分支。通配符可能影响多个分支和合并请求流程。';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge => '我了解匹配分支的合并权限将发生变化。';
+
+  @override
+  String get protectedBranchMergeRoleSave => '保存合并权限';
+
+  @override
+  String get protectedBranchMergeRoleReload => '重新检查规则';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => '合并权限已更新。';
+
+  @override
+  String get protectedBranchMergeRoleAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => '您无权更改合并权限。';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable => '此规则已不可用。继续之前请检查列表。';
+
+  @override
+  String get protectedBranchMergeRoleStale => '规则已更改。继续之前请重新检查。';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchMergeRoleError => '无法确认更改。重试前请检查规则。';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
   String get protectedBranchUnprotectTitle => '取消分支规则保护';
 
   @override
