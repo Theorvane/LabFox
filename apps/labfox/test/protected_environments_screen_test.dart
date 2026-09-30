@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
+import 'package:labfox/features/protected_environments/data/protected_environments_repository.dart';
 import 'package:labfox/features/protected_environments/presentation/controllers/protected_environments_controller.dart';
 import 'package:labfox/features/protected_environments/presentation/protected_environment_detail_screen.dart';
 import 'package:labfox/features/protected_environments/presentation/protected_environments_screen.dart';
@@ -51,7 +52,32 @@ class _GroupList extends GroupProtectedEnvironmentsController {
       const Paginated(items: [_groupRule]);
 }
 
-Future<void> _pump(WidgetTester tester, Size size) async {
+class _UnprotectRepository extends ProtectedEnvironmentsRepository {
+  _UnprotectRepository()
+    : super(
+        GitLabClient(
+          baseUrl: 'https://gitlab.example.com',
+          token: 'glpat-xxxxxxxxxxxx',
+        ),
+      );
+
+  @override
+  Future<Paginated<ProtectedEnvironment>> list(
+    int projectId, {
+    int page = 1,
+  }) async => const Paginated(items: [_rule]);
+
+  @override
+  Future<ProtectedEnvironment> getComplete(int projectId, String name) async =>
+      _rule;
+}
+
+Future<void> _pump(
+  WidgetTester tester,
+  Size size, {
+  String language = 'en',
+  Brightness brightness = Brightness.light,
+}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
@@ -79,12 +105,17 @@ Future<void> _pump(WidgetTester tester, Size size) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        protectedEnvironmentsRepositoryProvider.overrideWith(
+          (ref) async => _UnprotectRepository(),
+        ),
         protectedEnvironmentsControllerProvider.overrideWith(_List.new),
         protectedEnvironmentDetailProvider.overrideWith(
           (ref, key) async => _rule,
         ),
       ],
       child: MaterialApp.router(
+        locale: Locale(language),
+        theme: ThemeData(brightness: brightness),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         routerConfig: router,
@@ -95,6 +126,86 @@ Future<void> _pump(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+    testWidgets(
+      'project unprotect requires exact-name acknowledgement at ${size.width}',
+      (tester) async {
+        await _pump(tester, size);
+        await tester.tap(find.text('review/production'));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const ValueKey('protected-environment-unprotect-open')),
+        );
+        await tester.pumpAndSettle();
+        expect(
+          find.byKey(const ValueKey('protected-environment-unprotect-save')),
+          findsOneWidget,
+        );
+        expect(
+          tester
+              .widget<FilledButton>(
+                find.byKey(
+                  const ValueKey('protected-environment-unprotect-save'),
+                ),
+              )
+              .onPressed,
+          isNull,
+        );
+        await tester.enterText(
+          find.byKey(const ValueKey('protected-environment-unprotect-name')),
+          'review/production',
+        );
+        await tester.ensureVisible(find.byType(CheckboxListTile));
+        await tester.tap(find.byType(CheckboxListTile));
+        await tester.pumpAndSettle();
+        expect(
+          tester
+              .widget<FilledButton>(
+                find.byKey(
+                  const ValueKey('protected-environment-unprotect-save'),
+                ),
+              )
+              .onPressed,
+          isNotNull,
+        );
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
+  for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+      for (final brightness in [Brightness.light, Brightness.dark]) {
+        testWidgets(
+          'unprotect dialog fits $language ${size.width} $brightness',
+          (tester) async {
+            await _pump(
+              tester,
+              size,
+              language: language,
+              brightness: brightness,
+            );
+            await tester.tap(find.text('review/production'));
+            await tester.pumpAndSettle();
+            await tester.tap(
+              find.byKey(
+                const ValueKey('protected-environment-unprotect-open'),
+              ),
+            );
+            await tester.pumpAndSettle();
+            expect(
+              find.byKey(
+                const ValueKey('protected-environment-unprotect-name'),
+              ),
+              findsOneWidget,
+            );
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
+    }
+  }
+
   for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
     for (final size in [const Size(320, 720), const Size(1200, 800)]) {
       for (final brightness in [Brightness.light, Brightness.dark]) {

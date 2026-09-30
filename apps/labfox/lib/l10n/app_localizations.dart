@@ -4561,6 +4561,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter an exact environment name without wildcards.'**
   String get protectedEnvironmentCreateInvalidName;
+
+  /// No description provided for @protectedEnvironmentUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect environment'**
+  String get protectedEnvironmentUnprotectTitle;
+
+  /// No description provided for @protectedEnvironmentUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedEnvironmentUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedEnvironmentUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.'**
+  String get protectedEnvironmentUnprotectWarning;
+
+  /// No description provided for @protectedEnvironmentUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact environment name'**
+  String get protectedEnvironmentUnprotectName;
+
+  /// No description provided for @protectedEnvironmentUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that these deployment restrictions and approval rules will be removed.'**
+  String get protectedEnvironmentUnprotectAcknowledge;
+
+  /// No description provided for @protectedEnvironmentUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedEnvironmentUnprotectReload;
+
+  /// No description provided for @protectedEnvironmentUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedEnvironmentUnprotectAuth;
+
+  /// No description provided for @protectedEnvironmentUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to unprotect this environment.'**
+  String get protectedEnvironmentUnprotectForbidden;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedEnvironmentUnprotectUnavailable;
+
+  /// No description provided for @protectedEnvironmentUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedEnvironmentUnprotectStale;
+
+  /// No description provided for @protectedEnvironmentUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectRateLimited;
+
+  /// No description provided for @protectedEnvironmentUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm removal. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectError;
+
+  /// No description provided for @protectedEnvironmentUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedEnvironmentUnprotectSessionChanged;
+
+  /// No description provided for @protectedEnvironmentUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protection removed.'**
+  String get protectedEnvironmentUnprotectSuccess;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Access entry'**
+  String get protectedEnvironmentUnprotectUnreported;
 }
 
 class _AppLocalizationsDelegate

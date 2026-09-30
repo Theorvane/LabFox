@@ -640,5 +640,21 @@
   "protectedEnvironmentCreateForbidden": "您没有权限，或此功能不可用。",
   "protectedEnvironmentCreateSessionChanged": "账户已更改。请关闭并重新打开此对话框。",
   "protectedEnvironmentCreateSuccess": "环境已受保护。",
-  "protectedEnvironmentCreateInvalidName": "请输入不含通配符的准确环境名称。"
+  "protectedEnvironmentCreateInvalidName": "请输入不含通配符的准确环境名称。",
+  "protectedEnvironmentUnprotectTitle": "取消环境保护",
+  "protectedEnvironmentUnprotectTarget": "项目 {project}：{name}",
+  "protectedEnvironmentUnprotectWarning": "取消此项目保护规则会移除下方显示的所有部署授权和审批规则。环境及历史部署仍会保留。群组保护规则可能继续生效。",
+  "protectedEnvironmentUnprotectName": "输入准确的环境名称",
+  "protectedEnvironmentUnprotectAcknowledge": "我了解这些部署限制和审批规则将被移除。",
+  "protectedEnvironmentUnprotectReload": "重新检查规则",
+  "protectedEnvironmentUnprotectAuth": "更改此规则前请重新登录。",
+  "protectedEnvironmentUnprotectForbidden": "您没有权限取消此环境的保护。",
+  "protectedEnvironmentUnprotectUnavailable": "此规则已不可用。继续前请检查列表。",
+  "protectedEnvironmentUnprotectStale": "规则已更改。继续前请重新检查。",
+  "protectedEnvironmentUnprotectRateLimited": "GitLab 正在限制请求。重试前请检查规则。",
+  "protectedEnvironmentUnprotectError": "无法确认保护已取消。重试前请检查规则。",
+  "protectedEnvironmentUnprotectSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。",
+  "protectedEnvironmentUnprotectSuccess": "环境保护已取消。",
+  "protectedEnvironmentUnprotectUnreported": "访问条目",
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}}
 }

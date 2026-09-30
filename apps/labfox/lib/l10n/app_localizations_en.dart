@@ -2399,4 +2399,62 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get protectedEnvironmentCreateInvalidName =>
       'Enter an exact environment name without wildcards.';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => 'Unprotect environment';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.';
+
+  @override
+  String get protectedEnvironmentUnprotectName =>
+      'Type the exact environment name';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'I understand that these deployment restrictions and approval rules will be removed.';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'Check rule again';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      'You do not have permission to unprotect this environment.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      'Could not confirm removal. Check the rule before trying again.';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess =>
+      'Environment protection removed.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'Access entry';
 }

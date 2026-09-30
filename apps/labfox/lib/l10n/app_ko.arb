@@ -640,5 +640,21 @@
   "protectedEnvironmentCreateForbidden": "권한이 없거나 이 기능을 사용할 수 없습니다.",
   "protectedEnvironmentCreateSessionChanged": "계정이 변경되었습니다. 대화상자를 닫고 다시 여세요.",
   "protectedEnvironmentCreateSuccess": "환경이 보호되었습니다.",
-  "protectedEnvironmentCreateInvalidName": "와일드카드가 없는 정확한 환경 이름을 입력하세요."
+  "protectedEnvironmentCreateInvalidName": "와일드카드가 없는 정확한 환경 이름을 입력하세요.",
+  "protectedEnvironmentUnprotectTitle": "환경 보호 해제",
+  "protectedEnvironmentUnprotectTarget": "프로젝트 {project}: {name}",
+  "protectedEnvironmentUnprotectWarning": "이 프로젝트 보호 규칙을 해제하면 아래의 모든 배포 허용 항목과 승인 규칙이 제거됩니다. 환경과 이전 배포는 유지됩니다. 그룹 보호 규칙은 계속 적용될 수 있습니다.",
+  "protectedEnvironmentUnprotectName": "정확한 환경 이름 입력",
+  "protectedEnvironmentUnprotectAcknowledge": "이 배포 제한과 승인 규칙이 제거됨을 이해했습니다.",
+  "protectedEnvironmentUnprotectReload": "규칙 다시 확인",
+  "protectedEnvironmentUnprotectAuth": "규칙을 변경하기 전에 다시 로그인하세요.",
+  "protectedEnvironmentUnprotectForbidden": "이 환경의 보호를 해제할 권한이 없습니다.",
+  "protectedEnvironmentUnprotectUnavailable": "이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.",
+  "protectedEnvironmentUnprotectStale": "규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.",
+  "protectedEnvironmentUnprotectRateLimited": "GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.",
+  "protectedEnvironmentUnprotectError": "보호 해제를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.",
+  "protectedEnvironmentUnprotectSessionChanged": "계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.",
+  "protectedEnvironmentUnprotectSuccess": "환경 보호가 해제되었습니다.",
+  "protectedEnvironmentUnprotectUnreported": "접근 항목",
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}}
 }

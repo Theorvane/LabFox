@@ -640,5 +640,21 @@
   "protectedEnvironmentCreateForbidden": "आपके पास अनुमति नहीं है या यह सुविधा उपलब्ध नहीं है।",
   "protectedEnvironmentCreateSessionChanged": "खाता बदल गया है। यह संवाद बंद करके फिर खोलें।",
   "protectedEnvironmentCreateSuccess": "परिवेश सुरक्षित हो गया।",
-  "protectedEnvironmentCreateInvalidName": "वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।"
+  "protectedEnvironmentCreateInvalidName": "वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।",
+  "protectedEnvironmentUnprotectTitle": "परिवेश की सुरक्षा हटाएँ",
+  "protectedEnvironmentUnprotectTarget": "प्रोजेक्ट {project}: {name}",
+  "protectedEnvironmentUnprotectWarning": "इस प्रोजेक्ट नियम की सुरक्षा हटाने से नीचे दिखाई गई सभी डिप्लॉय अनुमतियाँ और अनुमोदन नियम हट जाएँगे। परिवेश और पिछले डिप्लॉयमेंट बने रहेंगे। समूह की सुरक्षा अभी भी लागू हो सकती है।",
+  "protectedEnvironmentUnprotectName": "परिवेश का सटीक नाम लिखें",
+  "protectedEnvironmentUnprotectAcknowledge": "मैं समझता हूँ कि ये डिप्लॉय प्रतिबंध और अनुमोदन नियम हट जाएँगे।",
+  "protectedEnvironmentUnprotectReload": "नियम फिर जाँचें",
+  "protectedEnvironmentUnprotectAuth": "इस नियम को बदलने से पहले फिर साइन इन करें।",
+  "protectedEnvironmentUnprotectForbidden": "आपके पास इस परिवेश की सुरक्षा हटाने की अनुमति नहीं है।",
+  "protectedEnvironmentUnprotectUnavailable": "यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।",
+  "protectedEnvironmentUnprotectStale": "नियम बदल गया है। आगे बढ़ने से पहले इसे फिर जाँचें।",
+  "protectedEnvironmentUnprotectRateLimited": "GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जाँचें।",
+  "protectedEnvironmentUnprotectError": "हटाने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।",
+  "protectedEnvironmentUnprotectSessionChanged": "खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।",
+  "protectedEnvironmentUnprotectSuccess": "परिवेश की सुरक्षा हटा दी गई।",
+  "protectedEnvironmentUnprotectUnreported": "पहुँच प्रविष्टि",
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}}
 }
