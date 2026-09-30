@@ -2222,4 +2222,68 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get protectedBranchForcePushSessionChanged =>
       'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => 'マージ権限を編集';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '現在のマージ権限: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'なし';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'メンテナー';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'マージ権限の変更は、このルールに一致するすべてのブランチに影響します。ワイルドカードは複数のブランチとマージリクエストの作業に影響する場合があります。';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      '一致するブランチのマージ権限が変更されることを理解しました。';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'マージ権限を保存';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'マージ権限を更新しました。';
+
+  @override
+  String get protectedBranchMergeRoleAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => 'マージ権限を変更する権限がありません。';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLabがリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      '変更を確認できませんでした。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
 }

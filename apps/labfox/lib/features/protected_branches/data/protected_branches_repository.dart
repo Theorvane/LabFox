@@ -23,6 +23,18 @@ class ProtectedBranchesRepository {
     allowForcePush: allowForcePush,
   );
 
+  Future<ProtectedBranch> updateMergeRole(
+    int projectId,
+    String name, {
+    required int accessRecordId,
+    required int accessLevel,
+  }) => client.protectedBranches.updateMergeRole(
+    projectId,
+    name,
+    accessRecordId: accessRecordId,
+    accessLevel: accessLevel,
+  );
+
   /// Read every page so an exact name cannot be confused with another rule.
   Future<ProtectedBranch> findUnique(int projectId, String name) async {
     ProtectedBranch? found;
