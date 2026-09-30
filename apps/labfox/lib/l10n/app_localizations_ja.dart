@@ -2099,4 +2099,71 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get protectedTagUnprotectTitle => 'タグ保護ルールを解除';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'プロジェクト $projectId — ルール $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'リポジトリのタグ保護ルールを削除します。タグは削除されません。ワイルドカードは既存と今後の多くのタグに影響する場合があります。保護の解除により、一致するタグを作成・削除できるユーザーが増え、タグのパイプラインやジョブへのアクセスが変わる可能性があります。他の一致ルールで保護が続く場合もあり、実際のアクセスはGitLabが決定します。以下の現在の作成権限を確認してください。';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nロールレベル: $role; ユーザーID: $user; グループID: $group; デプロイキーID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '未報告';
+
+  @override
+  String get protectedTagUnprotectName => 'ルール名またはパターンを正確に再入力';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'このルールに一致するすべてのタグの保護が失われることを理解し、このルールを削除します。';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'セッションが拒否されました。再ログインしてからルールを確認してください。';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLabが保護解除を拒否しました。MaintainerまたはOwnerのロールが必要です。';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'ルールが存在しない、非公開、またはこのインスタンスで利用できません。再読み込みしてください。他のルールは削除されません。';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'ルールが変更されました。再読み込みし、現在の権限を確認してから削除してください。';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLabがリクエストを制限しています。しばらく待ち、ルールを再読み込みして確認してください。';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'リクエストの結果を確認できませんでした。再試行前にルールを再読み込みして確認してください。';
+
+  @override
+  String get protectedTagUnprotectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直し、現在のプロジェクトを確認してください。';
+
+  @override
+  String get protectedTagUnprotectAccepted => 'タグ保護ルールを削除しました。タグは削除されていません。';
 }

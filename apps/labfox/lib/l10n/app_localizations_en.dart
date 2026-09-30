@@ -2146,4 +2146,73 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get protectedTagUnprotectTitle => 'Unprotect tag rule';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'Project $projectId — rule $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nRole level: $role; user ID: $user; group ID: $group; deploy key ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => 'Not reported';
+
+  @override
+  String get protectedTagUnprotectName =>
+      'Re-enter the exact rule name or pattern';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'I understand the protection loss for all tags matching this rule and want to remove this rule.';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'Your session was rejected. Sign in again before reviewing the rule.';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'The rule changed. Reload and confirm the current permissions before removing it.';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload and confirm the rule again.';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'The request could not be confirmed. Reload the rule and confirm again before retrying.';
+
+  @override
+  String get protectedTagUnprotectReload => 'Reload rule';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'The account changed. Close this dialog and reopen it to review the current project.';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      'Tag protection rule removed. No tags were deleted.';
 }
