@@ -2398,6 +2398,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।';
 
   @override
+  String get protectedEnvironmentDeployRoleTitle => 'डिप्लॉय भूमिका जोड़ें';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      'चुनी गई भूमिका को डिप्लॉय करने की अनुमति मिलेगी। मौजूदा डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे।';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'मैं समझता हूँ कि इससे डिप्लॉय पहुँच बढ़ती है।';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess =>
+      'डिप्लॉय भूमिका जोड़ दी गई।';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden =>
+      'आपके पास डिप्लॉय पहुँच बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'डिप्लॉय भूमिका बदलाव की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
   String get protectedEnvironmentUnprotectTitle => 'परिवेश की सुरक्षा हटाएँ';
 
   @override

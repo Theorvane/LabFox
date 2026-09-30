@@ -4562,6 +4562,42 @@ abstract class AppLocalizations {
   /// **'Enter an exact environment name without wildcards.'**
   String get protectedEnvironmentCreateInvalidName;
 
+  /// No description provided for @protectedEnvironmentDeployRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy role'**
+  String get protectedEnvironmentDeployRoleTitle;
+
+  /// No description provided for @protectedEnvironmentDeployRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.'**
+  String get protectedEnvironmentDeployRoleWarning;
+
+  /// No description provided for @protectedEnvironmentDeployRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this expands deployment access.'**
+  String get protectedEnvironmentDeployRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role added.'**
+  String get protectedEnvironmentDeployRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change deploy access.'**
+  String get protectedEnvironmentDeployRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentDeployRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy role update. Check the rule before trying again.'**
+  String get protectedEnvironmentDeployRoleError;
+
   /// No description provided for @protectedEnvironmentUnprotectTitle.
   ///
   /// In en, this message translates to:

@@ -13,7 +13,13 @@ import 'package:labfox/l10n/app_localizations.dart';
 const _rule = ProtectedEnvironment(
   name: 'review/production',
   requiredApprovalCount: 2,
-  deployAccessLevels: [ProtectedEnvironmentAccess(description: 'Maintainers')],
+  deployAccessLevels: [
+    ProtectedEnvironmentAccess(
+      id: 12,
+      accessLevel: 40,
+      description: 'Maintainers',
+    ),
+  ],
   approvalRules: [
     ProtectedEnvironmentAccess(
       description: 'Release team',
@@ -128,6 +134,49 @@ Future<void> _pump(
 void main() {
   for (final size in [const Size(320, 720), const Size(1200, 800)]) {
     testWidgets(
+      'project deploy role needs exact confirmation at ${size.width}',
+      (tester) async {
+        await _pump(tester, size);
+        await tester.tap(find.text('review/production'));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const ValueKey('protected-environment-deploy-role-open')),
+        );
+        await tester.pumpAndSettle();
+        final save = find.byKey(
+          const ValueKey('protected-environment-deploy-role-save'),
+        );
+        expect(tester.widget<FilledButton>(save).onPressed, isNull);
+        expect(
+          tester
+              .widget<ChoiceChip>(
+                find.byKey(
+                  const ValueKey('protected-environment-deploy-role-40'),
+                ),
+              )
+              .onSelected,
+          isNull,
+        );
+        final role = find.byKey(
+          const ValueKey('protected-environment-deploy-role-30'),
+        );
+        await tester.ensureVisible(role);
+        await tester.tap(role);
+        await tester.enterText(
+          find.byKey(const ValueKey('protected-environment-deploy-role-name')),
+          'review/production',
+        );
+        await tester.ensureVisible(find.byType(CheckboxListTile));
+        await tester.tap(find.byType(CheckboxListTile));
+        await tester.pumpAndSettle();
+        expect(tester.widget<FilledButton>(save).onPressed, isNotNull);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
+  for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+    testWidgets(
       'project unprotect requires exact-name acknowledgement at ${size.width}',
       (tester) async {
         await _pump(tester, size);
@@ -171,6 +220,39 @@ void main() {
         expect(tester.takeException(), isNull);
       },
     );
+  }
+
+  for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+      for (final brightness in [Brightness.light, Brightness.dark]) {
+        testWidgets(
+          'deploy role dialog fits $language ${size.width} $brightness',
+          (tester) async {
+            await _pump(
+              tester,
+              size,
+              language: language,
+              brightness: brightness,
+            );
+            await tester.tap(find.text('review/production'));
+            await tester.pumpAndSettle();
+            await tester.tap(
+              find.byKey(
+                const ValueKey('protected-environment-deploy-role-open'),
+              ),
+            );
+            await tester.pumpAndSettle();
+            expect(
+              find.byKey(
+                const ValueKey('protected-environment-deploy-role-name'),
+              ),
+              findsOneWidget,
+            );
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
+    }
   }
 
   for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
@@ -341,6 +423,10 @@ void main() {
       expect(find.text('Allowed to deploy'), findsOneWidget);
       expect(find.text('Approval rules'), findsOneWidget);
       expect(find.text('Security team'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('protected-environment-deploy-role-open')),
+        findsNothing,
+      );
       expect(tester.takeException(), isNull);
     });
   }
