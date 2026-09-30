@@ -2018,6 +2018,70 @@ class AppLocalizationsZh extends AppLocalizations {
   String get packageLoadMore => '加载更多';
 
   @override
+  String get protectedTagUnprotectTitle => '解除标签规则保护';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return '项目 $projectId — 规则 $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      '移除此仓库标签保护规则。不会删除标签。通配符可能影响许多现有和未来的标签。解除保护可能使更多用户能够创建或删除匹配的标签，并改变标签流水线和作业的访问权限。其他匹配规则可能仍然保护标签；实际访问权限由 GitLab 决定。请检查下方当前的创建权限。';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\n角色级别：$role；用户 ID：$user；群组 ID：$group；部署密钥 ID：$key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '未报告';
+
+  @override
+  String get protectedTagUnprotectName => '重新输入准确的规则名称或模式';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      '我理解此规则匹配的所有标签将失去此规则的保护，并希望移除此规则。';
+
+  @override
+  String get protectedTagUnprotectAuth => '您的会话被拒绝。请重新登录后检查规则。';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab 拒绝了解除保护的权限。需要 Maintainer 或 Owner 角色。';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      '规则不存在、是私有的或在此实例上不可用。请重新加载检查；不会移除其他规则。';
+
+  @override
+  String get protectedTagUnprotectStale => '规则已更改。请重新加载并确认当前权限后再移除。';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab 正在限制请求。请等待，然后重新加载并确认规则。';
+
+  @override
+  String get protectedTagUnprotectError => '无法确认请求结果。重试之前请重新加载并再次确认规则。';
+
+  @override
+  String get protectedTagUnprotectReload => '重新加载规则';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      '账户已更改。请关闭并重新打开此对话框，检查当前项目。';
+
+  @override
+  String get protectedTagUnprotectAccepted => '标签保护规则已移除。未删除任何标签。';
+
+  @override
   String get protectedBranchUnprotectTitle => '取消分支规则保护';
 
   @override

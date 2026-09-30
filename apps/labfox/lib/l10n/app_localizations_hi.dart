@@ -2066,6 +2066,75 @@ class AppLocalizationsHi extends AppLocalizations {
   String get packageLoadMore => 'और लोड करें';
 
   @override
+  String get protectedTagUnprotectTitle => 'टैग नियम की सुरक्षा हटाएँ';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'प्रोजेक्ट $projectId — नियम $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'रिपॉज़िटरी टैग सुरक्षा नियम हटाएँ। कोई टैग नहीं हटाया जाता। वाइल्डकार्ड कई मौजूदा और भविष्य के टैग को प्रभावित कर सकता है। सुरक्षा हटाने से अधिक उपयोगकर्ता मेल खाने वाले टैग बना या हटा सकते हैं और टैग पाइपलाइन व जॉब तक पहुँच बदल सकती है। अन्य मेल खाने वाले नियम टैग को सुरक्षित रख सकते हैं; वास्तविक पहुँच GitLab तय करता है। नीचे वर्तमान निर्माण अनुमतियाँ जाँचें।';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nभूमिका स्तर: $role; उपयोगकर्ता ID: $user; समूह ID: $group; डिप्लॉय कुंजी ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => 'जानकारी उपलब्ध नहीं';
+
+  @override
+  String get protectedTagUnprotectName =>
+      'सटीक नियम नाम या पैटर्न दोबारा दर्ज करें';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'मैं इस नियम से मेल खाने वाले सभी टैग की सुरक्षा खोने को समझता हूँ और यह नियम हटाना चाहता हूँ।';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'आपका सत्र अस्वीकार कर दिया गया। नियम की समीक्षा से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab ने सुरक्षा हटाने की अनुमति नहीं दी। Maintainer या Owner भूमिका आवश्यक है।';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'नियम मौजूद नहीं है, निजी है या इस इंस्टेंस पर उपलब्ध नहीं है। जाँचने के लिए पुनः लोड करें; कोई अन्य नियम नहीं हटाया जाएगा।';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'नियम बदल गया है। हटाने से पहले पुनः लोड करके वर्तमान अनुमतियों की पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। प्रतीक्षा करें, फिर नियम पुनः लोड करके पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'अनुरोध का परिणाम पुष्ट नहीं हो सका। दोबारा प्रयास से पहले नियम पुनः लोड करके पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'खाता बदल गया है। वर्तमान प्रोजेक्ट की समीक्षा के लिए संवाद बंद करके दोबारा खोलें।';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      'टैग सुरक्षा नियम हटा दिया गया। कोई टैग नहीं हटाया गया।';
+
+  @override
   String get protectedBranchUnprotectTitle => 'ब्रांच नियम से सुरक्षा हटाएं';
 
   @override
