@@ -95,6 +95,90 @@ Future<void> _pump(WidgetTester tester, Size size) async {
 }
 
 void main() {
+  for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+      for (final brightness in [Brightness.light, Brightness.dark]) {
+        testWidgets(
+          'creation dialog fits $language ${size.width} $brightness',
+          (tester) async {
+            tester.view.physicalSize = size;
+            tester.view.devicePixelRatio = 1;
+            addTearDown(tester.view.resetPhysicalSize);
+            addTearDown(tester.view.resetDevicePixelRatio);
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  protectedEnvironmentsControllerProvider.overrideWith(
+                    _List.new,
+                  ),
+                ],
+                child: MaterialApp(
+                  locale: Locale(language),
+                  theme: ThemeData(brightness: brightness),
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  home: const ProtectedEnvironmentsScreen(projectId: 7),
+                ),
+              ),
+            );
+            await tester.pumpAndSettle();
+            await tester.tap(
+              find.byKey(const ValueKey('protected-environment-create-open')),
+            );
+            await tester.pumpAndSettle();
+            expect(
+              find.byKey(const ValueKey('protected-environment-create-name')),
+              findsOneWidget,
+            );
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
+    }
+  }
+
+  testWidgets(
+    'project creation requires an exact name, role and acknowledgement',
+    (tester) async {
+      await _pump(tester, const Size(390, 844));
+      await tester.tap(
+        find.byKey(const ValueKey('protected-environment-create-open')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Protect environment'), findsWidgets);
+      expect(
+        find.byKey(const ValueKey('protected-environment-create-save')),
+        findsOneWidget,
+      );
+      expect(
+        tester
+            .widget<FilledButton>(
+              find.byKey(const ValueKey('protected-environment-create-save')),
+            )
+            .onPressed,
+        isNull,
+      );
+      await tester.enterText(
+        find.byKey(const ValueKey('protected-environment-create-name')),
+        'production',
+      );
+      await tester.tap(
+        find.byKey(const ValueKey('protected-environment-create-role-40')),
+      );
+      await tester.tap(find.byType(CheckboxListTile));
+      await tester.pumpAndSettle();
+      expect(
+        tester
+            .widget<FilledButton>(
+              find.byKey(const ValueKey('protected-environment-create-save')),
+            )
+            .onPressed,
+        isNotNull,
+      );
+    },
+  );
+
   for (final size in [const Size(390, 844), const Size(1200, 800)]) {
     testWidgets('opens group deployment rules at ${size.width}', (
       tester,

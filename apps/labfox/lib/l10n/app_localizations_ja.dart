@@ -2288,4 +2288,51 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get protectedBranchPushRoleSessionChanged =>
       'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '環境を保護';
+
+  @override
+  String get protectedEnvironmentCreateName => '環境名';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'メンテナー';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'この保護設定は指定した環境にデプロイできるユーザーを変更します。承認ルールは追加されません。';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => 'デプロイ権限の変更を理解しました。';
+
+  @override
+  String get protectedEnvironmentCreateSave => '環境を保護';
+
+  @override
+  String get protectedEnvironmentCreateReload => '環境一覧を再確認';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'この環境はすでに保護されています。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      '保護を確認できませんでした。再試行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '権限がないか、この機能を利用できません。';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直してください。';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '環境を保護しました。';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'ワイルドカードを含まない正確な環境名を入力してください。';
 }

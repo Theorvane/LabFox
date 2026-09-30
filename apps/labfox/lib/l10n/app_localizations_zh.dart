@@ -2266,4 +2266,46 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedBranchPushRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateName => '环境名称';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '维护者';
+
+  @override
+  String get protectedEnvironmentCreateWarning => '此保护设置会改变谁能部署到指定环境。不会添加审批规则。';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '我了解部署权限的变更。';
+
+  @override
+  String get protectedEnvironmentCreateSave => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateReload => '重新检查环境列表';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate => '此环境已受保护。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateError => '无法确认保护设置。重试前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '您没有权限，或此功能不可用。';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged => '账户已更改。请关闭并重新打开此对话框。';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '环境已受保护。';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
 }

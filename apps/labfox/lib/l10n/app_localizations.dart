@@ -4477,6 +4477,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account changed. Close this dialog and open the rule again.'**
   String get protectedBranchPushRoleSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateTitle;
+
+  /// No description provided for @protectedEnvironmentCreateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment name'**
+  String get protectedEnvironmentCreateName;
+
+  /// No description provided for @protectedEnvironmentCreateDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedEnvironmentCreateDeveloper;
+
+  /// No description provided for @protectedEnvironmentCreateMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedEnvironmentCreateMaintainer;
+
+  /// No description provided for @protectedEnvironmentCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This protection changes who may deploy to the named environment. Approval rules are not added.'**
+  String get protectedEnvironmentCreateWarning;
+
+  /// No description provided for @protectedEnvironmentCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the deployment access change.'**
+  String get protectedEnvironmentCreateAcknowledge;
+
+  /// No description provided for @protectedEnvironmentCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateSave;
+
+  /// No description provided for @protectedEnvironmentCreateReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check environments again'**
+  String get protectedEnvironmentCreateReload;
+
+  /// No description provided for @protectedEnvironmentCreateDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This environment is already protected. Check the list before continuing.'**
+  String get protectedEnvironmentCreateDuplicate;
+
+  /// No description provided for @protectedEnvironmentCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm protection. Check the list before trying again.'**
+  String get protectedEnvironmentCreateError;
+
+  /// No description provided for @protectedEnvironmentCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission or this feature is unavailable.'**
+  String get protectedEnvironmentCreateForbidden;
+
+  /// No description provided for @protectedEnvironmentCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open it again.'**
+  String get protectedEnvironmentCreateSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protected.'**
+  String get protectedEnvironmentCreateSuccess;
+
+  /// No description provided for @protectedEnvironmentCreateInvalidName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact environment name without wildcards.'**
+  String get protectedEnvironmentCreateInvalidName;
 }
 
 class _AppLocalizationsDelegate
