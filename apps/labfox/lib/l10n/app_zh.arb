@@ -547,5 +547,19 @@
   "mrAddTodo": "添加到待办事项",
   "mrTodoAdded": "已添加到待办事项。",
   "mrTodoExists": "该合并请求已在待办事项中。",
-  "mrTodoError": "无法将合并请求添加到待办事项。请重试。"
+  "mrTodoError": "无法将合并请求添加到待办事项。请重试。",
+  "protectedBranchUnprotectTitle": "取消分支规则保护",
+  "protectedBranchUnprotectTarget": "项目 {project}：{name}",
+  "protectedBranchUnprotectWarning": "移除此规则可能允许推送或合并，并改变 CI 行为。通配符规则可能影响多个分支。",
+  "protectedBranchUnprotectName": "输入完全一致的规则名称",
+  "protectedBranchUnprotectAcknowledge": "我了解这对匹配分支的影响。",
+  "protectedBranchUnprotectReload": "重新检查规则",
+  "protectedBranchUnprotectSuccess": "分支规则已移除。",
+  "protectedBranchUnprotectAuth": "请重新登录后再更改此规则。",
+  "protectedBranchUnprotectForbidden": "您没有权限移除此规则。",
+  "protectedBranchUnprotectUnavailable": "此规则已不可用。继续前请检查列表。",
+  "protectedBranchUnprotectStale": "规则已更改。继续前请重新检查。",
+  "protectedBranchUnprotectRateLimited": "GitLab 正在限制请求。重试前请检查规则。",
+  "protectedBranchUnprotectError": "无法确认规则是否已移除。重试前请先检查。",
+  "protectedBranchUnprotectSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。"
 }

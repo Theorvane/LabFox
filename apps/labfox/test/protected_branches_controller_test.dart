@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -15,11 +17,13 @@ class _Repository extends ProtectedBranchesRepository {
       );
 
   final pages = <int>[];
+  Completer<Paginated<ProtectedBranch>>? pendingPage;
 
   @override
   Future<Paginated<ProtectedBranch>> list(int projectId, {int page = 1}) async {
     expect(projectId, 7);
     pages.add(page);
+    if (page == 2 && pendingPage != null) return pendingPage!.future;
     return page == 1
         ? const Paginated(items: [ProtectedBranch(name: 'main')], nextPage: 2)
         : const Paginated(items: [ProtectedBranch(name: 'release/*')]);
@@ -47,6 +51,33 @@ void main() {
     expect(
       container.read(provider).requireValue.items.map((rule) => rule.name),
       ['main', 'release/*'],
+    );
+  });
+
+  test('discards a page fetched before the list is refreshed', () async {
+    final repository = _Repository()
+      ..pendingPage = Completer<Paginated<ProtectedBranch>>();
+    final container = ProviderContainer(
+      overrides: [
+        protectedBranchesRepositoryProvider.overrideWith(
+          (ref) async => repository,
+        ),
+      ],
+    );
+    addTearDown(container.dispose);
+    final provider = protectedBranchesControllerProvider(7);
+    await container.read(provider.future);
+    final stale = container.read(provider.notifier).loadMore();
+    await Future<void>.delayed(Duration.zero);
+    container.invalidate(provider);
+    await container.read(provider.future);
+    repository.pendingPage!.complete(
+      const Paginated(items: [ProtectedBranch(name: 'stale')]),
+    );
+    await stale;
+    expect(
+      container.read(provider).requireValue.items.map((rule) => rule.name),
+      ['main'],
     );
   });
 }

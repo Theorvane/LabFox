@@ -1557,5 +1557,20 @@
   "packageFilesEmpty": "This package has no files.",
   "@packageFilesEmpty": {"description": "Empty package files section"},
   "packageLoadMore": "Load more",
-  "@packageLoadMore": {"description": "Load the next page of packages or package files"}
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "protectedBranchUnprotectTitle": "Unprotect branch rule",
+  "protectedBranchUnprotectTarget": "Project {project}: {name}",
+  "@protectedBranchUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "protectedBranchUnprotectWarning": "Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.",
+  "protectedBranchUnprotectName": "Type the exact rule name",
+  "protectedBranchUnprotectAcknowledge": "I understand the effect on matching branches.",
+  "protectedBranchUnprotectReload": "Check rule again",
+  "protectedBranchUnprotectSuccess": "Branch rule removed.",
+  "protectedBranchUnprotectAuth": "Sign in again before changing this rule.",
+  "protectedBranchUnprotectForbidden": "You do not have permission to remove this rule.",
+  "protectedBranchUnprotectUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchUnprotectStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchUnprotectRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchUnprotectError": "Could not confirm whether the rule was removed. Check it before trying again.",
+  "protectedBranchUnprotectSessionChanged": "The account changed. Close this dialog and open the rule again."
 }

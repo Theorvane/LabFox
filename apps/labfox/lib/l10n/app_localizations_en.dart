@@ -2068,4 +2068,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'Unprotect branch rule';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchUnprotectName => 'Type the exact rule name';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge =>
+      'I understand the effect on matching branches.';
+
+  @override
+  String get protectedBranchUnprotectReload => 'Check rule again';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'Branch rule removed.';
+
+  @override
+  String get protectedBranchUnprotectAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchUnprotectForbidden =>
+      'You do not have permission to remove this rule.';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchUnprotectStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'Could not confirm whether the rule was removed. Check it before trying again.';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
 }

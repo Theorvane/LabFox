@@ -2016,4 +2016,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get protectedBranchUnprotectTitle => '取消分支规则保护';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      '移除此规则可能允许推送或合并，并改变 CI 行为。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchUnprotectName => '输入完全一致的规则名称';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '我了解这对匹配分支的影响。';
+
+  @override
+  String get protectedBranchUnprotectReload => '重新检查规则';
+
+  @override
+  String get protectedBranchUnprotectSuccess => '分支规则已移除。';
+
+  @override
+  String get protectedBranchUnprotectAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchUnprotectForbidden => '您没有权限移除此规则。';
+
+  @override
+  String get protectedBranchUnprotectUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedBranchUnprotectStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedBranchUnprotectRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchUnprotectError => '无法确认规则是否已移除。重试前请先检查。';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
 }

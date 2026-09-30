@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_branches_controller.dart';
+import 'widgets/protected_branch_unprotect_dialog.dart';
 
 /// One rule, restorable from its project and branch name.
 class ProtectedBranchDetailScreen extends ConsumerWidget {
@@ -55,7 +56,31 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
-              final settings = _Settings(rule: data);
+              final settings = _Settings(
+                rule: data,
+                onUnprotect: data.inherited == true
+                    ? null
+                    : () async {
+                        final removed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchUnprotectDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (removed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchUnprotectSuccess,
+                              ),
+                            ),
+                          );
+                          context.go(Routes.protectedBranches(projectId));
+                        }
+                      },
+              );
               final access = Column(
                 children: [
                   _AccessCard(
@@ -108,9 +133,10 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
 }
 
 class _Settings extends StatelessWidget {
-  const _Settings({required this.rule});
+  const _Settings({required this.rule, required this.onUnprotect});
 
   final ProtectedBranch rule;
+  final VoidCallback? onUnprotect;
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +162,13 @@ class _Settings extends StatelessWidget {
               label: l10n.protectedBranchCodeOwnerApproval,
               enabled: rule.codeOwnerApprovalRequired,
             ),
+            if (onUnprotect != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                onPressed: onUnprotect,
+                child: Text(l10n.protectedBranchUnprotectTitle),
+              ),
+            ],
           ],
         ),
       ),

@@ -2064,4 +2064,57 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'ब्रांच नियम से सुरक्षा हटाएं';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'इस नियम को हटाने से पुश या मर्ज की अनुमति मिल सकती है और CI का व्यवहार बदल सकता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchUnprotectName => 'नियम का सटीक नाम लिखें';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge =>
+      'मैं मिलान वाली ब्रांचों पर इसका प्रभाव समझता/समझती हूं।';
+
+  @override
+  String get protectedBranchUnprotectReload => 'नियम फिर जांचें';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'ब्रांच नियम हटा दिया गया।';
+
+  @override
+  String get protectedBranchUnprotectAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchUnprotectForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जांचें।';
+
+  @override
+  String get protectedBranchUnprotectStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जांचें।';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'नियम हटाया गया या नहीं, इसकी पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले जांचें।';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
 }
