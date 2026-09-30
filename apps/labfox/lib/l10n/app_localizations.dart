@@ -104,6 +104,132 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @protectedTagProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectTitle;
+
+  /// No description provided for @protectedTagProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedTagProtectName;
+
+  /// No description provided for @protectedTagProtectRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can create matching tags?'**
+  String get protectedTagProtectRole;
+
+  /// No description provided for @protectedTagProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedTagProtectNoOne;
+
+  /// No description provided for @protectedTagProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedTagProtectDevelopers;
+
+  /// No description provided for @protectedTagProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedTagProtectMaintainers;
+
+  /// No description provided for @protectedTagProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes who can create matching tags and may affect tag pipelines and jobs across project {projectId}.'**
+  String protectedTagProtectWarning(String projectId);
+
+  /// No description provided for @protectedTagProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules can also affect future tags. Check the exact pattern and access level.'**
+  String get protectedTagProtectWildcard;
+
+  /// No description provided for @protectedTagProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedTagProtectAcknowledge;
+
+  /// No description provided for @protectedTagProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectSubmit;
+
+  /// No description provided for @protectedTagProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedTagProtectExisting;
+
+  /// No description provided for @protectedTagProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedTagProtectUncertain;
+
+  /// No description provided for @protectedTagProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedTagProtectReload;
+
+  /// No description provided for @protectedTagProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify the protected tag rules. Try reloading.'**
+  String get protectedTagProtectLoadError;
+
+  /// No description provided for @protectedTagProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedTagProtectSessionChanged;
+
+  /// No description provided for @protectedTagProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected tag rule created.'**
+  String get protectedTagProtectCreated;
+
+  /// No description provided for @protectedTagProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedTagProtectCancel;
+
+  /// No description provided for @protectedTagProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedTagProtectForbidden;
+
+  /// No description provided for @protectedTagProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedTagProtectUnauthorized;
+
+  /// No description provided for @protectedTagProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedTagProtectRateLimited;
+
+  /// No description provided for @protectedTagProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected tag resource is unavailable. Reload before trying again.'**
+  String get protectedTagProtectUnavailable;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:

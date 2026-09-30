@@ -9,6 +9,81 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get protectedTagProtectTitle => 'Protect tag';
+
+  @override
+  String get protectedTagProtectName => 'Rule name';
+
+  @override
+  String get protectedTagProtectRole => 'Who can create matching tags?';
+
+  @override
+  String get protectedTagProtectNoOne => 'No one';
+
+  @override
+  String get protectedTagProtectDevelopers => 'Developers and Maintainers';
+
+  @override
+  String get protectedTagProtectMaintainers => 'Maintainers';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return 'This rule changes who can create matching tags and may affect tag pipelines and jobs across project $projectId.';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      'Wildcard rules can also affect future tags. Check the exact pattern and access level.';
+
+  @override
+  String get protectedTagProtectAcknowledge =>
+      'I understand the project-wide effect of this rule.';
+
+  @override
+  String get protectedTagProtectSubmit => 'Protect tag';
+
+  @override
+  String get protectedTagProtectExisting =>
+      'Rule already exists. No change was made.';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      'The result is uncertain. Reload all rules before trying again.';
+
+  @override
+  String get protectedTagProtectReload => 'Reload rules';
+
+  @override
+  String get protectedTagProtectLoadError =>
+      'Could not verify the protected tag rules. Try reloading.';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      'Your account changed. Close this draft and start again.';
+
+  @override
+  String get protectedTagProtectCreated => 'Protected tag rule created.';
+
+  @override
+  String get protectedTagProtectCancel => 'Cancel';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      'You do not have permission to create this rule. Reload before trying again.';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      'Your session has expired. Sign in again before creating a rule.';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload the rules.';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      'This project or protected tag resource is unavailable. Reload before trying again.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override

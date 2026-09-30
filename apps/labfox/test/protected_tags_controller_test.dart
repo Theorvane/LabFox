@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -15,11 +17,15 @@ class _Repository extends ProtectedTagsRepository {
       );
 
   final pages = <int>[];
+  Completer<Paginated<ProtectedTag>>? pendingSecondPage;
 
   @override
   Future<Paginated<ProtectedTag>> list(int projectId, {int page = 1}) async {
     expect(projectId, 7);
     pages.add(page);
+    if (page == 2 && pendingSecondPage != null) {
+      return pendingSecondPage!.future;
+    }
     return page == 1
         ? const Paginated(items: [ProtectedTag(name: 'v*')], nextPage: 2)
         : const Paginated(items: [ProtectedTag(name: 'release/*')]);
@@ -45,6 +51,31 @@ void main() {
     expect(
       container.read(provider).requireValue.items.map((rule) => rule.name),
       ['v*', 'release/*'],
+    );
+  });
+
+  test('an invalidated list ignores an older page result', () async {
+    final repository = _Repository();
+    repository.pendingSecondPage = Completer<Paginated<ProtectedTag>>();
+    final container = ProviderContainer(
+      overrides: [
+        protectedTagsRepositoryProvider.overrideWith((ref) async => repository),
+      ],
+    );
+    addTearDown(container.dispose);
+    final provider = protectedTagsControllerProvider(7);
+    await container.read(provider.future);
+    final pending = container.read(provider.notifier).loadMore();
+    await Future<void>.delayed(Duration.zero);
+    container.invalidate(provider);
+    await container.read(provider.future);
+    repository.pendingSecondPage!.complete(
+      const Paginated(items: [ProtectedTag(name: 'stale/*')]),
+    );
+    await pending;
+    expect(
+      container.read(provider).requireValue.items.map((rule) => rule.name),
+      ['v*'],
     );
   });
 }

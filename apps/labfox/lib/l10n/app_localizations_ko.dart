@@ -9,6 +9,78 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get protectedTagProtectTitle => '태그 보호';
+
+  @override
+  String get protectedTagProtectName => '규칙 이름';
+
+  @override
+  String get protectedTagProtectRole => '일치하는 태그를 생성할 수 있는 사용자';
+
+  @override
+  String get protectedTagProtectNoOne => '아무도 없음';
+
+  @override
+  String get protectedTagProtectDevelopers => '개발자 및 관리자';
+
+  @override
+  String get protectedTagProtectMaintainers => '관리자';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return '이 규칙은 프로젝트 $projectId에서 일치하는 태그의 생성 권한을 변경하며 태그 파이프라인과 작업에 영향을 줄 수 있습니다.';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      '와일드카드 규칙은 앞으로 생성할 태그에도 적용될 수 있습니다. 정확한 패턴과 권한을 확인하세요.';
+
+  @override
+  String get protectedTagProtectAcknowledge => '이 규칙이 프로젝트 전체에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedTagProtectSubmit => '태그 보호';
+
+  @override
+  String get protectedTagProtectExisting => '규칙이 이미 있습니다. 변경 사항이 없습니다.';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      '결과를 확인할 수 없습니다. 다시 시도하기 전에 모든 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectReload => '규칙 새로고침';
+
+  @override
+  String get protectedTagProtectLoadError => '보호 태그 규칙을 확인할 수 없습니다. 다시 불러오세요.';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get protectedTagProtectCreated => '보호 태그 규칙이 생성되었습니다.';
+
+  @override
+  String get protectedTagProtectCancel => '취소';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      '이 규칙을 생성할 권한이 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      '세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      '프로젝트 또는 보호 태그 리소스에 접근할 수 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
   String get protectedTagsTitle => '보호 태그';
 
   @override

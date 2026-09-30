@@ -14,9 +14,13 @@ final protectedTagsRepositoryProvider =
 class ProtectedTagsController
     extends FamilyAsyncNotifier<Paginated<ProtectedTag>, int> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
   Future<Paginated<ProtectedTag>> build(int projectId) async {
+    _generation++;
+    _loadingMore = false;
+    ref.onDispose(() => _generation++);
     final repository = await ref.watch(protectedTagsRepositoryProvider.future);
     if (repository == null) throw StateError('No authenticated account');
     return repository.list(projectId);
@@ -27,11 +31,13 @@ class ProtectedTagsController
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
+    final generation = _generation;
     _loadingMore = true;
     try {
       final repository = await ref.read(protectedTagsRepositoryProvider.future);
       if (repository == null) throw StateError('No authenticated account');
       final next = await repository.list(arg, page: page);
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: [...current.items, ...next.items],
@@ -41,9 +47,9 @@ class ProtectedTagsController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) state = AsyncError(error, stackTrace);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
