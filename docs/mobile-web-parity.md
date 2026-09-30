@@ -25,8 +25,8 @@ work, not as a fixed denominator.
 - Update the snapshot, evidence, and issue/PR links in the same PR that changes
   a row. Do not calculate a GitLab parity percentage from this incomplete list.
 
-Snapshot (2026-09-27): **19 known work packages**, **1 shipped**, **4 in
-progress**, **14 queued**. This is a lower bound on remaining work,
+Snapshot (2026-09-30): **19 known work packages**, **1 shipped**, **5 in
+progress**, **13 queued**. This is a lower bound on remaining work,
 **not 18 PRs** or an ETA. The shipped baseline is excluded from that count.
 
 ## Shipped baseline by workflow
@@ -52,7 +52,7 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 | ID | Priority | Work package and acceptance boundary | Status | Tracking |
 | --- | --- | --- | --- | --- |
 | MW-01 | P1 | Group protected environments: list/detail, deploy/approval rules, role/tier errors, narrow/wide tests. | Shipped | [#326](https://github.com/Theorvane/labfox/issues/326), [PR #328](https://github.com/Theorvane/labfox/pull/328) |
-| MW-02 | P1 | Project protection-rule creation, update, and removal with permission checks. | Queued | Issue needed |
+| MW-02 | P1 | Project protection-rule creation, update, and removal with permission checks. | In progress | [#511](https://github.com/Theorvane/labfox/issues/511), [PR #512](https://github.com/Theorvane/labfox/pull/512) cover repository tag rule unprotection in review: exact project/name and current creation-permission confirmation, best-effort frozen-rule preflight, no OAuth replay or redirects, strict 204 acceptance, mandatory reload and renewed confirmation after stale or uncertain results, account/pending guards, and stale-page protection. It removes rules, not tags; creation, editing, and branch/environment rule writes remain separate slices. |
 | MW-03 | P1 | Project/group settings inventory and authorized general/repository/CI changes. | Queued | Issue needed |
 | MW-04 | P1 | Member invitations, role/expiry changes, and removal for groups/projects. | Queued | Issue needed |
 | MW-05 | P0 | Issue/work-item editing, metadata, types, and validated state transitions. | In progress | [#329](https://github.com/Theorvane/labfox/issues/329), [PR #330](https://github.com/Theorvane/labfox/pull/330) shipped title and description editing; [#339](https://github.com/Theorvane/labfox/issues/339), [PR #340](https://github.com/Theorvane/labfox/pull/340) shipped due-date editing; [#341](https://github.com/Theorvane/labfox/issues/341), [PR #342](https://github.com/Theorvane/labfox/pull/342) shipped issue-label editing; [#343](https://github.com/Theorvane/labfox/issues/343), [PR #344](https://github.com/Theorvane/labfox/pull/344) shipped assignee editing; [#345](https://github.com/Theorvane/labfox/issues/345), [PR #346](https://github.com/Theorvane/labfox/pull/346) shipped milestone editing; [#347](https://github.com/Theorvane/labfox/issues/347), [PR #348](https://github.com/Theorvane/labfox/pull/348) shipped confidentiality; [#349](https://github.com/Theorvane/labfox/issues/349), [PR #350](https://github.com/Theorvane/labfox/pull/350) shipped discussion locking. Type-conversion compatibility and remaining work-item actions need separate issues. |
