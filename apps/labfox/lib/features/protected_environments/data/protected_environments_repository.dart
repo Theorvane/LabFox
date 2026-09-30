@@ -50,6 +50,16 @@ class ProtectedEnvironmentsRepository {
     accessLevel: accessLevel,
   );
 
+  Future<void> removeDeployRole(
+    int projectId,
+    String name, {
+    required int grantId,
+  }) => client.protectedEnvironments.removeDeployRole(
+    projectId,
+    name,
+    grantId: grantId,
+  );
+
   Future<void> ensureNameAvailable(int projectId, String name) async {
     var page = 1;
     while (true) {

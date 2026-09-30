@@ -9,6 +9,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
+import 'widgets/protected_environment_remove_role_dialog.dart';
 import 'widgets/protected_environment_unprotect_dialog.dart';
 
 /// One rule, restorable from its project or group and environment name.
@@ -45,6 +46,37 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(rule.valueOrNull?.name ?? l10n.protectedEnvironmentsTitle),
         actions: [
+          if (projectKey != null &&
+              rule.valueOrNull?.deployAccessLevels.any(
+                    (grant) =>
+                        grant.id != null &&
+                        grant.id! > 0 &&
+                        {30, 40}.contains(grant.accessLevel) &&
+                        grant.userId == null &&
+                        grant.groupId == null,
+                  ) ==
+                  true)
+            IconButton(
+              key: const ValueKey('protected-environment-remove-role-open'),
+              tooltip: l10n.protectedEnvironmentRemoveRoleTitle,
+              icon: const Icon(Icons.person_remove_outlined),
+              onPressed: () async {
+                final removed = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentRemoveRoleDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (removed == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentRemoveRoleSuccess),
+                    ),
+                  );
+                }
+              },
+            ),
           if (projectKey != null && rule.valueOrNull != null)
             IconButton(
               key: const ValueKey('protected-environment-deploy-role-open'),

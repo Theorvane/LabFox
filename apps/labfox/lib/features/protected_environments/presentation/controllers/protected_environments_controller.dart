@@ -409,6 +409,120 @@ final protectedEnvironmentAddDeployRoleControllerProvider =
       ProtectedEnvironmentRef
     >(ProtectedEnvironmentAddDeployRoleController.new);
 
+/// Removes one role grant after comparing a complete, frozen project rule.
+class ProtectedEnvironmentRemoveDeployRoleController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> remove({
+    required ProtectedEnvironment expected,
+    required int grantId,
+  }) async {
+    if (state.isLoading) {
+      throw StateError('Deploy role removal already pending');
+    }
+    if (expected.name != arg.name || grantId <= 0) {
+      throw ArgumentError('Exact environment rule and grant ID required');
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      final matches = current.deployAccessLevels
+          .where((grant) => grant.id == grantId)
+          .toList();
+      if (matches.length != 1 ||
+          !{30, 40}.contains(matches.single.accessLevel) ||
+          matches.single.userId != null ||
+          matches.single.groupId != null) {
+        throw const GitLabConflictException('Role grant is unavailable');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.removeDeployRole(
+        arg.projectId,
+        arg.name,
+        grantId: grantId,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final updated = await repository.getComplete(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final remaining = expected.deployAccessLevels
+          .where((grant) => grant.id != grantId)
+          .toList();
+      if (updated != expected.copyWith(deployAccessLevels: remaining)) {
+        throw const GitLabServerException('Unconfirmed deploy role removal');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentRemoveDeployRoleControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentRemoveDeployRoleController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentRemoveDeployRoleController.new);
+
 class GroupProtectedEnvironmentsController
     extends FamilyAsyncNotifier<Paginated<ProtectedEnvironment>, int> {
   bool _loadingMore = false;

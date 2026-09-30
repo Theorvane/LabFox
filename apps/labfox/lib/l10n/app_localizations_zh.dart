@@ -2310,6 +2310,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
 
   @override
+  String get protectedEnvironmentRemoveRoleTitle => '移除部署角色';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '移除此授权后，所选角色可能无法部署。其他部署授权和审批规则保持不变，环境仍受保护。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge => '我了解所选部署授权将被移除。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '已移除部署角色。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden => '您没有权限移除此部署授权。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError => '无法确认部署授权已移除。重试前请检查规则。';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role（授权 $id）';
+  }
+
+  @override
   String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
 
   @override

@@ -132,6 +132,72 @@ Future<void> _pump(
 }
 
 void main() {
+  for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+      for (final brightness in [Brightness.light, Brightness.dark]) {
+        testWidgets(
+          'remove role dialog fits $language ${size.width} $brightness',
+          (tester) async {
+            await _pump(
+              tester,
+              size,
+              language: language,
+              brightness: brightness,
+            );
+            await tester.tap(find.text('review/production'));
+            await tester.pumpAndSettle();
+            await tester.tap(
+              find.byKey(
+                const ValueKey('protected-environment-remove-role-open'),
+              ),
+            );
+            await tester.pumpAndSettle();
+            expect(
+              find.byKey(
+                const ValueKey('protected-environment-remove-role-name'),
+              ),
+              findsOneWidget,
+            );
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
+    }
+  }
+
+  for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+    testWidgets(
+      'project role removal requires exact confirmation at ${size.width}',
+      (tester) async {
+        await _pump(tester, size);
+        await tester.tap(find.text('review/production'));
+        await tester.pumpAndSettle();
+        await tester.tap(
+          find.byKey(const ValueKey('protected-environment-remove-role-open')),
+        );
+        await tester.pumpAndSettle();
+        final save = find.byKey(
+          const ValueKey('protected-environment-remove-role-save'),
+        );
+        expect(tester.widget<FilledButton>(save).onPressed, isNull);
+        final grant = find.byKey(
+          const ValueKey('protected-environment-remove-role-12'),
+        );
+        await tester.ensureVisible(grant);
+        await tester.tap(grant);
+        await tester.enterText(
+          find.byKey(const ValueKey('protected-environment-remove-role-name')),
+          'review/production',
+        );
+        await tester.ensureVisible(find.byType(CheckboxListTile));
+        await tester.tap(find.byType(CheckboxListTile));
+        await tester.pumpAndSettle();
+        expect(tester.widget<FilledButton>(save).onPressed, isNotNull);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
   for (final size in [const Size(320, 720), const Size(1200, 800)]) {
     testWidgets(
       'project deploy role needs exact confirmation at ${size.width}',
@@ -425,6 +491,10 @@ void main() {
       expect(find.text('Security team'), findsOneWidget);
       expect(
         find.byKey(const ValueKey('protected-environment-deploy-role-open')),
+        findsNothing,
+      );
+      expect(
+        find.byKey(const ValueKey('protected-environment-remove-role-open')),
         findsNothing,
       );
       expect(tester.takeException(), isNull);

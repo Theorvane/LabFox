@@ -2345,6 +2345,33 @@ class AppLocalizationsKo extends AppLocalizations {
       '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
 
   @override
+  String get protectedEnvironmentRemoveRoleTitle => '배포 역할 제거';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '이 권한을 제거하면 선택한 역할이 배포하지 못할 수 있습니다. 다른 배포 권한과 승인 규칙은 유지되며 환경은 계속 보호됩니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      '선택한 배포 권한이 제거되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '배포 역할이 제거되었습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      '이 배포 권한을 제거할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      '배포 권한 제거를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (권한 $id)';
+  }
+
+  @override
   String get protectedEnvironmentDeployRoleTitle => '배포 역할 추가';
 
   @override

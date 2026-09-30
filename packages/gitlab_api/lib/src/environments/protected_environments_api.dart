@@ -14,6 +14,53 @@ class ProtectedEnvironmentsApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
 
+  /// Removes one deploy grant by its server-assigned record ID.
+  Future<void> removeDeployRole(
+    Object projectId,
+    String name, {
+    required int grantId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || grantId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and deploy grant ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, '_destroy': true},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List ||
+          (raw['deploy_access_levels'] as List).any(
+            (entry) => entry is Map<String, dynamic> && entry['id'] == grantId,
+          )) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role removal',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing an environment deploy role');
+    }
+  }
+
   /// Adds one role-based deploy grant to an existing project rule.
   Future<void> addDeployRole(
     Object projectId,
