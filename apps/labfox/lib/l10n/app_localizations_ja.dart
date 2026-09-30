@@ -2214,4 +2214,67 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'プッシュ権限を編集';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '現在のプッシュ権限: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'なし';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'メンテナー';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'プッシュ権限の変更は、このルールに一致するすべてのブランチに影響します。直接コミットできる人が変わり、強制プッシュが許可されている場合は履歴を書き換えられる人も変わる可能性があります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      '一致するブランチのプッシュ権限が変更されることを理解しました。';
+
+  @override
+  String get protectedBranchPushRoleSave => 'プッシュ権限を保存';
+
+  @override
+  String get protectedBranchPushRoleReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'プッシュ権限を更新しました。';
+
+  @override
+  String get protectedBranchPushRoleAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedBranchPushRoleForbidden => 'プッシュ権限を変更する権限がありません。';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchPushRoleStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLabがリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchPushRoleError => '変更を確認できませんでした。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
 }

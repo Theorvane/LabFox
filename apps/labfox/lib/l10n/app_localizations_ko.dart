@@ -2221,4 +2221,68 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '푸시 권한 편집';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '현재 푸시 권한: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '없음';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '푸시 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 직접 커밋할 수 있는 사람이 달라지고, 강제 푸시가 허용된 경우 기록을 다시 쓸 수 있는 사람도 달라질 수 있습니다. 와일드카드는 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      '일치하는 브랜치의 푸시 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchPushRoleSave => '푸시 권한 저장';
+
+  @override
+  String get protectedBranchPushRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '푸시 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchPushRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '푸시 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
 }

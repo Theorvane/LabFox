@@ -2269,4 +2269,71 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'पुश अनुमति संपादित करें';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return 'वर्तमान पुश अनुमति: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'कोई नहीं';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'पुश अनुमति बदलने से इस नियम से मेल खाने वाली सभी ब्रांच प्रभावित होंगी। सीधे कमिट करने वाले लोग बदल सकते हैं; फ़ोर्स पुश चालू होने पर इतिहास बदलने वाले लोग भी बदल सकते हैं। वाइल्डकार्ड कई ब्रांच प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      'मैं मेल खाने वाली ब्रांच की पुश अनुमति में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedBranchPushRoleSave => 'पुश अनुमति सहेजें';
+
+  @override
+  String get protectedBranchPushRoleReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'पुश अनुमति अपडेट की गई।';
+
+  @override
+  String get protectedBranchPushRoleAuth =>
+      'नियम बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchPushRoleForbidden =>
+      'आपको पुश अनुमति बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
 }

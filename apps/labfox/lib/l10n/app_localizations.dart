@@ -4351,6 +4351,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account changed. Close this dialog and open the rule again.'**
   String get protectedBranchMergeRoleSessionChanged;
+
+  /// No description provided for @protectedBranchPushRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit push access'**
+  String get protectedBranchPushRoleEditTitle;
+
+  /// No description provided for @protectedBranchPushRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchPushRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchPushRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current push access: {role}'**
+  String protectedBranchPushRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchPushRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchPushRoleNone;
+
+  /// No description provided for @protectedBranchPushRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchPushRoleDeveloper;
+
+  /// No description provided for @protectedBranchPushRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchPushRoleMaintainer;
+
+  /// No description provided for @protectedBranchPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.'**
+  String get protectedBranchPushRoleWarning;
+
+  /// No description provided for @protectedBranchPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the push access change for matching branches.'**
+  String get protectedBranchPushRoleAcknowledge;
+
+  /// No description provided for @protectedBranchPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push access'**
+  String get protectedBranchPushRoleSave;
+
+  /// No description provided for @protectedBranchPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchPushRoleReload;
+
+  /// No description provided for @protectedBranchPushRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Push access updated.'**
+  String get protectedBranchPushRoleSuccess;
+
+  /// No description provided for @protectedBranchPushRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchPushRoleAuth;
+
+  /// No description provided for @protectedBranchPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change push access.'**
+  String get protectedBranchPushRoleForbidden;
+
+  /// No description provided for @protectedBranchPushRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchPushRoleUnavailable;
+
+  /// No description provided for @protectedBranchPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchPushRoleStale;
+
+  /// No description provided for @protectedBranchPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchPushRoleRateLimited;
+
+  /// No description provided for @protectedBranchPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchPushRoleError;
+
+  /// No description provided for @protectedBranchPushRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchPushRoleSessionChanged;
 }
 
 class _AppLocalizationsDelegate
