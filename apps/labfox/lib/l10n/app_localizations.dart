@@ -4375,6 +4375,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account changed. Close this dialog and open the rule again.'**
   String get protectedBranchForcePushSessionChanged;
+
+  /// No description provided for @protectedBranchMergeRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit merge access'**
+  String get protectedBranchMergeRoleEditTitle;
+
+  /// No description provided for @protectedBranchMergeRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchMergeRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchMergeRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current merge access: {role}'**
+  String protectedBranchMergeRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchMergeRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchMergeRoleNone;
+
+  /// No description provided for @protectedBranchMergeRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchMergeRoleDeveloper;
+
+  /// No description provided for @protectedBranchMergeRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchMergeRoleMaintainer;
+
+  /// No description provided for @protectedBranchMergeRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.'**
+  String get protectedBranchMergeRoleWarning;
+
+  /// No description provided for @protectedBranchMergeRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the merge access change for matching branches.'**
+  String get protectedBranchMergeRoleAcknowledge;
+
+  /// No description provided for @protectedBranchMergeRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save merge access'**
+  String get protectedBranchMergeRoleSave;
+
+  /// No description provided for @protectedBranchMergeRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchMergeRoleReload;
+
+  /// No description provided for @protectedBranchMergeRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge access updated.'**
+  String get protectedBranchMergeRoleSuccess;
+
+  /// No description provided for @protectedBranchMergeRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchMergeRoleAuth;
+
+  /// No description provided for @protectedBranchMergeRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change merge access.'**
+  String get protectedBranchMergeRoleForbidden;
+
+  /// No description provided for @protectedBranchMergeRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchMergeRoleUnavailable;
+
+  /// No description provided for @protectedBranchMergeRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchMergeRoleStale;
+
+  /// No description provided for @protectedBranchMergeRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleRateLimited;
+
+  /// No description provided for @protectedBranchMergeRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleError;
+
+  /// No description provided for @protectedBranchMergeRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchMergeRoleSessionChanged;
 }
 
 class _AppLocalizationsDelegate
