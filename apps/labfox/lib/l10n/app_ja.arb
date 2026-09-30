@@ -603,5 +603,19 @@
   "protectedBranchMergeRoleError": "変更を確認できませんでした。再試行前にルールを確認してください。",
   "protectedBranchMergeRoleSessionChanged": "アカウントが変更されました。このダイアログを閉じてルールを開き直してください。",
   "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
-  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}}
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedEnvironmentCreateTitle": "環境を保護",
+  "protectedEnvironmentCreateName": "環境名",
+  "protectedEnvironmentCreateDeveloper": "開発者とメンテナー",
+  "protectedEnvironmentCreateMaintainer": "メンテナー",
+  "protectedEnvironmentCreateWarning": "この保護設定は指定した環境にデプロイできるユーザーを変更します。承認ルールは追加されません。",
+  "protectedEnvironmentCreateAcknowledge": "デプロイ権限の変更を理解しました。",
+  "protectedEnvironmentCreateSave": "環境を保護",
+  "protectedEnvironmentCreateReload": "環境一覧を再確認",
+  "protectedEnvironmentCreateDuplicate": "この環境はすでに保護されています。続行する前に一覧を確認してください。",
+  "protectedEnvironmentCreateError": "保護を確認できませんでした。再試行する前に一覧を確認してください。",
+  "protectedEnvironmentCreateForbidden": "権限がないか、この機能を利用できません。",
+  "protectedEnvironmentCreateSessionChanged": "アカウントが変更されました。このダイアログを閉じて開き直してください。",
+  "protectedEnvironmentCreateSuccess": "環境を保護しました。",
+  "protectedEnvironmentCreateInvalidName": "ワイルドカードを含まない正確な環境名を入力してください。"
 }

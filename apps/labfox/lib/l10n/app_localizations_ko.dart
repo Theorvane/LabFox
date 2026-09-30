@@ -2221,4 +2221,51 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateName => '환경 이름';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '개발자 + 유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      '이 보호 규칙은 지정한 환경에 배포할 수 있는 사람을 변경합니다. 승인 규칙은 추가되지 않습니다.';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '배포 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSave => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateReload => '환경 목록 다시 확인';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      '이 환경은 이미 보호되어 있습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      '보호 설정을 확인할 수 없습니다. 다시 시도하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '권한이 없거나 이 기능을 사용할 수 없습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '환경이 보호되었습니다.';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
 }

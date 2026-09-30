@@ -2272,4 +2272,53 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedEnvironmentCreateTitle => 'Protect environment';
+
+  @override
+  String get protectedEnvironmentCreateName => 'Environment name';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'Maintainers';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'This protection changes who may deploy to the named environment. Approval rules are not added.';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge =>
+      'I understand the deployment access change.';
+
+  @override
+  String get protectedEnvironmentCreateSave => 'Protect environment';
+
+  @override
+  String get protectedEnvironmentCreateReload => 'Check environments again';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'This environment is already protected. Check the list before continuing.';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      'Could not confirm protection. Check the list before trying again.';
+
+  @override
+  String get protectedEnvironmentCreateForbidden =>
+      'You do not have permission or this feature is unavailable.';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'The account changed. Close this dialog and open it again.';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => 'Environment protected.';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'Enter an exact environment name without wildcards.';
 }

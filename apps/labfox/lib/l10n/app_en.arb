@@ -1614,5 +1614,19 @@
   "protectedBranchMergeRoleError": "Could not confirm this change. Check the rule before trying again.",
   "protectedBranchMergeRoleSessionChanged": "The account changed. Close this dialog and open the rule again.",
   "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
-  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}}
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedEnvironmentCreateTitle": "Protect environment",
+  "protectedEnvironmentCreateName": "Environment name",
+  "protectedEnvironmentCreateDeveloper": "Developers + Maintainers",
+  "protectedEnvironmentCreateMaintainer": "Maintainers",
+  "protectedEnvironmentCreateWarning": "This protection changes who may deploy to the named environment. Approval rules are not added.",
+  "protectedEnvironmentCreateAcknowledge": "I understand the deployment access change.",
+  "protectedEnvironmentCreateSave": "Protect environment",
+  "protectedEnvironmentCreateReload": "Check environments again",
+  "protectedEnvironmentCreateDuplicate": "This environment is already protected. Check the list before continuing.",
+  "protectedEnvironmentCreateError": "Could not confirm protection. Check the list before trying again.",
+  "protectedEnvironmentCreateForbidden": "You do not have permission or this feature is unavailable.",
+  "protectedEnvironmentCreateSessionChanged": "The account changed. Close this dialog and open it again.",
+  "protectedEnvironmentCreateSuccess": "Environment protected.",
+  "protectedEnvironmentCreateInvalidName": "Enter an exact environment name without wildcards."
 }

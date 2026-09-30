@@ -7,6 +7,89 @@ import 'package:test/test.dart';
 
 void main() {
   test(
+    'creates one role-only project rule without replaying the write',
+    () async {
+      late RequestOptions request;
+      var attempts = 0;
+      final client = _client((options) {
+        attempts++;
+        request = options;
+        return (
+          status: 201,
+          headers: <String, List<String>>{},
+          body: {
+            'name': 'production',
+            'deploy_access_levels': [
+              {'id': 12, 'access_level': 40, 'user_id': null, 'group_id': null},
+            ],
+            'approval_rules': <Object>[],
+            'required_approval_count': 0,
+          },
+        );
+      });
+
+      final created = await client.protectedEnvironments.createRoleOnly(
+        'team/app',
+        'production',
+        accessLevel: 40,
+      );
+      expect(attempts, 1);
+      expect(request.method, 'POST');
+      expect(request.path, '/projects/team%2Fapp/protected_environments');
+      expect(request.data, {
+        'name': 'production',
+        'deploy_access_levels': [
+          {'access_level': 40},
+        ],
+      });
+      expect(request.followRedirects, isFalse);
+      expect(request.extra['labfox_no_auth_retry'], isTrue);
+      expect(created.deployAccessLevels.single.accessLevel, 40);
+    },
+  );
+
+  test('rejects unconfirmed creation and unsupported deploy role', () async {
+    final client = _client(
+      (_) => (
+        status: 201,
+        headers: <String, List<String>>{},
+        body: {
+          'name': 'production',
+          'deploy_access_levels': [
+            {'id': 12, 'access_level': 30},
+          ],
+        },
+      ),
+    );
+    await expectLater(
+      client.protectedEnvironments.createRoleOnly(
+        7,
+        'production',
+        accessLevel: 40,
+      ),
+      throwsA(isA<GitLabServerException>()),
+    );
+    await expectLater(
+      client.protectedEnvironments.createRoleOnly(
+        7,
+        'production',
+        accessLevel: 60,
+      ),
+      throwsArgumentError,
+    );
+  });
+
+  test('rejects an incomplete list instead of treating it as empty', () async {
+    final client = _client(
+      (_) => (status: 200, headers: <String, List<String>>{}, body: null),
+    );
+    await expectLater(
+      client.protectedEnvironments.list(7),
+      throwsA(isA<GitLabServerException>()),
+    );
+  });
+
+  test(
     'lists protected environments and parses deployment approval rules',
     () async {
       late RequestOptions request;

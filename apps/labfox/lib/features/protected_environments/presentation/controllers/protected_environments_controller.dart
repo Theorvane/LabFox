@@ -87,6 +87,114 @@ final protectedEnvironmentDetailProvider =
       return repository.get(key.projectId, key.name);
     });
 
+/// Creates one project rule after checking every currently listed page.
+class ProtectedEnvironmentCreateController
+    extends FamilyAsyncNotifier<void, int> {
+  bool _disposed = false;
+
+  @override
+  void build(int projectId) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<void> inspectName(String name) async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    final repository = await session;
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureNameAvailable(arg, name);
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+  }
+
+  Future<void> create(String name, {required int accessLevel}) async {
+    if (state.isLoading) {
+      throw StateError('Environment creation already pending');
+    }
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        name.contains('*') ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError(
+        'Exact environment name and supported deploy role required',
+      );
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      await inspectName(name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      final created = await repository.createRoleOnly(
+        arg,
+        name,
+        accessLevel: accessLevel,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (created.name != name ||
+          created.deployAccessLevels.length != 1 ||
+          created.deployAccessLevels.single.id == null ||
+          created.deployAccessLevels.single.accessLevel != accessLevel ||
+          created.deployAccessLevels.single.userId != null ||
+          created.deployAccessLevels.single.groupId != null ||
+          created.approvalRules.isNotEmpty ||
+          created.requiredApprovalCount != 0) {
+        throw const GitLabConflictException(
+          'Unconfirmed environment protection',
+        );
+      }
+      state = const AsyncData(null);
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg));
+      ref.invalidate(
+        protectedEnvironmentDetailProvider(
+          ProtectedEnvironmentRef(projectId: arg, name: name),
+        ),
+      );
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) {
+          ref.invalidate(protectedEnvironmentsControllerProvider(arg));
+        }
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentCreateControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentCreateController,
+      void,
+      int
+    >(ProtectedEnvironmentCreateController.new);
+
 class GroupProtectedEnvironmentsController
     extends FamilyAsyncNotifier<Paginated<ProtectedEnvironment>, int> {
   bool _loadingMore = false;

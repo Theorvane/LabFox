@@ -603,5 +603,19 @@
   "protectedBranchMergeRoleError": "无法确认更改。重试前请检查规则。",
   "protectedBranchMergeRoleSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。",
   "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
-  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}}
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedEnvironmentCreateTitle": "保护环境",
+  "protectedEnvironmentCreateName": "环境名称",
+  "protectedEnvironmentCreateDeveloper": "开发者和维护者",
+  "protectedEnvironmentCreateMaintainer": "维护者",
+  "protectedEnvironmentCreateWarning": "此保护设置会改变谁能部署到指定环境。不会添加审批规则。",
+  "protectedEnvironmentCreateAcknowledge": "我了解部署权限的变更。",
+  "protectedEnvironmentCreateSave": "保护环境",
+  "protectedEnvironmentCreateReload": "重新检查环境列表",
+  "protectedEnvironmentCreateDuplicate": "此环境已受保护。继续前请检查列表。",
+  "protectedEnvironmentCreateError": "无法确认保护设置。重试前请检查列表。",
+  "protectedEnvironmentCreateForbidden": "您没有权限，或此功能不可用。",
+  "protectedEnvironmentCreateSessionChanged": "账户已更改。请关闭并重新打开此对话框。",
+  "protectedEnvironmentCreateSuccess": "环境已受保护。",
+  "protectedEnvironmentCreateInvalidName": "请输入不含通配符的准确环境名称。"
 }

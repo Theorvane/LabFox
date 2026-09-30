@@ -603,5 +603,19 @@
   "protectedBranchMergeRoleError": "बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।",
   "protectedBranchMergeRoleSessionChanged": "खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।",
   "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
-  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}}
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedEnvironmentCreateTitle": "परिवेश सुरक्षित करें",
+  "protectedEnvironmentCreateName": "परिवेश का नाम",
+  "protectedEnvironmentCreateDeveloper": "डेवलपर और मेंटेनर",
+  "protectedEnvironmentCreateMaintainer": "मेंटेनर",
+  "protectedEnvironmentCreateWarning": "यह सुरक्षा तय करती है कि नामित परिवेश में कौन डिप्लॉय कर सकता है। अनुमोदन नियम नहीं जोड़े जाते।",
+  "protectedEnvironmentCreateAcknowledge": "मैं डिप्लॉय पहुँच में बदलाव समझता हूँ।",
+  "protectedEnvironmentCreateSave": "परिवेश सुरक्षित करें",
+  "protectedEnvironmentCreateReload": "परिवेश सूची फिर जाँचें",
+  "protectedEnvironmentCreateDuplicate": "यह परिवेश पहले से सुरक्षित है। आगे बढ़ने से पहले सूची जाँचें।",
+  "protectedEnvironmentCreateError": "सुरक्षा की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले सूची जाँचें।",
+  "protectedEnvironmentCreateForbidden": "आपके पास अनुमति नहीं है या यह सुविधा उपलब्ध नहीं है।",
+  "protectedEnvironmentCreateSessionChanged": "खाता बदल गया है। यह संवाद बंद करके फिर खोलें।",
+  "protectedEnvironmentCreateSuccess": "परिवेश सुरक्षित हो गया।",
+  "protectedEnvironmentCreateInvalidName": "वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।"
 }

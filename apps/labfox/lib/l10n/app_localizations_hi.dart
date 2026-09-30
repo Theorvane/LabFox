@@ -2269,4 +2269,53 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentCreateTitle => 'परिवेश सुरक्षित करें';
+
+  @override
+  String get protectedEnvironmentCreateName => 'परिवेश का नाम';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'यह सुरक्षा तय करती है कि नामित परिवेश में कौन डिप्लॉय कर सकता है। अनुमोदन नियम नहीं जोड़े जाते।';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge =>
+      'मैं डिप्लॉय पहुँच में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedEnvironmentCreateSave => 'परिवेश सुरक्षित करें';
+
+  @override
+  String get protectedEnvironmentCreateReload => 'परिवेश सूची फिर जाँचें';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'यह परिवेश पहले से सुरक्षित है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      'सुरक्षा की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentCreateForbidden =>
+      'आपके पास अनुमति नहीं है या यह सुविधा उपलब्ध नहीं है।';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => 'परिवेश सुरक्षित हो गया।';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।';
 }
