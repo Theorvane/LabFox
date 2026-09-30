@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
+import 'widgets/protected_environment_unprotect_dialog.dart';
 
 /// One rule, restorable from its project or group and environment name.
 class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
@@ -42,6 +43,31 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(rule.valueOrNull?.name ?? l10n.protectedEnvironmentsTitle),
+        actions: [
+          if (projectKey != null && rule.valueOrNull != null)
+            IconButton(
+              key: const ValueKey('protected-environment-unprotect-open'),
+              tooltip: l10n.protectedEnvironmentUnprotectTitle,
+              icon: const Icon(Icons.lock_open_outlined),
+              onPressed: () async {
+                final removed = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentUnprotectDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (removed == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentUnprotectSuccess),
+                    ),
+                  );
+                  context.go(Routes.protectedEnvironments(projectId!));
+                }
+              },
+            ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

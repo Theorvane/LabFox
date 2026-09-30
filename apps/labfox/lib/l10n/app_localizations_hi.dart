@@ -2396,4 +2396,61 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get protectedEnvironmentCreateInvalidName =>
       'वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => 'परिवेश की सुरक्षा हटाएँ';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'इस प्रोजेक्ट नियम की सुरक्षा हटाने से नीचे दिखाई गई सभी डिप्लॉय अनुमतियाँ और अनुमोदन नियम हट जाएँगे। परिवेश और पिछले डिप्लॉयमेंट बने रहेंगे। समूह की सुरक्षा अभी भी लागू हो सकती है।';
+
+  @override
+  String get protectedEnvironmentUnprotectName => 'परिवेश का सटीक नाम लिखें';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'मैं समझता हूँ कि ये डिप्लॉय प्रतिबंध और अनुमोदन नियम हट जाएँगे।';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      'आपके पास इस परिवेश की सुरक्षा हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले इसे फिर जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      'हटाने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess =>
+      'परिवेश की सुरक्षा हटा दी गई।';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'पहुँच प्रविष्टि';
 }

@@ -2343,4 +2343,59 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get protectedEnvironmentCreateInvalidName =>
       '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '환경 보호 해제';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '이 프로젝트 보호 규칙을 해제하면 아래의 모든 배포 허용 항목과 승인 규칙이 제거됩니다. 환경과 이전 배포는 유지됩니다. 그룹 보호 규칙은 계속 적용될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '정확한 환경 이름 입력';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      '이 배포 제한과 승인 규칙이 제거됨을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '규칙 다시 확인';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '규칙을 변경하기 전에 다시 로그인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      '이 환경의 보호를 해제할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      '보호 해제를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '환경 보호가 해제되었습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '접근 항목';
 }

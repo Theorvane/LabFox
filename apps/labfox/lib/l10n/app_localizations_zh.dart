@@ -2308,4 +2308,54 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '取消环境保护';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '取消此项目保护规则会移除下方显示的所有部署授权和审批规则。环境及历史部署仍会保留。群组保护规则可能继续生效。';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '输入准确的环境名称';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge => '我了解这些部署限制和审批规则将被移除。';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '重新检查规则';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '更改此规则前请重新登录。';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden => '您没有权限取消此环境的保护。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentUnprotectStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectError => '无法确认保护已取消。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '环境保护已取消。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '访问条目';
 }

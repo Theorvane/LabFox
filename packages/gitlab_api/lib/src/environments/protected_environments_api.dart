@@ -14,6 +14,30 @@ class ProtectedEnvironmentsApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
 
+  /// Removes one project protection rule without deleting the environment.
+  Future<void> unprotect(Object projectId, String name) async {
+    if (name.trim().isEmpty)
+      throw ArgumentError('Exact environment name required');
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'unprotecting an environment',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'unprotecting an environment');
+    }
+  }
+
   /// Creates a project rule with one role-based deploy grant and no approvals.
   Future<ProtectedEnvironment> createRoleOnly(
     Object projectId,
@@ -138,23 +162,67 @@ class ProtectedEnvironmentsApi {
     }
   }
 
-  Future<ProtectedEnvironment> get(Object projectId, String name) async {
+  Future<ProtectedEnvironment> get(Object projectId, String name) =>
+      _get(projectId, name, requireComplete: false);
+
+  /// Requires the full rule before a destructive protected-environment write.
+  Future<ProtectedEnvironment> getComplete(Object projectId, String name) =>
+      _get(projectId, name, requireComplete: true);
+
+  Future<ProtectedEnvironment> _get(
+    Object projectId,
+    String name, {
+    required bool requireComplete,
+  }) async {
     try {
       final response = await _dio.get<dynamic>(
         '${_path(projectId)}/${Uri.encodeComponent(name)}',
       );
-      if (response.statusCode != 200 || response.data == null) {
+      if (response.statusCode != 200) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
           context: 'loading a protected environment',
         );
       }
-      return ProtectedEnvironment.fromJson(
-        response.data as Map<String, dynamic>,
-      );
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> || raw['name'] != name) {
+        throw const GitLabServerException(
+          'Incomplete protected environment detail',
+        );
+      }
+      if (requireComplete &&
+          (raw['deploy_access_levels'] is! List ||
+              raw['approval_rules'] is! List ||
+              raw['required_approval_count'] is! int ||
+              (raw['required_approval_count'] as int) < 0 ||
+              !(raw['deploy_access_levels'] as List).every(_validAccess) ||
+              !(raw['approval_rules'] as List).every(_validAccess))) {
+        throw const GitLabServerException(
+          'Incomplete protected environment grants',
+        );
+      }
+      try {
+        return ProtectedEnvironment.fromJson(raw);
+      } on TypeError {
+        throw const GitLabServerException(
+          'Malformed protected environment detail',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Malformed protected environment detail',
+        );
+      }
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a protected environment');
     }
   }
+
+  bool _validAccess(Object? raw) =>
+      raw is Map<String, dynamic> &&
+      raw['id'] is int &&
+      (raw['id'] as int) > 0 &&
+      (raw['access_level'] is int ||
+          raw['user_id'] is int ||
+          raw['group_id'] is int);
 }

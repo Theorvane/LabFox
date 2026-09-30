@@ -13,6 +13,33 @@ class ProtectedEnvironmentsRepository {
   Future<ProtectedEnvironment> get(int projectId, String name) =>
       client.protectedEnvironments.get(projectId, name);
 
+  Future<ProtectedEnvironment> getComplete(int projectId, String name) =>
+      client.protectedEnvironments.getComplete(projectId, name);
+
+  Future<void> ensureUniqueName(int projectId, String name) async {
+    var page = 1;
+    var matches = 0;
+    while (true) {
+      final result = await list(projectId, page: page);
+      matches += result.items.where((rule) => rule.name == name).length;
+      if (matches > 1) {
+        throw const GitLabConflictException('Duplicate environment protection');
+      }
+      final next = result.nextPage;
+      if (next == null) break;
+      if (next <= page) {
+        throw const GitLabServerException('Invalid protection pagination');
+      }
+      page = next;
+    }
+    if (matches == 0) {
+      throw const GitLabNotFoundException('Environment protection not found');
+    }
+  }
+
+  Future<void> unprotect(int projectId, String name) =>
+      client.protectedEnvironments.unprotect(projectId, name);
+
   Future<void> ensureNameAvailable(int projectId, String name) async {
     var page = 1;
     while (true) {

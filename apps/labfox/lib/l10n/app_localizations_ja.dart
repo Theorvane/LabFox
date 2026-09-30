@@ -2335,4 +2335,58 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get protectedEnvironmentCreateInvalidName =>
       'ワイルドカードを含まない正確な環境名を入力してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '環境の保護を解除';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'このプロジェクトの保護を解除すると、以下のデプロイ許可と承認ルールがすべて削除されます。環境と過去のデプロイは残ります。グループの保護は引き続き適用される場合があります。';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '正確な環境名を入力';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'これらのデプロイ制限と承認ルールが削除されることを理解しました。';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'ルールを再確認';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden => 'この環境の保護を解除する権限がありません。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLabがリクエストを制限しています。再試行する前にルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      '解除を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '環境の保護を解除しました。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'アクセス項目';
 }

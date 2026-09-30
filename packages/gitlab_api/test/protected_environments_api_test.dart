@@ -6,6 +6,106 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('unprotects the exact encoded project rule with one DELETE', () async {
+    late RequestOptions request;
+    var calls = 0;
+    final client = _client((options) {
+      calls++;
+      request = options;
+      return (status: 204, headers: const {}, body: null);
+    });
+    await client.protectedEnvironments.unprotect(
+      'team/app',
+      'review/production',
+    );
+    expect(calls, 1);
+    expect(request.method, 'DELETE');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+    );
+    expect(request.data, isNull);
+    expect(request.followRedirects, isFalse);
+    expect(request.extra['labfox_no_auth_retry'], isTrue);
+  });
+
+  for (final status in [200, 301, 400, 401, 403, 404, 409, 429, 500]) {
+    test('unprotect rejects HTTP $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.protectedEnvironments.unprotect(7, 'production'),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  test('unprotect does not refresh or replay OAuth 401', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (status) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.unprotect(7, 'production'),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
+  test(
+    'complete preflight rejects omitted grants and mismatched identity',
+    () async {
+      final incomplete = _client(
+        (_) => (
+          status: 200,
+          headers: const {},
+          body: {'name': 'production', 'deploy_access_levels': []},
+        ),
+      );
+      await expectLater(
+        incomplete.protectedEnvironments.getComplete(7, 'production'),
+        throwsA(isA<GitLabServerException>()),
+      );
+      final mismatched = _client(
+        (_) => (
+          status: 200,
+          headers: const {},
+          body: {
+            'name': 'staging',
+            'deploy_access_levels': [],
+            'approval_rules': [],
+            'required_approval_count': 0,
+          },
+        ),
+      );
+      await expectLater(
+        mismatched.protectedEnvironments.getComplete(7, 'production'),
+        throwsA(isA<GitLabServerException>()),
+      );
+    },
+  );
+
   test(
     'creates one role-only project rule without replaying the write',
     () async {
