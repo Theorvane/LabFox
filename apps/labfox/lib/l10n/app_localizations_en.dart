@@ -2272,4 +2272,71 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get protectedBranchMergeRoleSessionChanged =>
       'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'Edit push access';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return 'Current push access: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'No one';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'Maintainers';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      'I understand the push access change for matching branches.';
+
+  @override
+  String get protectedBranchPushRoleSave => 'Save push access';
+
+  @override
+  String get protectedBranchPushRoleReload => 'Check rule again';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'Push access updated.';
+
+  @override
+  String get protectedBranchPushRoleAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchPushRoleForbidden =>
+      'You do not have permission to change push access.';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchPushRoleStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
 }

@@ -9,6 +9,7 @@ import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_branches_controller.dart';
 import 'widgets/protected_branch_force_push_dialog.dart';
 import 'widgets/protected_branch_merge_role_dialog.dart';
+import 'widgets/protected_branch_push_role_dialog.dart';
 
 /// One rule, restorable from its project and branch name.
 class ProtectedBranchDetailScreen extends ConsumerWidget {
@@ -59,6 +60,27 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
               final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
               final settings = _Settings(
                 rule: data,
+                onEditPushRole: editableProtectedBranchPushAccess(data) == null
+                    ? null
+                    : () async {
+                        final changed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchPushRoleDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (changed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchPushRoleSuccess,
+                              ),
+                            ),
+                          );
+                        }
+                      },
                 onEditMergeRole:
                     editableProtectedBranchMergeAccess(data) == null
                     ? null
@@ -159,11 +181,13 @@ class _Settings extends StatelessWidget {
     required this.rule,
     required this.onEditForcePush,
     required this.onEditMergeRole,
+    required this.onEditPushRole,
   });
 
   final ProtectedBranch rule;
   final VoidCallback? onEditForcePush;
   final VoidCallback? onEditMergeRole;
+  final VoidCallback? onEditPushRole;
 
   @override
   Widget build(BuildContext context) {
@@ -203,6 +227,14 @@ class _Settings extends StatelessWidget {
                 key: const ValueKey('protected-branch-merge-role-edit'),
                 onPressed: onEditMergeRole,
                 child: Text(l10n.protectedBranchMergeRoleEditTitle),
+              ),
+            ],
+            if (onEditPushRole != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                key: const ValueKey('protected-branch-push-role-edit'),
+                onPressed: onEditPushRole,
+                child: Text(l10n.protectedBranchPushRoleEditTitle),
               ),
             ],
           ],

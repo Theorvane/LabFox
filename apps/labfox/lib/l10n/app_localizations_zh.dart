@@ -2197,4 +2197,63 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedBranchMergeRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '编辑推送权限';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '当前推送权限：$role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '无人';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '维护者';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '更改推送权限会影响所有匹配此规则的分支。可以直接提交的人员可能改变；如果允许强制推送，可以改写历史的人员也可能改变。通配符可能影响多个分支。';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge => '我了解匹配分支的推送权限将发生变化。';
+
+  @override
+  String get protectedBranchPushRoleSave => '保存推送权限';
+
+  @override
+  String get protectedBranchPushRoleReload => '重新检查规则';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '推送权限已更新。';
+
+  @override
+  String get protectedBranchPushRoleAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '您无权更改推送权限。';
+
+  @override
+  String get protectedBranchPushRoleUnavailable => '此规则已不可用。继续之前请检查列表。';
+
+  @override
+  String get protectedBranchPushRoleStale => '规则已更改。继续之前请重新检查。';
+
+  @override
+  String get protectedBranchPushRoleRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleError => '无法确认更改。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
 }
