@@ -105,26 +105,32 @@ void main() {
             tester.view.devicePixelRatio = 1;
             addTearDown(tester.view.resetPhysicalSize);
             addTearDown(tester.view.resetDevicePixelRatio);
-            await tester.pumpWidget(ProviderScope(
-              overrides: [
-                protectedEnvironmentsControllerProvider.overrideWith(_List.new),
-              ],
-              child: MaterialApp(
-                locale: Locale(language),
-                theme: ThemeData(brightness: brightness),
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                home: const ProtectedEnvironmentsScreen(projectId: 7),
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  protectedEnvironmentsControllerProvider.overrideWith(
+                    _List.new,
+                  ),
+                ],
+                child: MaterialApp(
+                  locale: Locale(language),
+                  theme: ThemeData(brightness: brightness),
+                  localizationsDelegates:
+                      AppLocalizations.localizationsDelegates,
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  home: const ProtectedEnvironmentsScreen(projectId: 7),
+                ),
               ),
-            ));
+            );
             await tester.pumpAndSettle();
-            await tester.tap(find.byKey(
-              const ValueKey('protected-environment-create-open'),
-            ));
+            await tester.tap(
+              find.byKey(const ValueKey('protected-environment-create-open')),
+            );
             await tester.pumpAndSettle();
-            expect(find.byKey(
-              const ValueKey('protected-environment-create-name'),
-            ), findsOneWidget);
+            expect(
+              find.byKey(const ValueKey('protected-environment-create-name')),
+              findsOneWidget,
+            );
             expect(tester.takeException(), isNull);
           },
         );
