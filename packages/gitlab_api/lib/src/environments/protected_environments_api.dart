@@ -16,8 +16,9 @@ class ProtectedEnvironmentsApi {
 
   /// Removes one project protection rule without deleting the environment.
   Future<void> unprotect(Object projectId, String name) async {
-    if (name.trim().isEmpty)
+    if (name.trim().isEmpty) {
       throw ArgumentError('Exact environment name required');
+    }
     try {
       final response = await _dio.delete<dynamic>(
         '${_path(projectId)}/${Uri.encodeComponent(name)}',
