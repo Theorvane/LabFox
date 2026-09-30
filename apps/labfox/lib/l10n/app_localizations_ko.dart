@@ -2157,4 +2157,68 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get protectedBranchForcePushSessionChanged =>
       '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => '병합 권한 편집';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '현재 병합 권한: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => '없음';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      '병합 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 와일드카드는 여러 브랜치와 병합 요청 작업에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      '일치하는 브랜치의 병합 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleSave => '병합 권한 저장';
+
+  @override
+  String get protectedBranchMergeRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => '병합 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => '병합 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
 }

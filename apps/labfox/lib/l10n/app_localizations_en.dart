@@ -2205,4 +2205,71 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get protectedBranchForcePushSessionChanged =>
       'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => 'Edit merge access';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return 'Current merge access: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'No one';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'Maintainers';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      'I understand the merge access change for matching branches.';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'Save merge access';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'Check rule again';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'Merge access updated.';
+
+  @override
+  String get protectedBranchMergeRoleAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchMergeRoleForbidden =>
+      'You do not have permission to change merge access.';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchMergeRoleStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
 }

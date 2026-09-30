@@ -127,17 +127,83 @@ class ProtectedBranchesApi {
     }
   }
 
+  /// Changes one existing role-based merge access record on an exact rule.
+  Future<ProtectedBranch> updateMergeRole(
+    Object projectId,
+    String name, {
+    required int accessRecordId,
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        accessRecordId <= 0 ||
+        !{0, 30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact rule and supported merge role required');
+    }
+    try {
+      final response = await _dio.patch<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'allowed_to_merge': [
+            {'id': accessRecordId, 'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating protected branch merge access',
+        );
+      }
+      final raw = response.data;
+      if (!_validRule(raw) || (raw as Map<String, dynamic>)['name'] != name) {
+        throw const GitLabServerException(
+          'Unconfirmed protected branch update',
+        );
+      }
+      try {
+        final changed = ProtectedBranch.fromJson(raw);
+        final levels = changed.mergeAccessLevels;
+        if (levels.length != 1 ||
+            levels.single.id != accessRecordId ||
+            levels.single.accessLevel != accessLevel ||
+            levels.single.userId != null ||
+            levels.single.groupId != null ||
+            levels.single.deployKeyId != null ||
+            levels.single.memberRoleId != null) {
+          throw const GitLabServerException(
+            'Unconfirmed protected branch merge role',
+          );
+        }
+        return changed;
+      } on TypeError {
+        throw const GitLabServerException('Malformed protected branch update');
+      } on FormatException {
+        throw const GitLabServerException('Malformed protected branch update');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating protected branch merge access');
+    }
+  }
+
   bool _validRule(Object? raw) {
     if (raw is! Map<String, dynamic> ||
         raw['name'] is! String ||
         (raw['name'] as String).isEmpty ||
         raw['allow_force_push'] is! bool ||
         raw['push_access_levels'] is! List ||
-        raw['merge_access_levels'] is! List) {
+        raw['merge_access_levels'] is! List ||
+        (raw.containsKey('unprotect_access_levels') &&
+            raw['unprotect_access_levels'] is! List)) {
       return false;
     }
     return (raw['push_access_levels'] as List).every(_validAccess) &&
-        (raw['merge_access_levels'] as List).every(_validAccess);
+        (raw['merge_access_levels'] as List).every(_validAccess) &&
+        (raw['unprotect_access_levels'] as List? ?? []).every(_validAccess);
   }
 
   bool _validAccess(Object? raw) =>
@@ -145,5 +211,6 @@ class ProtectedBranchesApi {
       (raw['access_level'] is int ||
           raw['user_id'] is int ||
           raw['group_id'] is int ||
-          raw['deploy_key_id'] is int);
+          raw['deploy_key_id'] is int ||
+          raw['member_role_id'] is int);
 }
