@@ -107,6 +107,29 @@ class ProtectedTagsApi {
     }
   }
 
+  /// Removes the named protection rule; repository tags remain intact.
+  Future<void> unprotect(Object projectId, String name) async {
+    if (name.trim().isEmpty) throw ArgumentError('Rule name must not be blank');
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing tag protection',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing tag protection');
+    }
+  }
+
   Future<ProtectedTag> get(Object projectId, String name) async {
     try {
       final response = await _dio.get<dynamic>(
@@ -119,7 +142,34 @@ class ProtectedTagsApi {
           context: 'loading a protected tag',
         );
       }
-      return ProtectedTag.fromJson(response.data as Map<String, dynamic>);
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['create_access_levels'] is! List) {
+        throw const GitLabServerException('Incomplete tag protection response');
+      }
+      final entries = raw['create_access_levels'] as List;
+      if (entries.any(
+        (entry) =>
+            entry is! Map<String, dynamic> ||
+            ![
+              'access_level',
+              'user_id',
+              'group_id',
+              'deploy_key_id',
+            ].any((field) => entry[field] is int),
+      )) {
+        throw const GitLabServerException(
+          'Incomplete tag protection permissions',
+        );
+      }
+      try {
+        return ProtectedTag.fromJson(raw);
+      } on TypeError {
+        throw const GitLabServerException('Malformed tag protection response');
+      } on FormatException {
+        throw const GitLabServerException('Malformed tag protection response');
+      }
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a protected tag');
     }

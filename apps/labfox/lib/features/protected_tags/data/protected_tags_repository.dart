@@ -46,6 +46,9 @@ class ProtectedTagsRepository {
     }
   }
 
+  Future<void> unprotect(int projectId, String name) =>
+      client.protectedTags.unprotect(projectId, name);
+
   Future<ProtectedTag> get(int projectId, String name) =>
       client.protectedTags.get(projectId, name);
 }
