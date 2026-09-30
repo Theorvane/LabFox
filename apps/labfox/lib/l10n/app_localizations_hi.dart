@@ -52,6 +52,84 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get protectedBranchProtectTitle => 'ब्रांच सुरक्षित करें';
+
+  @override
+  String get protectedBranchProtectName => 'नियम का नाम';
+
+  @override
+  String get protectedBranchProtectPush => 'पुश की अनुमति';
+
+  @override
+  String get protectedBranchProtectMerge => 'मर्ज की अनुमति';
+
+  @override
+  String get protectedBranchProtectNoOne => 'कोई नहीं';
+
+  @override
+  String get protectedBranchProtectDevelopers => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'मेंटेनर';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'यह नियम प्रोजेक्ट $projectId में पुश और मर्ज की अनुमति बदलता है। इससे मर्ज अनुरोध, सुरक्षित CI वेरिएबल और जॉब प्रभावित हो सकते हैं।';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'वाइल्डकार्ड नियम भविष्य की ब्रांच को भी प्रभावित कर सकते हैं। सटीक पैटर्न और दोनों अनुमतियाँ जाँचें।';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'मैं इस नियम के पूरे प्रोजेक्ट पर प्रभाव को समझता हूँ।';
+
+  @override
+  String get protectedBranchProtectSubmit => 'ब्रांच सुरक्षित करें';
+
+  @override
+  String get protectedBranchProtectExisting =>
+      'नियम पहले से मौजूद है। कोई बदलाव नहीं हुआ।';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      'परिणाम अनिश्चित है। फिर कोशिश करने से पहले सभी नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      'सुरक्षित ब्रांच नियमों की पुष्टि नहीं हो सकी। दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'आपका खाता बदल गया है। इस ड्राफ्ट को बंद करके फिर शुरू करें।';
+
+  @override
+  String get protectedBranchProtectCreated => 'सुरक्षित ब्रांच नियम बनाया गया।';
+
+  @override
+  String get protectedBranchProtectCancel => 'रद्द करें';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'आपका सत्र समाप्त हो गया है। नियम बनाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab अनुरोधों को सीमित कर रहा है। प्रतीक्षा करें, फिर नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'यह प्रोजेक्ट या सुरक्षित ब्रांच उपलब्ध नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
+
+  @override
   String get protectedBranchesTitle => 'सुरक्षित ब्रांच';
 
   @override

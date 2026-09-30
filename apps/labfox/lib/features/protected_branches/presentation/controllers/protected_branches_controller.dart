@@ -14,9 +14,13 @@ final protectedBranchesRepositoryProvider =
 class ProtectedBranchesController
     extends FamilyAsyncNotifier<Paginated<ProtectedBranch>, int> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
   Future<Paginated<ProtectedBranch>> build(int projectId) async {
+    _generation++;
+    _loadingMore = false;
+    ref.onDispose(() => _generation++);
     final repository = await ref.watch(
       protectedBranchesRepositoryProvider.future,
     );
@@ -29,6 +33,7 @@ class ProtectedBranchesController
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
+    final generation = _generation;
     _loadingMore = true;
     try {
       final repository = await ref.read(
@@ -36,6 +41,7 @@ class ProtectedBranchesController
       );
       if (repository == null) throw StateError('No authenticated account');
       final next = await repository.list(arg, page: page);
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: [...current.items, ...next.items],
@@ -45,9 +51,9 @@ class ProtectedBranchesController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) state = AsyncError(error, stackTrace);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }

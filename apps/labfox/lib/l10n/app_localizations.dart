@@ -182,6 +182,138 @@ abstract class AppLocalizations {
   /// **'Required approvals: {count}'**
   String protectedEnvironmentApprovalCount(int count);
 
+  /// No description provided for @protectedBranchProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectTitle;
+
+  /// No description provided for @protectedBranchProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedBranchProtectName;
+
+  /// No description provided for @protectedBranchProtectPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to push'**
+  String get protectedBranchProtectPush;
+
+  /// No description provided for @protectedBranchProtectMerge.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to merge'**
+  String get protectedBranchProtectMerge;
+
+  /// No description provided for @protectedBranchProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchProtectNoOne;
+
+  /// No description provided for @protectedBranchProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedBranchProtectDevelopers;
+
+  /// No description provided for @protectedBranchProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchProtectMaintainers;
+
+  /// No description provided for @protectedBranchProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes push and merge access in project {projectId}. It can affect merge requests, protected CI variables, and jobs.'**
+  String protectedBranchProtectWarning(String projectId);
+
+  /// No description provided for @protectedBranchProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules may also affect future branches. Check the exact pattern and both permissions.'**
+  String get protectedBranchProtectWildcard;
+
+  /// No description provided for @protectedBranchProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedBranchProtectAcknowledge;
+
+  /// No description provided for @protectedBranchProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectSubmit;
+
+  /// No description provided for @protectedBranchProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedBranchProtectExisting;
+
+  /// No description provided for @protectedBranchProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedBranchProtectUncertain;
+
+  /// No description provided for @protectedBranchProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedBranchProtectReload;
+
+  /// No description provided for @protectedBranchProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify protected branch rules. Try reloading.'**
+  String get protectedBranchProtectLoadError;
+
+  /// No description provided for @protectedBranchProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedBranchProtectSessionChanged;
+
+  /// No description provided for @protectedBranchProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected branch rule created.'**
+  String get protectedBranchProtectCreated;
+
+  /// No description provided for @protectedBranchProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedBranchProtectCancel;
+
+  /// No description provided for @protectedBranchProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedBranchProtectForbidden;
+
+  /// No description provided for @protectedBranchProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedBranchProtectUnauthorized;
+
+  /// No description provided for @protectedBranchProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedBranchProtectRateLimited;
+
+  /// No description provided for @protectedBranchProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected branch resource is unavailable. Reload before trying again.'**
+  String get protectedBranchProtectUnavailable;
+
   /// No description provided for @protectedBranchesTitle.
   ///
   /// In en, this message translates to:

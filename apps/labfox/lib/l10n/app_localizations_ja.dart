@@ -50,6 +50,83 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get protectedBranchProtectTitle => 'ブランチを保護';
+
+  @override
+  String get protectedBranchProtectName => 'ルール名';
+
+  @override
+  String get protectedBranchProtectPush => 'プッシュを許可';
+
+  @override
+  String get protectedBranchProtectMerge => 'マージを許可';
+
+  @override
+  String get protectedBranchProtectNoOne => 'なし';
+
+  @override
+  String get protectedBranchProtectDevelopers => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'メンテナー';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'このルールはプロジェクト $projectId のプッシュとマージの権限を変更します。マージリクエスト、保護された CI 変数、ジョブに影響する場合があります。';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'ワイルドカードルールは今後のブランチにも影響します。パターンと両方の権限を確認してください。';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'このルールがプロジェクト全体に及ぼす影響を理解しました。';
+
+  @override
+  String get protectedBranchProtectSubmit => 'ブランチを保護';
+
+  @override
+  String get protectedBranchProtectExisting => 'ルールは既に存在します。変更はありません。';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      '結果を確認できません。再試行する前にすべてのルールを再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      '保護ブランチのルールを確認できません。再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'アカウントが変更されました。この画面を閉じてやり直してください。';
+
+  @override
+  String get protectedBranchProtectCreated => '保護ブランチのルールを作成しました。';
+
+  @override
+  String get protectedBranchProtectCancel => 'キャンセル';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'このルールを作成する権限がありません。再試行前に再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'セッションの有効期限が切れました。再度サインインしてください。';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab がリクエストを制限しています。待ってからルールを再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'このプロジェクトまたは保護ブランチを利用できません。再試行前に再読み込みしてください。';
+
+  @override
   String get protectedBranchesTitle => '保護されたブランチ';
 
   @override
