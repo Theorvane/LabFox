@@ -32,6 +32,26 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get pipelineScheduleEdit => 'スケジュールを編集';
+
+  @override
+  String get pipelineScheduleSave => '保存';
+
+  @override
+  String get pipelineScheduleDescription => '説明';
+
+  @override
+  String get pipelineScheduleFieldRequired => '値を入力してください。';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab が cron 式とタイムゾーンを検証します。保存すると今後の実行予定が変更され、対象の参照、有効状態、変数、入力は保持されます。';
+
+  @override
+  String get pipelineScheduleEditError =>
+      'パイプラインスケジュールを更新できませんでした。権限、cron 式、タイムゾーンを確認してください。';
+
+  @override
   String get pipelineScheduleTakeOwnership => '所有権を取得';
 
   @override
@@ -45,6 +65,78 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get pipelineScheduleOwnershipError =>
       'このパイプラインスケジュールの所有権を取得できませんでした。権限を確認して再試行してください。';
+
+  @override
+  String get protectedTagProtectTitle => 'タグを保護';
+
+  @override
+  String get protectedTagProtectName => 'ルール名';
+
+  @override
+  String get protectedTagProtectRole => '一致するタグを作成できるユーザー';
+
+  @override
+  String get protectedTagProtectNoOne => 'なし';
+
+  @override
+  String get protectedTagProtectDevelopers => '開発者とメンテナー';
+
+  @override
+  String get protectedTagProtectMaintainers => 'メンテナー';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return 'このルールはプロジェクト $projectId で一致するタグの作成権限を変更し、タグのパイプラインやジョブに影響する場合があります。';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      'ワイルドカードルールは今後のタグにも影響します。パターンと権限を確認してください。';
+
+  @override
+  String get protectedTagProtectAcknowledge => 'このルールがプロジェクト全体に及ぼす影響を理解しました。';
+
+  @override
+  String get protectedTagProtectSubmit => 'タグを保護';
+
+  @override
+  String get protectedTagProtectExisting => 'ルールは既に存在します。変更はありません。';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      '結果を確認できません。再試行する前にすべてのルールを再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedTagProtectLoadError => '保護タグのルールを確認できません。再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      'アカウントが変更されました。この画面を閉じてやり直してください。';
+
+  @override
+  String get protectedTagProtectCreated => '保護タグのルールを作成しました。';
+
+  @override
+  String get protectedTagProtectCancel => 'キャンセル';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      'このルールを作成する権限がありません。再試行前に再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      'セッションの有効期限が切れました。再度サインインしてください。';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab がリクエストを制限しています。待ってからルールを再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      'このプロジェクトまたは保護タグを利用できません。再試行前に再読み込みしてください。';
 
   @override
   String get protectedTagsTitle => '保護されたタグ';
@@ -86,6 +178,83 @@ class AppLocalizationsJa extends AppLocalizations {
   String protectedEnvironmentApprovalCount(int count) {
     return '必要な承認数: $count';
   }
+
+  @override
+  String get protectedBranchProtectTitle => 'ブランチを保護';
+
+  @override
+  String get protectedBranchProtectName => 'ルール名';
+
+  @override
+  String get protectedBranchProtectPush => 'プッシュを許可';
+
+  @override
+  String get protectedBranchProtectMerge => 'マージを許可';
+
+  @override
+  String get protectedBranchProtectNoOne => 'なし';
+
+  @override
+  String get protectedBranchProtectDevelopers => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'メンテナー';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'このルールはプロジェクト $projectId のプッシュとマージの権限を変更します。マージリクエスト、保護された CI 変数、ジョブに影響する場合があります。';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'ワイルドカードルールは今後のブランチにも影響します。パターンと両方の権限を確認してください。';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'このルールがプロジェクト全体に及ぼす影響を理解しました。';
+
+  @override
+  String get protectedBranchProtectSubmit => 'ブランチを保護';
+
+  @override
+  String get protectedBranchProtectExisting => 'ルールは既に存在します。変更はありません。';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      '結果を確認できません。再試行する前にすべてのルールを再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      '保護ブランチのルールを確認できません。再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'アカウントが変更されました。この画面を閉じてやり直してください。';
+
+  @override
+  String get protectedBranchProtectCreated => '保護ブランチのルールを作成しました。';
+
+  @override
+  String get protectedBranchProtectCancel => 'キャンセル';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'このルールを作成する権限がありません。再試行前に再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'セッションの有効期限が切れました。再度サインインしてください。';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab がリクエストを制限しています。待ってからルールを再読み込みしてください。';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'このプロジェクトまたは保護ブランチを利用できません。再試行前に再読み込みしてください。';
 
   @override
   String get protectedBranchesTitle => '保護されたブランチ';
@@ -427,6 +596,39 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
+
+  @override
+  String get releaseMilestonesEdit => 'リリースのマイルストーンを編集';
+
+  @override
+  String get releaseMilestonesTitle => 'マイルストーン';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '正確なマイルストーン名を入力してください。グループマイルストーンの利用可否は GitLab プランとプロジェクトのグループによって異なります。';
+
+  @override
+  String get releaseMilestoneTitle => 'マイルストーン名';
+
+  @override
+  String get releaseMilestoneAdd => 'マイルストーンを追加';
+
+  @override
+  String get releaseMilestonesSave => 'マイルストーンを保存';
+
+  @override
+  String get releaseMilestonesError => 'リリースのマイルストーンを更新できませんでした。';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'マイルストーン名を入力してください。';
+
+  @override
+  String get releaseMilestoneDuplicate => 'このマイルストーンは選択済みです。';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title を削除';
+  }
 
   @override
   String get releaseAssetDirectPath => '新しい直接ダウンロードパス（任意）';
@@ -1051,6 +1253,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get issueSubscriptionError => 'イシューの通知を変更できません。再試行してください。';
+
+  @override
+  String get mrSubscribe => '通知を購読';
+
+  @override
+  String get mrUnsubscribe => '通知の購読を解除';
+
+  @override
+  String get mrSubscriptionError => 'マージリクエストの通知を変更できません。再試行してください。';
 
   @override
   String get issueAddTodo => 'To-Do に追加';
@@ -1983,6 +2194,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wikiNewPage => '新しいページ';
 
   @override
+  String get wikiPagesSection => 'ページ';
+
+  @override
+  String get wikiTemplatesSection => 'テンプレート';
+
+  @override
+  String get wikiTemplateEmpty => 'テンプレートはまだありません。';
+
+  @override
+  String get wikiNewTemplate => '新しいテンプレート';
+
+  @override
+  String get wikiTemplateTitle => 'テンプレートのタイトル';
+
+  @override
+  String get wikiCreateTemplate => 'テンプレートを作成';
+
+  @override
+  String get wikiCreateTemplateError => 'テンプレートを作成できませんでした。';
+
+  @override
   String get wikiPageTitle => 'タイトル';
 
   @override
@@ -2475,4 +2707,179 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => 'アクセス項目';
+
+  @override
+  String get containerPolicyStatus => '状態';
+
+  @override
+  String get containerPolicyEnabled => '有効';
+
+  @override
+  String get containerPolicyDisabled => '無効';
+
+  @override
+  String get containerPolicyNotReported => '未報告';
+
+  @override
+  String get containerPolicyCadence => '実行間隔';
+
+  @override
+  String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerPolicyAge => '次の期間より古いタグを削除';
+
+  @override
+  String get containerPolicyDeletePattern => '削除パターン';
+
+  @override
+  String get containerPolicyLegacyPattern => '削除パターン（従来）';
+
+  @override
+  String get containerPolicyKeepPattern => '保持パターン';
+
+  @override
+  String get containerPolicyEmptyPattern => '空のパターン';
+
+  @override
+  String get containerPolicyError => 'クリーンアップポリシーを読み込めませんでした。';
+
+  @override
+  String get containerPolicyForbidden => 'このプロジェクトのクリーンアップポリシーを表示する権限がありません。';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'プロジェクトにアクセスできないか、クリーンアップポリシー情報が利用できません。';
+
+  @override
+  String get containerPolicyEmptySetting => '空の設定値';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'プロジェクト $projectId — すべてのイメージリポジトリ';
+  }
+
+  @override
+  String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
+
+  @override
+  String get containerActivationStale =>
+      'ポリシーが変更されたか、報告されなくなりました。保存する前に再読み込みして確認してください。';
+
+  @override
+  String get containerActivationReload => 'ポリシーを再読み込み';
+
+  @override
+  String get containerActivationRateLimited =>
+      'リクエストが多すぎます。しばらく待ち、ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerCadenceTitle => 'クリーンアップ間隔を編集';
+
+  @override
+  String get containerCadenceSave => '間隔の変更を確認';
+
+  @override
+  String get containerCadenceSelect => '新しい間隔 (GitLab API)';
+
+  @override
+  String get containerCadenceWarning =>
+      'プロジェクト全体の間隔変更は、すべてのイメージリポジトリで今後のタグ削除に影響します。以下の有効状態と削除・保持条件を確認してください。これらの設定は変更されず、削除完了も意味しません。';
+
+  @override
+  String get containerCadenceUnknown =>
+      '有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerCadenceAccepted => 'クリーンアップ間隔の更新が受理されました。';
+
+  @override
+  String get containerTagProtectionTitle => 'タグ保護ルール';
+
+  @override
+  String get containerTagProtectionEmpty => 'タグ保護ルールはありません。';
+
+  @override
+  String get containerTagProtectionError => 'タグ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerTagProtectionForbidden => 'タグ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'このインスタンスでタグ保護ルールが利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'プッシュの最低ロール: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '削除の最低ロール: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Gitタグではなくコンテナイメージタグのルールです。最低ロールは現在のアクセス権を保証しません。表示にはGitLab 18.7以降、編集には18.9以降が必要です。';
+
+  @override
+  String get containerTagProtectionPatternTitle => 'タグ保護パターンを編集';
+
+  @override
+  String get containerTagProtectionPatternSave => 'パターンを保存';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      'パターンを変更すると、プロジェクト内で従来一致していたコンテナイメージタグの保護が解除され、他のタグに適用される場合があります。ワイルドカード(*)は複数のタグに影響します。両方の最低ロールは維持され、他のルールと権限も引き続き適用されます。タグやイメージは削除されず、Gitタグに影響せず、現在のアクセス権を示しません。';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '現在のルールと新しいパターンを確認し、保護の変更を理解しました。';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      'パターンの更新を確認できません。サーバーで処理された可能性があるため、再試行前にルール一覧を確認してください。';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      '確認後にルールが変更されました。保存前に再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPatternReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionPatternSaved => 'タグ保護パターンを更新しました。';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      '要求が多すぎます。しばらく待って再試行してください。';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      'パターンが拒否されたか、既に使用されています。下書きを編集して再試行してください。';
+
+  @override
+  String get containerTagProtectionPatternDraft => '新しいコンテナタグパターン';
 }

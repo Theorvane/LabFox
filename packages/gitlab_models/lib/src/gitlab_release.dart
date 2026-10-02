@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'gitlab_milestone.dart';
+
 part 'gitlab_release.freezed.dart';
 part 'gitlab_release.g.dart';
 
@@ -14,6 +16,7 @@ abstract class GitLabRelease with _$GitLabRelease {
     @JsonKey(name: 'upcoming_release') bool? upcomingRelease,
     @JsonKey(name: 'historical_release') bool? historicalRelease,
     ReleaseAssets? assets,
+    @Default([]) List<GitLabMilestone> milestones,
   }) = _GitLabRelease;
 
   factory GitLabRelease.fromJson(Map<String, dynamic> json) =>
