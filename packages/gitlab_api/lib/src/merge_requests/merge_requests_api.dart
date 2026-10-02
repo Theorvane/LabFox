@@ -244,6 +244,33 @@ class MergeRequestsApi {
     });
   }
 
+  /// Subscribes or unsubscribes the current user from MR notifications.
+  /// GitLab returns 304 when the user is already in the requested state.
+  Future<MergeRequest?> setSubscription(
+    Object projectId, {
+    required int iid,
+    required bool subscribed,
+  }) async {
+    try {
+      final action = subscribed ? 'subscribe' : 'unsubscribe';
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/$action',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating merge request notifications',
+        );
+      }
+      return MergeRequest.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating merge request notifications');
+    }
+  }
+
   Future<MergeRequest> _update(
     Object projectId,
     int iid,
