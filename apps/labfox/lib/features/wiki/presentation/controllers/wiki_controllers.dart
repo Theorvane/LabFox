@@ -31,6 +31,22 @@ class WikiPagesController extends FamilyAsyncNotifier<List<WikiPage>, int> {
     ref.invalidateSelf();
     return page;
   }
+
+  /// Creates a Markdown template in GitLab's wiki templates directory.
+  Future<WikiPage> createTemplate({
+    required String title,
+    required String content,
+  }) async {
+    final repository = await ref.read(wikiRepositoryProvider.future);
+    if (repository == null) throw StateError('No authenticated account');
+    final page = await repository.create(
+      arg,
+      title: 'templates/$title',
+      content: content,
+    );
+    ref.invalidateSelf();
+    return page;
+  }
 }
 
 final wikiPagesControllerProvider =

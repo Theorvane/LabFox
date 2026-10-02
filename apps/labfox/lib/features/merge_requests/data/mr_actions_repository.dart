@@ -53,6 +53,16 @@ class MrActionsRepository {
   Future<void> rebase({required int projectId, required int iid}) =>
       _client.mergeRequests.rebase(projectId, iid: iid);
 
+  Future<MergeRequest?> setSubscription({
+    required int projectId,
+    required int iid,
+    required bool subscribed,
+  }) => _client.mergeRequests.setSubscription(
+    projectId,
+    iid: iid,
+    subscribed: subscribed,
+  );
+
   Future<Todo?> createTodo({required int projectId, required int iid}) =>
       _client.mergeRequests.createTodo(projectId, iid: iid);
 }
