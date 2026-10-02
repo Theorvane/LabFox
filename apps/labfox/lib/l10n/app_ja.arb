@@ -1,4 +1,8 @@
 {
+  "pipelineScheduleTakeOwnership": "所有権を取得",
+  "pipelineScheduleOwnershipConfirmTitle": "このスケジュールの所有権を取得しますか？",
+  "pipelineScheduleOwnershipConfirmBody": "「{name}」の所有者になります。スケジュールされたパイプラインはあなたの権限で実行されます。Maintainer または Owner ロールが必要です。",
+  "pipelineScheduleOwnershipError": "このパイプラインスケジュールの所有権を取得できませんでした。権限を確認して再試行してください。",
   "@@locale": "ja",
   "protectedTagsTitle": "保護されたタグ",
   "protectedTagsEmpty": "保護タグのルールがありません。",
