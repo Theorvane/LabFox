@@ -20,7 +20,12 @@ class PipelinesApi {
     try {
       final response = await _dio.get<dynamic>(
         '/projects/${_enc(projectId)}/pipelines',
-        queryParameters: {'page': page, 'per_page': perPage},
+        queryParameters: {
+          'page': page,
+          'per_page': perPage,
+          'order_by': 'id',
+          'sort': 'desc',
+        },
       );
       if (response.statusCode != 200) {
         throw mapStatus(
