@@ -2337,6 +2337,33 @@ class AppLocalizationsJa extends AppLocalizations {
       'ワイルドカードを含まない正確な環境名を入力してください。';
 
   @override
+  String get protectedEnvironmentRemoveRoleTitle => 'デプロイロールを削除';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'この権限を削除すると、選択したロールはデプロイできなくなる場合があります。他のデプロイ権限と承認ルールは維持され、環境の保護も続きます。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      '選択したデプロイ権限が削除されることを理解しました。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => 'デプロイロールを削除しました。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'このデプロイ権限を削除する権限がありません。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'デプロイ権限の削除を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role（権限 $id）';
+  }
+
+  @override
   String get protectedEnvironmentDeployRoleTitle => 'デプロイロールを追加';
 
   @override

@@ -2398,6 +2398,34 @@ class AppLocalizationsHi extends AppLocalizations {
       'वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।';
 
   @override
+  String get protectedEnvironmentRemoveRoleTitle => 'डिप्लॉय भूमिका हटाएँ';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'यह अनुमति हटाने से चुनी गई भूमिका डिप्लॉय नहीं कर पाएगी। अन्य डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे, और परिवेश सुरक्षित रहेगा।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      'मैं समझता हूँ कि चुनी गई डिप्लॉय अनुमति हट जाएगी।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess =>
+      'डिप्लॉय भूमिका हटा दी गई।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'आपके पास यह डिप्लॉय अनुमति हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'डिप्लॉय अनुमति हटने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (अनुमति $id)';
+  }
+
+  @override
   String get protectedEnvironmentDeployRoleTitle => 'डिप्लॉय भूमिका जोड़ें';
 
   @override

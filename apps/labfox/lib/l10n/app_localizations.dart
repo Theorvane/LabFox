@@ -4562,6 +4562,48 @@ abstract class AppLocalizations {
   /// **'Enter an exact environment name without wildcards.'**
   String get protectedEnvironmentCreateInvalidName;
 
+  /// No description provided for @protectedEnvironmentRemoveRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy role'**
+  String get protectedEnvironmentRemoveRoleTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.'**
+  String get protectedEnvironmentRemoveRoleWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this removes the selected deployment grant.'**
+  String get protectedEnvironmentRemoveRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role removed.'**
+  String get protectedEnvironmentRemoveRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this deploy grant.'**
+  String get protectedEnvironmentRemoveRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy grant removal. Check the rule before trying again.'**
+  String get protectedEnvironmentRemoveRoleError;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} (grant {id})'**
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id);
+
   /// No description provided for @protectedEnvironmentDeployRoleTitle.
   ///
   /// In en, this message translates to:

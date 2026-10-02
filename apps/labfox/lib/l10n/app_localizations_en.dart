@@ -2401,6 +2401,33 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter an exact environment name without wildcards.';
 
   @override
+  String get protectedEnvironmentRemoveRoleTitle => 'Remove deploy role';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      'I understand this removes the selected deployment grant.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => 'Deploy role removed.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'You do not have permission to remove this deploy grant.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'Could not confirm the deploy grant removal. Check the rule before trying again.';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (grant $id)';
+  }
+
+  @override
   String get protectedEnvironmentDeployRoleTitle => 'Add deploy role';
 
   @override
