@@ -2353,6 +2353,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get packageRegistryTitle => 'Package registry';
 
   @override
+  String get packageDelete => 'Delete package';
+
+  @override
+  String get packageDeleteConfirmTitle => 'Delete this package?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return 'Delete $name and all its files? This cannot be undone.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'If request forwarding is enabled, deleting this package can create a dependency confusion risk.';
+
+  @override
+  String get packageDeleteError =>
+      'Could not delete this package. Please try again.';
+
+  @override
+  String get packageDeleteForbidden =>
+      'This package may be protected, or you may not have permission to delete it.';
+
+  @override
   String get packageRegistryEmpty => 'No packages yet.';
 
   @override

@@ -2299,6 +2299,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String get packageRegistryTitle => 'パッケージレジストリ';
 
   @override
+  String get packageDelete => 'パッケージを削除';
+
+  @override
+  String get packageDeleteConfirmTitle => 'このパッケージを削除しますか？';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$nameとすべてのファイルを削除しますか？この操作は元に戻せません。';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'リクエスト転送が有効な場合、このパッケージを削除すると依存関係混乱攻撃のリスクが生じる可能性があります。';
+
+  @override
+  String get packageDeleteError => 'このパッケージを削除できませんでした。もう一度お試しください。';
+
+  @override
+  String get packageDeleteForbidden => 'このパッケージは保護されているか、削除権限がない可能性があります。';
+
+  @override
   String get packageRegistryEmpty => 'パッケージはまだありません。';
 
   @override

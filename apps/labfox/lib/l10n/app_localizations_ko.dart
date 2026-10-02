@@ -2304,6 +2304,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get packageRegistryTitle => '패키지 레지스트리';
 
   @override
+  String get packageDelete => '패키지 삭제';
+
+  @override
+  String get packageDeleteConfirmTitle => '이 패키지를 삭제할까요?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name 및 모든 파일을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      '요청 전달이 활성화된 경우, 이 패키지를 삭제하면 의존성 혼동 공격 위험이 생길 수 있습니다.';
+
+  @override
+  String get packageDeleteError => '이 패키지를 삭제할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get packageDeleteForbidden => '이 패키지가 보호되고 있거나 삭제 권한이 없을 수 있습니다.';
+
+  @override
   String get packageRegistryEmpty => '아직 패키지가 없습니다.';
 
   @override

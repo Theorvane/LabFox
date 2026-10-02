@@ -2274,6 +2274,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String get packageRegistryTitle => '软件包仓库';
 
   @override
+  String get packageDelete => '删除软件包';
+
+  @override
+  String get packageDeleteConfirmTitle => '删除此软件包？';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '删除 $name 及其所有文件？此操作无法撤销。';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning => '如果启用了请求转发，删除此软件包可能会产生依赖混淆攻击风险。';
+
+  @override
+  String get packageDeleteError => '无法删除此软件包。请重试。';
+
+  @override
+  String get packageDeleteForbidden => '此软件包可能受保护，或者您没有删除权限。';
+
+  @override
   String get packageRegistryEmpty => '还没有软件包。';
 
   @override

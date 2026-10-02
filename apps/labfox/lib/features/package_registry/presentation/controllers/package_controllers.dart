@@ -16,9 +16,12 @@ final packageRegistryRepositoryProvider =
 class PackageListController
     extends FamilyAsyncNotifier<Paginated<GitLabPackage>, int> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
   Future<Paginated<GitLabPackage>> build(int arg) async {
+    _generation++;
+    _loadingMore = false;
     final repository = await ref.watch(
       packageRegistryRepositoryProvider.future,
     );
@@ -29,17 +32,19 @@ class PackageListController
   }
 
   Future<void> loadMore() async {
-    if (_loadingMore) return;
+    if (_loadingMore || state.isLoading) return;
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
     _loadingMore = true;
+    final generation = _generation;
     try {
       final repository = await ref.read(
         packageRegistryRepositoryProvider.future,
       );
       if (repository == null) throw StateError('No authenticated account');
       final next = await repository.list(arg, page: page);
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated<GitLabPackage>(
           items: [...current.items, ...next.items],
@@ -49,9 +54,11 @@ class PackageListController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) {
+        state = AsyncError(error, stackTrace);
+      }
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
@@ -84,9 +91,12 @@ class PackageRef {
 class PackageDetailController
     extends FamilyAsyncNotifier<PackageOverview, PackageRef> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
   Future<PackageOverview> build(PackageRef arg) async {
+    _generation++;
+    _loadingMore = false;
     final repository = await ref.watch(
       packageRegistryRepositoryProvider.future,
     );
@@ -97,11 +107,12 @@ class PackageDetailController
   }
 
   Future<void> loadMoreFiles() async {
-    if (_loadingMore) return;
+    if (_loadingMore || state.isLoading) return;
     final current = state.valueOrNull;
     final page = current?.files.nextPage;
     if (current == null || page == null) return;
     _loadingMore = true;
+    final generation = _generation;
     try {
       final repository = await ref.read(
         packageRegistryRepositoryProvider.future,
@@ -112,6 +123,7 @@ class PackageDetailController
         arg.packageId,
         page: page,
       );
+      if (generation != _generation) return;
       state = AsyncData(
         current.withFiles(
           Paginated<PackageFile>(
@@ -123,9 +135,11 @@ class PackageDetailController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) {
+        state = AsyncError(error, stackTrace);
+      }
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
