@@ -63,6 +63,36 @@ class PipelineSchedulesApi {
     }
   }
 
+  /// Updates timing metadata without rewriting ref, active, variables or inputs.
+  Future<PipelineSchedule> update(
+    Object projectId,
+    int scheduleId, {
+    String? description,
+    String? cron,
+    String? cronTimezone,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/$scheduleId',
+        data: {
+          'description': ?description,
+          'cron': ?cron,
+          'cron_timezone': ?cronTimezone,
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a pipeline schedule',
+        );
+      }
+      return PipelineSchedule.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a pipeline schedule');
+    }
+  }
+
   Future<PipelineSchedule> takeOwnership(
     Object projectId,
     int scheduleId,
