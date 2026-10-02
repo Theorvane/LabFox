@@ -9,27 +9,19 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get pipelineScheduleCreate => '스케줄 생성';
+  String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
-  String get pipelineScheduleCreateTitle => '새 파이프라인 스케줄';
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
 
   @override
-  String get pipelineScheduleCreateDescription => '설명';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
+  }
 
   @override
-  String get pipelineScheduleCreateFieldRequired => '값을 입력하세요.';
-
-  @override
-  String get pipelineScheduleCreateActive => '활성';
-
-  @override
-  String get pipelineScheduleCreateHint =>
-      'GitLab에서 실행 대상, cron 식 및 시간대를 검증합니다. 시간대를 비워 두면 UTC를 사용합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요.';
-
-  @override
-  String get pipelineScheduleCreateError =>
-      '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
   String get releaseScheduleEdit => '릴리스 날짜 편집';
@@ -2969,4 +2961,72 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerTagDeleteError => '태그를 삭제할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityTitle => '불변 태그 규칙';
+
+  @override
+  String get containerImmutabilityEmpty => '불변 태그 규칙이 없습니다.';
+
+  @override
+  String get containerImmutabilityError =>
+      '불변 태그 규칙을 불러오지 못했습니다. 인스턴스 지원 여부를 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityForbidden => '불변 태그 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '프로젝트 또는 규칙 목록을 사용할 수 없습니다. 접근 권한, 구독 및 인스턴스 지원 여부를 확인하세요.';
+
+  @override
+  String get containerImmutabilityHint =>
+      '불변 태그에는 Ultimate와 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용되며 정리 정책을 포함하여 일치하는 태그의 덮어쓰기와 삭제를 방지합니다. 규칙 조회만으로 개별 태그의 현재 보호 상태를 확인할 수 없습니다. 변경 사항이 반영되기까지 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityCreateTitle => 'Immutable 규칙 생성';
+
+  @override
+  String get containerImmutabilityCreateButton => '규칙 생성';
+
+  @override
+  String get containerImmutabilityCreated => 'Immutable 규칙을 생성했습니다.';
+
+  @override
+  String get containerImmutabilityPattern => '태그 패턴';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      '100자 이내의 RE2 패턴을 입력하세요. 공백은 유지되며 문법은 GitLab이 검증합니다.';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'Owner 권한, Ultimate 및 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용됩니다. 일치하는 태그는 정리 정책을 포함하여 덮어쓰거나 삭제할 수 없습니다. Immutable 규칙이 하나라도 있으면 매니페스트 직접 삭제도 차단됩니다. 규칙은 수정할 수 없으며 변경 적용에 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      '프로젝트 전체의 보호 및 워크플로 영향을 이해했습니다.';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      '생성 결과를 확인하지 못했습니다. 요청이 이미 성공했을 수 있으므로 재시도 전에 현재 규칙을 확인하세요.';
+
+  @override
+  String get containerImmutabilityInspect => '현재 규칙 확인';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLab이 요청을 거부했거나 같은 패턴의 Immutable 규칙이 이미 있습니다. 현재 규칙, 패턴 및 프로젝트 제한을 확인하세요.';
+
+  @override
+  String get containerImmutabilityAuth => '세션이 거부되었습니다. 규칙 생성 전에 다시 로그인하세요.';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 선택한 계정에서 다시 여세요.';
 }

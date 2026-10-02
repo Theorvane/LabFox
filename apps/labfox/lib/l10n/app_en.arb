@@ -6,6 +6,11 @@
   "pipelineScheduleCreateActive": "Active",
   "pipelineScheduleCreateHint": "GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.",
   "pipelineScheduleCreateError": "Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.",
+  "pipelineScheduleDelete": "Delete schedule",
+  "pipelineScheduleDeleteConfirmTitle": "Delete this pipeline schedule?",
+  "pipelineScheduleDeleteConfirmBody": "The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.",
+  "pipelineScheduleDeleteError": "Could not delete this pipeline schedule. Check your permissions and try again.",
+  "@pipelineScheduleDeleteConfirmBody": {"placeholders": {"name": {"type": "String"}}},
   "releaseScheduleEdit": "Edit release date",
   "releaseScheduleChangeDate": "Change date",
   "releaseScheduleChangeTime": "Change time",
@@ -1846,5 +1851,31 @@
   "containerTagDeleteWarning": "This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.",
   "containerTagDeleteForbidden": "You cannot delete this tag. It may be protected or you may not have permission.",
   "containerTagDeleteError": "Could not delete this tag. Try again.",
-  "@containerTagDeleteConfirmBody": {"description": "Confirmation identifying a registry tag and its image path", "placeholders": {"tagName": {"type": "String"}, "path": {"type": "String"}}}
+  "@containerTagDeleteConfirmBody": {"description": "Confirmation identifying a registry tag and its image path", "placeholders": {"tagName": {"type": "String"}, "path": {"type": "String"}}},
+  "containerImmutabilityTitle": "Immutable tag rules",
+  "containerImmutabilityEmpty": "No immutable tag rules.",
+  "containerImmutabilityError": "Could not load immutable tag rules. Check instance support and retry.",
+  "containerImmutabilityForbidden": "You do not have permission to view immutable tag rules.",
+  "containerImmutabilityUnavailable": "The project or rule connection is unavailable. Check access, subscription, and instance support.",
+  "containerImmutabilityHint": "Immutable tags require Ultimate and a supported registry. These patterns apply across the project's container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag's current protection. Changes may take time to propagate.",
+  "containerImmutabilityCreateTitle": "Create immutable rule",
+  "containerImmutabilityCreateButton": "Create rule",
+  "containerImmutabilityCreated": "Immutable rule created.",
+  "containerImmutabilityPattern": "Tag pattern",
+  "containerImmutabilityPatternHint": "Enter an RE2 pattern, up to 100 characters. Spaces are preserved; GitLab validates the syntax.",
+  "containerImmutabilityProject": "Project {projectId}",
+  "containerImmutabilityImpact": "This requires Owner access, Ultimate, and a supported registry. The pattern affects every container repository in this project. Matching tags cannot be overwritten or deleted, including by cleanup policies. Direct manifest deletion is blocked while any immutable rule exists. Rules cannot be edited; changes may take time to propagate.",
+  "containerImmutabilityAcknowledge": "I understand the project-wide protection and workflow impact.",
+  "containerImmutabilityUncertain": "Creation was not confirmed. Check current rules before trying again; the request may already have succeeded.",
+  "containerImmutabilityInspect": "Check current rules",
+  "containerImmutabilityRejected": "GitLab rejected the request, or an immutable rule already uses this pattern. Check current rules and review the pattern and project limits.",
+  "containerImmutabilityAuth": "Your session was rejected. Sign in again before creating a rule.",
+  "containerImmutabilityAccountChanged": "The account changed. Close this dialog and reopen it for the selected account.",
+  "@containerImmutabilityProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  }
 }

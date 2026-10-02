@@ -104,47 +104,29 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// No description provided for @pipelineScheduleCreate.
+  /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
-  /// **'Create schedule'**
-  String get pipelineScheduleCreate;
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
 
-  /// No description provided for @pipelineScheduleCreateTitle.
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'New pipeline schedule'**
-  String get pipelineScheduleCreateTitle;
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
 
-  /// No description provided for @pipelineScheduleCreateDescription.
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'Description'**
-  String get pipelineScheduleCreateDescription;
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
 
-  /// No description provided for @pipelineScheduleCreateFieldRequired.
+  /// No description provided for @pipelineScheduleDeleteError.
   ///
   /// In en, this message translates to:
-  /// **'Enter a value.'**
-  String get pipelineScheduleCreateFieldRequired;
-
-  /// No description provided for @pipelineScheduleCreateActive.
-  ///
-  /// In en, this message translates to:
-  /// **'Active'**
-  String get pipelineScheduleCreateActive;
-
-  /// No description provided for @pipelineScheduleCreateHint.
-  ///
-  /// In en, this message translates to:
-  /// **'GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.'**
-  String get pipelineScheduleCreateHint;
-
-  /// No description provided for @pipelineScheduleCreateError.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.'**
-  String get pipelineScheduleCreateError;
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
 
   /// No description provided for @releaseScheduleEdit.
   ///
@@ -5653,6 +5635,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not delete this tag. Try again.'**
   String get containerTagDeleteError;
+
+  /// No description provided for @containerImmutabilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tag rules'**
+  String get containerImmutabilityTitle;
+
+  /// No description provided for @containerImmutabilityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No immutable tag rules.'**
+  String get containerImmutabilityEmpty;
+
+  /// No description provided for @containerImmutabilityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load immutable tag rules. Check instance support and retry.'**
+  String get containerImmutabilityError;
+
+  /// No description provided for @containerImmutabilityForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view immutable tag rules.'**
+  String get containerImmutabilityForbidden;
+
+  /// No description provided for @containerImmutabilityUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project or rule connection is unavailable. Check access, subscription, and instance support.'**
+  String get containerImmutabilityUnavailable;
+
+  /// No description provided for @containerImmutabilityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tags require Ultimate and a supported registry. These patterns apply across the project\'s container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag\'s current protection. Changes may take time to propagate.'**
+  String get containerImmutabilityHint;
+
+  /// No description provided for @containerImmutabilityCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create immutable rule'**
+  String get containerImmutabilityCreateTitle;
+
+  /// No description provided for @containerImmutabilityCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerImmutabilityCreateButton;
+
+  /// No description provided for @containerImmutabilityCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable rule created.'**
+  String get containerImmutabilityCreated;
+
+  /// No description provided for @containerImmutabilityPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag pattern'**
+  String get containerImmutabilityPattern;
+
+  /// No description provided for @containerImmutabilityPatternHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an RE2 pattern, up to 100 characters. Spaces are preserved; GitLab validates the syntax.'**
+  String get containerImmutabilityPatternHint;
+
+  /// No description provided for @containerImmutabilityProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerImmutabilityProject(String projectId);
+
+  /// No description provided for @containerImmutabilityImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'This requires Owner access, Ultimate, and a supported registry. The pattern affects every container repository in this project. Matching tags cannot be overwritten or deleted, including by cleanup policies. Direct manifest deletion is blocked while any immutable rule exists. Rules cannot be edited; changes may take time to propagate.'**
+  String get containerImmutabilityImpact;
+
+  /// No description provided for @containerImmutabilityAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide protection and workflow impact.'**
+  String get containerImmutabilityAcknowledge;
+
+  /// No description provided for @containerImmutabilityUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Creation was not confirmed. Check current rules before trying again; the request may already have succeeded.'**
+  String get containerImmutabilityUncertain;
+
+  /// No description provided for @containerImmutabilityInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check current rules'**
+  String get containerImmutabilityInspect;
+
+  /// No description provided for @containerImmutabilityRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected the request, or an immutable rule already uses this pattern. Check current rules and review the pattern and project limits.'**
+  String get containerImmutabilityRejected;
+
+  /// No description provided for @containerImmutabilityAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before creating a rule.'**
+  String get containerImmutabilityAuth;
+
+  /// No description provided for @containerImmutabilityAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it for the selected account.'**
+  String get containerImmutabilityAccountChanged;
 }
 
 class _AppLocalizationsDelegate
