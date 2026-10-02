@@ -123,6 +123,12 @@ void main() {
     await tester.tap(find.text('Nightly build'));
     await tester.pumpAndSettle();
     expect(find.text('Run now'), findsOneWidget);
+    await tester.tap(find.byTooltip('Edit schedule'));
+    await tester.pumpAndSettle();
+    expect(find.text('Nightly build').last, findsOneWidget);
+    expect(find.widgetWithText(TextFormField, '0 1 * * *'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Run now'));
     await tester.pumpAndSettle();
     expect(repository.playCount, 1);
