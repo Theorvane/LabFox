@@ -19,6 +19,11 @@ _GitLabRelease _$GitLabReleaseFromJson(Map<String, dynamic> json) =>
       assets: json['assets'] == null
           ? null
           : ReleaseAssets.fromJson(json['assets'] as Map<String, dynamic>),
+      milestones:
+          (json['milestones'] as List<dynamic>?)
+              ?.map((e) => GitLabMilestone.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$GitLabReleaseToJson(_GitLabRelease instance) =>
@@ -30,6 +35,7 @@ Map<String, dynamic> _$GitLabReleaseToJson(_GitLabRelease instance) =>
       'upcoming_release': instance.upcomingRelease,
       'historical_release': instance.historicalRelease,
       'assets': instance.assets?.toJson(),
+      'milestones': instance.milestones.map((e) => e.toJson()).toList(),
     };
 
 _ReleaseAssets _$ReleaseAssetsFromJson(Map<String, dynamic> json) =>
