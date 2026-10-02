@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
+import 'widgets/protected_environment_create_dialog.dart';
 
 /// Project or group protected deployment environments.
 class ProtectedEnvironmentsScreen extends ConsumerWidget {
@@ -30,6 +31,28 @@ class ProtectedEnvironmentsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.protectedEnvironmentsTitle),
+        actions: [
+          if (projectId != null)
+            IconButton(
+              key: const ValueKey('protected-environment-create-open'),
+              tooltip: l10n.protectedEnvironmentCreateTitle,
+              icon: const Icon(LabFoxIcons.add),
+              onPressed: () async {
+                final created = await showDialog<bool>(
+                  context: context,
+                  builder: (_) =>
+                      ProtectedEnvironmentCreateDialog(projectId: projectId),
+                );
+                if (created == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentCreateSuccess),
+                    ),
+                  );
+                }
+              },
+            ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
