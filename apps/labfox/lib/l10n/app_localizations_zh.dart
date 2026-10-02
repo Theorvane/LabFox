@@ -391,6 +391,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseAssetEditError => '无法更新资源链接。';
 
   @override
+  String get releaseAssetDirectPath => '新的直接下载路径（可选）';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '留空以保留当前直接下载路径。输入 /bin/app.zip 等路径以替换。';
+
+  @override
+  String get releaseAssetDirectPathInvalid => '请输入以 / 开头且不包含主机、查询或片段的路径。';
+
+  @override
   String get releaseAssetType => '链接类型';
 
   @override
@@ -2197,6 +2207,200 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedBranchMergeRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '编辑推送权限';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '当前推送权限：$role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '无人';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '维护者';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '更改推送权限会影响所有匹配此规则的分支。可以直接提交的人员可能改变；如果允许强制推送，可以改写历史的人员也可能改变。通配符可能影响多个分支。';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge => '我了解匹配分支的推送权限将发生变化。';
+
+  @override
+  String get protectedBranchPushRoleSave => '保存推送权限';
+
+  @override
+  String get protectedBranchPushRoleReload => '重新检查规则';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '推送权限已更新。';
+
+  @override
+  String get protectedBranchPushRoleAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '您无权更改推送权限。';
+
+  @override
+  String get protectedBranchPushRoleUnavailable => '此规则已不可用。继续之前请检查列表。';
+
+  @override
+  String get protectedBranchPushRoleStale => '规则已更改。继续之前请重新检查。';
+
+  @override
+  String get protectedBranchPushRoleRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleError => '无法确认更改。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateName => '环境名称';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '维护者';
+
+  @override
+  String get protectedEnvironmentCreateWarning => '此保护设置会改变谁能部署到指定环境。不会添加审批规则。';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '我了解部署权限的变更。';
+
+  @override
+  String get protectedEnvironmentCreateSave => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateReload => '重新检查环境列表';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate => '此环境已受保护。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateError => '无法确认保护设置。重试前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '您没有权限，或此功能不可用。';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged => '账户已更改。请关闭并重新打开此对话框。';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '环境已受保护。';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => '移除部署角色';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '移除此授权后，所选角色可能无法部署。其他部署授权和审批规则保持不变，环境仍受保护。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge => '我了解所选部署授权将被移除。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '已移除部署角色。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden => '您没有权限移除此部署授权。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError => '无法确认部署授权已移除。重试前请检查规则。';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role（授权 $id）';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '所选角色将获得部署权限。现有部署授权和审批规则保持不变。';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge => '我了解这会扩大部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '已添加部署角色。';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '您没有权限更改部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleError => '无法确认部署角色变更。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '取消环境保护';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '取消此项目保护规则会移除下方显示的所有部署授权和审批规则。环境及历史部署仍会保留。群组保护规则可能继续生效。';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '输入准确的环境名称';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge => '我了解这些部署限制和审批规则将被移除。';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '重新检查规则';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '更改此规则前请重新登录。';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden => '您没有权限取消此环境的保护。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentUnprotectStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectError => '无法确认保护已取消。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '环境保护已取消。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '访问条目';
 
   @override
   String get protectedBranchUnprotectTitle => '取消分支规则保护';

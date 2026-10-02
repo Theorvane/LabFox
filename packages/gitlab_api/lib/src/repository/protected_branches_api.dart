@@ -213,6 +213,69 @@ class ProtectedBranchesApi {
     }
   }
 
+  /// Changes one existing role-based push access record on an exact rule.
+  Future<ProtectedBranch> updatePushRole(
+    Object projectId,
+    String name, {
+    required int accessRecordId,
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        accessRecordId <= 0 ||
+        !{0, 30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact rule and supported push role required');
+    }
+    try {
+      final response = await _dio.patch<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'allowed_to_push': [
+            {'id': accessRecordId, 'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating protected branch push access',
+        );
+      }
+      final raw = response.data;
+      if (!_validRule(raw) || (raw as Map<String, dynamic>)['name'] != name) {
+        throw const GitLabServerException(
+          'Unconfirmed protected branch update',
+        );
+      }
+      try {
+        final changed = ProtectedBranch.fromJson(raw);
+        final levels = changed.pushAccessLevels;
+        if (levels.length != 1 ||
+            levels.single.id != accessRecordId ||
+            levels.single.accessLevel != accessLevel ||
+            levels.single.userId != null ||
+            levels.single.groupId != null ||
+            levels.single.deployKeyId != null ||
+            levels.single.memberRoleId != null) {
+          throw const GitLabServerException(
+            'Unconfirmed protected branch push role',
+          );
+        }
+        return changed;
+      } on TypeError {
+        throw const GitLabServerException('Malformed protected branch update');
+      } on FormatException {
+        throw const GitLabServerException('Malformed protected branch update');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating protected branch push access');
+    }
+  }
+
   bool _validRule(Object? raw) {
     if (raw is! Map<String, dynamic> ||
         raw['name'] is! String ||

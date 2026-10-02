@@ -451,3 +451,149 @@ final protectedBranchUnprotectControllerProvider =
       void,
       ProtectedBranchRef
     >(ProtectedBranchUnprotectController.new);
+
+/// Role-only rules can be edited without disturbing other push grants.
+ProtectedBranchAccess? editableProtectedBranchPushAccess(ProtectedBranch rule) {
+  if (rule.inherited == true || rule.pushAccessLevels.length != 1) {
+    return null;
+  }
+  final entry = rule.pushAccessLevels.single;
+  if (entry.id == null ||
+      entry.id! <= 0 ||
+      !{0, 30, 40}.contains(entry.accessLevel) ||
+      entry.userId != null ||
+      entry.groupId != null ||
+      entry.deployKeyId != null ||
+      entry.memberRoleId != null) {
+    return null;
+  }
+  return entry;
+}
+
+/// Session-bound, best-effort update of one existing push role record.
+class ProtectedBranchPushRoleController
+    extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedBranchRef arg) {
+    ref.watch(protectedBranchesRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedBranch> inspect() async {
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    final listed = await repository.findUnique(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.get(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (listed != detail) {
+      throw const GitLabConflictException('Protection rule changed');
+    }
+    return detail;
+  }
+
+  Future<void> setPushRole({
+    required ProtectedBranch expected,
+    required int accessLevel,
+  }) async {
+    if (state.isLoading) throw StateError('Branch update is already pending');
+    if (expected.name != arg.name || expected.name.trim().isEmpty) {
+      throw ArgumentError('Exact frozen rule identity required');
+    }
+    if (expected.inherited == true) {
+      throw const GitLabForbiddenException('Inherited protection rule');
+    }
+    final entry = editableProtectedBranchPushAccess(expected);
+    if (entry == null ||
+        !{0, 30, 40}.contains(accessLevel) ||
+        entry.accessLevel == accessLevel) {
+      throw ArgumentError('One changed role-based push record required');
+    }
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedBranchesControllerProvider(arg.projectId));
+      ref.invalidate(protectedBranchDetailProvider(arg));
+      ref.invalidate(branchesControllerProvider(arg.projectId));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      if (editableProtectedBranchPushAccess(current) == null) {
+        throw const GitLabConflictException('Unsupported protection rule');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      final changed = await repository.updatePushRole(
+        arg.projectId,
+        arg.name,
+        accessRecordId: entry.id!,
+        accessLevel: accessLevel,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final changedEntry = editableProtectedBranchPushAccess(changed);
+      if (changedEntry == null ||
+          changedEntry.id != entry.id ||
+          changedEntry.accessLevel != accessLevel ||
+          changed !=
+              expected.copyWith(
+                pushAccessLevels: [
+                  entry.copyWith(
+                    accessLevel: accessLevel,
+                    description: changedEntry.description,
+                  ),
+                ],
+              )) {
+        throw const GitLabConflictException('Unconfirmed protection update');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedBranchPushRoleControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedBranchPushRoleController,
+      void,
+      ProtectedBranchRef
+    >(ProtectedBranchPushRoleController.new);

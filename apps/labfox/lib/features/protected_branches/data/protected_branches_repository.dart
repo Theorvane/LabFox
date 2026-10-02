@@ -35,6 +35,18 @@ class ProtectedBranchesRepository {
     accessLevel: accessLevel,
   );
 
+  Future<ProtectedBranch> updatePushRole(
+    int projectId,
+    String name, {
+    required int accessRecordId,
+    required int accessLevel,
+  }) => client.protectedBranches.updatePushRole(
+    projectId,
+    name,
+    accessRecordId: accessRecordId,
+    accessLevel: accessLevel,
+  );
+
   Future<void> unprotect(int projectId, String name) =>
       client.protectedBranches.unprotect(projectId, name);
 

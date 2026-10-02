@@ -130,6 +130,123 @@ void main() {
       );
     });
   }
+  test('updates only the existing push role record once', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {
+          'id': 101,
+          'name': 'release/*',
+          'allow_force_push': false,
+          'merge_access_levels': [
+            {'id': 1, 'access_level': 40},
+          ],
+          'push_access_levels': [
+            {'id': 2, 'access_level': 30},
+          ],
+          'unprotect_access_levels': [
+            {'id': 3, 'access_level': 40},
+          ],
+        },
+      );
+    });
+    final changed = await client.protectedBranches.updatePushRole(
+      'team/app',
+      'release/*',
+      accessRecordId: 2,
+      accessLevel: 30,
+    );
+    expect(request.method, 'PATCH');
+    expect(request.path, '/projects/team%2Fapp/protected_branches/release%2F*');
+    expect(request.data, {
+      'allowed_to_push': [
+        {'id': 2, 'access_level': 30},
+      ],
+    });
+    expect(request.followRedirects, isFalse);
+    expect(changed.pushAccessLevels.single.accessLevel, 30);
+    expect(changed.unprotectAccessLevels.single.accessLevel, 40);
+  });
+
+  for (final status in [201, 204, 302, 401, 403, 404, 429, 500]) {
+    test('push role update requires 200, maps $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.protectedBranches.updatePushRole(
+          7,
+          'main',
+          accessRecordId: 2,
+          accessLevel: 30,
+        ),
+        throwsA(
+          isA<GitLabException>().having((e) => e.statusCode, 'status', status),
+        ),
+      );
+    });
+  }
+
+  test('push role update rejects an unconfirmed response', () async {
+    final client = _client(
+      (_) => (
+        status: 200,
+        headers: const {},
+        body: {
+          'name': 'main',
+          'allow_force_push': false,
+          'merge_access_levels': [],
+          'push_access_levels': [
+            {'id': 2, 'access_level': 40},
+          ],
+        },
+      ),
+    );
+    await expectLater(
+      client.protectedBranches.updatePushRole(
+        7,
+        'main',
+        accessRecordId: 2,
+        accessLevel: 30,
+      ),
+      throwsA(isA<GitLabServerException>()),
+    );
+  });
+
+  test('OAuth 401 does not replay push role PATCH', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (s) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedBranches.updatePushRole(
+        7,
+        'main',
+        accessRecordId: 2,
+        accessLevel: 30,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('updates only the existing merge role record once', () async {
     late RequestOptions request;
     final client = _client((options) {
