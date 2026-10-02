@@ -26,6 +26,14 @@ _ProtectedBranch _$ProtectedBranchFromJson(Map<String, dynamic> json) =>
               )
               .toList() ??
           const <ProtectedBranchAccess>[],
+      unprotectAccessLevels:
+          (json['unprotect_access_levels'] as List<dynamic>?)
+              ?.map(
+                (e) =>
+                    ProtectedBranchAccess.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          const <ProtectedBranchAccess>[],
       allowForcePush: json['allow_force_push'] as bool? ?? false,
       codeOwnerApprovalRequired:
           json['code_owner_approval_required'] as bool? ?? false,
@@ -42,6 +50,9 @@ Map<String, dynamic> _$ProtectedBranchToJson(_ProtectedBranch instance) =>
       'merge_access_levels': instance.mergeAccessLevels
           .map((e) => e.toJson())
           .toList(),
+      'unprotect_access_levels': instance.unprotectAccessLevels
+          .map((e) => e.toJson())
+          .toList(),
       'allow_force_push': instance.allowForcePush,
       'code_owner_approval_required': instance.codeOwnerApprovalRequired,
       'inherited': instance.inherited,
@@ -56,6 +67,7 @@ _ProtectedBranchAccess _$ProtectedBranchAccessFromJson(
   userId: (json['user_id'] as num?)?.toInt(),
   groupId: (json['group_id'] as num?)?.toInt(),
   deployKeyId: (json['deploy_key_id'] as num?)?.toInt(),
+  memberRoleId: (json['member_role_id'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$ProtectedBranchAccessToJson(
@@ -67,4 +79,5 @@ Map<String, dynamic> _$ProtectedBranchAccessToJson(
   'user_id': instance.userId,
   'group_id': instance.groupId,
   'deploy_key_id': instance.deployKeyId,
+  'member_role_id': instance.memberRoleId,
 };
