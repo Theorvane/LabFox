@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
@@ -30,6 +31,41 @@ class ContainerRegistryApi {
       throw mapError(
         error,
         context: 'deleting container repository protection rule',
+      );
+    }
+  }
+
+  /// Changes only the tag glob; omitted role fields stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionPattern(
+    Object projectId,
+    int ruleId,
+    String pattern,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'tag_name_pattern': pattern},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection pattern',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection pattern',
       );
     }
   }
@@ -64,6 +100,39 @@ class ContainerRegistryApi {
         error,
         context: 'listing container repository protection rules',
       );
+    }
+  }
+
+  /// Lists project tag protection rules (available from GitLab 18.7).
+  Future<List<ContainerTagProtectionRule>> listTagProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container tag protection rules',
+        );
+      }
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerTagProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container tag protection rule list response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing container tag protection rules');
     }
   }
 

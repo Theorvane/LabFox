@@ -1,7 +1,7 @@
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-/// Container image browsing and protection settings for one authenticated client.
+/// Container registry operations for one authenticated client.
 class ContainerRegistryRepository {
   const ContainerRegistryRepository(this.client);
 
@@ -16,6 +16,19 @@ class ContainerRegistryRepository {
   Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
     int projectId,
   ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
+
+  Future<ContainerTagProtectionRule> updateTagProtectionPattern(
+    int projectId,
+    int ruleId,
+    String pattern,
+  ) => client.containerRegistry.updateTagProtectionPattern(
+    projectId,
+    ruleId,
+    pattern,
+  );
+
+  Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
+      client.containerRegistry.listTagProtectionRules(projectId);
 
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
