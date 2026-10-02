@@ -41,6 +41,41 @@ void main() {
       },
     );
   }
+  test('updates only publication time as UTC by encoded tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'tag_name': 'release/1',
+          'name': 'Original',
+          'released_at': '2027-01-02T03:04:05.000Z',
+        },
+      );
+    });
+    final release = await client.releases.updateReleasedAt(
+      'team/app',
+      'release/1',
+      DateTime.parse('2027-01-02T12:04:05+09:00'),
+    );
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fapp/releases/release%2F1');
+    expect(request.data, {'released_at': '2027-01-02T03:04:05.000Z'});
+    expect(release.name, 'Original');
+    expect(release.releasedAt, DateTime.utc(2027, 1, 2, 3, 4, 5));
+  });
+
+  test('maps rejected publication time updates to domain errors', () async {
+    final client = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      client.releases.updateReleasedAt(7, 'v1', DateTime.utc(2027)),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
   for (final titles in [
     <String>['v1.0', 'Release, candidate'],
     <String>[],
