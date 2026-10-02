@@ -76,6 +76,15 @@ Future<void> selectYoungest(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('current retention count has its own criterion label', (
+    tester,
+  ) async {
+    await open(tester, AgeRepository());
+    final context = tester.element(find.byType(CleanupPolicyAgeDialog));
+    final l10n = AppLocalizations.of(context);
+    expect(find.text(l10n.containerPolicyKeepCount), findsOneWidget);
+  });
+
   testWidgets('registry entry opens project-wide age limit confirmation', (
     tester,
   ) async {

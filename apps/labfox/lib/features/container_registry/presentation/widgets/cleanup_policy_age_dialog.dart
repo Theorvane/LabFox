@@ -208,7 +208,7 @@ class _Criteria extends StatelessWidget {
       ),
       (l10n.containerPolicyCadence, value(policy.cadence)),
       (
-        l10n.containerPolicyAge,
+        l10n.containerPolicyKeepCount,
         policy.keepN == null
             ? l10n.containerPolicyNotReported
             : NumberFormat.decimalPattern(l10n.localeName).format(policy.keepN),
