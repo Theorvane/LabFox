@@ -130,7 +130,8 @@ class GitLabClient {
         onResponse: (response, handler) async {
           final request = response.requestOptions;
           if (response.statusCode != 401 ||
-              request.extra['labfox_retried'] == true) {
+              request.extra['labfox_retried'] == true ||
+              request.extra['labfox_no_auth_retry'] == true) {
             return handler.next(response);
           }
 
