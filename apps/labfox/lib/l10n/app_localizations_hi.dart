@@ -9,6 +9,22 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleTakeOwnership => 'स्वामित्व लें';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle =>
+      'इस शेड्यूल का स्वामित्व लें?';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return 'आप \"$name\" के स्वामी बनेंगे। निर्धारित पाइपलाइन आपकी अनुमतियों से चलेंगी। इसके लिए Maintainer या Owner भूमिका आवश्यक है।';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      'इस पाइपलाइन शेड्यूल का स्वामित्व नहीं लिया जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।';
+
+  @override
   String get protectedTagsTitle => 'सुरक्षित टैग';
 
   @override
