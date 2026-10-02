@@ -145,6 +145,35 @@ final releaseEditControllerProvider =
       ReleaseEditController.new,
     );
 
+class ReleaseScheduleController extends FamilyAsyncNotifier<void, ReleaseRef> {
+  @override
+  Future<void> build(ReleaseRef arg) async {}
+
+  Future<void> save(DateTime releasedAt) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(releasesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.updateReleasedAt(
+        arg.projectId,
+        arg.tagName,
+        releasedAt.toUtc(),
+      );
+      ref.invalidate(releaseDetailProvider(arg));
+      ref.invalidate(releaseListControllerProvider(arg.projectId));
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final releaseScheduleControllerProvider =
+    AsyncNotifierProvider.family<ReleaseScheduleController, void, ReleaseRef>(
+      ReleaseScheduleController.new,
+    );
+
 class ReleaseAssetLinkController extends FamilyAsyncNotifier<void, ReleaseRef> {
   @override
   Future<void> build(ReleaseRef arg) async {}
