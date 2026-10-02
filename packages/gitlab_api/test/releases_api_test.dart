@@ -53,6 +53,37 @@ void main() {
       throwsA(isA<GitLabForbiddenException>()),
     );
   });
+  test('updates direct path and link type in one request', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Asset',
+          'url': 'https://example.com/asset',
+          'link_type': 'image',
+        },
+      );
+    });
+    await client.releases.updateAssetLink(
+      7,
+      'v1',
+      12,
+      name: 'Asset',
+      url: 'https://example.com/asset',
+      directAssetPath: '/bin/asset',
+      linkType: 'image',
+    );
+    expect(request.data, {
+      'name': 'Asset',
+      'url': 'https://example.com/asset',
+      'direct_asset_path': '/bin/asset',
+      'link_type': 'image',
+    });
+  });
   test('lists releases with pagination and parses assets', () async {
     late RequestOptions request;
     final client = _client((options) {
@@ -294,6 +325,48 @@ void main() {
     expect(link.id, 12);
     expect(link.name, 'New package');
   });
+
+  test(
+    'updates a direct download path without changing the target URL',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'name': 'Package',
+            'url': 'https://example.com/app.zip',
+            'direct_asset_url': 'https://example.com/downloads/bin/app.zip',
+            'link_type': 'package',
+          },
+        );
+      });
+      final link = await client.releases.updateAssetLink(
+        'team/app',
+        'release/2',
+        12,
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+        directAssetPath: '/bin/app.zip',
+      );
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+      );
+      expect(request.data, {
+        'name': 'Package',
+        'url': 'https://example.com/app.zip',
+        'direct_asset_path': '/bin/app.zip',
+      });
+      expect(link.directAssetUrl, 'https://example.com/downloads/bin/app.zip');
+      expect(link.url, 'https://example.com/app.zip');
+      expect(link.linkType, 'package');
+    },
+  );
 
   for (final type in ['other', 'runbook', 'image', 'package']) {
     test('updates an asset link with type $type', () async {

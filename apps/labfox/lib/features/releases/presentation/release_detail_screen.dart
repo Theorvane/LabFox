@@ -578,6 +578,7 @@ class _EditAssetLinkDialog extends ConsumerStatefulWidget {
 }
 
 class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
+  final _directPath = TextEditingController();
   static const _types = ['other', 'runbook', 'image', 'package'];
   String? _linkType;
   late final TextEditingController _name;
@@ -599,6 +600,7 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
   void dispose() {
     _name.dispose();
     _url.dispose();
+    _directPath.dispose();
     super.dispose();
   }
 
@@ -606,6 +608,18 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
     final l10n = AppLocalizations.of(context);
     final name = _name.text.trim();
     final url = _url.text.trim();
+    final directPath = _directPath.text.trim();
+    final pathUri = Uri.tryParse(directPath);
+    if (directPath.isNotEmpty &&
+        (!directPath.startsWith('/') ||
+            pathUri == null ||
+            pathUri.hasAuthority ||
+            pathUri.hasScheme ||
+            pathUri.hasQuery ||
+            pathUri.hasFragment)) {
+      setState(() => _error = l10n.releaseAssetDirectPathInvalid);
+      return;
+    }
     final uri = Uri.tryParse(url);
     if (name.isEmpty) {
       setState(() => _error = l10n.releaseAssetNameRequired);
@@ -634,6 +648,7 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
             widget.link.id,
             name: name,
             url: url,
+            directAssetPath: directPath.isEmpty ? null : directPath,
             linkType: _linkType == widget.link.linkType ? null : _linkType,
           );
       if (!mounted) return;
@@ -668,6 +683,15 @@ class _EditAssetLinkDialogState extends ConsumerState<_EditAssetLinkDialog> {
               enabled: !_saving,
               keyboardType: TextInputType.url,
               decoration: InputDecoration(labelText: l10n.releaseAssetUrl),
+            ),
+            TextField(
+              controller: _directPath,
+              enabled: !_saving,
+              decoration: InputDecoration(
+                labelText: l10n.releaseAssetDirectPath,
+                helperText: l10n.releaseAssetDirectPathHelp,
+                helperMaxLines: 3,
+              ),
             ),
             const SizedBox(height: LabFoxSpacing.sm),
             DropdownButtonFormField<String>(
