@@ -75,6 +75,17 @@ Future<void> enterPattern(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('current retention count has its own criterion label', (
+    tester,
+  ) async {
+    await open(tester, DeletePatternRepository());
+    final context = tester.element(
+      find.byType(CleanupPolicyDeletePatternDialog),
+    );
+    final l10n = AppLocalizations.of(context);
+    expect(find.text(l10n.containerPolicyKeepCount), findsOneWidget);
+  });
+
   testWidgets(
     'server validation retains exact draft and permits retry without reload',
     (tester) async {
