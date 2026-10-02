@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => '릴리스 날짜 편집';
+
+  @override
+  String get releaseScheduleChangeDate => '날짜 변경';
+
+  @override
+  String get releaseScheduleChangeTime => '시간 변경';
+
+  @override
+  String get releaseScheduleSave => '릴리스 날짜 저장';
+
+  @override
+  String get releaseScheduleError => '릴리스 날짜를 업데이트하지 못했습니다.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '시간은 기기 시간대($zone)를 사용합니다. 미래 날짜를 선택하면 예정된 릴리스로 설정됩니다.';
+  }
+
+  @override
   String get pipelineScheduleEdit => '스케줄 편집';
 
   @override

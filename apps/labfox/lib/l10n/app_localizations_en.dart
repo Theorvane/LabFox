@@ -9,6 +9,26 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => 'Edit release date';
+
+  @override
+  String get releaseScheduleChangeDate => 'Change date';
+
+  @override
+  String get releaseScheduleChangeTime => 'Change time';
+
+  @override
+  String get releaseScheduleSave => 'Save release date';
+
+  @override
+  String get releaseScheduleError => 'Could not update the release date.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return 'Times use your device time zone ($zone). A future date schedules an upcoming release.';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'Edit schedule';
 
   @override

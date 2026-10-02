@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => 'रिलीज़ की तारीख संपादित करें';
+
+  @override
+  String get releaseScheduleChangeDate => 'तारीख बदलें';
+
+  @override
+  String get releaseScheduleChangeTime => 'समय बदलें';
+
+  @override
+  String get releaseScheduleSave => 'रिलीज़ की तारीख सहेजें';
+
+  @override
+  String get releaseScheduleError => 'रिलीज़ की तारीख अपडेट नहीं हो सकी।';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return 'समय आपके डिवाइस के समय क्षेत्र ($zone) में है। भविष्य की तारीख आगामी रिलीज़ निर्धारित करती है।';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'शेड्यूल संपादित करें';
 
   @override

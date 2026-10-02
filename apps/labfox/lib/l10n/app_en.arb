@@ -1,4 +1,11 @@
 {
+  "releaseScheduleEdit": "Edit release date",
+  "releaseScheduleChangeDate": "Change date",
+  "releaseScheduleChangeTime": "Change time",
+  "releaseScheduleSave": "Save release date",
+  "releaseScheduleError": "Could not update the release date.",
+  "releaseScheduleHelp": "Times use your device time zone ({zone}). A future date schedules an upcoming release.",
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleEdit": "Edit schedule",
   "pipelineScheduleSave": "Save",
   "pipelineScheduleDescription": "Description",

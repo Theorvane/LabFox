@@ -9,6 +9,26 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => '编辑发布日期';
+
+  @override
+  String get releaseScheduleChangeDate => '更改日期';
+
+  @override
+  String get releaseScheduleChangeTime => '更改时间';
+
+  @override
+  String get releaseScheduleSave => '保存发布日期';
+
+  @override
+  String get releaseScheduleError => '无法更新发布日期。';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '时间使用设备时区（$zone）。选择未来日期会安排即将发布的版本。';
+  }
+
+  @override
   String get pipelineScheduleEdit => '编辑计划';
 
   @override

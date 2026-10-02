@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releaseScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release date'**
+  String get releaseScheduleEdit;
+
+  /// No description provided for @releaseScheduleChangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change date'**
+  String get releaseScheduleChangeDate;
+
+  /// No description provided for @releaseScheduleChangeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get releaseScheduleChangeTime;
+
+  /// No description provided for @releaseScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release date'**
+  String get releaseScheduleSave;
+
+  /// No description provided for @releaseScheduleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release date.'**
+  String get releaseScheduleError;
+
+  /// No description provided for @releaseScheduleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Times use your device time zone ({zone}). A future date schedules an upcoming release.'**
+  String releaseScheduleHelp(String zone);
+
   /// No description provided for @pipelineScheduleEdit.
   ///
   /// In en, this message translates to:
