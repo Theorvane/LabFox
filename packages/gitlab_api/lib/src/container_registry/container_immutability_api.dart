@@ -1,4 +1,5 @@
 import 'package:gitlab_models/gitlab_models.dart';
+
 import '../common/exceptions.dart';
 import '../graphql/graphql_api.dart';
 
@@ -17,6 +18,8 @@ class ContainerImmutabilityApi {
         'Project path and a pattern of 1–100 characters are required',
       );
     }
+    // GitLab documents this input type with a lowercase initial character.
+    // https://docs.gitlab.com/api/graphql/reference/experimental/input_objects/#createcontainerprotectiontagruleinput
     final data = await _graphql.mutate(
       document: r'''
 mutation CreateContainerImmutabilityRule($input: createContainerProtectionTagRuleInput!) {
