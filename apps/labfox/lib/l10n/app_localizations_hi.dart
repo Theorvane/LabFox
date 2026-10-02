@@ -29,6 +29,26 @@ class AppLocalizationsHi extends AppLocalizations {
       'निष्पादन सेटिंग अपडेट नहीं की जा सकीं। अनुमतियाँ और रेफ़ जाँचें, फिर दोबारा प्रयास करें।';
 
   @override
+  String get pipelineScheduleEdit => 'शेड्यूल संपादित करें';
+
+  @override
+  String get pipelineScheduleSave => 'सहेजें';
+
+  @override
+  String get pipelineScheduleDescription => 'विवरण';
+
+  @override
+  String get pipelineScheduleFieldRequired => 'कोई मान दर्ज करें।';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab cron अभिव्यक्ति और समय क्षेत्र की जाँच करता है। सहेजने पर भविष्य के रन पुनर्निर्धारित होते हैं; रेफ़, सक्रिय स्थिति, वेरिएबल और इनपुट सुरक्षित रहते हैं।';
+
+  @override
+  String get pipelineScheduleEditError =>
+      'इस पाइपलाइन शेड्यूल को अपडेट नहीं किया जा सका। अनुमतियाँ, cron और समय क्षेत्र जाँचें।';
+
+  @override
   String get pipelineScheduleTakeOwnership => 'स्वामित्व लें';
 
   @override
@@ -43,6 +63,81 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get pipelineScheduleOwnershipError =>
       'इस पाइपलाइन शेड्यूल का स्वामित्व नहीं लिया जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।';
+
+  @override
+  String get protectedTagProtectTitle => 'टैग सुरक्षित करें';
+
+  @override
+  String get protectedTagProtectName => 'नियम का नाम';
+
+  @override
+  String get protectedTagProtectRole => 'मेल खाने वाले टैग कौन बना सकता है?';
+
+  @override
+  String get protectedTagProtectNoOne => 'कोई नहीं';
+
+  @override
+  String get protectedTagProtectDevelopers => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedTagProtectMaintainers => 'मेंटेनर';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return 'यह नियम प्रोजेक्ट $projectId में मेल खाने वाले टैग बनाने की अनुमति बदलता है और टैग पाइपलाइन तथा जॉब को प्रभावित कर सकता है।';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      'वाइल्डकार्ड नियम भविष्य के टैग को भी प्रभावित कर सकते हैं। सटीक पैटर्न और अनुमति जाँचें।';
+
+  @override
+  String get protectedTagProtectAcknowledge =>
+      'मैं इस नियम के पूरे प्रोजेक्ट पर प्रभाव को समझता हूँ।';
+
+  @override
+  String get protectedTagProtectSubmit => 'टैग सुरक्षित करें';
+
+  @override
+  String get protectedTagProtectExisting =>
+      'नियम पहले से मौजूद है। कोई बदलाव नहीं हुआ।';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      'परिणाम अनिश्चित है। फिर से कोशिश करने से पहले सभी नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedTagProtectReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get protectedTagProtectLoadError =>
+      'सुरक्षित टैग नियमों की पुष्टि नहीं हो सकी। दोबारा लोड करें।';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      'आपका खाता बदल गया है। इस ड्राफ्ट को बंद करके फिर शुरू करें।';
+
+  @override
+  String get protectedTagProtectCreated => 'सुरक्षित टैग नियम बनाया गया।';
+
+  @override
+  String get protectedTagProtectCancel => 'रद्द करें';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      'आपका सत्र समाप्त हो गया है। नियम बनाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab अनुरोधों को सीमित कर रहा है। प्रतीक्षा करें, फिर नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      'यह प्रोजेक्ट या सुरक्षित टैग उपलब्ध नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
 
   @override
   String get protectedTagsTitle => 'सुरक्षित टैग';
@@ -86,6 +181,84 @@ class AppLocalizationsHi extends AppLocalizations {
   String protectedEnvironmentApprovalCount(int count) {
     return 'आवश्यक अनुमोदन: $count';
   }
+
+  @override
+  String get protectedBranchProtectTitle => 'ब्रांच सुरक्षित करें';
+
+  @override
+  String get protectedBranchProtectName => 'नियम का नाम';
+
+  @override
+  String get protectedBranchProtectPush => 'पुश की अनुमति';
+
+  @override
+  String get protectedBranchProtectMerge => 'मर्ज की अनुमति';
+
+  @override
+  String get protectedBranchProtectNoOne => 'कोई नहीं';
+
+  @override
+  String get protectedBranchProtectDevelopers => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'मेंटेनर';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'यह नियम प्रोजेक्ट $projectId में पुश और मर्ज की अनुमति बदलता है। इससे मर्ज अनुरोध, सुरक्षित CI वेरिएबल और जॉब प्रभावित हो सकते हैं।';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'वाइल्डकार्ड नियम भविष्य की ब्रांच को भी प्रभावित कर सकते हैं। सटीक पैटर्न और दोनों अनुमतियाँ जाँचें।';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'मैं इस नियम के पूरे प्रोजेक्ट पर प्रभाव को समझता हूँ।';
+
+  @override
+  String get protectedBranchProtectSubmit => 'ब्रांच सुरक्षित करें';
+
+  @override
+  String get protectedBranchProtectExisting =>
+      'नियम पहले से मौजूद है। कोई बदलाव नहीं हुआ।';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      'परिणाम अनिश्चित है। फिर कोशिश करने से पहले सभी नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      'सुरक्षित ब्रांच नियमों की पुष्टि नहीं हो सकी। दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'आपका खाता बदल गया है। इस ड्राफ्ट को बंद करके फिर शुरू करें।';
+
+  @override
+  String get protectedBranchProtectCreated => 'सुरक्षित ब्रांच नियम बनाया गया।';
+
+  @override
+  String get protectedBranchProtectCancel => 'रद्द करें';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'आपका सत्र समाप्त हो गया है। नियम बनाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab अनुरोधों को सीमित कर रहा है। प्रतीक्षा करें, फिर नियम दोबारा लोड करें।';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'यह प्रोजेक्ट या सुरक्षित ब्रांच उपलब्ध नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।';
 
   @override
   String get protectedBranchesTitle => 'सुरक्षित ब्रांच';
@@ -428,6 +601,39 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
+
+  @override
+  String get releaseMilestonesEdit => 'रिलीज़ माइलस्टोन संपादित करें';
+
+  @override
+  String get releaseMilestonesTitle => 'माइलस्टोन';
+
+  @override
+  String get releaseMilestonesHelp =>
+      'सटीक माइलस्टोन शीर्षक डालें। समूह माइलस्टोन की उपलब्धता आपके GitLab प्लान और परियोजना समूह पर निर्भर है।';
+
+  @override
+  String get releaseMilestoneTitle => 'माइलस्टोन शीर्षक';
+
+  @override
+  String get releaseMilestoneAdd => 'माइलस्टोन जोड़ें';
+
+  @override
+  String get releaseMilestonesSave => 'माइलस्टोन सहेजें';
+
+  @override
+  String get releaseMilestonesError => 'रिलीज़ माइलस्टोन अपडेट नहीं हो सके।';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'माइलस्टोन शीर्षक डालें।';
+
+  @override
+  String get releaseMilestoneDuplicate => 'यह माइलस्टोन पहले से चुना गया है।';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title हटाएँ';
+  }
 
   @override
   String get releaseAssetDirectPath => 'नया सीधा डाउनलोड पथ (वैकल्पिक)';
@@ -1067,6 +1273,16 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get issueSubscriptionError =>
       'समस्या की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
+
+  @override
+  String get mrSubscribe => 'सूचनाओं की सदस्यता लें';
+
+  @override
+  String get mrUnsubscribe => 'सूचनाओं की सदस्यता छोड़ें';
+
+  @override
+  String get mrSubscriptionError =>
+      'मर्ज अनुरोध की सूचनाएँ बदली नहीं जा सकीं। फिर प्रयास करें।';
 
   @override
   String get issueAddTodo => 'कार्य सूची में जोड़ें';
@@ -2019,6 +2235,27 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wikiNewPage => 'नया पृष्ठ';
 
   @override
+  String get wikiPagesSection => 'पृष्ठ';
+
+  @override
+  String get wikiTemplatesSection => 'टेम्पलेट';
+
+  @override
+  String get wikiTemplateEmpty => 'अभी कोई टेम्पलेट नहीं है।';
+
+  @override
+  String get wikiNewTemplate => 'नया टेम्पलेट';
+
+  @override
+  String get wikiTemplateTitle => 'टेम्पलेट का शीर्षक';
+
+  @override
+  String get wikiCreateTemplate => 'टेम्पलेट बनाएं';
+
+  @override
+  String get wikiCreateTemplateError => 'टेम्पलेट नहीं बनाया जा सका।';
+
+  @override
   String get wikiPageTitle => 'शीर्षक';
 
   @override
@@ -2540,4 +2777,186 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => 'पहुँच प्रविष्टि';
+
+  @override
+  String get containerPolicyStatus => 'स्थिति';
+
+  @override
+  String get containerPolicyEnabled => 'सक्रिय';
+
+  @override
+  String get containerPolicyDisabled => 'निष्क्रिय';
+
+  @override
+  String get containerPolicyNotReported => 'जानकारी नहीं दी गई';
+
+  @override
+  String get containerPolicyCadence => 'चलने का अंतराल';
+
+  @override
+  String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
+
+  @override
+  String get containerPolicyDeletePattern => 'हटाने का पैटर्न';
+
+  @override
+  String get containerPolicyLegacyPattern => 'हटाने का पैटर्न (पुराना)';
+
+  @override
+  String get containerPolicyKeepPattern => 'रखने का पैटर्न';
+
+  @override
+  String get containerPolicyEmptyPattern => 'खाली पैटर्न';
+
+  @override
+  String get containerPolicyError => 'सफ़ाई नीति लोड नहीं हो सकी।';
+
+  @override
+  String get containerPolicyForbidden =>
+      'इस प्रोजेक्ट की सफ़ाई नीति देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'प्रोजेक्ट सुलभ नहीं है या सफ़ाई नीति की जानकारी उपलब्ध नहीं है।';
+
+  @override
+  String get containerPolicyEmptySetting => 'खाली सेटिंग';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'प्रोजेक्ट $projectId — सभी इमेज रिपॉज़िटरी';
+  }
+
+  @override
+  String get containerActivationError =>
+      'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerActivationForbidden =>
+      'इस सफ़ाई नीति को बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerActivationStale =>
+      'नीति बदल गई है या जानकारी नहीं मिल रही। सहेजने से पहले फिर लोड कर समीक्षा करें।';
+
+  @override
+  String get containerActivationReload => 'नीति फिर लोड करें';
+
+  @override
+  String get containerActivationRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और दोबारा प्रयास से पहले नीति फिर लोड करें।';
+
+  @override
+  String get containerCadenceTitle => 'सफ़ाई अंतराल संपादित करें';
+
+  @override
+  String get containerCadenceSave => 'अंतराल परिवर्तन की पुष्टि करें';
+
+  @override
+  String get containerCadenceSelect => 'नया अंतराल (GitLab API)';
+
+  @override
+  String get containerCadenceWarning =>
+      'परियोजना का अंतराल बदलने से सभी इमेज रिपॉज़िटरी में भविष्य की नियोजित टैग सफ़ाई प्रभावित होती है। नीचे सक्रिय स्थिति और हटाने/रखने के मानदंड जाँचें। ये सेटिंग नहीं बदलतीं और सफ़ाई पूर्ण होने की पुष्टि नहीं होती।';
+
+  @override
+  String get containerCadenceUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerCadenceAccepted => 'सफ़ाई अंतराल अपडेट स्वीकार किया गया।';
+
+  @override
+  String get containerTagProtectionTitle => 'टैग सुरक्षा नियम';
+
+  @override
+  String get containerTagProtectionEmpty => 'कोई टैग सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerTagProtectionError => 'टैग सुरक्षा नियम लोड नहीं हो सके।';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'टैग सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'इस इंस्टेंस पर टैग सुरक्षा नियम उपलब्ध नहीं हैं, या प्रोजेक्ट सुलभ नहीं है।';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'पुश के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'व्यवस्थापक';
+
+  @override
+  String get containerTagProtectionHint =>
+      'ये कंटेनर इमेज टैग के नियम हैं, Git टैग के नहीं। न्यूनतम भूमिकाएँ आपकी वर्तमान पहुँच की पुष्टि नहीं करतीं। सूची के लिए GitLab 18.7 या बाद का संस्करण और संपादन के लिए 18.9 या बाद का संस्करण चाहिए।';
+
+  @override
+  String get containerTagProtectionPatternTitle =>
+      'टैग सुरक्षा पैटर्न संपादित करें';
+
+  @override
+  String get containerTagProtectionPatternSave => 'पैटर्न सहेजें';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      'पैटर्न बदलने से इस प्रोजेक्ट में पहले मेल खाने वाले कंटेनर इमेज टैग की सुरक्षा हट सकती है और अन्य टैग पर लागू हो सकती है। वाइल्डकार्ड(*) कई टैग को प्रभावित कर सकता है। दोनों न्यूनतम भूमिकाएँ अपरिवर्तित रहती हैं; अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते, Git टैग प्रभावित नहीं होते और आपकी पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      'मैंने वर्तमान नियम और नया पैटर्न जाँच लिया है और सुरक्षा में बदलाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      'पैटर्न अपडेट की पुष्टि नहीं हो सकी। सर्वर अनुरोध स्वीकार कर चुका हो सकता है; पुनः प्रयास से पहले नियम सूची जाँचें।';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      'पुष्टि के बाद नियम बदल गया है। सहेजने से पहले दोबारा लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionPatternReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerTagProtectionPatternSaved =>
+      'टैग सुरक्षा पैटर्न अपडेट किया गया।';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      'पैटर्न अस्वीकार हुआ या पहले से उपयोग में है। ड्राफ़्ट बदलें और पुनः प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPatternDraft => 'नया कंटेनर टैग पैटर्न';
 }
