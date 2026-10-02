@@ -42,6 +42,42 @@ class ContainerRegistryRepository {
     }
   }
 
+  /// Preflight is best effort, not an atomic uniqueness or permission check.
+  Future<ContainerTagImmutabilityRule> createImmutableTagRule(
+    int projectId,
+    String pattern, {
+    bool Function()? isCurrent,
+  }) async {
+    if (projectId <= 0 ||
+        pattern.trim().isEmpty ||
+        pattern.runes.length > 100) {
+      throw ArgumentError(
+        'Positive project ID and a valid pattern length are required',
+      );
+    }
+    final existing = await immutableTagRules(projectId);
+    if (existing.any((r) => r.tagNamePattern == pattern)) {
+      throw const GitLabConflictException(
+        'An immutable rule already has this pattern',
+      );
+    }
+    final project = await client.projects.get(projectId);
+    if (project.id != projectId || project.pathWithNamespace.trim().isEmpty) {
+      throw const GitLabServerException(
+        'Project identity could not be confirmed',
+      );
+    }
+    if (isCurrent != null && !isCurrent()) {
+      throw StateError('Authenticated session changed before mutation');
+    }
+    return client.containerImmutability.createRule(
+      project.pathWithNamespace,
+      pattern,
+    );
+  }
+
+  /// Scan the whole connection before exposing a filtered immutable list.
+
   Future<void> deleteTag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.deleteTag(projectId, repositoryId, tagName);
 

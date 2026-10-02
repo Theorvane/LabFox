@@ -6,8 +6,9 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_immutability_controller.dart';
+import 'widgets/container_immutability_create_dialog.dart';
 
-/// Read-only project-wide rules, not per-tag access decisions.
+/// Project-wide rules, not per-tag access decisions.
 class ContainerImmutabilityScreen extends ConsumerWidget {
   const ContainerImmutabilityScreen({required this.projectId, super.key});
   final int projectId;
@@ -18,6 +19,26 @@ class ContainerImmutabilityScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerImmutabilityTitle),
+        actions: [
+          if (ref.watch(provider).hasValue && !ref.watch(provider).hasError)
+            IconButton(
+              tooltip: l10n.containerImmutabilityCreateTitle,
+              icon: const Icon(Icons.add),
+              onPressed: () async {
+                final created = await showDialog<bool>(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) =>
+                      ContainerImmutabilityCreateDialog(projectId: projectId),
+                );
+                if (created == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.containerImmutabilityCreated)),
+                  );
+                }
+              },
+            ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

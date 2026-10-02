@@ -827,5 +827,25 @@
   "containerImmutabilityError": "无法加载不可变标签规则。请检查实例支持情况后重试。",
   "containerImmutabilityForbidden": "你没有查看不可变标签规则的权限。",
   "containerImmutabilityUnavailable": "项目或规则列表不可用。请检查访问权限、订阅和实例支持情况。",
-  "containerImmutabilityHint": "不可变标签需要 Ultimate 和受支持的镜像仓库。这些模式适用于项目中的所有容器仓库，防止匹配标签被覆盖或删除，包括清理策略的删除。查看规则并不确认单个标签当前的保护状态。更改可能需要时间才能生效。"
+  "containerImmutabilityHint": "不可变标签需要 Ultimate 和受支持的镜像仓库。这些模式适用于项目中的所有容器仓库，防止匹配标签被覆盖或删除，包括清理策略的删除。查看规则并不确认单个标签当前的保护状态。更改可能需要时间才能生效。",
+  "containerImmutabilityCreateTitle": "创建不可变规则",
+  "containerImmutabilityCreateButton": "创建规则",
+  "containerImmutabilityCreated": "不可变规则已创建。",
+  "containerImmutabilityPattern": "标签模式",
+  "containerImmutabilityPatternHint": "输入不超过100个字符的RE2模式。空格会保留；GitLab会验证语法。",
+  "containerImmutabilityProject": "项目 {projectId}",
+  "containerImmutabilityImpact": "需要Owner权限、Ultimate和受支持的注册表。此模式适用于项目中的所有容器仓库。匹配的标签无法覆盖或删除，包括通过清理策略删除。只要存在任何不可变规则，直接删除清单也会被阻止。规则无法编辑，变更生效可能需要一些时间。",
+  "containerImmutabilityAcknowledge": "我了解项目范围的保护和工作流影响。",
+  "containerImmutabilityUncertain": "无法确认创建结果。请求可能已经成功；重试前请检查当前规则。",
+  "containerImmutabilityInspect": "检查当前规则",
+  "containerImmutabilityRejected": "GitLab拒绝了请求，或者相同模式的不可变规则已存在。请检查当前规则、模式和项目限制。",
+  "containerImmutabilityAuth": "会话被拒绝。创建规则前请重新登录。",
+  "containerImmutabilityAccountChanged": "账户已更改。请关闭此对话框，然后为所选账户重新打开。",
+  "@containerImmutabilityProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  }
 }
