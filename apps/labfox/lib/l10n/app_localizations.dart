@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit schedule'**
+  String get pipelineScheduleEdit;
+
+  /// No description provided for @pipelineScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleSave;
+
+  /// No description provided for @pipelineScheduleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get pipelineScheduleDescription;
+
+  /// No description provided for @pipelineScheduleFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value.'**
+  String get pipelineScheduleFieldRequired;
+
+  /// No description provided for @pipelineScheduleEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.'**
+  String get pipelineScheduleEditHint;
+
+  /// No description provided for @pipelineScheduleEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update this pipeline schedule. Check your permissions, cron, and time zone.'**
+  String get pipelineScheduleEditError;
+
   /// No description provided for @pipelineScheduleTakeOwnership.
   ///
   /// In en, this message translates to:
@@ -1129,6 +1165,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update the asset link.'**
   String get releaseAssetEditError;
+
+  /// No description provided for @releaseMilestonesEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release milestones'**
+  String get releaseMilestonesEdit;
+
+  /// No description provided for @releaseMilestonesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get releaseMilestonesTitle;
+
+  /// No description provided for @releaseMilestonesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.'**
+  String get releaseMilestonesHelp;
+
+  /// No description provided for @releaseMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title'**
+  String get releaseMilestoneTitle;
+
+  /// No description provided for @releaseMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseMilestoneAdd;
+
+  /// No description provided for @releaseMilestonesSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save milestones'**
+  String get releaseMilestonesSave;
+
+  /// No description provided for @releaseMilestonesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update release milestones.'**
+  String get releaseMilestonesError;
+
+  /// No description provided for @releaseMilestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseMilestoneTitleRequired;
+
+  /// No description provided for @releaseMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseMilestoneDuplicate;
+
+  /// No description provided for @releaseMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {title}'**
+  String releaseMilestoneRemove(String title);
 
   /// No description provided for @releaseAssetDirectPath.
   ///
@@ -4172,6 +4268,48 @@ abstract class AppLocalizations {
   /// **'New page'**
   String get wikiNewPage;
 
+  /// No description provided for @wikiPagesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Pages'**
+  String get wikiPagesSection;
+
+  /// No description provided for @wikiTemplatesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates'**
+  String get wikiTemplatesSection;
+
+  /// No description provided for @wikiTemplateEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No templates yet.'**
+  String get wikiTemplateEmpty;
+
+  /// No description provided for @wikiNewTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'New template'**
+  String get wikiNewTemplate;
+
+  /// No description provided for @wikiTemplateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Template title'**
+  String get wikiTemplateTitle;
+
+  /// No description provided for @wikiCreateTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create template'**
+  String get wikiCreateTemplate;
+
+  /// No description provided for @wikiCreateTemplateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the template.'**
+  String get wikiCreateTemplateError;
+
   /// No description provided for @wikiPageTitle.
   ///
   /// In en, this message translates to:
@@ -5191,6 +5329,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleanup cadence update accepted.'**
   String get containerCadenceAccepted;
+
+  /// No description provided for @containerTagProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules'**
+  String get containerTagProtectionTitle;
+
+  /// No description provided for @containerTagProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tag protection rules.'**
+  String get containerTagProtectionEmpty;
+
+  /// No description provided for @containerTagProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tag protection rules.'**
+  String get containerTagProtectionError;
+
+  /// No description provided for @containerTagProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view tag protection rules.'**
+  String get containerTagProtectionForbidden;
+
+  /// No description provided for @containerTagProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerTagProtectionUnavailable;
+
+  /// No description provided for @containerTagProtectionPushRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerTagProtectionPushRole(String role);
+
+  /// No description provided for @containerTagProtectionDeleteRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerTagProtectionDeleteRole(String role);
+
+  /// No description provided for @containerTagProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerTagProtectionRoleUnset;
+
+  /// No description provided for @containerTagProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerTagProtectionRoleAdmin;
+
+  /// No description provided for @containerTagProtectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; editing requires 18.9 or later.'**
+  String get containerTagProtectionHint;
+
+  /// No description provided for @containerTagProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit tag protection pattern'**
+  String get containerTagProtectionPatternTitle;
+
+  /// No description provided for @containerTagProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerTagProtectionPatternSave;
+
+  /// No description provided for @containerTagProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching container image tags and apply it to others across this project. Wildcards (*) can affect multiple tags. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your access.'**
+  String get containerTagProtectionPatternWarning;
+
+  /// No description provided for @containerTagProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerTagProtectionPatternAcknowledge;
+
+  /// No description provided for @containerTagProtectionPatternTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPatternForbidden;
+
+  /// No description provided for @containerTagProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPatternError;
+
+  /// No description provided for @containerTagProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPatternStale;
+
+  /// No description provided for @containerTagProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPatternReload;
+
+  /// No description provided for @containerTagProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection pattern updated.'**
+  String get containerTagProtectionPatternSaved;
+
+  /// No description provided for @containerTagProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPatternMissing;
+
+  /// No description provided for @containerTagProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPatternRateLimited;
+
+  /// No description provided for @containerTagProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerTagProtectionPatternInvalid;
+
+  /// No description provided for @containerTagProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New container tag pattern'**
+  String get containerTagProtectionPatternDraft;
 
   /// No description provided for @containerCleanupTitle.
   ///
