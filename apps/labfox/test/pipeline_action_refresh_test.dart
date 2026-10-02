@@ -46,7 +46,9 @@ class _Repository extends PipelinesRepository {
   @override
   Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) async {
     lists.update(projectId, (value) => value + 1, ifAbsent: () => 1);
-    return Paginated(items: [Pipeline(id: 944, status: status, ref: 'main')]);
+    return Paginated(
+      items: [Pipeline(id: 944, status: status, ref: 'main')],
+    );
   }
 
   @override
