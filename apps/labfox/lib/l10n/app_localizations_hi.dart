@@ -9,27 +9,19 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get releaseCreationMilestoneTitle => 'माइलस्टोन का शीर्षक (वैकल्पिक)';
+  String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
 
   @override
-  String get releaseCreationMilestoneAdd => 'माइलस्टोन जोड़ें';
+  String get pipelineScheduleDeleteConfirmTitle => 'यह पाइपलाइन शेड्यूल हटाएँ?';
 
   @override
-  String get releaseCreationMilestoneRequired =>
-      'माइलस्टोन का शीर्षक दर्ज करें।';
-
-  @override
-  String get releaseCreationMilestoneDuplicate =>
-      'यह माइलस्टोन पहले से चुना गया है।';
-
-  @override
-  String releaseCreationMilestoneRemove(String title) {
-    return 'माइलस्टोन $title हटाएँ';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'पाइपलाइन शेड्यूल \"$name\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।';
   }
 
   @override
-  String get releaseCreationMilestoneHelp =>
-      'मौजूदा सटीक शीर्षक एक-एक करके दर्ज करें। समूह माइलस्टोन की उपलब्धता आपके GitLab प्लान पर निर्भर करती है।';
+  String get pipelineScheduleDeleteError =>
+      'इस पाइपलाइन शेड्यूल को हटाया नहीं जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।';
 
   @override
   String get releaseScheduleEdit => 'रिलीज़ की तारीख संपादित करें';

@@ -9,25 +9,19 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get releaseCreationMilestoneTitle => '마일스톤 제목(선택 사항)';
+  String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
-  String get releaseCreationMilestoneAdd => '마일스톤 추가';
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
 
   @override
-  String get releaseCreationMilestoneRequired => '마일스톤 제목을 입력하세요.';
-
-  @override
-  String get releaseCreationMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
-
-  @override
-  String releaseCreationMilestoneRemove(String title) {
-    return '마일스톤 $title 제거';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
   }
 
   @override
-  String get releaseCreationMilestoneHelp =>
-      '기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.';
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
   String get releaseScheduleEdit => '릴리스 날짜 편집';

@@ -9,25 +9,18 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get releaseCreationMilestoneTitle => '里程碑标题（可选）';
+  String get pipelineScheduleDelete => '删除计划';
 
   @override
-  String get releaseCreationMilestoneAdd => '添加里程碑';
+  String get pipelineScheduleDeleteConfirmTitle => '删除此流水线计划？';
 
   @override
-  String get releaseCreationMilestoneRequired => '请输入里程碑标题。';
-
-  @override
-  String get releaseCreationMilestoneDuplicate => '已选择此里程碑。';
-
-  @override
-  String releaseCreationMilestoneRemove(String title) {
-    return '移除里程碑 $title';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '流水线计划“$name”将被永久删除。此操作无法撤销。';
   }
 
   @override
-  String get releaseCreationMilestoneHelp =>
-      '逐一输入现有里程碑的准确标题。群组里程碑的可用性取决于您的 GitLab 套餐。';
+  String get pipelineScheduleDeleteError => '无法删除此流水线计划。请检查权限并重试。';
 
   @override
   String get releaseScheduleEdit => '编辑发布日期';

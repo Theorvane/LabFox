@@ -9,26 +9,20 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get releaseCreationMilestoneTitle => 'Milestone title (optional)';
+  String get pipelineScheduleDelete => 'Delete schedule';
 
   @override
-  String get releaseCreationMilestoneAdd => 'Add milestone';
+  String get pipelineScheduleDeleteConfirmTitle =>
+      'Delete this pipeline schedule?';
 
   @override
-  String get releaseCreationMilestoneRequired => 'Enter a milestone title.';
-
-  @override
-  String get releaseCreationMilestoneDuplicate =>
-      'This milestone is already selected.';
-
-  @override
-  String releaseCreationMilestoneRemove(String title) {
-    return 'Remove milestone $title';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'The pipeline schedule \"$name\" will be permanently deleted. This cannot be undone.';
   }
 
   @override
-  String get releaseCreationMilestoneHelp =>
-      'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.';
+  String get pipelineScheduleDeleteError =>
+      'Could not delete this pipeline schedule. Check your permissions and try again.';
 
   @override
   String get releaseScheduleEdit => 'Edit release date';

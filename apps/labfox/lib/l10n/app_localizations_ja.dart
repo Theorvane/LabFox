@@ -9,25 +9,19 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get releaseCreationMilestoneTitle => 'マイルストーンのタイトル（任意）';
+  String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
-  String get releaseCreationMilestoneAdd => 'マイルストーンを追加';
+  String get pipelineScheduleDeleteConfirmTitle => 'このパイプラインスケジュールを削除しますか？';
 
   @override
-  String get releaseCreationMilestoneRequired => 'マイルストーンのタイトルを入力してください。';
-
-  @override
-  String get releaseCreationMilestoneDuplicate => 'このマイルストーンは既に選択されています。';
-
-  @override
-  String releaseCreationMilestoneRemove(String title) {
-    return 'マイルストーン $title を削除';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'パイプラインスケジュール「$name」は完全に削除されます。この操作は元に戻せません。';
   }
 
   @override
-  String get releaseCreationMilestoneHelp =>
-      '既存のタイトルを1つずつ正確に入力してください。グループマイルストーンの利用可否はGitLabのプランによって異なります。';
+  String get pipelineScheduleDeleteError =>
+      'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
 
   @override
   String get releaseScheduleEdit => 'リリース日時を編集';

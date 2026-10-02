@@ -104,41 +104,29 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// No description provided for @releaseCreationMilestoneTitle.
+  /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
-  /// **'Milestone title (optional)'**
-  String get releaseCreationMilestoneTitle;
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
 
-  /// No description provided for @releaseCreationMilestoneAdd.
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Add milestone'**
-  String get releaseCreationMilestoneAdd;
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
 
-  /// No description provided for @releaseCreationMilestoneRequired.
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'Enter a milestone title.'**
-  String get releaseCreationMilestoneRequired;
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
 
-  /// No description provided for @releaseCreationMilestoneDuplicate.
+  /// No description provided for @pipelineScheduleDeleteError.
   ///
   /// In en, this message translates to:
-  /// **'This milestone is already selected.'**
-  String get releaseCreationMilestoneDuplicate;
-
-  /// No description provided for @releaseCreationMilestoneRemove.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove milestone {title}'**
-  String releaseCreationMilestoneRemove(String title);
-
-  /// No description provided for @releaseCreationMilestoneHelp.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.'**
-  String get releaseCreationMilestoneHelp;
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
 
   /// No description provided for @releaseScheduleEdit.
   ///
