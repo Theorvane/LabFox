@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$GitLabRelease {
 
- String get name;@JsonKey(name: 'tag_name') String get tagName; String? get description;@JsonKey(name: 'released_at') DateTime? get releasedAt;@JsonKey(name: 'upcoming_release') bool? get upcomingRelease;@JsonKey(name: 'historical_release') bool? get historicalRelease; ReleaseAssets? get assets;
+ String get name;@JsonKey(name: 'tag_name') String get tagName; String? get description;@JsonKey(name: 'released_at') DateTime? get releasedAt;@JsonKey(name: 'upcoming_release') bool? get upcomingRelease;@JsonKey(name: 'historical_release') bool? get historicalRelease; ReleaseAssets? get assets; List<GitLabMilestone> get milestones;
 /// Create a copy of GitLabRelease
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $GitLabReleaseCopyWith<GitLabRelease> get copyWith => _$GitLabReleaseCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GitLabRelease&&(identical(other.name, name) || other.name == name)&&(identical(other.tagName, tagName) || other.tagName == tagName)&&(identical(other.description, description) || other.description == description)&&(identical(other.releasedAt, releasedAt) || other.releasedAt == releasedAt)&&(identical(other.upcomingRelease, upcomingRelease) || other.upcomingRelease == upcomingRelease)&&(identical(other.historicalRelease, historicalRelease) || other.historicalRelease == historicalRelease)&&(identical(other.assets, assets) || other.assets == assets));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GitLabRelease&&(identical(other.name, name) || other.name == name)&&(identical(other.tagName, tagName) || other.tagName == tagName)&&(identical(other.description, description) || other.description == description)&&(identical(other.releasedAt, releasedAt) || other.releasedAt == releasedAt)&&(identical(other.upcomingRelease, upcomingRelease) || other.upcomingRelease == upcomingRelease)&&(identical(other.historicalRelease, historicalRelease) || other.historicalRelease == historicalRelease)&&(identical(other.assets, assets) || other.assets == assets)&&const DeepCollectionEquality().equals(other.milestones, milestones));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,tagName,description,releasedAt,upcomingRelease,historicalRelease,assets);
+int get hashCode => Object.hash(runtimeType,name,tagName,description,releasedAt,upcomingRelease,historicalRelease,assets,const DeepCollectionEquality().hash(milestones));
 
 @override
 String toString() {
-  return 'GitLabRelease(name: $name, tagName: $tagName, description: $description, releasedAt: $releasedAt, upcomingRelease: $upcomingRelease, historicalRelease: $historicalRelease, assets: $assets)';
+  return 'GitLabRelease(name: $name, tagName: $tagName, description: $description, releasedAt: $releasedAt, upcomingRelease: $upcomingRelease, historicalRelease: $historicalRelease, assets: $assets, milestones: $milestones)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $GitLabReleaseCopyWith<$Res>  {
   factory $GitLabReleaseCopyWith(GitLabRelease value, $Res Function(GitLabRelease) _then) = _$GitLabReleaseCopyWithImpl;
 @useResult
 $Res call({
- String name,@JsonKey(name: 'tag_name') String tagName, String? description,@JsonKey(name: 'released_at') DateTime? releasedAt,@JsonKey(name: 'upcoming_release') bool? upcomingRelease,@JsonKey(name: 'historical_release') bool? historicalRelease, ReleaseAssets? assets
+ String name,@JsonKey(name: 'tag_name') String tagName, String? description,@JsonKey(name: 'released_at') DateTime? releasedAt,@JsonKey(name: 'upcoming_release') bool? upcomingRelease,@JsonKey(name: 'historical_release') bool? historicalRelease, ReleaseAssets? assets, List<GitLabMilestone> milestones
 });
 
 
@@ -65,7 +65,7 @@ class _$GitLabReleaseCopyWithImpl<$Res>
 
 /// Create a copy of GitLabRelease
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? tagName = null,Object? description = freezed,Object? releasedAt = freezed,Object? upcomingRelease = freezed,Object? historicalRelease = freezed,Object? assets = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? tagName = null,Object? description = freezed,Object? releasedAt = freezed,Object? upcomingRelease = freezed,Object? historicalRelease = freezed,Object? assets = freezed,Object? milestones = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,tagName: null == tagName ? _self.tagName : tagName // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String?,releasedAt: freezed == releasedAt ? _self.releasedAt : releasedAt // 
 as DateTime?,upcomingRelease: freezed == upcomingRelease ? _self.upcomingRelease : upcomingRelease // ignore: cast_nullable_to_non_nullable
 as bool?,historicalRelease: freezed == historicalRelease ? _self.historicalRelease : historicalRelease // ignore: cast_nullable_to_non_nullable
 as bool?,assets: freezed == assets ? _self.assets : assets // ignore: cast_nullable_to_non_nullable
-as ReleaseAssets?,
+as ReleaseAssets?,milestones: null == milestones ? _self.milestones : milestones // ignore: cast_nullable_to_non_nullable
+as List<GitLabMilestone>,
   ));
 }
 /// Create a copy of GitLabRelease
@@ -171,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets,  List<GitLabMilestone> milestones)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GitLabRelease() when $default != null:
-return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets);case _:
+return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets,_that.milestones);case _:
   return orElse();
 
 }
@@ -192,10 +193,10 @@ return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets,  List<GitLabMilestone> milestones)  $default,) {final _that = this;
 switch (_that) {
 case _GitLabRelease():
-return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets);case _:
+return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets,_that.milestones);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -212,10 +213,10 @@ return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name, @JsonKey(name: 'tag_name')  String tagName,  String? description, @JsonKey(name: 'released_at')  DateTime? releasedAt, @JsonKey(name: 'upcoming_release')  bool? upcomingRelease, @JsonKey(name: 'historical_release')  bool? historicalRelease,  ReleaseAssets? assets,  List<GitLabMilestone> milestones)?  $default,) {final _that = this;
 switch (_that) {
 case _GitLabRelease() when $default != null:
-return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets);case _:
+return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_that.upcomingRelease,_that.historicalRelease,_that.assets,_that.milestones);case _:
   return null;
 
 }
@@ -227,7 +228,7 @@ return $default(_that.name,_that.tagName,_that.description,_that.releasedAt,_tha
 @JsonSerializable()
 
 class _GitLabRelease implements GitLabRelease {
-  const _GitLabRelease({required this.name, @JsonKey(name: 'tag_name') required this.tagName, this.description, @JsonKey(name: 'released_at') this.releasedAt, @JsonKey(name: 'upcoming_release') this.upcomingRelease, @JsonKey(name: 'historical_release') this.historicalRelease, this.assets});
+  const _GitLabRelease({required this.name, @JsonKey(name: 'tag_name') required this.tagName, this.description, @JsonKey(name: 'released_at') this.releasedAt, @JsonKey(name: 'upcoming_release') this.upcomingRelease, @JsonKey(name: 'historical_release') this.historicalRelease, this.assets, final  List<GitLabMilestone> milestones = const []}): _milestones = milestones;
   factory _GitLabRelease.fromJson(Map<String, dynamic> json) => _$GitLabReleaseFromJson(json);
 
 @override final  String name;
@@ -237,6 +238,13 @@ class _GitLabRelease implements GitLabRelease {
 @override@JsonKey(name: 'upcoming_release') final  bool? upcomingRelease;
 @override@JsonKey(name: 'historical_release') final  bool? historicalRelease;
 @override final  ReleaseAssets? assets;
+ final  List<GitLabMilestone> _milestones;
+@override@JsonKey() List<GitLabMilestone> get milestones {
+  if (_milestones is EqualUnmodifiableListView) return _milestones;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_milestones);
+}
+
 
 /// Create a copy of GitLabRelease
 /// with the given fields replaced by the non-null parameter values.
@@ -251,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GitLabRelease&&(identical(other.name, name) || other.name == name)&&(identical(other.tagName, tagName) || other.tagName == tagName)&&(identical(other.description, description) || other.description == description)&&(identical(other.releasedAt, releasedAt) || other.releasedAt == releasedAt)&&(identical(other.upcomingRelease, upcomingRelease) || other.upcomingRelease == upcomingRelease)&&(identical(other.historicalRelease, historicalRelease) || other.historicalRelease == historicalRelease)&&(identical(other.assets, assets) || other.assets == assets));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GitLabRelease&&(identical(other.name, name) || other.name == name)&&(identical(other.tagName, tagName) || other.tagName == tagName)&&(identical(other.description, description) || other.description == description)&&(identical(other.releasedAt, releasedAt) || other.releasedAt == releasedAt)&&(identical(other.upcomingRelease, upcomingRelease) || other.upcomingRelease == upcomingRelease)&&(identical(other.historicalRelease, historicalRelease) || other.historicalRelease == historicalRelease)&&(identical(other.assets, assets) || other.assets == assets)&&const DeepCollectionEquality().equals(other._milestones, _milestones));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,tagName,description,releasedAt,upcomingRelease,historicalRelease,assets);
+int get hashCode => Object.hash(runtimeType,name,tagName,description,releasedAt,upcomingRelease,historicalRelease,assets,const DeepCollectionEquality().hash(_milestones));
 
 @override
 String toString() {
-  return 'GitLabRelease(name: $name, tagName: $tagName, description: $description, releasedAt: $releasedAt, upcomingRelease: $upcomingRelease, historicalRelease: $historicalRelease, assets: $assets)';
+  return 'GitLabRelease(name: $name, tagName: $tagName, description: $description, releasedAt: $releasedAt, upcomingRelease: $upcomingRelease, historicalRelease: $historicalRelease, assets: $assets, milestones: $milestones)';
 }
 
 
@@ -271,7 +279,7 @@ abstract mixin class _$GitLabReleaseCopyWith<$Res> implements $GitLabReleaseCopy
   factory _$GitLabReleaseCopyWith(_GitLabRelease value, $Res Function(_GitLabRelease) _then) = __$GitLabReleaseCopyWithImpl;
 @override @useResult
 $Res call({
- String name,@JsonKey(name: 'tag_name') String tagName, String? description,@JsonKey(name: 'released_at') DateTime? releasedAt,@JsonKey(name: 'upcoming_release') bool? upcomingRelease,@JsonKey(name: 'historical_release') bool? historicalRelease, ReleaseAssets? assets
+ String name,@JsonKey(name: 'tag_name') String tagName, String? description,@JsonKey(name: 'released_at') DateTime? releasedAt,@JsonKey(name: 'upcoming_release') bool? upcomingRelease,@JsonKey(name: 'historical_release') bool? historicalRelease, ReleaseAssets? assets, List<GitLabMilestone> milestones
 });
 
 
@@ -288,7 +296,7 @@ class __$GitLabReleaseCopyWithImpl<$Res>
 
 /// Create a copy of GitLabRelease
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? tagName = null,Object? description = freezed,Object? releasedAt = freezed,Object? upcomingRelease = freezed,Object? historicalRelease = freezed,Object? assets = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? tagName = null,Object? description = freezed,Object? releasedAt = freezed,Object? upcomingRelease = freezed,Object? historicalRelease = freezed,Object? assets = freezed,Object? milestones = null,}) {
   return _then(_GitLabRelease(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,tagName: null == tagName ? _self.tagName : tagName // ignore: cast_nullable_to_non_nullable
@@ -297,7 +305,8 @@ as String?,releasedAt: freezed == releasedAt ? _self.releasedAt : releasedAt // 
 as DateTime?,upcomingRelease: freezed == upcomingRelease ? _self.upcomingRelease : upcomingRelease // ignore: cast_nullable_to_non_nullable
 as bool?,historicalRelease: freezed == historicalRelease ? _self.historicalRelease : historicalRelease // ignore: cast_nullable_to_non_nullable
 as bool?,assets: freezed == assets ? _self.assets : assets // ignore: cast_nullable_to_non_nullable
-as ReleaseAssets?,
+as ReleaseAssets?,milestones: null == milestones ? _self._milestones : milestones // ignore: cast_nullable_to_non_nullable
+as List<GitLabMilestone>,
   ));
 }
 

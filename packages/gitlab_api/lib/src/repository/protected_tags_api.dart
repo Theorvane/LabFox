@@ -31,14 +31,79 @@ class ProtectedTagsApi {
           context: 'listing protected tags',
         );
       }
-      final data = (response.data as List<dynamic>? ?? const [])
-          .cast<Map<String, dynamic>>();
-      return Paginated.fromHeaders(
-        data.map(ProtectedTag.fromJson).toList(growable: false),
-        response.headers.map,
-      );
+      final raw = response.data;
+      if (raw is! List ||
+          raw.any(
+            (entry) =>
+                entry is! Map<String, dynamic> ||
+                entry['name'] is! String ||
+                (entry['name'] as String).isEmpty ||
+                entry['create_access_levels'] is! List,
+          )) {
+        throw const GitLabServerException('Incomplete protected tag list');
+      }
+      try {
+        final items = raw
+            .cast<Map<String, dynamic>>()
+            .map(ProtectedTag.fromJson)
+            .toList(growable: false);
+        return Paginated.fromHeaders(items, response.headers.map);
+      } on TypeError {
+        throw const GitLabServerException('Malformed protected tag list');
+      } on FormatException {
+        throw const GitLabServerException('Malformed protected tag list');
+      }
     } on DioException catch (error) {
       throw mapError(error, context: 'listing protected tags');
+    }
+  }
+
+  /// Creates one project-wide rule with a documented role choice.
+  Future<ProtectedTag> protect(
+    Object projectId, {
+    required String name,
+    required int createAccessLevel,
+  }) async {
+    if (name.trim().isEmpty || !const [0, 30, 40].contains(createAccessLevel)) {
+      throw ArgumentError('Exact name and supported create role required');
+    }
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {'name': name, 'create_access_level': createAccessLevel},
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 201 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating protected tag rule',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['create_access_levels'] is! List) {
+        throw const GitLabServerException('Incomplete protected tag creation');
+      }
+      try {
+        final created = ProtectedTag.fromJson(raw);
+        if (created.createAccessLevels.length != 1 ||
+            created.createAccessLevels.single.accessLevel !=
+                createAccessLevel) {
+          throw const GitLabServerException('Unconfirmed protected tag role');
+        }
+        return created;
+      } on TypeError {
+        throw const GitLabServerException('Malformed protected tag creation');
+      } on FormatException {
+        throw const GitLabServerException('Malformed protected tag creation');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating protected tag rule');
     }
   }
 
