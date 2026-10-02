@@ -398,6 +398,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get releaseAssetEditError => 'Could not update the asset link.';
 
   @override
+  String get releaseAssetDirectPath => 'New direct download path (optional)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'Enter a path starting with /, without a host, query, or fragment.';
+
+  @override
   String get releaseAssetType => 'Link type';
 
   @override
@@ -2068,6 +2079,433 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'Load more';
+
+  @override
+  String get protectedTagUnprotectTitle => 'Unprotect tag rule';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'Project $projectId — rule $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nRole level: $role; user ID: $user; group ID: $group; deploy key ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => 'Not reported';
+
+  @override
+  String get protectedTagUnprotectName =>
+      'Re-enter the exact rule name or pattern';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'I understand the protection loss for all tags matching this rule and want to remove this rule.';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'Your session was rejected. Sign in again before reviewing the rule.';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'The rule changed. Reload and confirm the current permissions before removing it.';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload and confirm the rule again.';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'The request could not be confirmed. Reload the rule and confirm again before retrying.';
+
+  @override
+  String get protectedTagUnprotectReload => 'Reload rule';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'The account changed. Close this dialog and reopen it to review the current project.';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      'Tag protection rule removed. No tags were deleted.';
+
+  @override
+  String get protectedBranchForcePushEditTitle => 'Edit force push';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed =>
+      'Force push is currently allowed.';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked =>
+      'Force push is currently blocked.';
+
+  @override
+  String get protectedBranchForcePushAllow => 'Allow force push';
+
+  @override
+  String get protectedBranchForcePushSave => 'Save setting';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      'Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      'Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      'I understand this change for matching branches.';
+
+  @override
+  String get protectedBranchForcePushReload => 'Check rule again';
+
+  @override
+  String get protectedBranchForcePushSuccess => 'Force-push setting updated.';
+
+  @override
+  String get protectedBranchForcePushAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchForcePushForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchForcePushStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchForcePushError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => 'Edit merge access';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return 'Current merge access: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'No one';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'Maintainers';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      'I understand the merge access change for matching branches.';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'Save merge access';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'Check rule again';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'Merge access updated.';
+
+  @override
+  String get protectedBranchMergeRoleAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchMergeRoleForbidden =>
+      'You do not have permission to change merge access.';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchMergeRoleStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'Edit push access';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return 'Current push access: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'No one';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'Maintainers';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      'I understand the push access change for matching branches.';
+
+  @override
+  String get protectedBranchPushRoleSave => 'Save push access';
+
+  @override
+  String get protectedBranchPushRoleReload => 'Check rule again';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'Push access updated.';
+
+  @override
+  String get protectedBranchPushRoleAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchPushRoleForbidden =>
+      'You do not have permission to change push access.';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchPushRoleStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      'Could not confirm this change. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedEnvironmentCreateTitle => 'Protect environment';
+
+  @override
+  String get protectedEnvironmentCreateName => 'Environment name';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => 'Developers + Maintainers';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'Maintainers';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'This protection changes who may deploy to the named environment. Approval rules are not added.';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge =>
+      'I understand the deployment access change.';
+
+  @override
+  String get protectedEnvironmentCreateSave => 'Protect environment';
+
+  @override
+  String get protectedEnvironmentCreateReload => 'Check environments again';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'This environment is already protected. Check the list before continuing.';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      'Could not confirm protection. Check the list before trying again.';
+
+  @override
+  String get protectedEnvironmentCreateForbidden =>
+      'You do not have permission or this feature is unavailable.';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'The account changed. Close this dialog and open it again.';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => 'Environment protected.';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'Enter an exact environment name without wildcards.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => 'Remove deploy role';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      'I understand this removes the selected deployment grant.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => 'Deploy role removed.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'You do not have permission to remove this deploy grant.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'Could not confirm the deploy grant removal. Check the rule before trying again.';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (grant $id)';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => 'Add deploy role';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'I understand this expands deployment access.';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => 'Deploy role added.';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden =>
+      'You do not have permission to change deploy access.';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'Could not confirm the deploy role update. Check the rule before trying again.';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => 'Unprotect environment';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.';
+
+  @override
+  String get protectedEnvironmentUnprotectName =>
+      'Type the exact environment name';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'I understand that these deployment restrictions and approval rules will be removed.';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'Check rule again';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      'You do not have permission to unprotect this environment.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      'Could not confirm removal. Check the rule before trying again.';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess =>
+      'Environment protection removed.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'Access entry';
 
   @override
   String get containerTagDelete => 'Delete tag';
