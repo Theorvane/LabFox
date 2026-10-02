@@ -129,6 +129,74 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get protectedBranchProtectTitle => '保护分支';
+
+  @override
+  String get protectedBranchProtectName => '规则名称';
+
+  @override
+  String get protectedBranchProtectPush => '允许推送';
+
+  @override
+  String get protectedBranchProtectMerge => '允许合并';
+
+  @override
+  String get protectedBranchProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedBranchProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedBranchProtectMaintainers => '维护者';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 的推送和合并权限，并可能影响合并请求、受保护的 CI 变量及作业。';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard => '通配符规则也可能影响将来的分支。请检查准确的模式和两项权限。';
+
+  @override
+  String get protectedBranchProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedBranchProtectSubmit => '保护分支';
+
+  @override
+  String get protectedBranchProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedBranchProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedBranchProtectReload => '重新加载规则';
+
+  @override
+  String get protectedBranchProtectLoadError => '无法验证受保护分支规则。请重新加载。';
+
+  @override
+  String get protectedBranchProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedBranchProtectCreated => '已创建受保护分支规则。';
+
+  @override
+  String get protectedBranchProtectCancel => '取消';
+
+  @override
+  String get protectedBranchProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedBranchProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedBranchProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedBranchProtectUnavailable => '此项目或受保护分支资源不可用。重试前请重新加载。';
+
+  @override
   String get protectedBranchesTitle => '受保护分支';
 
   @override

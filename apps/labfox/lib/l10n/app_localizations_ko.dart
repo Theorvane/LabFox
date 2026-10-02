@@ -138,6 +138,83 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get protectedBranchProtectTitle => '브랜치 보호';
+
+  @override
+  String get protectedBranchProtectName => '규칙 이름';
+
+  @override
+  String get protectedBranchProtectPush => '푸시 허용';
+
+  @override
+  String get protectedBranchProtectMerge => '병합 허용';
+
+  @override
+  String get protectedBranchProtectNoOne => '아무도 없음';
+
+  @override
+  String get protectedBranchProtectDevelopers => '개발자 및 관리자';
+
+  @override
+  String get protectedBranchProtectMaintainers => '관리자';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return '이 규칙은 프로젝트 $projectId의 푸시 및 병합 권한을 변경합니다. 병합 요청, 보호된 CI 변수 및 작업에 영향을 줄 수 있습니다.';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      '와일드카드 규칙은 앞으로 생성할 브랜치에도 적용될 수 있습니다. 정확한 패턴과 두 권한을 확인하세요.';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      '이 규칙이 프로젝트 전체에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchProtectSubmit => '브랜치 보호';
+
+  @override
+  String get protectedBranchProtectExisting => '규칙이 이미 있습니다. 변경 사항이 없습니다.';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      '결과를 확인할 수 없습니다. 다시 시도하기 전에 모든 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectReload => '규칙 새로고침';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      '보호 브랜치 규칙을 확인할 수 없습니다. 다시 불러오세요.';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get protectedBranchProtectCreated => '보호 브랜치 규칙이 생성되었습니다.';
+
+  @override
+  String get protectedBranchProtectCancel => '취소';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      '이 규칙을 생성할 권한이 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      '세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      '프로젝트 또는 보호 브랜치 리소스에 접근할 수 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
   String get protectedBranchesTitle => '보호 브랜치';
 
   @override

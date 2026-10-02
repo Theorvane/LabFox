@@ -144,6 +144,84 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get protectedBranchProtectTitle => 'Protect branch';
+
+  @override
+  String get protectedBranchProtectName => 'Rule name';
+
+  @override
+  String get protectedBranchProtectPush => 'Allowed to push';
+
+  @override
+  String get protectedBranchProtectMerge => 'Allowed to merge';
+
+  @override
+  String get protectedBranchProtectNoOne => 'No one';
+
+  @override
+  String get protectedBranchProtectDevelopers => 'Developers and Maintainers';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'Maintainers';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'This rule changes push and merge access in project $projectId. It can affect merge requests, protected CI variables, and jobs.';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'Wildcard rules may also affect future branches. Check the exact pattern and both permissions.';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'I understand the project-wide effect of this rule.';
+
+  @override
+  String get protectedBranchProtectSubmit => 'Protect branch';
+
+  @override
+  String get protectedBranchProtectExisting =>
+      'Rule already exists. No change was made.';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      'The result is uncertain. Reload all rules before trying again.';
+
+  @override
+  String get protectedBranchProtectReload => 'Reload rules';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      'Could not verify protected branch rules. Try reloading.';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'Your account changed. Close this draft and start again.';
+
+  @override
+  String get protectedBranchProtectCreated => 'Protected branch rule created.';
+
+  @override
+  String get protectedBranchProtectCancel => 'Cancel';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'You do not have permission to create this rule. Reload before trying again.';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'Your session has expired. Sign in again before creating a rule.';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload the rules.';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'This project or protected branch resource is unavailable. Reload before trying again.';
+
+  @override
   String get protectedBranchesTitle => 'Protected branches';
 
   @override
