@@ -79,6 +79,14 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
     _track('mr_rebased');
   });
 
+  Future<void> setSubscription(bool subscribed) => _run((repo) async {
+    await repo.setSubscription(
+      projectId: arg.projectId,
+      iid: arg.iid,
+      subscribed: subscribed,
+    );
+  });
+
   /// Returns false when GitLab reports that a to-do already exists (304).
   Future<bool> createTodo() async {
     var created = false;
