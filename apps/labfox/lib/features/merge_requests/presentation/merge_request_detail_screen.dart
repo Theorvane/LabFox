@@ -108,7 +108,15 @@ class MergeRequestDetailScreen extends ConsumerWidget {
   }
 }
 
-enum _MrAction { close, reopen, rebase, toggleDraft, addTodo }
+enum _MrAction {
+  close,
+  reopen,
+  rebase,
+  toggleDraft,
+  subscribe,
+  unsubscribe,
+  addTodo,
+}
 
 /// The overflow menu on a merge request: close/reopen, rebase, and toggle draft
 /// — the state edits GitLab exposes, offered by the MR's current state.
@@ -123,6 +131,11 @@ class _MrMenu extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final items = <PopupMenuEntry<_MrAction>>[
       PopupMenuItem(value: _MrAction.addTodo, child: Text(l10n.mrAddTodo)),
+      if (mr.subscribed case final subscribed?)
+        PopupMenuItem(
+          value: subscribed ? _MrAction.unsubscribe : _MrAction.subscribe,
+          child: Text(subscribed ? l10n.mrUnsubscribe : l10n.mrSubscribe),
+        ),
       if (mr.isOpen) ...[
         PopupMenuItem(
           value: _MrAction.toggleDraft,
@@ -159,6 +172,10 @@ class _MrMenu extends ConsumerWidget {
           await notifier.rebase();
         case _MrAction.toggleDraft:
           await notifier.setDraft(draft: !mr.isDraft, title: mr.title);
+        case _MrAction.subscribe:
+          await notifier.setSubscription(true);
+        case _MrAction.unsubscribe:
+          await notifier.setSubscription(false);
         case _MrAction.addTodo:
           final created = await notifier.createTodo();
           if (context.mounted) {
@@ -174,7 +191,9 @@ class _MrMenu extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              action == _MrAction.addTodo
+              action == _MrAction.subscribe || action == _MrAction.unsubscribe
+                  ? l10n.mrSubscriptionError
+                  : action == _MrAction.addTodo
                   ? l10n.mrTodoError
                   : l10n.mrActionError,
             ),

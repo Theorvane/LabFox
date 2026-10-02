@@ -1033,6 +1033,15 @@ class AppLocalizationsKo extends AppLocalizations {
   String get issueSubscriptionError => '이슈 알림을 변경할 수 없습니다. 다시 시도하세요.';
 
   @override
+  String get mrSubscribe => '알림 구독';
+
+  @override
+  String get mrUnsubscribe => '알림 구독 해제';
+
+  @override
+  String get mrSubscriptionError => '병합 요청 알림을 변경할 수 없습니다. 다시 시도하세요.';
+
+  @override
   String get issueAddTodo => '할 일에 추가';
 
   @override

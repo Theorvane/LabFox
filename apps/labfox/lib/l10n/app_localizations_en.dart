@@ -1051,6 +1051,16 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not update issue notifications. Please try again.';
 
   @override
+  String get mrSubscribe => 'Subscribe to notifications';
+
+  @override
+  String get mrUnsubscribe => 'Unsubscribe from notifications';
+
+  @override
+  String get mrSubscriptionError =>
+      'Could not update merge request notifications. Please try again.';
+
+  @override
   String get issueAddTodo => 'Add to To-Do';
 
   @override

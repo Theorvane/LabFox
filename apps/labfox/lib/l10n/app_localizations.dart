@@ -2090,6 +2090,24 @@ abstract class AppLocalizations {
   /// **'Could not update issue notifications. Please try again.'**
   String get issueSubscriptionError;
 
+  /// No description provided for @mrSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to notifications'**
+  String get mrSubscribe;
+
+  /// No description provided for @mrUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe from notifications'**
+  String get mrUnsubscribe;
+
+  /// No description provided for @mrSubscriptionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update merge request notifications. Please try again.'**
+  String get mrSubscriptionError;
+
   /// No description provided for @issueAddTodo.
   ///
   /// In en, this message translates to:

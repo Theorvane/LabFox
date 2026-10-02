@@ -1030,6 +1030,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get issueSubscriptionError => 'イシューの通知を変更できません。再試行してください。';
 
   @override
+  String get mrSubscribe => '通知を購読';
+
+  @override
+  String get mrUnsubscribe => '通知の購読を解除';
+
+  @override
+  String get mrSubscriptionError => 'マージリクエストの通知を変更できません。再試行してください。';
+
+  @override
   String get issueAddTodo => 'To-Do に追加';
 
   @override
