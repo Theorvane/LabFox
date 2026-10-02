@@ -2138,6 +2138,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String get wikiNewPage => '新しいページ';
 
   @override
+  String get wikiPagesSection => 'ページ';
+
+  @override
+  String get wikiTemplatesSection => 'テンプレート';
+
+  @override
+  String get wikiTemplateEmpty => 'テンプレートはまだありません。';
+
+  @override
+  String get wikiNewTemplate => '新しいテンプレート';
+
+  @override
+  String get wikiTemplateTitle => 'テンプレートのタイトル';
+
+  @override
+  String get wikiCreateTemplate => 'テンプレートを作成';
+
+  @override
+  String get wikiCreateTemplateError => 'テンプレートを作成できませんでした。';
+
+  @override
   String get wikiPageTitle => 'タイトル';
 
   @override

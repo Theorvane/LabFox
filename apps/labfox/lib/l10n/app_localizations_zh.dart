@@ -2113,6 +2113,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiNewPage => '新建页面';
 
   @override
+  String get wikiPagesSection => '页面';
+
+  @override
+  String get wikiTemplatesSection => '模板';
+
+  @override
+  String get wikiTemplateEmpty => '还没有模板。';
+
+  @override
+  String get wikiNewTemplate => '新建模板';
+
+  @override
+  String get wikiTemplateTitle => '模板标题';
+
+  @override
+  String get wikiCreateTemplate => '创建模板';
+
+  @override
+  String get wikiCreateTemplateError => '无法创建模板。';
+
+  @override
   String get wikiPageTitle => '标题';
 
   @override

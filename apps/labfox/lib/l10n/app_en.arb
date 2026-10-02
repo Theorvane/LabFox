@@ -1583,6 +1583,13 @@
     "description": "Shown when reading a wiki page fails"
   },
   "wikiNewPage": "New page",
+  "wikiPagesSection": "Pages",
+  "wikiTemplatesSection": "Templates",
+  "wikiTemplateEmpty": "No templates yet.",
+  "wikiNewTemplate": "New template",
+  "wikiTemplateTitle": "Template title",
+  "wikiCreateTemplate": "Create template",
+  "wikiCreateTemplateError": "Could not create the template.",
   "wikiPageTitle": "Title",
   "wikiPageContent": "Content",
   "wikiCreatePage": "Create page",

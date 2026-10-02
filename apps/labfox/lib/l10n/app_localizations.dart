@@ -4208,6 +4208,48 @@ abstract class AppLocalizations {
   /// **'New page'**
   String get wikiNewPage;
 
+  /// No description provided for @wikiPagesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Pages'**
+  String get wikiPagesSection;
+
+  /// No description provided for @wikiTemplatesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates'**
+  String get wikiTemplatesSection;
+
+  /// No description provided for @wikiTemplateEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No templates yet.'**
+  String get wikiTemplateEmpty;
+
+  /// No description provided for @wikiNewTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'New template'**
+  String get wikiNewTemplate;
+
+  /// No description provided for @wikiTemplateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Template title'**
+  String get wikiTemplateTitle;
+
+  /// No description provided for @wikiCreateTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create template'**
+  String get wikiCreateTemplate;
+
+  /// No description provided for @wikiCreateTemplateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the template.'**
+  String get wikiCreateTemplateError;
+
   /// No description provided for @wikiPageTitle.
   ///
   /// In en, this message translates to:
