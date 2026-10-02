@@ -23,7 +23,6 @@ class ContainerRegistryScreen extends ConsumerWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.containerRegistryTitle),
         actions: [
           IconButton(
             tooltip: l10n.containerAgeTitle,
@@ -40,6 +39,12 @@ class ContainerRegistryScreen extends ConsumerWidget {
                 );
               }
             },
+          ),
+          IconButton(
+            icon: const Icon(Icons.lock_outline),
+            tooltip: l10n.containerImmutabilityTitle,
+            onPressed: () =>
+                context.push(Routes.containerImmutability(projectId)),
           ),
           IconButton(
             tooltip: l10n.containerCadenceTitle,
@@ -65,6 +70,7 @@ class ContainerRegistryScreen extends ConsumerWidget {
                 context.push(Routes.containerTagProtectionRules(projectId)),
           ),
         ],
+        title: Text(l10n.containerRegistryTitle),
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
