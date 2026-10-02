@@ -70,6 +70,28 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Deletes one tag, not its blobs or the image repository.
+  Future<void> deleteTag(
+    Object projectId,
+    int repositoryId,
+    String tagName,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags/${Uri.encodeComponent(tagName)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a container tag',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a container tag');
+    }
+  }
+
   /// Lists project tag protection rules (available from GitLab 18.7).
   Future<List<ContainerTagProtectionRule>> listTagProtectionRules(
     Object projectId,

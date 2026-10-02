@@ -35,6 +35,42 @@ void main() {
       );
     });
   }
+  test('deletes one encoded tag without deleting its repository', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const {}, body: null);
+    });
+    await client.containerRegistry.deleteTag(
+      'team/project',
+      3,
+      'release/1+test',
+    );
+    expect(request.method, 'DELETE');
+    expect(
+      request.path,
+      '/projects/team%2Fproject/registry/repositories/3/tags/release%2F1%2Btest',
+    );
+    expect(request.data, isNull);
+    expect(request.queryParameters, isEmpty);
+  });
+  for (final status in [200, 202, 401, 403, 404, 429, 500]) {
+    test('maps rejected or unconfirmed tag deletion $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.containerRegistry.deleteTag(7, 3, 'v1'),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   for (final body in [
     null,
     <String, dynamic>{},

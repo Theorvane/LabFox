@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
@@ -15,19 +16,55 @@ final pipelinesRepositoryProvider = FutureProvider<PipelinesRepository?>((
 });
 
 /// Lists a project's pipelines.
-class PipelinesController extends FamilyAsyncNotifier<List<Pipeline>, int> {
+class PipelinesController
+    extends FamilyAsyncNotifier<Paginated<Pipeline>, int> {
+  bool _loadingMore = false;
+  int _generation = 0;
+
   @override
-  Future<List<Pipeline>> build(int projectId) async {
+  Future<Paginated<Pipeline>> build(int projectId) async {
+    _generation++;
+    _loadingMore = false;
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
     if (repo == null) {
       throw StateError('No authenticated account');
     }
     return repo.list(projectId);
   }
+
+  Future<void> loadMore() async {
+    if (_loadingMore || state.isLoading) return;
+    final current = state.valueOrNull;
+    final page = current?.nextPage;
+    if (current == null || page == null) return;
+    final generation = _generation;
+    _loadingMore = true;
+    try {
+      final repo = await ref.read(pipelinesRepositoryProvider.future);
+      if (repo == null) throw StateError('No authenticated account');
+      final next = await repo.list(arg, page: page);
+      if (generation != _generation) return;
+      final items = {for (final item in current.items) item.id: item};
+      for (final item in next.items) {
+        items[item.id] = item;
+      }
+      state = AsyncData(
+        Paginated(
+          items: items.values.toList(growable: false),
+          nextPage: next.nextPage,
+          total: next.total,
+          totalPages: next.totalPages,
+        ),
+      );
+    } finally {
+      // Failure retains rows and the server cursor for the next attempt.
+      if (generation == _generation) _loadingMore = false;
+    }
+  }
 }
 
 final pipelinesControllerProvider =
-    AsyncNotifierProvider.family<PipelinesController, List<Pipeline>, int>(
+    AsyncNotifierProvider.family<PipelinesController, Paginated<Pipeline>, int>(
       PipelinesController.new,
     );
 
@@ -94,11 +131,11 @@ Map<String, List<Job>> groupJobsByStage(List<Job> jobs) {
   return groups;
 }
 
-/// Runs retry / cancel on a pipeline, then refreshes the pipeline and its jobs
+/// Runs retry / cancel, then refreshes the project list, pipeline and its jobs
 /// so the new status comes from the server, not a local guess.
 class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
   @override
-  Future<void> build(PipelineRef arg) async {}
+  void build(PipelineRef arg) {}
 
   Future<void> retry() => _run(
     (repo) => repo.retry(projectId: arg.projectId, pipelineId: arg.pipelineId),
@@ -116,13 +153,15 @@ class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
     Future<void> Function(PipelinesRepository repo) action,
     String event,
   ) async {
-    final repo = await ref.read(pipelinesRepositoryProvider.future);
-    if (repo == null) {
-      throw StateError('No authenticated account');
-    }
+    if (state.isLoading) return;
     state = const AsyncLoading();
     try {
+      final repo = await ref.read(pipelinesRepositoryProvider.future);
+      if (repo == null) {
+        throw StateError('No authenticated account');
+      }
       await action(repo);
+      ref.invalidate(pipelinesControllerProvider(arg.projectId));
       ref.invalidate(pipelineDetailProvider(arg));
       ref.invalidate(pipelineJobsControllerProvider(arg));
       unawaited(ref.read(analyticsProvider).track(event));
