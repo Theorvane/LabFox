@@ -20,6 +20,16 @@ class ContainerRegistryRepository {
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
 
+  Future<ContainerTagProtectionRule> updateTagProtectionPattern(
+    int projectId,
+    int ruleId,
+    String pattern,
+  ) => client.containerRegistry.updateTagProtectionPattern(
+    projectId,
+    ruleId,
+    pattern,
+  );
+
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
