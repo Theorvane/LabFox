@@ -1,4 +1,10 @@
 {
+  "pipelineScheduleEdit": "Edit schedule",
+  "pipelineScheduleSave": "Save",
+  "pipelineScheduleDescription": "Description",
+  "pipelineScheduleFieldRequired": "Enter a value.",
+  "pipelineScheduleEditHint": "GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.",
+  "pipelineScheduleEditError": "Could not update this pipeline schedule. Check your permissions, cron, and time zone.",
   "pipelineScheduleTakeOwnership": "Take ownership",
   "pipelineScheduleOwnershipConfirmTitle": "Take ownership of this schedule?",
   "pipelineScheduleOwnershipConfirmBody": "You will become the owner of \"{name}\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.",

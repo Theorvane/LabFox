@@ -1,4 +1,10 @@
 {
+  "pipelineScheduleEdit": "编辑计划",
+  "pipelineScheduleSave": "保存",
+  "pipelineScheduleDescription": "描述",
+  "pipelineScheduleFieldRequired": "请输入一个值。",
+  "pipelineScheduleEditHint": "GitLab 会验证 cron 表达式和时区。保存将重新安排后续运行；引用、启用状态、变量和输入保持不变。",
+  "pipelineScheduleEditError": "无法更新此流水线计划。请检查权限、cron 表达式和时区。",
   "pipelineScheduleTakeOwnership": "获取所有权",
   "pipelineScheduleOwnershipConfirmTitle": "获取此计划的所有权？",
   "pipelineScheduleOwnershipConfirmBody": "您将成为“{name}”的所有者。计划流水线将使用您的权限运行。需要 Maintainer 或 Owner 角色。",

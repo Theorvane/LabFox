@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => 'शेड्यूल संपादित करें';
+
+  @override
+  String get pipelineScheduleSave => 'सहेजें';
+
+  @override
+  String get pipelineScheduleDescription => 'विवरण';
+
+  @override
+  String get pipelineScheduleFieldRequired => 'कोई मान दर्ज करें।';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab cron अभिव्यक्ति और समय क्षेत्र की जाँच करता है। सहेजने पर भविष्य के रन पुनर्निर्धारित होते हैं; रेफ़, सक्रिय स्थिति, वेरिएबल और इनपुट सुरक्षित रहते हैं।';
+
+  @override
+  String get pipelineScheduleEditError =>
+      'इस पाइपलाइन शेड्यूल को अपडेट नहीं किया जा सका। अनुमतियाँ, cron और समय क्षेत्र जाँचें।';
+
+  @override
   String get pipelineScheduleTakeOwnership => 'स्वामित्व लें';
 
   @override
