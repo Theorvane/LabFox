@@ -24,4 +24,18 @@ class PipelineSchedulesRepository {
 
   Future<void> delete(int projectId, int scheduleId) =>
       client.pipelineSchedules.delete(projectId, scheduleId);
+
+  Future<PipelineSchedule> update(
+    int projectId,
+    int scheduleId, {
+    String? description,
+    String? cron,
+    String? cronTimezone,
+  }) => client.pipelineSchedules.update(
+    projectId,
+    scheduleId,
+    description: description,
+    cron: cron,
+    cronTimezone: cronTimezone,
+  );
 }

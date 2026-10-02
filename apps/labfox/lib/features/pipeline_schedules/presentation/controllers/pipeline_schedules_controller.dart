@@ -184,3 +184,51 @@ final pipelineScheduleDeleteControllerProvider =
       void,
       PipelineScheduleRef
     >(PipelineScheduleDeleteController.new);
+
+class PipelineScheduleEditController
+    extends FamilyAsyncNotifier<void, PipelineScheduleRef> {
+  @override
+  void build(PipelineScheduleRef arg) {}
+
+  Future<void> save({
+    String? description,
+    String? cron,
+    String? cronTimezone,
+  }) async {
+    if (description == null && cron == null && cronTimezone == null) return;
+    if (state.isLoading) return;
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(
+        pipelineSchedulesRepositoryProvider.future,
+      );
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.update(
+        arg.projectId,
+        arg.scheduleId,
+        description: description,
+        cron: cron,
+        cronTimezone: cronTimezone,
+      );
+      ref.invalidate(pipelineScheduleDetailProvider(arg));
+      for (final active in <bool?>[null, true, false]) {
+        ref.invalidate(
+          pipelineScheduleListControllerProvider(
+            PipelineScheduleListRef(projectId: arg.projectId, active: active),
+          ),
+        );
+      }
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final pipelineScheduleEditControllerProvider =
+    AsyncNotifierProvider.family<
+      PipelineScheduleEditController,
+      void,
+      PipelineScheduleRef
+    >(PipelineScheduleEditController.new);
