@@ -1,4 +1,8 @@
 {
+  "pipelineScheduleDelete": "删除计划",
+  "pipelineScheduleDeleteConfirmTitle": "删除此流水线计划？",
+  "pipelineScheduleDeleteConfirmBody": "流水线计划“{name}”将被永久删除。此操作无法撤销。",
+  "pipelineScheduleDeleteError": "无法删除此流水线计划。请检查权限并重试。",
   "releaseScheduleEdit": "编辑发布日期",
   "releaseScheduleChangeDate": "更改日期",
   "releaseScheduleChangeTime": "更改时间",
