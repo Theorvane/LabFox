@@ -6,6 +6,85 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  for (final status in [200, 201]) {
+    test('takes schedule ownership on encoded project $status', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: status,
+          headers: const {},
+          body: {
+            'id': 13,
+            'description': 'Nightly',
+            'ref': 'main',
+            'cron': '0 1 * * *',
+            'active': true,
+            'owner': {'id': 50, 'name': 'New owner'},
+          },
+        );
+      });
+      final schedule = await client.pipelineSchedules.takeOwnership(
+        'team/app',
+        13,
+      );
+      expect(request.method, 'POST');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/pipeline_schedules/13/take_ownership',
+      );
+      expect(request.data, isNull);
+      expect(request.queryParameters, isEmpty);
+      expect(schedule.owner?.name, 'New owner');
+    });
+  }
+  for (final status in [401, 403, 404, 429, 500, 202, 204]) {
+    test('maps rejected ownership response $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.pipelineSchedules.takeOwnership(7, 13),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
+  test(
+    'supports omitted owner metadata and rejects empty successful response',
+    () async {
+      final client = _client(
+        (_) => (
+          status: 201,
+          headers: const {},
+          body: {
+            'id': 13,
+            'description': 'Nightly',
+            'ref': 'main',
+            'cron': '* * * * *',
+            'active': true,
+          },
+        ),
+      );
+      expect(
+        (await client.pipelineSchedules.takeOwnership(7, 13)).owner,
+        isNull,
+      );
+      final empty = _client(
+        (_) => (status: 201, headers: const {}, body: null),
+      );
+      await expectLater(
+        empty.pipelineSchedules.takeOwnership(7, 13),
+        throwsA(isA<GitLabException>()),
+      );
+    },
+  );
+
   test('lists schedules with encoded project path and active scope', () async {
     late RequestOptions request;
     final client = _client((options) {
