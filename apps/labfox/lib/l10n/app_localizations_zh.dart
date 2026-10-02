@@ -9,6 +9,28 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => '创建计划';
+
+  @override
+  String get pipelineScheduleCreateTitle => '新建流水线计划';
+
+  @override
+  String get pipelineScheduleCreateDescription => '描述';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '请输入一个值。';
+
+  @override
+  String get pipelineScheduleCreateActive => '启用';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab 会验证引用、cron 表达式和时区。时区留空时使用 UTC。如果分支和标签同名，请使用完整引用。';
+
+  @override
+  String get pipelineScheduleCreateError => '无法创建此流水线计划。请检查权限、引用、cron 表达式和时区。';
+
+  @override
   String get pipelineScheduleDelete => '删除计划';
 
   @override

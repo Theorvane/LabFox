@@ -9,6 +9,29 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => '스케줄 생성';
+
+  @override
+  String get pipelineScheduleCreateTitle => '새 파이프라인 스케줄';
+
+  @override
+  String get pipelineScheduleCreateDescription => '설명';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '값을 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateActive => '활성';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab에서 실행 대상, cron 식 및 시간대를 검증합니다. 시간대를 비워 두면 UTC를 사용합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
+
+  @override
   String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
