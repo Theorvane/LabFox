@@ -2915,4 +2915,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '新しいコンテナタグパターン';
+
+  @override
+  String get containerTagDelete => 'タグを削除';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'コンテナタグを削除しますか？';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '「$path」のタグ「$tagName」を削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'このタグを削除できません。保護されているか、権限がない可能性があります。';
+
+  @override
+  String get containerTagDeleteError => 'タグを削除できませんでした。再試行してください。';
 }

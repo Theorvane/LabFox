@@ -5575,6 +5575,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New container tag pattern'**
   String get containerTagProtectionPatternDraft;
+
+  /// No description provided for @containerTagDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag'**
+  String get containerTagDelete;
+
+  /// No description provided for @containerTagDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete container tag?'**
+  String get containerTagDeleteConfirmTitle;
+
+  /// Confirmation identifying a registry tag and its image path
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag “{tagName}” at “{path}”? This cannot be undone.'**
+  String containerTagDeleteConfirmBody(String tagName, String path);
+
+  /// No description provided for @containerTagDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.'**
+  String get containerTagDeleteWarning;
+
+  /// No description provided for @containerTagDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this tag. It may be protected or you may not have permission.'**
+  String get containerTagDeleteForbidden;
+
+  /// No description provided for @containerTagDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this tag. Try again.'**
+  String get containerTagDeleteError;
 }
 
 class _AppLocalizationsDelegate

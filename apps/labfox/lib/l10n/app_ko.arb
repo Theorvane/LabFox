@@ -815,5 +815,11 @@
   "containerTagProtectionPatternRateLimited": "요청이 너무 많습니다. 잠시 후 다시 시도하세요.",
   "containerTagProtectionPatternInvalid": "패턴이 거부되었거나 이미 사용 중입니다. 초안을 수정하고 다시 시도하세요.",
   "containerTagProtectionPatternDraft": "새 컨테이너 태그 패턴",
-  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}}
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagDelete": "태그 삭제",
+  "containerTagDeleteConfirmTitle": "컨테이너 태그를 삭제할까요?",
+  "containerTagDeleteConfirmBody": "“{path}”의 “{tagName}” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
+  "containerTagDeleteWarning": "태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.",
+  "containerTagDeleteForbidden": "이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.",
+  "containerTagDeleteError": "태그를 삭제할 수 없습니다. 다시 시도하세요."
 }

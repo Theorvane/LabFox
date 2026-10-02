@@ -2924,4 +2924,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '새 컨테이너 태그 패턴';
+
+  @override
+  String get containerTagDelete => '태그 삭제';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '컨테이너 태그를 삭제할까요?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path”의 “$tagName” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      '이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get containerTagDeleteError => '태그를 삭제할 수 없습니다. 다시 시도하세요.';
 }

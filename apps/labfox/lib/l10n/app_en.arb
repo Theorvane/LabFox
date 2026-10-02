@@ -1832,5 +1832,12 @@
   "containerTagProtectionPatternRateLimited": "Too many requests. Wait and retry.",
   "containerTagProtectionPatternInvalid": "The pattern was rejected or is already taken. Edit the draft and retry.",
   "containerTagProtectionPatternDraft": "New container tag pattern",
-  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}}
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagDelete": "Delete tag",
+  "containerTagDeleteConfirmTitle": "Delete container tag?",
+  "containerTagDeleteConfirmBody": "Delete tag “{tagName}” at “{path}”? This cannot be undone.",
+  "containerTagDeleteWarning": "This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.",
+  "containerTagDeleteForbidden": "You cannot delete this tag. It may be protected or you may not have permission.",
+  "containerTagDeleteError": "Could not delete this tag. Try again.",
+  "@containerTagDeleteConfirmBody": {"description": "Confirmation identifying a registry tag and its image path", "placeholders": {"tagName": {"type": "String"}, "path": {"type": "String"}}}
 }

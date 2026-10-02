@@ -815,5 +815,11 @@
   "containerTagProtectionPatternRateLimited": "要求が多すぎます。しばらく待って再試行してください。",
   "containerTagProtectionPatternInvalid": "パターンが拒否されたか、既に使用されています。下書きを編集して再試行してください。",
   "containerTagProtectionPatternDraft": "新しいコンテナタグパターン",
-  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}}
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagDelete": "タグを削除",
+  "containerTagDeleteConfirmTitle": "コンテナタグを削除しますか？",
+  "containerTagDeleteConfirmBody": "「{path}」のタグ「{tagName}」を削除しますか？この操作は取り消せません。",
+  "containerTagDeleteWarning": "タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。",
+  "containerTagDeleteForbidden": "このタグを削除できません。保護されているか、権限がない可能性があります。",
+  "containerTagDeleteError": "タグを削除できませんでした。再試行してください。"
 }

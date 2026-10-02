@@ -815,5 +815,11 @@
   "containerTagProtectionPatternRateLimited": "请求过多。请稍后重试。",
   "containerTagProtectionPatternInvalid": "模式被拒绝或已被使用。请编辑草稿后重试。",
   "containerTagProtectionPatternDraft": "新容器标签模式",
-  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}}
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagDelete": "删除标签",
+  "containerTagDeleteConfirmTitle": "删除容器标签？",
+  "containerTagDeleteConfirmBody": "删除“{path}”中的标签“{tagName}”？此操作无法撤销。",
+  "containerTagDeleteWarning": "此操作仅删除标签，不会删除底层镜像数据。删除标签不会释放磁盘空间。",
+  "containerTagDeleteForbidden": "无法删除此标签。它可能受保护，或您没有权限。",
+  "containerTagDeleteError": "无法删除此标签。请重试。"
 }

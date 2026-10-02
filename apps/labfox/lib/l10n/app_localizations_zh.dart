@@ -2853,4 +2853,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '新容器标签模式';
+
+  @override
+  String get containerTagDelete => '删除标签';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '删除容器标签？';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '删除“$path”中的标签“$tagName”？此操作无法撤销。';
+  }
+
+  @override
+  String get containerTagDeleteWarning => '此操作仅删除标签，不会删除底层镜像数据。删除标签不会释放磁盘空间。';
+
+  @override
+  String get containerTagDeleteForbidden => '无法删除此标签。它可能受保护，或您没有权限。';
+
+  @override
+  String get containerTagDeleteError => '无法删除此标签。请重试。';
 }

@@ -2999,4 +2999,27 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => 'नया कंटेनर टैग पैटर्न';
+
+  @override
+  String get containerTagDelete => 'टैग हटाएँ';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'कंटेनर टैग हटाएँ?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path” पर टैग “$tagName” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'आप यह टैग नहीं हटा सकते। यह सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।';
+
+  @override
+  String get containerTagDeleteError =>
+      'यह टैग नहीं हटाया जा सका। फिर प्रयास करें।';
 }
