@@ -30,6 +30,21 @@ class AppLocalizationsKo extends AppLocalizations {
       '기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.';
 
   @override
+  String get pipelineScheduleTakeOwnership => '소유권 가져오기';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => '이 스케줄의 소유권을 가져오시겠습니까?';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '\"$name\"의 소유자가 됩니다. 예약 파이프라인은 내 권한으로 실행됩니다. Maintainer 또는 Owner 역할이 필요합니다.';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      '파이프라인 스케줄의 소유권을 가져오지 못했습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get protectedTagsTitle => '보호 태그';
 
   @override

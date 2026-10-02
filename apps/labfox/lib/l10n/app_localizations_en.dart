@@ -31,6 +31,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.';
 
   @override
+  String get pipelineScheduleTakeOwnership => 'Take ownership';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle =>
+      'Take ownership of this schedule?';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return 'You will become the owner of \"$name\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      'Could not take ownership of this pipeline schedule. Check your permissions and try again.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override

@@ -30,6 +30,20 @@ class AppLocalizationsZh extends AppLocalizations {
       '逐一输入现有里程碑的准确标题。群组里程碑的可用性取决于您的 GitLab 套餐。';
 
   @override
+  String get pipelineScheduleTakeOwnership => '获取所有权';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => '获取此计划的所有权？';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '您将成为“$name”的所有者。计划流水线将使用您的权限运行。需要 Maintainer 或 Owner 角色。';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError => '无法获取此流水线计划的所有权。请检查权限并重试。';
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override
