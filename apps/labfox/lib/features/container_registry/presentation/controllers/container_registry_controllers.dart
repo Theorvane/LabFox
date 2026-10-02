@@ -55,19 +55,25 @@ class RegistryTagRef {
 class ContainerRepositoriesController
     extends FamilyAsyncNotifier<Paginated<RegistryRepository>, int> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
-  Future<Paginated<RegistryRepository>> build(int arg) async =>
-      (await _repository(ref)).repositories(arg);
+  Future<Paginated<RegistryRepository>> build(int arg) async {
+    _generation++;
+    _loadingMore = false;
+    return (await _repository(ref)).repositories(arg);
+  }
 
   Future<void> loadMore() async {
-    if (_loadingMore) return;
+    if (_loadingMore || state.isLoading) return;
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
     _loadingMore = true;
+    final generation = _generation;
     try {
       final next = await (await _repository(ref)).repositories(arg, page: page);
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: [...current.items, ...next.items],
@@ -77,9 +83,9 @@ class ContainerRepositoriesController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) state = AsyncError(error, stackTrace);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
@@ -95,21 +101,27 @@ final containerRepositoriesControllerProvider =
 class ContainerTagsController
     extends FamilyAsyncNotifier<Paginated<RegistryTag>, RegistryRef> {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
-  Future<Paginated<RegistryTag>> build(RegistryRef arg) async =>
-      (await _repository(ref)).tags(arg.projectId, arg.repositoryId);
+  Future<Paginated<RegistryTag>> build(RegistryRef arg) async {
+    _generation++;
+    _loadingMore = false;
+    return (await _repository(ref)).tags(arg.projectId, arg.repositoryId);
+  }
 
   Future<void> loadMore() async {
-    if (_loadingMore) return;
+    if (_loadingMore || state.isLoading) return;
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
     _loadingMore = true;
+    final generation = _generation;
     try {
       final next = await (await _repository(
         ref,
       )).tags(arg.projectId, arg.repositoryId, page: page);
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: [...current.items, ...next.items],
@@ -119,9 +131,9 @@ class ContainerTagsController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) state = AsyncError(error, stackTrace);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
