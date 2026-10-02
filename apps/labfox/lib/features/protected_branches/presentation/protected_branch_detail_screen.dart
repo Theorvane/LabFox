@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_branches_controller.dart';
+import 'widgets/protected_branch_force_push_dialog.dart';
+import 'widgets/protected_branch_merge_role_dialog.dart';
+import 'widgets/protected_branch_push_role_dialog.dart';
 
 /// One rule, restorable from its project and branch name.
 class ProtectedBranchDetailScreen extends ConsumerWidget {
@@ -55,7 +58,73 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
-              final settings = _Settings(rule: data);
+              final settings = _Settings(
+                rule: data,
+                onEditPushRole: editableProtectedBranchPushAccess(data) == null
+                    ? null
+                    : () async {
+                        final changed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchPushRoleDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (changed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchPushRoleSuccess,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                onEditMergeRole:
+                    editableProtectedBranchMergeAccess(data) == null
+                    ? null
+                    : () async {
+                        final changed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchMergeRoleDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (changed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchMergeRoleSuccess,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                onEditForcePush: data.inherited == true
+                    ? null
+                    : () async {
+                        final changed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchForcePushDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (changed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchForcePushSuccess,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+              );
               final access = Column(
                 children: [
                   _AccessCard(
@@ -108,9 +177,17 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
 }
 
 class _Settings extends StatelessWidget {
-  const _Settings({required this.rule});
+  const _Settings({
+    required this.rule,
+    required this.onEditForcePush,
+    required this.onEditMergeRole,
+    required this.onEditPushRole,
+  });
 
   final ProtectedBranch rule;
+  final VoidCallback? onEditForcePush;
+  final VoidCallback? onEditMergeRole;
+  final VoidCallback? onEditPushRole;
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +213,30 @@ class _Settings extends StatelessWidget {
               label: l10n.protectedBranchCodeOwnerApproval,
               enabled: rule.codeOwnerApprovalRequired,
             ),
+            if (onEditForcePush != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                key: const ValueKey('protected-branch-force-push-edit'),
+                onPressed: onEditForcePush,
+                child: Text(l10n.protectedBranchForcePushEditTitle),
+              ),
+            ],
+            if (onEditMergeRole != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                key: const ValueKey('protected-branch-merge-role-edit'),
+                onPressed: onEditMergeRole,
+                child: Text(l10n.protectedBranchMergeRoleEditTitle),
+              ),
+            ],
+            if (onEditPushRole != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                key: const ValueKey('protected-branch-push-role-edit'),
+                onPressed: onEditPushRole,
+                child: Text(l10n.protectedBranchPushRoleEditTitle),
+              ),
+            ],
           ],
         ),
       ),

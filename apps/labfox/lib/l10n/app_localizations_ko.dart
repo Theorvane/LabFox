@@ -401,6 +401,17 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
 
   @override
+  String get releaseAssetDirectPath => '새 직접 다운로드 경로 (선택 사항)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '비워두면 현재 직접 다운로드 경로를 유지합니다. 변경하려면 /bin/app.zip 같은 경로를 입력하세요.';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      '호스트, 쿼리, 프래그먼트 없이 /로 시작하는 경로를 입력하세요.';
+
+  @override
   String get releaseAssetType => '링크 유형';
 
   @override
@@ -2036,4 +2047,412 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get packageLoadMore => '더 보기';
+
+  @override
+  String get protectedTagUnprotectTitle => '태그 보호 규칙 해제';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return '프로젝트 $projectId — 규칙 $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      '저장소 태그 보호 규칙을 제거합니다. 태그는 삭제되지 않습니다. 와일드카드는 현재 및 향후 여러 태그에 영향을 줄 수 있습니다. 보호 해제로 더 많은 사용자가 일치하는 태그를 만들거나 삭제할 수 있으며 태그 파이프라인과 작업의 접근 권한도 바뀔 수 있습니다. 다른 일치 규칙이 태그를 계속 보호할 수 있으며 실제 접근 권한은 GitLab이 결정합니다. 아래의 현재 생성 권한을 검토하세요.';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\n역할 수준: $role; 사용자 ID: $user; 그룹 ID: $group; 배포 키 ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '보고되지 않음';
+
+  @override
+  String get protectedTagUnprotectName => '정확한 규칙 이름 또는 패턴을 다시 입력하세요';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      '이 규칙에 일치하는 모든 태그의 보호가 해제됨을 이해하며 이 규칙을 제거하겠습니다.';
+
+  @override
+  String get protectedTagUnprotectAuth => '세션이 거부되었습니다. 다시 로그인한 뒤 규칙을 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab이 보호 해제 권한을 거부했습니다. Maintainer 또는 Owner 역할이 필요합니다.';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      '규칙이 없거나 비공개이거나 이 인스턴스에서 사용할 수 없습니다. 새로 불러와 확인하세요. 다른 규칙은 제거되지 않습니다.';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      '규칙이 변경되었습니다. 새로 불러와 현재 권한을 확인한 뒤 제거하세요.';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab이 요청 횟수를 제한하고 있습니다. 잠시 기다린 뒤 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectError =>
+      '요청 결과를 확인할 수 없습니다. 재시도 전에 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectReload => '규칙 다시 불러오기';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      '태그 보호 규칙이 제거되었습니다. 태그는 삭제되지 않았습니다.';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '강제 푸시 수정';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '현재 강제 푸시가 허용됩니다.';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '현재 강제 푸시가 차단됩니다.';
+
+  @override
+  String get protectedBranchForcePushAllow => '강제 푸시 허용';
+
+  @override
+  String get protectedBranchForcePushSave => '설정 저장';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '강제 푸시를 허용하면 일치하는 브랜치의 기록을 다시 쓸 수 있습니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '강제 푸시를 차단하면 일치하는 브랜치에서 구성원의 작업 방식이 바뀝니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      '일치하는 브랜치에 미치는 이 변경의 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchForcePushReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchForcePushSuccess => '강제 푸시 설정을 변경했습니다.';
+
+  @override
+  String get protectedBranchForcePushAuth => '이 규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchForcePushForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushError =>
+      '변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => '병합 권한 편집';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '현재 병합 권한: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => '없음';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      '병합 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 와일드카드는 여러 브랜치와 병합 요청 작업에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      '일치하는 브랜치의 병합 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleSave => '병합 권한 저장';
+
+  @override
+  String get protectedBranchMergeRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => '병합 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => '병합 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '푸시 권한 편집';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '현재 푸시 권한: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '없음';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '푸시 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 직접 커밋할 수 있는 사람이 달라지고, 강제 푸시가 허용된 경우 기록을 다시 쓸 수 있는 사람도 달라질 수 있습니다. 와일드카드는 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      '일치하는 브랜치의 푸시 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchPushRoleSave => '푸시 권한 저장';
+
+  @override
+  String get protectedBranchPushRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '푸시 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchPushRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '푸시 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateName => '환경 이름';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '개발자 + 유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      '이 보호 규칙은 지정한 환경에 배포할 수 있는 사람을 변경합니다. 승인 규칙은 추가되지 않습니다.';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '배포 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSave => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateReload => '환경 목록 다시 확인';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      '이 환경은 이미 보호되어 있습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      '보호 설정을 확인할 수 없습니다. 다시 시도하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '권한이 없거나 이 기능을 사용할 수 없습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '환경이 보호되었습니다.';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => '배포 역할 제거';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '이 권한을 제거하면 선택한 역할이 배포하지 못할 수 있습니다. 다른 배포 권한과 승인 규칙은 유지되며 환경은 계속 보호됩니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      '선택한 배포 권한이 제거되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '배포 역할이 제거되었습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      '이 배포 권한을 제거할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      '배포 권한 제거를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (권한 $id)';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => '배포 역할 추가';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '선택한 역할에 배포 권한이 부여됩니다. 기존 배포 권한과 승인 규칙은 유지됩니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      '배포 권한이 확대되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '배포 역할이 추가되었습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '배포 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      '배포 역할 변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '환경 보호 해제';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '이 프로젝트 보호 규칙을 해제하면 아래의 모든 배포 허용 항목과 승인 규칙이 제거됩니다. 환경과 이전 배포는 유지됩니다. 그룹 보호 규칙은 계속 적용될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '정확한 환경 이름 입력';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      '이 배포 제한과 승인 규칙이 제거됨을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '규칙 다시 확인';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '규칙을 변경하기 전에 다시 로그인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      '이 환경의 보호를 해제할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      '보호 해제를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '환경 보호가 해제되었습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '접근 항목';
 }
