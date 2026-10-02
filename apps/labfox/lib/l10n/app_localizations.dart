@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleExecutionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit execution settings'**
+  String get pipelineScheduleExecutionEdit;
+
+  /// No description provided for @pipelineScheduleExecutionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleExecutionSave;
+
+  /// No description provided for @pipelineScheduleExecutionActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineScheduleExecutionActive;
+
+  /// No description provided for @pipelineScheduleExecutionRefRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a ref.'**
+  String get pipelineScheduleExecutionRefRequired;
+
+  /// No description provided for @pipelineScheduleExecutionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.'**
+  String get pipelineScheduleExecutionHint;
+
+  /// No description provided for @pipelineScheduleExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update execution settings. Check your permissions and ref, then try again.'**
+  String get pipelineScheduleExecutionError;
+
   /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
