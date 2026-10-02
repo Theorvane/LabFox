@@ -79,6 +79,98 @@ void main() {
       );
     });
   }
+  for (final body in [
+    null,
+    <String, dynamic>{},
+    [null],
+    [{}],
+    [
+      {'id': 2, 'project_id': 7, 'tag_name_pattern': false},
+    ],
+  ]) {
+    test('malformed tag rule list becomes a safe domain error $body', () async {
+      final client = _client(
+        (_) => (status: 200, headers: const {}, body: body),
+      );
+      await expectLater(
+        client.containerRegistry.listTagProtectionRules(7),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+  test('only HTTP 200 is a successful tag rule read', () async {
+    final client = _client((_) => (status: 204, headers: const {}, body: []));
+    await expectLater(
+      client.containerRegistry.listTagProtectionRules(7),
+      throwsA(
+        isA<GitLabServerException>().having((e) => e.statusCode, 'status', 204),
+      ),
+    );
+  });
+  test('maps tag rule transport errors without leaking Dio', () async {
+    final client = _client(
+      (options) => throw DioException(
+        requestOptions: options,
+        type: DioExceptionType.connectionError,
+      ),
+    );
+    await expectLater(
+      client.containerRegistry.listTagProtectionRules(7),
+      throwsA(isA<GitLabConnectionException>()),
+    );
+  });
+  test('lists tag protection rules using an encoded project path', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: [
+          {
+            'id': 2,
+            'project_id': 7,
+            'tag_name_pattern': 'v*-release',
+            'minimum_access_level_for_push': null,
+            'minimum_access_level_for_delete': 'owner',
+          },
+        ],
+      );
+    });
+    final rules = await client.containerRegistry.listTagProtectionRules(
+      'team/project',
+    );
+    expect(request.method, 'GET');
+    expect(
+      request.path,
+      '/projects/team%2Fproject/registry/protection/tag/rules',
+    );
+    expect(request.queryParameters, isEmpty);
+    expect(rules.single.tagNamePattern, 'v*-release');
+    expect(rules.single.minimumAccessLevelForPush, isNull);
+    expect(rules.single.minimumAccessLevelForDelete, 'owner');
+  });
+  test('empty protection rules remain an empty list', () async {
+    final client = _client((_) => (status: 200, headers: const {}, body: []));
+    expect(await client.containerRegistry.listTagProtectionRules(7), isEmpty);
+  });
+  for (final status in [401, 403, 404, 429, 500]) {
+    test('maps rejected protection rule reads $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.containerRegistry.listTagProtectionRules(7),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('lists image repositories with pagination', () async {
     late RequestOptions request;
     final client = _client((options) {
