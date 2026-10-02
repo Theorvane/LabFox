@@ -293,6 +293,36 @@ class ReleaseAssetLinkDeleteController
   }
 }
 
+class ReleaseMilestonesController
+    extends FamilyAsyncNotifier<void, ReleaseRef> {
+  @override
+  Future<void> build(ReleaseRef arg) async {}
+
+  Future<void> save(List<String> titles) async {
+    state = const AsyncLoading();
+    try {
+      final repository = await ref.read(releasesRepositoryProvider.future);
+      if (repository == null) throw StateError('No authenticated account');
+      await repository.updateMilestones(
+        arg.projectId,
+        arg.tagName,
+        List.of(titles),
+      );
+      ref.invalidate(releaseDetailProvider(arg));
+      ref.invalidate(releaseListControllerProvider(arg.projectId));
+      state = const AsyncData(null);
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final releaseMilestonesControllerProvider =
+    AsyncNotifierProvider.family<ReleaseMilestonesController, void, ReleaseRef>(
+      ReleaseMilestonesController.new,
+    );
+
 final releaseAssetLinkDeleteControllerProvider =
     AsyncNotifierProvider.family<
       ReleaseAssetLinkDeleteController,

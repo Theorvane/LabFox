@@ -9,6 +9,7 @@ import '../../../app/router.dart';
 import '../../../core/ui/link_opener.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/releases_controller.dart';
+import 'widgets/release_milestones_dialog.dart';
 import 'widgets/release_schedule_dialog.dart';
 
 /// Release notes and published assets, restorable from a project and tag.
@@ -93,6 +94,19 @@ class ReleaseDetailScreen extends ConsumerWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (_) => _EditReleaseDialog(
+                  keyRef: key,
+                  release: release.valueOrNull!,
+                ),
+              ),
+            ),
+          if (release.valueOrNull != null)
+            IconButton(
+              tooltip: l10n.releaseMilestonesEdit,
+              icon: const Icon(Icons.flag_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => ReleaseMilestonesDialog(
                   keyRef: key,
                   release: release.valueOrNull!,
                 ),
@@ -287,6 +301,18 @@ class _Metadata extends StatelessWidget {
           Text(release.name, style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: LabFoxSpacing.sm),
           Text(release.tagName),
+          if (release.milestones.isNotEmpty) ...[
+            const SizedBox(height: LabFoxSpacing.sm),
+            Text(AppLocalizations.of(context).releaseMilestonesTitle),
+            Wrap(
+              spacing: LabFoxSpacing.sm,
+              runSpacing: LabFoxSpacing.sm,
+              children: [
+                for (final milestone in release.milestones)
+                  Chip(label: Text(milestone.title)),
+              ],
+            ),
+          ],
           if (release.releasedAt != null) ...[
             const SizedBox(height: LabFoxSpacing.sm),
             Text(
