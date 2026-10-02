@@ -828,6 +828,26 @@
   "containerImmutabilityForbidden": "イミュータブルタグのルールを表示する権限がありません。",
   "containerImmutabilityUnavailable": "プロジェクトまたはルール一覧を利用できません。アクセス権、サブスクリプション、インスタンスの対応状況を確認してください。",
   "containerImmutabilityHint": "イミュータブルタグにはUltimateと対応するレジストリが必要です。パターンはプロジェクトのすべてのコンテナリポジトリに適用され、クリーンアップポリシーを含め、一致するタグの上書きと削除を防ぎます。ルールの表示だけでは個々のタグの現在の保護状態は確認できません。変更の反映には時間がかかる場合があります。",
+  "containerImmutabilityCreateTitle": "不変ルールを作成",
+  "containerImmutabilityCreateButton": "ルールを作成",
+  "containerImmutabilityCreated": "不変ルールを作成しました。",
+  "containerImmutabilityPattern": "タグパターン",
+  "containerImmutabilityPatternHint": "100文字以内のRE2パターンを入力してください。空白は保持され、構文はGitLabが検証します。",
+  "containerImmutabilityProject": "プロジェクト {projectId}",
+  "containerImmutabilityImpact": "Owner権限、Ultimate、対応レジストリが必要です。このパターンはプロジェクト内のすべてのコンテナリポジトリに適用されます。一致するタグはクリーンアップポリシーでも上書きや削除ができません。不変ルールが存在する間、マニフェストの直接削除も禁止されます。ルールは編集できず、変更の反映には時間がかかる場合があります。",
+  "containerImmutabilityAcknowledge": "プロジェクト全体の保護とワークフローへの影響を理解しました。",
+  "containerImmutabilityUncertain": "作成結果を確認できません。既に成功している可能性があるため、再試行前に現在のルールを確認してください。",
+  "containerImmutabilityInspect": "現在のルールを確認",
+  "containerImmutabilityRejected": "GitLabが要求を拒否したか、同じパターンの不変ルールが既に存在します。現在のルール、パターン、プロジェクトの制限を確認してください。",
+  "containerImmutabilityAuth": "セッションが拒否されました。ルールを作成する前に再度サインインしてください。",
+  "containerImmutabilityAccountChanged": "アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。",
+  "@containerImmutabilityProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerImmutabilityDeleteTitle": "不変ルールを削除",
   "containerImmutabilityDeleteButton": "ルールを削除",
   "containerImmutabilityDeleteDone": "不変ルールを削除しました。",

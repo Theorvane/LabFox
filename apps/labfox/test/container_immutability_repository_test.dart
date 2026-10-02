@@ -11,6 +11,87 @@ Map<String, dynamic> node(String id, bool immutable) => {
   'immutable': immutable,
 };
 void main() {
+  test('a changed session during preflight cannot send the mutation', () async {
+    var current = true;
+    final repository = create((r) {
+      if (r.method == 'GET') {
+        current = false;
+        return {'id': 7, 'name': 'App', 'path_with_namespace': 'team/app'};
+      }
+      if (r.data['operationName'] != 'ContainerImmutabilityRules') {
+        fail('A stale session cannot write');
+      }
+      return page([]);
+    });
+    await expectLater(
+      repository.createImmutableTagRule(7, '^v.*', isCurrent: () => current),
+      throwsStateError,
+    );
+  });
+  test(
+    'creation resolves project identity and preserves exact regex in one mutation',
+    () async {
+      var writes = 0;
+      final repository = create((r) {
+        if (r.method == 'GET') {
+          return {'id': 7, 'name': 'App', 'path_with_namespace': 'team/app'};
+        }
+        if (r.data['operationName'] == 'ContainerImmutabilityRules') {
+          return page([]);
+        }
+        writes++;
+        expect(r.data['variables']['input']['projectPath'], 'team/app');
+        expect(r.data['variables']['input']['tagNamePattern'], r' ^v\d+$ ');
+        return {
+          'data': {
+            'createContainerProtectionTagRule': {
+              'errors': [],
+              'containerProtectionTagRule': {
+                'id': 'opaque',
+                'tagNamePattern': r' ^v\d+$ ',
+                'immutable': true,
+              },
+            },
+          },
+        };
+      });
+      final result = await repository.createImmutableTagRule(7, r' ^v\d+$ ');
+      expect(result.tagNamePattern, r' ^v\d+$ ');
+      expect(writes, 1);
+    },
+  );
+  test('duplicate immutable pattern preflight never writes', () async {
+    final repository = create((r) {
+      if (r.method == 'GET') {
+        return {'id': 7, 'name': 'App', 'path_with_namespace': 'team/app'};
+      }
+      expect(r.data['operationName'], 'ContainerImmutabilityRules');
+      return page([node('existing', true)]);
+    });
+    await expectLater(
+      repository.createImmutableTagRule(7, 'existing'),
+      throwsA(isA<GitLabConflictException>()),
+    );
+  });
+  test('project mismatch after preflight never writes', () async {
+    var gets = 0;
+    final repository = create((r) {
+      if (r.method == 'GET') {
+        return {
+          'id': ++gets == 1 ? 7 : 8,
+          'name': 'App',
+          'path_with_namespace': 'team/app',
+        };
+      }
+      expect(r.data['operationName'], 'ContainerImmutabilityRules');
+      return page([]);
+    });
+    await expectLater(
+      repository.createImmutableTagRule(7, '^v.*'),
+      throwsA(isA<GitLabServerException>()),
+    );
+    expect(gets, 2);
+  });
   test(
     'resolves ID once and scans non-immutable pages before collecting rules',
     () async {

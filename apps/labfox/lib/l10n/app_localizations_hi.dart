@@ -3046,6 +3046,54 @@ class AppLocalizationsHi extends AppLocalizations {
       'अपरिवर्तनीय टैग के लिए Ultimate और समर्थित रजिस्ट्री आवश्यक हैं। ये पैटर्न प्रोजेक्ट की सभी कंटेनर रिपॉज़िटरी पर लागू होते हैं और सफ़ाई नीतियों सहित मेल खाने वाले टैग को ओवरराइट करने या हटाने से रोकते हैं। नियम देखना किसी टैग की वर्तमान सुरक्षा की पुष्टि नहीं करता। बदलाव लागू होने में समय लग सकता है।';
 
   @override
+  String get containerImmutabilityCreateTitle => 'अपरिवर्तनीय नियम बनाएँ';
+
+  @override
+  String get containerImmutabilityCreateButton => 'नियम बनाएँ';
+
+  @override
+  String get containerImmutabilityCreated => 'अपरिवर्तनीय नियम बनाया गया।';
+
+  @override
+  String get containerImmutabilityPattern => 'टैग पैटर्न';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      'अधिकतम 100 अक्षरों का RE2 पैटर्न दर्ज करें। रिक्त स्थान सुरक्षित रहते हैं; GitLab सिंटैक्स की जाँच करता है।';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'Owner पहुँच, Ultimate और समर्थित रजिस्ट्री आवश्यक हैं। पैटर्न इस प्रोजेक्ट के सभी कंटेनर रिपॉज़िटरी पर लागू होता है। मेल खाने वाले टैग को क्लीनअप नीतियों से भी ओवरराइट या हटाया नहीं जा सकता। कोई भी अपरिवर्तनीय नियम मौजूद रहने तक मैनिफेस्ट को सीधे हटाना भी अवरुद्ध रहता है। नियम संपादित नहीं किए जा सकते; बदलाव लागू होने में समय लग सकता है।';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      'मैं पूरे प्रोजेक्ट की सुरक्षा और वर्कफ़्लो पर प्रभाव समझता हूँ।';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      'नियम बनने की पुष्टि नहीं हुई। अनुरोध पहले ही सफल हो सकता है; फिर से प्रयास करने से पहले वर्तमान नियम जाँचें।';
+
+  @override
+  String get containerImmutabilityInspect => 'वर्तमान नियम जाँचें';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLab ने अनुरोध अस्वीकार किया, या इस पैटर्न का अपरिवर्तनीय नियम पहले से मौजूद है। वर्तमान नियम, पैटर्न और प्रोजेक्ट सीमाएँ जाँचें।';
+
+  @override
+  String get containerImmutabilityAuth =>
+      'सत्र अस्वीकार कर दिया गया। नियम बनाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      'खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।';
+
+  @override
   String get containerImmutabilityDeleteTitle => 'अपरिवर्तनीय नियम हटाएँ';
 
   @override
