@@ -9,6 +9,26 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => 'Edit release date';
+
+  @override
+  String get releaseScheduleChangeDate => 'Change date';
+
+  @override
+  String get releaseScheduleChangeTime => 'Change time';
+
+  @override
+  String get releaseScheduleSave => 'Save release date';
+
+  @override
+  String get releaseScheduleError => 'Could not update the release date.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return 'Times use your device time zone ($zone). A future date schedules an upcoming release.';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'Edit schedule';
 
   @override
@@ -373,6 +393,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => 'Last pipeline';
+
+  @override
+  String get pipelineScheduleHistoryTitle => 'Execution history';
+
+  @override
+  String get pipelineScheduleHistoryEmpty =>
+      'No pipelines have run for this schedule yet.';
+
+  @override
+  String get pipelineScheduleHistoryError =>
+      'Could not load execution history.';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1613,6 +1644,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pipelinesEmpty => 'No pipelines yet.';
 
   @override
+  String get pipelinesLoadMore => 'Load more';
+
+  @override
+  String get pipelinesLoadMoreError => 'Could not load more pipelines.';
+
+  @override
   String get pipelineError => 'Could not load this pipeline.';
 
   @override
@@ -2316,6 +2353,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get packageRegistryTitle => 'Package registry';
 
   @override
+  String get packageDelete => 'Delete package';
+
+  @override
+  String get packageDeleteConfirmTitle => 'Delete this package?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return 'Delete $name and all its files? This cannot be undone.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'If request forwarding is enabled, deleting this package can create a dependency confusion risk.';
+
+  @override
+  String get packageDeleteError =>
+      'Could not delete this package. Please try again.';
+
+  @override
+  String get packageDeleteForbidden =>
+      'This package may be protected, or you may not have permission to delete it.';
+
+  @override
   String get packageRegistryEmpty => 'No packages yet.';
 
   @override
@@ -2942,6 +3002,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => 'New container tag pattern';
+
+  @override
+  String get containerTagDelete => 'Delete tag';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'Delete container tag?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return 'Delete tag “$tagName” at “$path”? This cannot be undone.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'You cannot delete this tag. It may be protected or you may not have permission.';
+
+  @override
+  String get containerTagDeleteError => 'Could not delete this tag. Try again.';
 
   @override
   String get containerActivationIncomplete =>
