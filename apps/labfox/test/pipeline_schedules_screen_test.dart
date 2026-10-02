@@ -141,6 +141,12 @@ void main() {
     expect(find.text('Execution history'), findsOneWidget);
     expect(find.text('Pipeline #331'), findsOneWidget);
     expect(repository.historyCount, 1);
+    await tester.tap(find.byTooltip('Edit schedule'));
+    await tester.pumpAndSettle();
+    expect(find.text('Nightly build').last, findsOneWidget);
+    expect(find.widgetWithText(TextFormField, '0 1 * * *'), findsOneWidget);
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Run now'));
     await tester.pumpAndSettle();
     expect(repository.playCount, 1);

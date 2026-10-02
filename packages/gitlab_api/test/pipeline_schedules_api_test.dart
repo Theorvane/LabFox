@@ -72,6 +72,55 @@ void main() {
       );
     });
   }
+  test('updates only supplied schedule fields on encoded project', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: <String, List<String>>{},
+        body: {
+          'id': 13,
+          'description': 'Weekly',
+          'ref': 'main',
+          'cron': '0 1 * * *',
+          'active': true,
+        },
+      );
+    });
+    final result = await client.pipelineSchedules.update(
+      'team/app',
+      13,
+      description: 'Weekly',
+    );
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fapp/pipeline_schedules/13');
+    expect(request.data, {'description': 'Weekly'});
+    expect(result.description, 'Weekly');
+    await client.pipelineSchedules.update(
+      7,
+      13,
+      cron: '0 2 * * *',
+      cronTimezone: 'America/New_York',
+    );
+    expect(request.data, {
+      'cron': '0 2 * * *',
+      'cron_timezone': 'America/New_York',
+    });
+  });
+
+  for (final status in [400, 403, 422]) {
+    test('maps rejected schedule update $status to a domain error', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.pipelineSchedules.update(7, 13, cron: 'invalid'),
+        throwsA(isA<GitLabException>()),
+      );
+    });
+  }
+
   for (final status in [200, 201]) {
     test('takes schedule ownership on encoded project $status', () async {
       late RequestOptions request;

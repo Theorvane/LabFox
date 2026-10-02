@@ -33,6 +33,7 @@ abstract class MergeRequest with _$MergeRequest {
     @JsonKey(name: 'merge_status') String? mergeStatus,
     @JsonKey(name: 'detailed_merge_status') String? detailedMergeStatus,
     @JsonKey(name: 'user_notes_count') @Default(0) int commentCount,
+    bool? subscribed,
     @JsonKey(name: 'web_url') String? webUrl,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
