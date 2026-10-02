@@ -391,6 +391,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get releaseAssetEditError => 'アセットリンクを更新できませんでした。';
 
   @override
+  String get releaseAssetDirectPath => '新しい直接ダウンロードパス（任意）';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '空欄の場合は現在の直接ダウンロードパスを維持します。変更するには /bin/app.zip などのパスを入力してください。';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'ホスト、クエリ、フラグメントを含まない、/ で始まるパスを入力してください。';
+
+  @override
   String get releaseAssetType => 'リンクの種類';
 
   @override
@@ -2022,6 +2033,410 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'さらに読み込む';
+
+  @override
+  String get protectedTagUnprotectTitle => 'タグ保護ルールを解除';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'プロジェクト $projectId — ルール $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'リポジトリのタグ保護ルールを削除します。タグは削除されません。ワイルドカードは既存と今後の多くのタグに影響する場合があります。保護の解除により、一致するタグを作成・削除できるユーザーが増え、タグのパイプラインやジョブへのアクセスが変わる可能性があります。他の一致ルールで保護が続く場合もあり、実際のアクセスはGitLabが決定します。以下の現在の作成権限を確認してください。';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nロールレベル: $role; ユーザーID: $user; グループID: $group; デプロイキーID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '未報告';
+
+  @override
+  String get protectedTagUnprotectName => 'ルール名またはパターンを正確に再入力';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'このルールに一致するすべてのタグの保護が失われることを理解し、このルールを削除します。';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'セッションが拒否されました。再ログインしてからルールを確認してください。';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLabが保護解除を拒否しました。MaintainerまたはOwnerのロールが必要です。';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'ルールが存在しない、非公開、またはこのインスタンスで利用できません。再読み込みしてください。他のルールは削除されません。';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'ルールが変更されました。再読み込みし、現在の権限を確認してから削除してください。';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLabがリクエストを制限しています。しばらく待ち、ルールを再読み込みして確認してください。';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'リクエストの結果を確認できませんでした。再試行前にルールを再読み込みして確認してください。';
+
+  @override
+  String get protectedTagUnprotectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直し、現在のプロジェクトを確認してください。';
+
+  @override
+  String get protectedTagUnprotectAccepted => 'タグ保護ルールを削除しました。タグは削除されていません。';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '強制プッシュを編集';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '現在、強制プッシュは許可されています。';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '現在、強制プッシュは禁止されています。';
+
+  @override
+  String get protectedBranchForcePushAllow => '強制プッシュを許可';
+
+  @override
+  String get protectedBranchForcePushSave => '設定を保存';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '強制プッシュを許可すると、対象ブランチの履歴を書き換えられます。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '強制プッシュを禁止すると、対象ブランチでの作業方法が変わります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchForcePushAcknowledge => '対象ブランチへの変更の影響を理解しました。';
+
+  @override
+  String get protectedBranchForcePushReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchForcePushSuccess => '強制プッシュ設定を更新しました。';
+
+  @override
+  String get protectedBranchForcePushAuth => 'このルールを変更するには再度サインインしてください。';
+
+  @override
+  String get protectedBranchForcePushForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchForcePushStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab がリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchForcePushError => '変更を確認できません。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => 'マージ権限を編集';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '現在のマージ権限: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'なし';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'メンテナー';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'マージ権限の変更は、このルールに一致するすべてのブランチに影響します。ワイルドカードは複数のブランチとマージリクエストの作業に影響する場合があります。';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      '一致するブランチのマージ権限が変更されることを理解しました。';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'マージ権限を保存';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'マージ権限を更新しました。';
+
+  @override
+  String get protectedBranchMergeRoleAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => 'マージ権限を変更する権限がありません。';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLabがリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      '変更を確認できませんでした。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'プッシュ権限を編集';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '現在のプッシュ権限: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'なし';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'メンテナー';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'プッシュ権限の変更は、このルールに一致するすべてのブランチに影響します。直接コミットできる人が変わり、強制プッシュが許可されている場合は履歴を書き換えられる人も変わる可能性があります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      '一致するブランチのプッシュ権限が変更されることを理解しました。';
+
+  @override
+  String get protectedBranchPushRoleSave => 'プッシュ権限を保存';
+
+  @override
+  String get protectedBranchPushRoleReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'プッシュ権限を更新しました。';
+
+  @override
+  String get protectedBranchPushRoleAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedBranchPushRoleForbidden => 'プッシュ権限を変更する権限がありません。';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchPushRoleStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLabがリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchPushRoleError => '変更を確認できませんでした。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '環境を保護';
+
+  @override
+  String get protectedEnvironmentCreateName => '環境名';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '開発者とメンテナー';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'メンテナー';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'この保護設定は指定した環境にデプロイできるユーザーを変更します。承認ルールは追加されません。';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => 'デプロイ権限の変更を理解しました。';
+
+  @override
+  String get protectedEnvironmentCreateSave => '環境を保護';
+
+  @override
+  String get protectedEnvironmentCreateReload => '環境一覧を再確認';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'この環境はすでに保護されています。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      '保護を確認できませんでした。再試行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '権限がないか、この機能を利用できません。';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直してください。';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '環境を保護しました。';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'ワイルドカードを含まない正確な環境名を入力してください。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => 'デプロイロールを削除';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'この権限を削除すると、選択したロールはデプロイできなくなる場合があります。他のデプロイ権限と承認ルールは維持され、環境の保護も続きます。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      '選択したデプロイ権限が削除されることを理解しました。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => 'デプロイロールを削除しました。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'このデプロイ権限を削除する権限がありません。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'デプロイ権限の削除を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role（権限 $id）';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => 'デプロイロールを追加';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '選択したロールにデプロイ権限が付与されます。既存のデプロイ権限と承認ルールは維持されます。';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'デプロイ権限が拡大することを理解しました。';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => 'デプロイロールを追加しました。';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => 'デプロイ権限を変更する権限がありません。';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'デプロイロールの変更を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '環境の保護を解除';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'このプロジェクトの保護を解除すると、以下のデプロイ許可と承認ルールがすべて削除されます。環境と過去のデプロイは残ります。グループの保護は引き続き適用される場合があります。';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '正確な環境名を入力';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'これらのデプロイ制限と承認ルールが削除されることを理解しました。';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'ルールを再確認';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => 'ルールを変更する前に再度サインインしてください。';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden => 'この環境の保護を解除する権限がありません。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLabがリクエストを制限しています。再試行する前にルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      '解除を確認できませんでした。再試行する前にルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じてルールを開き直してください。';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '環境の保護を解除しました。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'アクセス項目';
 
   @override
   String get containerPolicyStatus => '状態';

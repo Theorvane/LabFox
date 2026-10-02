@@ -15,6 +15,9 @@ abstract class ProtectedBranch with _$ProtectedBranch {
     @JsonKey(name: 'merge_access_levels')
     @Default(<ProtectedBranchAccess>[])
     List<ProtectedBranchAccess> mergeAccessLevels,
+    @JsonKey(name: 'unprotect_access_levels')
+    @Default(<ProtectedBranchAccess>[])
+    List<ProtectedBranchAccess> unprotectAccessLevels,
     @JsonKey(name: 'allow_force_push') @Default(false) bool allowForcePush,
     @JsonKey(name: 'code_owner_approval_required')
     @Default(false)
@@ -36,6 +39,7 @@ abstract class ProtectedBranchAccess with _$ProtectedBranchAccess {
     @JsonKey(name: 'user_id') int? userId,
     @JsonKey(name: 'group_id') int? groupId,
     @JsonKey(name: 'deploy_key_id') int? deployKeyId,
+    @JsonKey(name: 'member_role_id') int? memberRoleId,
   }) = _ProtectedBranchAccess;
 
   factory ProtectedBranchAccess.fromJson(Map<String, dynamic> json) =>
