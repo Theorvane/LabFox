@@ -9,6 +9,26 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => 'Edit schedule';
+
+  @override
+  String get pipelineScheduleSave => 'Save';
+
+  @override
+  String get pipelineScheduleDescription => 'Description';
+
+  @override
+  String get pipelineScheduleFieldRequired => 'Enter a value.';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.';
+
+  @override
+  String get pipelineScheduleEditError =>
+      'Could not update this pipeline schedule. Check your permissions, cron, and time zone.';
+
+  @override
   String get pipelineScheduleTakeOwnership => 'Take ownership';
 
   @override
@@ -565,6 +585,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => 'Could not update the asset link.';
+
+  @override
+  String get releaseMilestonesEdit => 'Edit release milestones';
+
+  @override
+  String get releaseMilestonesTitle => 'Milestones';
+
+  @override
+  String get releaseMilestonesHelp =>
+      'Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.';
+
+  @override
+  String get releaseMilestoneTitle => 'Milestone title';
+
+  @override
+  String get releaseMilestoneAdd => 'Add milestone';
+
+  @override
+  String get releaseMilestonesSave => 'Save milestones';
+
+  @override
+  String get releaseMilestonesError => 'Could not update release milestones.';
+
+  @override
+  String get releaseMilestoneTitleRequired => 'Enter a milestone title.';
+
+  @override
+  String get releaseMilestoneDuplicate => 'This milestone is already selected.';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return 'Remove $title';
+  }
 
   @override
   String get releaseAssetDirectPath => 'New direct download path (optional)';
@@ -2166,6 +2219,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get wikiNewPage => 'New page';
 
   @override
+  String get wikiPagesSection => 'Pages';
+
+  @override
+  String get wikiTemplatesSection => 'Templates';
+
+  @override
+  String get wikiTemplateEmpty => 'No templates yet.';
+
+  @override
+  String get wikiNewTemplate => 'New template';
+
+  @override
+  String get wikiTemplateTitle => 'Template title';
+
+  @override
+  String get wikiCreateTemplate => 'Create template';
+
+  @override
+  String get wikiCreateTemplateError => 'Could not create the template.';
+
+  @override
   String get wikiPageTitle => 'Title';
 
   @override
@@ -2776,6 +2850,98 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerCadenceAccepted => 'Cleanup cadence update accepted.';
+
+  @override
+  String get containerTagProtectionTitle => 'Tag protection rules';
+
+  @override
+  String get containerTagProtectionEmpty => 'No tag protection rules.';
+
+  @override
+  String get containerTagProtectionError =>
+      'Could not load tag protection rules.';
+
+  @override
+  String get containerTagProtectionForbidden =>
+      'You do not have permission to view tag protection rules.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'Tag protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerTagProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; editing requires 18.9 or later.';
+
+  @override
+  String get containerTagProtectionPatternTitle =>
+      'Edit tag protection pattern';
+
+  @override
+  String get containerTagProtectionPatternSave => 'Save pattern';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      'Changing the pattern can remove protection from previously matching container image tags and apply it to others across this project. Wildcards (*) can affect multiple tags. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your access.';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      'I have reviewed the current rule and new pattern and understand the protection changes.';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionPatternReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionPatternSaved =>
+      'Tag protection pattern updated.';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      'The pattern was rejected or is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerTagProtectionPatternDraft => 'New container tag pattern';
 
   @override
   String get containerRepositoryProtectionTitle =>
