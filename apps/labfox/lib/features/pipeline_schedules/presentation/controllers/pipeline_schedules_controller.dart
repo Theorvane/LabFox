@@ -4,6 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../data/pipeline_schedules_repository.dart';
+import 'pipeline_schedule_history_controller.dart';
 
 final pipelineSchedulesRepositoryProvider =
     FutureProvider<PipelineSchedulesRepository?>((ref) async {
@@ -125,6 +126,7 @@ class PipelineScheduleActionController
       );
       if (repository == null) throw StateError('No authenticated account');
       await repository.play(arg.projectId, arg.scheduleId);
+      ref.invalidate(pipelineScheduleHistoryControllerProvider(arg));
       ref.invalidate(pipelineScheduleDetailProvider(arg));
       for (final active in <bool?>[null, true, false]) {
         ref.invalidate(
