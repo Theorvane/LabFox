@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => 'रिलीज़ की तारीख संपादित करें';
+
+  @override
+  String get releaseScheduleChangeDate => 'तारीख बदलें';
+
+  @override
+  String get releaseScheduleChangeTime => 'समय बदलें';
+
+  @override
+  String get releaseScheduleSave => 'रिलीज़ की तारीख सहेजें';
+
+  @override
+  String get releaseScheduleError => 'रिलीज़ की तारीख अपडेट नहीं हो सकी।';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return 'समय आपके डिवाइस के समय क्षेत्र ($zone) में है। भविष्य की तारीख आगामी रिलीज़ निर्धारित करती है।';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'शेड्यूल संपादित करें';
 
   @override
@@ -370,6 +390,17 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => 'पिछली पाइपलाइन';
+
+  @override
+  String get pipelineScheduleHistoryTitle => 'निष्पादन इतिहास';
+
+  @override
+  String get pipelineScheduleHistoryEmpty =>
+      'इस शेड्यूल के लिए अभी तक कोई पाइपलाइन नहीं चली है।';
+
+  @override
+  String get pipelineScheduleHistoryError =>
+      'निष्पादन इतिहास लोड नहीं किया जा सका।';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1611,6 +1642,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pipelinesEmpty => 'अभी तक कोई पाइपलाइन नहीं।';
 
   @override
+  String get pipelinesLoadMore => 'और लोड करें';
+
+  @override
+  String get pipelinesLoadMoreError => 'और पाइपलाइन लोड नहीं की जा सकीं।';
+
+  @override
   String get pipelineError => 'यह पाइपलाइन लोड नहीं हो सकी।';
 
   @override
@@ -2312,6 +2349,29 @@ class AppLocalizationsHi extends AppLocalizations {
   String get packageRegistryTitle => 'पैकेज रजिस्ट्री';
 
   @override
+  String get packageDelete => 'पैकेज हटाएँ';
+
+  @override
+  String get packageDeleteConfirmTitle => 'यह पैकेज हटाएँ?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name और उसकी सभी फ़ाइलें हटाएँ? इसे वापस नहीं किया जा सकता।';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'यदि अनुरोध अग्रेषण सक्षम है, तो इस पैकेज को हटाने से निर्भरता भ्रम हमले का जोखिम हो सकता है।';
+
+  @override
+  String get packageDeleteError =>
+      'यह पैकेज हटाया नहीं जा सका। कृपया फिर से कोशिश करें।';
+
+  @override
+  String get packageDeleteForbidden =>
+      'यह पैकेज संरक्षित हो सकता है, या आपके पास इसे हटाने की अनुमति नहीं है।';
+
+  @override
   String get packageRegistryEmpty => 'अभी कोई पैकेज नहीं है।';
 
   @override
@@ -2939,6 +2999,29 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => 'नया कंटेनर टैग पैटर्न';
+
+  @override
+  String get containerTagDelete => 'टैग हटाएँ';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'कंटेनर टैग हटाएँ?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path” पर टैग “$tagName” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'आप यह टैग नहीं हटा सकते। यह सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।';
+
+  @override
+  String get containerTagDeleteError =>
+      'यह टैग नहीं हटाया जा सका। फिर प्रयास करें।';
 
   @override
   String containerTagProtectionDeleteClearTarget(
