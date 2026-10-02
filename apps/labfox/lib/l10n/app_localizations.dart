@@ -104,6 +104,30 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleTakeOwnership.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership'**
+  String get pipelineScheduleTakeOwnership;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership of this schedule?'**
+  String get pipelineScheduleOwnershipConfirmTitle;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will become the owner of \"{name}\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.'**
+  String pipelineScheduleOwnershipConfirmBody(String name);
+
+  /// No description provided for @pipelineScheduleOwnershipError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not take ownership of this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleOwnershipError;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:
@@ -979,6 +1003,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update the asset link.'**
   String get releaseAssetEditError;
+
+  /// No description provided for @releaseAssetDirectPath.
+  ///
+  /// In en, this message translates to:
+  /// **'New direct download path (optional)'**
+  String get releaseAssetDirectPath;
+
+  /// No description provided for @releaseAssetDirectPathHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.'**
+  String get releaseAssetDirectPathHelp;
+
+  /// No description provided for @releaseAssetDirectPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a path starting with /, without a host, query, or fragment.'**
+  String get releaseAssetDirectPathInvalid;
 
   /// No description provided for @releaseAssetType.
   ///
@@ -4483,6 +4525,366 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account changed. Close this dialog and open the rule again.'**
   String get protectedBranchMergeRoleSessionChanged;
+
+  /// No description provided for @protectedBranchPushRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit push access'**
+  String get protectedBranchPushRoleEditTitle;
+
+  /// No description provided for @protectedBranchPushRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchPushRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchPushRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current push access: {role}'**
+  String protectedBranchPushRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchPushRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchPushRoleNone;
+
+  /// No description provided for @protectedBranchPushRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchPushRoleDeveloper;
+
+  /// No description provided for @protectedBranchPushRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchPushRoleMaintainer;
+
+  /// No description provided for @protectedBranchPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.'**
+  String get protectedBranchPushRoleWarning;
+
+  /// No description provided for @protectedBranchPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the push access change for matching branches.'**
+  String get protectedBranchPushRoleAcknowledge;
+
+  /// No description provided for @protectedBranchPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push access'**
+  String get protectedBranchPushRoleSave;
+
+  /// No description provided for @protectedBranchPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchPushRoleReload;
+
+  /// No description provided for @protectedBranchPushRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Push access updated.'**
+  String get protectedBranchPushRoleSuccess;
+
+  /// No description provided for @protectedBranchPushRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchPushRoleAuth;
+
+  /// No description provided for @protectedBranchPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change push access.'**
+  String get protectedBranchPushRoleForbidden;
+
+  /// No description provided for @protectedBranchPushRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchPushRoleUnavailable;
+
+  /// No description provided for @protectedBranchPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchPushRoleStale;
+
+  /// No description provided for @protectedBranchPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchPushRoleRateLimited;
+
+  /// No description provided for @protectedBranchPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchPushRoleError;
+
+  /// No description provided for @protectedBranchPushRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchPushRoleSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateTitle;
+
+  /// No description provided for @protectedEnvironmentCreateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment name'**
+  String get protectedEnvironmentCreateName;
+
+  /// No description provided for @protectedEnvironmentCreateDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedEnvironmentCreateDeveloper;
+
+  /// No description provided for @protectedEnvironmentCreateMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedEnvironmentCreateMaintainer;
+
+  /// No description provided for @protectedEnvironmentCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This protection changes who may deploy to the named environment. Approval rules are not added.'**
+  String get protectedEnvironmentCreateWarning;
+
+  /// No description provided for @protectedEnvironmentCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the deployment access change.'**
+  String get protectedEnvironmentCreateAcknowledge;
+
+  /// No description provided for @protectedEnvironmentCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateSave;
+
+  /// No description provided for @protectedEnvironmentCreateReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check environments again'**
+  String get protectedEnvironmentCreateReload;
+
+  /// No description provided for @protectedEnvironmentCreateDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This environment is already protected. Check the list before continuing.'**
+  String get protectedEnvironmentCreateDuplicate;
+
+  /// No description provided for @protectedEnvironmentCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm protection. Check the list before trying again.'**
+  String get protectedEnvironmentCreateError;
+
+  /// No description provided for @protectedEnvironmentCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission or this feature is unavailable.'**
+  String get protectedEnvironmentCreateForbidden;
+
+  /// No description provided for @protectedEnvironmentCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open it again.'**
+  String get protectedEnvironmentCreateSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protected.'**
+  String get protectedEnvironmentCreateSuccess;
+
+  /// No description provided for @protectedEnvironmentCreateInvalidName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact environment name without wildcards.'**
+  String get protectedEnvironmentCreateInvalidName;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy role'**
+  String get protectedEnvironmentRemoveRoleTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.'**
+  String get protectedEnvironmentRemoveRoleWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this removes the selected deployment grant.'**
+  String get protectedEnvironmentRemoveRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role removed.'**
+  String get protectedEnvironmentRemoveRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this deploy grant.'**
+  String get protectedEnvironmentRemoveRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy grant removal. Check the rule before trying again.'**
+  String get protectedEnvironmentRemoveRoleError;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} (grant {id})'**
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id);
+
+  /// No description provided for @protectedEnvironmentDeployRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy role'**
+  String get protectedEnvironmentDeployRoleTitle;
+
+  /// No description provided for @protectedEnvironmentDeployRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.'**
+  String get protectedEnvironmentDeployRoleWarning;
+
+  /// No description provided for @protectedEnvironmentDeployRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this expands deployment access.'**
+  String get protectedEnvironmentDeployRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role added.'**
+  String get protectedEnvironmentDeployRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change deploy access.'**
+  String get protectedEnvironmentDeployRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentDeployRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy role update. Check the rule before trying again.'**
+  String get protectedEnvironmentDeployRoleError;
+
+  /// No description provided for @protectedEnvironmentUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect environment'**
+  String get protectedEnvironmentUnprotectTitle;
+
+  /// No description provided for @protectedEnvironmentUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedEnvironmentUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedEnvironmentUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.'**
+  String get protectedEnvironmentUnprotectWarning;
+
+  /// No description provided for @protectedEnvironmentUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact environment name'**
+  String get protectedEnvironmentUnprotectName;
+
+  /// No description provided for @protectedEnvironmentUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that these deployment restrictions and approval rules will be removed.'**
+  String get protectedEnvironmentUnprotectAcknowledge;
+
+  /// No description provided for @protectedEnvironmentUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedEnvironmentUnprotectReload;
+
+  /// No description provided for @protectedEnvironmentUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedEnvironmentUnprotectAuth;
+
+  /// No description provided for @protectedEnvironmentUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to unprotect this environment.'**
+  String get protectedEnvironmentUnprotectForbidden;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedEnvironmentUnprotectUnavailable;
+
+  /// No description provided for @protectedEnvironmentUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedEnvironmentUnprotectStale;
+
+  /// No description provided for @protectedEnvironmentUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectRateLimited;
+
+  /// No description provided for @protectedEnvironmentUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm removal. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectError;
+
+  /// No description provided for @protectedEnvironmentUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedEnvironmentUnprotectSessionChanged;
+
+  /// No description provided for @protectedEnvironmentUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protection removed.'**
+  String get protectedEnvironmentUnprotectSuccess;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Access entry'**
+  String get protectedEnvironmentUnprotectUnreported;
 }
 
 class _AppLocalizationsDelegate
