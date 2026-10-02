@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releaseScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release date'**
+  String get releaseScheduleEdit;
+
+  /// No description provided for @releaseScheduleChangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change date'**
+  String get releaseScheduleChangeDate;
+
+  /// No description provided for @releaseScheduleChangeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get releaseScheduleChangeTime;
+
+  /// No description provided for @releaseScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release date'**
+  String get releaseScheduleSave;
+
+  /// No description provided for @releaseScheduleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release date.'**
+  String get releaseScheduleError;
+
+  /// No description provided for @releaseScheduleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Times use your device time zone ({zone}). A future date schedules an upcoming release.'**
+  String releaseScheduleHelp(String zone);
+
   /// No description provided for @pipelineScheduleEdit.
   ///
   /// In en, this message translates to:
@@ -757,6 +793,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last pipeline'**
   String get pipelineScheduleLastPipeline;
+
+  /// No description provided for @pipelineScheduleHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution history'**
+  String get pipelineScheduleHistoryTitle;
+
+  /// No description provided for @pipelineScheduleHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines have run for this schedule yet.'**
+  String get pipelineScheduleHistoryEmpty;
+
+  /// No description provided for @pipelineScheduleHistoryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load execution history.'**
+  String get pipelineScheduleHistoryError;
 
   /// No description provided for @pipelineSchedulePipelineNumber.
   ///
@@ -3122,6 +3176,18 @@ abstract class AppLocalizations {
   /// **'No pipelines yet.'**
   String get pipelinesEmpty;
 
+  /// No description provided for @pipelinesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get pipelinesLoadMore;
+
+  /// No description provided for @pipelinesLoadMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more pipelines.'**
+  String get pipelinesLoadMoreError;
+
   /// Shown when a pipeline fails to load
   ///
   /// In en, this message translates to:
@@ -4454,6 +4520,42 @@ abstract class AppLocalizations {
   /// **'Package registry'**
   String get packageRegistryTitle;
 
+  /// No description provided for @packageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package'**
+  String get packageDelete;
+
+  /// No description provided for @packageDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this package?'**
+  String get packageDeleteConfirmTitle;
+
+  /// No description provided for @packageDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name} and all its files? This cannot be undone.'**
+  String packageDeleteConfirmBody(String name);
+
+  /// No description provided for @packageDeleteForwardingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'If request forwarding is enabled, deleting this package can create a dependency confusion risk.'**
+  String get packageDeleteForwardingWarning;
+
+  /// No description provided for @packageDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this package. Please try again.'**
+  String get packageDeleteError;
+
+  /// No description provided for @packageDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'This package may be protected, or you may not have permission to delete it.'**
+  String get packageDeleteForbidden;
+
   /// Empty project package registry
   ///
   /// In en, this message translates to:
@@ -5473,6 +5575,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New container tag pattern'**
   String get containerTagProtectionPatternDraft;
+
+  /// No description provided for @containerTagDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag'**
+  String get containerTagDelete;
+
+  /// No description provided for @containerTagDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete container tag?'**
+  String get containerTagDeleteConfirmTitle;
+
+  /// Confirmation identifying a registry tag and its image path
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag “{tagName}” at “{path}”? This cannot be undone.'**
+  String containerTagDeleteConfirmBody(String tagName, String path);
+
+  /// No description provided for @containerTagDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.'**
+  String get containerTagDeleteWarning;
+
+  /// No description provided for @containerTagDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this tag. It may be protected or you may not have permission.'**
+  String get containerTagDeleteForbidden;
+
+  /// No description provided for @containerTagDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this tag. Try again.'**
+  String get containerTagDeleteError;
 
   /// No description provided for @containerCreateTitle.
   ///
