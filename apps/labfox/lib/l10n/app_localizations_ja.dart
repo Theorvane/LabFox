@@ -24,6 +24,26 @@ class AppLocalizationsJa extends AppLocalizations {
       'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
 
   @override
+  String get releaseScheduleEdit => 'リリース日時を編集';
+
+  @override
+  String get releaseScheduleChangeDate => '日付を変更';
+
+  @override
+  String get releaseScheduleChangeTime => '時刻を変更';
+
+  @override
+  String get releaseScheduleSave => 'リリース日時を保存';
+
+  @override
+  String get releaseScheduleError => 'リリース日時を更新できませんでした。';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '時刻にはデバイスのタイムゾーン（$zone）を使用します。未来の日時は予定リリースとして設定されます。';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'スケジュールを編集';
 
   @override
@@ -378,6 +398,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => '前回のパイプライン';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '実行履歴';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => 'このスケジュールで実行されたパイプラインはまだありません。';
+
+  @override
+  String get pipelineScheduleHistoryError => '実行履歴を読み込めませんでした。';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1594,6 +1623,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelinesEmpty => 'まだパイプラインはありません。';
 
   @override
+  String get pipelinesLoadMore => 'さらに読み込む';
+
+  @override
+  String get pipelinesLoadMoreError => '追加のパイプラインを読み込めませんでした。';
+
+  @override
   String get pipelineError => 'このパイプラインを読み込めませんでした。';
 
   @override
@@ -2279,6 +2314,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String get packageRegistryTitle => 'パッケージレジストリ';
 
   @override
+  String get packageDelete => 'パッケージを削除';
+
+  @override
+  String get packageDeleteConfirmTitle => 'このパッケージを削除しますか？';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$nameとすべてのファイルを削除しますか？この操作は元に戻せません。';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'リクエスト転送が有効な場合、このパッケージを削除すると依存関係混乱攻撃のリスクが生じる可能性があります。';
+
+  @override
+  String get packageDeleteError => 'このパッケージを削除できませんでした。もう一度お試しください。';
+
+  @override
+  String get packageDeleteForbidden => 'このパッケージは保護されているか、削除権限がない可能性があります。';
+
+  @override
   String get packageRegistryEmpty => 'パッケージはまだありません。';
 
   @override
@@ -2787,4 +2843,113 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerCadenceAccepted => 'クリーンアップ間隔の更新が受理されました。';
+
+  @override
+  String get containerTagProtectionTitle => 'タグ保護ルール';
+
+  @override
+  String get containerTagProtectionEmpty => 'タグ保護ルールはありません。';
+
+  @override
+  String get containerTagProtectionError => 'タグ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerTagProtectionForbidden => 'タグ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      'このインスタンスでタグ保護ルールが利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return 'プッシュの最低ロール: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '削除の最低ロール: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Gitタグではなくコンテナイメージタグのルールです。最低ロールは現在のアクセス権を保証しません。表示にはGitLab 18.7以降、編集には18.9以降が必要です。';
+
+  @override
+  String get containerTagProtectionPatternTitle => 'タグ保護パターンを編集';
+
+  @override
+  String get containerTagProtectionPatternSave => 'パターンを保存';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      'パターンを変更すると、プロジェクト内で従来一致していたコンテナイメージタグの保護が解除され、他のタグに適用される場合があります。ワイルドカード(*)は複数のタグに影響します。両方の最低ロールは維持され、他のルールと権限も引き続き適用されます。タグやイメージは削除されず、Gitタグに影響せず、現在のアクセス権を示しません。';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '現在のルールと新しいパターンを確認し、保護の変更を理解しました。';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      'パターンの更新を確認できません。サーバーで処理された可能性があるため、再試行前にルール一覧を確認してください。';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      '確認後にルールが変更されました。保存前に再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPatternReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionPatternSaved => 'タグ保護パターンを更新しました。';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      '要求が多すぎます。しばらく待って再試行してください。';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      'パターンが拒否されたか、既に使用されています。下書きを編集して再試行してください。';
+
+  @override
+  String get containerTagProtectionPatternDraft => '新しいコンテナタグパターン';
+
+  @override
+  String get containerTagDelete => 'タグを削除';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'コンテナタグを削除しますか？';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '「$path」のタグ「$tagName」を削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'このタグを削除できません。保護されているか、権限がない可能性があります。';
+
+  @override
+  String get containerTagDeleteError => 'タグを削除できませんでした。再試行してください。';
 }

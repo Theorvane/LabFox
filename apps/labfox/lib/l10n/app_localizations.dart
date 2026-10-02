@@ -128,6 +128,42 @@ abstract class AppLocalizations {
   /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
   String get pipelineScheduleDeleteError;
 
+  /// No description provided for @releaseScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release date'**
+  String get releaseScheduleEdit;
+
+  /// No description provided for @releaseScheduleChangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change date'**
+  String get releaseScheduleChangeDate;
+
+  /// No description provided for @releaseScheduleChangeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get releaseScheduleChangeTime;
+
+  /// No description provided for @releaseScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release date'**
+  String get releaseScheduleSave;
+
+  /// No description provided for @releaseScheduleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release date.'**
+  String get releaseScheduleError;
+
+  /// No description provided for @releaseScheduleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Times use your device time zone ({zone}). A future date schedules an upcoming release.'**
+  String releaseScheduleHelp(String zone);
+
   /// No description provided for @pipelineScheduleEdit.
   ///
   /// In en, this message translates to:
@@ -781,6 +817,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last pipeline'**
   String get pipelineScheduleLastPipeline;
+
+  /// No description provided for @pipelineScheduleHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution history'**
+  String get pipelineScheduleHistoryTitle;
+
+  /// No description provided for @pipelineScheduleHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines have run for this schedule yet.'**
+  String get pipelineScheduleHistoryEmpty;
+
+  /// No description provided for @pipelineScheduleHistoryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load execution history.'**
+  String get pipelineScheduleHistoryError;
 
   /// No description provided for @pipelineSchedulePipelineNumber.
   ///
@@ -3146,6 +3200,18 @@ abstract class AppLocalizations {
   /// **'No pipelines yet.'**
   String get pipelinesEmpty;
 
+  /// No description provided for @pipelinesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get pipelinesLoadMore;
+
+  /// No description provided for @pipelinesLoadMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more pipelines.'**
+  String get pipelinesLoadMoreError;
+
   /// Shown when a pipeline fails to load
   ///
   /// In en, this message translates to:
@@ -4478,6 +4544,42 @@ abstract class AppLocalizations {
   /// **'Package registry'**
   String get packageRegistryTitle;
 
+  /// No description provided for @packageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package'**
+  String get packageDelete;
+
+  /// No description provided for @packageDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this package?'**
+  String get packageDeleteConfirmTitle;
+
+  /// No description provided for @packageDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name} and all its files? This cannot be undone.'**
+  String packageDeleteConfirmBody(String name);
+
+  /// No description provided for @packageDeleteForwardingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'If request forwarding is enabled, deleting this package can create a dependency confusion risk.'**
+  String get packageDeleteForwardingWarning;
+
+  /// No description provided for @packageDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this package. Please try again.'**
+  String get packageDeleteError;
+
+  /// No description provided for @packageDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'This package may be protected, or you may not have permission to delete it.'**
+  String get packageDeleteForbidden;
+
   /// Empty project package registry
   ///
   /// In en, this message translates to:
@@ -5353,6 +5455,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleanup cadence update accepted.'**
   String get containerCadenceAccepted;
+
+  /// No description provided for @containerTagProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules'**
+  String get containerTagProtectionTitle;
+
+  /// No description provided for @containerTagProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tag protection rules.'**
+  String get containerTagProtectionEmpty;
+
+  /// No description provided for @containerTagProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tag protection rules.'**
+  String get containerTagProtectionError;
+
+  /// No description provided for @containerTagProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view tag protection rules.'**
+  String get containerTagProtectionForbidden;
+
+  /// No description provided for @containerTagProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerTagProtectionUnavailable;
+
+  /// No description provided for @containerTagProtectionPushRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerTagProtectionPushRole(String role);
+
+  /// No description provided for @containerTagProtectionDeleteRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerTagProtectionDeleteRole(String role);
+
+  /// No description provided for @containerTagProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerTagProtectionRoleUnset;
+
+  /// No description provided for @containerTagProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerTagProtectionRoleAdmin;
+
+  /// No description provided for @containerTagProtectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; editing requires 18.9 or later.'**
+  String get containerTagProtectionHint;
+
+  /// No description provided for @containerTagProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit tag protection pattern'**
+  String get containerTagProtectionPatternTitle;
+
+  /// No description provided for @containerTagProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerTagProtectionPatternSave;
+
+  /// No description provided for @containerTagProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching container image tags and apply it to others across this project. Wildcards (*) can affect multiple tags. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your access.'**
+  String get containerTagProtectionPatternWarning;
+
+  /// No description provided for @containerTagProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerTagProtectionPatternAcknowledge;
+
+  /// No description provided for @containerTagProtectionPatternTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPatternForbidden;
+
+  /// No description provided for @containerTagProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPatternError;
+
+  /// No description provided for @containerTagProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPatternStale;
+
+  /// No description provided for @containerTagProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPatternReload;
+
+  /// No description provided for @containerTagProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection pattern updated.'**
+  String get containerTagProtectionPatternSaved;
+
+  /// No description provided for @containerTagProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPatternMissing;
+
+  /// No description provided for @containerTagProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPatternRateLimited;
+
+  /// No description provided for @containerTagProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerTagProtectionPatternInvalid;
+
+  /// No description provided for @containerTagProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New container tag pattern'**
+  String get containerTagProtectionPatternDraft;
+
+  /// No description provided for @containerTagDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag'**
+  String get containerTagDelete;
+
+  /// No description provided for @containerTagDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete container tag?'**
+  String get containerTagDeleteConfirmTitle;
+
+  /// Confirmation identifying a registry tag and its image path
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag “{tagName}” at “{path}”? This cannot be undone.'**
+  String containerTagDeleteConfirmBody(String tagName, String path);
+
+  /// No description provided for @containerTagDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.'**
+  String get containerTagDeleteWarning;
+
+  /// No description provided for @containerTagDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this tag. It may be protected or you may not have permission.'**
+  String get containerTagDeleteForbidden;
+
+  /// No description provided for @containerTagDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this tag. Try again.'**
+  String get containerTagDeleteError;
 }
 
 class _AppLocalizationsDelegate

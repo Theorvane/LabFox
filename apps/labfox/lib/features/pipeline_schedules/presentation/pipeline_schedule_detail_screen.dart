@@ -7,9 +7,11 @@ import 'package:intl/intl.dart';
 
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
+import 'controllers/pipeline_schedule_history_controller.dart';
 import 'controllers/pipeline_schedules_controller.dart';
 import 'widgets/pipeline_schedule_delete_dialog.dart';
 import 'widgets/pipeline_schedule_edit_dialog.dart';
+import 'widgets/pipeline_schedule_history.dart';
 import 'widgets/pipeline_schedule_ownership_dialog.dart';
 
 /// A restorable pipeline schedule detail with an explicit run-now action.
@@ -105,13 +107,24 @@ class PipelineScheduleDetailScreen extends ConsumerWidget {
           ),
         ),
         data: (data) => RefreshIndicator(
-          onRefresh: () =>
-              ref.refresh(pipelineScheduleDetailProvider(key).future),
+          onRefresh: () async {
+            try {
+              await Future.wait([
+                ref.refresh(pipelineScheduleDetailProvider(key).future),
+                ref.refresh(
+                  pipelineScheduleHistoryControllerProvider(key).future,
+                ),
+              ]);
+            } catch (_) {
+              // Each provider exposes its own localized, retryable error state.
+            }
+          },
           child: LayoutBuilder(
             builder: (context, constraints) {
               final summary = _ScheduleSummary(schedule: data);
               final related = _ScheduleRelated(
                 schedule: data,
+                scheduleRef: key,
                 projectId: projectId,
                 actionBusy: action.isLoading,
                 onDelete: () => _delete(context, key, data.description),
@@ -243,12 +256,14 @@ class _ScheduleSummary extends StatelessWidget {
 class _ScheduleRelated extends StatelessWidget {
   const _ScheduleRelated({
     required this.schedule,
+    required this.scheduleRef,
     required this.projectId,
     required this.actionBusy,
     required this.onPlay,
     required this.onDelete,
   });
   final PipelineSchedule schedule;
+  final PipelineScheduleRef scheduleRef;
   final int projectId;
   final bool actionBusy;
   final VoidCallback onPlay;
@@ -294,6 +309,8 @@ class _ScheduleRelated extends StatelessWidget {
                     context.push(Routes.pipeline(projectId, pipeline.id)),
               ),
             ],
+            const SizedBox(height: LabFoxSpacing.md),
+            PipelineScheduleHistory(scheduleRef: scheduleRef),
           ],
         ),
       ),

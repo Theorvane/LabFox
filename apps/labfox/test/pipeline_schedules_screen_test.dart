@@ -20,7 +20,22 @@ class _FakeRepository extends PipelineSchedulesRepository {
       );
 
   int playCount = 0;
+  int historyCount = 0;
+  bool rejectHistory = false;
   bool? requestedActive;
+
+  @override
+  Future<Paginated<Pipeline>> listPipelines(
+    int projectId,
+    int scheduleId, {
+    int page = 1,
+  }) async {
+    expectSync(projectId, 7);
+    expectSync(scheduleId, 13);
+    historyCount++;
+    if (rejectHistory) throw StateError('History access rejected');
+    return const Paginated(items: [Pipeline(id: 331, status: 'failed')]);
+  }
 
   @override
   Future<Paginated<PipelineSchedule>> list(
@@ -123,6 +138,9 @@ void main() {
     await tester.tap(find.text('Nightly build'));
     await tester.pumpAndSettle();
     expect(find.text('Run now'), findsOneWidget);
+    expect(find.text('Execution history'), findsOneWidget);
+    expect(find.text('Pipeline #331'), findsOneWidget);
+    expect(repository.historyCount, 1);
     await tester.tap(find.byTooltip('Edit schedule'));
     await tester.pumpAndSettle();
     expect(find.text('Nightly build').last, findsOneWidget);
@@ -132,6 +150,13 @@ void main() {
     await tester.tap(find.text('Run now'));
     await tester.pumpAndSettle();
     expect(repository.playCount, 1);
+    expect(repository.historyCount, 2);
+    final refresh = tester
+        .state<RefreshIndicatorState>(find.byType(RefreshIndicator))
+        .show();
+    await tester.pumpAndSettle();
+    await refresh;
+    expect(repository.historyCount, 3);
   });
 
   testWidgets('shows linked last pipeline on wide screen', (tester) async {
@@ -143,4 +168,23 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Pipeline 332'), findsOneWidget);
   });
+
+  testWidgets(
+    'rejected history refresh shows inline error without losing schedule',
+    (tester) async {
+      final repository = await _pump(tester, const Size(390, 844));
+      await tester.tap(find.text('Nightly build'));
+      await tester.pumpAndSettle();
+      repository.rejectHistory = true;
+      final refresh = tester
+          .state<RefreshIndicatorState>(find.byType(RefreshIndicator))
+          .show();
+      await tester.pumpAndSettle();
+      await refresh;
+      expect(tester.takeException(), isNull);
+      expect(repository.historyCount, 2);
+      expect(find.text('Run now'), findsOneWidget);
+      expect(find.text('Could not load execution history.'), findsOneWidget);
+    },
+  );
 }
