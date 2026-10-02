@@ -392,6 +392,17 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pipelineScheduleLastPipeline => 'पिछली पाइपलाइन';
 
   @override
+  String get pipelineScheduleHistoryTitle => 'निष्पादन इतिहास';
+
+  @override
+  String get pipelineScheduleHistoryEmpty =>
+      'इस शेड्यूल के लिए अभी तक कोई पाइपलाइन नहीं चली है।';
+
+  @override
+  String get pipelineScheduleHistoryError =>
+      'निष्पादन इतिहास लोड नहीं किया जा सका।';
+
+  @override
   String pipelineSchedulePipelineNumber(int number) {
     return 'पाइपलाइन #$number';
   }

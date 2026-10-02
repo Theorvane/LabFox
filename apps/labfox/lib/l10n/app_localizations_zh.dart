@@ -367,6 +367,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelineScheduleLastPipeline => '上次流水线';
 
   @override
+  String get pipelineScheduleHistoryTitle => '运行历史';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '此计划尚未运行任何流水线。';
+
+  @override
+  String get pipelineScheduleHistoryError => '无法加载运行历史。';
+
+  @override
   String pipelineSchedulePipelineNumber(int number) {
     return '流水线 #$number';
   }
