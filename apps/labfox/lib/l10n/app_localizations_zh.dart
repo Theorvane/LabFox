@@ -9,6 +9,26 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => '编辑发布日期';
+
+  @override
+  String get releaseScheduleChangeDate => '更改日期';
+
+  @override
+  String get releaseScheduleChangeTime => '更改时间';
+
+  @override
+  String get releaseScheduleSave => '保存发布日期';
+
+  @override
+  String get releaseScheduleError => '无法更新发布日期。';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '时间使用设备时区（$zone）。选择未来日期会安排即将发布的版本。';
+  }
+
+  @override
   String get pipelineScheduleEdit => '编辑计划';
 
   @override
@@ -345,6 +365,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => '上次流水线';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '运行历史';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '此计划尚未运行任何流水线。';
+
+  @override
+  String get pipelineScheduleHistoryError => '无法加载运行历史。';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1554,6 +1583,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelinesEmpty => '还没有流水线。';
 
   @override
+  String get pipelinesLoadMore => '加载更多';
+
+  @override
+  String get pipelinesLoadMoreError => '无法加载更多流水线。';
+
+  @override
   String get pipelineError => '无法加载此流水线。';
 
   @override
@@ -2239,6 +2274,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String get packageRegistryTitle => '软件包仓库';
 
   @override
+  String get packageDelete => '删除软件包';
+
+  @override
+  String get packageDeleteConfirmTitle => '删除此软件包？';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '删除 $name 及其所有文件？此操作无法撤销。';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning => '如果启用了请求转发，删除此软件包可能会产生依赖混淆攻击风险。';
+
+  @override
+  String get packageDeleteError => '无法删除此软件包。请重试。';
+
+  @override
+  String get packageDeleteForbidden => '此软件包可能受保护，或者您没有删除权限。';
+
+  @override
   String get packageRegistryEmpty => '还没有软件包。';
 
   @override
@@ -2798,6 +2853,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '新容器标签模式';
+
+  @override
+  String get containerTagDelete => '删除标签';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '删除容器标签？';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '删除“$path”中的标签“$tagName”？此操作无法撤销。';
+  }
+
+  @override
+  String get containerTagDeleteWarning => '此操作仅删除标签，不会删除底层镜像数据。删除标签不会释放磁盘空间。';
+
+  @override
+  String get containerTagDeleteForbidden => '无法删除此标签。它可能受保护，或您没有权限。';
+
+  @override
+  String get containerTagDeleteError => '无法删除此标签。请重试。';
 
   @override
   String get containerImmutabilityTitle => '不可变标签规则';
