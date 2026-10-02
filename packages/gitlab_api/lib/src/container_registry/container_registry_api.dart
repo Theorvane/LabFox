@@ -5,7 +5,7 @@ import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Project container registry browsing and protection endpoints.
+/// Container registry operations for one authenticated client.
 class ContainerRegistryApi {
   const ContainerRegistryApi(this._dio);
 
@@ -116,6 +116,28 @@ class ContainerRegistryApi {
         error,
         context: 'listing container repository protection rules',
       );
+    }
+  }
+
+  /// Deletes one tag, not its blobs or the image repository.
+  Future<void> deleteTag(
+    Object projectId,
+    int repositoryId,
+    String tagName,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags/${Uri.encodeComponent(tagName)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a container tag',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a container tag');
     }
   }
 
