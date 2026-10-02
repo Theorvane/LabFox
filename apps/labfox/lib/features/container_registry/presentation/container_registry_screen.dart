@@ -46,6 +46,12 @@ class ContainerRegistryScreen extends ConsumerWidget {
               }
             },
           ),
+          IconButton(
+            tooltip: l10n.containerTagProtectionTitle,
+            icon: const Icon(Icons.shield_outlined),
+            onPressed: () =>
+                context.push(Routes.containerTagProtectionRules(projectId)),
+          ),
         ],
         title: Text(l10n.containerRegistryTitle),
         leading: BackButton(
