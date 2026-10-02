@@ -25,6 +25,81 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not take ownership of this pipeline schedule. Check your permissions and try again.';
 
   @override
+  String get protectedTagProtectTitle => 'Protect tag';
+
+  @override
+  String get protectedTagProtectName => 'Rule name';
+
+  @override
+  String get protectedTagProtectRole => 'Who can create matching tags?';
+
+  @override
+  String get protectedTagProtectNoOne => 'No one';
+
+  @override
+  String get protectedTagProtectDevelopers => 'Developers and Maintainers';
+
+  @override
+  String get protectedTagProtectMaintainers => 'Maintainers';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return 'This rule changes who can create matching tags and may affect tag pipelines and jobs across project $projectId.';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      'Wildcard rules can also affect future tags. Check the exact pattern and access level.';
+
+  @override
+  String get protectedTagProtectAcknowledge =>
+      'I understand the project-wide effect of this rule.';
+
+  @override
+  String get protectedTagProtectSubmit => 'Protect tag';
+
+  @override
+  String get protectedTagProtectExisting =>
+      'Rule already exists. No change was made.';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      'The result is uncertain. Reload all rules before trying again.';
+
+  @override
+  String get protectedTagProtectReload => 'Reload rules';
+
+  @override
+  String get protectedTagProtectLoadError =>
+      'Could not verify the protected tag rules. Try reloading.';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      'Your account changed. Close this draft and start again.';
+
+  @override
+  String get protectedTagProtectCreated => 'Protected tag rule created.';
+
+  @override
+  String get protectedTagProtectCancel => 'Cancel';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      'You do not have permission to create this rule. Reload before trying again.';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      'Your session has expired. Sign in again before creating a rule.';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload the rules.';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      'This project or protected tag resource is unavailable. Reload before trying again.';
+
+  @override
   String get protectedTagsTitle => 'Protected tags';
 
   @override
@@ -67,6 +142,84 @@ class AppLocalizationsEn extends AppLocalizations {
   String protectedEnvironmentApprovalCount(int count) {
     return 'Required approvals: $count';
   }
+
+  @override
+  String get protectedBranchProtectTitle => 'Protect branch';
+
+  @override
+  String get protectedBranchProtectName => 'Rule name';
+
+  @override
+  String get protectedBranchProtectPush => 'Allowed to push';
+
+  @override
+  String get protectedBranchProtectMerge => 'Allowed to merge';
+
+  @override
+  String get protectedBranchProtectNoOne => 'No one';
+
+  @override
+  String get protectedBranchProtectDevelopers => 'Developers and Maintainers';
+
+  @override
+  String get protectedBranchProtectMaintainers => 'Maintainers';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return 'This rule changes push and merge access in project $projectId. It can affect merge requests, protected CI variables, and jobs.';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      'Wildcard rules may also affect future branches. Check the exact pattern and both permissions.';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      'I understand the project-wide effect of this rule.';
+
+  @override
+  String get protectedBranchProtectSubmit => 'Protect branch';
+
+  @override
+  String get protectedBranchProtectExisting =>
+      'Rule already exists. No change was made.';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      'The result is uncertain. Reload all rules before trying again.';
+
+  @override
+  String get protectedBranchProtectReload => 'Reload rules';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      'Could not verify protected branch rules. Try reloading.';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      'Your account changed. Close this draft and start again.';
+
+  @override
+  String get protectedBranchProtectCreated => 'Protected branch rule created.';
+
+  @override
+  String get protectedBranchProtectCancel => 'Cancel';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      'You do not have permission to create this rule. Reload before trying again.';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      'Your session has expired. Sign in again before creating a rule.';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab is rate limiting requests. Wait, then reload the rules.';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      'This project or protected branch resource is unavailable. Reload before trying again.';
 
   @override
   String get protectedBranchesTitle => 'Protected branches';
@@ -1049,6 +1202,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get issueSubscriptionError =>
       'Could not update issue notifications. Please try again.';
+
+  @override
+  String get mrSubscribe => 'Subscribe to notifications';
+
+  @override
+  String get mrUnsubscribe => 'Unsubscribe from notifications';
+
+  @override
+  String get mrSubscriptionError =>
+      'Could not update merge request notifications. Please try again.';
 
   @override
   String get issueAddTodo => 'Add to To-Do';
@@ -2522,6 +2685,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => 'Access entry';
+
+  @override
+  String get containerPolicyStatus => 'Status';
+
+  @override
+  String get containerPolicyEnabled => 'Enabled';
+
+  @override
+  String get containerPolicyDisabled => 'Disabled';
+
+  @override
+  String get containerPolicyNotReported => 'Not reported';
+
+  @override
+  String get containerPolicyCadence => 'Run interval';
+
+  @override
+  String get containerPolicyKeepCount => 'Matching tags to keep per image';
+
+  @override
+  String get containerPolicyAge => 'Remove tags older than';
+
+  @override
+  String get containerPolicyDeletePattern => 'Delete pattern';
+
+  @override
+  String get containerPolicyLegacyPattern => 'Delete pattern (legacy)';
+
+  @override
+  String get containerPolicyKeepPattern => 'Keep pattern';
+
+  @override
+  String get containerPolicyEmptyPattern => 'Empty pattern';
+
+  @override
+  String get containerPolicyError => 'Could not load the cleanup policy.';
+
+  @override
+  String get containerPolicyForbidden =>
+      'You do not have permission to view this project cleanup policy.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'The project is not accessible, or cleanup policy information is unavailable.';
+
+  @override
+  String get containerPolicyEmptySetting => 'Empty setting';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'Project $projectId — all image repositories';
+  }
+
+  @override
+  String get containerActivationError =>
+      'Could not confirm the update. Reload the policy and try again.';
+
+  @override
+  String get containerActivationForbidden =>
+      'You do not have permission to change this cleanup policy.';
+
+  @override
+  String get containerActivationStale =>
+      'The policy changed or is no longer reported. Reload and review it before saving.';
+
+  @override
+  String get containerActivationReload => 'Reload policy';
+
+  @override
+  String get containerActivationRateLimited =>
+      'Too many requests. Wait and reload the policy before trying again.';
+
+  @override
+  String get containerCadenceTitle => 'Edit cleanup cadence';
+
+  @override
+  String get containerCadenceSave => 'Confirm cadence change';
+
+  @override
+  String get containerCadenceSelect => 'New cadence (GitLab API interval)';
+
+  @override
+  String get containerCadenceWarning =>
+      'Changing this project-wide cadence affects future scheduled tag cleanup in all image repositories. Review activation and deletion/retention criteria below. This does not change those settings or confirm cleanup completion.';
+
+  @override
+  String get containerCadenceUnknown =>
+      'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerCadenceAccepted => 'Cleanup cadence update accepted.';
 
   @override
   String get protectedBranchUnprotectTitle => 'Unprotect branch rule';
