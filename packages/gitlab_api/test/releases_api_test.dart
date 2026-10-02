@@ -41,6 +41,53 @@ void main() {
       },
     );
   }
+  for (final titles in [
+    <String>['v1.0', 'Release, candidate'],
+    <String>[],
+  ]) {
+    test('updates only milestone associations with $titles', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'name': 'Version 1',
+            'tag_name': 'release/1',
+            'milestones': [
+              for (final title in titles)
+                {
+                  'id': 51,
+                  'iid': 1,
+                  'title': title,
+                  'state': 'active',
+                  'project_id': 7,
+                },
+            ],
+          },
+        );
+      });
+      final release = await client.releases.updateMilestones(
+        'team/app',
+        'release/1',
+        titles,
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/releases/release%2F1');
+      expect(request.data, {'milestones': titles});
+      expect(release.milestones.map((m) => m.title), titles);
+    });
+  }
+  test('maps forbidden milestone association edits', () async {
+    final client = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      client.releases.updateMilestones(7, 'release/1', ['v1']),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
   test('updates direct path and link type in one request', () async {
     late RequestOptions request;
     final client = _client((options) {
