@@ -29,6 +29,20 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get pipelineScheduleTakeOwnership => '获取所有权';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => '获取此计划的所有权？';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '您将成为“$name”的所有者。计划流水线将使用您的权限运行。需要 Maintainer 或 Owner 角色。';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError => '无法获取此流水线计划的所有权。请检查权限并重试。';
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override
