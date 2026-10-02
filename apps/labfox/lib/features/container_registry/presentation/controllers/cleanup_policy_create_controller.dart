@@ -6,6 +6,8 @@ import 'container_registry_controllers.dart';
 
 const cleanupCreationCadences = ['1d', '7d', '14d', '1month', '3month'];
 const cleanupCreationKeepCounts = [1, 5, 10, 25, 50, 100];
+// Supported API values are documented under "Use the cleanup policy API":
+// https://docs.gitlab.com/user/packages/container_registry/reduce_container_registry_storage/
 const cleanupCreationAges = [
   '1d',
   '3d',
