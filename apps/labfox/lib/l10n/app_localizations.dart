@@ -3176,6 +3176,18 @@ abstract class AppLocalizations {
   /// **'No pipelines yet.'**
   String get pipelinesEmpty;
 
+  /// No description provided for @pipelinesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get pipelinesLoadMore;
+
+  /// No description provided for @pipelinesLoadMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more pipelines.'**
+  String get pipelinesLoadMoreError;
+
   /// Shown when a pipeline fails to load
   ///
   /// In en, this message translates to:

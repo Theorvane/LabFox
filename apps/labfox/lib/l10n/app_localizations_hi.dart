@@ -1642,6 +1642,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pipelinesEmpty => 'अभी तक कोई पाइपलाइन नहीं।';
 
   @override
+  String get pipelinesLoadMore => 'और लोड करें';
+
+  @override
+  String get pipelinesLoadMoreError => 'और पाइपलाइन लोड नहीं की जा सकीं।';
+
+  @override
   String get pipelineError => 'यह पाइपलाइन लोड नहीं हो सकी।';
 
   @override

@@ -1612,6 +1612,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesEmpty => '아직 파이프라인이 없습니다.';
 
   @override
+  String get pipelinesLoadMore => '더 보기';
+
+  @override
+  String get pipelinesLoadMoreError => '파이프라인을 더 불러올 수 없습니다.';
+
+  @override
   String get pipelineError => '이 파이프라인을 불러올 수 없습니다.';
 
   @override

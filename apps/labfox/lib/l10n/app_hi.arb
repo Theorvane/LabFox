@@ -393,6 +393,8 @@
   "pipelinesTitle": "पाइपलाइन",
   "pipelinesError": "पाइपलाइन लोड नहीं हो सकीं।",
   "pipelinesEmpty": "अभी तक कोई पाइपलाइन नहीं।",
+  "pipelinesLoadMore": "और लोड करें",
+  "pipelinesLoadMoreError": "और पाइपलाइन लोड नहीं की जा सकीं।",
   "pipelineError": "यह पाइपलाइन लोड नहीं हो सकी।",
   "pipelineJobsError": "जॉब लोड नहीं हो सके।",
   "pipelineNoJobs": "इस पाइपलाइन में कोई जॉब नहीं है।",

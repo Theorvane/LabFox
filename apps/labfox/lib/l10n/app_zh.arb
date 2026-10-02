@@ -393,6 +393,8 @@
   "pipelinesTitle": "流水线",
   "pipelinesError": "无法加载流水线。",
   "pipelinesEmpty": "还没有流水线。",
+  "pipelinesLoadMore": "加载更多",
+  "pipelinesLoadMoreError": "无法加载更多流水线。",
   "pipelineError": "无法加载此流水线。",
   "pipelineJobsError": "无法加载作业。",
   "pipelineNoJobs": "此流水线没有作业。",
