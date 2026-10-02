@@ -576,6 +576,39 @@ class AppLocalizationsKo extends AppLocalizations {
   String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
 
   @override
+  String get releaseMilestonesEdit => '릴리스 마일스톤 편집';
+
+  @override
+  String get releaseMilestonesTitle => '마일스톤';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '정확한 마일스톤 제목을 입력하세요. 그룹 마일스톤 지원 여부는 GitLab 요금제와 프로젝트 그룹에 따라 달라집니다.';
+
+  @override
+  String get releaseMilestoneTitle => '마일스톤 제목';
+
+  @override
+  String get releaseMilestoneAdd => '마일스톤 추가';
+
+  @override
+  String get releaseMilestonesSave => '마일스톤 저장';
+
+  @override
+  String get releaseMilestonesError => '릴리스 마일스톤을 업데이트하지 못했습니다.';
+
+  @override
+  String get releaseMilestoneTitleRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get releaseMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title 제거';
+  }
+
+  @override
   String get releaseAssetDirectPath => '새 직접 다운로드 경로 (선택 사항)';
 
   @override
