@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_tags_controller.dart';
+import 'protected_tag_protect_dialog.dart';
 
 /// Project protected tag rules, including wildcard rules.
 class ProtectedTagsScreen extends ConsumerWidget {
@@ -20,6 +21,24 @@ class ProtectedTagsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.protectedTagsTitle),
+        actions: [
+          IconButton(
+            key: const ValueKey('protected-tag-protect'),
+            tooltip: l10n.protectedTagProtectTitle,
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final created = await showDialog<bool>(
+                context: context,
+                builder: (_) => ProtectedTagProtectDialog(projectId: projectId),
+              );
+              if (created == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.protectedTagProtectCreated)),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
