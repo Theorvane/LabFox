@@ -10,6 +10,7 @@ import '../../../l10n/app_localizations.dart';
 import 'controllers/pipeline_schedule_history_controller.dart';
 import 'controllers/pipeline_schedules_controller.dart';
 import 'widgets/pipeline_schedule_history.dart';
+import 'widgets/pipeline_schedule_ownership_dialog.dart';
 
 /// A restorable pipeline schedule detail with an explicit run-now action.
 class PipelineScheduleDetailScreen extends ConsumerWidget {
@@ -33,6 +34,21 @@ class PipelineScheduleDetailScreen extends ConsumerWidget {
     final action = ref.watch(pipelineScheduleActionControllerProvider(key));
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            tooltip: l10n.pipelineScheduleTakeOwnership,
+            icon: const Icon(Icons.manage_accounts_outlined),
+            onPressed: schedule.valueOrNull == null || action.isLoading
+                ? null
+                : () => showDialog<void>(
+                    context: context,
+                    builder: (_) => PipelineScheduleOwnershipDialog(
+                      scheduleRef: key,
+                      description: schedule.requireValue.description,
+                    ),
+                  ),
+          ),
+        ],
         title: Text(
           schedule.valueOrNull?.description ?? l10n.pipelineSchedulesTitle,
         ),

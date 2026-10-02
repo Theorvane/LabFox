@@ -23,6 +23,9 @@ class PipelineSchedulesRepository {
   Future<PipelineSchedule> get(int projectId, int scheduleId) =>
       client.pipelineSchedules.get(projectId, scheduleId);
 
+  Future<PipelineSchedule> takeOwnership(int projectId, int scheduleId) =>
+      client.pipelineSchedules.takeOwnership(projectId, scheduleId);
+
   Future<void> play(int projectId, int scheduleId) =>
       client.pipelineSchedules.play(projectId, scheduleId);
 }

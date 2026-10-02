@@ -92,6 +92,28 @@ class PipelineSchedulesApi {
     }
   }
 
+  Future<PipelineSchedule> takeOwnership(
+    Object projectId,
+    int scheduleId,
+  ) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '${_path(projectId)}/$scheduleId/take_ownership',
+      );
+      if ((response.statusCode != 200 && response.statusCode != 201) ||
+          response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'taking pipeline schedule ownership',
+        );
+      }
+      return PipelineSchedule.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'taking pipeline schedule ownership');
+    }
+  }
+
   /// Runs the schedule now without changing its next planned run.
   Future<void> play(Object projectId, int scheduleId) async {
     try {
