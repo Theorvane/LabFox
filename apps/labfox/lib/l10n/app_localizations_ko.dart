@@ -32,6 +32,21 @@ class AppLocalizationsKo extends AppLocalizations {
       '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
 
   @override
+  String get pipelineScheduleTakeOwnership => '소유권 가져오기';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => '이 스케줄의 소유권을 가져오시겠습니까?';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '\"$name\"의 소유자가 됩니다. 예약 파이프라인은 내 권한으로 실행됩니다. Maintainer 또는 Owner 역할이 필요합니다.';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      '파이프라인 스케줄의 소유권을 가져오지 못했습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get protectedTagsTitle => '보호 태그';
 
   @override
