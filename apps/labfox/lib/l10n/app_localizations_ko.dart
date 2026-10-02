@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => '스케줄 편집';
+
+  @override
+  String get pipelineScheduleSave => '저장';
+
+  @override
+  String get pipelineScheduleDescription => '설명';
+
+  @override
+  String get pipelineScheduleFieldRequired => '값을 입력하세요.';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab에서 cron 식과 시간대를 검증합니다. 저장하면 향후 실행 일정이 변경되며 실행 대상, 활성 상태, 변수 및 입력은 유지됩니다.';
+
+  @override
+  String get pipelineScheduleEditError =>
+      '파이프라인 스케줄을 수정하지 못했습니다. 권한, cron 식 및 시간대를 확인하세요.';
+
+  @override
   String get pipelineScheduleTakeOwnership => '소유권 가져오기';
 
   @override
@@ -554,6 +574,39 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
+
+  @override
+  String get releaseMilestonesEdit => '릴리스 마일스톤 편집';
+
+  @override
+  String get releaseMilestonesTitle => '마일스톤';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '정확한 마일스톤 제목을 입력하세요. 그룹 마일스톤 지원 여부는 GitLab 요금제와 프로젝트 그룹에 따라 달라집니다.';
+
+  @override
+  String get releaseMilestoneTitle => '마일스톤 제목';
+
+  @override
+  String get releaseMilestoneAdd => '마일스톤 추가';
+
+  @override
+  String get releaseMilestonesSave => '마일스톤 저장';
+
+  @override
+  String get releaseMilestonesError => '릴리스 마일스톤을 업데이트하지 못했습니다.';
+
+  @override
+  String get releaseMilestoneTitleRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get releaseMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title 제거';
+  }
 
   @override
   String get releaseAssetDirectPath => '새 직접 다운로드 경로 (선택 사항)';
@@ -2122,6 +2175,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get wikiNewPage => '새 페이지';
 
   @override
+  String get wikiPagesSection => '페이지';
+
+  @override
+  String get wikiTemplatesSection => '템플릿';
+
+  @override
+  String get wikiTemplateEmpty => '아직 템플릿이 없습니다.';
+
+  @override
+  String get wikiNewTemplate => '새 템플릿';
+
+  @override
+  String get wikiTemplateTitle => '템플릿 제목';
+
+  @override
+  String get wikiCreateTemplate => '템플릿 만들기';
+
+  @override
+  String get wikiCreateTemplateError => '템플릿을 만들 수 없습니다.';
+
+  @override
   String get wikiPageTitle => '제목';
 
   @override
@@ -2743,6 +2817,57 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerTagProtectionHint =>
       'Git 태그가 아닌 컨테이너 이미지 태그 규칙입니다. 최소 역할은 현재 접근 권한을 보장하지 않습니다. 조회에는 GitLab 18.7 이상, 수정에는 18.9 이상이 필요합니다.';
+
+  @override
+  String get containerTagProtectionPatternTitle => '태그 보호 패턴 수정';
+
+  @override
+  String get containerTagProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '패턴을 변경하면 프로젝트에서 기존에 일치하던 컨테이너 이미지 태그의 보호가 해제되고 다른 태그에 적용될 수 있습니다. 와일드카드(*)는 여러 태그에 영향을 줍니다. 두 최소 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 태그나 이미지를 삭제하거나 Git 태그에 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '패턴 변경을 확인할 수 없습니다. 서버에서 요청을 처리했을 수 있으니 재시도 전에 규칙 목록을 확인하세요.';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      '확인 후 규칙이 변경되었습니다. 저장 전에 다시 불러와 검토하세요.';
+
+  @override
+  String get containerTagProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPatternSaved => '태그 보호 패턴을 변경했습니다.';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 초안을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternDraft => '새 컨테이너 태그 패턴';
 
   @override
   String containerTagProtectionDeleteClearTarget(

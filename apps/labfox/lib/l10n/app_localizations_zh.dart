@@ -9,6 +9,25 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => '编辑计划';
+
+  @override
+  String get pipelineScheduleSave => '保存';
+
+  @override
+  String get pipelineScheduleDescription => '描述';
+
+  @override
+  String get pipelineScheduleFieldRequired => '请输入一个值。';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab 会验证 cron 表达式和时区。保存将重新安排后续运行；引用、启用状态、变量和输入保持不变。';
+
+  @override
+  String get pipelineScheduleEditError => '无法更新此流水线计划。请检查权限、cron 表达式和时区。';
+
+  @override
   String get pipelineScheduleTakeOwnership => '获取所有权';
 
   @override
@@ -536,6 +555,39 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => '无法更新资源链接。';
+
+  @override
+  String get releaseMilestonesEdit => '编辑发布里程碑';
+
+  @override
+  String get releaseMilestonesTitle => '里程碑';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '请输入准确的里程碑标题。群组里程碑是否可用取决于您的 GitLab 计划和项目群组。';
+
+  @override
+  String get releaseMilestoneTitle => '里程碑标题';
+
+  @override
+  String get releaseMilestoneAdd => '添加里程碑';
+
+  @override
+  String get releaseMilestonesSave => '保存里程碑';
+
+  @override
+  String get releaseMilestonesError => '无法更新发布里程碑。';
+
+  @override
+  String get releaseMilestoneTitleRequired => '请输入里程碑标题。';
+
+  @override
+  String get releaseMilestoneDuplicate => '此里程碑已选中。';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '移除 $title';
+  }
 
   @override
   String get releaseAssetDirectPath => '新的直接下载路径（可选）';
@@ -2094,6 +2146,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiNewPage => '新建页面';
 
   @override
+  String get wikiPagesSection => '页面';
+
+  @override
+  String get wikiTemplatesSection => '模板';
+
+  @override
+  String get wikiTemplateEmpty => '还没有模板。';
+
+  @override
+  String get wikiNewTemplate => '新建模板';
+
+  @override
+  String get wikiTemplateTitle => '模板标题';
+
+  @override
+  String get wikiCreateTemplate => '创建模板';
+
+  @override
+  String get wikiCreateTemplateError => '无法创建模板。';
+
+  @override
   String get wikiPageTitle => '标题';
 
   @override
@@ -2677,6 +2750,54 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerTagProtectionHint =>
       '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+
+  @override
+  String get containerTagProtectionPatternTitle => '编辑标签保护模式';
+
+  @override
+  String get containerTagProtectionPatternSave => '保存模式';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '更改模式可能解除本项目中原先匹配的容器镜像标签的保护，并将保护应用于其他标签。通配符(*)可能影响多个标签。两个最低角色保持不变，其他规则和权限仍然适用。此操作不会删除标签或镜像，不影响 Git 标签，也不代表您的访问权限。';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '我已检查当前规则和新模式，并了解保护范围的变化。';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '您没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '无法确认模式更新。服务器可能已处理请求，请在重试前检查规则列表。';
+
+  @override
+  String get containerTagProtectionPatternStale => '规则在确认后已更改。保存前请重新加载并检查。';
+
+  @override
+  String get containerTagProtectionPatternReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPatternSaved => '标签保护模式已更新。';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPatternRateLimited => '请求过多。请稍后重试。';
+
+  @override
+  String get containerTagProtectionPatternInvalid => '模式被拒绝或已被使用。请编辑草稿后重试。';
+
+  @override
+  String get containerTagProtectionPatternDraft => '新容器标签模式';
 
   @override
   String containerTagProtectionDeleteClearTarget(
