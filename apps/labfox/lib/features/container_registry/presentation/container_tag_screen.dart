@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'controllers/container_tag_delete_controller.dart';
+import 'widgets/container_tag_delete_dialog.dart';
 
 /// Digest and revision metadata for one container image tag.
 class ContainerTagScreen extends ConsumerWidget {
@@ -29,9 +31,36 @@ class ContainerTagScreen extends ConsumerWidget {
       name: tagName,
     );
     final tag = ref.watch(containerTagProvider(key));
+    final deletion = ref.watch(containerTagDeleteControllerProvider(key));
     return Scaffold(
       appBar: AppBar(
         title: Text(tagName),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_outline),
+            tooltip: l10n.containerTagDelete,
+            onPressed:
+                tag.isLoading ||
+                    tag.hasError ||
+                    tag.valueOrNull == null ||
+                    deletion.isLoading
+                ? null
+                : () async {
+                    final deleted = await showDialog<bool>(
+                      context: context,
+                      builder: (_) => ContainerTagDeleteDialog(
+                        tagRef: key,
+                        path: tag.requireValue.path,
+                      ),
+                    );
+                    if (deleted == true && context.mounted) {
+                      context.go(
+                        Routes.containerRepository(projectId, repositoryId),
+                      );
+                    }
+                  },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
