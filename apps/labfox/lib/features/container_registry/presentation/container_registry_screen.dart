@@ -22,13 +22,18 @@ class ContainerRegistryScreen extends ConsumerWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.containerRegistryTitle),
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
               : context.go(Routes.projectOverview(projectId)),
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.lock_outline),
+            tooltip: l10n.containerImmutabilityTitle,
+            onPressed: () =>
+                context.push(Routes.containerImmutability(projectId)),
+          ),
           IconButton(
             tooltip: l10n.containerCadenceTitle,
             icon: const Icon(Icons.schedule),
@@ -53,6 +58,7 @@ class ContainerRegistryScreen extends ConsumerWidget {
                 context.push(Routes.containerTagProtectionRules(projectId)),
           ),
         ],
+        title: Text(l10n.containerRegistryTitle),
       ),
       body: repositories.when(
         loading: () => const Center(child: CircularProgressIndicator()),
