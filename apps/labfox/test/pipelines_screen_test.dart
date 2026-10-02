@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/pipelines/presentation/controllers/pipelines_controllers.dart';
 import 'package:labfox/features/pipelines/presentation/pipelines_screen.dart';
@@ -13,10 +14,10 @@ class _StubPipelines extends PipelinesController {
   final AsyncValue<List<Pipeline>> _value;
 
   @override
-  Future<List<Pipeline>> build(int projectId) {
+  Future<Paginated<Pipeline>> build(int projectId) {
     return _value.when(
-      data: (v) => Future.value(v),
-      loading: () => Completer<List<Pipeline>>().future,
+      data: (v) => Future.value(Paginated(items: v)),
+      loading: () => Completer<Paginated<Pipeline>>().future,
       error: (e, s) => Future.error(e, s),
     );
   }
