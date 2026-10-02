@@ -9,6 +9,27 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releaseCreationMilestoneTitle => '마일스톤 제목(선택 사항)';
+
+  @override
+  String get releaseCreationMilestoneAdd => '마일스톤 추가';
+
+  @override
+  String get releaseCreationMilestoneRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get releaseCreationMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
+
+  @override
+  String releaseCreationMilestoneRemove(String title) {
+    return '마일스톤 $title 제거';
+  }
+
+  @override
+  String get releaseCreationMilestoneHelp =>
+      '기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.';
+
+  @override
   String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
