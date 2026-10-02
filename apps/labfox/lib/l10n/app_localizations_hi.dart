@@ -2530,4 +2530,95 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => 'पहुँच प्रविष्टि';
+
+  @override
+  String get containerPolicyStatus => 'स्थिति';
+
+  @override
+  String get containerPolicyEnabled => 'सक्रिय';
+
+  @override
+  String get containerPolicyDisabled => 'निष्क्रिय';
+
+  @override
+  String get containerPolicyNotReported => 'जानकारी नहीं दी गई';
+
+  @override
+  String get containerPolicyCadence => 'चलने का अंतराल';
+
+  @override
+  String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
+
+  @override
+  String get containerPolicyDeletePattern => 'हटाने का पैटर्न';
+
+  @override
+  String get containerPolicyLegacyPattern => 'हटाने का पैटर्न (पुराना)';
+
+  @override
+  String get containerPolicyKeepPattern => 'रखने का पैटर्न';
+
+  @override
+  String get containerPolicyEmptyPattern => 'खाली पैटर्न';
+
+  @override
+  String get containerPolicyError => 'सफ़ाई नीति लोड नहीं हो सकी।';
+
+  @override
+  String get containerPolicyForbidden =>
+      'इस प्रोजेक्ट की सफ़ाई नीति देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerPolicyUnavailable =>
+      'प्रोजेक्ट सुलभ नहीं है या सफ़ाई नीति की जानकारी उपलब्ध नहीं है।';
+
+  @override
+  String get containerPolicyEmptySetting => 'खाली सेटिंग';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return 'प्रोजेक्ट $projectId — सभी इमेज रिपॉज़िटरी';
+  }
+
+  @override
+  String get containerActivationError =>
+      'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerActivationForbidden =>
+      'इस सफ़ाई नीति को बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerActivationStale =>
+      'नीति बदल गई है या जानकारी नहीं मिल रही। सहेजने से पहले फिर लोड कर समीक्षा करें।';
+
+  @override
+  String get containerActivationReload => 'नीति फिर लोड करें';
+
+  @override
+  String get containerActivationRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और दोबारा प्रयास से पहले नीति फिर लोड करें।';
+
+  @override
+  String get containerCadenceTitle => 'सफ़ाई अंतराल संपादित करें';
+
+  @override
+  String get containerCadenceSave => 'अंतराल परिवर्तन की पुष्टि करें';
+
+  @override
+  String get containerCadenceSelect => 'नया अंतराल (GitLab API)';
+
+  @override
+  String get containerCadenceWarning =>
+      'परियोजना का अंतराल बदलने से सभी इमेज रिपॉज़िटरी में भविष्य की नियोजित टैग सफ़ाई प्रभावित होती है। नीचे सक्रिय स्थिति और हटाने/रखने के मानदंड जाँचें। ये सेटिंग नहीं बदलतीं और सफ़ाई पूर्ण होने की पुष्टि नहीं होती।';
+
+  @override
+  String get containerCadenceUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerCadenceAccepted => 'सफ़ाई अंतराल अपडेट स्वीकार किया गया।';
 }

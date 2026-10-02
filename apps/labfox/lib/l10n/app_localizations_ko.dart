@@ -2470,4 +2470,92 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => '접근 항목';
+
+  @override
+  String get containerPolicyStatus => '상태';
+
+  @override
+  String get containerPolicyEnabled => '활성화';
+
+  @override
+  String get containerPolicyDisabled => '비활성화';
+
+  @override
+  String get containerPolicyNotReported => '보고되지 않음';
+
+  @override
+  String get containerPolicyCadence => '실행 주기';
+
+  @override
+  String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
+
+  @override
+  String get containerPolicyAge => '제거할 태그의 최소 나이';
+
+  @override
+  String get containerPolicyDeletePattern => '삭제 패턴';
+
+  @override
+  String get containerPolicyLegacyPattern => '삭제 패턴 (구형)';
+
+  @override
+  String get containerPolicyKeepPattern => '보존 패턴';
+
+  @override
+  String get containerPolicyEmptyPattern => '빈 패턴';
+
+  @override
+  String get containerPolicyError => '정리 정책을 불러오지 못했습니다.';
+
+  @override
+  String get containerPolicyForbidden => '이 프로젝트의 정리 정책을 볼 권한이 없습니다.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      '프로젝트에 접근할 수 없거나 정리 정책 정보를 사용할 수 없습니다.';
+
+  @override
+  String get containerPolicyEmptySetting => '빈 설정값';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '프로젝트 $projectId — 모든 이미지 저장소';
+  }
+
+  @override
+  String get containerActivationError => '변경을 확인하지 못했습니다. 정책을 다시 불러오고 재시도하세요.';
+
+  @override
+  String get containerActivationForbidden => '이 정리 정책을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerActivationStale =>
+      '정책이 변경되었거나 더 이상 보고되지 않습니다. 저장하기 전에 다시 불러와 확인하세요.';
+
+  @override
+  String get containerActivationReload => '정책 다시 불러오기';
+
+  @override
+  String get containerActivationRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 정책을 다시 불러와 재시도하세요.';
+
+  @override
+  String get containerCadenceTitle => '정리 주기 편집';
+
+  @override
+  String get containerCadenceSave => '주기 변경 확인';
+
+  @override
+  String get containerCadenceSelect => '새 주기 (GitLab API 간격)';
+
+  @override
+  String get containerCadenceWarning =>
+      '프로젝트 전체 주기를 변경하면 모든 이미지 저장소의 향후 예약된 태그 정리에 영향을 줍니다. 아래 활성화 상태와 삭제·보관 기준을 확인하세요. 해당 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerCadenceUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerCadenceAccepted => '정리 주기 변경 요청이 수락되었습니다.';
 }
