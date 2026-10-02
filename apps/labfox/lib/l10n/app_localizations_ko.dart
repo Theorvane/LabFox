@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => '공개 날짜(선택 사항)';
+
+  @override
+  String get releaseCreationDateDefault => '공개 시간은 GitLab에서 설정합니다.';
+
+  @override
+  String get releaseCreationChooseDate => '공개 날짜 선택';
+
+  @override
+  String get releaseCreationChooseTime => '공개 시간 선택';
+
+  @override
+  String get releaseCreationClearDate => 'GitLab 공개 시간 사용';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return '시간대: $zone. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.';
+  }
+
+  @override
   String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override

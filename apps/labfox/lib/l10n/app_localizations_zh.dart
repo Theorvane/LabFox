@@ -9,6 +9,26 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => '发布日期（可选）';
+
+  @override
+  String get releaseCreationDateDefault => '发布时间将由 GitLab 设置。';
+
+  @override
+  String get releaseCreationChooseDate => '选择发布日期';
+
+  @override
+  String get releaseCreationChooseTime => '选择发布时间';
+
+  @override
+  String get releaseCreationClearDate => '使用 GitLab 的发布时间';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return '时区：$zone。未来日期创建即将发布的版本，过去日期创建历史版本。';
+  }
+
+  @override
   String get pipelineScheduleDelete => '删除计划';
 
   @override
