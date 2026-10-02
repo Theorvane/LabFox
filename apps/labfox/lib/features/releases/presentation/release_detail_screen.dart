@@ -10,6 +10,7 @@ import '../../../core/ui/link_opener.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/releases_controller.dart';
 import 'widgets/release_milestones_dialog.dart';
+import 'widgets/release_schedule_dialog.dart';
 
 /// Release notes and published assets, restorable from a project and tag.
 class ReleaseDetailScreen extends ConsumerWidget {
@@ -72,6 +73,19 @@ class ReleaseDetailScreen extends ConsumerWidget {
               : context.go(Routes.releases(projectId)),
         ),
         actions: [
+          if (release.valueOrNull != null)
+            IconButton(
+              tooltip: l10n.releaseScheduleEdit,
+              icon: const Icon(Icons.event_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => ReleaseScheduleDialog(
+                  keyRef: key,
+                  releasedAt: release.valueOrNull!.releasedAt,
+                ),
+              ),
+            ),
           if (release.valueOrNull != null)
             IconButton(
               tooltip: l10n.releaseEdit,
