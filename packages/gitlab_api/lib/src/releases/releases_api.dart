@@ -83,6 +83,30 @@ class ReleasesApi {
     }
   }
 
+  /// Replaces milestone associations without modifying other release fields.
+  Future<GitLabRelease> updateMilestones(
+    Object projectId,
+    String tagName,
+    List<String> titles,
+  ) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+        data: {'milestones': titles},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating release milestones',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating release milestones');
+    }
+  }
+
   Future<GitLabRelease> create(
     Object projectId, {
     required String tagName,
