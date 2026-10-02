@@ -9,27 +9,18 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get releasePickerTitle => '选择项目里程碑';
+  String get pipelineScheduleDelete => '删除计划';
 
   @override
-  String get releasePickerSearch => '搜索项目里程碑';
+  String get pipelineScheduleDeleteConfirmTitle => '删除此流水线计划？';
 
   @override
-  String get releasePickerEmpty => '未找到项目里程碑。';
-
-  @override
-  String get releasePickerError => '无法加载里程碑。';
-
-  @override
-  String get releasePickerMore => '加载更多里程碑';
-
-  @override
-  String get releasePickerUse => '使用里程碑';
-
-  @override
-  String releasePickerRemove(String title) {
-    return '移除里程碑 $title';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '流水线计划“$name”将被永久删除。此操作无法撤销。';
   }
+
+  @override
+  String get pipelineScheduleDeleteError => '无法删除此流水线计划。请检查权限并重试。';
 
   @override
   String get releaseScheduleEdit => '编辑发布日期';

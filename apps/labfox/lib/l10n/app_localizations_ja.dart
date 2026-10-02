@@ -9,27 +9,19 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get releasePickerTitle => 'プロジェクトのマイルストーンを選択';
+  String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
-  String get releasePickerSearch => 'プロジェクトのマイルストーンを検索';
+  String get pipelineScheduleDeleteConfirmTitle => 'このパイプラインスケジュールを削除しますか？';
 
   @override
-  String get releasePickerEmpty => 'プロジェクトのマイルストーンが見つかりません。';
-
-  @override
-  String get releasePickerError => 'マイルストーンを読み込めませんでした。';
-
-  @override
-  String get releasePickerMore => 'マイルストーンをさらに読み込む';
-
-  @override
-  String get releasePickerUse => 'マイルストーンを使用';
-
-  @override
-  String releasePickerRemove(String title) {
-    return 'マイルストーン $title を削除';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'パイプラインスケジュール「$name」は完全に削除されます。この操作は元に戻せません。';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
 
   @override
   String get releaseScheduleEdit => 'リリース日時を編集';

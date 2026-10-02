@@ -104,47 +104,29 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// No description provided for @releasePickerTitle.
+  /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
-  /// **'Select project milestones'**
-  String get releasePickerTitle;
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
 
-  /// No description provided for @releasePickerSearch.
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Search project milestones'**
-  String get releasePickerSearch;
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
 
-  /// No description provided for @releasePickerEmpty.
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'No project milestones found.'**
-  String get releasePickerEmpty;
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
 
-  /// No description provided for @releasePickerError.
+  /// No description provided for @pipelineScheduleDeleteError.
   ///
   /// In en, this message translates to:
-  /// **'Could not load milestones.'**
-  String get releasePickerError;
-
-  /// No description provided for @releasePickerMore.
-  ///
-  /// In en, this message translates to:
-  /// **'Load more milestones'**
-  String get releasePickerMore;
-
-  /// No description provided for @releasePickerUse.
-  ///
-  /// In en, this message translates to:
-  /// **'Use milestones'**
-  String get releasePickerUse;
-
-  /// No description provided for @releasePickerRemove.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove milestone {title}'**
-  String releasePickerRemove(String title);
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
 
   /// No description provided for @releaseScheduleEdit.
   ///

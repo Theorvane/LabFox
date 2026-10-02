@@ -9,27 +9,19 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get releasePickerTitle => '프로젝트 마일스톤 선택';
+  String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
-  String get releasePickerSearch => '프로젝트 마일스톤 검색';
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
 
   @override
-  String get releasePickerEmpty => '프로젝트 마일스톤이 없습니다.';
-
-  @override
-  String get releasePickerError => '마일스톤을 불러오지 못했습니다.';
-
-  @override
-  String get releasePickerMore => '마일스톤 더 불러오기';
-
-  @override
-  String get releasePickerUse => '마일스톤 사용';
-
-  @override
-  String releasePickerRemove(String title) {
-    return '마일스톤 $title 제거';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
   String get releaseScheduleEdit => '릴리스 날짜 편집';
