@@ -9,23 +9,18 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get pipelineScheduleExecutionEdit => '编辑执行设置';
+  String get pipelineScheduleDelete => '删除计划';
 
   @override
-  String get pipelineScheduleExecutionSave => '保存';
+  String get pipelineScheduleDeleteConfirmTitle => '删除此流水线计划？';
 
   @override
-  String get pipelineScheduleExecutionActive => '启用';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '流水线计划“$name”将被永久删除。此操作无法撤销。';
+  }
 
   @override
-  String get pipelineScheduleExecutionRefRequired => '请输入引用。';
-
-  @override
-  String get pipelineScheduleExecutionHint =>
-      'GitLab 会验证引用。如果分支和标签同名，请使用完整引用。保存将重新安排后续运行；cron、时区、变量和输入保持不变。';
-
-  @override
-  String get pipelineScheduleExecutionError => '无法更新执行设置。请检查权限和引用后重试。';
+  String get pipelineScheduleDeleteError => '无法删除此流水线计划。请检查权限并重试。';
 
   @override
   String get releaseScheduleEdit => '编辑发布日期';
@@ -2892,4 +2887,69 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagDeleteError => '无法删除此标签。请重试。';
+
+  @override
+  String get containerImmutabilityTitle => '不可变标签规则';
+
+  @override
+  String get containerImmutabilityEmpty => '没有不可变标签规则。';
+
+  @override
+  String get containerImmutabilityError => '无法加载不可变标签规则。请检查实例支持情况后重试。';
+
+  @override
+  String get containerImmutabilityForbidden => '你没有查看不可变标签规则的权限。';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '项目或规则列表不可用。请检查访问权限、订阅和实例支持情况。';
+
+  @override
+  String get containerImmutabilityHint =>
+      '不可变标签需要 Ultimate 和受支持的镜像仓库。这些模式适用于项目中的所有容器仓库，防止匹配标签被覆盖或删除，包括清理策略的删除。查看规则并不确认单个标签当前的保护状态。更改可能需要时间才能生效。';
+
+  @override
+  String get containerImmutabilityCreateTitle => '创建不可变规则';
+
+  @override
+  String get containerImmutabilityCreateButton => '创建规则';
+
+  @override
+  String get containerImmutabilityCreated => '不可变规则已创建。';
+
+  @override
+  String get containerImmutabilityPattern => '标签模式';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      '输入不超过100个字符的RE2模式。空格会保留；GitLab会验证语法。';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      '需要Owner权限、Ultimate和受支持的注册表。此模式适用于项目中的所有容器仓库。匹配的标签无法覆盖或删除，包括通过清理策略删除。只要存在任何不可变规则，直接删除清单也会被阻止。规则无法编辑，变更生效可能需要一些时间。';
+
+  @override
+  String get containerImmutabilityAcknowledge => '我了解项目范围的保护和工作流影响。';
+
+  @override
+  String get containerImmutabilityUncertain => '无法确认创建结果。请求可能已经成功；重试前请检查当前规则。';
+
+  @override
+  String get containerImmutabilityInspect => '检查当前规则';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLab拒绝了请求，或者相同模式的不可变规则已存在。请检查当前规则、模式和项目限制。';
+
+  @override
+  String get containerImmutabilityAuth => '会话被拒绝。创建规则前请重新登录。';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      '账户已更改。请关闭此对话框，然后为所选账户重新打开。';
 }

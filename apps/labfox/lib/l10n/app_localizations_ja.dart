@@ -9,24 +9,19 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get pipelineScheduleExecutionEdit => '実行設定を編集';
+  String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
-  String get pipelineScheduleExecutionSave => '保存';
+  String get pipelineScheduleDeleteConfirmTitle => 'このパイプラインスケジュールを削除しますか？';
 
   @override
-  String get pipelineScheduleExecutionActive => '有効';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'パイプラインスケジュール「$name」は完全に削除されます。この操作は元に戻せません。';
+  }
 
   @override
-  String get pipelineScheduleExecutionRefRequired => '参照を入力してください。';
-
-  @override
-  String get pipelineScheduleExecutionHint =>
-      'GitLab が参照を検証します。ブランチとタグが同名の場合は完全な参照を入力してください。保存すると今後の実行予定が再計算され、cron、タイムゾーン、変数、入力は変更されません。';
-
-  @override
-  String get pipelineScheduleExecutionError =>
-      '実行設定を更新できませんでした。権限と参照を確認して再試行してください。';
+  String get pipelineScheduleDeleteError =>
+      'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
 
   @override
   String get releaseScheduleEdit => 'リリース日時を編集';
@@ -2957,4 +2952,73 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerTagDeleteError => 'タグを削除できませんでした。再試行してください。';
+
+  @override
+  String get containerImmutabilityTitle => 'イミュータブルタグのルール';
+
+  @override
+  String get containerImmutabilityEmpty => 'イミュータブルタグのルールはありません。';
+
+  @override
+  String get containerImmutabilityError =>
+      'ルールを読み込めませんでした。インスタンスの対応状況を確認して再試行してください。';
+
+  @override
+  String get containerImmutabilityForbidden => 'イミュータブルタグのルールを表示する権限がありません。';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'プロジェクトまたはルール一覧を利用できません。アクセス権、サブスクリプション、インスタンスの対応状況を確認してください。';
+
+  @override
+  String get containerImmutabilityHint =>
+      'イミュータブルタグにはUltimateと対応するレジストリが必要です。パターンはプロジェクトのすべてのコンテナリポジトリに適用され、クリーンアップポリシーを含め、一致するタグの上書きと削除を防ぎます。ルールの表示だけでは個々のタグの現在の保護状態は確認できません。変更の反映には時間がかかる場合があります。';
+
+  @override
+  String get containerImmutabilityCreateTitle => '不変ルールを作成';
+
+  @override
+  String get containerImmutabilityCreateButton => 'ルールを作成';
+
+  @override
+  String get containerImmutabilityCreated => '不変ルールを作成しました。';
+
+  @override
+  String get containerImmutabilityPattern => 'タグパターン';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      '100文字以内のRE2パターンを入力してください。空白は保持され、構文はGitLabが検証します。';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'Owner権限、Ultimate、対応レジストリが必要です。このパターンはプロジェクト内のすべてのコンテナリポジトリに適用されます。一致するタグはクリーンアップポリシーでも上書きや削除ができません。不変ルールが存在する間、マニフェストの直接削除も禁止されます。ルールは編集できず、変更の反映には時間がかかる場合があります。';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      'プロジェクト全体の保護とワークフローへの影響を理解しました。';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      '作成結果を確認できません。既に成功している可能性があるため、再試行前に現在のルールを確認してください。';
+
+  @override
+  String get containerImmutabilityInspect => '現在のルールを確認';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLabが要求を拒否したか、同じパターンの不変ルールが既に存在します。現在のルール、パターン、プロジェクトの制限を確認してください。';
+
+  @override
+  String get containerImmutabilityAuth =>
+      'セッションが拒否されました。ルールを作成する前に再度サインインしてください。';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
 }

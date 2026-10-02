@@ -5,6 +5,10 @@
   "pipelineScheduleExecutionRefRequired": "रेफ़ दर्ज करें।",
   "pipelineScheduleExecutionHint": "GitLab रेफ़ की जाँच करता है। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें। सहेजने पर भविष्य के रन पुनर्निर्धारित होते हैं; cron, समय क्षेत्र, वेरिएबल और इनपुट नहीं बदलते।",
   "pipelineScheduleExecutionError": "निष्पादन सेटिंग अपडेट नहीं की जा सकीं। अनुमतियाँ और रेफ़ जाँचें, फिर दोबारा प्रयास करें।",
+  "pipelineScheduleDelete": "शेड्यूल हटाएँ",
+  "pipelineScheduleDeleteConfirmTitle": "यह पाइपलाइन शेड्यूल हटाएँ?",
+  "pipelineScheduleDeleteConfirmBody": "पाइपलाइन शेड्यूल \"{name}\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।",
+  "pipelineScheduleDeleteError": "इस पाइपलाइन शेड्यूल को हटाया नहीं जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।",
   "releaseScheduleEdit": "रिलीज़ की तारीख संपादित करें",
   "releaseScheduleChangeDate": "तारीख बदलें",
   "releaseScheduleChangeTime": "समय बदलें",
@@ -827,5 +831,31 @@
   "containerTagDeleteConfirmBody": "“{path}” पर टैग “{tagName}” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।",
   "containerTagDeleteWarning": "इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।",
   "containerTagDeleteForbidden": "आप यह टैग नहीं हटा सकते। यह सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।",
-  "containerTagDeleteError": "यह टैग नहीं हटाया जा सका। फिर प्रयास करें।"
+  "containerTagDeleteError": "यह टैग नहीं हटाया जा सका। फिर प्रयास करें।",
+  "containerImmutabilityTitle": "अपरिवर्तनीय टैग नियम",
+  "containerImmutabilityEmpty": "कोई अपरिवर्तनीय टैग नियम नहीं है।",
+  "containerImmutabilityError": "अपरिवर्तनीय टैग नियम लोड नहीं हुए। इंस्टेंस समर्थन जाँचकर फिर प्रयास करें।",
+  "containerImmutabilityForbidden": "आपको अपरिवर्तनीय टैग नियम देखने की अनुमति नहीं है।",
+  "containerImmutabilityUnavailable": "प्रोजेक्ट या नियम सूची उपलब्ध नहीं है। पहुँच, सदस्यता और इंस्टेंस समर्थन जाँचें।",
+  "containerImmutabilityHint": "अपरिवर्तनीय टैग के लिए Ultimate और समर्थित रजिस्ट्री आवश्यक हैं। ये पैटर्न प्रोजेक्ट की सभी कंटेनर रिपॉज़िटरी पर लागू होते हैं और सफ़ाई नीतियों सहित मेल खाने वाले टैग को ओवरराइट करने या हटाने से रोकते हैं। नियम देखना किसी टैग की वर्तमान सुरक्षा की पुष्टि नहीं करता। बदलाव लागू होने में समय लग सकता है।",
+  "containerImmutabilityCreateTitle": "अपरिवर्तनीय नियम बनाएँ",
+  "containerImmutabilityCreateButton": "नियम बनाएँ",
+  "containerImmutabilityCreated": "अपरिवर्तनीय नियम बनाया गया।",
+  "containerImmutabilityPattern": "टैग पैटर्न",
+  "containerImmutabilityPatternHint": "अधिकतम 100 अक्षरों का RE2 पैटर्न दर्ज करें। रिक्त स्थान सुरक्षित रहते हैं; GitLab सिंटैक्स की जाँच करता है।",
+  "containerImmutabilityProject": "प्रोजेक्ट {projectId}",
+  "containerImmutabilityImpact": "Owner पहुँच, Ultimate और समर्थित रजिस्ट्री आवश्यक हैं। पैटर्न इस प्रोजेक्ट के सभी कंटेनर रिपॉज़िटरी पर लागू होता है। मेल खाने वाले टैग को क्लीनअप नीतियों से भी ओवरराइट या हटाया नहीं जा सकता। कोई भी अपरिवर्तनीय नियम मौजूद रहने तक मैनिफेस्ट को सीधे हटाना भी अवरुद्ध रहता है। नियम संपादित नहीं किए जा सकते; बदलाव लागू होने में समय लग सकता है।",
+  "containerImmutabilityAcknowledge": "मैं पूरे प्रोजेक्ट की सुरक्षा और वर्कफ़्लो पर प्रभाव समझता हूँ।",
+  "containerImmutabilityUncertain": "नियम बनने की पुष्टि नहीं हुई। अनुरोध पहले ही सफल हो सकता है; फिर से प्रयास करने से पहले वर्तमान नियम जाँचें।",
+  "containerImmutabilityInspect": "वर्तमान नियम जाँचें",
+  "containerImmutabilityRejected": "GitLab ने अनुरोध अस्वीकार किया, या इस पैटर्न का अपरिवर्तनीय नियम पहले से मौजूद है। वर्तमान नियम, पैटर्न और प्रोजेक्ट सीमाएँ जाँचें।",
+  "containerImmutabilityAuth": "सत्र अस्वीकार कर दिया गया। नियम बनाने से पहले फिर से साइन इन करें।",
+  "containerImmutabilityAccountChanged": "खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।",
+  "@containerImmutabilityProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  }
 }

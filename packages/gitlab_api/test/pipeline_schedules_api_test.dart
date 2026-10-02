@@ -70,6 +70,42 @@ void main() {
     });
   }
 
+  for (final status in [200, 204]) {
+    test('deletes encoded schedule with successful status $status', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: status,
+          headers: const {},
+          body: status == 200 ? {'id': 13} : null,
+        );
+      });
+      await client.pipelineSchedules.delete('team/app', 13);
+      expect(request.method, 'DELETE');
+      expect(request.path, '/projects/team%2Fapp/pipeline_schedules/13');
+      expect(request.data, isNull);
+      expect(request.queryParameters, isEmpty);
+    });
+  }
+  for (final status in [401, 403, 404, 429, 500, 202]) {
+    test('maps unsuccessful schedule deletion $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.pipelineSchedules.delete(7, 13),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
+
   test(
     'lists schedule pipelines newest first with header pagination',
     () async {
