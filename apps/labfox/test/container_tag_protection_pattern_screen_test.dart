@@ -6,14 +6,14 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/container_registry/presentation/container_tag_protection_screen.dart';
 import 'package:labfox/features/container_registry/presentation/controllers/container_registry_controllers.dart';
-import 'package:labfox/features/container_registry/presentation/widgets/container_tag_protection_push_clear_dialog.dart';
+import 'package:labfox/features/container_registry/presentation/widgets/container_tag_protection_pattern_dialog.dart';
 import 'package:labfox/l10n/app_localizations.dart';
-import 'container_tag_protection_push_clear_controller_test.dart'
-    show ProtectionPushClearRepository, reviewedRule;
+import 'container_tag_protection_pattern_controller_test.dart'
+    show ProtectionPatternRepository, reviewedRule;
 
 Future<void> open(
   WidgetTester tester,
-  ProtectionPushClearRepository repository, {
+  ProtectionPatternRepository repository, {
   double width = 390,
   bool dark = false,
   ContainerTagProtectionRule rule = reviewedRule,
@@ -39,7 +39,7 @@ Future<void> open(
               onPressed: () => showDialog<bool>(
                 context: context,
                 barrierDismissible: false,
-                builder: (_) => ContainerTagProtectionPushClearDialog(
+                builder: (_) => ContainerTagProtectionPatternDialog(
                   projectId: 7,
                   rule: rule,
                 ),
@@ -54,118 +54,76 @@ Future<void> open(
   await tester.pumpAndSettle();
   await tester.tap(find.text('Open test dialog'));
   await tester.pumpAndSettle();
+  await tester.enterText(find.byType(TextField), 'v*-stable');
+  await tester.pumpAndSettle();
 }
 
 Future<void> acknowledge(WidgetTester tester) async {
+  await tester.pumpAndSettle();
   await tester.ensureVisible(find.byType(CheckboxListTile));
   await tester.tap(find.byType(CheckboxListTile));
   await tester.pumpAndSettle();
 }
 
 void main() {
-  testWidgets('unsupported current rule can be reloaded and reviewed', (
-    tester,
-  ) async {
-    final unknown = reviewedRule.copyWith(
-      minimumAccessLevelForPush: 'future_role',
-    );
-    final repository = ProtectionPushClearRepository()..rules = [unknown];
-    await open(tester, repository, rule: unknown);
-    expect(
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
-      isNull,
-    );
-    repository.rules = [reviewedRule];
-    await tester.tap(find.text('Reload rule'));
-    await tester.pumpAndSettle();
-    expect(
-      tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
-      isFalse,
-    );
-    await acknowledge(tester);
-    await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
-    expect(repository.writes, [(7, 2)]);
-  });
-  for (final rule in [
-    reviewedRule.copyWith(minimumAccessLevelForPush: null),
-    reviewedRule.copyWith(minimumAccessLevelForPush: ''),
-    reviewedRule.copyWith(minimumAccessLevelForPush: 'future_role'),
-    reviewedRule.copyWith(minimumAccessLevelForDelete: null),
-    reviewedRule.copyWith(minimumAccessLevelForDelete: ''),
-    reviewedRule.copyWith(minimumAccessLevelForDelete: 'future_role'),
-  ]) {
-    testWidgets('unsafe restriction clearing stays blocked $rule', (
-      tester,
-    ) async {
-      final repository = ProtectionPushClearRepository()..rules = [rule];
-      await open(tester, repository, rule: rule);
+  testWidgets(
+    'draft edits reset acknowledgement and unchanged or blank drafts stay disabled',
+    (tester) async {
+      final repository = ProtectionPatternRepository();
+      await open(tester, repository);
+      await acknowledge(tester);
+      await tester.enterText(find.byType(TextField), 'team/other-*');
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+        isFalse,
+      );
       expect(
         tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
         isNull,
       );
-      expect(
-        tester
-            .widget<CheckboxListTile>(find.byType(CheckboxListTile))
-            .onChanged,
-        isNull,
-      );
+      for (final text in ['   ', reviewedRule.tagNamePattern]) {
+        await tester.enterText(find.byType(TextField), text);
+        await acknowledge(tester);
+        expect(
+          tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+          isNull,
+        );
+      }
       expect(repository.writes, isEmpty);
-    });
-  }
-  testWidgets('reload cannot remove the final remaining restriction', (
-    tester,
-  ) async {
-    final repository = ProtectionPushClearRepository();
-    await open(tester, repository);
-    await acknowledge(tester);
-    repository.rules = [
-      reviewedRule.copyWith(minimumAccessLevelForDelete: null),
-    ];
-    await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Reload rule'));
-    await tester.pumpAndSettle();
-    expect(
-      tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
-      isFalse,
-    );
-    expect(
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
-      isNull,
-    );
-    expect(repository.writes, isEmpty);
-  });
-  testWidgets('validation rejection retains reviewed criteria for retry', (
-    tester,
-  ) async {
-    final repository = ProtectionPushClearRepository()
-      ..failure = const GitLabConflictException(
-        'private validation',
-        statusCode: 422,
+    },
+  );
+  testWidgets(
+    'server pattern validation retains editable draft without requiring reload',
+    (tester) async {
+      final repository = ProtectionPatternRepository()
+        ..failure = const GitLabConflictException('private', statusCode: 422);
+      await open(tester, repository);
+      await acknowledge(tester);
+      await tester.tap(find.byType(FilledButton));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('private'), findsNothing);
+      expect(
+        tester.widget<TextField>(find.byType(TextField)).controller!.text,
+        'v*-stable',
       );
-    await open(tester, repository);
-    await acknowledge(tester);
-    await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
-    expect(find.textContaining('private validation'), findsNothing);
-    expect(
-      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
-      isNotNull,
-    );
-    repository.failure = null;
-    await tester.tap(find.byType(FilledButton));
-    await tester.pumpAndSettle();
-    expect(repository.writes, [(7, 2), (7, 2)]);
-    expect(
-      repository.rules.single,
-      reviewedRule.copyWith(minimumAccessLevelForPush: null),
-    );
-  });
+      expect(tester.widget<TextField>(find.byType(TextField)).enabled, isTrue);
+      expect(
+        tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+        isNotNull,
+      );
+      repository.failure = null;
+      await tester.enterText(find.byType(TextField), 'team/valid-*');
+      await acknowledge(tester);
+      await tester.tap(find.byType(FilledButton));
+      await tester.pumpAndSettle();
+      expect(repository.writes, [(7, 2, 'v*-stable'), (7, 2, 'team/valid-*')]);
+    },
+  );
   testWidgets(
     'reload failure stays blocked without private text and recovers',
     (tester) async {
-      final repository = ProtectionPushClearRepository()
+      final repository = ProtectionPatternRepository()
         ..readFailure = const GitLabForbiddenException(
           'private reload details',
         );
@@ -192,15 +150,15 @@ void main() {
       await acknowledge(tester);
       await tester.tap(find.byType(FilledButton));
       await tester.pumpAndSettle();
-      expect(repository.writes, [(7, 2)]);
+      expect(repository.writes, [(7, 2, 'v*-stable')]);
     },
   );
   for (final width in [320.0, 800.0, 1200.0]) {
     for (final dark in [false, true]) {
-      testWidgets('exact-rule push clearing fits $width dark=$dark', (
+      testWidgets('exact-rule pattern editing fits $width dark=$dark', (
         tester,
       ) async {
-        final repository = ProtectionPushClearRepository();
+        final repository = ProtectionPatternRepository();
         await open(tester, repository, width: width, dark: dark);
         expect(find.text('Project 7 — rule 2'), findsOneWidget);
         expect(find.text('v*-release'), findsOneWidget);
@@ -214,17 +172,14 @@ void main() {
         expect(repository.writes, isEmpty);
         await tester.tap(find.byType(FilledButton));
         await tester.pumpAndSettle();
-        expect(repository.writes, [(7, 2)]);
-        expect(
-          find.byType(ContainerTagProtectionPushClearDialog),
-          findsNothing,
-        );
+        expect(repository.writes, [(7, 2, 'v*-stable')]);
+        expect(find.byType(ContainerTagProtectionPatternDialog), findsNothing);
         expect(tester.takeException(), isNull);
       });
     }
   }
-  testWidgets('cancel never clears a push role', (tester) async {
-    final repository = ProtectionPushClearRepository();
+  testWidgets('cancel never updates a rule', (tester) async {
+    final repository = ProtectionPatternRepository();
     await open(tester, repository);
     await acknowledge(tester);
     await tester.tap(find.text('Cancel'));
@@ -238,7 +193,7 @@ void main() {
       minimumAccessLevelForPush: 'future_role',
       minimumAccessLevelForDelete: null,
     );
-    final repository = ProtectionPushClearRepository()..rules = [rule];
+    final repository = ProtectionPatternRepository()..rules = [rule];
     await open(tester, repository, rule: rule);
     expect(find.text('Minimum push role: Unknown role'), findsOneWidget);
     expect(
@@ -251,7 +206,7 @@ void main() {
   testWidgets('changed rule requires reload and renewed acknowledgement', (
     tester,
   ) async {
-    final repository = ProtectionPushClearRepository();
+    final repository = ProtectionPatternRepository();
     await open(tester, repository);
     await acknowledge(tester);
     repository.rules = [reviewedRule.copyWith(tagNamePattern: 'changed-*')];
@@ -276,10 +231,10 @@ void main() {
     await acknowledge(tester);
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
-    expect(repository.writes, [(7, 2)]);
+    expect(repository.writes, [(7, 2, 'v*-stable')]);
   });
-  testWidgets('missing rule after reload cannot be cleared', (tester) async {
-    final repository = ProtectionPushClearRepository();
+  testWidgets('missing rule after reload cannot be updated', (tester) async {
+    final repository = ProtectionPatternRepository();
     await open(tester, repository);
     await acknowledge(tester);
     repository.rules = [];
@@ -293,10 +248,10 @@ void main() {
     );
     expect(repository.writes, isEmpty);
   });
-  testWidgets('forbidden push clearing retains confirmation for a real retry', (
+  testWidgets('forbidden update retains confirmation for a real retry', (
     tester,
   ) async {
-    final repository = ProtectionPushClearRepository()
+    final repository = ProtectionPatternRepository()
       ..failure = const GitLabForbiddenException('private server details');
     await open(tester, repository);
     await acknowledge(tester);
@@ -310,12 +265,12 @@ void main() {
     repository.failure = null;
     await tester.tap(find.byType(FilledButton));
     await tester.pumpAndSettle();
-    expect(repository.writes, [(7, 2), (7, 2)]);
+    expect(repository.writes, [(7, 2, 'v*-stable'), (7, 2, 'v*-stable')]);
   });
-  testWidgets('pending push clearing blocks cancel back and duplicates', (
+  testWidgets('pending update blocks cancel back and duplicates', (
     tester,
   ) async {
-    final repository = ProtectionPushClearRepository()
+    final repository = ProtectionPatternRepository()
       ..pending = Completer<void>();
     await open(tester, repository);
     await acknowledge(tester);
@@ -335,17 +290,18 @@ void main() {
       tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).onChanged,
       isNull,
     );
+    expect(tester.widget<TextField>(find.byType(TextField)).enabled, isFalse);
     await tester.binding.handlePopRoute();
     await tester.pump();
-    expect(find.byType(ContainerTagProtectionPushClearDialog), findsOneWidget);
+    expect(find.byType(ContainerTagProtectionPatternDialog), findsOneWidget);
     expect(repository.writes, hasLength(1));
     repository.pending!.complete();
     await tester.pumpAndSettle();
   });
-  testWidgets('protection list opens confirmation without clearing', (
+  testWidgets('protection list opens confirmation without writing', (
     tester,
   ) async {
-    final repository = ProtectionPushClearRepository();
+    final repository = ProtectionPatternRepository();
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -361,10 +317,9 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    expect(find.byTooltip('Edit tag protection pattern'), findsOneWidget);
-    await tester.tap(find.byTooltip('Clear minimum push role'));
+    await tester.tap(find.byTooltip('Edit tag protection pattern'));
     await tester.pumpAndSettle();
-    expect(find.byType(ContainerTagProtectionPushClearDialog), findsOneWidget);
+    expect(find.byType(ContainerTagProtectionPatternDialog), findsOneWidget);
     expect(repository.writes, isEmpty);
   });
 }
