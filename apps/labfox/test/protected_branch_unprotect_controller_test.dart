@@ -112,14 +112,22 @@ void main() {
     );
     expect(repository.deletes, 0);
   });
-  test('failure preserves inventory and retry repeats preflight', () async {
-    repository.failure = const GitLabForbiddenException('Denied');
-    await expectLater(remove(), throwsA(isA<GitLabForbiddenException>()));
-    repository.failure = null;
-    await remove();
-    expect(repository.pages, [1, 2, 1, 2]);
-    expect(repository.reads, 2);
-  });
+  test(
+    'failed write requires explicit inspection before another removal',
+    () async {
+      repository.failure = const GitLabForbiddenException('Denied');
+      await expectLater(remove(), throwsA(isA<GitLabForbiddenException>()));
+      repository.failure = null;
+      await expectLater(remove(), throwsA(isA<GitLabConflictException>()));
+      expect(repository.deletes, 1);
+      await container
+          .read(protectedBranchUnprotectControllerProvider(key).notifier)
+          .inspect();
+      await remove();
+      expect(repository.pages, [1, 2, 1, 2, 1, 2]);
+      expect(repository.reads, 3);
+    },
+  );
   test('pending removal cannot be duplicated', () async {
     repository.pendingRead = Completer<void>();
     final pending = remove();

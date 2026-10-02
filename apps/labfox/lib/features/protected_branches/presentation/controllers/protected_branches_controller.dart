@@ -358,11 +358,16 @@ final protectedBranchMergeRoleControllerProvider =
 class ProtectedBranchUnprotectController
     extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
   bool _disposed = false;
+  bool _requiresInspection = false;
+
+  /// Account-bound retry lock that survives closing a confirmation dialog.
+  bool get requiresInspection => _requiresInspection;
 
   @override
   void build(ProtectedBranchRef arg) {
     ref.watch(protectedBranchesRepositoryProvider.future);
     _disposed = false;
+    _requiresInspection = false;
     ref.onDispose(() => _disposed = true);
   }
 
@@ -396,12 +401,19 @@ class ProtectedBranchUnprotectController
     if (listed != detail) {
       throw const GitLabConflictException('Protection rule changed');
     }
+    if (!state.isLoading && detail.inherited != true) {
+      _requiresInspection = false;
+      state = const AsyncData(null);
+    }
     return detail;
   }
 
   Future<void> unprotect({required ProtectedBranch expected}) async {
     if (state.isLoading) {
       throw StateError('Branch unprotection is already pending');
+    }
+    if (_requiresInspection) {
+      throw const GitLabConflictException('Inspect the rule before retrying');
     }
     if (expected.name != arg.name || expected.name.trim().isEmpty) {
       throw ArgumentError('Exact frozen rule identity required');
@@ -430,10 +442,12 @@ class ProtectedBranchUnprotectController
       }
       final repository = await session;
       if (repository == null) throw StateError('No authenticated account');
+      _requiresInspection = true;
       await repository.unprotect(arg.projectId, arg.name);
       if (!isCurrent()) {
         throw const GitLabConflictException('Protection session changed');
       }
+      _requiresInspection = false;
       state = const AsyncData(null);
       ref.invalidate(protectedBranchesControllerProvider(arg.projectId));
       ref.invalidate(protectedBranchDetailProvider(arg));

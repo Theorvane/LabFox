@@ -9,6 +9,21 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleTakeOwnership => '所有権を取得';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => 'このスケジュールの所有権を取得しますか？';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '「$name」の所有者になります。スケジュールされたパイプラインはあなたの権限で実行されます。Maintainer または Owner ロールが必要です。';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      'このパイプラインスケジュールの所有権を取得できませんでした。権限を確認して再試行してください。';
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override

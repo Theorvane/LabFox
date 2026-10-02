@@ -38,6 +38,11 @@ class _ProtectedBranchUnprotectDialogState
     super.initState();
     _session = ref.read(protectedBranchesRepositoryProvider.future);
     _expected = widget.rule;
+    _needsReload = ref
+        .read(
+          protectedBranchUnprotectControllerProvider(widget.target).notifier,
+        )
+        .requiresInspection;
   }
 
   @override

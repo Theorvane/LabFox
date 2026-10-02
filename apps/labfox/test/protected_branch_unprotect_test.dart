@@ -22,6 +22,7 @@ class _Repository extends ProtectedBranchesRepository {
   int deletes = 0;
   int reads = 0;
   Object? failure;
+  Object? readFailure;
   @override
   Future<Paginated<ProtectedBranch>> list(
     int projectId, {
@@ -30,6 +31,7 @@ class _Repository extends ProtectedBranchesRepository {
   @override
   Future<ProtectedBranch> get(int projectId, String name) async {
     reads++;
+    if (readFailure != null) throw readFailure!;
     return rule;
   }
 
@@ -41,6 +43,89 @@ class _Repository extends ProtectedBranchesRepository {
 }
 
 void main() {
+  testWidgets('uncertain deletion stays locked after cancel and reopen', (
+    tester,
+  ) async {
+    final repository = _Repository()
+      ..failure = const GitLabServerException('Uncertain deletion');
+    final router = GoRouter(
+      initialLocation: '/projects/7/protected_branches/release%2F%2A',
+      routes: [
+        GoRoute(
+          path: '/projects/:id/protected_branches/:name',
+          builder: (_, state) => const ProtectedBranchDetailScreen(
+            projectId: 7,
+            name: 'release/*',
+          ),
+        ),
+        GoRoute(
+          path: '/projects/:id/protected_branches',
+          builder: (_, state) => const Scaffold(),
+        ),
+      ],
+    );
+    addTearDown(router.dispose);
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          protectedBranchesRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+        child: MaterialApp.router(
+          routerConfig: router,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Unprotect branch rule'));
+    await tester.pumpAndSettle();
+    final name = find.byKey(const ValueKey('protected-branch-unprotect-name'));
+    final save = find.byKey(const ValueKey('protected-branch-unprotect-save'));
+    final reload = find.byKey(
+      const ValueKey('protected-branch-unprotect-reload'),
+    );
+    await tester.enterText(name, 'release/*');
+    await tester.tap(find.byType(CheckboxListTile));
+    await tester.pump();
+    await tester.tap(save);
+    await tester.pumpAndSettle();
+    expect(repository.deletes, 1);
+    await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+    await tester.pumpAndSettle();
+    final readsBeforeReopen = repository.reads;
+    await tester.tap(find.text('Unprotect branch rule'));
+    await tester.pumpAndSettle();
+    expect(reload, findsOneWidget);
+    expect(tester.widget<FilledButton>(save).onPressed, isNull);
+    expect(
+      tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).onChanged,
+      isNull,
+    );
+    expect(repository.reads, readsBeforeReopen);
+    repository.failure = null;
+    repository.readFailure = const GitLabServerException(
+      'Inspection unavailable',
+    );
+    await tester.tap(reload);
+    await tester.pumpAndSettle();
+    expect(tester.widget<FilledButton>(save).onPressed, isNull);
+    expect(repository.deletes, 1);
+    repository.readFailure = null;
+    await tester.tap(reload);
+    await tester.pumpAndSettle();
+    expect(repository.reads, greaterThan(readsBeforeReopen));
+    await tester.enterText(name, 'release/*');
+    await tester.tap(find.byType(CheckboxListTile));
+    await tester.pump();
+    await tester.tap(save);
+    await tester.pumpAndSettle();
+    expect(repository.deletes, 2);
+    expect(tester.takeException(), isNull);
+  });
+
   for (final size in [
     const Size(320, 800),
     const Size(800, 800),
