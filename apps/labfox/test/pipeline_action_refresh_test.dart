@@ -44,9 +44,11 @@ class _Repository extends PipelinesRepository {
   final details = <int, int>{};
   final jobLoads = <int, int>{};
   @override
-  Future<List<Pipeline>> list(int projectId) async {
+  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) async {
     lists.update(projectId, (value) => value + 1, ifAbsent: () => 1);
-    return [Pipeline(id: 944, status: status, ref: 'main')];
+    return Paginated(
+      items: [Pipeline(id: 944, status: status, ref: 'main')],
+    );
   }
 
   @override
@@ -142,6 +144,7 @@ void main() {
           container
               .read(pipelinesControllerProvider(7))
               .requireValue
+              .items
               .single
               .status,
           command == 'retry' ? 'pending' : 'canceled',
