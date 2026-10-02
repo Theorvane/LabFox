@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'widgets/cleanup_policy_cadence_dialog.dart';
 
 /// Project container image repositories.
 class ContainerRegistryScreen extends ConsumerWidget {
@@ -28,6 +29,23 @@ class ContainerRegistryScreen extends ConsumerWidget {
               : context.go(Routes.projectOverview(projectId)),
         ),
         actions: [
+          IconButton(
+            tooltip: l10n.containerCadenceTitle,
+            icon: const Icon(Icons.schedule),
+            onPressed: () async {
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>
+                    CleanupPolicyCadenceDialog(projectId: projectId),
+              );
+              if (accepted == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.containerCadenceAccepted)),
+                );
+              }
+            },
+          ),
           IconButton(
             tooltip: l10n.containerTagProtectionTitle,
             icon: const Icon(Icons.shield_outlined),
