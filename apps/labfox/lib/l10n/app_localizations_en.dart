@@ -3026,6 +3026,76 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerTagDeleteError => 'Could not delete this tag. Try again.';
 
   @override
+  String get containerImmutabilityTitle => 'Immutable tag rules';
+
+  @override
+  String get containerImmutabilityEmpty => 'No immutable tag rules.';
+
+  @override
+  String get containerImmutabilityError =>
+      'Could not load immutable tag rules. Check instance support and retry.';
+
+  @override
+  String get containerImmutabilityForbidden =>
+      'You do not have permission to view immutable tag rules.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'The project or rule connection is unavailable. Check access, subscription, and instance support.';
+
+  @override
+  String get containerImmutabilityHint =>
+      'Immutable tags require Ultimate and a supported registry. These patterns apply across the project\'s container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag\'s current protection. Changes may take time to propagate.';
+
+  @override
+  String get containerImmutabilityCreateTitle => 'Create immutable rule';
+
+  @override
+  String get containerImmutabilityCreateButton => 'Create rule';
+
+  @override
+  String get containerImmutabilityCreated => 'Immutable rule created.';
+
+  @override
+  String get containerImmutabilityPattern => 'Tag pattern';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      'Enter an RE2 pattern, up to 100 characters. Spaces are preserved; GitLab validates the syntax.';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'This requires Owner access, Ultimate, and a supported registry. The pattern affects every container repository in this project. Matching tags cannot be overwritten or deleted, including by cleanup policies. Direct manifest deletion is blocked while any immutable rule exists. Rules cannot be edited; changes may take time to propagate.';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      'I understand the project-wide protection and workflow impact.';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      'Creation was not confirmed. Check current rules before trying again; the request may already have succeeded.';
+
+  @override
+  String get containerImmutabilityInspect => 'Check current rules';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLab rejected the request, or an immutable rule already uses this pattern. Check current rules and review the pattern and project limits.';
+
+  @override
+  String get containerImmutabilityAuth =>
+      'Your session was rejected. Sign in again before creating a rule.';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      'The account changed. Close this dialog and reopen it for the selected account.';
+
+  @override
   String get containerKeepPatternTitle => 'Edit cleanup keep pattern';
 
   @override
