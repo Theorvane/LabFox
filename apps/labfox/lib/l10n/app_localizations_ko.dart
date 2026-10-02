@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releaseScheduleEdit => '릴리스 날짜 편집';
+
+  @override
+  String get releaseScheduleChangeDate => '날짜 변경';
+
+  @override
+  String get releaseScheduleChangeTime => '시간 변경';
+
+  @override
+  String get releaseScheduleSave => '릴리스 날짜 저장';
+
+  @override
+  String get releaseScheduleError => '릴리스 날짜를 업데이트하지 못했습니다.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '시간은 기기 시간대($zone)를 사용합니다. 미래 날짜를 선택하면 예정된 릴리스로 설정됩니다.';
+  }
+
+  @override
   String get pipelineScheduleEdit => '스케줄 편집';
 
   @override
@@ -364,6 +384,15 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => '마지막 파이프라인';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '실행 이력';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '이 일정에서 실행된 파이프라인이 아직 없습니다.';
+
+  @override
+  String get pipelineScheduleHistoryError => '실행 이력을 불러올 수 없습니다.';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1583,6 +1612,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesEmpty => '아직 파이프라인이 없습니다.';
 
   @override
+  String get pipelinesLoadMore => '더 보기';
+
+  @override
+  String get pipelinesLoadMoreError => '파이프라인을 더 불러올 수 없습니다.';
+
+  @override
   String get pipelineError => '이 파이프라인을 불러올 수 없습니다.';
 
   @override
@@ -2269,6 +2304,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get packageRegistryTitle => '패키지 레지스트리';
 
   @override
+  String get packageDelete => '패키지 삭제';
+
+  @override
+  String get packageDeleteConfirmTitle => '이 패키지를 삭제할까요?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name 및 모든 파일을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      '요청 전달이 활성화된 경우, 이 패키지를 삭제하면 의존성 혼동 공격 위험이 생길 수 있습니다.';
+
+  @override
+  String get packageDeleteError => '이 패키지를 삭제할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get packageDeleteForbidden => '이 패키지가 보호되고 있거나 삭제 권한이 없을 수 있습니다.';
+
+  @override
   String get packageRegistryEmpty => '아직 패키지가 없습니다.';
 
   @override
@@ -2868,6 +2924,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '새 컨테이너 태그 패턴';
+
+  @override
+  String get containerTagDelete => '태그 삭제';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '컨테이너 태그를 삭제할까요?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path”의 “$tagName” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      '이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get containerTagDeleteError => '태그를 삭제할 수 없습니다. 다시 시도하세요.';
 
   @override
   String containerTagProtectionPushClearTarget(
