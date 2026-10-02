@@ -24,11 +24,17 @@ class _StubMR extends MergeRequestController {
   }
 }
 
-class _StubTodoAction extends MrActionsController {
+class _StubActions extends MrActionsController {
+  bool? lastSubscribed;
   bool called = false;
 
   @override
   Future<void> build(MergeRequestRef arg) async {}
+
+  @override
+  Future<void> setSubscription(bool subscribed) async {
+    lastSubscribed = subscribed;
+  }
 
   @override
   Future<bool> createTodo() async {
@@ -40,14 +46,14 @@ class _StubTodoAction extends MrActionsController {
 Future<void> _pump(
   WidgetTester tester,
   AsyncValue<MergeRequest> value, {
-  _StubTodoAction? todoAction,
+  _StubActions? actions,
 }) async {
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         mergeRequestControllerProvider.overrideWith(() => _StubMR(value)),
-        if (todoAction != null)
-          mrActionsControllerProvider.overrideWith(() => todoAction),
+        if (actions != null)
+          mrActionsControllerProvider.overrideWith(() => actions),
       ],
       child: const MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -59,18 +65,22 @@ Future<void> _pump(
   await tester.pump();
 }
 
-MergeRequest _mr({String state = 'opened', List<Label> labels = const []}) =>
-    MergeRequest(
-      id: 55123,
-      iid: 142,
-      title: 'Add OAuth authentication',
-      state: state,
-      sourceBranch: 'feature/oauth',
-      targetBranch: 'develop',
-      description: 'Adds the OAuth flow.',
-      webUrl: 'https://gitlab.com/acme/backend/-/merge_requests/142',
-      labels: labels,
-    );
+MergeRequest _mr({
+  String state = 'opened',
+  List<Label> labels = const [],
+  bool? subscribed,
+}) => MergeRequest(
+  id: 55123,
+  iid: 142,
+  title: 'Add OAuth authentication',
+  state: state,
+  sourceBranch: 'feature/oauth',
+  targetBranch: 'develop',
+  description: 'Adds the OAuth flow.',
+  webUrl: 'https://gitlab.com/acme/backend/-/merge_requests/142',
+  labels: labels,
+  subscribed: subscribed,
+);
 
 void main() {
   testWidgets('renders branches, state, labels, and description', (
@@ -107,11 +117,32 @@ void main() {
     expect(find.text('Closed'), findsNothing);
   });
 
+  testWidgets('offers notification subscription on a merge request', (
+    tester,
+  ) async {
+    final actions = _StubActions();
+    await _pump(
+      tester,
+      AsyncData(_mr(state: 'merged', subscribed: false)),
+      actions: actions,
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(
+      find.byWidgetPredicate((widget) => widget is PopupMenuButton),
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Subscribe to notifications'));
+    await tester.pumpAndSettle();
+
+    expect(actions.lastSubscribed, isTrue);
+  });
+
   testWidgets('adds a merge request to the current user to-do list', (
     tester,
   ) async {
-    final action = _StubTodoAction();
-    await _pump(tester, AsyncData(_mr(state: 'merged')), todoAction: action);
+    final actions = _StubActions();
+    await _pump(tester, AsyncData(_mr(state: 'merged')), actions: actions);
     await tester.pumpAndSettle();
 
     await tester.tap(
@@ -121,7 +152,7 @@ void main() {
     await tester.tap(find.text('Add to To-Do'));
     await tester.pumpAndSettle();
 
-    expect(action.called, isTrue);
+    expect(actions.called, isTrue);
     expect(find.text('Added to your To-Do list.'), findsOneWidget);
   });
 }
