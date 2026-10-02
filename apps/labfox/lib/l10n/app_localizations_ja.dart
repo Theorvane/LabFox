@@ -2939,6 +2939,75 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerTagDeleteError => 'タグを削除できませんでした。再試行してください。';
 
   @override
+  String get containerImmutabilityTitle => 'イミュータブルタグのルール';
+
+  @override
+  String get containerImmutabilityEmpty => 'イミュータブルタグのルールはありません。';
+
+  @override
+  String get containerImmutabilityError =>
+      'ルールを読み込めませんでした。インスタンスの対応状況を確認して再試行してください。';
+
+  @override
+  String get containerImmutabilityForbidden => 'イミュータブルタグのルールを表示する権限がありません。';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      'プロジェクトまたはルール一覧を利用できません。アクセス権、サブスクリプション、インスタンスの対応状況を確認してください。';
+
+  @override
+  String get containerImmutabilityHint =>
+      'イミュータブルタグにはUltimateと対応するレジストリが必要です。パターンはプロジェクトのすべてのコンテナリポジトリに適用され、クリーンアップポリシーを含め、一致するタグの上書きと削除を防ぎます。ルールの表示だけでは個々のタグの現在の保護状態は確認できません。変更の反映には時間がかかる場合があります。';
+
+  @override
+  String get containerImmutabilityCreateTitle => '不変ルールを作成';
+
+  @override
+  String get containerImmutabilityCreateButton => 'ルールを作成';
+
+  @override
+  String get containerImmutabilityCreated => '不変ルールを作成しました。';
+
+  @override
+  String get containerImmutabilityPattern => 'タグパターン';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      '100文字以内のRE2パターンを入力してください。空白は保持され、構文はGitLabが検証します。';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'Owner権限、Ultimate、対応レジストリが必要です。このパターンはプロジェクト内のすべてのコンテナリポジトリに適用されます。一致するタグはクリーンアップポリシーでも上書きや削除ができません。不変ルールが存在する間、マニフェストの直接削除も禁止されます。ルールは編集できず、変更の反映には時間がかかる場合があります。';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      'プロジェクト全体の保護とワークフローへの影響を理解しました。';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      '作成結果を確認できません。既に成功している可能性があるため、再試行前に現在のルールを確認してください。';
+
+  @override
+  String get containerImmutabilityInspect => '現在のルールを確認';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLabが要求を拒否したか、同じパターンの不変ルールが既に存在します。現在のルール、パターン、プロジェクトの制限を確認してください。';
+
+  @override
+  String get containerImmutabilityAuth =>
+      'セッションが拒否されました。ルールを作成する前に再度サインインしてください。';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
+
+  @override
   String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
 
   @override
