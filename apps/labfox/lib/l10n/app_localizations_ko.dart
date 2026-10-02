@@ -9,6 +9,21 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleDelete => '스케줄 삭제';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
   String get releaseScheduleEdit => '릴리스 날짜 편집';
 
   @override
