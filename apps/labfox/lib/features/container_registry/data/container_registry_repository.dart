@@ -20,6 +20,13 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<void> setCleanupPolicyCadence(
+    int projectId, {
+    required String cadence,
+  }) async {
+    await client.projects.setCleanupPolicyCadence(projectId, cadence: cadence);
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,
