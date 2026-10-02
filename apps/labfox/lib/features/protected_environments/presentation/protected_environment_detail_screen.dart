@@ -8,6 +8,9 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
+import 'widgets/protected_environment_deploy_role_dialog.dart';
+import 'widgets/protected_environment_remove_role_dialog.dart';
+import 'widgets/protected_environment_unprotect_dialog.dart';
 
 /// One rule, restorable from its project or group and environment name.
 class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
@@ -42,6 +45,84 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(rule.valueOrNull?.name ?? l10n.protectedEnvironmentsTitle),
+        actions: [
+          if (projectKey != null &&
+              rule.valueOrNull?.deployAccessLevels.any(
+                    (grant) =>
+                        grant.id != null &&
+                        grant.id! > 0 &&
+                        {30, 40}.contains(grant.accessLevel) &&
+                        grant.userId == null &&
+                        grant.groupId == null,
+                  ) ==
+                  true)
+            IconButton(
+              key: const ValueKey('protected-environment-remove-role-open'),
+              tooltip: l10n.protectedEnvironmentRemoveRoleTitle,
+              icon: const Icon(Icons.person_remove_outlined),
+              onPressed: () async {
+                final removed = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentRemoveRoleDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (removed == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentRemoveRoleSuccess),
+                    ),
+                  );
+                }
+              },
+            ),
+          if (projectKey != null && rule.valueOrNull != null)
+            IconButton(
+              key: const ValueKey('protected-environment-deploy-role-open'),
+              tooltip: l10n.protectedEnvironmentDeployRoleTitle,
+              icon: const Icon(Icons.person_add_outlined),
+              onPressed: () async {
+                final added = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentDeployRoleDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (added == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentDeployRoleSuccess),
+                    ),
+                  );
+                }
+              },
+            ),
+          if (projectKey != null && rule.valueOrNull != null)
+            IconButton(
+              key: const ValueKey('protected-environment-unprotect-open'),
+              tooltip: l10n.protectedEnvironmentUnprotectTitle,
+              icon: const Icon(Icons.lock_open_outlined),
+              onPressed: () async {
+                final removed = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentUnprotectDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (removed == true && context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentUnprotectSuccess),
+                    ),
+                  );
+                  context.go(Routes.protectedEnvironments(projectId!));
+                }
+              },
+            ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
