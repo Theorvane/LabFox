@@ -23,6 +23,71 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelineScheduleOwnershipError => '无法获取此流水线计划的所有权。请检查权限并重试。';
 
   @override
+  String get protectedTagProtectTitle => '保护标签';
+
+  @override
+  String get protectedTagProtectName => '规则名称';
+
+  @override
+  String get protectedTagProtectRole => '谁可以创建匹配的标签？';
+
+  @override
+  String get protectedTagProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedTagProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedTagProtectMaintainers => '维护者';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 中匹配标签的创建权限，并可能影响标签流水线和作业。';
+  }
+
+  @override
+  String get protectedTagProtectWildcard => '通配符规则也可能影响将来的标签。请检查准确的模式和权限。';
+
+  @override
+  String get protectedTagProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedTagProtectSubmit => '保护标签';
+
+  @override
+  String get protectedTagProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedTagProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedTagProtectReload => '重新加载规则';
+
+  @override
+  String get protectedTagProtectLoadError => '无法验证受保护标签规则。请重新加载。';
+
+  @override
+  String get protectedTagProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedTagProtectCreated => '已创建受保护标签规则。';
+
+  @override
+  String get protectedTagProtectCancel => '取消';
+
+  @override
+  String get protectedTagProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedTagProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedTagProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedTagProtectUnavailable => '此项目或受保护标签资源不可用。重试前请重新加载。';
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override

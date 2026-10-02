@@ -24,6 +24,78 @@ class AppLocalizationsJa extends AppLocalizations {
       'このパイプラインスケジュールの所有権を取得できませんでした。権限を確認して再試行してください。';
 
   @override
+  String get protectedTagProtectTitle => 'タグを保護';
+
+  @override
+  String get protectedTagProtectName => 'ルール名';
+
+  @override
+  String get protectedTagProtectRole => '一致するタグを作成できるユーザー';
+
+  @override
+  String get protectedTagProtectNoOne => 'なし';
+
+  @override
+  String get protectedTagProtectDevelopers => '開発者とメンテナー';
+
+  @override
+  String get protectedTagProtectMaintainers => 'メンテナー';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return 'このルールはプロジェクト $projectId で一致するタグの作成権限を変更し、タグのパイプラインやジョブに影響する場合があります。';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      'ワイルドカードルールは今後のタグにも影響します。パターンと権限を確認してください。';
+
+  @override
+  String get protectedTagProtectAcknowledge => 'このルールがプロジェクト全体に及ぼす影響を理解しました。';
+
+  @override
+  String get protectedTagProtectSubmit => 'タグを保護';
+
+  @override
+  String get protectedTagProtectExisting => 'ルールは既に存在します。変更はありません。';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      '結果を確認できません。再試行する前にすべてのルールを再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectReload => 'ルールを再読み込み';
+
+  @override
+  String get protectedTagProtectLoadError => '保護タグのルールを確認できません。再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      'アカウントが変更されました。この画面を閉じてやり直してください。';
+
+  @override
+  String get protectedTagProtectCreated => '保護タグのルールを作成しました。';
+
+  @override
+  String get protectedTagProtectCancel => 'キャンセル';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      'このルールを作成する権限がありません。再試行前に再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      'セッションの有効期限が切れました。再度サインインしてください。';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab がリクエストを制限しています。待ってからルールを再読み込みしてください。';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      'このプロジェクトまたは保護タグを利用できません。再試行前に再読み込みしてください。';
+
+  @override
   String get protectedTagsTitle => '保護されたタグ';
 
   @override
