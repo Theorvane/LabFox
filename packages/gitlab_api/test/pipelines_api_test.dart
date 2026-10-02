@@ -8,6 +8,29 @@ import 'package:test/test.dart';
 
 void main() {
   group('PipelinesApi.list', () {
+    test(
+      'uses the requested page and explicit newest-first ordering',
+      () async {
+        late RequestOptions captured;
+        final client = _client((options) {
+          captured = options;
+          return (status: 200, headers: const {}, body: []);
+        });
+        final result = await client.pipelines.list(
+          'team/app',
+          page: 4,
+          perPage: 10,
+        );
+        expect(captured.path, '/projects/team%2Fapp/pipelines');
+        expect(captured.queryParameters, {
+          'page': 4,
+          'per_page': 10,
+          'order_by': 'id',
+          'sort': 'desc',
+        });
+        expect(result.nextPage, isNull);
+      },
+    );
     test('lists pipelines with pagination', () async {
       late RequestOptions captured;
       final client = _client((o) {
