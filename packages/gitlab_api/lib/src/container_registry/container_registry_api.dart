@@ -29,6 +29,41 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Changes only the tag glob; omitted role fields stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionPattern(
+    Object projectId,
+    int ruleId,
+    String pattern,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'tag_name_pattern': pattern},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection pattern',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection pattern',
+      );
+    }
+  }
+
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
 
