@@ -9,25 +9,20 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get releaseCreationDateLabel => 'Publication date (optional)';
+  String get pipelineScheduleDelete => 'Delete schedule';
 
   @override
-  String get releaseCreationDateDefault =>
-      'Publication time will be set by GitLab.';
+  String get pipelineScheduleDeleteConfirmTitle =>
+      'Delete this pipeline schedule?';
 
   @override
-  String get releaseCreationChooseDate => 'Choose publication date';
-
-  @override
-  String get releaseCreationChooseTime => 'Choose publication time';
-
-  @override
-  String get releaseCreationClearDate => 'Use publication time from GitLab';
-
-  @override
-  String releaseCreationDateHelp(String zone) {
-    return 'Time zone: $zone. Future dates create upcoming releases; past dates create historical releases.';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'The pipeline schedule \"$name\" will be permanently deleted. This cannot be undone.';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'Could not delete this pipeline schedule. Check your permissions and try again.';
 
   @override
   String get releaseScheduleEdit => 'Edit release date';

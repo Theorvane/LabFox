@@ -9,24 +9,19 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
-  String get releaseCreationDateLabel => '公開日時（任意）';
+  String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
-  String get releaseCreationDateDefault => '公開日時はGitLabが設定します。';
+  String get pipelineScheduleDeleteConfirmTitle => 'このパイプラインスケジュールを削除しますか？';
 
   @override
-  String get releaseCreationChooseDate => '公開日を選択';
-
-  @override
-  String get releaseCreationChooseTime => '公開時刻を選択';
-
-  @override
-  String get releaseCreationClearDate => 'GitLabの公開日時を使用';
-
-  @override
-  String releaseCreationDateHelp(String zone) {
-    return 'タイムゾーン: $zone。未来の日時は予定リリース、過去の日時は過去のリリースを作成します。';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'パイプラインスケジュール「$name」は完全に削除されます。この操作は元に戻せません。';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'このパイプラインスケジュールを削除できませんでした。権限を確認して再試行してください。';
 
   @override
   String get releaseScheduleEdit => 'リリース日時を編集';

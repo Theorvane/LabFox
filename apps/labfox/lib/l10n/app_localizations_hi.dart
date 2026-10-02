@@ -9,24 +9,19 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
-  String get releaseCreationDateLabel => 'प्रकाशन की तारीख (वैकल्पिक)';
+  String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
 
   @override
-  String get releaseCreationDateDefault => 'प्रकाशन का समय GitLab तय करेगा।';
+  String get pipelineScheduleDeleteConfirmTitle => 'यह पाइपलाइन शेड्यूल हटाएँ?';
 
   @override
-  String get releaseCreationChooseDate => 'प्रकाशन की तारीख चुनें';
-
-  @override
-  String get releaseCreationChooseTime => 'प्रकाशन का समय चुनें';
-
-  @override
-  String get releaseCreationClearDate => 'GitLab का प्रकाशन समय इस्तेमाल करें';
-
-  @override
-  String releaseCreationDateHelp(String zone) {
-    return 'समय क्षेत्र: $zone। भविष्य की तारीख आगामी रिलीज़ और पिछली तारीख ऐतिहासिक रिलीज़ बनाती है।';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return 'पाइपलाइन शेड्यूल \"$name\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      'इस पाइपलाइन शेड्यूल को हटाया नहीं जा सका। अपनी अनुमतियाँ जाँचें और फिर से प्रयास करें।';
 
   @override
   String get releaseScheduleEdit => 'रिलीज़ की तारीख संपादित करें';

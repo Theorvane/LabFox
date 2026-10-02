@@ -104,41 +104,29 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
-  /// No description provided for @releaseCreationDateLabel.
+  /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
-  /// **'Publication date (optional)'**
-  String get releaseCreationDateLabel;
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
 
-  /// No description provided for @releaseCreationDateDefault.
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
   ///
   /// In en, this message translates to:
-  /// **'Publication time will be set by GitLab.'**
-  String get releaseCreationDateDefault;
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
 
-  /// No description provided for @releaseCreationChooseDate.
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
   ///
   /// In en, this message translates to:
-  /// **'Choose publication date'**
-  String get releaseCreationChooseDate;
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
 
-  /// No description provided for @releaseCreationChooseTime.
+  /// No description provided for @pipelineScheduleDeleteError.
   ///
   /// In en, this message translates to:
-  /// **'Choose publication time'**
-  String get releaseCreationChooseTime;
-
-  /// No description provided for @releaseCreationClearDate.
-  ///
-  /// In en, this message translates to:
-  /// **'Use publication time from GitLab'**
-  String get releaseCreationClearDate;
-
-  /// No description provided for @releaseCreationDateHelp.
-  ///
-  /// In en, this message translates to:
-  /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
-  String releaseCreationDateHelp(String zone);
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
 
   /// No description provided for @releaseScheduleEdit.
   ///

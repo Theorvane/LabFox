@@ -9,24 +9,18 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get releaseCreationDateLabel => '发布日期（可选）';
+  String get pipelineScheduleDelete => '删除计划';
 
   @override
-  String get releaseCreationDateDefault => '发布时间将由 GitLab 设置。';
+  String get pipelineScheduleDeleteConfirmTitle => '删除此流水线计划？';
 
   @override
-  String get releaseCreationChooseDate => '选择发布日期';
-
-  @override
-  String get releaseCreationChooseTime => '选择发布时间';
-
-  @override
-  String get releaseCreationClearDate => '使用 GitLab 的发布时间';
-
-  @override
-  String releaseCreationDateHelp(String zone) {
-    return '时区：$zone。未来日期创建即将发布的版本，过去日期创建历史版本。';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '流水线计划“$name”将被永久删除。此操作无法撤销。';
   }
+
+  @override
+  String get pipelineScheduleDeleteError => '无法删除此流水线计划。请检查权限并重试。';
 
   @override
   String get releaseScheduleEdit => '编辑发布日期';

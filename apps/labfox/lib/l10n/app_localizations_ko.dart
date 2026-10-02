@@ -9,24 +9,19 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
-  String get releaseCreationDateLabel => '공개 날짜(선택 사항)';
+  String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
-  String get releaseCreationDateDefault => '공개 시간은 GitLab에서 설정합니다.';
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
 
   @override
-  String get releaseCreationChooseDate => '공개 날짜 선택';
-
-  @override
-  String get releaseCreationChooseTime => '공개 시간 선택';
-
-  @override
-  String get releaseCreationClearDate => 'GitLab 공개 시간 사용';
-
-  @override
-  String releaseCreationDateHelp(String zone) {
-    return '시간대: $zone. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.';
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
   }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
 
   @override
   String get releaseScheduleEdit => '릴리스 날짜 편집';
