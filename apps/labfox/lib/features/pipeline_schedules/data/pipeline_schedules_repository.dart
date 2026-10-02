@@ -23,6 +23,13 @@ class PipelineSchedulesRepository {
     active: active,
   );
 
+  Future<Paginated<Pipeline>> listPipelines(
+    int projectId,
+    int scheduleId, {
+    int page = 1,
+  }) =>
+      client.pipelineSchedules.listPipelines(projectId, scheduleId, page: page);
+
   Future<Paginated<PipelineSchedule>> list(
     int projectId, {
     bool? active,

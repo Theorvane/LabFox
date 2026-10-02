@@ -32,6 +32,26 @@ class AppLocalizationsKo extends AppLocalizations {
       '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
 
   @override
+  String get releaseScheduleEdit => '릴리스 날짜 편집';
+
+  @override
+  String get releaseScheduleChangeDate => '날짜 변경';
+
+  @override
+  String get releaseScheduleChangeTime => '시간 변경';
+
+  @override
+  String get releaseScheduleSave => '릴리스 날짜 저장';
+
+  @override
+  String get releaseScheduleError => '릴리스 날짜를 업데이트하지 못했습니다.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '시간은 기기 시간대($zone)를 사용합니다. 미래 날짜를 선택하면 예정된 릴리스로 설정됩니다.';
+  }
+
+  @override
   String get pipelineScheduleEdit => '스케줄 편집';
 
   @override
@@ -387,6 +407,15 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => '마지막 파이프라인';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '실행 이력';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '이 일정에서 실행된 파이프라인이 아직 없습니다.';
+
+  @override
+  String get pipelineScheduleHistoryError => '실행 이력을 불러올 수 없습니다.';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1606,6 +1635,12 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesEmpty => '아직 파이프라인이 없습니다.';
 
   @override
+  String get pipelinesLoadMore => '더 보기';
+
+  @override
+  String get pipelinesLoadMoreError => '파이프라인을 더 불러올 수 없습니다.';
+
+  @override
   String get pipelineError => '이 파이프라인을 불러올 수 없습니다.';
 
   @override
@@ -2292,6 +2327,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get packageRegistryTitle => '패키지 레지스트리';
 
   @override
+  String get packageDelete => '패키지 삭제';
+
+  @override
+  String get packageDeleteConfirmTitle => '이 패키지를 삭제할까요?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name 및 모든 파일을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      '요청 전달이 활성화된 경우, 이 패키지를 삭제하면 의존성 혼동 공격 위험이 생길 수 있습니다.';
+
+  @override
+  String get packageDeleteError => '이 패키지를 삭제할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get packageDeleteForbidden => '이 패키지가 보호되고 있거나 삭제 권한이 없을 수 있습니다.';
+
+  @override
   String get packageRegistryEmpty => '아직 패키지가 없습니다.';
 
   @override
@@ -2804,4 +2860,113 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerCadenceAccepted => '정리 주기 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerTagProtectionTitle => '태그 보호 규칙';
+
+  @override
+  String get containerTagProtectionEmpty => '태그 보호 규칙이 없습니다.';
+
+  @override
+  String get containerTagProtectionError => '태그 보호 규칙을 불러오지 못했습니다.';
+
+  @override
+  String get containerTagProtectionForbidden => '태그 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      '이 인스턴스에서 태그 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '푸시 최소 역할: $role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '삭제 최소 역할: $role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Git 태그가 아닌 컨테이너 이미지 태그 규칙입니다. 최소 역할은 현재 접근 권한을 보장하지 않습니다. 조회에는 GitLab 18.7 이상, 수정에는 18.9 이상이 필요합니다.';
+
+  @override
+  String get containerTagProtectionPatternTitle => '태그 보호 패턴 수정';
+
+  @override
+  String get containerTagProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '패턴을 변경하면 프로젝트에서 기존에 일치하던 컨테이너 이미지 태그의 보호가 해제되고 다른 태그에 적용될 수 있습니다. 와일드카드(*)는 여러 태그에 영향을 줍니다. 두 최소 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 태그나 이미지를 삭제하거나 Git 태그에 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '패턴 변경을 확인할 수 없습니다. 서버에서 요청을 처리했을 수 있으니 재시도 전에 규칙 목록을 확인하세요.';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      '확인 후 규칙이 변경되었습니다. 저장 전에 다시 불러와 검토하세요.';
+
+  @override
+  String get containerTagProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPatternSaved => '태그 보호 패턴을 변경했습니다.';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 초안을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternDraft => '새 컨테이너 태그 패턴';
+
+  @override
+  String get containerTagDelete => '태그 삭제';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '컨테이너 태그를 삭제할까요?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path”의 “$tagName” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      '이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get containerTagDeleteError => '태그를 삭제할 수 없습니다. 다시 시도하세요.';
 }
