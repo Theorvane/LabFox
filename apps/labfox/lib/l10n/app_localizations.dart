@@ -140,6 +140,30 @@ abstract class AppLocalizations {
   /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
   String releaseCreationDateHelp(String zone);
 
+  /// No description provided for @pipelineScheduleTakeOwnership.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership'**
+  String get pipelineScheduleTakeOwnership;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership of this schedule?'**
+  String get pipelineScheduleOwnershipConfirmTitle;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will become the owner of \"{name}\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.'**
+  String pipelineScheduleOwnershipConfirmBody(String name);
+
+  /// No description provided for @pipelineScheduleOwnershipError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not take ownership of this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleOwnershipError;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:
