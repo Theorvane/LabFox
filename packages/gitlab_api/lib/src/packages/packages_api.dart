@@ -13,6 +13,24 @@ class PackagesApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/packages';
 
+  /// Deletes one package and all its files; only 204 confirms deletion.
+  Future<void> delete(Object projectId, int packageId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$packageId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a package',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a package');
+    }
+  }
+
   /// Lists a project's packages, newest first.
   Future<Paginated<GitLabPackage>> list(
     Object projectId, {
