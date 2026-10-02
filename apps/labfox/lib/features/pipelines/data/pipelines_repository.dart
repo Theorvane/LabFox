@@ -7,10 +7,8 @@ class PipelinesRepository {
 
   final GitLabClient _client;
 
-  Future<List<Pipeline>> list(int projectId) async {
-    final page = await _client.pipelines.list(projectId);
-    return page.items;
-  }
+  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) =>
+      _client.pipelines.list(projectId, page: page);
 
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
