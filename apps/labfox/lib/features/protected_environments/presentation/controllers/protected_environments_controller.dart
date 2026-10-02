@@ -87,6 +87,442 @@ final protectedEnvironmentDetailProvider =
       return repository.get(key.projectId, key.name);
     });
 
+/// Creates one project rule after checking every currently listed page.
+class ProtectedEnvironmentCreateController
+    extends FamilyAsyncNotifier<void, int> {
+  bool _disposed = false;
+
+  @override
+  void build(int projectId) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<void> inspectName(String name) async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    final repository = await session;
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureNameAvailable(arg, name);
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+  }
+
+  Future<void> create(String name, {required int accessLevel}) async {
+    if (state.isLoading) {
+      throw StateError('Environment creation already pending');
+    }
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        name.contains('*') ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError(
+        'Exact environment name and supported deploy role required',
+      );
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      await inspectName(name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      final created = await repository.createRoleOnly(
+        arg,
+        name,
+        accessLevel: accessLevel,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (created.name != name ||
+          created.deployAccessLevels.length != 1 ||
+          created.deployAccessLevels.single.id == null ||
+          created.deployAccessLevels.single.accessLevel != accessLevel ||
+          created.deployAccessLevels.single.userId != null ||
+          created.deployAccessLevels.single.groupId != null ||
+          created.approvalRules.isNotEmpty ||
+          created.requiredApprovalCount != 0) {
+        throw const GitLabConflictException(
+          'Unconfirmed environment protection',
+        );
+      }
+      state = const AsyncData(null);
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg));
+      ref.invalidate(
+        protectedEnvironmentDetailProvider(
+          ProtectedEnvironmentRef(projectId: arg, name: name),
+        ),
+      );
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) {
+          ref.invalidate(protectedEnvironmentsControllerProvider(arg));
+        }
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentCreateControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentCreateController,
+      void,
+      int
+    >(ProtectedEnvironmentCreateController.new);
+
+/// Session-bound compare-and-unprotect for one frozen project rule.
+class ProtectedEnvironmentUnprotectController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> unprotect({required ProtectedEnvironment expected}) async {
+    if (state.isLoading) {
+      throw StateError('Environment unprotection already pending');
+    }
+    if (expected.name != arg.name || expected.name.trim().isEmpty) {
+      throw ArgumentError('Exact frozen environment rule required');
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.unprotect(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentUnprotectControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentUnprotectController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentUnprotectController.new);
+
+/// Adds one deploy role after comparing a complete, frozen project rule.
+class ProtectedEnvironmentAddDeployRoleController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> add({
+    required ProtectedEnvironment expected,
+    required int accessLevel,
+  }) async {
+    if (state.isLoading) throw StateError('Deploy role update already pending');
+    if (expected.name != arg.name || !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact environment rule and supported role required');
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      if (current.deployAccessLevels.any(
+        (grant) =>
+            grant.accessLevel == accessLevel &&
+            grant.userId == null &&
+            grant.groupId == null,
+      )) {
+        throw const GitLabConflictException('Deploy role already granted');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.addDeployRole(
+        arg.projectId,
+        arg.name,
+        accessLevel: accessLevel,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final updated = await repository.getComplete(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final added = updated.deployAccessLevels
+          .where((grant) => !expected.deployAccessLevels.contains(grant))
+          .toList();
+      if (updated.copyWith(deployAccessLevels: expected.deployAccessLevels) !=
+              expected ||
+          updated.deployAccessLevels.length !=
+              expected.deployAccessLevels.length + 1 ||
+          !expected.deployAccessLevels.every(
+            updated.deployAccessLevels.contains,
+          ) ||
+          added.length != 1 ||
+          added.single.id == null ||
+          added.single.id! <= 0 ||
+          added.single.accessLevel != accessLevel ||
+          added.single.userId != null ||
+          added.single.groupId != null) {
+        throw const GitLabServerException('Unconfirmed deploy role update');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentAddDeployRoleControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentAddDeployRoleController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentAddDeployRoleController.new);
+
+/// Removes one role grant after comparing a complete, frozen project rule.
+class ProtectedEnvironmentRemoveDeployRoleController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> remove({
+    required ProtectedEnvironment expected,
+    required int grantId,
+  }) async {
+    if (state.isLoading) {
+      throw StateError('Deploy role removal already pending');
+    }
+    if (expected.name != arg.name || grantId <= 0) {
+      throw ArgumentError('Exact environment rule and grant ID required');
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      final matches = current.deployAccessLevels
+          .where((grant) => grant.id == grantId)
+          .toList();
+      if (matches.length != 1 ||
+          !{30, 40}.contains(matches.single.accessLevel) ||
+          matches.single.userId != null ||
+          matches.single.groupId != null) {
+        throw const GitLabConflictException('Role grant is unavailable');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.removeDeployRole(
+        arg.projectId,
+        arg.name,
+        grantId: grantId,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final updated = await repository.getComplete(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final remaining = expected.deployAccessLevels
+          .where((grant) => grant.id != grantId)
+          .toList();
+      if (updated != expected.copyWith(deployAccessLevels: remaining)) {
+        throw const GitLabServerException('Unconfirmed deploy role removal');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentRemoveDeployRoleControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentRemoveDeployRoleController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentRemoveDeployRoleController.new);
+
 class GroupProtectedEnvironmentsController
     extends FamilyAsyncNotifier<Paginated<ProtectedEnvironment>, int> {
   bool _loadingMore = false;
