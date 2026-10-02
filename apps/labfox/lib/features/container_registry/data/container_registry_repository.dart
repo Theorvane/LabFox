@@ -23,6 +23,16 @@ class ContainerRegistryRepository {
     olderThan: olderThan,
   );
 
+  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
+      (await client.projects.get(projectId)).containerExpirationPolicy;
+
+  Future<void> setCleanupPolicyCadence(
+    int projectId, {
+    required String cadence,
+  }) async {
+    await client.projects.setCleanupPolicyCadence(projectId, cadence: cadence);
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,
