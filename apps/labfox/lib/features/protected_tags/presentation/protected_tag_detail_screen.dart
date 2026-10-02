@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_tags_controller.dart';
+import 'widgets/protected_tag_unprotect_dialog.dart';
 
 /// One rule, restorable from its project and tag name.
 class ProtectedTagDetailScreen extends ConsumerWidget {
@@ -68,6 +69,41 @@ class ProtectedTagDetailScreen extends ConsumerWidget {
                             Text(
                               data.name,
                               style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(height: LabFoxSpacing.md),
+                            FilledButton.tonal(
+                              key: const ValueKey('protected-tag-unprotect'),
+                              onPressed: () async {
+                                final session = ref.read(
+                                  protectedTagsRepositoryProvider.future,
+                                );
+                                final accepted = await showDialog<bool>(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (_) => ProtectedTagUnprotectDialog(
+                                    target: key,
+                                    rule: data,
+                                  ),
+                                );
+                                if (accepted == true &&
+                                    context.mounted &&
+                                    identical(
+                                      session,
+                                      ref.read(
+                                        protectedTagsRepositoryProvider.future,
+                                      ),
+                                    )) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        l10n.protectedTagUnprotectAccepted,
+                                      ),
+                                    ),
+                                  );
+                                  context.go(Routes.protectedTags(projectId));
+                                }
+                              },
+                              child: Text(l10n.protectedTagUnprotectTitle),
                             ),
                             const SizedBox(height: LabFoxSpacing.md),
                             Text(
