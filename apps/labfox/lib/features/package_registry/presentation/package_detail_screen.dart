@@ -7,7 +7,9 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import '../data/package_overview.dart';
 import 'controllers/package_controllers.dart';
+import 'controllers/package_delete_controller.dart';
 import 'controllers/package_file_delete_controller.dart';
+import 'widgets/package_delete_dialog.dart';
 import 'widgets/package_file_delete_dialog.dart';
 
 /// Package metadata and its published files.
@@ -26,8 +28,33 @@ class PackageDetailScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final packageRef = PackageRef(projectId: projectId, packageId: packageId);
     final overview = ref.watch(packageDetailControllerProvider(packageRef));
+    final deletion = ref.watch(packageDeleteControllerProvider(packageRef));
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            tooltip: l10n.packageDelete,
+            icon: const Icon(Icons.delete_outline),
+            onPressed:
+                overview.isLoading ||
+                    overview.hasError ||
+                    !overview.hasValue ||
+                    deletion.isLoading
+                ? null
+                : () async {
+                    final deleted = await showDialog<bool>(
+                      context: context,
+                      builder: (_) => PackageDeleteDialog(
+                        packageRef: packageRef,
+                        package: overview.requireValue.package,
+                      ),
+                    );
+                    if (deleted == true && context.mounted) {
+                      context.go(Routes.packages(projectId));
+                    }
+                  },
+          ),
+        ],
         title: Text(
           overview.valueOrNull?.package.name ?? l10n.packageRegistryTitle,
         ),

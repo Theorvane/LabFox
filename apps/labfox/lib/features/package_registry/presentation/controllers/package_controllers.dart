@@ -54,7 +54,9 @@ class PackageListController
         ),
       );
     } catch (error, stackTrace) {
-      if (generation == _generation) state = AsyncError(error, stackTrace);
+      if (generation == _generation) {
+        state = AsyncError(error, stackTrace);
+      }
     } finally {
       if (generation == _generation) _loadingMore = false;
     }
@@ -133,7 +135,9 @@ class PackageDetailController
         ),
       );
     } catch (error, stackTrace) {
-      if (generation == _generation) state = AsyncError(error, stackTrace);
+      if (generation == _generation) {
+        state = AsyncError(error, stackTrace);
+      }
     } finally {
       if (generation == _generation) _loadingMore = false;
     }

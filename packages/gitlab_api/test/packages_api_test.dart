@@ -35,6 +35,35 @@ void main() {
       );
     });
   }
+  test('deletes the exact encoded project package without a body', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const {}, body: null);
+    });
+    await client.packages.delete('team/project', 4);
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fproject/packages/4');
+    expect(request.data, isNull);
+    expect(request.queryParameters, isEmpty);
+  });
+  for (final status in [200, 202, 401, 403, 404, 429, 500]) {
+    test('maps rejected or unconfirmed package deletion $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.packages.delete(7, 4),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('lists packages with the next-page header and newest first', () async {
     late RequestOptions request;
     final client = _client((options) {
