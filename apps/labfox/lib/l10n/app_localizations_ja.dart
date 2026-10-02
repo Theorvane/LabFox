@@ -29,6 +29,26 @@ class AppLocalizationsJa extends AppLocalizations {
       '実行設定を更新できませんでした。権限と参照を確認して再試行してください。';
 
   @override
+  String get releaseScheduleEdit => 'リリース日時を編集';
+
+  @override
+  String get releaseScheduleChangeDate => '日付を変更';
+
+  @override
+  String get releaseScheduleChangeTime => '時刻を変更';
+
+  @override
+  String get releaseScheduleSave => 'リリース日時を保存';
+
+  @override
+  String get releaseScheduleError => 'リリース日時を更新できませんでした。';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '時刻にはデバイスのタイムゾーン（$zone）を使用します。未来の日時は予定リリースとして設定されます。';
+  }
+
+  @override
   String get pipelineScheduleEdit => 'スケジュールを編集';
 
   @override
@@ -383,6 +403,15 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pipelineScheduleLastPipeline => '前回のパイプライン';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '実行履歴';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => 'このスケジュールで実行されたパイプラインはまだありません。';
+
+  @override
+  String get pipelineScheduleHistoryError => '実行履歴を読み込めませんでした。';
 
   @override
   String pipelineSchedulePipelineNumber(int number) {
@@ -1599,6 +1628,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelinesEmpty => 'まだパイプラインはありません。';
 
   @override
+  String get pipelinesLoadMore => 'さらに読み込む';
+
+  @override
+  String get pipelinesLoadMoreError => '追加のパイプラインを読み込めませんでした。';
+
+  @override
   String get pipelineError => 'このパイプラインを読み込めませんでした。';
 
   @override
@@ -2284,6 +2319,27 @@ class AppLocalizationsJa extends AppLocalizations {
   String get packageRegistryTitle => 'パッケージレジストリ';
 
   @override
+  String get packageDelete => 'パッケージを削除';
+
+  @override
+  String get packageDeleteConfirmTitle => 'このパッケージを削除しますか？';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$nameとすべてのファイルを削除しますか？この操作は元に戻せません。';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      'リクエスト転送が有効な場合、このパッケージを削除すると依存関係混乱攻撃のリスクが生じる可能性があります。';
+
+  @override
+  String get packageDeleteError => 'このパッケージを削除できませんでした。もう一度お試しください。';
+
+  @override
+  String get packageDeleteForbidden => 'このパッケージは保護されているか、削除権限がない可能性があります。';
+
+  @override
   String get packageRegistryEmpty => 'パッケージはまだありません。';
 
   @override
@@ -2879,4 +2935,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerTagProtectionPatternDraft => '新しいコンテナタグパターン';
+
+  @override
+  String get containerTagDelete => 'タグを削除';
+
+  @override
+  String get containerTagDeleteConfirmTitle => 'コンテナタグを削除しますか？';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '「$path」のタグ「$tagName」を削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      'タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      'このタグを削除できません。保護されているか、権限がない可能性があります。';
+
+  @override
+  String get containerTagDeleteError => 'タグを削除できませんでした。再試行してください。';
 }

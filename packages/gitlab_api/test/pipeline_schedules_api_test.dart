@@ -70,6 +70,72 @@ void main() {
     });
   }
 
+  test(
+    'lists schedule pipelines newest first with header pagination',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: {
+            'x-next-page': ['4'],
+          },
+          body: [
+            {
+              'id': 332,
+              'status': 'success',
+              'ref': 'main',
+              'created_at': '2026-09-28T01:00:00Z',
+            },
+          ],
+        );
+      });
+      final result = await client.pipelineSchedules.listPipelines(
+        'team/app',
+        13,
+        page: 3,
+        perPage: 10,
+      );
+      expect(request.method, 'GET');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/pipeline_schedules/13/pipelines',
+      );
+      expect(request.queryParameters, {
+        'page': 3,
+        'per_page': 10,
+        'sort': 'desc',
+      });
+      expect(result.nextPage, 4);
+      expect(result.total, isNull);
+      expect(result.items.single.id, 332);
+      expect(result.items.single.createdAt, DateTime.utc(2026, 9, 28, 1));
+    },
+  );
+  test('empty pipeline history has no assumed next page', () async {
+    final client = _client((_) => (status: 200, headers: const {}, body: []));
+    final result = await client.pipelineSchedules.listPipelines(7, 13);
+    expect(result.items, isEmpty);
+    expect(result.nextPage, isNull);
+  });
+  for (final status in [401, 403, 404, 429, 500]) {
+    test('maps schedule pipeline history error $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.pipelineSchedules.listPipelines(7, 13),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('updates only supplied schedule fields on encoded project', () async {
     late RequestOptions request;
     final client = _client((options) {
