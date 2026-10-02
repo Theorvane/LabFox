@@ -9,6 +9,29 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releasePickerTitle => 'プロジェクトのマイルストーンを選択';
+
+  @override
+  String get releasePickerSearch => 'プロジェクトのマイルストーンを検索';
+
+  @override
+  String get releasePickerEmpty => 'プロジェクトのマイルストーンが見つかりません。';
+
+  @override
+  String get releasePickerError => 'マイルストーンを読み込めませんでした。';
+
+  @override
+  String get releasePickerMore => 'マイルストーンをさらに読み込む';
+
+  @override
+  String get releasePickerUse => 'マイルストーンを使用';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'マイルストーン $title を削除';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override

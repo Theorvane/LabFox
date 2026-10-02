@@ -9,6 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releasePickerTitle => 'Select project milestones';
+
+  @override
+  String get releasePickerSearch => 'Search project milestones';
+
+  @override
+  String get releasePickerEmpty => 'No project milestones found.';
+
+  @override
+  String get releasePickerError => 'Could not load milestones.';
+
+  @override
+  String get releasePickerMore => 'Load more milestones';
+
+  @override
+  String get releasePickerUse => 'Use milestones';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'Remove milestone $title';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'Delete schedule';
 
   @override

@@ -9,6 +9,29 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get releasePickerTitle => 'प्रोजेक्ट माइलस्टोन चुनें';
+
+  @override
+  String get releasePickerSearch => 'प्रोजेक्ट माइलस्टोन खोजें';
+
+  @override
+  String get releasePickerEmpty => 'कोई प्रोजेक्ट माइलस्टोन नहीं मिला।';
+
+  @override
+  String get releasePickerError => 'माइलस्टोन लोड नहीं हो सके।';
+
+  @override
+  String get releasePickerMore => 'और माइलस्टोन लोड करें';
+
+  @override
+  String get releasePickerUse => 'माइलस्टोन इस्तेमाल करें';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'माइलस्टोन $title हटाएँ';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
 
   @override
