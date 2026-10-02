@@ -9,6 +9,25 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleEdit => '编辑计划';
+
+  @override
+  String get pipelineScheduleSave => '保存';
+
+  @override
+  String get pipelineScheduleDescription => '描述';
+
+  @override
+  String get pipelineScheduleFieldRequired => '请输入一个值。';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab 会验证 cron 表达式和时区。保存将重新安排后续运行；引用、启用状态、变量和输入保持不变。';
+
+  @override
+  String get pipelineScheduleEditError => '无法更新此流水线计划。请检查权限、cron 表达式和时区。';
+
+  @override
   String get pipelineScheduleTakeOwnership => '获取所有权';
 
   @override
@@ -21,6 +40,71 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelineScheduleOwnershipError => '无法获取此流水线计划的所有权。请检查权限并重试。';
+
+  @override
+  String get protectedTagProtectTitle => '保护标签';
+
+  @override
+  String get protectedTagProtectName => '规则名称';
+
+  @override
+  String get protectedTagProtectRole => '谁可以创建匹配的标签？';
+
+  @override
+  String get protectedTagProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedTagProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedTagProtectMaintainers => '维护者';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 中匹配标签的创建权限，并可能影响标签流水线和作业。';
+  }
+
+  @override
+  String get protectedTagProtectWildcard => '通配符规则也可能影响将来的标签。请检查准确的模式和权限。';
+
+  @override
+  String get protectedTagProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedTagProtectSubmit => '保护标签';
+
+  @override
+  String get protectedTagProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedTagProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedTagProtectReload => '重新加载规则';
+
+  @override
+  String get protectedTagProtectLoadError => '无法验证受保护标签规则。请重新加载。';
+
+  @override
+  String get protectedTagProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedTagProtectCreated => '已创建受保护标签规则。';
+
+  @override
+  String get protectedTagProtectCancel => '取消';
+
+  @override
+  String get protectedTagProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedTagProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedTagProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedTagProtectUnavailable => '此项目或受保护标签资源不可用。重试前请重新加载。';
 
   @override
   String get protectedTagsTitle => '受保护标签';
@@ -62,6 +146,74 @@ class AppLocalizationsZh extends AppLocalizations {
   String protectedEnvironmentApprovalCount(int count) {
     return '所需批准数：$count';
   }
+
+  @override
+  String get protectedBranchProtectTitle => '保护分支';
+
+  @override
+  String get protectedBranchProtectName => '规则名称';
+
+  @override
+  String get protectedBranchProtectPush => '允许推送';
+
+  @override
+  String get protectedBranchProtectMerge => '允许合并';
+
+  @override
+  String get protectedBranchProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedBranchProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedBranchProtectMaintainers => '维护者';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 的推送和合并权限，并可能影响合并请求、受保护的 CI 变量及作业。';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard => '通配符规则也可能影响将来的分支。请检查准确的模式和两项权限。';
+
+  @override
+  String get protectedBranchProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedBranchProtectSubmit => '保护分支';
+
+  @override
+  String get protectedBranchProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedBranchProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedBranchProtectReload => '重新加载规则';
+
+  @override
+  String get protectedBranchProtectLoadError => '无法验证受保护分支规则。请重新加载。';
+
+  @override
+  String get protectedBranchProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedBranchProtectCreated => '已创建受保护分支规则。';
+
+  @override
+  String get protectedBranchProtectCancel => '取消';
+
+  @override
+  String get protectedBranchProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedBranchProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedBranchProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedBranchProtectUnavailable => '此项目或受保护分支资源不可用。重试前请重新加载。';
 
   @override
   String get protectedBranchesTitle => '受保护分支';
@@ -403,6 +555,39 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get releaseAssetEditError => '无法更新资源链接。';
+
+  @override
+  String get releaseMilestonesEdit => '编辑发布里程碑';
+
+  @override
+  String get releaseMilestonesTitle => '里程碑';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '请输入准确的里程碑标题。群组里程碑是否可用取决于您的 GitLab 计划和项目群组。';
+
+  @override
+  String get releaseMilestoneTitle => '里程碑标题';
+
+  @override
+  String get releaseMilestoneAdd => '添加里程碑';
+
+  @override
+  String get releaseMilestonesSave => '保存里程碑';
+
+  @override
+  String get releaseMilestonesError => '无法更新发布里程碑。';
+
+  @override
+  String get releaseMilestoneTitleRequired => '请输入里程碑标题。';
+
+  @override
+  String get releaseMilestoneDuplicate => '此里程碑已选中。';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '移除 $title';
+  }
 
   @override
   String get releaseAssetDirectPath => '新的直接下载路径（可选）';
@@ -1021,6 +1206,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get issueSubscriptionError => '无法更新议题通知。请重试。';
+
+  @override
+  String get mrSubscribe => '订阅通知';
+
+  @override
+  String get mrUnsubscribe => '取消订阅通知';
+
+  @override
+  String get mrSubscriptionError => '无法更新合并请求通知。请重试。';
 
   @override
   String get issueAddTodo => '添加到待办事项';
@@ -1952,6 +2146,27 @@ class AppLocalizationsZh extends AppLocalizations {
   String get wikiNewPage => '新建页面';
 
   @override
+  String get wikiPagesSection => '页面';
+
+  @override
+  String get wikiTemplatesSection => '模板';
+
+  @override
+  String get wikiTemplateEmpty => '还没有模板。';
+
+  @override
+  String get wikiNewTemplate => '新建模板';
+
+  @override
+  String get wikiTemplateTitle => '模板标题';
+
+  @override
+  String get wikiCreateTemplate => '创建模板';
+
+  @override
+  String get wikiCreateTemplateError => '无法创建模板。';
+
+  @override
   String get wikiPageTitle => '标题';
 
   @override
@@ -2415,6 +2630,174 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get protectedEnvironmentUnprotectUnreported => '访问条目';
+
+  @override
+  String get containerPolicyStatus => '状态';
+
+  @override
+  String get containerPolicyEnabled => '已启用';
+
+  @override
+  String get containerPolicyDisabled => '已禁用';
+
+  @override
+  String get containerPolicyNotReported => '未报告';
+
+  @override
+  String get containerPolicyCadence => '运行间隔';
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerPolicyAge => '删除早于以下时间的标签';
+
+  @override
+  String get containerPolicyDeletePattern => '删除模式';
+
+  @override
+  String get containerPolicyLegacyPattern => '删除模式（旧版）';
+
+  @override
+  String get containerPolicyKeepPattern => '保留模式';
+
+  @override
+  String get containerPolicyEmptyPattern => '空模式';
+
+  @override
+  String get containerPolicyError => '无法加载清理策略。';
+
+  @override
+  String get containerPolicyForbidden => '您无权查看此项目的清理策略。';
+
+  @override
+  String get containerPolicyUnavailable => '无法访问项目，或清理策略信息不可用。';
+
+  @override
+  String get containerPolicyEmptySetting => '空设置';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '项目 $projectId — 所有镜像仓库';
+  }
+
+  @override
+  String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationForbidden => '您无权更改此清理策略。';
+
+  @override
+  String get containerActivationStale => '策略已更改或不再报告。请在保存前重新加载并检查。';
+
+  @override
+  String get containerActivationReload => '重新加载策略';
+
+  @override
+  String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
+
+  @override
+  String get containerCadenceTitle => '编辑清理周期';
+
+  @override
+  String get containerCadenceSave => '确认周期变更';
+
+  @override
+  String get containerCadenceSelect => '新周期 (GitLab API 间隔)';
+
+  @override
+  String get containerCadenceWarning =>
+      '更改项目级周期会影响所有镜像仓库未来的计划标签清理。请检查下面的启用状态和删除/保留条件。这不会更改这些设置，也不表示清理已完成。';
+
+  @override
+  String get containerCadenceUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerCadenceAccepted => '清理周期更新已接受。';
+
+  @override
+  String get containerTagProtectionTitle => '标签保护规则';
+
+  @override
+  String get containerTagProtectionEmpty => '没有标签保护规则。';
+
+  @override
+  String get containerTagProtectionError => '无法加载标签保护规则。';
+
+  @override
+  String get containerTagProtectionForbidden => '您无权查看标签保护规则。';
+
+  @override
+  String get containerTagProtectionUnavailable => '此实例不支持标签保护规则，或项目无法访问。';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '推送所需最低角色：$role';
+  }
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '删除所需最低角色：$role';
+  }
+
+  @override
+  String get containerTagProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerTagProtectionHint =>
+      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+
+  @override
+  String get containerTagProtectionPatternTitle => '编辑标签保护模式';
+
+  @override
+  String get containerTagProtectionPatternSave => '保存模式';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '更改模式可能解除本项目中原先匹配的容器镜像标签的保护，并将保护应用于其他标签。通配符(*)可能影响多个标签。两个最低角色保持不变，其他规则和权限仍然适用。此操作不会删除标签或镜像，不影响 Git 标签，也不代表您的访问权限。';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '我已检查当前规则和新模式，并了解保护范围的变化。';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '您没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '无法确认模式更新。服务器可能已处理请求，请在重试前检查规则列表。';
+
+  @override
+  String get containerTagProtectionPatternStale => '规则在确认后已更改。保存前请重新加载并检查。';
+
+  @override
+  String get containerTagProtectionPatternReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPatternSaved => '标签保护模式已更新。';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPatternRateLimited => '请求过多。请稍后重试。';
+
+  @override
+  String get containerTagProtectionPatternInvalid => '模式被拒绝或已被使用。请编辑草稿后重试。';
+
+  @override
+  String get containerTagProtectionPatternDraft => '新容器标签模式';
 
   @override
   String get containerRepositoryProtectionTitle => '仓库保护规则';

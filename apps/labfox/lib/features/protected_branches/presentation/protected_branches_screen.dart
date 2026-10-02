@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_branches_controller.dart';
+import 'protected_branch_protect_dialog.dart';
 
 /// Project protected branch rules, including wildcard rules.
 class ProtectedBranchesScreen extends ConsumerWidget {
@@ -20,6 +21,25 @@ class ProtectedBranchesScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.protectedBranchesTitle),
+        actions: [
+          IconButton(
+            key: const ValueKey('protected-branch-protect'),
+            tooltip: l10n.protectedBranchProtectTitle,
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final created = await showDialog<bool>(
+                context: context,
+                builder: (_) =>
+                    ProtectedBranchProtectDialog(projectId: projectId),
+              );
+              if (created == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.protectedBranchProtectCreated)),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

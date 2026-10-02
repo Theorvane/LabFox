@@ -14,6 +14,7 @@ import '../features/commits/presentation/commits_screen.dart';
 import '../features/container_registry/presentation/container_registry_screen.dart';
 import '../features/container_registry/presentation/container_repository_protection_screen.dart';
 import '../features/container_registry/presentation/container_repository_screen.dart';
+import '../features/container_registry/presentation/container_tag_protection_screen.dart';
 import '../features/container_registry/presentation/container_tag_screen.dart';
 import '../features/deployments/presentation/deployment_detail_screen.dart';
 import '../features/deployments/presentation/deployments_screen.dart';
@@ -122,6 +123,8 @@ abstract final class Routes {
   static String containerRegistry(int id) => '/projects/$id/container_registry';
   static String containerRepositoryProtectionRules(int id) =>
       '/projects/$id/container_registry/protection/repositories';
+  static String containerTagProtectionRules(int id) =>
+      '/projects/$id/container_registry/protection/tags';
   static String containerRepository(int id, int repositoryId) =>
       '/projects/$id/container_registry/$repositoryId';
   static String containerTag(int id, int repositoryId, String tagName) =>
@@ -404,6 +407,12 @@ final routerProvider = Provider<GoRouter>((ref) {
                         ContainerRepositoryProtectionScreen(
                           projectId: int.parse(state.pathParameters['id']!),
                         ),
+                  ),
+                  GoRoute(
+                    path: 'protection/tags',
+                    builder: (context, state) => ContainerTagProtectionScreen(
+                      projectId: int.parse(state.pathParameters['id']!),
+                    ),
                   ),
                   GoRoute(
                     path: ':repositoryId',
