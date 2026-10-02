@@ -1,4 +1,4 @@
-/// GitLab REST client for LabFox.
+/// GitLab REST and selected GraphQL query client for LabFox.
 ///
 /// Pure Dart: this package must never import `package:flutter`, so it stays
 /// unit testable without a widget binding.
@@ -6,12 +6,14 @@ library;
 
 export 'src/common/exceptions.dart';
 export 'src/common/paginated.dart';
+export 'src/container_registry/container_immutability_api.dart';
 export 'src/container_registry/container_registry_api.dart';
 export 'src/deployments/deployments_api.dart';
 export 'src/environments/environments_api.dart';
 export 'src/environments/protected_environments_api.dart';
 export 'src/events/events_api.dart';
 export 'src/gitlab_client.dart';
+export 'src/graphql/graphql_api.dart';
 export 'src/groups/group_protected_environments_api.dart';
 export 'src/groups/groups_api.dart';
 export 'src/issues/issue_links_api.dart';
