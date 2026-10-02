@@ -283,6 +283,146 @@ class AppLocalizationsHi extends AppLocalizations {
   String get releaseUpcoming => 'आगामी';
 
   @override
+  String get releaseEdit => 'रिलीज़ संपादित करें';
+
+  @override
+  String get releaseSave => 'रिलीज़ सहेजें';
+
+  @override
+  String get releaseEditName => 'रिलीज़ का नाम';
+
+  @override
+  String get releaseEditDescription => 'विवरण (Markdown)';
+
+  @override
+  String get releaseNameRequired => 'रिलीज़ का नाम दर्ज करें।';
+
+  @override
+  String get releaseEditError => 'रिलीज़ अपडेट नहीं हो सकी।';
+
+  @override
+  String get releaseNew => 'नई रिलीज़';
+
+  @override
+  String get releaseCreate => 'रिलीज़ बनाएँ';
+
+  @override
+  String get releaseTagName => 'टैग का नाम';
+
+  @override
+  String get releaseRef => 'टैग बनाने का रेफ़ (वैकल्पिक)';
+
+  @override
+  String get releaseRefHelp => 'यदि टैग पहले से मौजूद है, तो खाली छोड़ दें।';
+
+  @override
+  String get releaseName => 'रिलीज़ का नाम (वैकल्पिक)';
+
+  @override
+  String get releaseDescription => 'विवरण (Markdown)';
+
+  @override
+  String get releaseTagRequired => 'टैग का नाम दर्ज करें।';
+
+  @override
+  String get releaseCreateError => 'रिलीज़ नहीं बनाई जा सकी।';
+
+  @override
+  String get releaseAddAssetLink => 'एसेट लिंक जोड़ें';
+
+  @override
+  String get releaseAddLink => 'लिंक जोड़ें';
+
+  @override
+  String get releaseAssetName => 'लिंक का नाम';
+
+  @override
+  String get releaseAssetUrl => 'लिंक URL';
+
+  @override
+  String get releaseAssetNameRequired => 'लिंक का नाम दर्ज करें।';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP या HTTPS URL दर्ज करें।';
+
+  @override
+  String get releaseAssetNameDuplicate => 'इस नाम का लिंक पहले से मौजूद है।';
+
+  @override
+  String get releaseAssetCreateError => 'एसेट लिंक नहीं जोड़ा जा सका।';
+
+  @override
+  String get releaseNoAssets => 'अभी कोई एसेट नहीं है।';
+
+  @override
+  String get releaseDelete => 'रिलीज़ हटाएँ';
+
+  @override
+  String get releaseDeleteConfirmTitle => 'यह रिलीज़ हटाएँ?';
+
+  @override
+  String get releaseDeleteConfirmBody =>
+      'रिलीज़ और उसके नोट हट जाएँगे। Git टैग बना रहेगा।';
+
+  @override
+  String get releaseDeleteError => 'रिलीज़ हटाई नहीं जा सकी।';
+
+  @override
+  String get releaseDeleteAssetLink => 'एसेट लिंक हटाएँ';
+
+  @override
+  String get releaseDeleteLink => 'लिंक हटाएँ';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => 'यह एसेट लिंक हटाएँ?';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '$name नाम का लिंक हट जाएगा। लिंक की गई फ़ाइल नहीं हटेगी।';
+  }
+
+  @override
+  String get releaseAssetDeleteError => 'एसेट लिंक हटाया नहीं जा सका।';
+
+  @override
+  String get releaseEditAssetLink => 'एसेट लिंक संपादित करें';
+
+  @override
+  String get releaseSaveLink => 'लिंक सहेजें';
+
+  @override
+  String get releaseAssetEditError => 'एसेट लिंक अपडेट नहीं किया जा सका।';
+
+  @override
+  String get releaseAssetDirectPath => 'नया सीधा डाउनलोड पथ (वैकल्पिक)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      'खाली छोड़ने पर मौजूदा सीधा डाउनलोड पथ बना रहेगा। बदलने के लिए /bin/app.zip जैसा पथ डालें।';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      'होस्ट, क्वेरी या फ़्रैगमेंट के बिना / से शुरू होने वाला पथ डालें।';
+
+  @override
+  String get releaseAssetType => 'लिंक का प्रकार';
+
+  @override
+  String get releaseAssetKeepType => 'मौजूदा प्रकार रखें';
+
+  @override
+  String get releaseAssetTypeOther => 'अन्य';
+
+  @override
+  String get releaseAssetTypeRunbook => 'रनबुक';
+
+  @override
+  String get releaseAssetTypeImage => 'छवि';
+
+  @override
+  String get releaseAssetTypePackage => 'पैकेज';
+
+  @override
   String get activityTitle => 'गतिविधि';
 
   @override
@@ -472,6 +612,77 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get milestoneLoadMore => 'और लोड करें';
+
+  @override
+  String get milestoneNew => 'नया माइलस्टोन';
+
+  @override
+  String get milestoneCreate => 'माइलस्टोन बनाएं';
+
+  @override
+  String get milestoneTitleField => 'शीर्षक';
+
+  @override
+  String get milestoneDescriptionField => 'विवरण';
+
+  @override
+  String get milestoneTitleRequired => 'माइलस्टोन का शीर्षक दर्ज करें।';
+
+  @override
+  String get milestoneDateOrderError =>
+      'आरंभ तिथि नियत तिथि के बाद नहीं हो सकती।';
+
+  @override
+  String get milestoneCreateError => 'माइलस्टोन नहीं बनाया जा सका।';
+
+  @override
+  String get milestoneChooseDate => 'तिथि चुनें';
+
+  @override
+  String get milestoneClearDate => 'तिथि हटाएं';
+
+  @override
+  String get milestoneEdit => 'माइलस्टोन संपादित करें';
+
+  @override
+  String get milestoneSaveChanges => 'बदलाव सहेजें';
+
+  @override
+  String get milestoneUpdateError => 'माइलस्टोन अपडेट नहीं हो सका।';
+
+  @override
+  String get milestoneClearStartDate => 'शुरू होने की तारीख हटाएं';
+
+  @override
+  String get milestoneClearDueDate => 'नियत तारीख हटाएं';
+
+  @override
+  String get milestoneClose => 'माइलस्टोन बंद करें';
+
+  @override
+  String get milestoneReactivate => 'माइलस्टोन फिर सक्रिय करें';
+
+  @override
+  String get milestoneCloseConfirmTitle => 'क्या यह माइलस्टोन बंद करें?';
+
+  @override
+  String get milestoneCloseConfirmBody =>
+      'इसे बाद में फिर सक्रिय किया जा सकता है।';
+
+  @override
+  String get milestoneStateError => 'माइलस्टोन की स्थिति नहीं बदली जा सकी।';
+
+  @override
+  String get milestoneDelete => 'माइलस्टोन हटाएं';
+
+  @override
+  String get milestoneDeleteConfirmTitle => 'क्या यह माइलस्टोन हटाएं?';
+
+  @override
+  String get milestoneDeleteConfirmBody => 'इसे वापस नहीं लाया जा सकता।';
+
+  @override
+  String get milestoneDeleteError => 'माइलस्टोन हटाया नहीं जा सका।';
 
   @override
   String get appTitle => 'LabFox';
@@ -1885,4 +2096,433 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get packageLoadMore => 'और लोड करें';
+
+  @override
+  String get protectedTagUnprotectTitle => 'टैग नियम की सुरक्षा हटाएँ';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return 'प्रोजेक्ट $projectId — नियम $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      'रिपॉज़िटरी टैग सुरक्षा नियम हटाएँ। कोई टैग नहीं हटाया जाता। वाइल्डकार्ड कई मौजूदा और भविष्य के टैग को प्रभावित कर सकता है। सुरक्षा हटाने से अधिक उपयोगकर्ता मेल खाने वाले टैग बना या हटा सकते हैं और टैग पाइपलाइन व जॉब तक पहुँच बदल सकती है। अन्य मेल खाने वाले नियम टैग को सुरक्षित रख सकते हैं; वास्तविक पहुँच GitLab तय करता है। नीचे वर्तमान निर्माण अनुमतियाँ जाँचें।';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\nभूमिका स्तर: $role; उपयोगकर्ता ID: $user; समूह ID: $group; डिप्लॉय कुंजी ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => 'जानकारी उपलब्ध नहीं';
+
+  @override
+  String get protectedTagUnprotectName =>
+      'सटीक नियम नाम या पैटर्न दोबारा दर्ज करें';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      'मैं इस नियम से मेल खाने वाले सभी टैग की सुरक्षा खोने को समझता हूँ और यह नियम हटाना चाहता हूँ।';
+
+  @override
+  String get protectedTagUnprotectAuth =>
+      'आपका सत्र अस्वीकार कर दिया गया। नियम की समीक्षा से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab ने सुरक्षा हटाने की अनुमति नहीं दी। Maintainer या Owner भूमिका आवश्यक है।';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      'नियम मौजूद नहीं है, निजी है या इस इंस्टेंस पर उपलब्ध नहीं है। जाँचने के लिए पुनः लोड करें; कोई अन्य नियम नहीं हटाया जाएगा।';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      'नियम बदल गया है। हटाने से पहले पुनः लोड करके वर्तमान अनुमतियों की पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। प्रतीक्षा करें, फिर नियम पुनः लोड करके पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectError =>
+      'अनुरोध का परिणाम पुष्ट नहीं हो सका। दोबारा प्रयास से पहले नियम पुनः लोड करके पुष्टि करें।';
+
+  @override
+  String get protectedTagUnprotectReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      'खाता बदल गया है। वर्तमान प्रोजेक्ट की समीक्षा के लिए संवाद बंद करके दोबारा खोलें।';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      'टैग सुरक्षा नियम हटा दिया गया। कोई टैग नहीं हटाया गया।';
+
+  @override
+  String get protectedBranchForcePushEditTitle => 'फ़ोर्स पुश संपादित करें';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed =>
+      'फ़ोर्स पुश अभी अनुमत है।';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked =>
+      'फ़ोर्स पुश अभी अवरुद्ध है।';
+
+  @override
+  String get protectedBranchForcePushAllow => 'फ़ोर्स पुश की अनुमति दें';
+
+  @override
+  String get protectedBranchForcePushSave => 'सेटिंग सहेजें';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      'फ़ोर्स पुश की अनुमति देने से मिलान वाली ब्रांचों का इतिहास फिर लिखा जा सकता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      'फ़ोर्स पुश रोकने से मिलान वाली ब्रांचों पर काम करने का तरीका बदलता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      'मैं मिलान वाली ब्रांचों पर इस बदलाव का प्रभाव समझता/समझती हूं।';
+
+  @override
+  String get protectedBranchForcePushReload => 'नियम फिर जांचें';
+
+  @override
+  String get protectedBranchForcePushSuccess =>
+      'फ़ोर्स पुश सेटिंग अपडेट की गई।';
+
+  @override
+  String get protectedBranchForcePushAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchForcePushForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जांचें।';
+
+  @override
+  String get protectedBranchForcePushStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जांचें।';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchForcePushError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => 'मर्ज अनुमति संपादित करें';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return 'वर्तमान मर्ज अनुमति: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => 'कोई नहीं';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      'मर्ज अनुमति बदलने से इस नियम से मेल खाने वाली सभी ब्रांच प्रभावित होंगी। वाइल्डकार्ड कई ब्रांच और मर्ज अनुरोध कार्यप्रवाह प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      'मैं मेल खाने वाली ब्रांच की मर्ज अनुमति में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedBranchMergeRoleSave => 'मर्ज अनुमति सहेजें';
+
+  @override
+  String get protectedBranchMergeRoleReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => 'मर्ज अनुमति अपडेट की गई।';
+
+  @override
+  String get protectedBranchMergeRoleAuth =>
+      'नियम बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchMergeRoleForbidden =>
+      'आपको मर्ज अनुमति बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => 'पुश अनुमति संपादित करें';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return 'वर्तमान पुश अनुमति: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => 'कोई नहीं';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      'पुश अनुमति बदलने से इस नियम से मेल खाने वाली सभी ब्रांच प्रभावित होंगी। सीधे कमिट करने वाले लोग बदल सकते हैं; फ़ोर्स पुश चालू होने पर इतिहास बदलने वाले लोग भी बदल सकते हैं। वाइल्डकार्ड कई ब्रांच प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      'मैं मेल खाने वाली ब्रांच की पुश अनुमति में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedBranchPushRoleSave => 'पुश अनुमति सहेजें';
+
+  @override
+  String get protectedBranchPushRoleReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedBranchPushRoleSuccess => 'पुश अनुमति अपडेट की गई।';
+
+  @override
+  String get protectedBranchPushRoleAuth =>
+      'नियम बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchPushRoleForbidden =>
+      'आपको पुश अनुमति बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      'बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentCreateTitle => 'परिवेश सुरक्षित करें';
+
+  @override
+  String get protectedEnvironmentCreateName => 'परिवेश का नाम';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => 'डेवलपर और मेंटेनर';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => 'मेंटेनर';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      'यह सुरक्षा तय करती है कि नामित परिवेश में कौन डिप्लॉय कर सकता है। अनुमोदन नियम नहीं जोड़े जाते।';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge =>
+      'मैं डिप्लॉय पहुँच में बदलाव समझता हूँ।';
+
+  @override
+  String get protectedEnvironmentCreateSave => 'परिवेश सुरक्षित करें';
+
+  @override
+  String get protectedEnvironmentCreateReload => 'परिवेश सूची फिर जाँचें';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      'यह परिवेश पहले से सुरक्षित है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      'सुरक्षा की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentCreateForbidden =>
+      'आपके पास अनुमति नहीं है या यह सुविधा उपलब्ध नहीं है।';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => 'परिवेश सुरक्षित हो गया।';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      'वाइल्डकार्ड के बिना सटीक परिवेश नाम दर्ज करें।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => 'डिप्लॉय भूमिका हटाएँ';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      'यह अनुमति हटाने से चुनी गई भूमिका डिप्लॉय नहीं कर पाएगी। अन्य डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे, और परिवेश सुरक्षित रहेगा।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      'मैं समझता हूँ कि चुनी गई डिप्लॉय अनुमति हट जाएगी।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess =>
+      'डिप्लॉय भूमिका हटा दी गई।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      'आपके पास यह डिप्लॉय अनुमति हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      'डिप्लॉय अनुमति हटने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (अनुमति $id)';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => 'डिप्लॉय भूमिका जोड़ें';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      'चुनी गई भूमिका को डिप्लॉय करने की अनुमति मिलेगी। मौजूदा डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे।';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      'मैं समझता हूँ कि इससे डिप्लॉय पहुँच बढ़ती है।';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess =>
+      'डिप्लॉय भूमिका जोड़ दी गई।';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden =>
+      'आपके पास डिप्लॉय पहुँच बदलने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      'डिप्लॉय भूमिका बदलाव की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => 'परिवेश की सुरक्षा हटाएँ';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      'इस प्रोजेक्ट नियम की सुरक्षा हटाने से नीचे दिखाई गई सभी डिप्लॉय अनुमतियाँ और अनुमोदन नियम हट जाएँगे। परिवेश और पिछले डिप्लॉयमेंट बने रहेंगे। समूह की सुरक्षा अभी भी लागू हो सकती है।';
+
+  @override
+  String get protectedEnvironmentUnprotectName => 'परिवेश का सटीक नाम लिखें';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      'मैं समझता हूँ कि ये डिप्लॉय प्रतिबंध और अनुमोदन नियम हट जाएँगे।';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => 'नियम फिर जाँचें';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      'आपके पास इस परिवेश की सुरक्षा हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले इसे फिर जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      'हटाने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess =>
+      'परिवेश की सुरक्षा हटा दी गई।';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => 'पहुँच प्रविष्टि';
 }

@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only group milestone endpoints.
+/// Group milestone endpoints.
 class GroupMilestonesApi {
   const GroupMilestonesApi(this._dio);
 
@@ -58,6 +58,126 @@ class GroupMilestonesApi {
       return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a group milestone');
+    }
+  }
+
+  /// Deletes a group milestone by global ID, not its group-local iid.
+  Future<void> delete(Object groupId, int milestoneId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(groupId)}/$milestoneId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a group milestone',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a group milestone');
+    }
+  }
+
+  Future<GitLabMilestone> create(
+    Object groupId, {
+    required String title,
+    String? description,
+    String? startDate,
+    String? dueDate,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(groupId),
+        data: {
+          'title': title,
+          if (description != null && description.isNotEmpty)
+            'description': description,
+          'start_date': ?startDate,
+          'due_date': ?dueDate,
+        },
+      );
+      if (response.statusCode != 201 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a group milestone',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a group milestone');
+    }
+  }
+
+  /// Updates a group milestone by global ID, not its group-local iid.
+  Future<GitLabMilestone> update(
+    Object groupId,
+    int milestoneId, {
+    required String title,
+    String? description,
+    String? startDate,
+    String? dueDate,
+    bool clearStartDate = false,
+    bool clearDueDate = false,
+  }) async {
+    if (clearStartDate && startDate != null) {
+      throw ArgumentError('Cannot set and clear the start date together');
+    }
+    if (clearDueDate && dueDate != null) {
+      throw ArgumentError('Cannot set and clear the due date together');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(groupId)}/$milestoneId',
+        data: {
+          'title': title,
+          'description': ?description,
+          if (clearStartDate || startDate != null)
+            'start_date': clearStartDate ? '' : startDate,
+          if (clearDueDate || dueDate != null)
+            'due_date': clearDueDate ? '' : dueDate,
+        },
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a group milestone',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a group milestone');
+    }
+  }
+
+  /// [milestoneId] is global, not the group-local iid.
+  Future<GitLabMilestone> setStateEvent(
+    Object groupId,
+    int milestoneId, {
+    required String stateEvent,
+  }) async {
+    if (stateEvent != 'close' && stateEvent != 'activate') {
+      throw ArgumentError.value(stateEvent, 'stateEvent');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(groupId)}/$milestoneId',
+        data: {'state_event': stateEvent},
+      );
+      if (response.statusCode != 200 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'changing group milestone state',
+        );
+      }
+      return GitLabMilestone.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'changing group milestone state');
     }
   }
 }

@@ -6,6 +6,37 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('updates direct path and link type in one request', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Asset',
+          'url': 'https://example.com/asset',
+          'link_type': 'image',
+        },
+      );
+    });
+    await client.releases.updateAssetLink(
+      7,
+      'v1',
+      12,
+      name: 'Asset',
+      url: 'https://example.com/asset',
+      directAssetPath: '/bin/asset',
+      linkType: 'image',
+    );
+    expect(request.data, {
+      'name': 'Asset',
+      'url': 'https://example.com/asset',
+      'direct_asset_path': '/bin/asset',
+      'link_type': 'image',
+    });
+  });
   test('lists releases with pagination and parses assets', () async {
     late RequestOptions request;
     final client = _client((options) {
@@ -59,6 +90,325 @@ void main() {
       missing.releases.get(7, 'missing'),
       throwsA(isA<GitLabNotFoundException>()),
     );
+  });
+
+  test(
+    'updates release name and Markdown description by encoded tag',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'name': 'Version 2',
+            'tag_name': 'release/2',
+            'description': '',
+          },
+        );
+      });
+      final updated = await client.releases.update(
+        'team/app',
+        'release/2',
+        name: 'Version 2',
+        description: '',
+      );
+      expect(request.method, 'PUT');
+      expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
+      expect(request.data, {'name': 'Version 2', 'description': ''});
+      expect(updated.tagName, 'release/2');
+      expect(updated.name, 'Version 2');
+
+      final forbidden = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        forbidden.releases.update(7, 'v2', name: 'Version 2', description: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    },
+  );
+  test('creates a release with optional ref and Markdown notes', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: const <String, List<String>>{},
+        body: {
+          'name': 'Version 2',
+          'tag_name': 'release/2',
+          'description': '## Changes',
+        },
+      );
+    });
+    final created = await client.releases.create(
+      'team/app',
+      tagName: 'release/2',
+      ref: 'main',
+      name: 'Version 2',
+      description: '## Changes',
+    );
+    expect(request.method, 'POST');
+    expect(request.path, '/projects/team%2Fapp/releases');
+    expect(request.data, {
+      'tag_name': 'release/2',
+      'ref': 'main',
+      'name': 'Version 2',
+      'description': '## Changes',
+    });
+    expect(created.tagName, 'release/2');
+
+    await client.releases.create(7, tagName: 'v1');
+    expect(request.data, {'tag_name': 'v1'});
+  });
+
+  test('maps forbidden release creation', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.create(7, tagName: 'v2'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('creates an asset link for an encoded release tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 201,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Desktop package',
+          'url': 'https://example.com/app.zip',
+          'link_type': 'package',
+        },
+      );
+    });
+    final link = await client.releases.createAssetLink(
+      'team/app',
+      'release/2',
+      name: 'Desktop package',
+      url: 'https://example.com/app.zip',
+      linkType: 'package',
+    );
+    expect(request.method, 'POST');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links',
+    );
+    expect(request.data, {
+      'name': 'Desktop package',
+      'url': 'https://example.com/app.zip',
+      'link_type': 'package',
+    });
+    expect(link.id, 12);
+  });
+
+  test('maps forbidden asset link creation', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.createAssetLink(
+        7,
+        'v2',
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('deletes only the release at an encoded tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const <String, List<String>>{}, body: null);
+    });
+    await client.releases.delete('team/app', 'release/2');
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
+  });
+
+  test('maps forbidden release deletion', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.delete(7, 'v2'),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('updates an asset link using its global id and encoded tag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'New package',
+          'url': 'https://example.com/new.zip',
+        },
+      );
+    });
+    final link = await client.releases.updateAssetLink(
+      'team/app',
+      'release/2',
+      12,
+      name: 'New package',
+      url: 'https://example.com/new.zip',
+    );
+    expect(request.method, 'PUT');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+    );
+    expect(request.data, {
+      'name': 'New package',
+      'url': 'https://example.com/new.zip',
+    });
+    expect(link.id, 12);
+    expect(link.name, 'New package');
+  });
+
+  test(
+    'updates a direct download path without changing the target URL',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'name': 'Package',
+            'url': 'https://example.com/app.zip',
+            'direct_asset_url': 'https://example.com/downloads/bin/app.zip',
+            'link_type': 'package',
+          },
+        );
+      });
+      final link = await client.releases.updateAssetLink(
+        'team/app',
+        'release/2',
+        12,
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+        directAssetPath: '/bin/app.zip',
+      );
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+      );
+      expect(request.data, {
+        'name': 'Package',
+        'url': 'https://example.com/app.zip',
+        'direct_asset_path': '/bin/app.zip',
+      });
+      expect(link.directAssetUrl, 'https://example.com/downloads/bin/app.zip');
+      expect(link.url, 'https://example.com/app.zip');
+      expect(link.linkType, 'package');
+    },
+  );
+
+  for (final type in ['other', 'runbook', 'image', 'package']) {
+    test('updates an asset link with type $type', () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const <String, List<String>>{},
+          body: {
+            'id': 12,
+            'name': 'Asset',
+            'url': 'https://example.com/asset',
+            'link_type': type,
+          },
+        );
+      });
+      final link = await client.releases.updateAssetLink(
+        'team/app',
+        'release/2',
+        12,
+        name: 'Asset',
+        url: 'https://example.com/asset',
+        linkType: type,
+      );
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+      );
+      expect(request.data, {
+        'name': 'Asset',
+        'url': 'https://example.com/asset',
+        'link_type': type,
+      });
+      expect(link.linkType, type);
+    });
+  }
+
+  test('maps forbidden asset link editing', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.updateAssetLink(
+        7,
+        'v2',
+        12,
+        name: 'Package',
+        url: 'https://example.com/app.zip',
+      ),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+  test('deletes a release asset link by global link id', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {
+          'id': 12,
+          'name': 'Package',
+          'url': 'https://example.com/app.zip',
+        },
+      );
+    });
+    await client.releases.deleteAssetLink('team/app', 'release/2', 12);
+    expect(request.method, 'DELETE');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/releases/release%2F2/assets/links/12',
+    );
+  });
+
+  test('maps forbidden asset link deletion', () async {
+    final forbidden = _client(
+      (_) => (status: 403, headers: const {}, body: const {}),
+    );
+    await expectLater(
+      forbidden.releases.deleteAssetLink(7, 'v2', 12),
+      throwsA(isA<GitLabForbiddenException>()),
+    );
+  });
+
+  test('accepts no-content success for asset link deletion', () async {
+    final client = _client((_) => (status: 204, headers: const {}, body: null));
+    await client.releases.deleteAssetLink(7, 'v2', 12);
   });
 }
 

@@ -281,6 +281,144 @@ class AppLocalizationsZh extends AppLocalizations {
   String get releaseUpcoming => '即将发布';
 
   @override
+  String get releaseEdit => '编辑发行版';
+
+  @override
+  String get releaseSave => '保存发行版';
+
+  @override
+  String get releaseEditName => '发行版名称';
+
+  @override
+  String get releaseEditDescription => '描述（Markdown）';
+
+  @override
+  String get releaseNameRequired => '请输入发行版名称。';
+
+  @override
+  String get releaseEditError => '无法更新发行版。';
+
+  @override
+  String get releaseNew => '新建发行版';
+
+  @override
+  String get releaseCreate => '创建发行版';
+
+  @override
+  String get releaseTagName => '标签名称';
+
+  @override
+  String get releaseRef => '创建标签所用的引用（可选）';
+
+  @override
+  String get releaseRefHelp => '如果标签已存在，请留空。';
+
+  @override
+  String get releaseName => '发行版名称（可选）';
+
+  @override
+  String get releaseDescription => '描述（Markdown）';
+
+  @override
+  String get releaseTagRequired => '请输入标签名称。';
+
+  @override
+  String get releaseCreateError => '无法创建发行版。';
+
+  @override
+  String get releaseAddAssetLink => '添加资源链接';
+
+  @override
+  String get releaseAddLink => '添加链接';
+
+  @override
+  String get releaseAssetName => '链接名称';
+
+  @override
+  String get releaseAssetUrl => '链接 URL';
+
+  @override
+  String get releaseAssetNameRequired => '请输入链接名称。';
+
+  @override
+  String get releaseAssetUrlInvalid => '请输入 HTTP 或 HTTPS URL。';
+
+  @override
+  String get releaseAssetNameDuplicate => '已存在同名链接。';
+
+  @override
+  String get releaseAssetCreateError => '无法添加资源链接。';
+
+  @override
+  String get releaseNoAssets => '暂无资源。';
+
+  @override
+  String get releaseDelete => '删除发行版';
+
+  @override
+  String get releaseDeleteConfirmTitle => '删除此发行版？';
+
+  @override
+  String get releaseDeleteConfirmBody => '发行版及其说明将被删除。Git 标签会保留。';
+
+  @override
+  String get releaseDeleteError => '无法删除发行版。';
+
+  @override
+  String get releaseDeleteAssetLink => '删除资源链接';
+
+  @override
+  String get releaseDeleteLink => '删除链接';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => '删除此资源链接？';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '将移除名为 $name 的链接。链接指向的文件不会被删除。';
+  }
+
+  @override
+  String get releaseAssetDeleteError => '无法删除资源链接。';
+
+  @override
+  String get releaseEditAssetLink => '编辑资源链接';
+
+  @override
+  String get releaseSaveLink => '保存链接';
+
+  @override
+  String get releaseAssetEditError => '无法更新资源链接。';
+
+  @override
+  String get releaseAssetDirectPath => '新的直接下载路径（可选）';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '留空以保留当前直接下载路径。输入 /bin/app.zip 等路径以替换。';
+
+  @override
+  String get releaseAssetDirectPathInvalid => '请输入以 / 开头且不包含主机、查询或片段的路径。';
+
+  @override
+  String get releaseAssetType => '链接类型';
+
+  @override
+  String get releaseAssetKeepType => '保留当前类型';
+
+  @override
+  String get releaseAssetTypeOther => '其他';
+
+  @override
+  String get releaseAssetTypeRunbook => '操作手册';
+
+  @override
+  String get releaseAssetTypeImage => '图片';
+
+  @override
+  String get releaseAssetTypePackage => '软件包';
+
+  @override
   String get activityTitle => '动态';
 
   @override
@@ -470,6 +608,75 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get milestoneLoadMore => '加载更多';
+
+  @override
+  String get milestoneNew => '新建里程碑';
+
+  @override
+  String get milestoneCreate => '创建里程碑';
+
+  @override
+  String get milestoneTitleField => '标题';
+
+  @override
+  String get milestoneDescriptionField => '描述';
+
+  @override
+  String get milestoneTitleRequired => '请输入里程碑标题。';
+
+  @override
+  String get milestoneDateOrderError => '开始日期不能晚于截止日期。';
+
+  @override
+  String get milestoneCreateError => '无法创建里程碑。';
+
+  @override
+  String get milestoneChooseDate => '选择日期';
+
+  @override
+  String get milestoneClearDate => '清除日期';
+
+  @override
+  String get milestoneEdit => '编辑里程碑';
+
+  @override
+  String get milestoneSaveChanges => '保存更改';
+
+  @override
+  String get milestoneUpdateError => '无法更新里程碑。';
+
+  @override
+  String get milestoneClearStartDate => '清除开始日期';
+
+  @override
+  String get milestoneClearDueDate => '清除截止日期';
+
+  @override
+  String get milestoneClose => '关闭里程碑';
+
+  @override
+  String get milestoneReactivate => '重新激活里程碑';
+
+  @override
+  String get milestoneCloseConfirmTitle => '关闭此里程碑？';
+
+  @override
+  String get milestoneCloseConfirmBody => '稍后可以重新激活。';
+
+  @override
+  String get milestoneStateError => '无法更改里程碑状态。';
+
+  @override
+  String get milestoneDelete => '删除里程碑';
+
+  @override
+  String get milestoneDeleteConfirmTitle => '删除此里程碑？';
+
+  @override
+  String get milestoneDeleteConfirmBody => '此操作无法撤销。';
+
+  @override
+  String get milestoneDeleteError => '无法删除里程碑。';
 
   @override
   String get appTitle => 'LabFox';
@@ -1840,4 +2047,379 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get packageLoadMore => '加载更多';
+
+  @override
+  String get protectedTagUnprotectTitle => '解除标签规则保护';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return '项目 $projectId — 规则 $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      '移除此仓库标签保护规则。不会删除标签。通配符可能影响许多现有和未来的标签。解除保护可能使更多用户能够创建或删除匹配的标签，并改变标签流水线和作业的访问权限。其他匹配规则可能仍然保护标签；实际访问权限由 GitLab 决定。请检查下方当前的创建权限。';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\n角色级别：$role；用户 ID：$user；群组 ID：$group；部署密钥 ID：$key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '未报告';
+
+  @override
+  String get protectedTagUnprotectName => '重新输入准确的规则名称或模式';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      '我理解此规则匹配的所有标签将失去此规则的保护，并希望移除此规则。';
+
+  @override
+  String get protectedTagUnprotectAuth => '您的会话被拒绝。请重新登录后检查规则。';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab 拒绝了解除保护的权限。需要 Maintainer 或 Owner 角色。';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      '规则不存在、是私有的或在此实例上不可用。请重新加载检查；不会移除其他规则。';
+
+  @override
+  String get protectedTagUnprotectStale => '规则已更改。请重新加载并确认当前权限后再移除。';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab 正在限制请求。请等待，然后重新加载并确认规则。';
+
+  @override
+  String get protectedTagUnprotectError => '无法确认请求结果。重试之前请重新加载并再次确认规则。';
+
+  @override
+  String get protectedTagUnprotectReload => '重新加载规则';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      '账户已更改。请关闭并重新打开此对话框，检查当前项目。';
+
+  @override
+  String get protectedTagUnprotectAccepted => '标签保护规则已移除。未删除任何标签。';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '编辑强制推送';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '目前允许强制推送。';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '目前禁止强制推送。';
+
+  @override
+  String get protectedBranchForcePushAllow => '允许强制推送';
+
+  @override
+  String get protectedBranchForcePushSave => '保存设置';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '允许强制推送可能改写匹配分支的历史。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '禁止强制推送会改变成员在匹配分支上的工作方式。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchForcePushAcknowledge => '我了解此更改对匹配分支的影响。';
+
+  @override
+  String get protectedBranchForcePushReload => '重新检查规则';
+
+  @override
+  String get protectedBranchForcePushSuccess => '强制推送设置已更新。';
+
+  @override
+  String get protectedBranchForcePushAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchForcePushForbidden => '您没有权限更改此规则。';
+
+  @override
+  String get protectedBranchForcePushUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedBranchForcePushStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedBranchForcePushRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchForcePushError => '无法确认此更改。重试前请先检查规则。';
+
+  @override
+  String get protectedBranchForcePushSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => '编辑合并权限';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '当前合并权限：$role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => '无人';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => '维护者';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      '更改合并权限会影响所有匹配此规则的分支。通配符可能影响多个分支和合并请求流程。';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge => '我了解匹配分支的合并权限将发生变化。';
+
+  @override
+  String get protectedBranchMergeRoleSave => '保存合并权限';
+
+  @override
+  String get protectedBranchMergeRoleReload => '重新检查规则';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => '合并权限已更新。';
+
+  @override
+  String get protectedBranchMergeRoleAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => '您无权更改合并权限。';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable => '此规则已不可用。继续之前请检查列表。';
+
+  @override
+  String get protectedBranchMergeRoleStale => '规则已更改。继续之前请重新检查。';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchMergeRoleError => '无法确认更改。重试前请检查规则。';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '编辑推送权限';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '当前推送权限：$role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '无人';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '维护者';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '更改推送权限会影响所有匹配此规则的分支。可以直接提交的人员可能改变；如果允许强制推送，可以改写历史的人员也可能改变。通配符可能影响多个分支。';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge => '我了解匹配分支的推送权限将发生变化。';
+
+  @override
+  String get protectedBranchPushRoleSave => '保存推送权限';
+
+  @override
+  String get protectedBranchPushRoleReload => '重新检查规则';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '推送权限已更新。';
+
+  @override
+  String get protectedBranchPushRoleAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '您无权更改推送权限。';
+
+  @override
+  String get protectedBranchPushRoleUnavailable => '此规则已不可用。继续之前请检查列表。';
+
+  @override
+  String get protectedBranchPushRoleStale => '规则已更改。继续之前请重新检查。';
+
+  @override
+  String get protectedBranchPushRoleRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleError => '无法确认更改。重试前请检查规则。';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateName => '环境名称';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '开发者和维护者';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '维护者';
+
+  @override
+  String get protectedEnvironmentCreateWarning => '此保护设置会改变谁能部署到指定环境。不会添加审批规则。';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '我了解部署权限的变更。';
+
+  @override
+  String get protectedEnvironmentCreateSave => '保护环境';
+
+  @override
+  String get protectedEnvironmentCreateReload => '重新检查环境列表';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate => '此环境已受保护。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateError => '无法确认保护设置。重试前请检查列表。';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '您没有权限，或此功能不可用。';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged => '账户已更改。请关闭并重新打开此对话框。';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '环境已受保护。';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName => '请输入不含通配符的准确环境名称。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => '移除部署角色';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '移除此授权后，所选角色可能无法部署。其他部署授权和审批规则保持不变，环境仍受保护。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge => '我了解所选部署授权将被移除。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '已移除部署角色。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden => '您没有权限移除此部署授权。';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError => '无法确认部署授权已移除。重试前请检查规则。';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role（授权 $id）';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '所选角色将获得部署权限。现有部署授权和审批规则保持不变。';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge => '我了解这会扩大部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '已添加部署角色。';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '您没有权限更改部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployRoleError => '无法确认部署角色变更。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '取消环境保护';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '取消此项目保护规则会移除下方显示的所有部署授权和审批规则。环境及历史部署仍会保留。群组保护规则可能继续生效。';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '输入准确的环境名称';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge => '我了解这些部署限制和审批规则将被移除。';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '重新检查规则';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '更改此规则前请重新登录。';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden => '您没有权限取消此环境的保护。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedEnvironmentUnprotectStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectError => '无法确认保护已取消。重试前请检查规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '账户已更改。请关闭此对话框并重新打开规则。';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '环境保护已取消。';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '访问条目';
 }

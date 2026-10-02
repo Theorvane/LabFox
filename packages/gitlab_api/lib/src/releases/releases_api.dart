@@ -4,7 +4,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
-/// Read-only project Releases endpoints.
+/// Project Releases endpoints.
 class ReleasesApi {
   const ReleasesApi(this._dio);
 
@@ -56,6 +56,163 @@ class ReleasesApi {
       return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a release');
+    }
+  }
+
+  Future<GitLabRelease> update(
+    Object projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+        data: {'name': name, 'description': description},
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release');
+    }
+  }
+
+  Future<GitLabRelease> create(
+    Object projectId, {
+    required String tagName,
+    String? ref,
+    String? name,
+    String? description,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {
+          'tag_name': tagName,
+          'ref': ?ref,
+          'name': ?name,
+          'description': ?description,
+        },
+      );
+      if (response.statusCode != 201 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a release',
+        );
+      }
+      return GitLabRelease.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a release');
+    }
+  }
+
+  Future<ReleaseAssetLink> createAssetLink(
+    Object projectId,
+    String tagName, {
+    required String name,
+    required String url,
+    String? directAssetPath,
+    String? linkType,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links',
+        data: {
+          'name': name,
+          'url': url,
+          'direct_asset_path': ?directAssetPath,
+          'link_type': ?linkType,
+        },
+      );
+      if (response.statusCode != 201 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a release asset link',
+        );
+      }
+      return ReleaseAssetLink.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a release asset link');
+    }
+  }
+
+  /// Deletes the release record without deleting its Git tag.
+  Future<void> delete(Object projectId, String tagName) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a release',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a release');
+    }
+  }
+
+  Future<ReleaseAssetLink> updateAssetLink(
+    Object projectId,
+    String tagName,
+    int linkId, {
+    required String name,
+    required String url,
+    String? directAssetPath,
+    String? linkType,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
+        data: {
+          'name': name,
+          'url': url,
+          'direct_asset_path': ?directAssetPath,
+          'link_type': ?linkType,
+        },
+      );
+      if (response.statusCode != 200 || response.data is! Map) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating a release asset link',
+        );
+      }
+      return ReleaseAssetLink.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating a release asset link');
+    }
+  }
+
+  /// Removes only the asset link record, not the release or linked file.
+  Future<void> deleteAssetLink(
+    Object projectId,
+    String tagName,
+    int linkId,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(tagName)}/assets/links/$linkId',
+      );
+      if (response.statusCode != 200 && response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting a release asset link',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting a release asset link');
     }
   }
 }

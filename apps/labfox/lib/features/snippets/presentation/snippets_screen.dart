@@ -889,6 +889,20 @@ class SnippetFileScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(path.split('/').last),
         actions: [
+          if (content case AsyncData<String>(value: final text))
+            IconButton(
+              tooltip: l10n.snippetEditContent,
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) => _EditSnippetContentDialog(
+                  projectId: projectId,
+                  snippetId: snippetId,
+                  filePath: path,
+                  initialContent: text,
+                ),
+              ),
+            ),
           if (snippet.valueOrNull case final item?)
             if (item.files.any((file) => file.path == path))
               IconButton(

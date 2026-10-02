@@ -632,6 +632,276 @@ abstract class AppLocalizations {
   /// **'Upcoming'**
   String get releaseUpcoming;
 
+  /// No description provided for @releaseEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release'**
+  String get releaseEdit;
+
+  /// No description provided for @releaseSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release'**
+  String get releaseSave;
+
+  /// No description provided for @releaseEditName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name'**
+  String get releaseEditName;
+
+  /// No description provided for @releaseEditDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseEditDescription;
+
+  /// No description provided for @releaseNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a release name.'**
+  String get releaseNameRequired;
+
+  /// No description provided for @releaseEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release.'**
+  String get releaseEditError;
+
+  /// No description provided for @releaseNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New release'**
+  String get releaseNew;
+
+  /// No description provided for @releaseCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create release'**
+  String get releaseCreate;
+
+  /// No description provided for @releaseTagName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name'**
+  String get releaseTagName;
+
+  /// No description provided for @releaseRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag from ref (optional)'**
+  String get releaseRef;
+
+  /// No description provided for @releaseRefHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank if the tag already exists.'**
+  String get releaseRefHelp;
+
+  /// No description provided for @releaseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name (optional)'**
+  String get releaseName;
+
+  /// No description provided for @releaseDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseDescription;
+
+  /// No description provided for @releaseTagRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a tag name.'**
+  String get releaseTagRequired;
+
+  /// No description provided for @releaseCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the release.'**
+  String get releaseCreateError;
+
+  /// No description provided for @releaseAddAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add asset link'**
+  String get releaseAddAssetLink;
+
+  /// No description provided for @releaseAddLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get releaseAddLink;
+
+  /// No description provided for @releaseAssetName.
+  ///
+  /// In en, this message translates to:
+  /// **'Link name'**
+  String get releaseAssetName;
+
+  /// No description provided for @releaseAssetUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Link URL'**
+  String get releaseAssetUrl;
+
+  /// No description provided for @releaseAssetNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a link name.'**
+  String get releaseAssetNameRequired;
+
+  /// No description provided for @releaseAssetUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an HTTP or HTTPS URL.'**
+  String get releaseAssetUrlInvalid;
+
+  /// No description provided for @releaseAssetNameDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'A link with this name already exists.'**
+  String get releaseAssetNameDuplicate;
+
+  /// No description provided for @releaseAssetCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the asset link.'**
+  String get releaseAssetCreateError;
+
+  /// No description provided for @releaseNoAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'No assets yet.'**
+  String get releaseNoAssets;
+
+  /// No description provided for @releaseDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete release'**
+  String get releaseDelete;
+
+  /// No description provided for @releaseDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this release?'**
+  String get releaseDeleteConfirmTitle;
+
+  /// No description provided for @releaseDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The release and its notes will be deleted. The Git tag will remain.'**
+  String get releaseDeleteConfirmBody;
+
+  /// No description provided for @releaseDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the release.'**
+  String get releaseDeleteError;
+
+  /// No description provided for @releaseDeleteAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete asset link'**
+  String get releaseDeleteAssetLink;
+
+  /// No description provided for @releaseDeleteLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete link'**
+  String get releaseDeleteLink;
+
+  /// No description provided for @releaseAssetDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this asset link?'**
+  String get releaseAssetDeleteConfirmTitle;
+
+  /// No description provided for @releaseAssetDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the link named {name}. The linked file will not be deleted.'**
+  String releaseAssetDeleteConfirmBody(String name);
+
+  /// No description provided for @releaseAssetDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the asset link.'**
+  String get releaseAssetDeleteError;
+
+  /// No description provided for @releaseEditAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit asset link'**
+  String get releaseEditAssetLink;
+
+  /// No description provided for @releaseSaveLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Save link'**
+  String get releaseSaveLink;
+
+  /// No description provided for @releaseAssetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the asset link.'**
+  String get releaseAssetEditError;
+
+  /// No description provided for @releaseAssetDirectPath.
+  ///
+  /// In en, this message translates to:
+  /// **'New direct download path (optional)'**
+  String get releaseAssetDirectPath;
+
+  /// No description provided for @releaseAssetDirectPathHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.'**
+  String get releaseAssetDirectPathHelp;
+
+  /// No description provided for @releaseAssetDirectPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a path starting with /, without a host, query, or fragment.'**
+  String get releaseAssetDirectPathInvalid;
+
+  /// No description provided for @releaseAssetType.
+  ///
+  /// In en, this message translates to:
+  /// **'Link type'**
+  String get releaseAssetType;
+
+  /// No description provided for @releaseAssetKeepType.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current type'**
+  String get releaseAssetKeepType;
+
+  /// No description provided for @releaseAssetTypeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get releaseAssetTypeOther;
+
+  /// No description provided for @releaseAssetTypeRunbook.
+  ///
+  /// In en, this message translates to:
+  /// **'Runbook'**
+  String get releaseAssetTypeRunbook;
+
+  /// No description provided for @releaseAssetTypeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get releaseAssetTypeImage;
+
+  /// No description provided for @releaseAssetTypePackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get releaseAssetTypePackage;
+
   /// No description provided for @activityTitle.
   ///
   /// In en, this message translates to:
@@ -1009,6 +1279,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get milestoneLoadMore;
+
+  /// No description provided for @milestoneNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New milestone'**
+  String get milestoneNew;
+
+  /// No description provided for @milestoneCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create milestone'**
+  String get milestoneCreate;
+
+  /// No description provided for @milestoneTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get milestoneTitleField;
+
+  /// No description provided for @milestoneDescriptionField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get milestoneDescriptionField;
+
+  /// No description provided for @milestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get milestoneTitleRequired;
+
+  /// No description provided for @milestoneDateOrderError.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date must be on or before due date.'**
+  String get milestoneDateOrderError;
+
+  /// No description provided for @milestoneCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the milestone.'**
+  String get milestoneCreateError;
+
+  /// No description provided for @milestoneChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose date'**
+  String get milestoneChooseDate;
+
+  /// No description provided for @milestoneClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get milestoneClearDate;
+
+  /// No description provided for @milestoneEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit milestone'**
+  String get milestoneEdit;
+
+  /// No description provided for @milestoneSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get milestoneSaveChanges;
+
+  /// No description provided for @milestoneUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the milestone.'**
+  String get milestoneUpdateError;
+
+  /// No description provided for @milestoneClearStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear start date'**
+  String get milestoneClearStartDate;
+
+  /// No description provided for @milestoneClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get milestoneClearDueDate;
+
+  /// No description provided for @milestoneClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close milestone'**
+  String get milestoneClose;
+
+  /// No description provided for @milestoneReactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactivate milestone'**
+  String get milestoneReactivate;
+
+  /// No description provided for @milestoneCloseConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Close this milestone?'**
+  String get milestoneCloseConfirmTitle;
+
+  /// No description provided for @milestoneCloseConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can reactivate it later.'**
+  String get milestoneCloseConfirmBody;
+
+  /// No description provided for @milestoneStateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the milestone state.'**
+  String get milestoneStateError;
+
+  /// No description provided for @milestoneDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete milestone'**
+  String get milestoneDelete;
+
+  /// No description provided for @milestoneDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this milestone?'**
+  String get milestoneDeleteConfirmTitle;
+
+  /// No description provided for @milestoneDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get milestoneDeleteConfirmBody;
+
+  /// No description provided for @milestoneDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the milestone.'**
+  String get milestoneDeleteError;
 
   /// The application name, shown in the task switcher and app bar
   ///
@@ -3685,6 +4093,684 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get packageLoadMore;
+
+  /// No description provided for @protectedTagUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect tag rule'**
+  String get protectedTagUnprotectTitle;
+
+  /// No description provided for @protectedTagUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {name}'**
+  String protectedTagUnprotectTarget(String projectId, String name);
+
+  /// No description provided for @protectedTagUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.'**
+  String get protectedTagUnprotectWarning;
+
+  /// No description provided for @protectedTagUnprotectAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{description}\nRole level: {role}; user ID: {user}; group ID: {group}; deploy key ID: {key}'**
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  );
+
+  /// No description provided for @protectedTagUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get protectedTagUnprotectUnreported;
+
+  /// No description provided for @protectedTagUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the exact rule name or pattern'**
+  String get protectedTagUnprotectName;
+
+  /// No description provided for @protectedTagUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the protection loss for all tags matching this rule and want to remove this rule.'**
+  String get protectedTagUnprotectAcknowledge;
+
+  /// No description provided for @protectedTagUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before reviewing the rule.'**
+  String get protectedTagUnprotectAuth;
+
+  /// No description provided for @protectedTagUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.'**
+  String get protectedTagUnprotectForbidden;
+
+  /// No description provided for @protectedTagUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.'**
+  String get protectedTagUnprotectUnavailable;
+
+  /// No description provided for @protectedTagUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Reload and confirm the current permissions before removing it.'**
+  String get protectedTagUnprotectStale;
+
+  /// No description provided for @protectedTagUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload and confirm the rule again.'**
+  String get protectedTagUnprotectRateLimited;
+
+  /// No description provided for @protectedTagUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request could not be confirmed. Reload the rule and confirm again before retrying.'**
+  String get protectedTagUnprotectError;
+
+  /// No description provided for @protectedTagUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get protectedTagUnprotectReload;
+
+  /// No description provided for @protectedTagUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project.'**
+  String get protectedTagUnprotectSessionChanged;
+
+  /// No description provided for @protectedTagUnprotectAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule removed. No tags were deleted.'**
+  String get protectedTagUnprotectAccepted;
+
+  /// No description provided for @protectedBranchForcePushEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit force push'**
+  String get protectedBranchForcePushEditTitle;
+
+  /// No description provided for @protectedBranchForcePushEditTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchForcePushEditTarget(String project, String name);
+
+  /// No description provided for @protectedBranchForcePushCurrentAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently allowed.'**
+  String get protectedBranchForcePushCurrentAllowed;
+
+  /// No description provided for @protectedBranchForcePushCurrentBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently blocked.'**
+  String get protectedBranchForcePushCurrentBlocked;
+
+  /// No description provided for @protectedBranchForcePushAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow force push'**
+  String get protectedBranchForcePushAllow;
+
+  /// No description provided for @protectedBranchForcePushSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save setting'**
+  String get protectedBranchForcePushSave;
+
+  /// No description provided for @protectedBranchForcePushEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushEnableWarning;
+
+  /// No description provided for @protectedBranchForcePushDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushDisableWarning;
+
+  /// No description provided for @protectedBranchForcePushAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this change for matching branches.'**
+  String get protectedBranchForcePushAcknowledge;
+
+  /// No description provided for @protectedBranchForcePushReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchForcePushReload;
+
+  /// No description provided for @protectedBranchForcePushSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Force-push setting updated.'**
+  String get protectedBranchForcePushSuccess;
+
+  /// No description provided for @protectedBranchForcePushAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchForcePushAuth;
+
+  /// No description provided for @protectedBranchForcePushForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get protectedBranchForcePushForbidden;
+
+  /// No description provided for @protectedBranchForcePushUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchForcePushUnavailable;
+
+  /// No description provided for @protectedBranchForcePushStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchForcePushStale;
+
+  /// No description provided for @protectedBranchForcePushRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchForcePushRateLimited;
+
+  /// No description provided for @protectedBranchForcePushError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchForcePushError;
+
+  /// No description provided for @protectedBranchForcePushSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchForcePushSessionChanged;
+
+  /// No description provided for @protectedBranchMergeRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit merge access'**
+  String get protectedBranchMergeRoleEditTitle;
+
+  /// No description provided for @protectedBranchMergeRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchMergeRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchMergeRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current merge access: {role}'**
+  String protectedBranchMergeRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchMergeRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchMergeRoleNone;
+
+  /// No description provided for @protectedBranchMergeRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchMergeRoleDeveloper;
+
+  /// No description provided for @protectedBranchMergeRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchMergeRoleMaintainer;
+
+  /// No description provided for @protectedBranchMergeRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.'**
+  String get protectedBranchMergeRoleWarning;
+
+  /// No description provided for @protectedBranchMergeRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the merge access change for matching branches.'**
+  String get protectedBranchMergeRoleAcknowledge;
+
+  /// No description provided for @protectedBranchMergeRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save merge access'**
+  String get protectedBranchMergeRoleSave;
+
+  /// No description provided for @protectedBranchMergeRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchMergeRoleReload;
+
+  /// No description provided for @protectedBranchMergeRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge access updated.'**
+  String get protectedBranchMergeRoleSuccess;
+
+  /// No description provided for @protectedBranchMergeRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchMergeRoleAuth;
+
+  /// No description provided for @protectedBranchMergeRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change merge access.'**
+  String get protectedBranchMergeRoleForbidden;
+
+  /// No description provided for @protectedBranchMergeRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchMergeRoleUnavailable;
+
+  /// No description provided for @protectedBranchMergeRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchMergeRoleStale;
+
+  /// No description provided for @protectedBranchMergeRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleRateLimited;
+
+  /// No description provided for @protectedBranchMergeRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleError;
+
+  /// No description provided for @protectedBranchMergeRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchMergeRoleSessionChanged;
+
+  /// No description provided for @protectedBranchPushRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit push access'**
+  String get protectedBranchPushRoleEditTitle;
+
+  /// No description provided for @protectedBranchPushRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchPushRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchPushRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current push access: {role}'**
+  String protectedBranchPushRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchPushRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchPushRoleNone;
+
+  /// No description provided for @protectedBranchPushRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchPushRoleDeveloper;
+
+  /// No description provided for @protectedBranchPushRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchPushRoleMaintainer;
+
+  /// No description provided for @protectedBranchPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.'**
+  String get protectedBranchPushRoleWarning;
+
+  /// No description provided for @protectedBranchPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the push access change for matching branches.'**
+  String get protectedBranchPushRoleAcknowledge;
+
+  /// No description provided for @protectedBranchPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push access'**
+  String get protectedBranchPushRoleSave;
+
+  /// No description provided for @protectedBranchPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchPushRoleReload;
+
+  /// No description provided for @protectedBranchPushRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Push access updated.'**
+  String get protectedBranchPushRoleSuccess;
+
+  /// No description provided for @protectedBranchPushRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchPushRoleAuth;
+
+  /// No description provided for @protectedBranchPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change push access.'**
+  String get protectedBranchPushRoleForbidden;
+
+  /// No description provided for @protectedBranchPushRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchPushRoleUnavailable;
+
+  /// No description provided for @protectedBranchPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchPushRoleStale;
+
+  /// No description provided for @protectedBranchPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchPushRoleRateLimited;
+
+  /// No description provided for @protectedBranchPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchPushRoleError;
+
+  /// No description provided for @protectedBranchPushRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchPushRoleSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateTitle;
+
+  /// No description provided for @protectedEnvironmentCreateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment name'**
+  String get protectedEnvironmentCreateName;
+
+  /// No description provided for @protectedEnvironmentCreateDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedEnvironmentCreateDeveloper;
+
+  /// No description provided for @protectedEnvironmentCreateMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedEnvironmentCreateMaintainer;
+
+  /// No description provided for @protectedEnvironmentCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This protection changes who may deploy to the named environment. Approval rules are not added.'**
+  String get protectedEnvironmentCreateWarning;
+
+  /// No description provided for @protectedEnvironmentCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the deployment access change.'**
+  String get protectedEnvironmentCreateAcknowledge;
+
+  /// No description provided for @protectedEnvironmentCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateSave;
+
+  /// No description provided for @protectedEnvironmentCreateReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check environments again'**
+  String get protectedEnvironmentCreateReload;
+
+  /// No description provided for @protectedEnvironmentCreateDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This environment is already protected. Check the list before continuing.'**
+  String get protectedEnvironmentCreateDuplicate;
+
+  /// No description provided for @protectedEnvironmentCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm protection. Check the list before trying again.'**
+  String get protectedEnvironmentCreateError;
+
+  /// No description provided for @protectedEnvironmentCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission or this feature is unavailable.'**
+  String get protectedEnvironmentCreateForbidden;
+
+  /// No description provided for @protectedEnvironmentCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open it again.'**
+  String get protectedEnvironmentCreateSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protected.'**
+  String get protectedEnvironmentCreateSuccess;
+
+  /// No description provided for @protectedEnvironmentCreateInvalidName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact environment name without wildcards.'**
+  String get protectedEnvironmentCreateInvalidName;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy role'**
+  String get protectedEnvironmentRemoveRoleTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.'**
+  String get protectedEnvironmentRemoveRoleWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this removes the selected deployment grant.'**
+  String get protectedEnvironmentRemoveRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role removed.'**
+  String get protectedEnvironmentRemoveRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this deploy grant.'**
+  String get protectedEnvironmentRemoveRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy grant removal. Check the rule before trying again.'**
+  String get protectedEnvironmentRemoveRoleError;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} (grant {id})'**
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id);
+
+  /// No description provided for @protectedEnvironmentDeployRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy role'**
+  String get protectedEnvironmentDeployRoleTitle;
+
+  /// No description provided for @protectedEnvironmentDeployRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.'**
+  String get protectedEnvironmentDeployRoleWarning;
+
+  /// No description provided for @protectedEnvironmentDeployRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this expands deployment access.'**
+  String get protectedEnvironmentDeployRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role added.'**
+  String get protectedEnvironmentDeployRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change deploy access.'**
+  String get protectedEnvironmentDeployRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentDeployRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy role update. Check the rule before trying again.'**
+  String get protectedEnvironmentDeployRoleError;
+
+  /// No description provided for @protectedEnvironmentUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect environment'**
+  String get protectedEnvironmentUnprotectTitle;
+
+  /// No description provided for @protectedEnvironmentUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedEnvironmentUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedEnvironmentUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.'**
+  String get protectedEnvironmentUnprotectWarning;
+
+  /// No description provided for @protectedEnvironmentUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact environment name'**
+  String get protectedEnvironmentUnprotectName;
+
+  /// No description provided for @protectedEnvironmentUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that these deployment restrictions and approval rules will be removed.'**
+  String get protectedEnvironmentUnprotectAcknowledge;
+
+  /// No description provided for @protectedEnvironmentUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedEnvironmentUnprotectReload;
+
+  /// No description provided for @protectedEnvironmentUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedEnvironmentUnprotectAuth;
+
+  /// No description provided for @protectedEnvironmentUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to unprotect this environment.'**
+  String get protectedEnvironmentUnprotectForbidden;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedEnvironmentUnprotectUnavailable;
+
+  /// No description provided for @protectedEnvironmentUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedEnvironmentUnprotectStale;
+
+  /// No description provided for @protectedEnvironmentUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectRateLimited;
+
+  /// No description provided for @protectedEnvironmentUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm removal. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectError;
+
+  /// No description provided for @protectedEnvironmentUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedEnvironmentUnprotectSessionChanged;
+
+  /// No description provided for @protectedEnvironmentUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protection removed.'**
+  String get protectedEnvironmentUnprotectSuccess;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Access entry'**
+  String get protectedEnvironmentUnprotectUnreported;
 }
 
 class _AppLocalizationsDelegate
