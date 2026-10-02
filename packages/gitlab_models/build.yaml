@@ -5,6 +5,9 @@
 targets:
   $default:
     builders:
+      freezed:
+        options:
+          format: true
       json_serializable:
         options:
           explicit_to_json: true
