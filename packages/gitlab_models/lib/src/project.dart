@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'container_cleanup_policy.dart';
+
 part 'project.freezed.dart';
 part 'project.g.dart';
 
@@ -22,6 +24,8 @@ abstract class Project with _$Project {
     @JsonKey(name: 'default_branch') String? defaultBranch,
     @JsonKey(name: 'container_registry_access_level')
     String? containerRegistryAccessLevel,
+    @JsonKey(name: 'container_expiration_policy')
+    ContainerCleanupPolicy? containerExpirationPolicy,
     @JsonKey(name: 'package_registry_access_level')
     String? packageRegistryAccessLevel,
     // Null when GitLab omits the count on a reduced payload — unknown, not

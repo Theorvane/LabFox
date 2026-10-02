@@ -19,6 +19,11 @@ _Project _$ProjectFromJson(Map<String, dynamic> json) => _Project(
   defaultBranch: json['default_branch'] as String?,
   containerRegistryAccessLevel:
       json['container_registry_access_level'] as String?,
+  containerExpirationPolicy: json['container_expiration_policy'] == null
+      ? null
+      : ContainerCleanupPolicy.fromJson(
+          json['container_expiration_policy'] as Map<String, dynamic>,
+        ),
   packageRegistryAccessLevel: json['package_registry_access_level'] as String?,
   openIssuesCount: (json['open_issues_count'] as num?)?.toInt(),
   forksCount: (json['forks_count'] as num?)?.toInt(),
@@ -41,6 +46,7 @@ Map<String, dynamic> _$ProjectToJson(_Project instance) => <String, dynamic>{
   'visibility': instance.visibility,
   'default_branch': instance.defaultBranch,
   'container_registry_access_level': instance.containerRegistryAccessLevel,
+  'container_expiration_policy': instance.containerExpirationPolicy?.toJson(),
   'package_registry_access_level': instance.packageRegistryAccessLevel,
   'open_issues_count': instance.openIssuesCount,
   'forks_count': instance.forksCount,
