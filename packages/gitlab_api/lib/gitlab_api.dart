@@ -6,6 +6,7 @@ library;
 
 export 'src/common/exceptions.dart';
 export 'src/common/paginated.dart';
+export 'src/container_registry/container_immutability_api.dart';
 export 'src/container_registry/container_registry_api.dart';
 export 'src/deployments/deployments_api.dart';
 export 'src/environments/environments_api.dart';

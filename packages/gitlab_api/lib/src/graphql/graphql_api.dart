@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import '../common/exceptions.dart';
 import '../gitlab_client.dart';
 
-/// Transport for repository-owned, explicitly selected named read queries.
+/// Transport for repository-owned, explicitly selected named operations.
 ///
 /// Resource APIs remain responsible for DTOs, nullable-resource semantics, and
 /// connection cursors. This transport never treats partial results as complete.
@@ -23,12 +23,40 @@ class GraphQLApi {
     required String document,
     required String operationName,
     Map<String, dynamic> variables = const {},
+  }) => _execute(
+    document: document,
+    operationName: operationName,
+    variables: variables,
+    mutation: false,
+  );
+
+  /// Mutations never use the client's automatic OAuth refresh/replay, and do
+  /// not follow redirects. A failed response does not prove a write failed.
+  /// Resource APIs must validate payload-level errors and returned criteria;
+  /// the returned data map alone does not confirm application-level success.
+  Future<Map<String, dynamic>> mutate({
+    required String document,
+    required String operationName,
+    Map<String, dynamic> variables = const {},
+  }) => _execute(
+    document: document,
+    operationName: operationName,
+    variables: variables,
+    mutation: true,
+  );
+
+  Future<Map<String, dynamic>> _execute({
+    required String document,
+    required String operationName,
+    required Map<String, dynamic> variables,
+    required bool mutation,
   }) async {
+    final kind = mutation ? 'mutation' : 'query';
     final selected = RegExp(
-      r'^\s*query\s+([_A-Za-z][_0-9A-Za-z]*)\s*(?:\(|\{|@)',
+      '^\\s*$kind\\s+([_A-Za-z][_0-9A-Za-z]*)\\s*(?:\\(|\\{|@)',
     ).firstMatch(document);
     if (selected == null || selected.group(1) != operationName) {
-      throw ArgumentError('An explicitly selected named query is required');
+      throw ArgumentError('An explicitly selected named $kind is required');
     }
     try {
       final response = await _dio.post<dynamic>(
@@ -38,13 +66,17 @@ class GraphQLApi {
           'operationName': operationName,
           'variables': variables,
         },
-        options: Options(contentType: Headers.jsonContentType),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          followRedirects: mutation ? false : null,
+          extra: mutation ? const {'labfox_no_auth_retry': true} : null,
+        ),
       );
       if (response.statusCode != 200) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
-          context: 'reading GraphQL data',
+          context: 'executing GraphQL $kind',
         );
       }
       final body = response.data;
@@ -54,12 +86,12 @@ class GraphQLApi {
                   (body['errors'] as List).isNotEmpty)) ||
           body['data'] is! Map<String, dynamic>) {
         throw const GitLabServerException(
-          'GraphQL query failed or returned incomplete data',
+          'GraphQL operation failed or returned incomplete data',
         );
       }
       return body['data'] as Map<String, dynamic>;
     } on DioException catch (error) {
-      throw mapError(error, context: 'reading GraphQL data');
+      throw mapError(error, context: 'executing GraphQL $kind');
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'common/exceptions.dart';
+import 'container_registry/container_immutability_api.dart';
 import 'container_registry/container_registry_api.dart';
 import 'deployments/deployments_api.dart';
 import 'environments/environments_api.dart';
@@ -77,6 +78,7 @@ class GitLabClient {
       ),
     );
     graphql = GraphQLApi(_dio, endpoint: graphqlEndpoint);
+    containerImmutability = ContainerImmutabilityApi(graphql);
 
     if (bearer && onUnauthorized != null) {
       _installRefreshRetry(onUnauthorized);
@@ -172,6 +174,7 @@ class GitLabClient {
 
   late final UsersApi users;
   late final GraphQLApi graphql;
+  late final ContainerImmutabilityApi containerImmutability;
   late final GroupsApi groups;
   late final GroupProtectedEnvironmentsApi groupProtectedEnvironments;
   late final ContainerRegistryApi containerRegistry;
