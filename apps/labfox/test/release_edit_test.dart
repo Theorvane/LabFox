@@ -90,6 +90,7 @@ void main() {
     testWidgets('edits release metadata at width $width', (tester) async {
       final repository = _Repository();
       await _pump(tester, repository, width: width);
+      expect(find.byTooltip('Edit release date'), findsOneWidget);
       await tester.tap(find.byTooltip('Edit release'));
       await tester.pumpAndSettle();
       await tester.enterText(find.byType(TextField).at(0), ' Version 2 ');
