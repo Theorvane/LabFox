@@ -23,6 +23,71 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelineScheduleOwnershipError => '无法获取此流水线计划的所有权。请检查权限并重试。';
 
   @override
+  String get protectedTagProtectTitle => '保护标签';
+
+  @override
+  String get protectedTagProtectName => '规则名称';
+
+  @override
+  String get protectedTagProtectRole => '谁可以创建匹配的标签？';
+
+  @override
+  String get protectedTagProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedTagProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedTagProtectMaintainers => '维护者';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 中匹配标签的创建权限，并可能影响标签流水线和作业。';
+  }
+
+  @override
+  String get protectedTagProtectWildcard => '通配符规则也可能影响将来的标签。请检查准确的模式和权限。';
+
+  @override
+  String get protectedTagProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedTagProtectSubmit => '保护标签';
+
+  @override
+  String get protectedTagProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedTagProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedTagProtectReload => '重新加载规则';
+
+  @override
+  String get protectedTagProtectLoadError => '无法验证受保护标签规则。请重新加载。';
+
+  @override
+  String get protectedTagProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedTagProtectCreated => '已创建受保护标签规则。';
+
+  @override
+  String get protectedTagProtectCancel => '取消';
+
+  @override
+  String get protectedTagProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedTagProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedTagProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedTagProtectUnavailable => '此项目或受保护标签资源不可用。重试前请重新加载。';
+
+  @override
   String get protectedTagsTitle => '受保护标签';
 
   @override
@@ -62,6 +127,74 @@ class AppLocalizationsZh extends AppLocalizations {
   String protectedEnvironmentApprovalCount(int count) {
     return '所需批准数：$count';
   }
+
+  @override
+  String get protectedBranchProtectTitle => '保护分支';
+
+  @override
+  String get protectedBranchProtectName => '规则名称';
+
+  @override
+  String get protectedBranchProtectPush => '允许推送';
+
+  @override
+  String get protectedBranchProtectMerge => '允许合并';
+
+  @override
+  String get protectedBranchProtectNoOne => '任何人都不能';
+
+  @override
+  String get protectedBranchProtectDevelopers => '开发者和维护者';
+
+  @override
+  String get protectedBranchProtectMaintainers => '维护者';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return '此规则会更改项目 $projectId 的推送和合并权限，并可能影响合并请求、受保护的 CI 变量及作业。';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard => '通配符规则也可能影响将来的分支。请检查准确的模式和两项权限。';
+
+  @override
+  String get protectedBranchProtectAcknowledge => '我了解此规则对整个项目的影响。';
+
+  @override
+  String get protectedBranchProtectSubmit => '保护分支';
+
+  @override
+  String get protectedBranchProtectExisting => '规则已存在。未进行更改。';
+
+  @override
+  String get protectedBranchProtectUncertain => '结果不确定。重试前请重新加载所有规则。';
+
+  @override
+  String get protectedBranchProtectReload => '重新加载规则';
+
+  @override
+  String get protectedBranchProtectLoadError => '无法验证受保护分支规则。请重新加载。';
+
+  @override
+  String get protectedBranchProtectSessionChanged => '账号已更改。请关闭此草稿并重新开始。';
+
+  @override
+  String get protectedBranchProtectCreated => '已创建受保护分支规则。';
+
+  @override
+  String get protectedBranchProtectCancel => '取消';
+
+  @override
+  String get protectedBranchProtectForbidden => '您无权创建此规则。重试前请重新加载。';
+
+  @override
+  String get protectedBranchProtectUnauthorized => '会话已过期。请重新登录后再创建规则。';
+
+  @override
+  String get protectedBranchProtectRateLimited => 'GitLab 正在限制请求。请稍后重新加载规则。';
+
+  @override
+  String get protectedBranchProtectUnavailable => '此项目或受保护分支资源不可用。重试前请重新加载。';
 
   @override
   String get protectedBranchesTitle => '受保护分支';
@@ -1021,6 +1154,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get issueSubscriptionError => '无法更新议题通知。请重试。';
+
+  @override
+  String get mrSubscribe => '订阅通知';
+
+  @override
+  String get mrUnsubscribe => '取消订阅通知';
+
+  @override
+  String get mrSubscriptionError => '无法更新合并请求通知。请重试。';
 
   @override
   String get issueAddTodo => '添加到待办事项';
@@ -2480,6 +2622,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerActivationRateLimited => '请求过多。请稍等并重新加载策略后重试。';
+
+  @override
+  String get containerCadenceTitle => '编辑清理周期';
+
+  @override
+  String get containerCadenceSave => '确认周期变更';
+
+  @override
+  String get containerCadenceSelect => '新周期 (GitLab API 间隔)';
+
+  @override
+  String get containerCadenceWarning =>
+      '更改项目级周期会影响所有镜像仓库未来的计划标签清理。请检查下面的启用状态和删除/保留条件。这不会更改这些设置，也不表示清理已完成。';
+
+  @override
+  String get containerCadenceUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerCadenceAccepted => '清理周期更新已接受。';
 
   @override
   String get containerCreateTitle => '创建停用的清理策略';
