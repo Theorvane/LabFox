@@ -12,6 +12,7 @@ import '../features/branches/presentation/branches_screen.dart';
 import '../features/commits/presentation/commit_detail_screen.dart';
 import '../features/commits/presentation/commits_screen.dart';
 import '../features/container_registry/presentation/container_cleanup_policy_screen.dart';
+import '../features/container_registry/presentation/container_immutability_screen.dart';
 import '../features/container_registry/presentation/container_registry_screen.dart';
 import '../features/container_registry/presentation/container_repository_screen.dart';
 import '../features/container_registry/presentation/container_tag_protection_screen.dart';
@@ -123,6 +124,8 @@ abstract final class Routes {
   static String containerRegistry(int id) => '/projects/$id/container_registry';
   static String containerCleanupPolicy(int id) =>
       '/projects/$id/container_registry/cleanup_policy';
+  static String containerImmutability(int id) =>
+      '/projects/$id/container_registry/immutable_rules';
   static String containerTagProtectionRules(int id) =>
       '/projects/$id/container_registry/protection/tags';
   static String containerRepository(int id, int repositoryId) =>
@@ -404,6 +407,12 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'cleanup_policy',
                     builder: (context, state) => ContainerCleanupPolicyScreen(
+                      projectId: int.parse(state.pathParameters['id']!),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'immutable_rules',
+                    builder: (context, state) => ContainerImmutabilityScreen(
                       projectId: int.parse(state.pathParameters['id']!),
                     ),
                   ),
