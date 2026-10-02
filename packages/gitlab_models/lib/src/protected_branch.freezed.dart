@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProtectedBranch {
 
- int? get id; String get name;@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> get pushAccessLevels;@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> get mergeAccessLevels;@JsonKey(name: 'allow_force_push') bool get allowForcePush;@JsonKey(name: 'code_owner_approval_required') bool get codeOwnerApprovalRequired; bool? get inherited;
+ int? get id; String get name;@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> get pushAccessLevels;@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> get mergeAccessLevels;@JsonKey(name: 'unprotect_access_levels') List<ProtectedBranchAccess> get unprotectAccessLevels;@JsonKey(name: 'allow_force_push') bool get allowForcePush;@JsonKey(name: 'code_owner_approval_required') bool get codeOwnerApprovalRequired; bool? get inherited;
 /// Create a copy of ProtectedBranch
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ProtectedBranchCopyWith<ProtectedBranch> get copyWith => _$ProtectedBranchCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProtectedBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.pushAccessLevels, pushAccessLevels)&&const DeepCollectionEquality().equals(other.mergeAccessLevels, mergeAccessLevels)&&(identical(other.allowForcePush, allowForcePush) || other.allowForcePush == allowForcePush)&&(identical(other.codeOwnerApprovalRequired, codeOwnerApprovalRequired) || other.codeOwnerApprovalRequired == codeOwnerApprovalRequired)&&(identical(other.inherited, inherited) || other.inherited == inherited));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProtectedBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.pushAccessLevels, pushAccessLevels)&&const DeepCollectionEquality().equals(other.mergeAccessLevels, mergeAccessLevels)&&const DeepCollectionEquality().equals(other.unprotectAccessLevels, unprotectAccessLevels)&&(identical(other.allowForcePush, allowForcePush) || other.allowForcePush == allowForcePush)&&(identical(other.codeOwnerApprovalRequired, codeOwnerApprovalRequired) || other.codeOwnerApprovalRequired == codeOwnerApprovalRequired)&&(identical(other.inherited, inherited) || other.inherited == inherited));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(pushAccessLevels),const DeepCollectionEquality().hash(mergeAccessLevels),allowForcePush,codeOwnerApprovalRequired,inherited);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(pushAccessLevels),const DeepCollectionEquality().hash(mergeAccessLevels),const DeepCollectionEquality().hash(unprotectAccessLevels),allowForcePush,codeOwnerApprovalRequired,inherited);
 
 @override
 String toString() {
-  return 'ProtectedBranch(id: $id, name: $name, pushAccessLevels: $pushAccessLevels, mergeAccessLevels: $mergeAccessLevels, allowForcePush: $allowForcePush, codeOwnerApprovalRequired: $codeOwnerApprovalRequired, inherited: $inherited)';
+  return 'ProtectedBranch(id: $id, name: $name, pushAccessLevels: $pushAccessLevels, mergeAccessLevels: $mergeAccessLevels, unprotectAccessLevels: $unprotectAccessLevels, allowForcePush: $allowForcePush, codeOwnerApprovalRequired: $codeOwnerApprovalRequired, inherited: $inherited)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ProtectedBranchCopyWith<$Res>  {
   factory $ProtectedBranchCopyWith(ProtectedBranch value, $Res Function(ProtectedBranch) _then) = _$ProtectedBranchCopyWithImpl;
 @useResult
 $Res call({
- int? id, String name,@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> pushAccessLevels,@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> mergeAccessLevels,@JsonKey(name: 'allow_force_push') bool allowForcePush,@JsonKey(name: 'code_owner_approval_required') bool codeOwnerApprovalRequired, bool? inherited
+ int? id, String name,@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> pushAccessLevels,@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> mergeAccessLevels,@JsonKey(name: 'unprotect_access_levels') List<ProtectedBranchAccess> unprotectAccessLevels,@JsonKey(name: 'allow_force_push') bool allowForcePush,@JsonKey(name: 'code_owner_approval_required') bool codeOwnerApprovalRequired, bool? inherited
 });
 
 
@@ -65,12 +65,13 @@ class _$ProtectedBranchCopyWithImpl<$Res>
 
 /// Create a copy of ProtectedBranch
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? pushAccessLevels = null,Object? mergeAccessLevels = null,Object? allowForcePush = null,Object? codeOwnerApprovalRequired = null,Object? inherited = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = null,Object? pushAccessLevels = null,Object? mergeAccessLevels = null,Object? unprotectAccessLevels = null,Object? allowForcePush = null,Object? codeOwnerApprovalRequired = null,Object? inherited = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pushAccessLevels: null == pushAccessLevels ? _self.pushAccessLevels : pushAccessLevels // ignore: cast_nullable_to_non_nullable
 as List<ProtectedBranchAccess>,mergeAccessLevels: null == mergeAccessLevels ? _self.mergeAccessLevels : mergeAccessLevels // ignore: cast_nullable_to_non_nullable
+as List<ProtectedBranchAccess>,unprotectAccessLevels: null == unprotectAccessLevels ? _self.unprotectAccessLevels : unprotectAccessLevels // ignore: cast_nullable_to_non_nullable
 as List<ProtectedBranchAccess>,allowForcePush: null == allowForcePush ? _self.allowForcePush : allowForcePush // ignore: cast_nullable_to_non_nullable
 as bool,codeOwnerApprovalRequired: null == codeOwnerApprovalRequired ? _self.codeOwnerApprovalRequired : codeOwnerApprovalRequired // ignore: cast_nullable_to_non_nullable
 as bool,inherited: freezed == inherited ? _self.inherited : inherited // ignore: cast_nullable_to_non_nullable
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'unprotect_access_levels')  List<ProtectedBranchAccess> unprotectAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProtectedBranch() when $default != null:
-return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
+return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.unprotectAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLeve
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'unprotect_access_levels')  List<ProtectedBranchAccess> unprotectAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)  $default,) {final _that = this;
 switch (_that) {
 case _ProtectedBranch():
-return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
+return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.unprotectAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLeve
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String name, @JsonKey(name: 'push_access_levels')  List<ProtectedBranchAccess> pushAccessLevels, @JsonKey(name: 'merge_access_levels')  List<ProtectedBranchAccess> mergeAccessLevels, @JsonKey(name: 'unprotect_access_levels')  List<ProtectedBranchAccess> unprotectAccessLevels, @JsonKey(name: 'allow_force_push')  bool allowForcePush, @JsonKey(name: 'code_owner_approval_required')  bool codeOwnerApprovalRequired,  bool? inherited)?  $default,) {final _that = this;
 switch (_that) {
 case _ProtectedBranch() when $default != null:
-return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
+return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLevels,_that.unprotectAccessLevels,_that.allowForcePush,_that.codeOwnerApprovalRequired,_that.inherited);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.name,_that.pushAccessLevels,_that.mergeAccessLeve
 @JsonSerializable()
 
 class _ProtectedBranch implements ProtectedBranch {
-  const _ProtectedBranch({this.id, required this.name, @JsonKey(name: 'push_access_levels') final  List<ProtectedBranchAccess> pushAccessLevels = const <ProtectedBranchAccess>[], @JsonKey(name: 'merge_access_levels') final  List<ProtectedBranchAccess> mergeAccessLevels = const <ProtectedBranchAccess>[], @JsonKey(name: 'allow_force_push') this.allowForcePush = false, @JsonKey(name: 'code_owner_approval_required') this.codeOwnerApprovalRequired = false, this.inherited}): _pushAccessLevels = pushAccessLevels,_mergeAccessLevels = mergeAccessLevels;
+  const _ProtectedBranch({this.id, required this.name, @JsonKey(name: 'push_access_levels') final  List<ProtectedBranchAccess> pushAccessLevels = const <ProtectedBranchAccess>[], @JsonKey(name: 'merge_access_levels') final  List<ProtectedBranchAccess> mergeAccessLevels = const <ProtectedBranchAccess>[], @JsonKey(name: 'unprotect_access_levels') final  List<ProtectedBranchAccess> unprotectAccessLevels = const <ProtectedBranchAccess>[], @JsonKey(name: 'allow_force_push') this.allowForcePush = false, @JsonKey(name: 'code_owner_approval_required') this.codeOwnerApprovalRequired = false, this.inherited}): _pushAccessLevels = pushAccessLevels,_mergeAccessLevels = mergeAccessLevels,_unprotectAccessLevels = unprotectAccessLevels;
   factory _ProtectedBranch.fromJson(Map<String, dynamic> json) => _$ProtectedBranchFromJson(json);
 
 @override final  int? id;
@@ -232,6 +233,13 @@ class _ProtectedBranch implements ProtectedBranch {
   if (_mergeAccessLevels is EqualUnmodifiableListView) return _mergeAccessLevels;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_mergeAccessLevels);
+}
+
+ final  List<ProtectedBranchAccess> _unprotectAccessLevels;
+@override@JsonKey(name: 'unprotect_access_levels') List<ProtectedBranchAccess> get unprotectAccessLevels {
+  if (_unprotectAccessLevels is EqualUnmodifiableListView) return _unprotectAccessLevels;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_unprotectAccessLevels);
 }
 
 @override@JsonKey(name: 'allow_force_push') final  bool allowForcePush;
@@ -251,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProtectedBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._pushAccessLevels, _pushAccessLevels)&&const DeepCollectionEquality().equals(other._mergeAccessLevels, _mergeAccessLevels)&&(identical(other.allowForcePush, allowForcePush) || other.allowForcePush == allowForcePush)&&(identical(other.codeOwnerApprovalRequired, codeOwnerApprovalRequired) || other.codeOwnerApprovalRequired == codeOwnerApprovalRequired)&&(identical(other.inherited, inherited) || other.inherited == inherited));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProtectedBranch&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._pushAccessLevels, _pushAccessLevels)&&const DeepCollectionEquality().equals(other._mergeAccessLevels, _mergeAccessLevels)&&const DeepCollectionEquality().equals(other._unprotectAccessLevels, _unprotectAccessLevels)&&(identical(other.allowForcePush, allowForcePush) || other.allowForcePush == allowForcePush)&&(identical(other.codeOwnerApprovalRequired, codeOwnerApprovalRequired) || other.codeOwnerApprovalRequired == codeOwnerApprovalRequired)&&(identical(other.inherited, inherited) || other.inherited == inherited));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_pushAccessLevels),const DeepCollectionEquality().hash(_mergeAccessLevels),allowForcePush,codeOwnerApprovalRequired,inherited);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_pushAccessLevels),const DeepCollectionEquality().hash(_mergeAccessLevels),const DeepCollectionEquality().hash(_unprotectAccessLevels),allowForcePush,codeOwnerApprovalRequired,inherited);
 
 @override
 String toString() {
-  return 'ProtectedBranch(id: $id, name: $name, pushAccessLevels: $pushAccessLevels, mergeAccessLevels: $mergeAccessLevels, allowForcePush: $allowForcePush, codeOwnerApprovalRequired: $codeOwnerApprovalRequired, inherited: $inherited)';
+  return 'ProtectedBranch(id: $id, name: $name, pushAccessLevels: $pushAccessLevels, mergeAccessLevels: $mergeAccessLevels, unprotectAccessLevels: $unprotectAccessLevels, allowForcePush: $allowForcePush, codeOwnerApprovalRequired: $codeOwnerApprovalRequired, inherited: $inherited)';
 }
 
 
@@ -271,7 +279,7 @@ abstract mixin class _$ProtectedBranchCopyWith<$Res> implements $ProtectedBranch
   factory _$ProtectedBranchCopyWith(_ProtectedBranch value, $Res Function(_ProtectedBranch) _then) = __$ProtectedBranchCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, String name,@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> pushAccessLevels,@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> mergeAccessLevels,@JsonKey(name: 'allow_force_push') bool allowForcePush,@JsonKey(name: 'code_owner_approval_required') bool codeOwnerApprovalRequired, bool? inherited
+ int? id, String name,@JsonKey(name: 'push_access_levels') List<ProtectedBranchAccess> pushAccessLevels,@JsonKey(name: 'merge_access_levels') List<ProtectedBranchAccess> mergeAccessLevels,@JsonKey(name: 'unprotect_access_levels') List<ProtectedBranchAccess> unprotectAccessLevels,@JsonKey(name: 'allow_force_push') bool allowForcePush,@JsonKey(name: 'code_owner_approval_required') bool codeOwnerApprovalRequired, bool? inherited
 });
 
 
@@ -288,12 +296,13 @@ class __$ProtectedBranchCopyWithImpl<$Res>
 
 /// Create a copy of ProtectedBranch
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? pushAccessLevels = null,Object? mergeAccessLevels = null,Object? allowForcePush = null,Object? codeOwnerApprovalRequired = null,Object? inherited = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = null,Object? pushAccessLevels = null,Object? mergeAccessLevels = null,Object? unprotectAccessLevels = null,Object? allowForcePush = null,Object? codeOwnerApprovalRequired = null,Object? inherited = freezed,}) {
   return _then(_ProtectedBranch(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,pushAccessLevels: null == pushAccessLevels ? _self._pushAccessLevels : pushAccessLevels // ignore: cast_nullable_to_non_nullable
 as List<ProtectedBranchAccess>,mergeAccessLevels: null == mergeAccessLevels ? _self._mergeAccessLevels : mergeAccessLevels // ignore: cast_nullable_to_non_nullable
+as List<ProtectedBranchAccess>,unprotectAccessLevels: null == unprotectAccessLevels ? _self._unprotectAccessLevels : unprotectAccessLevels // ignore: cast_nullable_to_non_nullable
 as List<ProtectedBranchAccess>,allowForcePush: null == allowForcePush ? _self.allowForcePush : allowForcePush // ignore: cast_nullable_to_non_nullable
 as bool,codeOwnerApprovalRequired: null == codeOwnerApprovalRequired ? _self.codeOwnerApprovalRequired : codeOwnerApprovalRequired // ignore: cast_nullable_to_non_nullable
 as bool,inherited: freezed == inherited ? _self.inherited : inherited // ignore: cast_nullable_to_non_nullable
@@ -308,7 +317,7 @@ as bool?,
 /// @nodoc
 mixin _$ProtectedBranchAccess {
 
- int? get id;@JsonKey(name: 'access_level') int? get accessLevel;@JsonKey(name: 'access_level_description') String? get description;@JsonKey(name: 'user_id') int? get userId;@JsonKey(name: 'group_id') int? get groupId;@JsonKey(name: 'deploy_key_id') int? get deployKeyId;
+ int? get id;@JsonKey(name: 'access_level') int? get accessLevel;@JsonKey(name: 'access_level_description') String? get description;@JsonKey(name: 'user_id') int? get userId;@JsonKey(name: 'group_id') int? get groupId;@JsonKey(name: 'deploy_key_id') int? get deployKeyId;@JsonKey(name: 'member_role_id') int? get memberRoleId;
 /// Create a copy of ProtectedBranchAccess
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -321,16 +330,16 @@ $ProtectedBranchAccessCopyWith<ProtectedBranchAccess> get copyWith => _$Protecte
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProtectedBranchAccess&&(identical(other.id, id) || other.id == id)&&(identical(other.accessLevel, accessLevel) || other.accessLevel == accessLevel)&&(identical(other.description, description) || other.description == description)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.deployKeyId, deployKeyId) || other.deployKeyId == deployKeyId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProtectedBranchAccess&&(identical(other.id, id) || other.id == id)&&(identical(other.accessLevel, accessLevel) || other.accessLevel == accessLevel)&&(identical(other.description, description) || other.description == description)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.deployKeyId, deployKeyId) || other.deployKeyId == deployKeyId)&&(identical(other.memberRoleId, memberRoleId) || other.memberRoleId == memberRoleId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,accessLevel,description,userId,groupId,deployKeyId);
+int get hashCode => Object.hash(runtimeType,id,accessLevel,description,userId,groupId,deployKeyId,memberRoleId);
 
 @override
 String toString() {
-  return 'ProtectedBranchAccess(id: $id, accessLevel: $accessLevel, description: $description, userId: $userId, groupId: $groupId, deployKeyId: $deployKeyId)';
+  return 'ProtectedBranchAccess(id: $id, accessLevel: $accessLevel, description: $description, userId: $userId, groupId: $groupId, deployKeyId: $deployKeyId, memberRoleId: $memberRoleId)';
 }
 
 
@@ -341,7 +350,7 @@ abstract mixin class $ProtectedBranchAccessCopyWith<$Res>  {
   factory $ProtectedBranchAccessCopyWith(ProtectedBranchAccess value, $Res Function(ProtectedBranchAccess) _then) = _$ProtectedBranchAccessCopyWithImpl;
 @useResult
 $Res call({
- int? id,@JsonKey(name: 'access_level') int? accessLevel,@JsonKey(name: 'access_level_description') String? description,@JsonKey(name: 'user_id') int? userId,@JsonKey(name: 'group_id') int? groupId,@JsonKey(name: 'deploy_key_id') int? deployKeyId
+ int? id,@JsonKey(name: 'access_level') int? accessLevel,@JsonKey(name: 'access_level_description') String? description,@JsonKey(name: 'user_id') int? userId,@JsonKey(name: 'group_id') int? groupId,@JsonKey(name: 'deploy_key_id') int? deployKeyId,@JsonKey(name: 'member_role_id') int? memberRoleId
 });
 
 
@@ -358,7 +367,7 @@ class _$ProtectedBranchAccessCopyWithImpl<$Res>
 
 /// Create a copy of ProtectedBranchAccess
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? accessLevel = freezed,Object? description = freezed,Object? userId = freezed,Object? groupId = freezed,Object? deployKeyId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? accessLevel = freezed,Object? description = freezed,Object? userId = freezed,Object? groupId = freezed,Object? deployKeyId = freezed,Object? memberRoleId = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,accessLevel: freezed == accessLevel ? _self.accessLevel : accessLevel // ignore: cast_nullable_to_non_nullable
@@ -366,6 +375,7 @@ as int?,description: freezed == description ? _self.description : description //
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int?,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
 as int?,deployKeyId: freezed == deployKeyId ? _self.deployKeyId : deployKeyId // ignore: cast_nullable_to_non_nullable
+as int?,memberRoleId: freezed == memberRoleId ? _self.memberRoleId : memberRoleId // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
@@ -451,10 +461,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId, @JsonKey(name: 'member_role_id')  int? memberRoleId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProtectedBranchAccess() when $default != null:
-return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId);case _:
+return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId,_that.memberRoleId);case _:
   return orElse();
 
 }
@@ -472,10 +482,10 @@ return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId, @JsonKey(name: 'member_role_id')  int? memberRoleId)  $default,) {final _that = this;
 switch (_that) {
 case _ProtectedBranchAccess():
-return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId);case _:
+return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId,_that.memberRoleId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -492,10 +502,10 @@ return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @JsonKey(name: 'access_level')  int? accessLevel, @JsonKey(name: 'access_level_description')  String? description, @JsonKey(name: 'user_id')  int? userId, @JsonKey(name: 'group_id')  int? groupId, @JsonKey(name: 'deploy_key_id')  int? deployKeyId, @JsonKey(name: 'member_role_id')  int? memberRoleId)?  $default,) {final _that = this;
 switch (_that) {
 case _ProtectedBranchAccess() when $default != null:
-return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId);case _:
+return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.groupId,_that.deployKeyId,_that.memberRoleId);case _:
   return null;
 
 }
@@ -507,7 +517,7 @@ return $default(_that.id,_that.accessLevel,_that.description,_that.userId,_that.
 @JsonSerializable()
 
 class _ProtectedBranchAccess implements ProtectedBranchAccess {
-  const _ProtectedBranchAccess({this.id, @JsonKey(name: 'access_level') this.accessLevel, @JsonKey(name: 'access_level_description') this.description, @JsonKey(name: 'user_id') this.userId, @JsonKey(name: 'group_id') this.groupId, @JsonKey(name: 'deploy_key_id') this.deployKeyId});
+  const _ProtectedBranchAccess({this.id, @JsonKey(name: 'access_level') this.accessLevel, @JsonKey(name: 'access_level_description') this.description, @JsonKey(name: 'user_id') this.userId, @JsonKey(name: 'group_id') this.groupId, @JsonKey(name: 'deploy_key_id') this.deployKeyId, @JsonKey(name: 'member_role_id') this.memberRoleId});
   factory _ProtectedBranchAccess.fromJson(Map<String, dynamic> json) => _$ProtectedBranchAccessFromJson(json);
 
 @override final  int? id;
@@ -516,6 +526,7 @@ class _ProtectedBranchAccess implements ProtectedBranchAccess {
 @override@JsonKey(name: 'user_id') final  int? userId;
 @override@JsonKey(name: 'group_id') final  int? groupId;
 @override@JsonKey(name: 'deploy_key_id') final  int? deployKeyId;
+@override@JsonKey(name: 'member_role_id') final  int? memberRoleId;
 
 /// Create a copy of ProtectedBranchAccess
 /// with the given fields replaced by the non-null parameter values.
@@ -530,16 +541,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProtectedBranchAccess&&(identical(other.id, id) || other.id == id)&&(identical(other.accessLevel, accessLevel) || other.accessLevel == accessLevel)&&(identical(other.description, description) || other.description == description)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.deployKeyId, deployKeyId) || other.deployKeyId == deployKeyId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProtectedBranchAccess&&(identical(other.id, id) || other.id == id)&&(identical(other.accessLevel, accessLevel) || other.accessLevel == accessLevel)&&(identical(other.description, description) || other.description == description)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.groupId, groupId) || other.groupId == groupId)&&(identical(other.deployKeyId, deployKeyId) || other.deployKeyId == deployKeyId)&&(identical(other.memberRoleId, memberRoleId) || other.memberRoleId == memberRoleId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,accessLevel,description,userId,groupId,deployKeyId);
+int get hashCode => Object.hash(runtimeType,id,accessLevel,description,userId,groupId,deployKeyId,memberRoleId);
 
 @override
 String toString() {
-  return 'ProtectedBranchAccess(id: $id, accessLevel: $accessLevel, description: $description, userId: $userId, groupId: $groupId, deployKeyId: $deployKeyId)';
+  return 'ProtectedBranchAccess(id: $id, accessLevel: $accessLevel, description: $description, userId: $userId, groupId: $groupId, deployKeyId: $deployKeyId, memberRoleId: $memberRoleId)';
 }
 
 
@@ -550,7 +561,7 @@ abstract mixin class _$ProtectedBranchAccessCopyWith<$Res> implements $Protected
   factory _$ProtectedBranchAccessCopyWith(_ProtectedBranchAccess value, $Res Function(_ProtectedBranchAccess) _then) = __$ProtectedBranchAccessCopyWithImpl;
 @override @useResult
 $Res call({
- int? id,@JsonKey(name: 'access_level') int? accessLevel,@JsonKey(name: 'access_level_description') String? description,@JsonKey(name: 'user_id') int? userId,@JsonKey(name: 'group_id') int? groupId,@JsonKey(name: 'deploy_key_id') int? deployKeyId
+ int? id,@JsonKey(name: 'access_level') int? accessLevel,@JsonKey(name: 'access_level_description') String? description,@JsonKey(name: 'user_id') int? userId,@JsonKey(name: 'group_id') int? groupId,@JsonKey(name: 'deploy_key_id') int? deployKeyId,@JsonKey(name: 'member_role_id') int? memberRoleId
 });
 
 
@@ -567,7 +578,7 @@ class __$ProtectedBranchAccessCopyWithImpl<$Res>
 
 /// Create a copy of ProtectedBranchAccess
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? accessLevel = freezed,Object? description = freezed,Object? userId = freezed,Object? groupId = freezed,Object? deployKeyId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? accessLevel = freezed,Object? description = freezed,Object? userId = freezed,Object? groupId = freezed,Object? deployKeyId = freezed,Object? memberRoleId = freezed,}) {
   return _then(_ProtectedBranchAccess(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,accessLevel: freezed == accessLevel ? _self.accessLevel : accessLevel // ignore: cast_nullable_to_non_nullable
@@ -575,6 +586,7 @@ as int?,description: freezed == description ? _self.description : description //
 as String?,userId: freezed == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
 as int?,groupId: freezed == groupId ? _self.groupId : groupId // ignore: cast_nullable_to_non_nullable
 as int?,deployKeyId: freezed == deployKeyId ? _self.deployKeyId : deployKeyId // ignore: cast_nullable_to_non_nullable
+as int?,memberRoleId: freezed == memberRoleId ? _self.memberRoleId : memberRoleId // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
