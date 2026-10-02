@@ -128,6 +128,132 @@ abstract class AppLocalizations {
   /// **'Could not take ownership of this pipeline schedule. Check your permissions and try again.'**
   String get pipelineScheduleOwnershipError;
 
+  /// No description provided for @protectedTagProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectTitle;
+
+  /// No description provided for @protectedTagProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedTagProtectName;
+
+  /// No description provided for @protectedTagProtectRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can create matching tags?'**
+  String get protectedTagProtectRole;
+
+  /// No description provided for @protectedTagProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedTagProtectNoOne;
+
+  /// No description provided for @protectedTagProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedTagProtectDevelopers;
+
+  /// No description provided for @protectedTagProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedTagProtectMaintainers;
+
+  /// No description provided for @protectedTagProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes who can create matching tags and may affect tag pipelines and jobs across project {projectId}.'**
+  String protectedTagProtectWarning(String projectId);
+
+  /// No description provided for @protectedTagProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules can also affect future tags. Check the exact pattern and access level.'**
+  String get protectedTagProtectWildcard;
+
+  /// No description provided for @protectedTagProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedTagProtectAcknowledge;
+
+  /// No description provided for @protectedTagProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectSubmit;
+
+  /// No description provided for @protectedTagProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedTagProtectExisting;
+
+  /// No description provided for @protectedTagProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedTagProtectUncertain;
+
+  /// No description provided for @protectedTagProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedTagProtectReload;
+
+  /// No description provided for @protectedTagProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify the protected tag rules. Try reloading.'**
+  String get protectedTagProtectLoadError;
+
+  /// No description provided for @protectedTagProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedTagProtectSessionChanged;
+
+  /// No description provided for @protectedTagProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected tag rule created.'**
+  String get protectedTagProtectCreated;
+
+  /// No description provided for @protectedTagProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedTagProtectCancel;
+
+  /// No description provided for @protectedTagProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedTagProtectForbidden;
+
+  /// No description provided for @protectedTagProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedTagProtectUnauthorized;
+
+  /// No description provided for @protectedTagProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedTagProtectRateLimited;
+
+  /// No description provided for @protectedTagProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected tag resource is unavailable. Reload before trying again.'**
+  String get protectedTagProtectUnavailable;
+
   /// No description provided for @protectedTagsTitle.
   ///
   /// In en, this message translates to:
@@ -205,6 +331,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Required approvals: {count}'**
   String protectedEnvironmentApprovalCount(int count);
+
+  /// No description provided for @protectedBranchProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectTitle;
+
+  /// No description provided for @protectedBranchProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedBranchProtectName;
+
+  /// No description provided for @protectedBranchProtectPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to push'**
+  String get protectedBranchProtectPush;
+
+  /// No description provided for @protectedBranchProtectMerge.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to merge'**
+  String get protectedBranchProtectMerge;
+
+  /// No description provided for @protectedBranchProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchProtectNoOne;
+
+  /// No description provided for @protectedBranchProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedBranchProtectDevelopers;
+
+  /// No description provided for @protectedBranchProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchProtectMaintainers;
+
+  /// No description provided for @protectedBranchProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes push and merge access in project {projectId}. It can affect merge requests, protected CI variables, and jobs.'**
+  String protectedBranchProtectWarning(String projectId);
+
+  /// No description provided for @protectedBranchProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules may also affect future branches. Check the exact pattern and both permissions.'**
+  String get protectedBranchProtectWildcard;
+
+  /// No description provided for @protectedBranchProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedBranchProtectAcknowledge;
+
+  /// No description provided for @protectedBranchProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectSubmit;
+
+  /// No description provided for @protectedBranchProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedBranchProtectExisting;
+
+  /// No description provided for @protectedBranchProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedBranchProtectUncertain;
+
+  /// No description provided for @protectedBranchProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedBranchProtectReload;
+
+  /// No description provided for @protectedBranchProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify protected branch rules. Try reloading.'**
+  String get protectedBranchProtectLoadError;
+
+  /// No description provided for @protectedBranchProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedBranchProtectSessionChanged;
+
+  /// No description provided for @protectedBranchProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected branch rule created.'**
+  String get protectedBranchProtectCreated;
+
+  /// No description provided for @protectedBranchProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedBranchProtectCancel;
+
+  /// No description provided for @protectedBranchProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedBranchProtectForbidden;
+
+  /// No description provided for @protectedBranchProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedBranchProtectUnauthorized;
+
+  /// No description provided for @protectedBranchProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedBranchProtectRateLimited;
+
+  /// No description provided for @protectedBranchProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected branch resource is unavailable. Reload before trying again.'**
+  String get protectedBranchProtectUnavailable;
 
   /// No description provided for @protectedBranchesTitle.
   ///
@@ -2089,6 +2347,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update issue notifications. Please try again.'**
   String get issueSubscriptionError;
+
+  /// No description provided for @mrSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to notifications'**
+  String get mrSubscribe;
+
+  /// No description provided for @mrUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe from notifications'**
+  String get mrUnsubscribe;
+
+  /// No description provided for @mrSubscriptionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update merge request notifications. Please try again.'**
+  String get mrSubscriptionError;
 
   /// No description provided for @issueAddTodo.
   ///
@@ -4753,6 +5029,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Access entry'**
   String get protectedEnvironmentUnprotectUnreported;
+
+  /// No description provided for @containerPolicyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get containerPolicyStatus;
+
+  /// No description provided for @containerPolicyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get containerPolicyEnabled;
+
+  /// No description provided for @containerPolicyDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get containerPolicyDisabled;
+
+  /// No description provided for @containerPolicyNotReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get containerPolicyNotReported;
+
+  /// No description provided for @containerPolicyCadence.
+  ///
+  /// In en, this message translates to:
+  /// **'Run interval'**
+  String get containerPolicyCadence;
+
+  /// No description provided for @containerPolicyKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags to keep per image'**
+  String get containerPolicyKeepCount;
+
+  /// No description provided for @containerPolicyAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tags older than'**
+  String get containerPolicyAge;
+
+  /// No description provided for @containerPolicyDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern'**
+  String get containerPolicyDeletePattern;
+
+  /// No description provided for @containerPolicyLegacyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (legacy)'**
+  String get containerPolicyLegacyPattern;
+
+  /// No description provided for @containerPolicyKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern'**
+  String get containerPolicyKeepPattern;
+
+  /// No description provided for @containerPolicyEmptyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty pattern'**
+  String get containerPolicyEmptyPattern;
+
+  /// No description provided for @containerPolicyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the cleanup policy.'**
+  String get containerPolicyError;
+
+  /// No description provided for @containerPolicyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view this project cleanup policy.'**
+  String get containerPolicyForbidden;
+
+  /// No description provided for @containerPolicyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project is not accessible, or cleanup policy information is unavailable.'**
+  String get containerPolicyUnavailable;
+
+  /// No description provided for @containerPolicyEmptySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty setting'**
+  String get containerPolicyEmptySetting;
+
+  /// No description provided for @containerActivationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — all image repositories'**
+  String containerActivationTarget(String projectId);
+
+  /// No description provided for @containerActivationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the update. Reload the policy and try again.'**
+  String get containerActivationError;
+
+  /// No description provided for @containerActivationForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this cleanup policy.'**
+  String get containerActivationForbidden;
+
+  /// No description provided for @containerActivationStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The policy changed or is no longer reported. Reload and review it before saving.'**
+  String get containerActivationStale;
+
+  /// No description provided for @containerActivationReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload policy'**
+  String get containerActivationReload;
+
+  /// No description provided for @containerActivationRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and reload the policy before trying again.'**
+  String get containerActivationRateLimited;
+
+  /// No description provided for @containerCadenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup cadence'**
+  String get containerCadenceTitle;
+
+  /// No description provided for @containerCadenceSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm cadence change'**
+  String get containerCadenceSave;
+
+  /// No description provided for @containerCadenceSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New cadence (GitLab API interval)'**
+  String get containerCadenceSelect;
+
+  /// No description provided for @containerCadenceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing this project-wide cadence affects future scheduled tag cleanup in all image repositories. Review activation and deletion/retention criteria below. This does not change those settings or confirm cleanup completion.'**
+  String get containerCadenceWarning;
+
+  /// No description provided for @containerCadenceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerCadenceUnknown;
+
+  /// No description provided for @containerCadenceAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup cadence update accepted.'**
+  String get containerCadenceAccepted;
 
   /// No description provided for @containerTagProtectionTitle.
   ///
