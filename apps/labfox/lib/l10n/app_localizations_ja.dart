@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '実行設定を編集';
+
+  @override
+  String get pipelineScheduleExecutionSave => '保存';
+
+  @override
+  String get pipelineScheduleExecutionActive => '有効';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => '参照を入力してください。';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab が参照を検証します。ブランチとタグが同名の場合は完全な参照を入力してください。保存すると今後の実行予定が再計算され、cron、タイムゾーン、変数、入力は変更されません。';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      '実行設定を更新できませんでした。権限と参照を確認して再試行してください。';
+
+  @override
   String get pipelineScheduleCreate => 'スケジュールを作成';
 
   @override
@@ -3061,6 +3081,49 @@ class AppLocalizationsJa extends AppLocalizations {
       'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'タグ保護ルールを削除';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'ルールを削除';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'このルールを削除すると、プロジェクト内の一致するコンテナイメージタグのプッシュと削除の保護が解除されます。他のルールと権限は引き続き適用されます。タグやイメージは削除されず、Gitタグにも影響しません。';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge => '内容を理解し、このルールを削除します。';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => 'このルールを削除する権限がありません。';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      '要求は失敗しましたが、サーバーに届いた可能性があります。再試行前にルール一覧を確認してください。';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'ルールが変更されたか重複しています。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionRemoveSaved => 'タグ保護ルールを削除しました。';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'ルールが存在しないか、アクセスできないか、未対応です。削除にはGitLab 18.9以降が必要です。続行前に再読み込みしてください。';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      '要求が多すぎます。しばらく待って再試行してください。';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       '要求が多すぎます。しばらく待って再試行してください。';
 
@@ -3085,6 +3148,73 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerTagDeleteWarning =>
       'タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。';
+
+  @override
+  String get containerCleanupTitle => 'タグを整理';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'プロジェクト $projectId、イメージリポジトリ $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '一致するタグは完全に削除されます。latest と保護されたタグは除外されます。保持パターンは削除パターンより優先されます。';
+
+  @override
+  String get containerCleanupLimits =>
+      '整理はリポジトリごとに最大1時間に1回、非同期で実行され、一部のタグのみ削除される場合があります。期間と順序はプッシュ日時ではなくマニフェスト作成日時に基づきます。タグの削除でイメージの容量は解放されません。';
+
+  @override
+  String get containerCleanupDeletePattern => '削除パターン（RE2、必須）';
+
+  @override
+  String get containerCleanupKeepPattern => '保持パターン（RE2、任意）';
+
+  @override
+  String get containerCleanupKeepCount => '最新の一致タグを保持する数（任意）';
+
+  @override
+  String get containerCleanupAge => '次の期間より古いタグのみ削除';
+
+  @override
+  String get containerCleanupNoAge => '期間の制限なし';
+
+  @override
+  String get containerCleanupDay => '1日';
+
+  @override
+  String get containerCleanupWeek => '7日';
+
+  @override
+  String get containerCleanupMonth => '1か月';
+
+  @override
+  String get containerCleanupRequired => '削除パターンを明示的に入力してください。';
+
+  @override
+  String get containerCleanupCountError => '0以上の整数を入力するか、空欄にしてください。';
+
+  @override
+  String get containerCleanupSchedule => '整理を予約';
+
+  @override
+  String get containerCleanupScheduled =>
+      '整理を予約しました。処理が完了するまでタグが残る場合があります。後で更新して確認してください。';
+
+  @override
+  String get containerCleanupError => '整理を予約できませんでした。接続を確認して再試行してください。';
+
+  @override
+  String get containerCleanupForbidden => 'このリポジトリのタグを整理する権限がありません。';
+
+  @override
+  String get containerCleanupRateLimited =>
+      '整理の回数が制限されています。リポジトリごとに最大1時間に1回です。後で再試行してください。';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab が整理条件を拒否しました。RE2 パターンと保持設定を確認してください。';
 
   @override
   String get containerTagDeleteForbidden =>
@@ -3513,6 +3643,51 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
+
+  @override
+  String get containerProtectionCreateTitle => 'リポジトリ保護ルールを作成';
+
+  @override
+  String get containerProtectionCreateSave => 'ルールを作成';
+
+  @override
+  String get containerProtectionCreatePattern => 'リポジトリパスのパターン';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'このルールは、正確なパターンに一致するリポジトリの選択したプッシュと削除操作を制限します。ワイルドカード(*)は複数のリポジトリに影響します。未選択のロールは、その操作をこのルールでは制限しません。他のルールと権限は引き続き適用されます。この設定は自分のアクセス権を示すものではなく、イメージも削除しません。';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'パターンと最低ロールを確認し、その影響を理解しました。';
+
+  @override
+  String get containerProtectionCreateUnset => 'このルールによる制限なし';
+
+  @override
+  String get containerProtectionCreateCreated => 'ルールを作成しました。';
+
+  @override
+  String get containerProtectionCreateForbidden => 'このルールを作成する権限がありません。';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'パターンまたはロールが拒否されたか、パターンが既に使用されています。入力を編集して再試行してください。';
+
+  @override
+  String get containerProtectionCreateError =>
+      'ルールの作成を確認できませんでした。再試行の前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionCreatePush => '最低プッシュロール';
+
+  @override
+  String get containerProtectionCreateDelete => '最低削除ロール';
 
   @override
   String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';

@@ -126,6 +126,31 @@ class PipelineSchedulesApi {
     }
   }
 
+  /// Updates execution settings without rewriting timing, variables or inputs.
+  Future<PipelineSchedule> updateExecution(
+    Object projectId,
+    int scheduleId, {
+    String? ref,
+    bool? active,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/$scheduleId',
+        data: {'ref': ?ref, 'active': ?active},
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating pipeline schedule execution',
+        );
+      }
+      return PipelineSchedule.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating pipeline schedule execution');
+    }
+  }
+
   /// Deletes a schedule, discarding any returned schedule metadata.
   Future<void> delete(Object projectId, int scheduleId) async {
     try {
@@ -144,7 +169,8 @@ class PipelineSchedulesApi {
     }
   }
 
-  /// Updates timing metadata without rewriting ref, active, variables or inputs.
+  /// Updates only supplied timing and execution fields, preserving omitted ones.
+  /// Explicit false disables the schedule; variables and inputs stay unchanged.
   Future<PipelineSchedule> update(
     Object projectId,
     int scheduleId, {

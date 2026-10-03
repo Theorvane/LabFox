@@ -9,6 +9,26 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => 'Edit execution settings';
+
+  @override
+  String get pipelineScheduleExecutionSave => 'Save';
+
+  @override
+  String get pipelineScheduleExecutionActive => 'Active';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'Enter a ref.';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      'Could not update execution settings. Check your permissions and ref, then try again.';
+
+  @override
   String get pipelineScheduleCreate => 'Create schedule';
 
   @override
@@ -3152,6 +3172,52 @@ class AppLocalizationsEn extends AppLocalizations {
       'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'Delete tag protection rule';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'Delete rule';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'I understand and want to delete this exact rule.';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'You do not have permission to delete this rule.';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'The request failed and may have reached the server. Inspect the rule list before retrying.';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'This rule changed or is ambiguous. Reload it and confirm again.';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'Tag protection rule deleted.';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'Too many requests. Wait before retrying.';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       'Too many requests. Wait and retry.';
 
@@ -3176,6 +3242,77 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerTagDeleteWarning =>
       'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.';
+
+  @override
+  String get containerCleanupTitle => 'Clean up tags';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'Project $projectId, image repository $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.';
+
+  @override
+  String get containerCleanupLimits =>
+      'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.';
+
+  @override
+  String get containerCleanupDeletePattern => 'Delete pattern (RE2, required)';
+
+  @override
+  String get containerCleanupKeepPattern => 'Keep pattern (RE2, optional)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'Keep newest matching tags (optional)';
+
+  @override
+  String get containerCleanupAge => 'Only remove tags older than';
+
+  @override
+  String get containerCleanupNoAge => 'No age limit';
+
+  @override
+  String get containerCleanupDay => '1 day';
+
+  @override
+  String get containerCleanupWeek => '7 days';
+
+  @override
+  String get containerCleanupMonth => '1 month';
+
+  @override
+  String get containerCleanupRequired => 'Enter an explicit delete pattern.';
+
+  @override
+  String get containerCleanupCountError =>
+      'Enter a non-negative whole number or leave blank.';
+
+  @override
+  String get containerCleanupSchedule => 'Schedule cleanup';
+
+  @override
+  String get containerCleanupScheduled =>
+      'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.';
+
+  @override
+  String get containerCleanupError =>
+      'Could not schedule cleanup. Check your connection and try again.';
+
+  @override
+  String get containerCleanupForbidden =>
+      'You do not have permission to clean up tags in this repository.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.';
 
   @override
   String get containerTagDeleteForbidden =>
@@ -3623,6 +3760,53 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerRepositoryProtectionEmpty =>
       'No repository protection rules.';
+
+  @override
+  String get containerProtectionCreateTitle =>
+      'Create repository protection rule';
+
+  @override
+  String get containerProtectionCreateSave => 'Create rule';
+
+  @override
+  String get containerProtectionCreatePattern => 'Repository path pattern';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'I have reviewed the pattern and minimum roles and understand their impact.';
+
+  @override
+  String get containerProtectionCreateUnset => 'No restriction from this rule';
+
+  @override
+  String get containerProtectionCreateCreated => 'The rule was created.';
+
+  @override
+  String get containerProtectionCreateForbidden =>
+      'You do not have permission to create this rule.';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionCreateError =>
+      'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionCreatePush => 'Minimum push role';
+
+  @override
+  String get containerProtectionCreateDelete => 'Minimum delete role';
 
   @override
   String get containerRepositoryProtectionError =>
