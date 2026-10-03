@@ -135,7 +135,8 @@ class PipelineSchedulesApi {
     }
   }
 
-  /// Updates timing metadata without rewriting ref, active, variables or inputs.
+  /// Updates only supplied timing and execution fields, preserving omitted ones.
+  /// Explicit false disables the schedule; variables and inputs stay unchanged.
   Future<PipelineSchedule> update(
     Object projectId,
     int scheduleId, {

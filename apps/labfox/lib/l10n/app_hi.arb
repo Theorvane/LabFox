@@ -954,5 +954,14 @@
   "containerKeepPatternWarning": "परियोजना के रखने के पैटर्न का दायरा घटाने से नियोजित सफ़ाई में हर रिपॉज़िटरी के पहले संरक्षित टैग स्थायी रूप से हटने के पात्र हो सकते हैं। नीचे सक्रिय स्थिति और हटाने/रखने के मानदंड जाँचें। GitLab RE2 उपयोग करता है और पूरे टैग नाम पर पैटर्न लागू करता है। इनपुट जैसा है वैसा भेजा जाता है और GitLab जाँचता है। अन्य सेटिंग नहीं बदलतीं और स्वीकृति सफ़ाई पूर्ण होने की पुष्टि नहीं है। खाली इनपुट पैटर्न नहीं मिटाता।",
   "containerKeepPatternUnknown": "सक्रिय स्थिति, अंतराल, संख्या, आयु और प्रभावी हटाने/रखने के पैटर्न ज्ञात होना आवश्यक है। रिपोर्ट किया खाली रखने का पैटर्न बदला जा सकता है, अज्ञात मान नहीं। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।",
   "containerKeepPatternAccepted": "सफ़ाई रखने के पैटर्न का अपडेट स्वीकार किया गया।",
-  "containerKeepPatternInvalid": "GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।"
+  "containerKeepPatternInvalid": "GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।",
+  "containerRepositoryProtectionTitle": "रिपॉज़िटरी सुरक्षा नियम",
+  "containerRepositoryProtectionEmpty": "कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।",
+  "containerRepositoryProtectionError": "रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।",
+  "containerRepositoryProtectionForbidden": "आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।",
+  "containerRepositoryProtectionUnavailable": "इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।",
+  "containerRepositoryProtectionPushRole": "पुश करने के लिए न्यूनतम भूमिका: {role}",
+  "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
+  "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
+  "containerRepositoryProtectionRoleAdmin": "प्रशासक"
 }
