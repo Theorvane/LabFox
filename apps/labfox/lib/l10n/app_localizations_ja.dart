@@ -4121,4 +4121,29 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerDeletePatternInvalid =>
       'GitLabがパターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
+
+  @override
+  String get containerKeepPatternClearTitle => 'クリーンアップ保持パターンを削除';
+
+  @override
+  String get containerKeepPatternClearSave => '保持パターンの削除を確認';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      'プロジェクト全体の保持パターンを削除すると、すべてのイメージリポジトリで以前保持されていたタグが定期クリーンアップによる完全削除の対象になる場合があります。latest タグと他の保持・保護ルールは引き続き適用され、タグが直ちに削除されるわけではありません。以下の現在の条件を確認してください。空の保持パターン文字列のみ送信します。他のポリシーフィールドは変更しませんが、GitLab が次回実行を再設定する場合があります。リクエストの受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerKeepPatternClearAcknowledge =>
+      '以前保持されていたタグが完全削除の対象になる場合があることを理解しました。';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      '有効状態、実行間隔、保持数、期間、有効な削除パターン、および空でない保持パターンの報告が必要です。空または未報告の保持パターンはここでは削除できません。ポリシーは作成しません。';
+
+  @override
+  String get containerKeepPatternClearAccepted => '保持パターン削除リクエストが受理されました。';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。';
 }

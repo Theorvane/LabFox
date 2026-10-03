@@ -3999,4 +3999,28 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerDeletePatternInvalid =>
       'GitLab 拒绝了此模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
+
+  @override
+  String get containerKeepPatternClearTitle => '清除清理保留模式';
+
+  @override
+  String get containerKeepPatternClearSave => '确认移除保留模式';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      '移除此项目的保留模式后，所有镜像仓库中原先保留的标签可能在计划清理时被永久删除。latest 标签及其他保留和保护规则仍然适用；这不会立即删除标签。请检查下方当前条件。仅发送空的保留模式字符串。其他策略字段不变，但 GitLab 可能重新安排下次运行。请求被接受不代表清理完成或存储空间已回收。';
+
+  @override
+  String get containerKeepPatternClearAcknowledge => '我了解原先保留的标签可能成为永久删除的对象。';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      '必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。';
+
+  @override
+  String get containerKeepPatternClearAccepted => '保留模式移除请求已被接受。';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
 }

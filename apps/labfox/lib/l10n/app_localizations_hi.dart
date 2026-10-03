@@ -4259,4 +4259,31 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerDeletePatternInvalid =>
       'GitLab ने पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
+
+  @override
+  String get containerKeepPatternClearTitle => 'क्लीनअप रखने का पैटर्न हटाएँ';
+
+  @override
+  String get containerKeepPatternClearSave =>
+      'रखने के पैटर्न को हटाने की पुष्टि करें';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      'प्रोजेक्ट का रखने वाला पैटर्न हटाने से सभी इमेज रिपॉज़िटरी में पहले सुरक्षित टैग निर्धारित क्लीनअप के दौरान स्थायी रूप से हटाए जाने योग्य हो सकते हैं। latest टैग और अन्य रखने तथा सुरक्षा नियम लागू रहेंगे; टैग तुरंत नहीं हटते। नीचे वर्तमान शर्तों की समीक्षा करें। केवल खाली रखने वाला पैटर्न भेजा जाता है। अन्य नीति फ़ील्ड नहीं बदलते, लेकिन GitLab अगला रन फिर निर्धारित कर सकता है। अनुरोध स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
+
+  @override
+  String get containerKeepPatternClearAcknowledge =>
+      'मैं समझता हूँ कि पहले सुरक्षित टैग स्थायी रूप से हटाए जाने योग्य हो सकते हैं।';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, उम्र, प्रभावी हटाने का पैटर्न और गैर-खाली रखने का पैटर्न रिपोर्ट होना आवश्यक है। खाली या रिपोर्ट न किए गए रखने के पैटर्न को यहाँ नहीं हटाया जा सकता। कोई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerKeepPatternClearAccepted =>
+      'रखने का पैटर्न हटाने का अनुरोध स्वीकार हुआ।';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।';
 }

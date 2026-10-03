@@ -7567,6 +7567,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerDeletePatternInvalid;
+
+  /// No description provided for @containerKeepPatternClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cleanup keep pattern'**
+  String get containerKeepPatternClearTitle;
+
+  /// No description provided for @containerKeepPatternClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm keep pattern removal'**
+  String get containerKeepPatternClearSave;
+
+  /// No description provided for @containerKeepPatternClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.'**
+  String get containerKeepPatternClearWarning;
+
+  /// No description provided for @containerKeepPatternClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that previously preserved tags may become eligible for permanent deletion.'**
+  String get containerKeepPatternClearAcknowledge;
+
+  /// No description provided for @containerKeepPatternClearUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.'**
+  String get containerKeepPatternClearUnknown;
+
+  /// No description provided for @containerKeepPatternClearAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern removal accepted.'**
+  String get containerKeepPatternClearAccepted;
+
+  /// No description provided for @containerKeepPatternClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.'**
+  String get containerKeepPatternClearInvalid;
 }
 
 class _AppLocalizationsDelegate

@@ -2208,5 +2208,12 @@
   "containerDeletePatternWarning": "Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.",
   "containerDeletePatternUnknown": "Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.",
   "containerDeletePatternAccepted": "Cleanup delete pattern update accepted.",
-  "containerDeletePatternInvalid": "GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry."
+  "containerDeletePatternInvalid": "GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.",
+  "containerKeepPatternClearTitle": "Clear cleanup keep pattern",
+  "containerKeepPatternClearSave": "Confirm keep pattern removal",
+  "containerKeepPatternClearWarning": "Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.",
+  "containerKeepPatternClearAcknowledge": "I understand that previously preserved tags may become eligible for permanent deletion.",
+  "containerKeepPatternClearUnknown": "Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.",
+  "containerKeepPatternClearAccepted": "Keep pattern removal accepted.",
+  "containerKeepPatternClearInvalid": "GitLab rejected keep pattern removal. Review the existing policy and retry or reload it."
 }

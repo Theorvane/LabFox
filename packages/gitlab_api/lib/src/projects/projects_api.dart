@@ -11,6 +11,28 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Clears only the keep pattern with an explicit empty string.
+  Future<Project> clearCleanupPolicyKeepPattern(Object projectId) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'name_regex_keep': ''},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing cleanup policy keep pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'clearing cleanup policy keep pattern');
+    }
+  }
+
   /// Changes only the modern delete pattern, preserving exact RE2 input.
   Future<Project> setCleanupPolicyDeletePattern(
     Object projectId, {

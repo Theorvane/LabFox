@@ -4262,4 +4262,30 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerDeletePatternInvalid =>
       'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
+
+  @override
+  String get containerKeepPatternClearTitle => 'Clear cleanup keep pattern';
+
+  @override
+  String get containerKeepPatternClearSave => 'Confirm keep pattern removal';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.';
+
+  @override
+  String get containerKeepPatternClearAcknowledge =>
+      'I understand that previously preserved tags may become eligible for permanent deletion.';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.';
+
+  @override
+  String get containerKeepPatternClearAccepted =>
+      'Keep pattern removal accepted.';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.';
 }
