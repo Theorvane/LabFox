@@ -3987,6 +3987,64 @@ class AppLocalizationsKo extends AppLocalizations {
       '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
 
   @override
+  String get containerProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 바꾸면 일치하는 저장소의 이미지를 삭제할 수 있는 사람이 달라집니다. 낮은 역할은 삭제 보호를 약화하고 높은 역할은 기존 정리 작업을 막을 수 있습니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내지 않습니다. 이 규칙을 저장해도 이미지는 삭제되지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
   String get containerProtectionDeleteClearTitle => '최소 삭제 역할 해제';
 
   @override
@@ -4132,60 +4190,27 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
-  String get containerProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+  String get containerKeepPatternClearTitle => '정리 보관 패턴 제거';
 
   @override
-  String get containerProtectionDeleteRoleSave => '삭제 역할 저장';
+  String get containerKeepPatternClearSave => '보관 패턴 제거 확인';
 
   @override
-  String get containerProtectionDeleteRoleWarning =>
-      '최소 삭제 역할을 바꾸면 일치하는 저장소의 이미지를 삭제할 수 있는 사람이 달라집니다. 낮은 역할은 삭제 보호를 약화하고 높은 역할은 기존 정리 작업을 막을 수 있습니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내지 않습니다. 이 규칙을 저장해도 이미지는 삭제되지 않습니다.';
+  String get containerKeepPatternClearWarning =>
+      '프로젝트 전체의 보관 패턴을 제거하면 모든 이미지 저장소에서 기존 보호 태그가 예약 정리 시 영구 삭제 대상이 될 수 있습니다. latest 태그와 다른 보관·보호 규칙은 계속 적용되며 즉시 태그를 삭제하지는 않습니다. 아래 현재 조건을 확인하세요. 빈 보관 패턴 문자열만 전송합니다. 다른 정책 필드는 변경하지 않지만 GitLab이 다음 실행 시각을 재설정할 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
 
   @override
-  String get containerProtectionDeleteRoleAcknowledge =>
-      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+  String get containerKeepPatternClearAcknowledge =>
+      '기존 보호 태그가 영구 삭제 대상이 될 수 있음을 이해했습니다.';
 
   @override
-  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
-    return '프로젝트 $projectId — 규칙 $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '활성화 상태, 실행 간격, 보관 개수, 보관 기간, 유효한 삭제 패턴 및 비어 있지 않은 보관 패턴이 보고되어야 합니다. 비어 있거나 보고되지 않은 보관 패턴은 여기서 제거할 수 없습니다. 정책을 생성하지 않습니다.';
 
   @override
-  String get containerProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+  String get containerKeepPatternClearAccepted => '보관 패턴 제거 요청이 수락되었습니다.';
 
   @override
-  String get containerProtectionDeleteRoleError =>
-      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
-
-  @override
-  String get containerProtectionDeleteRoleStale =>
-      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
-
-  @override
-  String get containerProtectionDeleteRoleReload => '규칙 다시 불러오기';
-
-  @override
-  String get containerProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
-
-  @override
-  String get containerProtectionDeleteRoleMissing =>
-      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
-
-  @override
-  String get containerProtectionDeleteRoleRateLimited =>
-      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
-
-  @override
-  String get containerProtectionDeleteRoleInvalid =>
-      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
-
-  @override
-  String get containerProtectionDeleteRoleDraft => '새 최소 삭제 역할';
-
-  @override
-  String get containerProtectionDeleteRoleSelect => '삭제 역할 선택';
-
-  @override
-  String get containerProtectionDeleteRoleUnknown =>
-      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요.';
 }

@@ -3862,6 +3862,60 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerProtectionDeleteClearRateLimited => '请求过多。请等待后重试。';
 
   @override
+  String get containerProtectionDeleteRoleTitle => '编辑最低删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '保存删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '更改最低删除角色会改变谁能删除匹配仓库中的镜像。较低角色会削弱删除保护；较高角色可能阻断现有清理流程。路径模式和最低推送角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限。保存规则不会删除镜像。';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      '我已检查规则和新的最低删除角色，并了解访问权限的变化。';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '无法确认删除角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionDeleteRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionDeleteRoleReload => '重新加载规则';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '最低删除角色已更新。';
+
+  @override
+  String get containerProtectionDeleteRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid => '删除角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '新的最低删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '选择删除角色';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '当前删除角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
+
+  @override
   String get containerProtectionDeleteClearTitle => '清除最低删除角色';
 
   @override
@@ -4001,56 +4055,26 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerProtectionDeleteRoleTitle => '编辑最低删除角色';
+  String get containerKeepPatternClearTitle => '清除清理保留模式';
 
   @override
-  String get containerProtectionDeleteRoleSave => '保存删除角色';
+  String get containerKeepPatternClearSave => '确认移除保留模式';
 
   @override
-  String get containerProtectionDeleteRoleWarning =>
-      '更改最低删除角色会改变谁能删除匹配仓库中的镜像。较低角色会削弱删除保护；较高角色可能阻断现有清理流程。路径模式和最低推送角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限。保存规则不会删除镜像。';
+  String get containerKeepPatternClearWarning =>
+      '移除此项目的保留模式后，所有镜像仓库中原先保留的标签可能在计划清理时被永久删除。latest 标签及其他保留和保护规则仍然适用；这不会立即删除标签。请检查下方当前条件。仅发送空的保留模式字符串。其他策略字段不变，但 GitLab 可能重新安排下次运行。请求被接受不代表清理完成或存储空间已回收。';
 
   @override
-  String get containerProtectionDeleteRoleAcknowledge =>
-      '我已检查规则和新的最低删除角色，并了解访问权限的变化。';
+  String get containerKeepPatternClearAcknowledge => '我了解原先保留的标签可能成为永久删除的对象。';
 
   @override
-  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
-    return '项目 $projectId — 规则 $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。';
 
   @override
-  String get containerProtectionDeleteRoleForbidden => '你没有更改此规则的权限。';
+  String get containerKeepPatternClearAccepted => '保留模式移除请求已被接受。';
 
   @override
-  String get containerProtectionDeleteRoleError =>
-      '无法确认删除角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
-
-  @override
-  String get containerProtectionDeleteRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
-
-  @override
-  String get containerProtectionDeleteRoleReload => '重新加载规则';
-
-  @override
-  String get containerProtectionDeleteRoleSaved => '最低删除角色已更新。';
-
-  @override
-  String get containerProtectionDeleteRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
-
-  @override
-  String get containerProtectionDeleteRoleRateLimited => '请求过多。请等待后重试。';
-
-  @override
-  String get containerProtectionDeleteRoleInvalid => '删除角色被拒绝。请选择支持的角色后重试。';
-
-  @override
-  String get containerProtectionDeleteRoleDraft => '新的最低删除角色';
-
-  @override
-  String get containerProtectionDeleteRoleSelect => '选择删除角色';
-
-  @override
-  String get containerProtectionDeleteRoleUnknown =>
-      '当前删除角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
 }

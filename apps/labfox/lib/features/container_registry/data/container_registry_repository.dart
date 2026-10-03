@@ -227,6 +227,10 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<void> clearCleanupPolicyKeepPattern(int projectId) async {
+    await client.projects.clearCleanupPolicyKeepPattern(projectId);
+  }
+
   Future<void> setCleanupPolicyAge(
     int projectId, {
     required String olderThan,

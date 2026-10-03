@@ -4107,6 +4107,67 @@ class AppLocalizationsHi extends AppLocalizations {
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
 
   @override
+  String get containerProtectionDeleteRoleTitle =>
+      'न्यूनतम हटाने की भूमिका बदलें';
+
+  @override
+  String get containerProtectionDeleteRoleSave => 'हटाने की भूमिका सहेजें';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      'न्यूनतम हटाने की भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में इमेज हटाने वाले लोग बदलते हैं। निचली भूमिका हटाने की सुरक्षा कम करती है; ऊँची भूमिका मौजूदा सफ़ाई कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम पुश भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते। नियम सहेजने से इमेज नहीं हटतीं।';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम हटाने की भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      'हटाने की भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionDeleteRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionDeleteRoleSaved =>
+      'न्यूनतम हटाने की भूमिका बदल गई।';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      'हटाने की भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => 'नई न्यूनतम हटाने की भूमिका';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => 'हटाने की भूमिका चुनें';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      'वर्तमान हटाने की भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+
+  @override
   String get containerProtectionDeleteClearTitle =>
       'न्यूनतम हटाने की भूमिका हटाएँ';
 
@@ -4261,63 +4322,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerProtectionDeleteRoleTitle =>
-      'न्यूनतम हटाने की भूमिका बदलें';
+  String get containerKeepPatternClearTitle => 'क्लीनअप रखने का पैटर्न हटाएँ';
 
   @override
-  String get containerProtectionDeleteRoleSave => 'हटाने की भूमिका सहेजें';
+  String get containerKeepPatternClearSave =>
+      'रखने के पैटर्न को हटाने की पुष्टि करें';
 
   @override
-  String get containerProtectionDeleteRoleWarning =>
-      'न्यूनतम हटाने की भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में इमेज हटाने वाले लोग बदलते हैं। निचली भूमिका हटाने की सुरक्षा कम करती है; ऊँची भूमिका मौजूदा सफ़ाई कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम पुश भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते। नियम सहेजने से इमेज नहीं हटतीं।';
+  String get containerKeepPatternClearWarning =>
+      'प्रोजेक्ट का रखने वाला पैटर्न हटाने से सभी इमेज रिपॉज़िटरी में पहले सुरक्षित टैग निर्धारित क्लीनअप के दौरान स्थायी रूप से हटाए जाने योग्य हो सकते हैं। latest टैग और अन्य रखने तथा सुरक्षा नियम लागू रहेंगे; टैग तुरंत नहीं हटते। नीचे वर्तमान शर्तों की समीक्षा करें। केवल खाली रखने वाला पैटर्न भेजा जाता है। अन्य नीति फ़ील्ड नहीं बदलते, लेकिन GitLab अगला रन फिर निर्धारित कर सकता है। अनुरोध स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
 
   @override
-  String get containerProtectionDeleteRoleAcknowledge =>
-      'मैंने नियम और नई न्यूनतम हटाने की भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+  String get containerKeepPatternClearAcknowledge =>
+      'मैं समझता हूँ कि पहले सुरक्षित टैग स्थायी रूप से हटाए जाने योग्य हो सकते हैं।';
 
   @override
-  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
-    return 'प्रोजेक्ट $projectId — नियम $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, उम्र, प्रभावी हटाने का पैटर्न और गैर-खाली रखने का पैटर्न रिपोर्ट होना आवश्यक है। खाली या रिपोर्ट न किए गए रखने के पैटर्न को यहाँ नहीं हटाया जा सकता। कोई नीति नहीं बनाई जाएगी।';
 
   @override
-  String get containerProtectionDeleteRoleForbidden =>
-      'आपको यह नियम बदलने की अनुमति नहीं है।';
+  String get containerKeepPatternClearAccepted =>
+      'रखने का पैटर्न हटाने का अनुरोध स्वीकार हुआ।';
 
   @override
-  String get containerProtectionDeleteRoleError =>
-      'हटाने की भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
-
-  @override
-  String get containerProtectionDeleteRoleStale =>
-      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
-
-  @override
-  String get containerProtectionDeleteRoleReload => 'नियम पुनः लोड करें';
-
-  @override
-  String get containerProtectionDeleteRoleSaved =>
-      'न्यूनतम हटाने की भूमिका बदल गई।';
-
-  @override
-  String get containerProtectionDeleteRoleMissing =>
-      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
-
-  @override
-  String get containerProtectionDeleteRoleRateLimited =>
-      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionDeleteRoleInvalid =>
-      'हटाने की भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionDeleteRoleDraft => 'नई न्यूनतम हटाने की भूमिका';
-
-  @override
-  String get containerProtectionDeleteRoleSelect => 'हटाने की भूमिका चुनें';
-
-  @override
-  String get containerProtectionDeleteRoleUnknown =>
-      'वर्तमान हटाने की भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।';
 }

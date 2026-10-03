@@ -4115,6 +4115,66 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many requests. Wait and retry.';
 
   @override
+  String get containerProtectionDeleteRoleTitle => 'Edit minimum delete role';
+
+  @override
+  String get containerProtectionDeleteRoleSave => 'Save delete role';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      'Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      'I have reviewed the rule and new minimum delete role and understand the access changes.';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionDeleteRoleReload => 'Reload rule';
+
+  @override
+  String get containerProtectionDeleteRoleSaved =>
+      'Minimum delete role updated.';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      'The delete role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => 'New minimum delete role';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => 'Select a delete role';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String get containerProtectionDeleteClearTitle => 'Clear minimum delete role';
 
   @override
@@ -4264,62 +4324,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerProtectionDeleteRoleTitle => 'Edit minimum delete role';
+  String get containerKeepPatternClearTitle => 'Clear cleanup keep pattern';
 
   @override
-  String get containerProtectionDeleteRoleSave => 'Save delete role';
+  String get containerKeepPatternClearSave => 'Confirm keep pattern removal';
 
   @override
-  String get containerProtectionDeleteRoleWarning =>
-      'Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.';
+  String get containerKeepPatternClearWarning =>
+      'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.';
 
   @override
-  String get containerProtectionDeleteRoleAcknowledge =>
-      'I have reviewed the rule and new minimum delete role and understand the access changes.';
+  String get containerKeepPatternClearAcknowledge =>
+      'I understand that previously preserved tags may become eligible for permanent deletion.';
 
   @override
-  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
-    return 'Project $projectId — rule $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.';
 
   @override
-  String get containerProtectionDeleteRoleForbidden =>
-      'You do not have permission to change this rule.';
+  String get containerKeepPatternClearAccepted =>
+      'Keep pattern removal accepted.';
 
   @override
-  String get containerProtectionDeleteRoleError =>
-      'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerProtectionDeleteRoleStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
-
-  @override
-  String get containerProtectionDeleteRoleReload => 'Reload rule';
-
-  @override
-  String get containerProtectionDeleteRoleSaved =>
-      'Minimum delete role updated.';
-
-  @override
-  String get containerProtectionDeleteRoleMissing =>
-      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
-
-  @override
-  String get containerProtectionDeleteRoleRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerProtectionDeleteRoleInvalid =>
-      'The delete role was rejected. Choose a supported role and retry.';
-
-  @override
-  String get containerProtectionDeleteRoleDraft => 'New minimum delete role';
-
-  @override
-  String get containerProtectionDeleteRoleSelect => 'Select a delete role';
-
-  @override
-  String get containerProtectionDeleteRoleUnknown =>
-      'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.';
 }
