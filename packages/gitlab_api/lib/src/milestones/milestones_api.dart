@@ -18,6 +18,7 @@ class MilestonesApi {
     int page = 1,
     int perPage = 20,
     String? state,
+    String? search,
     bool includeAncestors = false,
   }) async {
     try {
@@ -27,6 +28,7 @@ class MilestonesApi {
           'page': page,
           'per_page': perPage,
           'state': ?state,
+          'search': ?search,
           if (includeAncestors) 'include_ancestors': true,
         },
       );
