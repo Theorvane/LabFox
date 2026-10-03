@@ -2768,6 +2768,47 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyStatus => '状态';
 
   @override
+  String get containerPolicyTitle => '清理策略';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab 未报告清理策略。';
+
+  @override
+  String get containerPolicyHint =>
+      '此项目所有容器镜像仓库的只读设置。清理异步删除匹配标签，同时遵循保留规则并保留 latest、受保护和不可变标签。某些标签可能需要多次运行才能清理；删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab 报告的下次运行时间（本地时间）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 个月',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '已启用';
 
   @override
@@ -3251,43 +3292,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerPolicyTitle => '清理策略';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
-  String get containerPolicyAbsent => 'GitLab 未报告清理策略。';
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override
-  String get containerPolicyHint =>
-      '此项目所有容器镜像仓库的只读设置。清理异步删除匹配标签，同时遵循保留规则并保留 latest、受保护和不可变标签。某些标签可能需要多次运行才能清理；删除标签不会回收镜像存储空间。';
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
 
   @override
-  String get containerPolicyNextRun => 'GitLab 报告的下次运行时间（本地时间）';
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String containerPolicyDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString 天',
-    );
-    return '$_temp0';
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
   }
 
   @override
-  String containerPolicyMonths(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString 个月',
-    );
-    return '$_temp0';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
   }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

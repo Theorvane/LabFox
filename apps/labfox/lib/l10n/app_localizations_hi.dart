@@ -2903,6 +2903,50 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerPolicyStatus => 'स्थिति';
 
   @override
+  String get containerPolicyTitle => 'सफ़ाई नीति';
+
+  @override
+  String get containerPolicyAbsent =>
+      'GitLab ने सफ़ाई नीति की जानकारी नहीं दी।';
+
+  @override
+  String get containerPolicyHint =>
+      'इस प्रोजेक्ट की सभी कंटेनर इमेज रिपॉज़िटरी के लिए केवल-पढ़ने योग्य सेटिंग। सफ़ाई मिलते टैग असमकालिक रूप से हटाती है, जबकि रखने के नियम, latest, संरक्षित और अपरिवर्तनीय टैग सुरक्षित रहते हैं। कई बार चलाना पड़ सकता है; टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerPolicyNextRun =>
+      'GitLab द्वारा बताया अगला रन (स्थानीय समय)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString महीने',
+      one: '1 महीना',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => 'सक्रिय';
 
   @override
@@ -3434,46 +3478,38 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerPolicyTitle => 'सफ़ाई नीति';
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String get containerPolicyAbsent =>
-      'GitLab ने सफ़ाई नीति की जानकारी नहीं दी।';
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
 
   @override
-  String get containerPolicyHint =>
-      'इस प्रोजेक्ट की सभी कंटेनर इमेज रिपॉज़िटरी के लिए केवल-पढ़ने योग्य सेटिंग। सफ़ाई मिलते टैग असमकालिक रूप से हटाती है, जबकि रखने के नियम, latest, संरक्षित और अपरिवर्तनीय टैग सुरक्षित रहते हैं। कई बार चलाना पड़ सकता है; टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
 
   @override
-  String get containerPolicyNextRun =>
-      'GitLab द्वारा बताया अगला रन (स्थानीय समय)';
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
 
   @override
-  String containerPolicyDays(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
 
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString दिन',
-    );
-    return '$_temp0';
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
   }
 
   @override
-  String containerPolicyMonths(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString महीने',
-      one: '1 महीना',
-    );
-    return '$_temp0';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
   }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }
