@@ -9,6 +9,28 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => '创建计划';
+
+  @override
+  String get pipelineScheduleCreateTitle => '新建流水线计划';
+
+  @override
+  String get pipelineScheduleCreateDescription => '描述';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '请输入一个值。';
+
+  @override
+  String get pipelineScheduleCreateActive => '启用';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab 会验证引用、cron 表达式和时区。时区留空时使用 UTC。如果分支和标签同名，请使用完整引用。';
+
+  @override
+  String get pipelineScheduleCreateError => '无法创建此流水线计划。请检查权限、引用、cron 表达式和时区。';
+
+  @override
   String get releaseCreationMilestoneTitle => '里程碑标题（可选）';
 
   @override
@@ -2853,6 +2875,57 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerTagProtectionTitle => '标签保护规则';
 
   @override
+  String get containerTagProtectionCreateTitle => '创建标签保护规则';
+
+  @override
+  String get containerTagProtectionCreateSave => '创建规则';
+
+  @override
+  String get containerTagProtectionCreatePattern => '标签名称模式';
+
+  @override
+  String get containerTagProtectionCreatePush => '最低推送角色';
+
+  @override
+  String get containerTagProtectionCreateDelete => '最低删除角色';
+
+  @override
+  String get containerTagProtectionCreateUnset => '选择角色';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '此项目范围的规则会限制与精确glob模式匹配的标签推送和删除。通配符可能影响许多标签并阻断现有发布或清理流程。两个角色都必须选择。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '我已检查精确标签模式和两个角色，并了解对匹配标签的影响。';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '你没有创建此规则的权限。';
+
+  @override
+  String get containerTagProtectionCreateInvalid => '标签模式或角色被拒绝。请检查两个必需角色后重试。';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '无法确认标签规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionCreateSaved => '标签规则已创建。';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '创建标签规则需要GitLab 18.8或更高版本以及可访问的项目。';
+
+  @override
+  String get containerTagProtectionCreateRateLimited => '请求过多。请等待后重试。';
+
+  @override
   String get containerTagProtectionEmpty => '没有标签保护规则。';
 
   @override
@@ -2940,7 +3013,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+      '这是容器镜像标签规则，而非 Git 标签规则。最低角色不代表您当前具有访问权限。查看列表需要 GitLab 18.7 或更高版本，创建需要 18.8 或更高版本，编辑需要 18.9 或更高版本。';
 
   @override
   String get containerTagProtectionPatternTitle => '编辑标签保护模式';
@@ -3310,6 +3383,45 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerProtectionRemoveTitle => '删除仓库保护规则';
+
+  @override
+  String get containerProtectionRemoveSave => '确认删除规则';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      '移除此规则可能降低与路径模式匹配的仓库的推送或删除限制。其他规则和权限仍然适用。仅删除保护规则，不删除仓库、标签或镜像。请检查确切目标及最低角色；这些角色不代表您的权限。';
+
+  @override
+  String get containerProtectionRemoveAcknowledge => '我了解此规则的保护限制将被移除。';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => '您无权删除此仓库保护规则。';
+
+  @override
+  String get containerProtectionRemoveError => '无法确认规则删除。请重新加载或重试。';
+
+  @override
+  String get containerProtectionRemoveStale => '确认后规则已更改。请在删除前重新加载并检查。';
+
+  @override
+  String get containerProtectionRemoveReload => '重新加载规则';
+
+  @override
+  String get containerProtectionRemoveDeleted => '仓库保护规则已删除。';
+
+  @override
+  String get containerProtectionRemoveMissing => '未找到规则、目标不明确或无法访问。请在确认前重新加载。';
+
+  @override
+  String get containerProtectionRemoveRateLimited => '请求过多。请稍后重试。';
 
   @override
   String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';

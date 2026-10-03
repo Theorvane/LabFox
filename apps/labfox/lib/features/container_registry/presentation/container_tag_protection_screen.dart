@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_tag_protection_controller.dart';
+import 'widgets/container_tag_protection_create_dialog.dart';
 import 'widgets/container_tag_protection_delete_role_dialog.dart';
 import 'widgets/container_tag_protection_pattern_dialog.dart';
 import 'widgets/container_tag_protection_push_clear_dialog.dart';
@@ -24,6 +25,27 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerTagProtectionTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerTagProtectionCreateTitle,
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final created = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>
+                    ContainerTagProtectionCreateDialog(projectId: projectId),
+              );
+              if (created == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.containerTagProtectionCreateSaved),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()
