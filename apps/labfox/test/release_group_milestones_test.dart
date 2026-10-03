@@ -65,15 +65,31 @@ class _PendingRepository extends _Repository {
     }
     firstPageLoads++;
     return Paginated(
-      items: [GitLabMilestone(id: firstPageLoads * 10, iid: 1,
-        title: 'Current milestone', state: 'active', groupId: groupId)],
+      items: [
+        GitLabMilestone(
+          id: firstPageLoads * 10,
+          iid: 1,
+          title: 'Current milestone',
+          state: 'active',
+          groupId: groupId,
+        ),
+      ],
       nextPage: 4,
     );
   }
 
   void completePage(int index) => pendingPages[index].complete(
-    const Paginated(items: [GitLabMilestone(id: 99, iid: 9,
-      title: 'Delayed milestone', state: 'active', groupId: 42)]),
+    const Paginated(
+      items: [
+        GitLabMilestone(
+          id: 99,
+          iid: 9,
+          title: 'Delayed milestone',
+          state: 'active',
+          groupId: 42,
+        ),
+      ],
+    ),
   );
 }
 
@@ -84,15 +100,18 @@ void main() {
       final oldRepository = _PendingRepository();
       final newRepository = _PendingRepository()..groupId = 84;
       final account = StateProvider<_PendingRepository>((ref) => oldRepository);
-      final container = ProviderContainer(overrides: [
-        releaseGroupMilestonesRepositoryProvider.overrideWith(
-          (ref) async => ref.watch(account),
-        ),
-      ]);
-      addTearDown(container.dispose);
-      final provider = releaseGroupMilestonesControllerProvider(
-        (projectId: 7, search: ''),
+      final container = ProviderContainer(
+        overrides: [
+          releaseGroupMilestonesRepositoryProvider.overrideWith(
+            (ref) async => ref.watch(account),
+          ),
+        ],
       );
+      addTearDown(container.dispose);
+      final provider = releaseGroupMilestonesControllerProvider((
+        projectId: 7,
+        search: '',
+      ));
       await container.read(provider.future);
       final pending = container.read(provider.notifier).loadMore();
       await Future<void>.delayed(Duration.zero);
@@ -111,15 +130,18 @@ void main() {
 
   test('stale page finally does not release a current page request', () async {
     final repository = _PendingRepository();
-    final container = ProviderContainer(overrides: [
-      releaseGroupMilestonesRepositoryProvider.overrideWith(
-        (ref) async => repository,
-      ),
-    ]);
-    addTearDown(container.dispose);
-    final provider = releaseGroupMilestonesControllerProvider(
-      (projectId: 7, search: ''),
+    final container = ProviderContainer(
+      overrides: [
+        releaseGroupMilestonesRepositoryProvider.overrideWith(
+          (ref) async => repository,
+        ),
+      ],
     );
+    addTearDown(container.dispose);
+    final provider = releaseGroupMilestonesControllerProvider((
+      projectId: 7,
+      search: '',
+    ));
     await container.read(provider.future);
     final controller = container.read(provider.notifier);
     final stale = controller.loadMore();
