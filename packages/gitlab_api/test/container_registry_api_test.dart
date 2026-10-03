@@ -105,6 +105,35 @@ void main() {
       );
     });
   }
+  test('schedules deletion of the exact encoded project repository', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 202, headers: const {}, body: null);
+    });
+    await client.containerRegistry.deleteRepository('team/project', 3);
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fproject/registry/repositories/3');
+    expect(request.data, isNull);
+    expect(request.queryParameters, isEmpty);
+  });
+  for (final status in [200, 204, 401, 403, 404, 429, 500]) {
+    test('maps rejected or unconfirmed repository deletion $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.containerRegistry.deleteRepository(7, 3),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('deletes one encoded tag without deleting its repository', () async {
     late RequestOptions request;
     final client = _client((options) {
