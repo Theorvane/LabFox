@@ -6,6 +6,69 @@ class ContainerRegistryRepository {
   const ContainerRegistryRepository(this.client);
 
   final GitLabClient client;
+  Future<void> deleteImmutableTagRule(
+    int projectId,
+    ContainerTagImmutabilityRule expected, {
+    bool Function()? isCurrent,
+  }) async {
+    if (projectId <= 0 ||
+        !expected.immutable ||
+        expected.id.trim().isEmpty ||
+        expected.tagNamePattern.trim().isEmpty) {
+      throw ArgumentError(
+        'A positive project ID and complete immutable rule are required',
+      );
+    }
+    final rules = await immutableTagRules(projectId);
+    final matching = rules.where((r) => r.id == expected.id).toList();
+    if (matching.isEmpty) {
+      throw const GitLabNotFoundException('Immutable rule is unavailable');
+    }
+    if (matching.length != 1 || matching.single != expected) {
+      throw const GitLabConflictException(
+        'Rule changed; reload before deleting',
+      );
+    }
+    if (isCurrent != null && !isCurrent()) {
+      throw StateError('Authenticated session changed before mutation');
+    }
+    await client.containerImmutability.deleteRule(expected);
+  }
+
+  /// Scan the whole connection before exposing a filtered immutable list.
+  Future<List<ContainerTagImmutabilityRule>> immutableTagRules(
+    int projectId,
+  ) async {
+    if (projectId <= 0) throw ArgumentError('Project ID must be positive');
+    final project = await client.projects.get(projectId);
+    if (project.id != projectId || project.pathWithNamespace.trim().isEmpty) {
+      throw const GitLabServerException(
+        'Project identity could not be confirmed',
+      );
+    }
+    final rules = <ContainerTagImmutabilityRule>[];
+    final cursors = <String>{};
+    final ids = <String>{};
+    String? after;
+    while (true) {
+      final page = await client.containerImmutability.listRules(
+        project.pathWithNamespace,
+        after: after,
+      );
+      for (final rule in page.nodes) {
+        if (!ids.add(rule.id)) {
+          throw const GitLabServerException('Ambiguous tag rule connection');
+        }
+        if (rule.immutable) rules.add(rule);
+      }
+      if (!page.pageInfo.hasNextPage) return List.unmodifiable(rules);
+      final next = page.pageInfo.endCursor!;
+      if (!cursors.add(next)) {
+        throw const GitLabServerException('Tag rule cursor did not progress');
+      }
+      after = next;
+    }
+  }
 
   Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(int projectId) =>
       client.projects.cleanupPolicySnapshot(projectId);
@@ -71,41 +134,6 @@ class ContainerRegistryRepository {
       project.pathWithNamespace,
       pattern,
     );
-  }
-
-  /// Scan the whole connection before exposing a filtered immutable list.
-  Future<List<ContainerTagImmutabilityRule>> immutableTagRules(
-    int projectId,
-  ) async {
-    if (projectId <= 0) throw ArgumentError('Project ID must be positive');
-    final project = await client.projects.get(projectId);
-    if (project.id != projectId || project.pathWithNamespace.trim().isEmpty) {
-      throw const GitLabServerException(
-        'Project identity could not be confirmed',
-      );
-    }
-    final rules = <ContainerTagImmutabilityRule>[];
-    final cursors = <String>{};
-    final ids = <String>{};
-    String? after;
-    while (true) {
-      final page = await client.containerImmutability.listRules(
-        project.pathWithNamespace,
-        after: after,
-      );
-      for (final rule in page.nodes) {
-        if (!ids.add(rule.id)) {
-          throw const GitLabServerException('Ambiguous tag rule connection');
-        }
-        if (rule.immutable) rules.add(rule);
-      }
-      if (!page.pageInfo.hasNextPage) return List.unmodifiable(rules);
-      final next = page.pageInfo.endCursor!;
-      if (!cursors.add(next)) {
-        throw const GitLabServerException('Tag rule cursor did not progress');
-      }
-      after = next;
-    }
   }
 
   Future<void> deleteTag(int projectId, int repositoryId, String tagName) =>
