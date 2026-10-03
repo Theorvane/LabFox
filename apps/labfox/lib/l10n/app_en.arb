@@ -1,4 +1,10 @@
 {
+  "pipelineScheduleExecutionEdit": "Edit execution settings",
+  "pipelineScheduleExecutionSave": "Save",
+  "pipelineScheduleExecutionActive": "Active",
+  "pipelineScheduleExecutionRefRequired": "Enter a ref.",
+  "pipelineScheduleExecutionHint": "GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.",
+  "pipelineScheduleExecutionError": "Could not update execution settings. Check your permissions and ref, then try again.",
   "pipelineScheduleCreate": "Create schedule",
   "pipelineScheduleCreateTitle": "New pipeline schedule",
   "pipelineScheduleCreateDescription": "Description",

@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '실행 설정 편집';
+
+  @override
+  String get pipelineScheduleExecutionSave => '저장';
+
+  @override
+  String get pipelineScheduleExecutionActive => '활성';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab에서 ref를 검증합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요. 저장하면 향후 실행 일정이 다시 계산되며 cron, 시간대, 변수 및 입력값은 변경되지 않습니다.';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      '실행 설정을 수정하지 못했습니다. 권한과 ref를 확인하고 다시 시도하세요.';
+
+  @override
   String get pipelineScheduleCreate => '스케줄 생성';
 
   @override

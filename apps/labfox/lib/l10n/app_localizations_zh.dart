@@ -9,6 +9,25 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '编辑执行设置';
+
+  @override
+  String get pipelineScheduleExecutionSave => '保存';
+
+  @override
+  String get pipelineScheduleExecutionActive => '启用';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => '请输入引用。';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab 会验证引用。如果分支和标签同名，请使用完整引用。保存将重新安排后续运行；cron、时区、变量和输入保持不变。';
+
+  @override
+  String get pipelineScheduleExecutionError => '无法更新执行设置。请检查权限和引用后重试。';
+
+  @override
   String get pipelineScheduleCreate => '创建计划';
 
   @override
