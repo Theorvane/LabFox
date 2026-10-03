@@ -6,6 +6,13 @@
   "pipelineScheduleCreateActive": "启用",
   "pipelineScheduleCreateHint": "GitLab 会验证引用、cron 表达式和时区。时区留空时使用 UTC。如果分支和标签同名，请使用完整引用。",
   "pipelineScheduleCreateError": "无法创建此流水线计划。请检查权限、引用、cron 表达式和时区。",
+  "releaseCreationDateLabel": "发布日期（可选）",
+  "releaseCreationDateDefault": "发布时间将由 GitLab 设置。",
+  "releaseCreationChooseDate": "选择发布日期",
+  "releaseCreationChooseTime": "选择发布时间",
+  "releaseCreationClearDate": "使用 GitLab 的发布时间",
+  "releaseCreationDateHelp": "时区：{zone}。未来日期创建即将发布的版本，过去日期创建历史版本。",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "删除计划",
   "pipelineScheduleDeleteConfirmTitle": "删除此流水线计划？",
   "pipelineScheduleDeleteConfirmBody": "流水线计划“{name}”将被永久删除。此操作无法撤销。",
@@ -858,5 +865,19 @@
         "type": "String"
       }
     }
-  }
+  },
+  "containerTagProtectionPushClearTarget": "项目 {projectId} — 规则 {ruleId}",
+  "containerTagProtectionPushClearForbidden": "你没有更改此规则的权限。",
+  "containerTagProtectionPushClearStale": "确认后规则已更改。请重新加载并检查后再保存。",
+  "containerTagProtectionPushClearReload": "重新加载规则",
+  "containerTagProtectionPushClearMissing": "规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。",
+  "containerTagProtectionPushClearRateLimited": "请求过多。请等待后重试。",
+  "containerTagProtectionPushClearTitle": "清除最低推送角色",
+  "containerTagProtectionPushClearSave": "清除推送限制",
+  "containerTagProtectionPushClearWarning": "清除此规则的最低推送角色限制会削弱本项目中匹配容器镜像标签的推送保护。标签模式和最低删除角色保持不变，其他规则和权限仍然适用。此操作不会授予所有人访问权限，不会删除标签或镜像，也不会影响 Git 标签。",
+  "containerTagProtectionPushClearAcknowledge": "我已检查规则并了解移除此推送限制的影响。",
+  "containerTagProtectionPushClearError": "无法确认推送限制已清除。重试前请检查规则列表；服务器可能已接受请求。",
+  "containerTagProtectionPushClearSaved": "最低推送角色限制已清除。",
+  "containerTagProtectionPushClearInvalid": "服务器拒绝清除此推送限制。请检查规则后重试。",
+  "containerTagProtectionPushClearBlocked": "清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。"
 }

@@ -32,6 +32,26 @@ class AppLocalizationsHi extends AppLocalizations {
       'इस पाइपलाइन शेड्यूल को बनाया नहीं जा सका। अनुमतियाँ, रेफ़, cron और समय क्षेत्र जाँचें।';
 
   @override
+  String get releaseCreationDateLabel => 'प्रकाशन की तारीख (वैकल्पिक)';
+
+  @override
+  String get releaseCreationDateDefault => 'प्रकाशन का समय GitLab तय करेगा।';
+
+  @override
+  String get releaseCreationChooseDate => 'प्रकाशन की तारीख चुनें';
+
+  @override
+  String get releaseCreationChooseTime => 'प्रकाशन का समय चुनें';
+
+  @override
+  String get releaseCreationClearDate => 'GitLab का प्रकाशन समय इस्तेमाल करें';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'समय क्षेत्र: $zone। भविष्य की तारीख आगामी रिलीज़ और पिछली तारीख ऐतिहासिक रिलीज़ बनाती है।';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
 
   @override
@@ -3130,4 +3150,61 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerImmutabilityAccountChanged =>
       'खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।';
+
+  @override
+  String containerTagProtectionPushClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionPushClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionPushClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerTagProtectionPushClearMissing =>
+      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionPushClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPushClearTitle => 'न्यूनतम पुश भूमिका हटाएँ';
+
+  @override
+  String get containerTagProtectionPushClearSave => 'पुश प्रतिबंध हटाएँ';
+
+  @override
+  String get containerTagProtectionPushClearWarning =>
+      'इस नियम की न्यूनतम पुश भूमिका का प्रतिबंध हटाने से प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश सुरक्षा कमजोर होती है। टैग पैटर्न और न्यूनतम हटाने की भूमिका अपरिवर्तित रहते हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे सभी को पहुँच नहीं मिलती, टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+
+  @override
+  String get containerTagProtectionPushClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस पुश प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerTagProtectionPushClearError =>
+      'पुश प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionPushClearSaved =>
+      'न्यूनतम पुश-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerTagProtectionPushClearInvalid =>
+      'सर्वर ने पुश प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPushClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
 }
