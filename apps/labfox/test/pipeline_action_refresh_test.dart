@@ -50,6 +50,7 @@ class _Repository extends PipelinesRepository {
     int page = 1,
     PipelineStatusFilter? status,
     String? ref,
+    PipelineSourceFilter? source,
   }) async {
     lists.update(projectId, (value) => value + 1, ifAbsent: () => 1);
     listStatuses.putIfAbsent(projectId, () => []).add(status);

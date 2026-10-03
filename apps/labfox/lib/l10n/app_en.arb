@@ -2363,5 +2363,45 @@
   "pipelinesRefHint": "Enter an exact branch or tag name.",
   "@pipelinesRefHint": {
     "description": "Exact-match branch or tag filter input hint"
+  },
+  "pipelinesSourceAll": "All top-level sources",
+  "@pipelinesSourceAll": {
+    "description": "Project pipeline source filter option: All top-level sources"
+  },
+  "pipelinesSourcePush": "Push",
+  "@pipelinesSourcePush": {
+    "description": "Project pipeline source filter option: Push"
+  },
+  "pipelinesSourceWeb": "Web",
+  "@pipelinesSourceWeb": {
+    "description": "Project pipeline source filter option: Web"
+  },
+  "pipelinesSourceApi": "API",
+  "@pipelinesSourceApi": {
+    "description": "Project pipeline source filter option: API"
+  },
+  "pipelinesSourceSchedule": "Schedule",
+  "@pipelinesSourceSchedule": {
+    "description": "Project pipeline source filter option: Schedule"
+  },
+  "pipelinesSourceTrigger": "Trigger",
+  "@pipelinesSourceTrigger": {
+    "description": "Project pipeline source filter option: Trigger"
+  },
+  "pipelinesSourcePipeline": "Multi-project pipelines",
+  "@pipelinesSourcePipeline": {
+    "description": "Project pipeline source filter option: Multi-project pipelines"
+  },
+  "pipelinesSourceMergeRequest": "Merge request",
+  "@pipelinesSourceMergeRequest": {
+    "description": "Project pipeline source filter option: Merge request"
+  },
+  "pipelinesSourceChild": "Child pipelines",
+  "@pipelinesSourceChild": {
+    "description": "Project pipeline source filter option: Child pipelines"
+  },
+  "pipelinesChildHint": "Child pipeline discovery requires GitLab 17.0 or later.",
+  "@pipelinesChildHint": {
+    "description": "GitLab 17.0 minimum-version hint for explicit child pipeline discovery"
   }
 }

@@ -4363,4 +4363,34 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pipelinesRefHint => '正確なブランチ名またはタグ名を入力してください。';
+
+  @override
+  String get pipelinesSourceAll => 'すべてのトップレベルの実行元';
+
+  @override
+  String get pipelinesSourcePush => 'プッシュ';
+
+  @override
+  String get pipelinesSourceWeb => 'ウェブ';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => 'スケジュール';
+
+  @override
+  String get pipelinesSourceTrigger => 'トリガー';
+
+  @override
+  String get pipelinesSourcePipeline => 'マルチプロジェクトパイプライン';
+
+  @override
+  String get pipelinesSourceMergeRequest => 'マージリクエスト';
+
+  @override
+  String get pipelinesSourceChild => '子パイプライン';
+
+  @override
+  String get pipelinesChildHint => '子パイプラインの検索には GitLab 17.0 以降が必要です。';
 }

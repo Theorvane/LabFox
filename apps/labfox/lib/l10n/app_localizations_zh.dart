@@ -4228,4 +4228,34 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelinesRefHint => '输入准确的分支或标签名称。';
+
+  @override
+  String get pipelinesSourceAll => '所有顶层来源';
+
+  @override
+  String get pipelinesSourcePush => '推送';
+
+  @override
+  String get pipelinesSourceWeb => '网页';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => '计划';
+
+  @override
+  String get pipelinesSourceTrigger => '触发器';
+
+  @override
+  String get pipelinesSourcePipeline => '多项目流水线';
+
+  @override
+  String get pipelinesSourceMergeRequest => '合并请求';
+
+  @override
+  String get pipelinesSourceChild => '子流水线';
+
+  @override
+  String get pipelinesChildHint => '查询子流水线需要 GitLab 17.0 或更高版本。';
 }

@@ -24,6 +24,10 @@ final pipelineRefFilterProvider = StateProvider.family<String?, int>(
   (ref, projectId) => null,
 );
 
+/// The selected source, including explicit child discovery, scoped to one project.
+final pipelineSourceFilterProvider =
+    StateProvider.family<PipelineSourceFilter?, int>((ref, projectId) => null);
+
 /// Lists a project's pipelines.
 class PipelinesController
     extends FamilyAsyncNotifier<Paginated<Pipeline>, int> {
@@ -36,11 +40,17 @@ class PipelinesController
     _loadingMore = false;
     final status = ref.watch(pipelineStatusFilterProvider(projectId));
     final pipelineRef = ref.watch(pipelineRefFilterProvider(projectId));
+    final source = ref.watch(pipelineSourceFilterProvider(projectId));
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
     if (repo == null) {
       throw StateError('No authenticated account');
     }
-    return repo.list(projectId, status: status, ref: pipelineRef);
+    return repo.list(
+      projectId,
+      status: status,
+      ref: pipelineRef,
+      source: source,
+    );
   }
 
   Future<void> loadMore() async {
@@ -51,6 +61,7 @@ class PipelinesController
     final generation = _generation;
     final status = ref.read(pipelineStatusFilterProvider(arg));
     final pipelineRef = ref.read(pipelineRefFilterProvider(arg));
+    final source = ref.read(pipelineSourceFilterProvider(arg));
     _loadingMore = true;
     try {
       final repo = await ref.read(pipelinesRepositoryProvider.future);
@@ -60,6 +71,7 @@ class PipelinesController
         page: page,
         status: status,
         ref: pipelineRef,
+        source: source,
       );
       if (generation != _generation) return;
       final items = {for (final item in current.items) item.id: item};

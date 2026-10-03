@@ -18,6 +18,22 @@ enum PipelineStatusFilter {
   manual,
 }
 
+/// Common project-pipeline sources accepted by the server-side list filter.
+/// Unselected sources retain GitLab's default top-level pipeline listing.
+enum PipelineSourceFilter {
+  push('push'),
+  web('web'),
+  api('api'),
+  schedule('schedule'),
+  trigger('trigger'),
+  pipeline('pipeline'),
+  mergeRequestEvent('merge_request_event'),
+  parentPipeline('parent_pipeline');
+
+  const PipelineSourceFilter(this.apiValue);
+  final String apiValue;
+}
+
 /// Pipeline and job endpoints.
 class PipelinesApi {
   const PipelinesApi(this._dio);
@@ -31,6 +47,7 @@ class PipelinesApi {
     int perPage = 20,
     PipelineStatusFilter? status,
     String? ref,
+    PipelineSourceFilter? source,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
@@ -42,6 +59,7 @@ class PipelinesApi {
           'sort': 'desc',
           if (status != null) 'status': status.name,
           'ref': ?ref,
+          'source': ?source?.apiValue,
         },
       );
       if (response.statusCode != 200) {

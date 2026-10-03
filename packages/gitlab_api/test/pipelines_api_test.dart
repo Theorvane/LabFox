@@ -8,6 +8,71 @@ import 'package:test/test.dart';
 
 void main() {
   group('PipelinesApi.list', () {
+    for (final entry in <PipelineSourceFilter, String>{
+      PipelineSourceFilter.push: 'push',
+      PipelineSourceFilter.web: 'web',
+      PipelineSourceFilter.api: 'api',
+      PipelineSourceFilter.schedule: 'schedule',
+      PipelineSourceFilter.trigger: 'trigger',
+      PipelineSourceFilter.pipeline: 'pipeline',
+      PipelineSourceFilter.mergeRequestEvent: 'merge_request_event',
+      PipelineSourceFilter.parentPipeline: 'parent_pipeline',
+    }.entries) {
+      test(
+        'sends documented source ${entry.value} with status, ref and cursor',
+        () async {
+          late RequestOptions captured;
+          final client = _client((options) {
+            captured = options;
+            return (
+              status: 200,
+              headers: {
+                'x-next-page': ['9'],
+              },
+              body: [
+                {'id': 33, 'status': 'failed', 'source': entry.value},
+              ],
+            );
+          });
+          final result = await client.pipelines.list(
+            'team/app',
+            page: 4,
+            source: entry.key,
+            status: PipelineStatusFilter.failed,
+            ref: 'release/v1+fix',
+          );
+          expect(captured.path, '/projects/team%2Fapp/pipelines');
+          expect(captured.queryParameters, {
+            'page': 4,
+            'per_page': 20,
+            'order_by': 'id',
+            'sort': 'desc',
+            'source': entry.value,
+            'status': 'failed',
+            'ref': 'release/v1+fix',
+          });
+          expect(result.nextPage, 9);
+          expect(result.items.single.source, entry.value);
+        },
+      );
+    }
+    test(
+      'denied child listing stays a domain error rather than falling back to unfiltered results',
+      () async {
+        final client = _client(
+          (_) => (
+            status: 403,
+            headers: const {},
+            body: {'message': 'private server response'},
+          ),
+        );
+        await expectLater(
+          client.pipelines.list(7, source: PipelineSourceFilter.parentPipeline),
+          throwsA(isA<GitLabForbiddenException>()),
+        );
+      },
+    );
+
     test(
       'sends the exact branch or tag together with status and pagination',
       () async {

@@ -12,7 +12,14 @@ class PipelinesRepository {
     int page = 1,
     PipelineStatusFilter? status,
     String? ref,
-  }) => _client.pipelines.list(projectId, page: page, status: status, ref: ref);
+    PipelineSourceFilter? source,
+  }) => _client.pipelines.list(
+    projectId,
+    page: page,
+    status: status,
+    ref: ref,
+    source: source,
+  );
 
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);

@@ -33,6 +33,7 @@ class _Repository extends PipelinesRepository {
     int page = 1,
     PipelineStatusFilter? status,
     String? ref,
+    PipelineSourceFilter? source,
   }) async {
     calls.add(status);
     refs.add(ref);
@@ -91,7 +92,9 @@ Future<void> _pump(
 
 Future<void> _choose(WidgetTester tester, String label) async {
   await tester.tap(
-    find.byWidgetPredicate((widget) => widget is FilterMenuChip),
+    find.byWidgetPredicate(
+      (widget) => widget is FilterMenuChip<({PipelineStatusFilter? status})>,
+    ),
   );
   await tester.pump();
   await tester.pump(const Duration(milliseconds: 300));

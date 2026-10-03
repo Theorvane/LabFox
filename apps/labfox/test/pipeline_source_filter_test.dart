@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -15,10 +16,18 @@ class _Repository extends PipelinesRepository {
         ),
       );
   final calls =
-      <({int project, int page, String? ref, PipelineStatusFilter? status})>[];
+      <
+        ({
+          int project,
+          int page,
+          String? ref,
+          PipelineStatusFilter? status,
+          PipelineSourceFilter? source,
+        })
+      >[];
   Completer<Paginated<Pipeline>>? pending;
   bool fail = false;
-  final firstPages = <String?, Completer<Paginated<Pipeline>>>{};
+  final firstPages = <PipelineSourceFilter?, Completer<Paginated<Pipeline>>>{};
   @override
   Future<Paginated<Pipeline>> list(
     int projectId, {
@@ -27,8 +36,16 @@ class _Repository extends PipelinesRepository {
     PipelineSourceFilter? source,
     PipelineStatusFilter? status,
   }) async {
-    calls.add((project: projectId, page: page, ref: ref, status: status));
-    if (page == 1 && firstPages[ref] != null) return firstPages[ref]!.future;
+    calls.add((
+      project: projectId,
+      page: page,
+      ref: ref,
+      status: status,
+      source: source,
+    ));
+    if (page == 1 && firstPages[source] != null) {
+      return firstPages[source]!.future;
+    }
     if (page == 4 && pending != null) return pending!.future;
     if (fail) throw const GitLabForbiddenException('Rejected');
     return Paginated(
@@ -37,6 +54,7 @@ class _Repository extends PipelinesRepository {
           id: page == 1 ? 33 : 32,
           ref: ref ?? 'main',
           status: status?.name ?? 'success',
+          source: source?.apiValue ?? 'push',
         ),
       ],
       nextPage: page == 1 ? 4 : null,
@@ -64,16 +82,18 @@ void main() {
   });
   tearDown(() => container.dispose());
   test(
-    'ref and status survive cursor failure, retry, refresh and actions; clearing ref retains status',
+    'child source resets to page one and retains all filters for retries, refresh and actions',
     () async {
       container.read(pipelineStatusFilterProvider(7).notifier).state =
           PipelineStatusFilter.failed;
-      await container.read(provider.future);
       container.read(pipelineRefFilterProvider(7).notifier).state =
           'release/v1+fix';
+      await container.read(provider.future);
+      container.read(pipelineSourceFilterProvider(7).notifier).state =
+          PipelineSourceFilter.parentPipeline;
       expect(
-        (await container.read(provider.future)).items.single.ref,
-        'release/v1+fix',
+        (await container.read(provider.future)).items.single.source,
+        'parent_pipeline',
       );
       repository.fail = true;
       await expectLater(
@@ -97,30 +117,32 @@ void main() {
             .skip(1)
             .every(
               (c) =>
+                  c.source == PipelineSourceFilter.parentPipeline &&
                   c.ref == 'release/v1+fix' &&
                   c.status == PipelineStatusFilter.failed,
             ),
         isTrue,
       );
       expect(repository.calls.map((c) => c.page), [1, 1, 4, 4, 1, 1]);
-      container.read(pipelineRefFilterProvider(7).notifier).state = null;
+      container.read(pipelineSourceFilterProvider(7).notifier).state = null;
       await container.read(provider.future);
-      expect(repository.calls.last.ref, isNull);
+      expect(repository.calls.last.source, isNull);
+      expect(repository.calls.last.ref, 'release/v1+fix');
       expect(repository.calls.last.status, PipelineStatusFilter.failed);
     },
   );
   test(
-    'changing ref isolates late continuation and leaves other projects unfiltered',
+    'late continuation cannot replace a new source; other projects keep their own selection',
     () async {
       await container.read(provider.future);
       repository.pending = Completer();
       final old = container.read(provider.notifier).loadMore();
       await Future<void>.delayed(Duration.zero);
-      container.read(pipelineRefFilterProvider(7).notifier).state =
-          'feature/new';
+      container.read(pipelineSourceFilterProvider(7).notifier).state =
+          PipelineSourceFilter.schedule;
       expect(
-        (await container.read(provider.future)).items.single.ref,
-        'feature/new',
+        (await container.read(provider.future)).items.single.source,
+        'schedule',
       );
       repository.pending!.complete(
         const Paginated(
@@ -134,23 +156,56 @@ void main() {
       ]);
       expect(container.read(provider).requireValue.nextPage, 4);
       await container.read(pipelinesControllerProvider(8).future);
-      expect(repository.calls.last.ref, isNull);
+      expect(repository.calls.last.source, isNull);
     },
   );
-  test('late first-page results cannot replace a newer ref', () async {
-    await container.read(provider.future);
-    final old = Completer<Paginated<Pipeline>>();
-    repository.firstPages['old/ref'] = old;
-    container.read(pipelineRefFilterProvider(7).notifier).state = 'old/ref';
-    await Future<void>.delayed(Duration.zero);
-    container.read(pipelineRefFilterProvider(7).notifier).state = 'new/ref';
-    expect((await container.read(provider.future)).items.single.ref, 'new/ref');
-    old.complete(
-      const Paginated(
-        items: [Pipeline(id: 999, status: 'success', ref: 'old/ref')],
-      ),
-    );
-    await Future<void>.delayed(Duration.zero);
-    expect(container.read(provider).requireValue.items.single.ref, 'new/ref');
-  });
+  test(
+    'late first page and account-source continuation cannot overwrite the current source',
+    () async {
+      await container.read(provider.future);
+      final first = Completer<Paginated<Pipeline>>();
+      repository.firstPages[PipelineSourceFilter.web] = first;
+      container.read(pipelineSourceFilterProvider(7).notifier).state =
+          PipelineSourceFilter.web;
+      await Future<void>.delayed(Duration.zero);
+      container.read(pipelineSourceFilterProvider(7).notifier).state =
+          PipelineSourceFilter.parentPipeline;
+      expect(
+        (await container.read(provider.future)).items.single.source,
+        'parent_pipeline',
+      );
+      first.complete(
+        const Paginated(
+          items: [Pipeline(id: 999, status: 'success', source: 'web')],
+        ),
+      );
+      await Future<void>.delayed(Duration.zero);
+      repository.pending = Completer();
+      final old = container.read(provider.notifier).loadMore();
+      await Future<void>.delayed(Duration.zero);
+      final replacement = _Repository();
+      container.updateOverrides([
+        pipelinesRepositoryProvider.overrideWith((ref) async => replacement),
+      ]);
+      container.invalidate(pipelinesRepositoryProvider);
+      expect(
+        (await container.read(provider.future)).items.single.source,
+        'parent_pipeline',
+      );
+      repository.pending!.complete(
+        const Paginated(
+          items: [Pipeline(id: 888, status: 'success')],
+          nextPage: 9,
+        ),
+      );
+      await old;
+      expect(container.read(provider).requireValue.items.map((p) => p.id), [
+        33,
+      ]);
+      expect(
+        replacement.calls.last.source,
+        PipelineSourceFilter.parentPipeline,
+      );
+    },
+  );
 }

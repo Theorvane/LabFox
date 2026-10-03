@@ -1235,5 +1235,15 @@
   "pipelinesRefSelected": "引用：{ref}",
   "pipelinesRefApply": "应用",
   "pipelinesRefClear": "清除",
-  "pipelinesRefHint": "输入准确的分支或标签名称。"
+  "pipelinesRefHint": "输入准确的分支或标签名称。",
+  "pipelinesSourceAll": "所有顶层来源",
+  "pipelinesSourcePush": "推送",
+  "pipelinesSourceWeb": "网页",
+  "pipelinesSourceApi": "API",
+  "pipelinesSourceSchedule": "计划",
+  "pipelinesSourceTrigger": "触发器",
+  "pipelinesSourcePipeline": "多项目流水线",
+  "pipelinesSourceMergeRequest": "合并请求",
+  "pipelinesSourceChild": "子流水线",
+  "pipelinesChildHint": "查询子流水线需要 GitLab 17.0 或更高版本。"
 }

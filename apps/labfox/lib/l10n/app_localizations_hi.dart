@@ -4511,4 +4511,35 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pipelinesRefHint => 'ब्रांच या टैग का सटीक नाम दर्ज करें।';
+
+  @override
+  String get pipelinesSourceAll => 'सभी शीर्ष स्तर के स्रोत';
+
+  @override
+  String get pipelinesSourcePush => 'पुश';
+
+  @override
+  String get pipelinesSourceWeb => 'वेब';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => 'शेड्यूल';
+
+  @override
+  String get pipelinesSourceTrigger => 'ट्रिगर';
+
+  @override
+  String get pipelinesSourcePipeline => 'बहु-प्रोजेक्ट पाइपलाइन';
+
+  @override
+  String get pipelinesSourceMergeRequest => 'मर्ज अनुरोध';
+
+  @override
+  String get pipelinesSourceChild => 'चाइल्ड पाइपलाइन';
+
+  @override
+  String get pipelinesChildHint =>
+      'चाइल्ड पाइपलाइन खोजने के लिए GitLab 17.0 या बाद का संस्करण आवश्यक है।';
 }
