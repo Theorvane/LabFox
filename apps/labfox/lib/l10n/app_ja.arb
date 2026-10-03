@@ -956,8 +956,6 @@
   "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
   "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
   "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
-  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理者",
   "containerProtectionDeleteRoleTitle": "最低削除ロールを編集",
   "containerProtectionDeleteRoleSave": "削除ロールを保存",
   "containerProtectionDeleteRoleWarning": "最低削除ロールを変更すると、一致するリポジトリのイメージを削除できる人が変わります。低いロールは削除保護を弱め、高いロールは既存のクリーンアップを妨げる可能性があります。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示しません。ルールの保存ではイメージは削除されません。",
@@ -973,5 +971,7 @@
   "containerProtectionDeleteRoleInvalid": "削除ロールが拒否されました。対応するロールを選んで再試行してください。",
   "containerProtectionDeleteRoleDraft": "新しい最低削除ロール",
   "containerProtectionDeleteRoleSelect": "削除ロールを選択",
-  "containerProtectionDeleteRoleUnknown": "現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。"
+  "containerProtectionDeleteRoleUnknown": "現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }
