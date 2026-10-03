@@ -35,6 +35,42 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Clears only the minimum push role; pattern and delete role are omitted.
+  Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_push': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing container tag protection push role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_push')) {
+          throw const FormatException('Missing cleared push role');
+        }
+        return ContainerTagProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection push role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing container tag protection push role',
+      );
+    }
+  }
+
   /// Changes only the tag glob; omitted role fields stay unchanged (18.9+).
   Future<ContainerTagProtectionRule> updateTagProtectionPattern(
     Object projectId,
