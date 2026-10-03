@@ -115,6 +115,27 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Schedules asynchronous repository removal; acceptance is not completion.
+  Future<void> deleteRepository(Object projectId, int repositoryId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId',
+      );
+      if (response.statusCode != 202) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'scheduling container repository deletion',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'scheduling container repository deletion',
+      );
+    }
+  }
+
   /// Deletes one tag, not its blobs or the image repository.
   Future<void> deleteTag(
     Object projectId,
