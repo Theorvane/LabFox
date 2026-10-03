@@ -10,6 +10,11 @@ class ContainerRegistryRepository {
   Future<void> deleteTagProtectionRule(int projectId, int ruleId) =>
       client.containerRegistry.deleteTagProtectionRule(projectId, ruleId);
 
+  Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearTagProtectionPushRole(projectId, ruleId);
+
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
 

@@ -35,7 +35,7 @@ import 'todos/todos_api.dart';
 import 'users/users_api.dart';
 import 'wikis/wikis_api.dart';
 
-/// Account-bound entry point for GitLab REST and selected GraphQL queries.
+/// Account-bound entry point for GitLab REST and selected GraphQL operations.
 ///
 /// One client is bound to one account: a base URL and a token. Switching
 /// accounts means building a new client, never mutating this one, so a request
