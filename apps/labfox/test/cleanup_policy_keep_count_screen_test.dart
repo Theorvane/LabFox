@@ -77,7 +77,9 @@ Future<void> selectOne(WidgetTester tester) async {
 }
 
 void main() {
-  testWidgets('unreported keep pattern hides retention editing', (tester) async {
+  testWidgets('unreported keep pattern hides retention editing', (
+    tester,
+  ) async {
     final repository = KeepCountRepository()
       ..policy = reviewedPolicy.copyWith(nameRegexKeep: null);
     await open(tester, repository);

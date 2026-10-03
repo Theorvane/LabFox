@@ -52,35 +52,51 @@ class KeepCountRepository extends ContainerRegistryRepository {
 }
 
 void main() {
-  test('unreported keep pattern blocks retention changes before reading', () async {
-    final repository = KeepCountRepository()
-      ..policy = reviewedPolicy.copyWith(nameRegexKeep: null);
-    final container = ProviderContainer(overrides: [
-      containerRegistryRepositoryProvider.overrideWith((ref) async => repository),
-    ]);
-    addTearDown(container.dispose);
-    expect(canEditCleanupKeepCount(repository.policy), isFalse);
-    await expectLater(
-      container.read(cleanupPolicyKeepCountControllerProvider(7).notifier)
-        .setKeepCount(expected: repository.policy!, keepN: 1),
-      throwsArgumentError,
-    );
-    expect(repository.reads, 0);
-    expect(repository.writes, isEmpty);
-  });
+  test(
+    'unreported keep pattern blocks retention changes before reading',
+    () async {
+      final repository = KeepCountRepository()
+        ..policy = reviewedPolicy.copyWith(nameRegexKeep: null);
+      final container = ProviderContainer(
+        overrides: [
+          containerRegistryRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      expect(canEditCleanupKeepCount(repository.policy), isFalse);
+      await expectLater(
+        container
+            .read(cleanupPolicyKeepCountControllerProvider(7).notifier)
+            .setKeepCount(expected: repository.policy!, keepN: 1),
+        throwsArgumentError,
+      );
+      expect(repository.reads, 0);
+      expect(repository.writes, isEmpty);
+    },
+  );
 
-  test('explicitly empty keep pattern permits confirmed retention changes', () async {
-    final repository = KeepCountRepository()
-      ..policy = reviewedPolicy.copyWith(nameRegexKeep: '');
-    final container = ProviderContainer(overrides: [
-      containerRegistryRepositoryProvider.overrideWith((ref) async => repository),
-    ]);
-    addTearDown(container.dispose);
-    expect(canEditCleanupKeepCount(repository.policy), isTrue);
-    await container.read(cleanupPolicyKeepCountControllerProvider(7).notifier)
-      .setKeepCount(expected: repository.policy!, keepN: 1);
-    expect(repository.writes, [1]);
-  });
+  test(
+    'explicitly empty keep pattern permits confirmed retention changes',
+    () async {
+      final repository = KeepCountRepository()
+        ..policy = reviewedPolicy.copyWith(nameRegexKeep: '');
+      final container = ProviderContainer(
+        overrides: [
+          containerRegistryRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      expect(canEditCleanupKeepCount(repository.policy), isTrue);
+      await container
+          .read(cleanupPolicyKeepCountControllerProvider(7).notifier)
+          .setKeepCount(expected: repository.policy!, keepN: 1);
+      expect(repository.writes, [1]);
+    },
+  );
 
   late KeepCountRepository repository;
   late ProviderContainer container;
