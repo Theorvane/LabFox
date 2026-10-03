@@ -19,7 +19,15 @@ class _Repository extends ReleasesRepository {
       );
 
   final creates =
-      <({String tagName, String? ref, String? name, String? description})>[];
+      <
+        ({
+          String tagName,
+          String? ref,
+          String? name,
+          String? description,
+          DateTime? releasedAt,
+        })
+      >[];
   bool reject = false;
 
   @override
@@ -33,6 +41,7 @@ class _Repository extends ReleasesRepository {
     String? ref,
     String? name,
     String? description,
+    DateTime? releasedAt,
   }) async {
     expect(projectId, 7);
     creates.add((
@@ -40,6 +49,7 @@ class _Repository extends ReleasesRepository {
       ref: ref,
       name: name,
       description: description,
+      releasedAt: releasedAt,
     ));
     if (reject) throw const GitLabForbiddenException('Forbidden');
     return GitLabRelease(name: name ?? tagName, tagName: tagName);
@@ -50,6 +60,7 @@ Future<void> _pump(
   WidgetTester tester,
   _Repository repository, {
   double width = 390,
+  Brightness brightness = Brightness.light,
 }) async {
   tester.view.physicalSize = Size(width, 800);
   tester.view.devicePixelRatio = 1;
@@ -77,6 +88,11 @@ Future<void> _pump(
         releasesRepositoryProvider.overrideWith((ref) async => repository),
       ],
       child: MaterialApp.router(
+        theme: ThemeData(brightness: brightness),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        ),
         routerConfig: router,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -111,6 +127,7 @@ void main() {
         ref: 'main',
         name: 'Version 2',
         description: '## Changes',
+        releasedAt: null,
       ));
       expect(find.text('Created release release/2'), findsOneWidget);
     });
@@ -138,7 +155,102 @@ void main() {
       ref: null,
       name: null,
       description: '## Notes',
+      releasedAt: null,
     ));
     expect(find.text('Created release v2'), findsOneWidget);
+  });
+
+  for (final width in [320.0, 390.0, 1200.0]) {
+    for (final brightness in Brightness.values) {
+      testWidgets('optional future date and time at $width $brightness', (
+        tester,
+      ) async {
+        final repository = _Repository()..reject = true;
+        await _pump(tester, repository, width: width, brightness: brightness);
+        await tester.tap(find.text('New release'));
+        await tester.pumpAndSettle();
+        await tester.enterText(find.byType(TextField).first, 'future/1');
+        await tester.ensureVisible(find.text('Choose publication date'));
+        await tester.tap(find.text('Choose publication date'));
+        await tester.pumpAndSettle();
+        final initial = tester
+            .widget<DatePickerDialog>(find.byType(DatePickerDialog))
+            .initialDate!;
+        await tester.tap(find.byTooltip('Next month'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('15').last);
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+        await tester.ensureVisible(find.text('Choose publication time'));
+        await tester.tap(find.text('Choose publication time'));
+        await tester.pumpAndSettle();
+        final timeFields = find.descendant(
+          of: find.byType(TimePickerDialog),
+          matching: find.byType(TextField),
+        );
+        await tester.enterText(timeFields.at(0), '10');
+        await tester.enterText(timeFields.at(1), '30');
+        await tester.ensureVisible(find.text('OK'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('OK'));
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('Create release'));
+        await tester.pumpAndSettle();
+        expect(
+          repository.creates.single.releasedAt,
+          DateTime(initial.year, initial.month + 1, 15, 10, 30).toUtc(),
+        );
+        expect(repository.creates.single.releasedAt!.isUtc, isTrue);
+        expect(find.text('Could not create the release.'), findsOneWidget);
+        repository.reject = false;
+        await tester.tap(find.text('Create release'));
+        await tester.pumpAndSettle();
+        expect(
+          repository.creates.last.releasedAt,
+          repository.creates.first.releasedAt,
+        );
+        expect(find.text('Created release future/1'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+
+  testWidgets('clearing an explicit date restores server-default publication', (
+    tester,
+  ) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.tap(find.text('New release'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, 'v3');
+    await tester.ensureVisible(find.text('Choose publication date'));
+    await tester.tap(find.text('Choose publication date'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('OK'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Use publication time from GitLab'));
+    await tester.tap(find.text('Use publication time from GitLab'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create release'));
+    await tester.pumpAndSettle();
+    expect(repository.creates.single.releasedAt, isNull);
+  });
+
+  testWidgets('cancelled picker does not set an explicit publication time', (
+    tester,
+  ) async {
+    final repository = _Repository();
+    await _pump(tester, repository);
+    await tester.tap(find.text('New release'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, 'v4');
+    await tester.ensureVisible(find.text('Choose publication date'));
+    await tester.tap(find.text('Choose publication date'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Cancel').last);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create release'));
+    await tester.pumpAndSettle();
+    expect(repository.creates.single.releasedAt, isNull);
   });
 }
