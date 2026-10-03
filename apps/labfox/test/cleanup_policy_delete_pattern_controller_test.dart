@@ -52,6 +52,40 @@ class DeletePatternRepository extends ContainerRegistryRepository {
 }
 
 void main() {
+  test(
+    'unreported keep pattern blocks deletion expansion before reading',
+    () async {
+      final repository = DeletePatternRepository();
+      final container = ProviderContainer(
+        overrides: [
+          containerRegistryRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      final expected = reviewedPolicy.copyWith(
+        enabled: false,
+        nameRegexKeep: null,
+      );
+      repository.policy = expected;
+      await expectLater(
+        container
+            .read(cleanupPolicyDeletePatternControllerProvider(7).notifier)
+            .setDeletePattern(expected: expected, nameRegexDelete: '.*'),
+        throwsArgumentError,
+      );
+      expect(repository.reads, 0);
+      expect(repository.writes, isEmpty);
+    },
+  );
+  test('explicit empty keep pattern is reported', () {
+    expect(
+      canEditCleanupDeletePattern(reviewedPolicy.copyWith(nameRegexKeep: '')),
+      isTrue,
+    );
+  });
+
   late DeletePatternRepository repository;
   late ProviderContainer container;
   setUp(() {

@@ -9,6 +9,7 @@ import 'container_registry_controllers.dart';
 bool canEditCleanupDeletePattern(ContainerCleanupPolicy? policy) =>
     policy != null &&
     policy.enabled != null &&
+    policy.nameRegexKeep != null &&
     policy.cadence?.isNotEmpty == true &&
     policy.keepN != null &&
     policy.keepN! >= 0 &&
