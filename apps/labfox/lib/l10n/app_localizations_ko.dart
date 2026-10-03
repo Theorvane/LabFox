@@ -2888,6 +2888,54 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerPolicyCadence => '실행 주기';
 
   @override
+  String get containerCreateTitle => '비활성 정리 정책 생성';
+
+  @override
+  String get containerCreateSave => '비활성 정책 생성 확인';
+
+  @override
+  String get containerCreateWarning =>
+      '모든 이미지 저장소에 비활성 정책을 저장합니다. 정리는 활성화되지 않습니다. 나중에 활성화하기 전에 모든 조건을 확인하세요. 일치하는 태그는 영구 삭제될 수 있습니다. 기본 보관 패턴 .*는 모든 태그를 보관하며, 빈 보관 패턴은 패턴 기반 보관을 제공하지 않습니다. 패턴은 입력 그대로 전송되며 GitLab RE2 전체 태그 일치 규칙을 사용합니다. 유효성 검사는 활성화 시 수행될 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateAcknowledge => '조건을 확인했으며 활성화가 별도 작업임을 이해했습니다.';
+
+  @override
+  String get containerCreateExisting =>
+      '프로젝트에 정리 정책이 이미 있습니다. 생성으로 덮어쓰지 않습니다. 기존 설정을 사용하세요.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab이 정책 존재 여부를 보고하지 않았습니다. GitLab에서 확인하세요. 생성할 수 없습니다.';
+
+  @override
+  String get containerCreateAccepted => '비활성 정리 정책 생성 요청이 수락되었습니다.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab이 정책 설정을 거부했습니다. 조건을 확인한 후 수정하거나 재시도하세요.';
+
+  @override
+  String get containerCreateDaily => '매일';
+
+  @override
+  String get containerCreateWeekly => '매주';
+
+  @override
+  String get containerCreateFortnightly => '2주마다';
+
+  @override
+  String get containerCreateMonthly => '매월';
+
+  @override
+  String get containerCreateQuarterly => '3개월마다';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days일';
+  }
+
+  @override
   String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
 
   @override
@@ -2925,6 +2973,38 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerActivationError => '변경을 확인하지 못했습니다. 정책을 다시 불러오고 재시도하세요.';
+
+  @override
+  String get containerActivationIncomplete =>
+      '정리를 활성화하려면 주기, 보존 개수, 나이 제한 및 삭제 패턴이 보고되어야 합니다. GitLab에서 정책을 확인하세요.';
+
+  @override
+  String get containerActivationTitle => '정리 정책 상태 변경';
+
+  @override
+  String get containerActivationEnable => '정리 활성화';
+
+  @override
+  String get containerActivationDisable => '정리 비활성화';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '이 프로젝트 전체 정책을 활성화하면 예약 실행에서 일치하는 태그가 영구 삭제될 수 있습니다. 표시된 보존 설정과 패턴은 변경되지 않습니다. 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '보존 설정이나 패턴을 변경하지 않고 이 프로젝트의 향후 예약 정리를 비활성화합니다. 이미 실행 중인 정리 작업이 취소된다고 가정하지 마세요.';
+
+  @override
+  String get containerActivationUnknown =>
+      '확인된 활성 상태가 필요합니다. GitLab에서 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab이 상태 변경을 거부했습니다. GitLab에서 기존 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationAccepted => '정리 정책 상태 변경이 접수되었습니다.';
 
   @override
   String get containerActivationForbidden => '이 정리 정책을 변경할 권한이 없습니다.';
@@ -3035,9 +3115,128 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => '최소 푸시 역할 수정';
+
+  @override
+  String get containerTagProtectionPushRoleSave => '푸시 역할 저장';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '최소 푸시 역할을 변경하면 프로젝트에서 일치하는 컨테이너 이미지 태그를 푸시할 수 있는 대상이 바뀝니다. 역할을 낮추면 보호가 약해지고 높이면 기존 작업 흐름이 차단될 수 있습니다. 태그 패턴과 최소 삭제 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 태그나 이미지를 삭제하거나 Git 태그에 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      '규칙과 새 최소 푸시 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      '푸시 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '최소 푸시 역할이 변경되었습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      '푸시 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '새 최소 푸시 역할';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => '푸시 역할 선택';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '현재 푸시 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return '삭제 최소 역할: $role';
   }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 변경하면 프로젝트에서 일치하는 컨테이너 이미지 태그를 삭제할 수 있는 대상이 바뀝니다. 역할을 낮추면 삭제 보호가 약해지고 높이면 기존 정리 작업이 차단될 수 있습니다. 태그 패턴과 최소 푸시 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 규칙을 저장해도 태그나 이미지는 삭제되지 않습니다. Git 태그에는 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
 
   @override
   String get containerTagProtectionRoleUnset => '규칙에 지정되지 않음';
@@ -3664,6 +3863,58 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPushClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushClearTitle => '최소 푸시 역할 해제';
+
+  @override
+  String get containerProtectionPushClearSave => '푸시 제한 해제';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      '이 규칙의 최소 푸시 역할 제한을 해제하여 일치하는 저장소의 푸시 보호가 약해집니다. 경로 패턴과 최소 삭제 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      '규칙을 검토했으며 이 푸시 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionPushClearError =>
+      '푸시 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPushClearSaved => '최소 푸시 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      '서버가 푸시 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '관리자';
