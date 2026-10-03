@@ -6,6 +6,33 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'searches project milestones without ancestor groups or state filtering',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: {
+            'x-next-page': ['4'],
+          },
+          body: const [],
+        );
+      });
+      final page = await client.milestones.list(
+        'team/app',
+        search: 'Release, phase 1',
+        page: 2,
+      );
+      expect(request.path, '/projects/team%2Fapp/milestones');
+      expect(request.queryParameters['search'], 'Release, phase 1');
+      expect(request.queryParameters['page'], 2);
+      expect(request.queryParameters.containsKey('include_ancestors'), isFalse);
+      expect(request.queryParameters.containsKey('state'), isFalse);
+      expect(page.nextPage, 4);
+    },
+  );
   test('lists project milestones and preserves id versus iid', () async {
     late RequestOptions request;
     final client = _client((options) {
