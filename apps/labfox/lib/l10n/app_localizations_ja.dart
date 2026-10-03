@@ -2985,6 +2985,49 @@ class AppLocalizationsJa extends AppLocalizations {
       'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'タグ保護ルールを削除';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'ルールを削除';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'このルールを削除すると、プロジェクト内の一致するコンテナイメージタグのプッシュと削除の保護が解除されます。他のルールと権限は引き続き適用されます。タグやイメージは削除されず、Gitタグにも影響しません。';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge => '内容を理解し、このルールを削除します。';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => 'このルールを削除する権限がありません。';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      '要求は失敗しましたが、サーバーに届いた可能性があります。再試行前にルール一覧を確認してください。';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'ルールが変更されたか重複しています。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionRemoveSaved => 'タグ保護ルールを削除しました。';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'ルールが存在しないか、アクセスできないか、未対応です。削除にはGitLab 18.9以降が必要です。続行前に再読み込みしてください。';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      '要求が多すぎます。しばらく待って再試行してください。';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       '要求が多すぎます。しばらく待って再試行してください。';
 
@@ -3333,45 +3376,35 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
-  String get containerTagProtectionRemoveTitle => 'タグ保護ルールを削除';
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override
-  String get containerTagProtectionRemoveSave => 'ルールを削除';
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override
-  String get containerTagProtectionRemoveWarning =>
-      'このルールを削除すると、プロジェクト内の一致するコンテナイメージタグのプッシュと削除の保護が解除されます。他のルールと権限は引き続き適用されます。タグやイメージは削除されず、Gitタグにも影響しません。';
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
 
   @override
-  String get containerTagProtectionRemoveAcknowledge => '内容を理解し、このルールを削除します。';
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
 
   @override
-  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
-    return 'プロジェクト $projectId — ルール $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
   }
 
   @override
-  String get containerTagProtectionRemoveForbidden => 'このルールを削除する権限がありません。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
 
   @override
-  String get containerTagProtectionRemoveError =>
-      '要求は失敗しましたが、サーバーに届いた可能性があります。再試行前にルール一覧を確認してください。';
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
 
   @override
-  String get containerTagProtectionRemoveStale =>
-      'ルールが変更されたか重複しています。再読み込みして確認してください。';
-
-  @override
-  String get containerTagProtectionRemoveReload => 'ルールを再読み込み';
-
-  @override
-  String get containerTagProtectionRemoveSaved => 'タグ保護ルールを削除しました。';
-
-  @override
-  String get containerTagProtectionRemoveMissing =>
-      'ルールが存在しないか、アクセスできないか、未対応です。削除にはGitLab 18.9以降が必要です。続行前に再読み込みしてください。';
-
-  @override
-  String get containerTagProtectionRemoveRateLimited =>
-      '要求が多すぎます。しばらく待って再試行してください。';
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

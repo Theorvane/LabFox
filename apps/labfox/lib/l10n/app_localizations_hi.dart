@@ -3071,6 +3071,52 @@ class AppLocalizationsHi extends AppLocalizations {
       'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'इस नियम को हटाने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश और हटाने की सुरक्षा हट जाती है। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ और इसी नियम को हटाना चाहता हूँ।';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'अनुरोध विफल हुआ लेकिन सर्वर तक पहुँच सकता है। पुनः प्रयास से पहले नियम सूची जाँचें।';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'नियम बदल गया है या अस्पष्ट है। दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'टैग सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और पुनः प्रयास करें।';
 
@@ -3434,48 +3480,38 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String get containerTagProtectionRemoveSave => 'नियम हटाएँ';
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
 
   @override
-  String get containerTagProtectionRemoveWarning =>
-      'इस नियम को हटाने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश और हटाने की सुरक्षा हट जाती है। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
 
   @override
-  String get containerTagProtectionRemoveAcknowledge =>
-      'मैं समझता हूँ और इसी नियम को हटाना चाहता हूँ।';
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
 
   @override
-  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
-    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
   }
 
   @override
-  String get containerTagProtectionRemoveForbidden =>
-      'आपको यह नियम हटाने की अनुमति नहीं है।';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
 
   @override
-  String get containerTagProtectionRemoveError =>
-      'अनुरोध विफल हुआ लेकिन सर्वर तक पहुँच सकता है। पुनः प्रयास से पहले नियम सूची जाँचें।';
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
 
   @override
-  String get containerTagProtectionRemoveStale =>
-      'नियम बदल गया है या अस्पष्ट है। दोबारा लोड करके पुष्टि करें।';
-
-  @override
-  String get containerTagProtectionRemoveReload => 'नियम दोबारा लोड करें';
-
-  @override
-  String get containerTagProtectionRemoveSaved =>
-      'टैग सुरक्षा नियम हटा दिया गया।';
-
-  @override
-  String get containerTagProtectionRemoveMissing =>
-      'नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।';
-
-  @override
-  String get containerTagProtectionRemoveRateLimited =>
-      'बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।';
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }

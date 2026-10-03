@@ -2924,6 +2924,46 @@ class AppLocalizationsZh extends AppLocalizations {
       '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
 
   @override
+  String get containerTagProtectionRemoveTitle => '删除标签保护规则';
+
+  @override
+  String get containerTagProtectionRemoveSave => '删除规则';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      '删除此规则将解除本项目中匹配的容器镜像标签的推送和删除保护。其他规则和权限仍然适用。此操作不会删除标签或镜像，也不会影响 Git 标签。';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge => '我已了解并确认删除此规则。';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => '您没有删除此规则的权限。';
+
+  @override
+  String get containerTagProtectionRemoveError => '请求失败，但可能已到达服务器。重试前请检查规则列表。';
+
+  @override
+  String get containerTagProtectionRemoveStale => '此规则已更改或存在重复。请重新加载并确认。';
+
+  @override
+  String get containerTagProtectionRemoveReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionRemoveSaved => '标签保护规则已删除。';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      '规则不存在、无法访问或不受支持。删除需要 GitLab 18.9 或更高版本。请重新加载后再继续。';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited => '请求过多。请稍后重试。';
+
+  @override
   String get containerTagProtectionPatternRateLimited => '请求过多。请稍后重试。';
 
   @override
@@ -3251,42 +3291,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerTagProtectionRemoveTitle => '删除标签保护规则';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
-  String get containerTagProtectionRemoveSave => '删除规则';
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override
-  String get containerTagProtectionRemoveWarning =>
-      '删除此规则将解除本项目中匹配的容器镜像标签的推送和删除保护。其他规则和权限仍然适用。此操作不会删除标签或镜像，也不会影响 Git 标签。';
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
 
   @override
-  String get containerTagProtectionRemoveAcknowledge => '我已了解并确认删除此规则。';
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
-    return '项目 $projectId — 规则 $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
   }
 
   @override
-  String get containerTagProtectionRemoveForbidden => '您没有删除此规则的权限。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
 
   @override
-  String get containerTagProtectionRemoveError => '请求失败，但可能已到达服务器。重试前请检查规则列表。';
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
-  String get containerTagProtectionRemoveStale => '此规则已更改或存在重复。请重新加载并确认。';
-
-  @override
-  String get containerTagProtectionRemoveReload => '重新加载规则';
-
-  @override
-  String get containerTagProtectionRemoveSaved => '标签保护规则已删除。';
-
-  @override
-  String get containerTagProtectionRemoveMissing =>
-      '规则不存在、无法访问或不受支持。删除需要 GitLab 18.9 或更高版本。请重新加载后再继续。';
-
-  @override
-  String get containerTagProtectionRemoveRateLimited => '请求过多。请稍后重试。';
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

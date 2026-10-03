@@ -5696,6 +5696,78 @@ abstract class AppLocalizations {
   /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
   String get containerTagProtectionPatternMissing;
 
+  /// No description provided for @containerTagProtectionRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag protection rule'**
+  String get containerTagProtectionRemoveTitle;
+
+  /// No description provided for @containerTagProtectionRemoveSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerTagProtectionRemoveSave;
+
+  /// No description provided for @containerTagProtectionRemoveWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.'**
+  String get containerTagProtectionRemoveWarning;
+
+  /// No description provided for @containerTagProtectionRemoveAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand and want to delete this exact rule.'**
+  String get containerTagProtectionRemoveAcknowledge;
+
+  /// No description provided for @containerTagProtectionRemoveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionRemoveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to delete this rule.'**
+  String get containerTagProtectionRemoveForbidden;
+
+  /// No description provided for @containerTagProtectionRemoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request failed and may have reached the server. Inspect the rule list before retrying.'**
+  String get containerTagProtectionRemoveError;
+
+  /// No description provided for @containerTagProtectionRemoveStale.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changed or is ambiguous. Reload it and confirm again.'**
+  String get containerTagProtectionRemoveStale;
+
+  /// No description provided for @containerTagProtectionRemoveReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionRemoveReload;
+
+  /// No description provided for @containerTagProtectionRemoveSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule deleted.'**
+  String get containerTagProtectionRemoveSaved;
+
+  /// No description provided for @containerTagProtectionRemoveMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.'**
+  String get containerTagProtectionRemoveMissing;
+
+  /// No description provided for @containerTagProtectionRemoveRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait before retrying.'**
+  String get containerTagProtectionRemoveRateLimited;
+
   /// No description provided for @containerTagProtectionPatternRateLimited.
   ///
   /// In en, this message translates to:
@@ -6272,77 +6344,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// No description provided for @containerTagProtectionRemoveTitle.
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Delete tag protection rule'**
-  String get containerTagProtectionRemoveTitle;
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerTagProtectionRemoveSave.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Delete rule'**
-  String get containerTagProtectionRemoveSave;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerTagProtectionRemoveWarning.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.'**
-  String get containerTagProtectionRemoveWarning;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerTagProtectionRemoveAcknowledge.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'I understand and want to delete this exact rule.'**
-  String get containerTagProtectionRemoveAcknowledge;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerTagProtectionRemoveTarget.
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Project {projectId} — rule {ruleId}'**
-  String containerTagProtectionRemoveTarget(String projectId, String ruleId);
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerTagProtectionRemoveForbidden.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'You do not have permission to delete this rule.'**
-  String get containerTagProtectionRemoveForbidden;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerTagProtectionRemoveError.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'The request failed and may have reached the server. Inspect the rule list before retrying.'**
-  String get containerTagProtectionRemoveError;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerTagProtectionRemoveStale.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'This rule changed or is ambiguous. Reload it and confirm again.'**
-  String get containerTagProtectionRemoveStale;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerTagProtectionRemoveReload.
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'Reload rule'**
-  String get containerTagProtectionRemoveReload;
-
-  /// No description provided for @containerTagProtectionRemoveSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Tag protection rule deleted.'**
-  String get containerTagProtectionRemoveSaved;
-
-  /// No description provided for @containerTagProtectionRemoveMissing.
-  ///
-  /// In en, this message translates to:
-  /// **'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.'**
-  String get containerTagProtectionRemoveMissing;
-
-  /// No description provided for @containerTagProtectionRemoveRateLimited.
-  ///
-  /// In en, this message translates to:
-  /// **'Too many requests. Wait before retrying.'**
-  String get containerTagProtectionRemoveRateLimited;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate
