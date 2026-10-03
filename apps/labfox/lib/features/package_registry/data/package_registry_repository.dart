@@ -9,6 +9,9 @@ class PackageRegistryRepository {
 
   final GitLabClient _client;
 
+  Future<void> deleteFile(int projectId, int packageId, int fileId) =>
+      _client.packages.deleteFile(projectId, packageId, fileId);
+
   Future<void> delete(int projectId, int packageId) =>
       _client.packages.delete(projectId, packageId);
 
