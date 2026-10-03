@@ -3976,6 +3976,60 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
+  String get containerProtectionPatternTitle =>
+      'रिपॉज़िटरी सुरक्षा पैटर्न बदलें';
+
+  @override
+  String get containerProtectionPatternSave => 'पैटर्न सहेजें';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'पैटर्न बदलने से पहले मेल खाने वाली रिपॉज़िटरी की सुरक्षा हट सकती है और अन्य पर लागू हो सकती है। वाइल्डकार्ड (*) कई रिपॉज़िटरी को प्रभावित कर सकता है। दोनों न्यूनतम भूमिकाएँ नहीं बदलतीं; अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे इमेज नहीं हटतीं और आपकी पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'मैंने वर्तमान नियम और नया पैटर्न जाँच लिया है और सुरक्षा के बदलाव समझता हूँ।';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPatternError =>
+      'पैटर्न बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPatternReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'रिपॉज़िटरी सुरक्षा पैटर्न बदल गया।';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'पैटर्न अस्वीकार हुआ या पहले से उपयोग में है। मसौदा बदलकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPatternDraft => 'नया रिपॉज़िटरी पथ पैटर्न';
+
+  @override
   String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
@@ -4261,56 +4315,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerProtectionPatternTitle =>
-      'रिपॉज़िटरी सुरक्षा पैटर्न बदलें';
+  String get containerKeepPatternClearTitle => 'क्लीनअप रखने का पैटर्न हटाएँ';
 
   @override
-  String get containerProtectionPatternSave => 'पैटर्न सहेजें';
+  String get containerKeepPatternClearSave =>
+      'रखने के पैटर्न को हटाने की पुष्टि करें';
 
   @override
-  String get containerProtectionPatternWarning =>
-      'पैटर्न बदलने से पहले मेल खाने वाली रिपॉज़िटरी की सुरक्षा हट सकती है और अन्य पर लागू हो सकती है। वाइल्डकार्ड (*) कई रिपॉज़िटरी को प्रभावित कर सकता है। दोनों न्यूनतम भूमिकाएँ नहीं बदलतीं; अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे इमेज नहीं हटतीं और आपकी पहुँच नहीं बताई जाती।';
+  String get containerKeepPatternClearWarning =>
+      'प्रोजेक्ट का रखने वाला पैटर्न हटाने से सभी इमेज रिपॉज़िटरी में पहले सुरक्षित टैग निर्धारित क्लीनअप के दौरान स्थायी रूप से हटाए जाने योग्य हो सकते हैं। latest टैग और अन्य रखने तथा सुरक्षा नियम लागू रहेंगे; टैग तुरंत नहीं हटते। नीचे वर्तमान शर्तों की समीक्षा करें। केवल खाली रखने वाला पैटर्न भेजा जाता है। अन्य नीति फ़ील्ड नहीं बदलते, लेकिन GitLab अगला रन फिर निर्धारित कर सकता है। अनुरोध स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
 
   @override
-  String get containerProtectionPatternAcknowledge =>
-      'मैंने वर्तमान नियम और नया पैटर्न जाँच लिया है और सुरक्षा के बदलाव समझता हूँ।';
+  String get containerKeepPatternClearAcknowledge =>
+      'मैं समझता हूँ कि पहले सुरक्षित टैग स्थायी रूप से हटाए जाने योग्य हो सकते हैं।';
 
   @override
-  String containerProtectionPatternTarget(String projectId, String ruleId) {
-    return 'प्रोजेक्ट $projectId — नियम $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, उम्र, प्रभावी हटाने का पैटर्न और गैर-खाली रखने का पैटर्न रिपोर्ट होना आवश्यक है। खाली या रिपोर्ट न किए गए रखने के पैटर्न को यहाँ नहीं हटाया जा सकता। कोई नीति नहीं बनाई जाएगी।';
 
   @override
-  String get containerProtectionPatternForbidden =>
-      'आपको यह नियम बदलने की अनुमति नहीं है।';
+  String get containerKeepPatternClearAccepted =>
+      'रखने का पैटर्न हटाने का अनुरोध स्वीकार हुआ।';
 
   @override
-  String get containerProtectionPatternError =>
-      'पैटर्न बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
-
-  @override
-  String get containerProtectionPatternStale =>
-      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
-
-  @override
-  String get containerProtectionPatternReload => 'नियम पुनः लोड करें';
-
-  @override
-  String get containerProtectionPatternSaved =>
-      'रिपॉज़िटरी सुरक्षा पैटर्न बदल गया।';
-
-  @override
-  String get containerProtectionPatternMissing =>
-      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
-
-  @override
-  String get containerProtectionPatternRateLimited =>
-      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionPatternInvalid =>
-      'पैटर्न अस्वीकार हुआ या पहले से उपयोग में है। मसौदा बदलकर फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionPatternDraft => 'नया रिपॉज़िटरी पथ पैटर्न';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।';
 }

@@ -3748,6 +3748,53 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
+  String get containerProtectionPatternTitle => '编辑仓库保护模式';
+
+  @override
+  String get containerProtectionPatternSave => '保存模式';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      '更改模式可能移除先前匹配仓库的保护，并将其应用于其他仓库。通配符 (*) 可能影响多个仓库。两个最低角色保持不变；其他规则和权限仍然适用。这不会删除镜像，也不代表你的访问权限。';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      '我已检查当前规则和新模式，并了解保护范围的变化。';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionPatternError =>
+      '无法确认模式已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionPatternStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionPatternReload => '重新加载规则';
+
+  @override
+  String get containerProtectionPatternSaved => '仓库保护模式已更新。';
+
+  @override
+  String get containerProtectionPatternMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionPatternRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionPatternInvalid => '模式被拒绝或已被使用。请修改草稿后重试。';
+
+  @override
+  String get containerProtectionPatternDraft => '新仓库路径模式';
+
+  @override
   String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
@@ -4001,49 +4048,26 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerProtectionPatternTitle => '编辑仓库保护模式';
+  String get containerKeepPatternClearTitle => '清除清理保留模式';
 
   @override
-  String get containerProtectionPatternSave => '保存模式';
+  String get containerKeepPatternClearSave => '确认移除保留模式';
 
   @override
-  String get containerProtectionPatternWarning =>
-      '更改模式可能移除先前匹配仓库的保护，并将其应用于其他仓库。通配符 (*) 可能影响多个仓库。两个最低角色保持不变；其他规则和权限仍然适用。这不会删除镜像，也不代表你的访问权限。';
+  String get containerKeepPatternClearWarning =>
+      '移除此项目的保留模式后，所有镜像仓库中原先保留的标签可能在计划清理时被永久删除。latest 标签及其他保留和保护规则仍然适用；这不会立即删除标签。请检查下方当前条件。仅发送空的保留模式字符串。其他策略字段不变，但 GitLab 可能重新安排下次运行。请求被接受不代表清理完成或存储空间已回收。';
 
   @override
-  String get containerProtectionPatternAcknowledge =>
-      '我已检查当前规则和新模式，并了解保护范围的变化。';
+  String get containerKeepPatternClearAcknowledge => '我了解原先保留的标签可能成为永久删除的对象。';
 
   @override
-  String containerProtectionPatternTarget(String projectId, String ruleId) {
-    return '项目 $projectId — 规则 $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。';
 
   @override
-  String get containerProtectionPatternForbidden => '你没有更改此规则的权限。';
+  String get containerKeepPatternClearAccepted => '保留模式移除请求已被接受。';
 
   @override
-  String get containerProtectionPatternError =>
-      '无法确认模式已更新。重试前请检查规则列表；服务器可能已接受请求。';
-
-  @override
-  String get containerProtectionPatternStale => '确认后规则已更改。请重新加载并检查后再保存。';
-
-  @override
-  String get containerProtectionPatternReload => '重新加载规则';
-
-  @override
-  String get containerProtectionPatternSaved => '仓库保护模式已更新。';
-
-  @override
-  String get containerProtectionPatternMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
-
-  @override
-  String get containerProtectionPatternRateLimited => '请求过多。请等待后重试。';
-
-  @override
-  String get containerProtectionPatternInvalid => '模式被拒绝或已被使用。请修改草稿后重试。';
-
-  @override
-  String get containerProtectionPatternDraft => '新仓库路径模式';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
 }

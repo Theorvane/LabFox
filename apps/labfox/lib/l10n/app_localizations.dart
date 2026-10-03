@@ -7118,6 +7118,90 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
+  /// No description provided for @containerProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit repository protection pattern'**
+  String get containerProtectionPatternTitle;
+
+  /// No description provided for @containerProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerProtectionPatternSave;
+
+  /// No description provided for @containerProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.'**
+  String get containerProtectionPatternWarning;
+
+  /// No description provided for @containerProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerProtectionPatternAcknowledge;
+
+  /// Exact project and repository protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPatternForbidden;
+
+  /// No description provided for @containerProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPatternError;
+
+  /// No description provided for @containerProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPatternStale;
+
+  /// No description provided for @containerProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPatternReload;
+
+  /// No description provided for @containerProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection pattern updated.'**
+  String get containerProtectionPatternSaved;
+
+  /// No description provided for @containerProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPatternMissing;
+
+  /// No description provided for @containerProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPatternRateLimited;
+
+  /// No description provided for @containerProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerProtectionPatternInvalid;
+
+  /// No description provided for @containerProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New repository path pattern'**
+  String get containerProtectionPatternDraft;
+
   /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
@@ -7568,89 +7652,47 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerDeletePatternInvalid;
 
-  /// No description provided for @containerProtectionPatternTitle.
+  /// No description provided for @containerKeepPatternClearTitle.
   ///
   /// In en, this message translates to:
-  /// **'Edit repository protection pattern'**
-  String get containerProtectionPatternTitle;
+  /// **'Clear cleanup keep pattern'**
+  String get containerKeepPatternClearTitle;
 
-  /// No description provided for @containerProtectionPatternSave.
+  /// No description provided for @containerKeepPatternClearSave.
   ///
   /// In en, this message translates to:
-  /// **'Save pattern'**
-  String get containerProtectionPatternSave;
+  /// **'Confirm keep pattern removal'**
+  String get containerKeepPatternClearSave;
 
-  /// No description provided for @containerProtectionPatternWarning.
+  /// No description provided for @containerKeepPatternClearWarning.
   ///
   /// In en, this message translates to:
-  /// **'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.'**
-  String get containerProtectionPatternWarning;
+  /// **'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.'**
+  String get containerKeepPatternClearWarning;
 
-  /// No description provided for @containerProtectionPatternAcknowledge.
+  /// No description provided for @containerKeepPatternClearAcknowledge.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
-  String get containerProtectionPatternAcknowledge;
+  /// **'I understand that previously preserved tags may become eligible for permanent deletion.'**
+  String get containerKeepPatternClearAcknowledge;
 
-  /// Exact project and repository protection rule identifiers
+  /// No description provided for @containerKeepPatternClearUnknown.
   ///
   /// In en, this message translates to:
-  /// **'Project {projectId} — rule {ruleId}'**
-  String containerProtectionPatternTarget(String projectId, String ruleId);
+  /// **'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.'**
+  String get containerKeepPatternClearUnknown;
 
-  /// No description provided for @containerProtectionPatternForbidden.
+  /// No description provided for @containerKeepPatternClearAccepted.
   ///
   /// In en, this message translates to:
-  /// **'You do not have permission to change this rule.'**
-  String get containerProtectionPatternForbidden;
+  /// **'Keep pattern removal accepted.'**
+  String get containerKeepPatternClearAccepted;
 
-  /// No description provided for @containerProtectionPatternError.
+  /// No description provided for @containerKeepPatternClearInvalid.
   ///
   /// In en, this message translates to:
-  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
-  String get containerProtectionPatternError;
-
-  /// No description provided for @containerProtectionPatternStale.
-  ///
-  /// In en, this message translates to:
-  /// **'The rule changed since confirmation. Reload and review it before saving.'**
-  String get containerProtectionPatternStale;
-
-  /// No description provided for @containerProtectionPatternReload.
-  ///
-  /// In en, this message translates to:
-  /// **'Reload rule'**
-  String get containerProtectionPatternReload;
-
-  /// No description provided for @containerProtectionPatternSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Repository protection pattern updated.'**
-  String get containerProtectionPatternSaved;
-
-  /// No description provided for @containerProtectionPatternMissing.
-  ///
-  /// In en, this message translates to:
-  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
-  String get containerProtectionPatternMissing;
-
-  /// No description provided for @containerProtectionPatternRateLimited.
-  ///
-  /// In en, this message translates to:
-  /// **'Too many requests. Wait and retry.'**
-  String get containerProtectionPatternRateLimited;
-
-  /// No description provided for @containerProtectionPatternInvalid.
-  ///
-  /// In en, this message translates to:
-  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
-  String get containerProtectionPatternInvalid;
-
-  /// No description provided for @containerProtectionPatternDraft.
-  ///
-  /// In en, this message translates to:
-  /// **'New repository path pattern'**
-  String get containerProtectionPatternDraft;
+  /// **'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.'**
+  String get containerKeepPatternClearInvalid;
 }
 
 class _AppLocalizationsDelegate

@@ -3863,6 +3863,57 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 보관 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
+  String get containerProtectionPatternTitle => '저장소 보호 패턴 수정';
+
+  @override
+  String get containerProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      '패턴 변경은 기존에 일치하던 저장소의 보호를 해제하고 다른 저장소에 적용할 수 있습니다. 와일드카드(*)는 여러 저장소에 영향을 줍니다. 두 최소 역할은 변경되지 않으며 다른 규칙과 권한은 계속 적용됩니다. 이미지를 삭제하거나 내 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPatternError =>
+      '패턴 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPatternSaved => '저장소 보호 패턴이 변경되었습니다.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternDraft => '새 저장소 경로 패턴';
+
+  @override
   String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
 
   @override
@@ -4132,53 +4183,27 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
-  String get containerProtectionPatternTitle => '저장소 보호 패턴 수정';
+  String get containerKeepPatternClearTitle => '정리 보관 패턴 제거';
 
   @override
-  String get containerProtectionPatternSave => '패턴 저장';
+  String get containerKeepPatternClearSave => '보관 패턴 제거 확인';
 
   @override
-  String get containerProtectionPatternWarning =>
-      '패턴 변경은 기존에 일치하던 저장소의 보호를 해제하고 다른 저장소에 적용할 수 있습니다. 와일드카드(*)는 여러 저장소에 영향을 줍니다. 두 최소 역할은 변경되지 않으며 다른 규칙과 권한은 계속 적용됩니다. 이미지를 삭제하거나 내 접근 권한을 나타내지 않습니다.';
+  String get containerKeepPatternClearWarning =>
+      '프로젝트 전체의 보관 패턴을 제거하면 모든 이미지 저장소에서 기존 보호 태그가 예약 정리 시 영구 삭제 대상이 될 수 있습니다. latest 태그와 다른 보관·보호 규칙은 계속 적용되며 즉시 태그를 삭제하지는 않습니다. 아래 현재 조건을 확인하세요. 빈 보관 패턴 문자열만 전송합니다. 다른 정책 필드는 변경하지 않지만 GitLab이 다음 실행 시각을 재설정할 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
 
   @override
-  String get containerProtectionPatternAcknowledge =>
-      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+  String get containerKeepPatternClearAcknowledge =>
+      '기존 보호 태그가 영구 삭제 대상이 될 수 있음을 이해했습니다.';
 
   @override
-  String containerProtectionPatternTarget(String projectId, String ruleId) {
-    return '프로젝트 $projectId — 규칙 $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '활성화 상태, 실행 간격, 보관 개수, 보관 기간, 유효한 삭제 패턴 및 비어 있지 않은 보관 패턴이 보고되어야 합니다. 비어 있거나 보고되지 않은 보관 패턴은 여기서 제거할 수 없습니다. 정책을 생성하지 않습니다.';
 
   @override
-  String get containerProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+  String get containerKeepPatternClearAccepted => '보관 패턴 제거 요청이 수락되었습니다.';
 
   @override
-  String get containerProtectionPatternError =>
-      '패턴 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
-
-  @override
-  String get containerProtectionPatternStale =>
-      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
-
-  @override
-  String get containerProtectionPatternReload => '규칙 다시 불러오기';
-
-  @override
-  String get containerProtectionPatternSaved => '저장소 보호 패턴이 변경되었습니다.';
-
-  @override
-  String get containerProtectionPatternMissing =>
-      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
-
-  @override
-  String get containerProtectionPatternRateLimited =>
-      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
-
-  @override
-  String get containerProtectionPatternInvalid =>
-      '패턴이 거부되었거나 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
-
-  @override
-  String get containerProtectionPatternDraft => '새 저장소 경로 패턴';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요.';
 }

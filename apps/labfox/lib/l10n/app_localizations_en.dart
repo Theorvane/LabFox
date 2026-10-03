@@ -3981,6 +3981,60 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
+  String get containerProtectionPatternTitle =>
+      'Edit repository protection pattern';
+
+  @override
+  String get containerProtectionPatternSave => 'Save pattern';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'I have reviewed the current rule and new pattern and understand the protection changes.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPatternError =>
+      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPatternReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'Repository protection pattern updated.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'The pattern was rejected or is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionPatternDraft => 'New repository path pattern';
+
+  @override
   String get containerRepositoryProtectionTitle =>
       'Repository protection rules';
 
@@ -4264,56 +4318,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerProtectionPatternTitle =>
-      'Edit repository protection pattern';
+  String get containerKeepPatternClearTitle => 'Clear cleanup keep pattern';
 
   @override
-  String get containerProtectionPatternSave => 'Save pattern';
+  String get containerKeepPatternClearSave => 'Confirm keep pattern removal';
 
   @override
-  String get containerProtectionPatternWarning =>
-      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
+  String get containerKeepPatternClearWarning =>
+      'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.';
 
   @override
-  String get containerProtectionPatternAcknowledge =>
-      'I have reviewed the current rule and new pattern and understand the protection changes.';
+  String get containerKeepPatternClearAcknowledge =>
+      'I understand that previously preserved tags may become eligible for permanent deletion.';
 
   @override
-  String containerProtectionPatternTarget(String projectId, String ruleId) {
-    return 'Project $projectId — rule $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.';
 
   @override
-  String get containerProtectionPatternForbidden =>
-      'You do not have permission to change this rule.';
+  String get containerKeepPatternClearAccepted =>
+      'Keep pattern removal accepted.';
 
   @override
-  String get containerProtectionPatternError =>
-      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerProtectionPatternStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
-
-  @override
-  String get containerProtectionPatternReload => 'Reload rule';
-
-  @override
-  String get containerProtectionPatternSaved =>
-      'Repository protection pattern updated.';
-
-  @override
-  String get containerProtectionPatternMissing =>
-      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
-
-  @override
-  String get containerProtectionPatternRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerProtectionPatternInvalid =>
-      'The pattern was rejected or is already taken. Edit the draft and retry.';
-
-  @override
-  String get containerProtectionPatternDraft => 'New repository path pattern';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.';
 }
