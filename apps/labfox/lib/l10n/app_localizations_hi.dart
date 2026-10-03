@@ -4180,6 +4180,65 @@ class AppLocalizationsHi extends AppLocalizations {
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
 
   @override
+  String get containerProtectionPushRoleTitle => 'न्यूनतम पुश भूमिका बदलें';
+
+  @override
+  String get containerProtectionPushRoleSave => 'पुश भूमिका सहेजें';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      'न्यूनतम पुश भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में पुश करने वाले लोग बदलते हैं। निचली भूमिका सुरक्षा कम करती है; ऊँची भूमिका मौजूदा कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम पुश भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'पुश भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPushRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPushRoleSaved => 'न्यूनतम पुश भूमिका बदल गई।';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'पुश भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushRoleDraft => 'नई न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'पुश भूमिका चुनें';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      'वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+
+  @override
   String get containerProtectionPushClearTitle => 'न्यूनतम पुश भूमिका हटाएँ';
 
   @override
@@ -4261,61 +4320,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerProtectionPushRoleTitle => 'न्यूनतम पुश भूमिका बदलें';
+  String get containerKeepPatternClearTitle => 'क्लीनअप रखने का पैटर्न हटाएँ';
 
   @override
-  String get containerProtectionPushRoleSave => 'पुश भूमिका सहेजें';
+  String get containerKeepPatternClearSave =>
+      'रखने के पैटर्न को हटाने की पुष्टि करें';
 
   @override
-  String get containerProtectionPushRoleWarning =>
-      'न्यूनतम पुश भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में पुश करने वाले लोग बदलते हैं। निचली भूमिका सुरक्षा कम करती है; ऊँची भूमिका मौजूदा कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
+  String get containerKeepPatternClearWarning =>
+      'प्रोजेक्ट का रखने वाला पैटर्न हटाने से सभी इमेज रिपॉज़िटरी में पहले सुरक्षित टैग निर्धारित क्लीनअप के दौरान स्थायी रूप से हटाए जाने योग्य हो सकते हैं। latest टैग और अन्य रखने तथा सुरक्षा नियम लागू रहेंगे; टैग तुरंत नहीं हटते। नीचे वर्तमान शर्तों की समीक्षा करें। केवल खाली रखने वाला पैटर्न भेजा जाता है। अन्य नीति फ़ील्ड नहीं बदलते, लेकिन GitLab अगला रन फिर निर्धारित कर सकता है। अनुरोध स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
 
   @override
-  String get containerProtectionPushRoleAcknowledge =>
-      'मैंने नियम और नई न्यूनतम पुश भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+  String get containerKeepPatternClearAcknowledge =>
+      'मैं समझता हूँ कि पहले सुरक्षित टैग स्थायी रूप से हटाए जाने योग्य हो सकते हैं।';
 
   @override
-  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
-    return 'प्रोजेक्ट $projectId — नियम $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, उम्र, प्रभावी हटाने का पैटर्न और गैर-खाली रखने का पैटर्न रिपोर्ट होना आवश्यक है। खाली या रिपोर्ट न किए गए रखने के पैटर्न को यहाँ नहीं हटाया जा सकता। कोई नीति नहीं बनाई जाएगी।';
 
   @override
-  String get containerProtectionPushRoleForbidden =>
-      'आपको यह नियम बदलने की अनुमति नहीं है।';
+  String get containerKeepPatternClearAccepted =>
+      'रखने का पैटर्न हटाने का अनुरोध स्वीकार हुआ।';
 
   @override
-  String get containerProtectionPushRoleError =>
-      'पुश भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
-
-  @override
-  String get containerProtectionPushRoleStale =>
-      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
-
-  @override
-  String get containerProtectionPushRoleReload => 'नियम पुनः लोड करें';
-
-  @override
-  String get containerProtectionPushRoleSaved => 'न्यूनतम पुश भूमिका बदल गई।';
-
-  @override
-  String get containerProtectionPushRoleMissing =>
-      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
-
-  @override
-  String get containerProtectionPushRoleRateLimited =>
-      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionPushRoleInvalid =>
-      'पुश भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
-
-  @override
-  String get containerProtectionPushRoleDraft => 'नई न्यूनतम पुश भूमिका';
-
-  @override
-  String get containerProtectionPushRoleSelect => 'पुश भूमिका चुनें';
-
-  @override
-  String get containerProtectionPushRoleUnknown =>
-      'वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।';
 }

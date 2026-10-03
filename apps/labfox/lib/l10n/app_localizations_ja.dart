@@ -4047,6 +4047,64 @@ class AppLocalizationsJa extends AppLocalizations {
       '要求が多すぎます。待ってから再試行してください。';
 
   @override
+  String get containerProtectionPushRoleTitle => '最低プッシュロールを編集';
+
+  @override
+  String get containerProtectionPushRoleSave => 'プッシュロールを保存';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      '最低プッシュロールを変更すると、一致するリポジトリにプッシュできる人が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる可能性があります。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したり、イメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionPushRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerProtectionPushRoleDraft => '新しい最低プッシュロール';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'プッシュロールを選択';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+
+  @override
   String get containerProtectionPushClearTitle => '最低プッシュロールを解除';
 
   @override
@@ -4123,60 +4181,27 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabがパターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
-  String get containerProtectionPushRoleTitle => '最低プッシュロールを編集';
+  String get containerKeepPatternClearTitle => 'クリーンアップ保持パターンを削除';
 
   @override
-  String get containerProtectionPushRoleSave => 'プッシュロールを保存';
+  String get containerKeepPatternClearSave => '保持パターンの削除を確認';
 
   @override
-  String get containerProtectionPushRoleWarning =>
-      '最低プッシュロールを変更すると、一致するリポジトリにプッシュできる人が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる可能性があります。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したり、イメージを削除したりするものではありません。';
+  String get containerKeepPatternClearWarning =>
+      'プロジェクト全体の保持パターンを削除すると、すべてのイメージリポジトリで以前保持されていたタグが定期クリーンアップによる完全削除の対象になる場合があります。latest タグと他の保持・保護ルールは引き続き適用され、タグが直ちに削除されるわけではありません。以下の現在の条件を確認してください。空の保持パターン文字列のみ送信します。他のポリシーフィールドは変更しませんが、GitLab が次回実行を再設定する場合があります。リクエストの受理はクリーンアップの完了や容量の回復を意味しません。';
 
   @override
-  String get containerProtectionPushRoleAcknowledge =>
-      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+  String get containerKeepPatternClearAcknowledge =>
+      '以前保持されていたタグが完全削除の対象になる場合があることを理解しました。';
 
   @override
-  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
-    return 'プロジェクト $projectId — ルール $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '有効状態、実行間隔、保持数、期間、有効な削除パターン、および空でない保持パターンの報告が必要です。空または未報告の保持パターンはここでは削除できません。ポリシーは作成しません。';
 
   @override
-  String get containerProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+  String get containerKeepPatternClearAccepted => '保持パターン削除リクエストが受理されました。';
 
   @override
-  String get containerProtectionPushRoleError =>
-      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
-
-  @override
-  String get containerProtectionPushRoleStale =>
-      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
-
-  @override
-  String get containerProtectionPushRoleReload => 'ルールを再読み込み';
-
-  @override
-  String get containerProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
-
-  @override
-  String get containerProtectionPushRoleMissing =>
-      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
-
-  @override
-  String get containerProtectionPushRoleRateLimited =>
-      '要求が多すぎます。待ってから再試行してください。';
-
-  @override
-  String get containerProtectionPushRoleInvalid =>
-      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
-
-  @override
-  String get containerProtectionPushRoleDraft => '新しい最低プッシュロール';
-
-  @override
-  String get containerProtectionPushRoleSelect => 'プッシュロールを選択';
-
-  @override
-  String get containerProtectionPushRoleUnknown =>
-      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。';
 }

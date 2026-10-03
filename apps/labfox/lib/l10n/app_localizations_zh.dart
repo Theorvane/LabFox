@@ -3927,6 +3927,60 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerProtectionPushClearRateLimited => '请求过多。请等待后重试。';
 
   @override
+  String get containerProtectionPushRoleTitle => '编辑最低推送角色';
+
+  @override
+  String get containerProtectionPushRoleSave => '保存推送角色';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      '更改最低推送角色会改变谁能向匹配的仓库推送。较低角色会削弱保护；较高角色可能阻断现有工作流程。路径模式和最低删除角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      '我已检查规则和新的最低推送角色，并了解访问权限的变化。';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      '无法确认推送角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionPushRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionPushRoleReload => '重新加载规则';
+
+  @override
+  String get containerProtectionPushRoleSaved => '最低推送角色已更新。';
+
+  @override
+  String get containerProtectionPushRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionPushRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionPushRoleInvalid => '推送角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerProtectionPushRoleDraft => '新的最低推送角色';
+
+  @override
+  String get containerProtectionPushRoleSelect => '选择推送角色';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
+
+  @override
   String get containerProtectionPushClearTitle => '清除最低推送角色';
 
   @override
@@ -4001,56 +4055,26 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerProtectionPushRoleTitle => '编辑最低推送角色';
+  String get containerKeepPatternClearTitle => '清除清理保留模式';
 
   @override
-  String get containerProtectionPushRoleSave => '保存推送角色';
+  String get containerKeepPatternClearSave => '确认移除保留模式';
 
   @override
-  String get containerProtectionPushRoleWarning =>
-      '更改最低推送角色会改变谁能向匹配的仓库推送。较低角色会削弱保护；较高角色可能阻断现有工作流程。路径模式和最低删除角色保持不变。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+  String get containerKeepPatternClearWarning =>
+      '移除此项目的保留模式后，所有镜像仓库中原先保留的标签可能在计划清理时被永久删除。latest 标签及其他保留和保护规则仍然适用；这不会立即删除标签。请检查下方当前条件。仅发送空的保留模式字符串。其他策略字段不变，但 GitLab 可能重新安排下次运行。请求被接受不代表清理完成或存储空间已回收。';
 
   @override
-  String get containerProtectionPushRoleAcknowledge =>
-      '我已检查规则和新的最低推送角色，并了解访问权限的变化。';
+  String get containerKeepPatternClearAcknowledge => '我了解原先保留的标签可能成为永久删除的对象。';
 
   @override
-  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
-    return '项目 $projectId — 规则 $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      '必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。';
 
   @override
-  String get containerProtectionPushRoleForbidden => '你没有更改此规则的权限。';
+  String get containerKeepPatternClearAccepted => '保留模式移除请求已被接受。';
 
   @override
-  String get containerProtectionPushRoleError =>
-      '无法确认推送角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
-
-  @override
-  String get containerProtectionPushRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
-
-  @override
-  String get containerProtectionPushRoleReload => '重新加载规则';
-
-  @override
-  String get containerProtectionPushRoleSaved => '最低推送角色已更新。';
-
-  @override
-  String get containerProtectionPushRoleMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
-
-  @override
-  String get containerProtectionPushRoleRateLimited => '请求过多。请等待后重试。';
-
-  @override
-  String get containerProtectionPushRoleInvalid => '推送角色被拒绝。请选择支持的角色后重试。';
-
-  @override
-  String get containerProtectionPushRoleDraft => '新的最低推送角色';
-
-  @override
-  String get containerProtectionPushRoleSelect => '选择推送角色';
-
-  @override
-  String get containerProtectionPushRoleUnknown =>
-      '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
 }

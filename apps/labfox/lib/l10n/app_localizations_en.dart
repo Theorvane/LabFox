@@ -4186,6 +4186,65 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many requests. Wait and retry.';
 
   @override
+  String get containerProtectionPushRoleTitle => 'Edit minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSave => 'Save push role';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      'Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'I have reviewed the rule and new minimum push role and understand the access changes.';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPushRoleReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPushRoleSaved => 'Minimum push role updated.';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'The push role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerProtectionPushRoleDraft => 'New minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'Select a push role';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String get containerProtectionPushClearTitle => 'Clear minimum push role';
 
   @override
@@ -4264,61 +4323,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerProtectionPushRoleTitle => 'Edit minimum push role';
+  String get containerKeepPatternClearTitle => 'Clear cleanup keep pattern';
 
   @override
-  String get containerProtectionPushRoleSave => 'Save push role';
+  String get containerKeepPatternClearSave => 'Confirm keep pattern removal';
 
   @override
-  String get containerProtectionPushRoleWarning =>
-      'Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.';
+  String get containerKeepPatternClearWarning =>
+      'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.';
 
   @override
-  String get containerProtectionPushRoleAcknowledge =>
-      'I have reviewed the rule and new minimum push role and understand the access changes.';
+  String get containerKeepPatternClearAcknowledge =>
+      'I understand that previously preserved tags may become eligible for permanent deletion.';
 
   @override
-  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
-    return 'Project $projectId — rule $ruleId';
-  }
+  String get containerKeepPatternClearUnknown =>
+      'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.';
 
   @override
-  String get containerProtectionPushRoleForbidden =>
-      'You do not have permission to change this rule.';
+  String get containerKeepPatternClearAccepted =>
+      'Keep pattern removal accepted.';
 
   @override
-  String get containerProtectionPushRoleError =>
-      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerProtectionPushRoleStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
-
-  @override
-  String get containerProtectionPushRoleReload => 'Reload rule';
-
-  @override
-  String get containerProtectionPushRoleSaved => 'Minimum push role updated.';
-
-  @override
-  String get containerProtectionPushRoleMissing =>
-      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
-
-  @override
-  String get containerProtectionPushRoleRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerProtectionPushRoleInvalid =>
-      'The push role was rejected. Choose a supported role and retry.';
-
-  @override
-  String get containerProtectionPushRoleDraft => 'New minimum push role';
-
-  @override
-  String get containerProtectionPushRoleSelect => 'Select a push role';
-
-  @override
-  String get containerProtectionPushRoleUnknown =>
-      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+  String get containerKeepPatternClearInvalid =>
+      'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.';
 }
