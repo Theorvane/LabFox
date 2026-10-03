@@ -101,7 +101,7 @@ class MeScreen extends ConsumerWidget {
             leading: const Icon(LabFoxIcons.settings),
             title: Text(l10n.meSettings),
             trailing: const Icon(LabFoxIcons.chevron),
-            onTap: () => context.push(Routes.settings),
+            onTap: () => context.go(Routes.settings),
           ),
           if (account != null)
             ListTile(

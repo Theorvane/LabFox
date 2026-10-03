@@ -30,7 +30,7 @@ void main() {
 
     expect(find.byType(NavigationBar), findsOneWidget);
     expect(find.byType(NavigationRail), findsNothing);
-    for (final label in ['Home', 'Inbox', 'Search', 'Me']) {
+    for (final label in ['Home', 'Settings', 'Search', 'Me']) {
       expect(find.text(label), findsOneWidget);
     }
   });

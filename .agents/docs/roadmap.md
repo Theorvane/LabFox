@@ -76,5 +76,5 @@ Home
 └── To-do
 ```
 
-Mobile navigation: Bottom Navigation — `Home · Inbox · Search · Me`
+Mobile navigation: Bottom Navigation — `Home · Settings · Search · Me`
 Desktop: Navigation Rail + Multi-pane + Command Palette (⌘K / Ctrl+K)

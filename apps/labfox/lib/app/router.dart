@@ -249,9 +249,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: Routes.inbox,
-        pageBuilder: (context, state) => const NoTransitionPage<void>(
-          child: AppShell(currentIndex: 1, child: InboxScreen()),
-        ),
+        builder: (context, state) => const InboxScreen(),
       ),
       GoRoute(
         path: Routes.search,
@@ -275,7 +273,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: Routes.settings,
-        builder: (context, state) => const SettingsScreen(),
+        pageBuilder: (context, state) => const NoTransitionPage<void>(
+          child: AppShell(currentIndex: 1, child: SettingsScreen()),
+        ),
         routes: [
           GoRoute(
             path: 'privacy',
