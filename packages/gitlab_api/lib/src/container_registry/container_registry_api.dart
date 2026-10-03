@@ -11,6 +11,41 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Changes only the minimum push role; other criteria stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionPushRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_push': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection push role',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection push role response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection push role',
+      );
+    }
+  }
+
   /// Creates a rule; omitted role fields impose no restriction from this rule.
   Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
     Object projectId, {
