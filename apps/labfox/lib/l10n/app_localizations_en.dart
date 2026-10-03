@@ -2918,6 +2918,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerPolicyCadence => 'Run interval';
 
   @override
+  String get containerCreateTitle => 'Create disabled cleanup policy';
+
+  @override
+  String get containerCreateSave => 'Confirm disabled policy creation';
+
+  @override
+  String get containerCreateWarning =>
+      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+
+  @override
+  String get containerCreateAcknowledge =>
+      'I have reviewed these criteria and understand that activation is a separate action.';
+
+  @override
+  String get containerCreateExisting =>
+      'This project already has a cleanup policy. Creation will not replace it; use its existing settings.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
+
+  @override
+  String get containerCreateAccepted =>
+      'Disabled cleanup policy creation accepted.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab rejected these policy settings. Review the criteria, then edit or retry.';
+
+  @override
+  String get containerCreateDaily => 'Every day';
+
+  @override
+  String get containerCreateWeekly => 'Every week';
+
+  @override
+  String get containerCreateFortnightly => 'Every two weeks';
+
+  @override
+  String get containerCreateMonthly => 'Every month';
+
+  @override
+  String get containerCreateQuarterly => 'Every three months';
+
+  @override
+  String containerCreateDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'Matching tags to keep per image';
 
   @override
@@ -3434,58 +3490,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerCreateTitle => 'Create disabled cleanup policy';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
 
   @override
-  String get containerCreateSave => 'Confirm disabled policy creation';
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
 
   @override
-  String get containerCreateWarning =>
-      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
 
   @override
-  String get containerCreateAcknowledge =>
-      'I have reviewed these criteria and understand that activation is a separate action.';
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
 
   @override
-  String get containerCreateExisting =>
-      'This project already has a cleanup policy. Creation will not replace it; use its existing settings.';
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
 
   @override
-  String get containerCreateUnknown =>
-      'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
-
-  @override
-  String get containerCreateAccepted =>
-      'Disabled cleanup policy creation accepted.';
-
-  @override
-  String get containerCreateInvalid =>
-      'GitLab rejected these policy settings. Review the criteria, then edit or retry.';
-
-  @override
-  String get containerCreateDaily => 'Every day';
-
-  @override
-  String get containerCreateWeekly => 'Every week';
-
-  @override
-  String get containerCreateFortnightly => 'Every two weeks';
-
-  @override
-  String get containerCreateMonthly => 'Every month';
-
-  @override
-  String get containerCreateQuarterly => 'Every three months';
-
-  @override
-  String containerCreateDays(int days) {
-    String _temp0 = intl.Intl.pluralLogic(
-      days,
-      locale: localeName,
-      other: '$days days',
-      one: '1 day',
-    );
-    return '$_temp0';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
   }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

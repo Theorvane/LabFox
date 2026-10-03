@@ -51,6 +51,13 @@ class ContainerRegistryScreen extends ConsumerWidget {
             },
           ),
           IconButton(
+            icon: const Icon(LabFoxIcons.private),
+            tooltip: l10n.containerRepositoryProtectionTitle,
+            onPressed: () => context.push(
+              Routes.containerRepositoryProtectionRules(projectId),
+            ),
+          ),
+          IconButton(
             tooltip: l10n.containerKeepPatternTitle,
             icon: const Icon(Icons.shield_outlined),
             onPressed: () async {

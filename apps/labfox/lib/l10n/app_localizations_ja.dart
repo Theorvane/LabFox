@@ -2836,6 +2836,54 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyCadence => '実行間隔';
 
   @override
+  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+
+  @override
+  String get containerCreateSave => '無効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateWarning =>
+      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+
+  @override
+  String get containerCreateExisting =>
+      'このプロジェクトには既存のクリーンアップポリシーがあります。作成では上書きしません。既存の設定を使用してください。';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
+
+  @override
+  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab が設定を拒否しました。条件を確認し、編集するか再試行してください。';
+
+  @override
+  String get containerCreateDaily => '毎日';
+
+  @override
+  String get containerCreateWeekly => '毎週';
+
+  @override
+  String get containerCreateFortnightly => '2週間ごと';
+
+  @override
+  String get containerCreateMonthly => '毎月';
+
+  @override
+  String get containerCreateQuarterly => '3か月ごと';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days日';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
 
   @override
@@ -3333,50 +3381,35 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
-  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override
-  String get containerCreateSave => '無効なポリシーの作成を確認';
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override
-  String get containerCreateWarning =>
-      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
 
   @override
-  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
 
   @override
-  String get containerCreateExisting =>
-      'このプロジェクトには既存のクリーンアップポリシーがあります。作成では上書きしません。既存の設定を使用してください。';
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
 
   @override
-  String get containerCreateUnknown =>
-      'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
-
-  @override
-  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
-
-  @override
-  String get containerCreateInvalid =>
-      'GitLab が設定を拒否しました。条件を確認し、編集するか再試行してください。';
-
-  @override
-  String get containerCreateDaily => '毎日';
-
-  @override
-  String get containerCreateWeekly => '毎週';
-
-  @override
-  String get containerCreateFortnightly => '2週間ごと';
-
-  @override
-  String get containerCreateMonthly => '毎月';
-
-  @override
-  String get containerCreateQuarterly => '3か月ごと';
-
-  @override
-  String containerCreateDays(int days) {
-    return '$days日';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
   }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

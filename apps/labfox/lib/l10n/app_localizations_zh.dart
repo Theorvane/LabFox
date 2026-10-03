@@ -2780,6 +2780,51 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyCadence => '运行间隔';
 
   @override
+  String get containerCreateTitle => '创建停用的清理策略';
+
+  @override
+  String get containerCreateSave => '确认创建停用策略';
+
+  @override
+  String get containerCreateWarning =>
+      '为所有镜像仓库保存停用的策略。这不会启用清理。以后启用前请检查所有条件：匹配的标签可能被永久删除。默认保留模式 .* 保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，使用 GitLab RE2 整个标签匹配规则。验证可能推迟到启用时进行。请求被接受不代表清理完成或存储空间已回收。';
+
+  @override
+  String get containerCreateAcknowledge => '我已检查这些条件，并了解启用是单独的操作。';
+
+  @override
+  String get containerCreateExisting => '此项目已有清理策略。创建不会覆盖它；请使用现有设置。';
+
+  @override
+  String get containerCreateUnknown => 'GitLab 未报告是否存在策略。请在 GitLab 中检查；创建已被阻止。';
+
+  @override
+  String get containerCreateAccepted => '停用的清理策略创建请求已被接受。';
+
+  @override
+  String get containerCreateInvalid => 'GitLab 拒绝这些策略设置。请检查条件，然后修改或重试。';
+
+  @override
+  String get containerCreateDaily => '每天';
+
+  @override
+  String get containerCreateWeekly => '每周';
+
+  @override
+  String get containerCreateFortnightly => '每两周';
+
+  @override
+  String get containerCreateMonthly => '每月';
+
+  @override
+  String get containerCreateQuarterly => '每三个月';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days天';
+  }
+
+  @override
   String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
 
   @override
@@ -3251,47 +3296,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerCreateTitle => '创建停用的清理策略';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
-  String get containerCreateSave => '确认创建停用策略';
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override
-  String get containerCreateWarning =>
-      '为所有镜像仓库保存停用的策略。这不会启用清理。以后启用前请检查所有条件：匹配的标签可能被永久删除。默认保留模式 .* 保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，使用 GitLab RE2 整个标签匹配规则。验证可能推迟到启用时进行。请求被接受不代表清理完成或存储空间已回收。';
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
 
   @override
-  String get containerCreateAcknowledge => '我已检查这些条件，并了解启用是单独的操作。';
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String get containerCreateExisting => '此项目已有清理策略。创建不会覆盖它；请使用现有设置。';
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
 
   @override
-  String get containerCreateUnknown => 'GitLab 未报告是否存在策略。请在 GitLab 中检查；创建已被阻止。';
-
-  @override
-  String get containerCreateAccepted => '停用的清理策略创建请求已被接受。';
-
-  @override
-  String get containerCreateInvalid => 'GitLab 拒绝这些策略设置。请检查条件，然后修改或重试。';
-
-  @override
-  String get containerCreateDaily => '每天';
-
-  @override
-  String get containerCreateWeekly => '每周';
-
-  @override
-  String get containerCreateFortnightly => '每两周';
-
-  @override
-  String get containerCreateMonthly => '每月';
-
-  @override
-  String get containerCreateQuarterly => '每三个月';
-
-  @override
-  String containerCreateDays(int days) {
-    return '$days天';
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
   }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }
