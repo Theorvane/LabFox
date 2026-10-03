@@ -2949,6 +2949,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerPolicyStatus => 'Status';
 
   @override
+  String get containerPolicyTitle => 'Cleanup policy';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab did not report a cleanup policy.';
+
+  @override
+  String get containerPolicyHint =>
+      'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.';
+
+  @override
+  String get containerPolicyNextRun =>
+      'Next run reported by GitLab (local time)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString months',
+      one: '1 month',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => 'Enabled';
 
   @override
@@ -2961,18 +3005,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerPolicyCadence => 'Run interval';
 
   @override
-  String get containerCreateTitle => 'Create disabled cleanup policy';
+  String get containerCreateTitle => 'Create cleanup policy';
 
   @override
   String get containerCreateSave => 'Confirm disabled policy creation';
 
   @override
   String get containerCreateWarning =>
-      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+      'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.';
 
   @override
   String get containerCreateAcknowledge =>
-      'I have reviewed these criteria and understand that activation is a separate action.';
+      'I have reviewed these criteria and understand that this policy will stay disabled.';
 
   @override
   String get containerCreateExisting =>
@@ -2983,8 +3027,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
 
   @override
-  String get containerCreateAccepted =>
-      'Disabled cleanup policy creation accepted.';
+  String get containerCreateAccepted => 'Cleanup policy creation accepted.';
 
   @override
   String get containerCreateInvalid =>
@@ -3018,6 +3061,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerPolicyKeepCount => 'Matching tags to keep per image';
+
+  @override
+  String get containerCreateEnable => 'Enable cleanup when creating';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.';
+
+  @override
+  String get containerCreateEnabledSave => 'Confirm enabled policy creation';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'The account changed. Close this dialog and reopen it to review the current project before creating a policy.';
 
   @override
   String get containerPolicyAge => 'Remove tags older than';
@@ -3971,6 +4032,60 @@ class AppLocalizationsEn extends AppLocalizations {
       'You do not have permission to view repository protection rules.';
 
   @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'Reload rule';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionDeleteClearTitle => 'Clear minimum delete role';
+
+  @override
+  String get containerProtectionDeleteClearSave => 'Clear delete restriction';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'This removes this rule\'s minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this delete restriction.';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionDeleteClearSaved =>
+      'Minimum delete-role restriction cleared.';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'The server rejected clearing this delete restriction. Check the rule and retry.';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
   String get containerRepositoryProtectionUnavailable =>
       'Repository protection rules are unavailable on this instance, or the project is not accessible.';
 
@@ -4043,6 +4158,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerAgeTitle => 'Edit cleanup age limit';
+
+  @override
+  String get containerAgeSave => 'Confirm age limit change';
+
+  @override
+  String get containerAgeSelect => 'New age limit (GitLab API duration)';
+
+  @override
+  String get containerAgeWarning =>
+      'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.';
+
+  @override
+  String get containerAgeUnknown =>
+      'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerAgeAccepted => 'Cleanup age limit update accepted.';
 
   @override
   String get containerProtectionDeleteRoleTitle => 'Edit minimum delete role';
