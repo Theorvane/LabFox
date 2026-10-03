@@ -2994,6 +2994,60 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerTagProtectionTitle => 'टैग सुरक्षा नियम';
 
   @override
+  String get containerTagProtectionCreateTitle => 'टैग सुरक्षा नियम बनाएँ';
+
+  @override
+  String get containerTagProtectionCreateSave => 'नियम बनाएँ';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'टैग नाम पैटर्न';
+
+  @override
+  String get containerTagProtectionCreatePush => 'न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerTagProtectionCreateDelete => 'न्यूनतम हटाने की भूमिका';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'भूमिका चुनें';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'यह पूरे प्रोजेक्ट का नियम सटीक glob पैटर्न से मेल खाने वाले टैग के पुश और हटाने को सीमित करता है। वाइल्डकार्ड कई टैग को प्रभावित कर सकते हैं और मौजूदा रिलीज़ या सफ़ाई रोक सकते हैं। दोनों भूमिकाएँ आवश्यक हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      'मैंने सटीक टैग पैटर्न और दोनों भूमिकाएँ जाँच ली हैं और मेल खाने वाले टैग पर प्रभाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'टैग पैटर्न या भूमिकाएँ अस्वीकार हुईं। दोनों आवश्यक भूमिकाएँ जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'टैग नियम बनने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'टैग नियम बन गया।';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'टैग नियम बनाने के लिए GitLab 18.8 या नया संस्करण और उपलब्ध प्रोजेक्ट आवश्यक है।';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
   String get containerTagProtectionEmpty => 'कोई टैग सुरक्षा नियम नहीं है।';
 
   @override
@@ -3434,56 +3488,38 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerTagProtectionCreateTitle => 'टैग सुरक्षा नियम बनाएँ';
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String get containerTagProtectionCreateSave => 'नियम बनाएँ';
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
 
   @override
-  String get containerTagProtectionCreatePattern => 'टैग नाम पैटर्न';
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
 
   @override
-  String get containerTagProtectionCreatePush => 'न्यूनतम पुश भूमिका';
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
 
   @override
-  String get containerTagProtectionCreateDelete => 'न्यूनतम हटाने की भूमिका';
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
 
   @override
-  String get containerTagProtectionCreateUnset => 'भूमिका चुनें';
-
-  @override
-  String get containerTagProtectionCreateWarning =>
-      'यह पूरे प्रोजेक्ट का नियम सटीक glob पैटर्न से मेल खाने वाले टैग के पुश और हटाने को सीमित करता है। वाइल्डकार्ड कई टैग को प्रभावित कर सकते हैं और मौजूदा रिलीज़ या सफ़ाई रोक सकते हैं। दोनों भूमिकाएँ आवश्यक हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
-
-  @override
-  String get containerTagProtectionCreateAcknowledge =>
-      'मैंने सटीक टैग पैटर्न और दोनों भूमिकाएँ जाँच ली हैं और मेल खाने वाले टैग पर प्रभाव समझता हूँ।';
-
-  @override
-  String containerTagProtectionCreateProject(String projectId) {
-    return 'प्रोजेक्ट $projectId';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
   }
 
   @override
-  String get containerTagProtectionCreateForbidden =>
-      'आपको यह नियम बनाने की अनुमति नहीं है।';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
 
   @override
-  String get containerTagProtectionCreateInvalid =>
-      'टैग पैटर्न या भूमिकाएँ अस्वीकार हुईं। दोनों आवश्यक भूमिकाएँ जाँचकर फिर प्रयास करें।';
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
 
   @override
-  String get containerTagProtectionCreateError =>
-      'टैग नियम बनने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
-
-  @override
-  String get containerTagProtectionCreateSaved => 'टैग नियम बन गया।';
-
-  @override
-  String get containerTagProtectionCreateUnavailable =>
-      'टैग नियम बनाने के लिए GitLab 18.8 या नया संस्करण और उपलब्ध प्रोजेक्ट आवश्यक है।';
-
-  @override
-  String get containerTagProtectionCreateRateLimited =>
-      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }

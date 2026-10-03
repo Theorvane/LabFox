@@ -2853,6 +2853,57 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerTagProtectionTitle => '标签保护规则';
 
   @override
+  String get containerTagProtectionCreateTitle => '创建标签保护规则';
+
+  @override
+  String get containerTagProtectionCreateSave => '创建规则';
+
+  @override
+  String get containerTagProtectionCreatePattern => '标签名称模式';
+
+  @override
+  String get containerTagProtectionCreatePush => '最低推送角色';
+
+  @override
+  String get containerTagProtectionCreateDelete => '最低删除角色';
+
+  @override
+  String get containerTagProtectionCreateUnset => '选择角色';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '此项目范围的规则会限制与精确glob模式匹配的标签推送和删除。通配符可能影响许多标签并阻断现有发布或清理流程。两个角色都必须选择。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '我已检查精确标签模式和两个角色，并了解对匹配标签的影响。';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '你没有创建此规则的权限。';
+
+  @override
+  String get containerTagProtectionCreateInvalid => '标签模式或角色被拒绝。请检查两个必需角色后重试。';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '无法确认标签规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionCreateSaved => '标签规则已创建。';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '创建标签规则需要GitLab 18.8或更高版本以及可访问的项目。';
+
+  @override
+  String get containerTagProtectionCreateRateLimited => '请求过多。请等待后重试。';
+
+  @override
   String get containerTagProtectionEmpty => '没有标签保护规则。';
 
   @override
@@ -3251,53 +3302,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerTagProtectionCreateTitle => '创建标签保护规则';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
-  String get containerTagProtectionCreateSave => '创建规则';
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override
-  String get containerTagProtectionCreatePattern => '标签名称模式';
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
 
   @override
-  String get containerTagProtectionCreatePush => '最低推送角色';
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String get containerTagProtectionCreateDelete => '最低删除角色';
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
 
   @override
-  String get containerTagProtectionCreateUnset => '选择角色';
-
-  @override
-  String get containerTagProtectionCreateWarning =>
-      '此项目范围的规则会限制与精确glob模式匹配的标签推送和删除。通配符可能影响许多标签并阻断现有发布或清理流程。两个角色都必须选择。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
-
-  @override
-  String get containerTagProtectionCreateAcknowledge =>
-      '我已检查精确标签模式和两个角色，并了解对匹配标签的影响。';
-
-  @override
-  String containerTagProtectionCreateProject(String projectId) {
-    return '项目 $projectId';
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
   }
 
   @override
-  String get containerTagProtectionCreateForbidden => '你没有创建此规则的权限。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
 
   @override
-  String get containerTagProtectionCreateInvalid => '标签模式或角色被拒绝。请检查两个必需角色后重试。';
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
-  String get containerTagProtectionCreateError =>
-      '无法确认标签规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
-
-  @override
-  String get containerTagProtectionCreateSaved => '标签规则已创建。';
-
-  @override
-  String get containerTagProtectionCreateUnavailable =>
-      '创建标签规则需要GitLab 18.8或更高版本以及可访问的项目。';
-
-  @override
-  String get containerTagProtectionCreateRateLimited => '请求过多。请等待后重试。';
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

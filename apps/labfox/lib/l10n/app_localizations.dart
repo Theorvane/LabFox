@@ -5576,6 +5576,96 @@ abstract class AppLocalizations {
   /// **'Tag protection rules'**
   String get containerTagProtectionTitle;
 
+  /// No description provided for @containerTagProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag protection rule'**
+  String get containerTagProtectionCreateTitle;
+
+  /// No description provided for @containerTagProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerTagProtectionCreateSave;
+
+  /// No description provided for @containerTagProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name pattern'**
+  String get containerTagProtectionCreatePattern;
+
+  /// No description provided for @containerTagProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerTagProtectionCreatePush;
+
+  /// No description provided for @containerTagProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerTagProtectionCreateDelete;
+
+  /// No description provided for @containerTagProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a role'**
+  String get containerTagProtectionCreateUnset;
+
+  /// No description provided for @containerTagProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.'**
+  String get containerTagProtectionCreateWarning;
+
+  /// No description provided for @containerTagProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.'**
+  String get containerTagProtectionCreateAcknowledge;
+
+  /// Project whose matching container tags will be protected
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerTagProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerTagProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerTagProtectionCreateForbidden;
+
+  /// No description provided for @containerTagProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag pattern or roles were rejected. Review both required roles and retry.'**
+  String get containerTagProtectionCreateInvalid;
+
+  /// No description provided for @containerTagProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionCreateError;
+
+  /// No description provided for @containerTagProtectionCreateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag rule was created.'**
+  String get containerTagProtectionCreateSaved;
+
+  /// No description provided for @containerTagProtectionCreateUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag rule creation requires GitLab 18.8 or later and an accessible project.'**
+  String get containerTagProtectionCreateUnavailable;
+
+  /// No description provided for @containerTagProtectionCreateRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionCreateRateLimited;
+
   /// No description provided for @containerTagProtectionEmpty.
   ///
   /// In en, this message translates to:
@@ -6272,95 +6362,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// No description provided for @containerTagProtectionCreateTitle.
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create tag protection rule'**
-  String get containerTagProtectionCreateTitle;
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerTagProtectionCreateSave.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Create rule'**
-  String get containerTagProtectionCreateSave;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerTagProtectionCreatePattern.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'Tag name pattern'**
-  String get containerTagProtectionCreatePattern;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerTagProtectionCreatePush.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'Minimum push role'**
-  String get containerTagProtectionCreatePush;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerTagProtectionCreateDelete.
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Minimum delete role'**
-  String get containerTagProtectionCreateDelete;
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerTagProtectionCreateUnset.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Select a role'**
-  String get containerTagProtectionCreateUnset;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerTagProtectionCreateWarning.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.'**
-  String get containerTagProtectionCreateWarning;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerTagProtectionCreateAcknowledge.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.'**
-  String get containerTagProtectionCreateAcknowledge;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// Project whose matching container tags will be protected
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'Project {projectId}'**
-  String containerTagProtectionCreateProject(String projectId);
-
-  /// No description provided for @containerTagProtectionCreateForbidden.
-  ///
-  /// In en, this message translates to:
-  /// **'You do not have permission to create this rule.'**
-  String get containerTagProtectionCreateForbidden;
-
-  /// No description provided for @containerTagProtectionCreateInvalid.
-  ///
-  /// In en, this message translates to:
-  /// **'The tag pattern or roles were rejected. Review both required roles and retry.'**
-  String get containerTagProtectionCreateInvalid;
-
-  /// No description provided for @containerTagProtectionCreateError.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.'**
-  String get containerTagProtectionCreateError;
-
-  /// No description provided for @containerTagProtectionCreateSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'The tag rule was created.'**
-  String get containerTagProtectionCreateSaved;
-
-  /// No description provided for @containerTagProtectionCreateUnavailable.
-  ///
-  /// In en, this message translates to:
-  /// **'Tag rule creation requires GitLab 18.8 or later and an accessible project.'**
-  String get containerTagProtectionCreateUnavailable;
-
-  /// No description provided for @containerTagProtectionCreateRateLimited.
-  ///
-  /// In en, this message translates to:
-  /// **'Too many requests. Wait and retry.'**
-  String get containerTagProtectionCreateRateLimited;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate

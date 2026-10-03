@@ -2997,6 +2997,60 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerTagProtectionTitle => 'Tag protection rules';
 
   @override
+  String get containerTagProtectionCreateTitle => 'Create tag protection rule';
+
+  @override
+  String get containerTagProtectionCreateSave => 'Create rule';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'Tag name pattern';
+
+  @override
+  String get containerTagProtectionCreatePush => 'Minimum push role';
+
+  @override
+  String get containerTagProtectionCreateDelete => 'Minimum delete role';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'Select a role';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden =>
+      'You do not have permission to create this rule.';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'The tag pattern or roles were rejected. Review both required roles and retry.';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'The tag rule was created.';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'Tag rule creation requires GitLab 18.8 or later and an accessible project.';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
   String get containerTagProtectionEmpty => 'No tag protection rules.';
 
   @override
@@ -3434,56 +3488,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerTagProtectionCreateTitle => 'Create tag protection rule';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
 
   @override
-  String get containerTagProtectionCreateSave => 'Create rule';
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
 
   @override
-  String get containerTagProtectionCreatePattern => 'Tag name pattern';
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
 
   @override
-  String get containerTagProtectionCreatePush => 'Minimum push role';
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
 
   @override
-  String get containerTagProtectionCreateDelete => 'Minimum delete role';
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
 
   @override
-  String get containerTagProtectionCreateUnset => 'Select a role';
-
-  @override
-  String get containerTagProtectionCreateWarning =>
-      'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.';
-
-  @override
-  String get containerTagProtectionCreateAcknowledge =>
-      'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.';
-
-  @override
-  String containerTagProtectionCreateProject(String projectId) {
-    return 'Project $projectId';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
   }
 
   @override
-  String get containerTagProtectionCreateForbidden =>
-      'You do not have permission to create this rule.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
 
   @override
-  String get containerTagProtectionCreateInvalid =>
-      'The tag pattern or roles were rejected. Review both required roles and retry.';
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerTagProtectionCreateError =>
-      'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerTagProtectionCreateSaved => 'The tag rule was created.';
-
-  @override
-  String get containerTagProtectionCreateUnavailable =>
-      'Tag rule creation requires GitLab 18.8 or later and an accessible project.';
-
-  @override
-  String get containerTagProtectionCreateRateLimited =>
-      'Too many requests. Wait and retry.';
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

@@ -2921,6 +2921,59 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerTagProtectionTitle => '태그 보호 규칙';
 
   @override
+  String get containerTagProtectionCreateTitle => '태그 보호 규칙 생성';
+
+  @override
+  String get containerTagProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerTagProtectionCreatePattern => '태그 이름 패턴';
+
+  @override
+  String get containerTagProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerTagProtectionCreateDelete => '최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionCreateUnset => '역할 선택';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '이 프로젝트 전체 규칙은 정확한 glob 패턴과 일치하는 태그의 푸시와 삭제를 제한합니다. 와일드카드는 많은 태그에 영향을 주고 기존 릴리스나 정리 작업을 막을 수 있습니다. 두 역할 모두 필수입니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '정확한 태그 패턴과 두 역할을 검토했으며 일치하는 태그에 미치는 영향을 이해했습니다.';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      '태그 패턴 또는 역할이 거부되었습니다. 두 필수 역할을 검토하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '태그 규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionCreateSaved => '태그 규칙이 생성되었습니다.';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '태그 규칙 생성에는 GitLab 18.8 이상과 접근 가능한 프로젝트가 필요합니다.';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
   String get containerTagProtectionEmpty => '태그 보호 규칙이 없습니다.';
 
   @override
@@ -3341,55 +3394,34 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 보관 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
-  String get containerTagProtectionCreateTitle => '태그 보호 규칙 생성';
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
 
   @override
-  String get containerTagProtectionCreateSave => '규칙 생성';
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
 
   @override
-  String get containerTagProtectionCreatePattern => '태그 이름 패턴';
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
 
   @override
-  String get containerTagProtectionCreatePush => '최소 푸시 역할';
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
 
   @override
-  String get containerTagProtectionCreateDelete => '최소 삭제 역할';
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
 
   @override
-  String get containerTagProtectionCreateUnset => '역할 선택';
-
-  @override
-  String get containerTagProtectionCreateWarning =>
-      '이 프로젝트 전체 규칙은 정확한 glob 패턴과 일치하는 태그의 푸시와 삭제를 제한합니다. 와일드카드는 많은 태그에 영향을 주고 기존 릴리스나 정리 작업을 막을 수 있습니다. 두 역할 모두 필수입니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
-
-  @override
-  String get containerTagProtectionCreateAcknowledge =>
-      '정확한 태그 패턴과 두 역할을 검토했으며 일치하는 태그에 미치는 영향을 이해했습니다.';
-
-  @override
-  String containerTagProtectionCreateProject(String projectId) {
-    return '프로젝트 $projectId';
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
   }
 
   @override
-  String get containerTagProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
 
   @override
-  String get containerTagProtectionCreateInvalid =>
-      '태그 패턴 또는 역할이 거부되었습니다. 두 필수 역할을 검토하고 다시 시도하세요.';
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override
-  String get containerTagProtectionCreateError =>
-      '태그 규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
-
-  @override
-  String get containerTagProtectionCreateSaved => '태그 규칙이 생성되었습니다.';
-
-  @override
-  String get containerTagProtectionCreateUnavailable =>
-      '태그 규칙 생성에는 GitLab 18.8 이상과 접근 가능한 프로젝트가 필요합니다.';
-
-  @override
-  String get containerTagProtectionCreateRateLimited =>
-      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 }
