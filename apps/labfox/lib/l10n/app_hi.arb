@@ -955,9 +955,6 @@
   "containerRepositoryProtectionForbidden": "आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।",
   "containerRepositoryProtectionUnavailable": "इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।",
   "containerRepositoryProtectionPushRole": "पुश करने के लिए न्यूनतम भूमिका: {role}",
-  "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
-  "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
-  "containerRepositoryProtectionRoleAdmin": "प्रशासक",
   "containerProtectionPushRoleTitle": "न्यूनतम पुश भूमिका बदलें",
   "containerProtectionPushRoleSave": "पुश भूमिका सहेजें",
   "containerProtectionPushRoleWarning": "न्यूनतम पुश भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में पुश करने वाले लोग बदलते हैं। निचली भूमिका सुरक्षा कम करती है; ऊँची भूमिका मौजूदा कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।",
@@ -973,5 +970,8 @@
   "containerProtectionPushRoleInvalid": "पुश भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।",
   "containerProtectionPushRoleDraft": "नई न्यूनतम पुश भूमिका",
   "containerProtectionPushRoleSelect": "पुश भूमिका चुनें",
-  "containerProtectionPushRoleUnknown": "वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।"
+  "containerProtectionPushRoleUnknown": "वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।",
+  "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
+  "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
+  "containerRepositoryProtectionRoleAdmin": "प्रशासक"
 }

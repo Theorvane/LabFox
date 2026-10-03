@@ -1903,7 +1903,6 @@
   "containerRepositoryProtectionRoleUnset": "Not specified by rule",
   "containerRepositoryProtectionRoleAdmin": "Administrator",
   "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
-  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
   "containerProtectionPushRoleTitle": "Edit minimum push role",
   "containerProtectionPushRoleSave": "Save push role",
   "containerProtectionPushRoleWarning": "Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.",
@@ -1931,6 +1930,7 @@
       }
     }
   },
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
   "containerImmutabilityDeleteTitle": "Delete immutable rule",
   "containerImmutabilityDeleteButton": "Delete rule",
   "containerImmutabilityDeleteDone": "Immutable rule deleted.",

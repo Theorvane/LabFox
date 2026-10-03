@@ -71,6 +71,14 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
+
+  Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
+    int projectId,
+  ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
+
+  Future<void> deleteRepository(int projectId, int repositoryId) =>
+      client.containerRegistry.deleteRepository(projectId, repositoryId);
+
   Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPushRole(
     int projectId,
     int ruleId,
@@ -80,13 +88,6 @@ class ContainerRegistryRepository {
     ruleId,
     role,
   );
-
-  Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
-    int projectId,
-  ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
-
-  Future<void> deleteRepository(int projectId, int repositoryId) =>
-      client.containerRegistry.deleteRepository(projectId, repositoryId);
 
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     int projectId,

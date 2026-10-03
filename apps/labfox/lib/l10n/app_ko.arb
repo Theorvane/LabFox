@@ -955,9 +955,6 @@
   "containerRepositoryProtectionForbidden": "저장소 보호 규칙을 볼 권한이 없습니다.",
   "containerRepositoryProtectionUnavailable": "이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.",
   "containerRepositoryProtectionPushRole": "최소 push 역할: {role}",
-  "containerRepositoryProtectionDeleteRole": "최소 삭제 역할: {role}",
-  "containerRepositoryProtectionRoleUnset": "규칙에 지정되지 않음",
-  "containerRepositoryProtectionRoleAdmin": "관리자",
   "containerProtectionPushRoleTitle": "최소 푸시 역할 수정",
   "containerProtectionPushRoleSave": "푸시 역할 저장",
   "containerProtectionPushRoleWarning": "최소 푸시 역할을 바꾸면 일치하는 저장소에 푸시할 수 있는 사람이 달라집니다. 낮은 역할은 보호를 약화하고 높은 역할은 기존 작업 흐름을 막을 수 있습니다. 경로 패턴과 최소 삭제 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.",
@@ -973,5 +970,8 @@
   "containerProtectionPushRoleInvalid": "푸시 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.",
   "containerProtectionPushRoleDraft": "새 최소 푸시 역할",
   "containerProtectionPushRoleSelect": "푸시 역할 선택",
-  "containerProtectionPushRoleUnknown": "현재 푸시 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다."
+  "containerProtectionPushRoleUnknown": "현재 푸시 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.",
+  "containerRepositoryProtectionDeleteRole": "최소 삭제 역할: {role}",
+  "containerRepositoryProtectionRoleUnset": "규칙에 지정되지 않음",
+  "containerRepositoryProtectionRoleAdmin": "관리자"
 }

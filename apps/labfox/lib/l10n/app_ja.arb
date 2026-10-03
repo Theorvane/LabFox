@@ -955,9 +955,6 @@
   "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
   "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
   "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
-  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
-  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理者",
   "containerProtectionPushRoleTitle": "最低プッシュロールを編集",
   "containerProtectionPushRoleSave": "プッシュロールを保存",
   "containerProtectionPushRoleWarning": "最低プッシュロールを変更すると、一致するリポジトリにプッシュできる人が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる可能性があります。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したり、イメージを削除したりするものではありません。",
@@ -973,5 +970,8 @@
   "containerProtectionPushRoleInvalid": "プッシュロールが拒否されました。対応するロールを選んで再試行してください。",
   "containerProtectionPushRoleDraft": "新しい最低プッシュロール",
   "containerProtectionPushRoleSelect": "プッシュロールを選択",
-  "containerProtectionPushRoleUnknown": "現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。"
+  "containerProtectionPushRoleUnknown": "現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。",
+  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }

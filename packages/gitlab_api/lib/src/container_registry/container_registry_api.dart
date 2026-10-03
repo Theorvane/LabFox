@@ -11,6 +11,7 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+
   /// Changes only the minimum push role; pattern and delete role are omitted.
   Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPushRole(
     Object projectId,
