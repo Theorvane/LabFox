@@ -3141,4 +3141,33 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageFileDeleteError => 'ファイルを削除できませんでした。再試行してください。';
+
+  @override
+  String get containerRepositoryDelete => 'リポジトリを削除';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => 'イメージリポジトリを削除しますか？';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '「$path」とすべてのタグを削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '削除は非同期で予約され、時間がかかる場合があります。レジストリを更新して進行状況を確認してください。';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'このリポジトリを削除できません。権限と保護ルールを確認してください。';
+
+  @override
+  String get containerRepositoryDeleteError => 'リポジトリの削除を予約できませんでした。再試行してください。';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '削除予約済み';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'リポジトリの削除が予約されました。更新して進行状況を確認してください。';
 }
