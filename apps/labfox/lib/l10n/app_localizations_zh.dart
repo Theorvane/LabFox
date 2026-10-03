@@ -3083,6 +3083,51 @@ class AppLocalizationsZh extends AppLocalizations {
       '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
 
   @override
+  String get containerImmutabilityDeleteTitle => '删除不可变规则';
+
+  @override
+  String get containerImmutabilityDeleteButton => '删除规则';
+
+  @override
+  String get containerImmutabilityDeleteDone => '不可变规则已删除。';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => '规则ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => '输入完全相同的模式';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      '删除此规则会移除其对项目中所有容器仓库的保护。匹配的标签可能可以被覆盖或删除，包括通过清理策略删除。移除最后一条不可变规则可能允许直接删除清单。其他规则和权限仍可能适用。此操作不会删除镜像或标签。需要Owner权限，变更生效可能需要一些时间。';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge => '我了解项目范围的保护丢失风险。';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      '无法确认删除结果。请求可能已经成功。重试前请重新加载规则。';
+
+  @override
+  String get containerImmutabilityDeleteReload => '重新加载规则';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      '规则已更改或GitLab拒绝了请求。重试前请重新加载并确认当前规则。';
+
+  @override
+  String get containerImmutabilityDeleteAuth => '会话被拒绝。删除规则前请重新登录。';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      '账户已更改。请关闭此对话框，然后为所选账户重新打开。';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,
@@ -3200,4 +3245,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerKeepCountAccepted => '清理保留数量更新已接受。';
+
+  @override
+  String get protectedBranchUnprotectTitle => '取消分支规则保护';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return '项目 $project：$name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      '移除此规则可能允许推送或合并，并改变 CI 行为。通配符规则可能影响多个分支。';
+
+  @override
+  String get protectedBranchUnprotectName => '输入完全一致的规则名称';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '我了解这对匹配分支的影响。';
+
+  @override
+  String get protectedBranchUnprotectReload => '重新检查规则';
+
+  @override
+  String get protectedBranchUnprotectSuccess => '分支规则已移除。';
+
+  @override
+  String get protectedBranchUnprotectAuth => '请重新登录后再更改此规则。';
+
+  @override
+  String get protectedBranchUnprotectForbidden => '您没有权限移除此规则。';
+
+  @override
+  String get protectedBranchUnprotectUnavailable => '此规则已不可用。继续前请检查列表。';
+
+  @override
+  String get protectedBranchUnprotectStale => '规则已更改。继续前请重新检查。';
+
+  @override
+  String get protectedBranchUnprotectRateLimited => 'GitLab 正在限制请求。重试前请检查规则。';
+
+  @override
+  String get protectedBranchUnprotectError => '无法确认规则是否已移除。重试前请先检查。';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged => '账户已更改。请关闭此对话框并重新打开规则。';
 }
