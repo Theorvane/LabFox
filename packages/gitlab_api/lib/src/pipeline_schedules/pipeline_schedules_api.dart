@@ -13,6 +13,8 @@ class PipelineSchedulesApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/pipeline_schedules';
 
+  /// Creates a schedule, omitting optional fields so GitLab supplies defaults.
+  /// An explicit inactive selection is preserved; GitLab validates ref and cron.
   Future<PipelineSchedule> create(
     Object projectId, {
     required String description,
