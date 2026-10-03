@@ -3409,6 +3409,31 @@ class AppLocalizationsEn extends AppLocalizations {
       'The account changed. Close this dialog and open the rule again.';
 
   @override
+  String get containerKeepPatternTitle => 'Edit cleanup keep pattern';
+
+  @override
+  String get containerKeepPatternSave => 'Confirm keep pattern change';
+
+  @override
+  String get containerKeepPatternSelect => 'New keep pattern (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      'Narrowing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. Review the current activation and deletion/retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Exact input is sent to GitLab for validation. Other settings are unchanged; acceptance does not confirm cleanup completion. Blank input does not clear the pattern.';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      'Reported activation, cadence, count, age, effective delete pattern and keep pattern are required. A reported empty keep pattern can be replaced; an unreported value cannot. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerKeepPatternAccepted =>
+      'Cleanup keep pattern update accepted.';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
+
+  @override
   String get containerTagProtectionCreateTitle => 'Create tag protection rule';
 
   @override
