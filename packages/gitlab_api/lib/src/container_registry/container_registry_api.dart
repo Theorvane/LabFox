@@ -11,6 +11,41 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Changes only the minimum push role; other criteria stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionPushRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_push': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection push role',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection push role response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection push role',
+      );
+    }
+  }
+
   /// Creates a rule; omitted role fields impose no restriction from this rule.
   Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
     Object projectId, {
@@ -111,6 +146,41 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Changes only the minimum delete role; other criteria stay unchanged (18.9+).
+  Future<ContainerTagProtectionRule> updateTagProtectionDeleteRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_delete': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating container tag protection delete role',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection delete role response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating container tag protection delete role',
+      );
+    }
+  }
+
   /// Changes only the tag glob; omitted role fields stay unchanged (18.9+).
   Future<ContainerTagProtectionRule> updateTagProtectionPattern(
     Object projectId,
@@ -164,13 +234,19 @@ class ContainerRegistryApi {
           context: 'listing container repository protection rules',
         );
       }
-      return (response.data as List<dynamic>)
-          .map(
-            (item) => ContainerRepositoryProtectionRule.fromJson(
-              item as Map<String, dynamic>,
-            ),
-          )
-          .toList(growable: false);
+      try {
+        return (response.data as List<dynamic>)
+            .map(
+              (item) => ContainerRepositoryProtectionRule.fromJson(
+                item as Map<String, dynamic>,
+              ),
+            )
+            .toList(growable: false);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid container repository protection rule list response',
+        );
+      }
     } on DioException catch (error) {
       throw mapError(
         error,
@@ -414,6 +490,42 @@ class ContainerRegistryApi {
       throw mapError(
         error,
         context: 'clearing container tag protection delete role',
+      );
+    }
+  }
+
+  /// Clears only the minimum push role; pattern and delete role are omitted.
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'minimum_access_level_for_push': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing repository protection push role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_push')) {
+          throw const FormatException('Missing cleared push role');
+        }
+        return ContainerRepositoryProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection push role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing repository protection push role',
       );
     }
   }
