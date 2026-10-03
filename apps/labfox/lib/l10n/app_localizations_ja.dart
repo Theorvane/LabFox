@@ -3363,9 +3363,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
 
   @override
-  String get containerRepositoryProtectionRoleAdmin => '管理者';
-
-  @override
   String containerProtectionPushClearTarget(String projectId, String ruleId) {
     return 'プロジェクト $projectId — ルール $ruleId';
   }
@@ -3416,4 +3413,7 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerProtectionPushClearBlocked =>
       '解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

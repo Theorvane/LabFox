@@ -3467,9 +3467,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
-
-  @override
   String containerProtectionPushClearTarget(String projectId, String ruleId) {
     return 'Project $projectId — rule $ruleId';
   }
@@ -3522,4 +3519,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerProtectionPushClearBlocked =>
       'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

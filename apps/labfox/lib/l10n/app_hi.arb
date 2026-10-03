@@ -957,7 +957,6 @@
   "containerRepositoryProtectionPushRole": "पुश करने के लिए न्यूनतम भूमिका: {role}",
   "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
   "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
-  "containerRepositoryProtectionRoleAdmin": "प्रशासक",
   "containerProtectionPushClearTarget": "प्रोजेक्ट {projectId} — नियम {ruleId}",
   "containerProtectionPushClearForbidden": "आपको यह नियम बदलने की अनुमति नहीं है।",
   "containerProtectionPushClearStale": "पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।",
@@ -971,5 +970,6 @@
   "containerProtectionPushClearError": "पुश प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।",
   "containerProtectionPushClearSaved": "न्यूनतम पुश-भूमिका प्रतिबंध हट गया।",
   "containerProtectionPushClearInvalid": "सर्वर ने पुश प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।",
-  "containerProtectionPushClearBlocked": "हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।"
+  "containerProtectionPushClearBlocked": "हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।",
+  "containerRepositoryProtectionRoleAdmin": "प्रशासक"
 }

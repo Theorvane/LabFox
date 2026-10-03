@@ -3280,9 +3280,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
-  String get containerRepositoryProtectionRoleAdmin => '管理员';
-
-  @override
   String containerProtectionPushClearTarget(String projectId, String ruleId) {
     return '项目 $projectId — 规则 $ruleId';
   }
@@ -3328,4 +3325,7 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerProtectionPushClearBlocked =>
       '清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

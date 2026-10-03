@@ -1980,9 +1980,6 @@
   "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
   "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
   "containerRepositoryProtectionRoleUnset": "Not specified by rule",
-  "containerRepositoryProtectionRoleAdmin": "Administrator",
-  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
-  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
   "containerProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
   "containerProtectionPushClearForbidden": "You do not have permission to change this rule.",
   "containerProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",
@@ -1997,5 +1994,8 @@
   "containerProtectionPushClearError": "Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
   "containerProtectionPushClearSaved": "Minimum push-role restriction cleared.",
   "containerProtectionPushClearInvalid": "The server rejected clearing this push restriction. Check the rule and retry.",
-  "containerProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared."
+  "containerProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.",
+  "containerRepositoryProtectionRoleAdmin": "Administrator",
+  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}}
 }

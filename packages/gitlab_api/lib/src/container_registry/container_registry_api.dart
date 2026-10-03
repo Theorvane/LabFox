@@ -12,42 +12,6 @@ class ContainerRegistryApi {
   final Dio _dio;
 
   /// Clears only the minimum push role; pattern and delete role are omitted.
-  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
-    Object projectId,
-    int ruleId,
-  ) async {
-    try {
-      final response = await _dio.patch<dynamic>(
-        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
-        data: {'minimum_access_level_for_push': ''},
-      );
-      if (response.statusCode != 200) {
-        throw mapStatus(
-          response.statusCode,
-          response.headers.map,
-          context: 'clearing repository protection push role',
-        );
-      }
-      try {
-        final data = response.data as Map<String, dynamic>;
-        if (!data.containsKey('minimum_access_level_for_push')) {
-          throw const FormatException('Missing cleared push role');
-        }
-        return ContainerRepositoryProtectionRule.fromJson(data);
-      } catch (_) {
-        throw const GitLabServerException(
-          'Invalid protection push role clear response',
-        );
-      }
-    } on DioException catch (error) {
-      throw mapError(
-        error,
-        context: 'clearing repository protection push role',
-      );
-    }
-  }
-
-  /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     Object projectId,
     int ruleId,
@@ -289,6 +253,42 @@ class ContainerRegistryApi {
       );
     } on DioException catch (error) {
       throw mapError(error, context: 'listing container tags');
+    }
+  }
+
+  /// Clears only the minimum push role; pattern and delete role are omitted.
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'minimum_access_level_for_push': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing repository protection push role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_push')) {
+          throw const FormatException('Missing cleared push role');
+        }
+        return ContainerRepositoryProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection push role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing repository protection push role',
+      );
     }
   }
 

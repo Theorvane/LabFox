@@ -3370,9 +3370,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override
-  String get containerRepositoryProtectionRoleAdmin => '관리자';
-
-  @override
   String containerProtectionPushClearTarget(String projectId, String ruleId) {
     return '프로젝트 $projectId — 규칙 $ruleId';
   }
@@ -3423,4 +3420,7 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerProtectionPushClearBlocked =>
       '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 }

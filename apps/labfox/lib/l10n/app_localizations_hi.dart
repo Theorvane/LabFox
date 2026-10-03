@@ -3467,9 +3467,6 @@ class AppLocalizationsHi extends AppLocalizations {
       'नियम में निर्दिष्ट नहीं';
 
   @override
-  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
-
-  @override
   String containerProtectionPushClearTarget(String projectId, String ruleId) {
     return 'प्रोजेक्ट $projectId — नियम $ruleId';
   }
@@ -3522,4 +3519,7 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerProtectionPushClearBlocked =>
       'हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }

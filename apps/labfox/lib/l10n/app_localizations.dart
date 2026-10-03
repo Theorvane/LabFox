@@ -6320,12 +6320,6 @@ abstract class AppLocalizations {
   /// **'Not specified by rule'**
   String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerRepositoryProtectionRoleAdmin.
-  ///
-  /// In en, this message translates to:
-  /// **'Administrator'**
-  String get containerRepositoryProtectionRoleAdmin;
-
   /// Exact project and protection rule identifiers
   ///
   /// In en, this message translates to:
@@ -6409,6 +6403,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
   String get containerProtectionPushClearBlocked;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate
