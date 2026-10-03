@@ -6,6 +6,35 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('deletes only the exact file in an encoded project package', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 204, headers: const {}, body: null);
+    });
+    await client.packages.deleteFile('team/project', 4, 9);
+    expect(request.method, 'DELETE');
+    expect(request.path, '/projects/team%2Fproject/packages/4/package_files/9');
+    expect(request.data, isNull);
+    expect(request.queryParameters, isEmpty);
+  });
+  for (final status in [200, 202, 401, 403, 404, 429, 500]) {
+    test('maps rejected or unconfirmed file deletion $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.packages.deleteFile(7, 4, 9),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('deletes the exact encoded project package without a body', () async {
     late RequestOptions request;
     final client = _client((options) {
