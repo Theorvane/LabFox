@@ -4258,4 +4258,31 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelinesChildHint => '查询子流水线需要 GitLab 17.0 或更高版本。';
+
+  @override
+  String get pipelineDownstreamTitle => '下游流水线';
+
+  @override
+  String get pipelineDownstreamEmpty => '没有流水线触发作业。';
+
+  @override
+  String get pipelineDownstreamError => '无法加载下游流水线。';
+
+  @override
+  String get pipelineDownstreamLoadMoreError => '无法加载更多下游流水线。';
+
+  @override
+  String get pipelineDownstreamUnavailable => '无法打开下游流水线。';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '项目 $projectIdString · 流水线 #$pipelineIdString';
+  }
 }

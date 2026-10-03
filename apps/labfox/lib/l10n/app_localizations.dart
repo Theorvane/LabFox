@@ -8041,6 +8041,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Child pipeline discovery requires GitLab 17.0 or later.'**
   String get pipelinesChildHint;
+
+  /// Pipeline detail downstream section: pipelineDownstreamTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Downstream pipelines'**
+  String get pipelineDownstreamTitle;
+
+  /// Pipeline detail downstream section: pipelineDownstreamEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No pipeline triggers.'**
+  String get pipelineDownstreamEmpty;
+
+  /// Pipeline detail downstream section: pipelineDownstreamError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load downstream pipelines.'**
+  String get pipelineDownstreamError;
+
+  /// Pipeline detail downstream section: pipelineDownstreamLoadMoreError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more downstream pipelines.'**
+  String get pipelineDownstreamLoadMoreError;
+
+  /// Pipeline detail downstream section: pipelineDownstreamUnavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Downstream pipeline unavailable to open.'**
+  String get pipelineDownstreamUnavailable;
+
+  /// Pipeline detail downstream section: pipelineDownstreamTarget
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} · Pipeline #{pipelineId}'**
+  String pipelineDownstreamTarget(int projectId, int pipelineId);
 }
 
 class _AppLocalizationsDelegate

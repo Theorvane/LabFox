@@ -4393,4 +4393,31 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pipelinesChildHint => '子パイプラインの検索には GitLab 17.0 以降が必要です。';
+
+  @override
+  String get pipelineDownstreamTitle => 'ダウンストリームパイプライン';
+
+  @override
+  String get pipelineDownstreamEmpty => 'パイプライントリガーはありません。';
+
+  @override
+  String get pipelineDownstreamError => 'ダウンストリームパイプラインを読み込めませんでした。';
+
+  @override
+  String get pipelineDownstreamLoadMoreError => 'ダウンストリームパイプラインをさらに読み込めませんでした。';
+
+  @override
+  String get pipelineDownstreamUnavailable => 'ダウンストリームパイプラインを開けません。';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return 'プロジェクト $projectIdString · パイプライン #$pipelineIdString';
+  }
 }

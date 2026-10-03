@@ -13,6 +13,7 @@ import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/pipelines_controllers.dart';
+import 'downstream_pipelines_section.dart';
 
 /// One pipeline: its status header and jobs grouped by stage.
 class PipelineDetailScreen extends ConsumerWidget {
@@ -44,6 +45,7 @@ class PipelineDetailScreen extends ConsumerWidget {
         onRefresh: () async {
           ref.invalidate(pipelineDetailProvider(pipelineRef));
           ref.invalidate(pipelineJobsControllerProvider(pipelineRef));
+          ref.invalidate(pipelineTriggerJobsControllerProvider(pipelineRef));
         },
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: LabFoxSpacing.md),
@@ -84,6 +86,8 @@ class PipelineDetailScreen extends ConsumerWidget {
                 );
               },
             ),
+            const Divider(height: LabFoxSpacing.xl),
+            DownstreamPipelinesSection(pipelineRef: pipelineRef),
           ],
         ),
       ),
@@ -127,7 +131,10 @@ class _PipelineHeader extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      pipeline.ref ?? 'Pipeline #${pipeline.id}',
+                      pipeline.ref ??
+                          AppLocalizations.of(
+                            context,
+                          ).pipelineSchedulePipelineNumber(pipeline.id),
                       style: theme.textTheme.titleLarge,
                     ),
                     const SizedBox(height: LabFoxSpacing.xs),

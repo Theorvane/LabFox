@@ -2403,5 +2403,39 @@
   "pipelinesChildHint": "Child pipeline discovery requires GitLab 17.0 or later.",
   "@pipelinesChildHint": {
     "description": "GitLab 17.0 minimum-version hint for explicit child pipeline discovery"
+  },
+  "pipelineDownstreamTitle": "Downstream pipelines",
+  "@pipelineDownstreamTitle": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamTitle"
+  },
+  "pipelineDownstreamEmpty": "No pipeline triggers.",
+  "@pipelineDownstreamEmpty": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamEmpty"
+  },
+  "pipelineDownstreamError": "Could not load downstream pipelines.",
+  "@pipelineDownstreamError": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamError"
+  },
+  "pipelineDownstreamLoadMoreError": "Could not load more downstream pipelines.",
+  "@pipelineDownstreamLoadMoreError": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamLoadMoreError"
+  },
+  "pipelineDownstreamUnavailable": "Downstream pipeline unavailable to open.",
+  "@pipelineDownstreamUnavailable": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamUnavailable"
+  },
+  "pipelineDownstreamTarget": "Project {projectId} · Pipeline #{pipelineId}",
+  "@pipelineDownstreamTarget": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamTarget",
+    "placeholders": {
+      "projectId": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "pipelineId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
   }
 }

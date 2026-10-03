@@ -1245,5 +1245,11 @@
   "pipelinesSourcePipeline": "다중 프로젝트 파이프라인",
   "pipelinesSourceMergeRequest": "병합 요청",
   "pipelinesSourceChild": "하위 파이프라인",
-  "pipelinesChildHint": "하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다."
+  "pipelinesChildHint": "하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다.",
+  "pipelineDownstreamTitle": "연결된 하위 파이프라인",
+  "pipelineDownstreamEmpty": "파이프라인 트리거가 없습니다.",
+  "pipelineDownstreamError": "연결된 하위 파이프라인을 불러오지 못했습니다.",
+  "pipelineDownstreamLoadMoreError": "연결된 하위 파이프라인을 더 불러오지 못했습니다.",
+  "pipelineDownstreamUnavailable": "연결된 하위 파이프라인을 열 수 없습니다.",
+  "pipelineDownstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}"
 }

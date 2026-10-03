@@ -1245,5 +1245,11 @@
   "pipelinesSourcePipeline": "マルチプロジェクトパイプライン",
   "pipelinesSourceMergeRequest": "マージリクエスト",
   "pipelinesSourceChild": "子パイプライン",
-  "pipelinesChildHint": "子パイプラインの検索には GitLab 17.0 以降が必要です。"
+  "pipelinesChildHint": "子パイプラインの検索には GitLab 17.0 以降が必要です。",
+  "pipelineDownstreamTitle": "ダウンストリームパイプライン",
+  "pipelineDownstreamEmpty": "パイプライントリガーはありません。",
+  "pipelineDownstreamError": "ダウンストリームパイプラインを読み込めませんでした。",
+  "pipelineDownstreamLoadMoreError": "ダウンストリームパイプラインをさらに読み込めませんでした。",
+  "pipelineDownstreamUnavailable": "ダウンストリームパイプラインを開けません。",
+  "pipelineDownstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}"
 }

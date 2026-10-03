@@ -95,6 +95,12 @@ class _FakeJobs extends JobRepository {
 const _pipeline = Pipeline(id: 4, status: 'success');
 
 class _FakePipelines extends PipelinesRepository {
+  @override
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) async => const Paginated(items: []);
   _FakePipelines() : super(_client());
 
   @override

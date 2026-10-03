@@ -29,6 +29,12 @@ class _Subscribed extends EntitlementController {
 }
 
 class _Repository extends PipelinesRepository {
+  @override
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) async => const Paginated(items: []);
   _Repository()
     : super(
         GitLabClient(

@@ -4542,4 +4542,34 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get pipelinesChildHint =>
       'चाइल्ड पाइपलाइन खोजने के लिए GitLab 17.0 या बाद का संस्करण आवश्यक है।';
+
+  @override
+  String get pipelineDownstreamTitle => 'डाउनस्ट्रीम पाइपलाइन';
+
+  @override
+  String get pipelineDownstreamEmpty => 'कोई पाइपलाइन ट्रिगर नहीं है।';
+
+  @override
+  String get pipelineDownstreamError =>
+      'डाउनस्ट्रीम पाइपलाइन लोड नहीं हो सकीं।';
+
+  @override
+  String get pipelineDownstreamLoadMoreError =>
+      'और डाउनस्ट्रीम पाइपलाइन लोड नहीं हो सकीं।';
+
+  @override
+  String get pipelineDownstreamUnavailable =>
+      'डाउनस्ट्रीम पाइपलाइन खोलना उपलब्ध नहीं है।';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return 'प्रोजेक्ट $projectIdString · पाइपलाइन #$pipelineIdString';
+  }
 }

@@ -194,6 +194,7 @@ class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
       ref.invalidate(pipelinesControllerProvider(arg.projectId));
       ref.invalidate(pipelineDetailProvider(arg));
       ref.invalidate(pipelineJobsControllerProvider(arg));
+      ref.invalidate(pipelineTriggerJobsControllerProvider(arg));
       unawaited(ref.read(analyticsProvider).track(event));
       state = const AsyncData(null);
     } catch (error, stack) {
@@ -207,3 +208,61 @@ final pipelineActionsControllerProvider =
     AsyncNotifierProvider.family<PipelineActionsController, void, PipelineRef>(
       PipelineActionsController.new,
     );
+
+/// Downstream trigger jobs with header pagination and stale-page isolation.
+class PipelineTriggerJobsController
+    extends FamilyAsyncNotifier<Paginated<PipelineTriggerJob>, PipelineRef> {
+  bool _loadingMore = false;
+  int _generation = 0;
+  @override
+  Future<Paginated<PipelineTriggerJob>> build(PipelineRef arg) async {
+    _generation++;
+    _loadingMore = false;
+    final repo = await ref.watch(pipelinesRepositoryProvider.future);
+    if (repo == null) throw StateError('No authenticated account');
+    return repo.triggerJobs(
+      projectId: arg.projectId,
+      pipelineId: arg.pipelineId,
+    );
+  }
+
+  Future<void> loadMore() async {
+    if (_loadingMore || state.isLoading) return;
+    final current = state.valueOrNull;
+    final page = current?.nextPage;
+    if (current == null || page == null) return;
+    final generation = _generation;
+    _loadingMore = true;
+    try {
+      final repo = await ref.read(pipelinesRepositoryProvider.future);
+      if (repo == null) throw StateError('No authenticated account');
+      final next = await repo.triggerJobs(
+        projectId: arg.projectId,
+        pipelineId: arg.pipelineId,
+        page: page,
+      );
+      if (generation != _generation) return;
+      final items = {for (final job in current.items) job.id: job};
+      for (final job in next.items) {
+        items[job.id] = job;
+      }
+      state = AsyncData(
+        Paginated(
+          items: items.values.toList(growable: false),
+          nextPage: next.nextPage,
+          total: next.total,
+          totalPages: next.totalPages,
+        ),
+      );
+    } finally {
+      if (generation == _generation) _loadingMore = false;
+    }
+  }
+}
+
+final pipelineTriggerJobsControllerProvider =
+    AsyncNotifierProvider.family<
+      PipelineTriggerJobsController,
+      Paginated<PipelineTriggerJob>,
+      PipelineRef
+    >(PipelineTriggerJobsController.new);

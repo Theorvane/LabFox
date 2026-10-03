@@ -79,6 +79,57 @@ class PipelinesApi {
     }
   }
 
+  /// Lists trigger jobs, using the pre-19.2 route only after a modern-route 404.
+  Future<Paginated<PipelineTriggerJob>> triggerJobs(
+    Object projectId, {
+    required int pipelineId,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    final path = '/projects/${_enc(projectId)}/pipelines/$pipelineId';
+    final query = {'page': page, 'per_page': perPage};
+    try {
+      Response<dynamic> response;
+      try {
+        response = await _dio.get<dynamic>(
+          '$path/trigger_jobs',
+          queryParameters: query,
+        );
+      } on DioException catch (error) {
+        if (error.response?.statusCode != 404) rethrow;
+        response = await _dio.get<dynamic>(
+          '$path/bridges',
+          queryParameters: query,
+        );
+        return _triggerJobsPage(response);
+      }
+      if (response.statusCode == 404) {
+        response = await _dio.get<dynamic>(
+          '$path/bridges',
+          queryParameters: query,
+        );
+      }
+      return _triggerJobsPage(response);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing pipeline trigger jobs');
+    }
+  }
+
+  Paginated<PipelineTriggerJob> _triggerJobsPage(Response<dynamic> response) {
+    if (response.statusCode != 200) {
+      throw mapStatus(
+        response.statusCode,
+        response.headers.map,
+        context: 'listing pipeline trigger jobs',
+      );
+    }
+    final jobs = (response.data as List<dynamic>? ?? const [])
+        .cast<Map<String, dynamic>>()
+        .map(PipelineTriggerJob.fromJson)
+        .toList(growable: false);
+    return Paginated.fromHeaders(jobs, response.headers.map);
+  }
+
   /// A single pipeline by id.
   Future<Pipeline> get(Object projectId, {required int pipelineId}) async {
     try {

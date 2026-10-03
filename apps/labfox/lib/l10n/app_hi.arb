@@ -1245,5 +1245,11 @@
   "pipelinesSourcePipeline": "बहु-प्रोजेक्ट पाइपलाइन",
   "pipelinesSourceMergeRequest": "मर्ज अनुरोध",
   "pipelinesSourceChild": "चाइल्ड पाइपलाइन",
-  "pipelinesChildHint": "चाइल्ड पाइपलाइन खोजने के लिए GitLab 17.0 या बाद का संस्करण आवश्यक है।"
+  "pipelinesChildHint": "चाइल्ड पाइपलाइन खोजने के लिए GitLab 17.0 या बाद का संस्करण आवश्यक है।",
+  "pipelineDownstreamTitle": "डाउनस्ट्रीम पाइपलाइन",
+  "pipelineDownstreamEmpty": "कोई पाइपलाइन ट्रिगर नहीं है।",
+  "pipelineDownstreamError": "डाउनस्ट्रीम पाइपलाइन लोड नहीं हो सकीं।",
+  "pipelineDownstreamLoadMoreError": "और डाउनस्ट्रीम पाइपलाइन लोड नहीं हो सकीं।",
+  "pipelineDownstreamUnavailable": "डाउनस्ट्रीम पाइपलाइन खोलना उपलब्ध नहीं है।",
+  "pipelineDownstreamTarget": "प्रोजेक्ट {projectId} · पाइपलाइन #{pipelineId}"
 }

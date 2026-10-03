@@ -21,6 +21,16 @@ class PipelinesRepository {
     source: source,
   );
 
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) => _client.pipelines.triggerJobs(
+    projectId,
+    pipelineId: pipelineId,
+    page: page,
+  );
+
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
   }

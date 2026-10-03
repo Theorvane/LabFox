@@ -32,6 +32,7 @@ export 'src/oauth_token.dart';
 export 'src/package_file.dart';
 export 'src/pipeline.dart';
 export 'src/pipeline_schedule.dart';
+export 'src/pipeline_trigger_job.dart';
 export 'src/project.dart';
 export 'src/project_event.dart';
 export 'src/project_label.dart';
