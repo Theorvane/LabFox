@@ -3309,6 +3309,30 @@ class AppLocalizationsJa extends AppLocalizations {
       'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
 
   @override
+  String get containerKeepPatternTitle => 'クリーンアップ保持パターンを編集';
+
+  @override
+  String get containerKeepPatternSave => '保持パターンの変更を確認';
+
+  @override
+  String get containerKeepPatternSelect => '新しい保持パターン (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      'プロジェクト全体の保持パターンを狭めると、定期クリーンアップで各リポジトリの以前保持されたタグが完全削除の対象になる可能性があります。以下の有効状態と削除・保持条件を確認してください。GitLabはRE2を使い、タグ名全体にパターンを適用します。入力はそのまま送信されGitLabが検証します。他の設定は変更されず、受理は削除完了を意味しません。空の入力ではパターンを消去しません。';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      '有効状態、間隔、保持数、期限、有効な削除・保持パターンの報告が必要です。報告された空の保持パターンは変更できますが、未報告の値は変更できません。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerKeepPatternAccepted => 'クリーンアップ保持パターンの更新が受理されました。';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
+
+  @override
   String get containerCleanupTitle => 'タグを整理';
 
   @override
