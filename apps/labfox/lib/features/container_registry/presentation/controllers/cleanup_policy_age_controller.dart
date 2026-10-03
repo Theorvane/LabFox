@@ -24,6 +24,7 @@ const cleanupPolicyAges = [
 bool canEditCleanupAge(ContainerCleanupPolicy? policy) =>
     policy != null &&
     policy.enabled != null &&
+    policy.nameRegexKeep != null &&
     policy.cadence?.isNotEmpty == true &&
     policy.keepN != null &&
     policy.keepN! >= 0 &&

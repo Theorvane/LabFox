@@ -8,6 +8,9 @@ part of 'project.dart';
 
 _Project _$ProjectFromJson(Map<String, dynamic> json) => _Project(
   id: (json['id'] as num).toInt(),
+  namespaceDetails: json['namespace'] == null
+      ? null
+      : ProjectNamespace.fromJson(json['namespace'] as Map<String, dynamic>),
   name: json['name'] as String,
   pathWithNamespace: json['path_with_namespace'] as String,
   description: json['description'] as String?,
@@ -35,6 +38,7 @@ _Project _$ProjectFromJson(Map<String, dynamic> json) => _Project(
 
 Map<String, dynamic> _$ProjectToJson(_Project instance) => <String, dynamic>{
   'id': instance.id,
+  'namespace': instance.namespaceDetails?.toJson(),
   'name': instance.name,
   'path_with_namespace': instance.pathWithNamespace,
   'description': instance.description,
@@ -52,3 +56,12 @@ Map<String, dynamic> _$ProjectToJson(_Project instance) => <String, dynamic>{
   'web_url': instance.webUrl,
   'last_activity_at': instance.lastActivityAt?.toIso8601String(),
 };
+
+_ProjectNamespace _$ProjectNamespaceFromJson(Map<String, dynamic> json) =>
+    _ProjectNamespace(
+      id: (json['id'] as num?)?.toInt(),
+      kind: json['kind'] as String?,
+    );
+
+Map<String, dynamic> _$ProjectNamespaceToJson(_ProjectNamespace instance) =>
+    <String, dynamic>{'id': instance.id, 'kind': instance.kind};

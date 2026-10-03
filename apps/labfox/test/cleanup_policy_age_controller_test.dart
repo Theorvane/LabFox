@@ -52,6 +52,40 @@ class AgeRepository extends ContainerRegistryRepository {
 }
 
 void main() {
+  test(
+    'unreported keep pattern blocks deletion expansion before reading',
+    () async {
+      final repository = AgeRepository();
+      final container = ProviderContainer(
+        overrides: [
+          containerRegistryRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      final expected = reviewedPolicy.copyWith(
+        enabled: false,
+        nameRegexKeep: null,
+      );
+      repository.policy = expected;
+      await expectLater(
+        container
+            .read(cleanupPolicyAgeControllerProvider(7).notifier)
+            .setAge(expected: expected, olderThan: '1d'),
+        throwsArgumentError,
+      );
+      expect(repository.reads, 0);
+      expect(repository.writes, isEmpty);
+    },
+  );
+  test('explicit empty keep pattern is reported', () {
+    expect(
+      canEditCleanupAge(reviewedPolicy.copyWith(nameRegexKeep: '')),
+      isTrue,
+    );
+  });
+
   late AgeRepository repository;
   late ProviderContainer container;
   setUp(() {

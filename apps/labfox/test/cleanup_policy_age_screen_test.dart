@@ -76,6 +76,16 @@ Future<void> selectYoungest(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('unreported keep pattern hides deletion expansion', (
+    tester,
+  ) async {
+    final repository = AgeRepository()
+      ..policy = reviewedPolicy.copyWith(enabled: false, nameRegexKeep: null);
+    await open(tester, repository);
+    expect(find.byType(FilledButton), findsNothing);
+    expect(repository.writes, isEmpty);
+  });
+
   testWidgets('current retention count has its own criterion label', (
     tester,
   ) async {
