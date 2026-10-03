@@ -8,6 +8,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_tag_protection_controller.dart';
 import 'widgets/container_tag_protection_create_dialog.dart';
+import 'widgets/container_tag_protection_delete_clear_dialog.dart';
 import 'widgets/container_tag_protection_delete_dialog.dart';
 import 'widgets/container_tag_protection_delete_role_dialog.dart';
 import 'widgets/container_tag_protection_pattern_dialog.dart';
@@ -109,9 +110,39 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  Wrap(
+                                    alignment: WrapAlignment.end,
                                     children: [
+                                      IconButton(
+                                        tooltip: l10n
+                                            .containerTagProtectionDeleteClearTitle,
+                                        icon: const Icon(
+                                          Icons.lock_open_outlined,
+                                        ),
+                                        onPressed: () async {
+                                          final saved = await showDialog<bool>(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) =>
+                                                ContainerTagProtectionDeleteClearDialog(
+                                                  projectId: projectId,
+                                                  rule: rule,
+                                                ),
+                                          );
+                                          if (saved == true &&
+                                              context.mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  l10n.containerTagProtectionDeleteClearSaved,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
                                       IconButton(
                                         tooltip: l10n
                                             .containerTagProtectionDeleteRoleTitle,

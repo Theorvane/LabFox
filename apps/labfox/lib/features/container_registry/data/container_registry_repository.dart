@@ -178,6 +178,11 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<ContainerTagProtectionRule> clearTagProtectionDeleteRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearTagProtectionDeleteRole(projectId, ruleId);
+
   Future<void> deleteTag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.deleteTag(projectId, repositoryId, tagName);
 
@@ -210,6 +215,16 @@ class ContainerRegistryRepository {
     ruleId,
     pattern,
   );
+
+  Future<void> setCleanupPolicyDeletePattern(
+    int projectId, {
+    required String nameRegexDelete,
+  }) async {
+    await client.projects.setCleanupPolicyDeletePattern(
+      projectId,
+      nameRegexDelete: nameRegexDelete,
+    );
+  }
 
   Future<void> setCleanupPolicyAge(
     int projectId, {
