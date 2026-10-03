@@ -3120,6 +3120,67 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 변경하면 프로젝트에서 일치하는 컨테이너 이미지 태그를 삭제할 수 있는 대상이 바뀝니다. 역할을 낮추면 삭제 보호가 약해지고 높이면 기존 정리 작업이 차단될 수 있습니다. 태그 패턴과 최소 푸시 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 규칙을 저장해도 태그나 이미지는 삭제되지 않습니다. Git 태그에는 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
   String get containerTagProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override

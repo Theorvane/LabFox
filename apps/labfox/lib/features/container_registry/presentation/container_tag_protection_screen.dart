@@ -9,6 +9,7 @@ import '../../../l10n/app_localizations.dart';
 import 'controllers/container_tag_protection_controller.dart';
 import 'widgets/container_tag_protection_create_dialog.dart';
 import 'widgets/container_tag_protection_delete_dialog.dart';
+import 'widgets/container_tag_protection_delete_role_dialog.dart';
 import 'widgets/container_tag_protection_pattern_dialog.dart';
 import 'widgets/container_tag_protection_push_clear_dialog.dart';
 
@@ -110,6 +111,34 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
+                                      IconButton(
+                                        tooltip: l10n
+                                            .containerTagProtectionDeleteRoleTitle,
+                                        icon: const Icon(Icons.edit_outlined),
+                                        onPressed: () async {
+                                          final saved = await showDialog<bool>(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) =>
+                                                ContainerTagProtectionDeleteRoleDialog(
+                                                  projectId: projectId,
+                                                  rule: rule,
+                                                ),
+                                          );
+                                          if (saved == true &&
+                                              context.mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  l10n.containerTagProtectionDeleteRoleSaved,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
                                       IconButton(
                                         tooltip: l10n
                                             .containerTagProtectionRemoveTitle,

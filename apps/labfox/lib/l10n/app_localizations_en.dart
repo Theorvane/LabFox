@@ -3208,6 +3208,70 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionDeleteRoleTitle =>
+      'Edit minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => 'Save delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      'Changing the minimum delete role changes who can delete matching container image tags across this project. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The tag pattern and minimum push role stay unchanged. Other rules and permissions still apply. Saving this rule does not delete tags or images, affect Git tags, or describe your current access.';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      'I have reviewed the rule and new minimum delete role and understand the access changes.';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved =>
+      'Minimum delete role updated.';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      'The delete role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => 'New minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => 'Select a delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String get containerTagProtectionRoleUnset => 'Not specified by rule';
 
   @override
