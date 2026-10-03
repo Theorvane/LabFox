@@ -9,6 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'Create schedule';
+
+  @override
+  String get pipelineScheduleCreateTitle => 'New pipeline schedule';
+
+  @override
+  String get pipelineScheduleCreateDescription => 'Description';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => 'Enter a value.';
+
+  @override
+  String get pipelineScheduleCreateActive => 'Active';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.';
+
+  @override
   String get releaseCreationMilestoneTitle => 'Milestone title (optional)';
 
   @override
@@ -2997,6 +3020,60 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerTagProtectionTitle => 'Tag protection rules';
 
   @override
+  String get containerTagProtectionCreateTitle => 'Create tag protection rule';
+
+  @override
+  String get containerTagProtectionCreateSave => 'Create rule';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'Tag name pattern';
+
+  @override
+  String get containerTagProtectionCreatePush => 'Minimum push role';
+
+  @override
+  String get containerTagProtectionCreateDelete => 'Minimum delete role';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'Select a role';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden =>
+      'You do not have permission to create this rule.';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'The tag pattern or roles were rejected. Review both required roles and retry.';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'The tag rule was created.';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'Tag rule creation requires GitLab 18.8 or later and an accessible project.';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
   String get containerTagProtectionEmpty => 'No tag protection rules.';
 
   @override
@@ -3029,7 +3106,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later; editing requires 18.9 or later.';
+      'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later, creation requires 18.8 or later, and editing requires 18.9 or later.';
 
   @override
   String get containerTagProtectionPatternTitle =>
@@ -3176,96 +3253,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerImmutabilityAccountChanged =>
       'The account changed. Close this dialog and reopen it for the selected account.';
-
-  @override
-  String get containerRepositoryProtectionTitle =>
-      'Repository protection rules';
-
-  @override
-  String get containerRepositoryProtectionEmpty =>
-      'No repository protection rules.';
-
-  @override
-  String get containerRepositoryProtectionError =>
-      'Could not load repository protection rules.';
-
-  @override
-  String get containerRepositoryProtectionForbidden =>
-      'You do not have permission to view repository protection rules.';
-
-  @override
-  String get containerRepositoryProtectionUnavailable =>
-      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
-
-  @override
-  String get containerProtectionPatternTitle =>
-      'Edit repository protection pattern';
-
-  @override
-  String get containerProtectionPatternSave => 'Save pattern';
-
-  @override
-  String get containerProtectionPatternWarning =>
-      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
-
-  @override
-  String get containerProtectionPatternAcknowledge =>
-      'I have reviewed the current rule and new pattern and understand the protection changes.';
-
-  @override
-  String containerProtectionPatternTarget(String projectId, String ruleId) {
-    return 'Project $projectId — rule $ruleId';
-  }
-
-  @override
-  String get containerProtectionPatternForbidden =>
-      'You do not have permission to change this rule.';
-
-  @override
-  String get containerProtectionPatternError =>
-      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerProtectionPatternStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
-
-  @override
-  String get containerProtectionPatternReload => 'Reload rule';
-
-  @override
-  String get containerProtectionPatternSaved =>
-      'Repository protection pattern updated.';
-
-  @override
-  String get containerProtectionPatternMissing =>
-      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
-
-  @override
-  String get containerProtectionPatternRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerProtectionPatternInvalid =>
-      'The pattern was rejected or is already taken. Edit the draft and retry.';
-
-  @override
-  String get containerProtectionPatternDraft => 'New repository path pattern';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'Minimum push role: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return 'Minimum delete role: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 
   @override
   String get containerImmutabilityDeleteTitle => 'Delete immutable rule';
@@ -3522,4 +3509,141 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerKeepPatternInvalid =>
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
+
+  @override
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerProtectionRemoveTitle =>
+      'Delete repository protection rule';
+
+  @override
+  String get containerProtectionRemoveSave => 'Confirm rule deletion';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'Removing this rule can reduce push or delete restrictions for repositories matching this path pattern. Other rules and permissions still apply. This deletes only the protection rule, not repositories, tags, or images. Review the exact target and minimum roles; these roles do not describe your permissions.';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'I understand that this rule\'s protection restrictions will be removed.';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden =>
+      'You do not have permission to delete this repository protection rule.';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'Could not confirm rule deletion. Reload or retry.';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      'The rule changed since confirmation. Reload and review it before deleting.';
+
+  @override
+  String get containerProtectionRemoveReload => 'Reload rule';
+
+  @override
+  String get containerProtectionRemoveDeleted =>
+      'Repository protection rule deleted.';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'The rule was not found, is ambiguous, or is not accessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerProtectionPatternTitle =>
+      'Edit repository protection pattern';
+
+  @override
+  String get containerProtectionPatternSave => 'Save pattern';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'I have reviewed the current rule and new pattern and understand the protection changes.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPatternError =>
+      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPatternReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'Repository protection pattern updated.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'The pattern was rejected or is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionPatternDraft => 'New repository path pattern';
 }
