@@ -954,10 +954,6 @@
   "containerRepositoryProtectionError": "リポジトリ保護ルールを読み込めませんでした。",
   "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
   "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
-  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
-  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
-  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理者",
   "containerProtectionPatternTitle": "リポジトリ保護パターンを編集",
   "containerProtectionPatternSave": "パターンを保存",
   "containerProtectionPatternWarning": "パターンの変更により、以前一致したリポジトリの保護が外れ、他のリポジトリに適用される場合があります。ワイルドカード(*)は複数のリポジトリに影響します。両方の最低ロールは変更せず、他のルールと権限は引き続き適用されます。イメージを削除したり、自分のアクセス権を示したりするものではありません。",
@@ -971,5 +967,9 @@
   "containerProtectionPatternMissing": "ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。",
   "containerProtectionPatternRateLimited": "要求が多すぎます。待ってから再試行してください。",
   "containerProtectionPatternInvalid": "パターンが拒否されたか、既に使用されています。入力を編集して再試行してください。",
-  "containerProtectionPatternDraft": "新しいリポジトリパスのパターン"
+  "containerProtectionPatternDraft": "新しいリポジトリパスのパターン",
+  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
+  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }

@@ -3111,22 +3111,6 @@ class AppLocalizationsKo extends AppLocalizations {
       '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
 
   @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return '최소 push 역할: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '최소 삭제 역할: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '관리자';
-
-  @override
   String get containerProtectionPatternTitle => '저장소 보호 패턴 수정';
 
   @override
@@ -3176,6 +3160,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerProtectionPatternDraft => '새 저장소 경로 패턴';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 
   @override
   String get containerImmutabilityDeleteTitle => 'Immutable 규칙 삭제';

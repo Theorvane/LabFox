@@ -5894,30 +5894,6 @@ abstract class AppLocalizations {
   /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
   String get containerRepositoryProtectionUnavailable;
 
-  /// Minimum push role in a repository protection rule
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum push role: {role}'**
-  String containerRepositoryProtectionPushRole(String role);
-
-  /// Minimum delete role in a repository protection rule
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum delete role: {role}'**
-  String containerRepositoryProtectionDeleteRole(String role);
-
-  /// No description provided for @containerRepositoryProtectionRoleUnset.
-  ///
-  /// In en, this message translates to:
-  /// **'Not specified by rule'**
-  String get containerRepositoryProtectionRoleUnset;
-
-  /// No description provided for @containerRepositoryProtectionRoleAdmin.
-  ///
-  /// In en, this message translates to:
-  /// **'Administrator'**
-  String get containerRepositoryProtectionRoleAdmin;
-
   /// No description provided for @containerProtectionPatternTitle.
   ///
   /// In en, this message translates to:
@@ -6001,6 +5977,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New repository path pattern'**
   String get containerProtectionPatternDraft;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 
   /// No description provided for @containerImmutabilityDeleteTitle.
   ///

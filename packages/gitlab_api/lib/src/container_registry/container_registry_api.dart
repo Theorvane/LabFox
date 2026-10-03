@@ -11,40 +11,6 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
-  /// Changes only the path pattern, leaving both minimum roles untouched.
-  Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPattern(
-    Object projectId,
-    int ruleId,
-    String pattern,
-  ) async {
-    try {
-      final response = await _dio.patch<dynamic>(
-        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
-        data: {'repository_path_pattern': pattern},
-      );
-      if (response.statusCode != 200) {
-        throw mapStatus(
-          response.statusCode,
-          response.headers.map,
-          context: 'updating repository protection path pattern',
-        );
-      }
-      try {
-        return ContainerRepositoryProtectionRule.fromJson(
-          response.data as Map<String, dynamic>,
-        );
-      } catch (_) {
-        throw const GitLabServerException(
-          'Invalid protection pattern update response',
-        );
-      }
-    } on DioException catch (error) {
-      throw mapError(
-        error,
-        context: 'updating repository protection path pattern',
-      );
-    }
-  }
 
   /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
@@ -78,6 +44,41 @@ class ContainerRegistryApi {
       throw mapError(
         error,
         context: 'clearing container tag protection push role',
+      );
+    }
+  }
+
+  /// Changes only the path pattern, leaving both minimum roles untouched.
+  Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPattern(
+    Object projectId,
+    int ruleId,
+    String pattern,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'repository_path_pattern': pattern},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating repository protection path pattern',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection pattern update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating repository protection path pattern',
       );
     }
   }

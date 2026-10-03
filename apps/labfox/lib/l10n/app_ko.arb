@@ -954,10 +954,6 @@
   "containerRepositoryProtectionError": "저장소 보호 규칙을 불러올 수 없습니다.",
   "containerRepositoryProtectionForbidden": "저장소 보호 규칙을 볼 권한이 없습니다.",
   "containerRepositoryProtectionUnavailable": "이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.",
-  "containerRepositoryProtectionPushRole": "최소 push 역할: {role}",
-  "containerRepositoryProtectionDeleteRole": "최소 삭제 역할: {role}",
-  "containerRepositoryProtectionRoleUnset": "규칙에 지정되지 않음",
-  "containerRepositoryProtectionRoleAdmin": "관리자",
   "containerProtectionPatternTitle": "저장소 보호 패턴 수정",
   "containerProtectionPatternSave": "패턴 저장",
   "containerProtectionPatternWarning": "패턴 변경은 기존에 일치하던 저장소의 보호를 해제하고 다른 저장소에 적용할 수 있습니다. 와일드카드(*)는 여러 저장소에 영향을 줍니다. 두 최소 역할은 변경되지 않으며 다른 규칙과 권한은 계속 적용됩니다. 이미지를 삭제하거나 내 접근 권한을 나타내지 않습니다.",
@@ -971,5 +967,9 @@
   "containerProtectionPatternMissing": "규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.",
   "containerProtectionPatternRateLimited": "요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.",
   "containerProtectionPatternInvalid": "패턴이 거부되었거나 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.",
-  "containerProtectionPatternDraft": "새 저장소 경로 패턴"
+  "containerProtectionPatternDraft": "새 저장소 경로 패턴",
+  "containerRepositoryProtectionPushRole": "최소 push 역할: {role}",
+  "containerRepositoryProtectionDeleteRole": "최소 삭제 역할: {role}",
+  "containerRepositoryProtectionRoleUnset": "규칙에 지정되지 않음",
+  "containerRepositoryProtectionRoleAdmin": "관리자"
 }

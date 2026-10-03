@@ -954,10 +954,6 @@
   "containerRepositoryProtectionError": "无法加载仓库保护规则。",
   "containerRepositoryProtectionForbidden": "您没有查看仓库保护规则的权限。",
   "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
-  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
-  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
-  "containerRepositoryProtectionRoleUnset": "规则未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理员",
   "containerProtectionPatternTitle": "编辑仓库保护模式",
   "containerProtectionPatternSave": "保存模式",
   "containerProtectionPatternWarning": "更改模式可能移除先前匹配仓库的保护，并将其应用于其他仓库。通配符 (*) 可能影响多个仓库。两个最低角色保持不变；其他规则和权限仍然适用。这不会删除镜像，也不代表你的访问权限。",
@@ -971,5 +967,9 @@
   "containerProtectionPatternMissing": "规则不存在、重复或无法访问。确认前请重新加载。",
   "containerProtectionPatternRateLimited": "请求过多。请等待后重试。",
   "containerProtectionPatternInvalid": "模式被拒绝或已被使用。请修改草稿后重试。",
-  "containerProtectionPatternDraft": "新仓库路径模式"
+  "containerProtectionPatternDraft": "新仓库路径模式",
+  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
+  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
+  "containerRepositoryProtectionRoleUnset": "规则未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理员"
 }

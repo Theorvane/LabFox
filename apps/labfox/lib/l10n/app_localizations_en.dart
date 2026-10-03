@@ -3198,22 +3198,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Repository protection rules are unavailable on this instance, or the project is not accessible.';
 
   @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'Minimum push role: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return 'Minimum delete role: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
-
-  @override
   String get containerProtectionPatternTitle =>
       'Edit repository protection pattern';
 
@@ -3266,6 +3250,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerProtectionPatternDraft => 'New repository path pattern';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 
   @override
   String get containerImmutabilityDeleteTitle => 'Delete immutable rule';

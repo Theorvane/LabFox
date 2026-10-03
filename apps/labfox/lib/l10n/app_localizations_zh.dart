@@ -3034,22 +3034,6 @@ class AppLocalizationsZh extends AppLocalizations {
       '此实例不支持仓库保护规则，或无法访问该项目。';
 
   @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return '推送所需的最低角色：$role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '删除所需的最低角色：$role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => '规则未指定';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '管理员';
-
-  @override
   String get containerProtectionPatternTitle => '编辑仓库保护模式';
 
   @override
@@ -3095,6 +3079,22 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerProtectionPatternDraft => '新仓库路径模式';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 
   @override
   String get containerImmutabilityDeleteTitle => '删除不可变规则';

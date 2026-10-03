@@ -3104,22 +3104,6 @@ class AppLocalizationsJa extends AppLocalizations {
       'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
 
   @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'プッシュに必要な最小ロール: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '削除に必要な最小ロール: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '管理者';
-
-  @override
   String get containerProtectionPatternTitle => 'リポジトリ保護パターンを編集';
 
   @override
@@ -3169,6 +3153,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerProtectionPatternDraft => '新しいリポジトリパスのパターン';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 
   @override
   String get containerImmutabilityDeleteTitle => '不変ルールを削除';
