@@ -867,6 +867,26 @@
       }
     }
   },
+  "containerImmutabilityDeleteTitle": "不変ルールを削除",
+  "containerImmutabilityDeleteButton": "ルールを削除",
+  "containerImmutabilityDeleteDone": "不変ルールを削除しました。",
+  "containerImmutabilityDeleteProject": "プロジェクト {projectId}",
+  "containerImmutabilityDeleteRuleId": "ルールID",
+  "containerImmutabilityDeleteConfirm": "パターンを正確に入力してください",
+  "containerImmutabilityDeleteImpact": "このルールを削除すると、プロジェクト内のすべてのコンテナリポジトリでこの保護が解除されます。一致するタグは上書きやクリーンアップポリシーによる削除が可能になる場合があります。最後の不変ルールを削除すると、マニフェストの直接削除が許可される場合があります。他のルールや権限は引き続き適用されます。画像やタグ自体は削除しません。Owner権限が必要で、変更の反映には時間がかかる場合があります。",
+  "containerImmutabilityDeleteAcknowledge": "プロジェクト全体で保護が失われる影響を理解しました。",
+  "containerImmutabilityDeleteUncertain": "削除結果を確認できません。既に成功している可能性があります。再試行前にルールを再読み込みしてください。",
+  "containerImmutabilityDeleteReload": "ルールを再読み込み",
+  "containerImmutabilityDeleteRejected": "ルールが変更されたか、GitLabが要求を拒否しました。再試行前に現在のルールを再読み込みして確認してください。",
+  "containerImmutabilityDeleteAuth": "セッションが拒否されました。ルールを削除する前に再度サインインしてください。",
+  "containerImmutabilityDeleteAccountChanged": "アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerTagProtectionPushClearTarget": "プロジェクト {projectId} — ルール {ruleId}",
   "containerTagProtectionPushClearForbidden": "このルールを変更する権限がありません。",
   "containerTagProtectionPushClearStale": "確認後にルールが変更されました。再読み込みして確認してから保存してください。",
@@ -901,6 +921,20 @@
   "containerKeepCountWarning": "プロジェクト全体の保持数を減らすと、定期クリーンアップで各イメージリポジトリの一致タグがさらに多く完全に削除される可能性があります。以下の有効状態と削除条件を確認してください。他の設定は変更されず、削除完了も意味しません。",
   "containerKeepCountUnknown": "有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。",
   "containerKeepCountAccepted": "クリーンアップ保持数の更新が受理されました。",
+  "protectedBranchUnprotectTitle": "ブランチルールの保護を解除",
+  "protectedBranchUnprotectTarget": "プロジェクト {project}: {name}",
+  "protectedBranchUnprotectWarning": "このルールを削除すると、プッシュやマージが許可され、CI の動作が変わる場合があります。ワイルドカードは複数のブランチに影響します。",
+  "protectedBranchUnprotectName": "正確なルール名を入力",
+  "protectedBranchUnprotectAcknowledge": "対象ブランチへの影響を理解しました。",
+  "protectedBranchUnprotectReload": "ルールを再確認",
+  "protectedBranchUnprotectSuccess": "ブランチルールを削除しました。",
+  "protectedBranchUnprotectAuth": "このルールを変更するには再度サインインしてください。",
+  "protectedBranchUnprotectForbidden": "このルールを削除する権限がありません。",
+  "protectedBranchUnprotectUnavailable": "このルールは利用できません。続行する前に一覧を確認してください。",
+  "protectedBranchUnprotectStale": "ルールが変更されました。続行する前に再確認してください。",
+  "protectedBranchUnprotectRateLimited": "GitLab がリクエストを制限しています。再試行前にルールを確認してください。",
+  "protectedBranchUnprotectError": "ルールが削除されたか確認できません。再試行前に確認してください。",
+  "protectedBranchUnprotectSessionChanged": "アカウントが変わりました。ダイアログを閉じてルールを開き直してください。",
   "containerDeletePatternTitle": "クリーンアップ削除パターンを編集",
   "containerDeletePatternSave": "削除パターンの変更を確認",
   "containerDeletePatternSelect": "新しい削除パターン (GitLab RE2)",
