@@ -3333,6 +3333,39 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
+
+  @override
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
+
+  @override
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
   String get containerDeletePatternTitle => 'クリーンアップ削除パターンを編集';
 
   @override
