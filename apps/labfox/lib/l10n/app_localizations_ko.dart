@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => '공개 날짜(선택 사항)';
+
+  @override
+  String get releaseCreationDateDefault => '공개 시간은 GitLab에서 설정합니다.';
+
+  @override
+  String get releaseCreationChooseDate => '공개 날짜 선택';
+
+  @override
+  String get releaseCreationChooseTime => '공개 시간 선택';
+
+  @override
+  String get releaseCreationClearDate => 'GitLab 공개 시간 사용';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return '시간대: $zone. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.';
+  }
+
+  @override
   String get pipelineScheduleDelete => '스케줄 삭제';
 
   @override
@@ -3084,6 +3104,28 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get packageFileDelete => '파일 삭제';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '패키지 파일을 삭제할까요?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '“$packageName”에서 “$fileName”을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      '파일을 삭제하면 패키지가 손상되어 사용할 수 없거나 패키지 관리자로 가져올 수 없게 될 수 있습니다.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      '이 파일을 삭제할 수 없습니다. 패키지가 보호되어 있거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get packageFileDeleteError => '파일을 삭제할 수 없습니다. 다시 시도하세요.';
 
   @override
   String get containerKeepPatternClearTitle => '정리 보관 패턴 제거';
