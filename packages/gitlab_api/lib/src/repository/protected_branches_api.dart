@@ -271,6 +271,29 @@ class ProtectedBranchesApi {
     }
   }
 
+  /// Removes only the named project rule, not the underlying branch.
+  Future<void> unprotect(Object projectId, String name) async {
+    if (name.trim().isEmpty) throw ArgumentError('Exact rule name required');
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'unprotecting branch rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'unprotecting branch rule');
+    }
+  }
+
   /// Changes one existing role-based push access record on an exact rule.
   Future<ProtectedBranch> updatePushRole(
     Object projectId,
