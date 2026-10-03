@@ -3172,6 +3172,26 @@ class AppLocalizationsJa extends AppLocalizations {
       'リポジトリの削除が予約されました。更新して進行状況を確認してください。';
 
   @override
+  String get containerKeepCountTitle => 'クリーンアップ保持数を編集';
+
+  @override
+  String get containerKeepCountSave => '保持数の変更を確認';
+
+  @override
+  String get containerKeepCountSelect => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerKeepCountWarning =>
+      'プロジェクト全体の保持数を減らすと、定期クリーンアップで各イメージリポジトリの一致タグがさらに多く完全に削除される可能性があります。以下の有効状態と削除条件を確認してください。他の設定は変更されず、削除完了も意味しません。';
+
+  @override
+  String get containerKeepCountUnknown =>
+      '有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerKeepCountAccepted => 'クリーンアップ保持数の更新が受理されました。';
+
+  @override
   String get containerTagProtectionDeleteRoleTitle => '最低削除ロールを編集';
 
   @override
