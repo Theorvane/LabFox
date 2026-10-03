@@ -404,4 +404,22 @@ class ContainerRegistryApi {
       throw mapError(error, context: 'loading a container tag');
     }
   }
+
+  /// Deletes only a tag protection rule (GitLab 18.9+), not image tags.
+  Future<void> deleteTagProtectionRule(Object projectId, int ruleId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting container tag protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting container tag protection rule');
+    }
+  }
 }

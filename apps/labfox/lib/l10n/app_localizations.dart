@@ -5864,6 +5864,78 @@ abstract class AppLocalizations {
   /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
   String get containerTagProtectionPatternMissing;
 
+  /// No description provided for @containerTagProtectionRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag protection rule'**
+  String get containerTagProtectionRemoveTitle;
+
+  /// No description provided for @containerTagProtectionRemoveSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerTagProtectionRemoveSave;
+
+  /// No description provided for @containerTagProtectionRemoveWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.'**
+  String get containerTagProtectionRemoveWarning;
+
+  /// No description provided for @containerTagProtectionRemoveAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand and want to delete this exact rule.'**
+  String get containerTagProtectionRemoveAcknowledge;
+
+  /// No description provided for @containerTagProtectionRemoveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionRemoveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to delete this rule.'**
+  String get containerTagProtectionRemoveForbidden;
+
+  /// No description provided for @containerTagProtectionRemoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request failed and may have reached the server. Inspect the rule list before retrying.'**
+  String get containerTagProtectionRemoveError;
+
+  /// No description provided for @containerTagProtectionRemoveStale.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changed or is ambiguous. Reload it and confirm again.'**
+  String get containerTagProtectionRemoveStale;
+
+  /// No description provided for @containerTagProtectionRemoveReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionRemoveReload;
+
+  /// No description provided for @containerTagProtectionRemoveSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule deleted.'**
+  String get containerTagProtectionRemoveSaved;
+
+  /// No description provided for @containerTagProtectionRemoveMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.'**
+  String get containerTagProtectionRemoveMissing;
+
+  /// No description provided for @containerTagProtectionRemoveRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait before retrying.'**
+  String get containerTagProtectionRemoveRateLimited;
+
   /// No description provided for @containerTagProtectionPatternRateLimited.
   ///
   /// In en, this message translates to:

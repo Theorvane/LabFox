@@ -3168,6 +3168,52 @@ class AppLocalizationsHi extends AppLocalizations {
       'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'इस नियम को हटाने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश और हटाने की सुरक्षा हट जाती है। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ और इसी नियम को हटाना चाहता हूँ।';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'अनुरोध विफल हुआ लेकिन सर्वर तक पहुँच सकता है। पुनः प्रयास से पहले नियम सूची जाँचें।';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'नियम बदल गया है या अस्पष्ट है। दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'टैग सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और पुनः प्रयास करें।';
 
