@@ -3112,6 +3112,63 @@ class AppLocalizationsEn extends AppLocalizations {
       'The account changed. Close this dialog and reopen it for the selected account.';
 
   @override
+  String containerTagProtectionPushClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionPushClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionPushClearReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionPushClearMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionPushClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionPushClearTitle => 'Clear minimum push role';
+
+  @override
+  String get containerTagProtectionPushClearSave => 'Clear push restriction';
+
+  @override
+  String get containerTagProtectionPushClearWarning =>
+      'This removes this rule\'s minimum push-role restriction for matching container image tags across the project and weakens push protection. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not grant everyone access, delete tags or images, or affect Git tags.';
+
+  @override
+  String get containerTagProtectionPushClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this push restriction.';
+
+  @override
+  String get containerTagProtectionPushClearError =>
+      'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionPushClearSaved =>
+      'Minimum push-role restriction cleared.';
+
+  @override
+  String get containerTagProtectionPushClearInvalid =>
+      'The server rejected clearing this push restriction. Check the rule and retry.';
+
+  @override
+  String get containerTagProtectionPushClearBlocked =>
+      'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
   String get containerRepositoryDelete => 'Delete repository';
 
   @override

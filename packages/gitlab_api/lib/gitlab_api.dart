@@ -1,4 +1,4 @@
-/// GitLab REST and selected GraphQL query client for LabFox.
+/// GitLab REST and selected GraphQL operation client for LabFox.
 ///
 /// Pure Dart: this package must never import `package:flutter`, so it stays
 /// unit testable without a widget binding.
