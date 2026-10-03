@@ -2930,6 +2930,64 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => '最低プッシュロールを編集';
+
+  @override
+  String get containerTagProtectionPushRoleSave => 'プッシュロールを保存';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '最低プッシュロールを変更すると、プロジェクト内の一致するコンテナイメージタグをプッシュできる対象が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる場合があります。タグパターンと最低削除ロールは維持され、他のルールと権限も引き続き適用されます。タグやイメージは削除されず、Gitタグには影響せず、現在のアクセス権も示しません。';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionPushRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '新しい最低プッシュロール';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => 'プッシュロールを選択';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return '削除の最低ロール: $role';
   }
@@ -3333,60 +3391,35 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
-  String get containerTagProtectionPushRoleTitle => '最低プッシュロールを編集';
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override
-  String get containerTagProtectionPushRoleSave => 'プッシュロールを保存';
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override
-  String get containerTagProtectionPushRoleWarning =>
-      '最低プッシュロールを変更すると、プロジェクト内の一致するコンテナイメージタグをプッシュできる対象が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる場合があります。タグパターンと最低削除ロールは維持され、他のルールと権限も引き続き適用されます。タグやイメージは削除されず、Gitタグには影響せず、現在のアクセス権も示しません。';
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
 
   @override
-  String get containerTagProtectionPushRoleAcknowledge =>
-      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
 
   @override
-  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
-    return 'プロジェクト $projectId — ルール $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
   }
 
   @override
-  String get containerTagProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
 
   @override
-  String get containerTagProtectionPushRoleError =>
-      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
 
   @override
-  String get containerTagProtectionPushRoleStale =>
-      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
-
-  @override
-  String get containerTagProtectionPushRoleReload => 'ルールを再読み込み';
-
-  @override
-  String get containerTagProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
-
-  @override
-  String get containerTagProtectionPushRoleMissing =>
-      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
-
-  @override
-  String get containerTagProtectionPushRoleRateLimited =>
-      '要求が多すぎます。待ってから再試行してください。';
-
-  @override
-  String get containerTagProtectionPushRoleInvalid =>
-      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
-
-  @override
-  String get containerTagProtectionPushRoleDraft => '新しい最低プッシュロール';
-
-  @override
-  String get containerTagProtectionPushRoleSelect => 'プッシュロールを選択';
-
-  @override
-  String get containerTagProtectionPushRoleUnknown =>
-      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

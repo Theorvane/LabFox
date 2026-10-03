@@ -3017,6 +3017,66 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => 'Edit minimum push role';
+
+  @override
+  String get containerTagProtectionPushRoleSave => 'Save push role';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      'I have reviewed the rule and new minimum push role and understand the access changes.';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionPushRoleReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionPushRoleSaved =>
+      'Minimum push role updated.';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      'The push role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => 'New minimum push role';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => 'Select a push role';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return 'Minimum delete role: $role';
   }
@@ -3434,62 +3494,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerTagProtectionPushRoleTitle => 'Edit minimum push role';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
 
   @override
-  String get containerTagProtectionPushRoleSave => 'Save push role';
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
 
   @override
-  String get containerTagProtectionPushRoleWarning =>
-      'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.';
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
 
   @override
-  String get containerTagProtectionPushRoleAcknowledge =>
-      'I have reviewed the rule and new minimum push role and understand the access changes.';
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
 
   @override
-  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
-    return 'Project $projectId — rule $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
   }
 
   @override
-  String get containerTagProtectionPushRoleForbidden =>
-      'You do not have permission to change this rule.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
 
   @override
-  String get containerTagProtectionPushRoleError =>
-      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerTagProtectionPushRoleStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
-
-  @override
-  String get containerTagProtectionPushRoleReload => 'Reload rule';
-
-  @override
-  String get containerTagProtectionPushRoleSaved =>
-      'Minimum push role updated.';
-
-  @override
-  String get containerTagProtectionPushRoleMissing =>
-      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
-
-  @override
-  String get containerTagProtectionPushRoleRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerTagProtectionPushRoleInvalid =>
-      'The push role was rejected. Choose a supported role and retry.';
-
-  @override
-  String get containerTagProtectionPushRoleDraft => 'New minimum push role';
-
-  @override
-  String get containerTagProtectionPushRoleSelect => 'Select a push role';
-
-  @override
-  String get containerTagProtectionPushRoleUnknown =>
-      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

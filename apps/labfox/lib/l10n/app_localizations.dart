@@ -5606,6 +5606,102 @@ abstract class AppLocalizations {
   /// **'Minimum push role: {role}'**
   String containerTagProtectionPushRole(String role);
 
+  /// No description provided for @containerTagProtectionPushRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum push role'**
+  String get containerTagProtectionPushRoleTitle;
+
+  /// No description provided for @containerTagProtectionPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push role'**
+  String get containerTagProtectionPushRoleSave;
+
+  /// No description provided for @containerTagProtectionPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.'**
+  String get containerTagProtectionPushRoleWarning;
+
+  /// No description provided for @containerTagProtectionPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum push role and understand the access changes.'**
+  String get containerTagProtectionPushRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPushRoleForbidden;
+
+  /// No description provided for @containerTagProtectionPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPushRoleError;
+
+  /// No description provided for @containerTagProtectionPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPushRoleStale;
+
+  /// No description provided for @containerTagProtectionPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPushRoleReload;
+
+  /// No description provided for @containerTagProtectionPushRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role updated.'**
+  String get containerTagProtectionPushRoleSaved;
+
+  /// No description provided for @containerTagProtectionPushRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPushRoleMissing;
+
+  /// No description provided for @containerTagProtectionPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPushRoleRateLimited;
+
+  /// No description provided for @containerTagProtectionPushRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The push role was rejected. Choose a supported role and retry.'**
+  String get containerTagProtectionPushRoleInvalid;
+
+  /// No description provided for @containerTagProtectionPushRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum push role'**
+  String get containerTagProtectionPushRoleDraft;
+
+  /// No description provided for @containerTagProtectionPushRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a push role'**
+  String get containerTagProtectionPushRoleSelect;
+
+  /// No description provided for @containerTagProtectionPushRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerTagProtectionPushRoleUnknown;
+
   /// No description provided for @containerTagProtectionDeleteRole.
   ///
   /// In en, this message translates to:
@@ -6272,101 +6368,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// No description provided for @containerTagProtectionPushRoleTitle.
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Edit minimum push role'**
-  String get containerTagProtectionPushRoleTitle;
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerTagProtectionPushRoleSave.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Save push role'**
-  String get containerTagProtectionPushRoleSave;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerTagProtectionPushRoleWarning.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.'**
-  String get containerTagProtectionPushRoleWarning;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerTagProtectionPushRoleAcknowledge.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed the rule and new minimum push role and understand the access changes.'**
-  String get containerTagProtectionPushRoleAcknowledge;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// Exact project and protection rule identifiers
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Project {projectId} — rule {ruleId}'**
-  String containerTagProtectionPushRoleTarget(String projectId, String ruleId);
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerTagProtectionPushRoleForbidden.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'You do not have permission to change this rule.'**
-  String get containerTagProtectionPushRoleForbidden;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerTagProtectionPushRoleError.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.'**
-  String get containerTagProtectionPushRoleError;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerTagProtectionPushRoleStale.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'The rule changed since confirmation. Reload and review it before saving.'**
-  String get containerTagProtectionPushRoleStale;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerTagProtectionPushRoleReload.
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'Reload rule'**
-  String get containerTagProtectionPushRoleReload;
-
-  /// No description provided for @containerTagProtectionPushRoleSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum push role updated.'**
-  String get containerTagProtectionPushRoleSaved;
-
-  /// No description provided for @containerTagProtectionPushRoleMissing.
-  ///
-  /// In en, this message translates to:
-  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
-  String get containerTagProtectionPushRoleMissing;
-
-  /// No description provided for @containerTagProtectionPushRoleRateLimited.
-  ///
-  /// In en, this message translates to:
-  /// **'Too many requests. Wait and retry.'**
-  String get containerTagProtectionPushRoleRateLimited;
-
-  /// No description provided for @containerTagProtectionPushRoleInvalid.
-  ///
-  /// In en, this message translates to:
-  /// **'The push role was rejected. Choose a supported role and retry.'**
-  String get containerTagProtectionPushRoleInvalid;
-
-  /// No description provided for @containerTagProtectionPushRoleDraft.
-  ///
-  /// In en, this message translates to:
-  /// **'New minimum push role'**
-  String get containerTagProtectionPushRoleDraft;
-
-  /// No description provided for @containerTagProtectionPushRoleSelect.
-  ///
-  /// In en, this message translates to:
-  /// **'Select a push role'**
-  String get containerTagProtectionPushRoleSelect;
-
-  /// No description provided for @containerTagProtectionPushRoleUnknown.
-  ///
-  /// In en, this message translates to:
-  /// **'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
-  String get containerTagProtectionPushRoleUnknown;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate
