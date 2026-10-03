@@ -3018,6 +3018,71 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionDeleteRoleTitle =>
+      'न्यूनतम हटाने की भूमिका बदलें';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => 'हटाने की भूमिका सहेजें';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      'न्यूनतम हटाने की भूमिका बदलने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग हटाने वाले लोग बदलते हैं। कम भूमिका हटाने की सुरक्षा कमजोर करती है; अधिक भूमिका मौजूदा सफ़ाई कार्यप्रवाह रोक सकती है। टैग पैटर्न और न्यूनतम पुश भूमिका अपरिवर्तित रहते हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं। नियम सहेजने से टैग या इमेज नहीं हटते, Git टैग प्रभावित नहीं होते और आपकी वर्तमान पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम हटाने की भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      'हटाने की भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved =>
+      'न्यूनतम हटाने की भूमिका बदल गई।';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      'हटाने की भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft =>
+      'नई न्यूनतम हटाने की भूमिका';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => 'हटाने की भूमिका चुनें';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      'वर्तमान हटाने की भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+
+  @override
   String get containerTagProtectionRoleUnset => 'नियम में निर्दिष्ट नहीं';
 
   @override
@@ -3434,67 +3499,38 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerTagProtectionDeleteRoleTitle =>
-      'न्यूनतम हटाने की भूमिका बदलें';
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String get containerTagProtectionDeleteRoleSave => 'हटाने की भूमिका सहेजें';
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
 
   @override
-  String get containerTagProtectionDeleteRoleWarning =>
-      'न्यूनतम हटाने की भूमिका बदलने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग हटाने वाले लोग बदलते हैं। कम भूमिका हटाने की सुरक्षा कमजोर करती है; अधिक भूमिका मौजूदा सफ़ाई कार्यप्रवाह रोक सकती है। टैग पैटर्न और न्यूनतम पुश भूमिका अपरिवर्तित रहते हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं। नियम सहेजने से टैग या इमेज नहीं हटते, Git टैग प्रभावित नहीं होते और आपकी वर्तमान पहुँच नहीं बताई जाती।';
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
 
   @override
-  String get containerTagProtectionDeleteRoleAcknowledge =>
-      'मैंने नियम और नई न्यूनतम हटाने की भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
 
   @override
-  String containerTagProtectionDeleteRoleTarget(
-    String projectId,
-    String ruleId,
-  ) {
-    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
   }
 
   @override
-  String get containerTagProtectionDeleteRoleForbidden =>
-      'आपको यह नियम बदलने की अनुमति नहीं है।';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
 
   @override
-  String get containerTagProtectionDeleteRoleError =>
-      'हटाने की भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
 
   @override
-  String get containerTagProtectionDeleteRoleStale =>
-      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
-
-  @override
-  String get containerTagProtectionDeleteRoleReload => 'नियम पुनः लोड करें';
-
-  @override
-  String get containerTagProtectionDeleteRoleSaved =>
-      'न्यूनतम हटाने की भूमिका बदल गई।';
-
-  @override
-  String get containerTagProtectionDeleteRoleMissing =>
-      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
-
-  @override
-  String get containerTagProtectionDeleteRoleRateLimited =>
-      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
-
-  @override
-  String get containerTagProtectionDeleteRoleInvalid =>
-      'हटाने की भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
-
-  @override
-  String get containerTagProtectionDeleteRoleDraft =>
-      'नई न्यूनतम हटाने की भूमिका';
-
-  @override
-  String get containerTagProtectionDeleteRoleSelect => 'हटाने की भूमिका चुनें';
-
-  @override
-  String get containerTagProtectionDeleteRoleUnknown =>
-      'वर्तमान हटाने की भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }
