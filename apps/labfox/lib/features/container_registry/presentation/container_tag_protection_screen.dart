@@ -9,6 +9,7 @@ import '../../../l10n/app_localizations.dart';
 import 'controllers/container_tag_protection_controller.dart';
 import 'widgets/container_tag_protection_create_dialog.dart';
 import 'widgets/container_tag_protection_pattern_dialog.dart';
+import 'widgets/container_tag_protection_push_clear_dialog.dart';
 
 /// Reviews patterns and explicitly edits protection settings without guessing user access.
 class ContainerTagProtectionScreen extends ConsumerWidget {
@@ -105,35 +106,68 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      tooltip: l10n
-                                          .containerTagProtectionPatternTitle,
-                                      icon: const Icon(Icons.edit_outlined),
-                                      onPressed: () async {
-                                        final saved = await showDialog<bool>(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (_) =>
-                                              ContainerTagProtectionPatternDialog(
-                                                projectId: projectId,
-                                                rule: rule,
-                                              ),
-                                        );
-                                        if (saved == true && context.mounted) {
-                                          ScaffoldMessenger.of(
-                                            context,
-                                          ).showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                l10n.containerTagProtectionPatternSaved,
-                                              ),
-                                            ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        tooltip: l10n
+                                            .containerTagProtectionPatternTitle,
+                                        icon: const Icon(Icons.edit_outlined),
+                                        onPressed: () async {
+                                          final saved = await showDialog<bool>(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) =>
+                                                ContainerTagProtectionPatternDialog(
+                                                  projectId: projectId,
+                                                  rule: rule,
+                                                ),
                                           );
-                                        }
-                                      },
-                                    ),
+                                          if (saved == true &&
+                                              context.mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  l10n.containerTagProtectionPatternSaved,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                      IconButton(
+                                        tooltip: l10n
+                                            .containerTagProtectionPushClearTitle,
+                                        icon: const Icon(
+                                          Icons.lock_open_outlined,
+                                        ),
+                                        onPressed: () async {
+                                          final saved = await showDialog<bool>(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) =>
+                                                ContainerTagProtectionPushClearDialog(
+                                                  projectId: projectId,
+                                                  rule: rule,
+                                                ),
+                                          );
+                                          if (saved == true &&
+                                              context.mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  l10n.containerTagProtectionPushClearSaved,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ],
                                   ),
                                   Text(
                                     rule.tagNamePattern,
