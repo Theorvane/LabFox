@@ -2958,6 +2958,56 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerPolicyCadence => 'चलने का अंतराल';
 
   @override
+  String get containerCreateTitle => 'निष्क्रिय क्लीनअप नीति बनाएँ';
+
+  @override
+  String get containerCreateSave => 'निष्क्रिय नीति बनाने की पुष्टि करें';
+
+  @override
+  String get containerCreateWarning =>
+      'सभी इमेज रिपॉज़िटरी के लिए निष्क्रिय नीति सहेजें। इससे क्लीनअप सक्रिय नहीं होगा। बाद में सक्रिय करने से पहले सभी शर्तों की समीक्षा करें; मेल खाने वाले टैग स्थायी रूप से हट सकते हैं। डिफ़ॉल्ट रखने वाला पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित सुरक्षा नहीं देता। पैटर्न ठीक वैसे भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग से मिलान करता है। सत्यापन सक्रिय करने तक टल सकता है। स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
+
+  @override
+  String get containerCreateAcknowledge =>
+      'मैंने शर्तों की समीक्षा की है और समझता हूँ कि सक्रिय करना अलग कार्रवाई है।';
+
+  @override
+  String get containerCreateExisting =>
+      'इस प्रोजेक्ट में पहले से क्लीनअप नीति है। बनाने से उसे बदला नहीं जाएगा; मौजूदा सेटिंग इस्तेमाल करें।';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab ने नीति मौजूद होने की जानकारी नहीं दी। GitLab में समीक्षा करें; नीति बनाना रोका गया है।';
+
+  @override
+  String get containerCreateAccepted =>
+      'निष्क्रिय क्लीनअप नीति बनाने का अनुरोध स्वीकार हुआ।';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab ने नीति की सेटिंग अस्वीकार की। शर्तों की समीक्षा करें, फिर संपादित करें या पुनः प्रयास करें।';
+
+  @override
+  String get containerCreateDaily => 'हर दिन';
+
+  @override
+  String get containerCreateWeekly => 'हर सप्ताह';
+
+  @override
+  String get containerCreateFortnightly => 'हर दो सप्ताह';
+
+  @override
+  String get containerCreateMonthly => 'हर महीने';
+
+  @override
+  String get containerCreateQuarterly => 'हर तीन महीने';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days दिन';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
 
   @override
@@ -2997,6 +3047,39 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerActivationError =>
       'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
+
+  @override
+  String get containerActivationIncomplete =>
+      'सफ़ाई सक्रिय करने के लिए अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना चाहिए। GitLab में नीति देखें।';
+
+  @override
+  String get containerActivationTitle => 'सफ़ाई नीति की स्थिति बदलें';
+
+  @override
+  String get containerActivationEnable => 'सफ़ाई सक्रिय करें';
+
+  @override
+  String get containerActivationDisable => 'सफ़ाई निष्क्रिय करें';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'यह प्रोजेक्ट-व्यापी नीति सक्रिय करने पर निर्धारित रन में मिलते टैग स्थायी रूप से हट सकते हैं। दिखाई गई रखने की सेटिंग और पैटर्न नहीं बदलेंगे। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerActivationDisableWarning =>
+      'रखने की सेटिंग या पैटर्न बदले बिना इस प्रोजेक्ट की आगामी निर्धारित सफ़ाई निष्क्रिय करें। पहले से चल रहे सफ़ाई जॉब रद्द हो जाने की धारणा न रखें।';
+
+  @override
+  String get containerActivationUnknown =>
+      'सक्रिय होने की ज्ञात स्थिति आवश्यक है। GitLab में नीति सेटिंग देखें।';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab ने स्थिति बदलाव अस्वीकार किया। GitLab में मौजूदा नीति सेटिंग देखें।';
+
+  @override
+  String get containerActivationAccepted =>
+      'सफ़ाई नीति का स्थिति अपडेट स्वीकार हुआ।';
 
   @override
   String get containerActivationForbidden =>
@@ -3110,9 +3193,134 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => 'न्यूनतम पुश भूमिका बदलें';
+
+  @override
+  String get containerTagProtectionPushRoleSave => 'पुश भूमिका सहेजें';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      'न्यूनतम पुश भूमिका बदलने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग को पुश करने वाले लोग बदलते हैं। कम भूमिका सुरक्षा कमजोर करती है; अधिक भूमिका मौजूदा कार्यप्रवाह रोक सकती है। टैग पैटर्न और न्यूनतम हटाने की भूमिका अपरिवर्तित रहते हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते, Git टैग प्रभावित नहीं होते और आपकी वर्तमान पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम पुश भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      'पुश भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionPushRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerTagProtectionPushRoleSaved =>
+      'न्यूनतम पुश भूमिका बदल गई।';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      'पुश भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => 'नई न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => 'पुश भूमिका चुनें';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      'वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return 'हटाने के लिए न्यूनतम भूमिका: $role';
   }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle =>
+      'न्यूनतम हटाने की भूमिका बदलें';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => 'हटाने की भूमिका सहेजें';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      'न्यूनतम हटाने की भूमिका बदलने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग हटाने वाले लोग बदलते हैं। कम भूमिका हटाने की सुरक्षा कमजोर करती है; अधिक भूमिका मौजूदा सफ़ाई कार्यप्रवाह रोक सकती है। टैग पैटर्न और न्यूनतम पुश भूमिका अपरिवर्तित रहते हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं। नियम सहेजने से टैग या इमेज नहीं हटते, Git टैग प्रभावित नहीं होते और आपकी वर्तमान पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम हटाने की भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      'हटाने की भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved =>
+      'न्यूनतम हटाने की भूमिका बदल गई।';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      'हटाने की भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft =>
+      'नई न्यूनतम हटाने की भूमिका';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => 'हटाने की भूमिका चुनें';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      'वर्तमान हटाने की भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
 
   @override
   String get containerTagProtectionRoleUnset => 'नियम में निर्दिष्ट नहीं';
@@ -3771,6 +3979,60 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerRepositoryProtectionRoleUnset =>
       'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPushClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushClearTitle => 'न्यूनतम पुश भूमिका हटाएँ';
+
+  @override
+  String get containerProtectionPushClearSave => 'पुश प्रतिबंध हटाएँ';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      'यह इस नियम का न्यूनतम पुश-भूमिका प्रतिबंध हटाता है और मेल खाने वाली रिपॉज़िटरी की पुश सुरक्षा कम करता है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; इससे सभी को पहुँच नहीं मिलती और इमेज नहीं हटतीं।';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस पुश प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionPushClearError =>
+      'पुश प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPushClearSaved =>
+      'न्यूनतम पुश-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      'सर्वर ने पुश प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
