@@ -24,6 +24,7 @@ Future<void> open(
   PolicyCreateRepository repository, {
   double width = 390,
   bool dark = false,
+  String locale = 'en',
 }) async {
   tester.view.physicalSize = Size(width, 900);
   tester.view.devicePixelRatio = 1;
@@ -37,6 +38,7 @@ Future<void> open(
         ),
       ],
       child: MaterialApp(
+        locale: Locale(locale),
         theme: ThemeData(brightness: dark ? Brightness.dark : Brightness.light),
         localizationsDelegates: const [
           AppLocalizations.delegate,
@@ -81,7 +83,106 @@ Future<void> acknowledge(WidgetTester tester) async {
   await tester.pumpAndSettle();
 }
 
+Future<void> enable(WidgetTester tester) async {
+  final toggle = find.byKey(const ValueKey('cleanup-create-enabled'));
+  await tester.ensureVisible(toggle);
+  await tester.tap(toggle);
+  await tester.pumpAndSettle();
+}
+
 void main() {
+  for (final locale in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    testWidgets('enabled confirmation is localized and fits narrow $locale', (
+      tester,
+    ) async {
+      final repository = PolicyCreateRepository();
+      await open(tester, repository, width: 320, locale: locale);
+      await enterDelete(tester);
+      await enable(tester);
+      await acknowledge(tester);
+      await tester.tap(find.byType(FilledButton));
+      await tester.pumpAndSettle();
+      expect(repository.writes.single.enabled, isTrue);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  for (final width in [320.0, 800.0, 1200.0]) {
+    for (final dark in [false, true]) {
+      testWidgets('explicit enabled creation fits $width dark=$dark', (
+        tester,
+      ) async {
+        final repository = PolicyCreateRepository();
+        await open(tester, repository, width: width, dark: dark);
+        expect(
+          tester.widget<SwitchListTile>(find.byType(SwitchListTile)).value,
+          isFalse,
+        );
+        await enterDelete(tester);
+        await acknowledge(tester);
+        await enable(tester);
+        expect(
+          tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+          isFalse,
+        );
+        expect(
+          tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+          isNull,
+        );
+        expect(
+          find.textContaining('permanently delete matching tags'),
+          findsOneWidget,
+        );
+        await acknowledge(tester);
+        await tester.tap(find.byType(FilledButton));
+        await tester.pumpAndSettle();
+        expect(repository.writes.single.enabled, isTrue);
+        expect(repository.writes.single.nameRegexDelete, 'release.+');
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+  testWidgets('new session cannot reuse an enabled confirmation', (
+    tester,
+  ) async {
+    final repository = PolicyCreateRepository();
+    await open(tester, repository);
+    await enterDelete(tester);
+    await enable(tester);
+    await acknowledge(tester);
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(CleanupPolicyCreateDialog)),
+    );
+    container.invalidate(containerRegistryRepositoryProvider);
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
+      isNull,
+    );
+    expect(repository.writes, isEmpty);
+    await tester.tap(find.widgetWithText(TextButton, 'Cancel'));
+    await tester.pumpAndSettle();
+    expect(find.byType(CleanupPolicyCreateDialog), findsNothing);
+  });
+  testWidgets('disabling again resets acknowledgement and sends false', (
+    tester,
+  ) async {
+    final repository = PolicyCreateRepository();
+    await open(tester, repository);
+    await enterDelete(tester);
+    await enable(tester);
+    await acknowledge(tester);
+    await enable(tester);
+    expect(
+      tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+      isFalse,
+    );
+    await acknowledge(tester);
+    await tester.tap(find.byType(FilledButton));
+    await tester.pumpAndSettle();
+    expect(repository.writes.single.enabled, isFalse);
+  });
+
   testWidgets('documented criteria selections are sent explicitly', (
     tester,
   ) async {
@@ -234,6 +335,7 @@ void main() {
       final repository = PolicyCreateRepository()..failure = error;
       await open(tester, repository);
       await enterDelete(tester, r' (?=release).* ');
+      await enable(tester);
       await acknowledge(tester);
       await tester.tap(find.byType(FilledButton));
       await tester.pumpAndSettle();
@@ -247,6 +349,10 @@ void main() {
       await tester.tap(find.byType(FilledButton));
       await tester.pumpAndSettle();
       expect(repository.writes, hasLength(2));
+      expect(
+        repository.writes.every((policy) => policy.enabled == true),
+        isTrue,
+      );
     });
   }
   testWidgets('pending creation blocks cancel, back, editing and duplicates', (
@@ -255,10 +361,15 @@ void main() {
     final repository = PolicyCreateRepository()..pending = Completer<void>();
     await open(tester, repository);
     await enterDelete(tester);
+    await enable(tester);
     await acknowledge(tester);
     await tester.tap(find.byType(FilledButton));
     await tester.pump();
     expect(repository.writes, hasLength(1));
+    expect(
+      tester.widget<SwitchListTile>(find.byType(SwitchListTile)).onChanged,
+      isNull,
+    );
     expect(
       tester.widget<FilledButton>(find.byType(FilledButton)).onPressed,
       isNull,
@@ -315,7 +426,7 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.byTooltip('Create disabled cleanup policy'));
+    await tester.tap(find.byTooltip('Create cleanup policy'));
     await tester.pumpAndSettle();
     expect(find.byType(CleanupPolicyCreateDialog), findsOneWidget);
     expect(repository.writes, isEmpty);

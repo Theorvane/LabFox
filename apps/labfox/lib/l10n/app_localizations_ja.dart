@@ -2867,6 +2867,47 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyStatus => '状態';
 
   @override
+  String get containerPolicyTitle => 'クリーンアップポリシー';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab からクリーンアップポリシーが報告されていません。';
+
+  @override
+  String get containerPolicyHint =>
+      'このプロジェクトのすべてのコンテナイメージリポジトリに適用される読み取り専用設定です。一致するタグを非同期で削除し、保持ルール、latest、保護されたタグと不変タグを維持します。複数回の実行が必要な場合があり、タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab が報告した次回実行日時（現地時間）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString日',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countStringか月',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '有効';
 
   @override
@@ -2879,17 +2920,17 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyCadence => '実行間隔';
 
   @override
-  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+  String get containerCreateTitle => 'クリーンアップポリシーを作成';
 
   @override
   String get containerCreateSave => '無効なポリシーの作成を確認';
 
   @override
   String get containerCreateWarning =>
-      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+      'すべてのイメージリポジトリのクリーンアップ条件を保存します。有効化を選択しない限り無効のままです。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を行いません。パターンは入力どおり送信され、GitLab RE2でタグ全体に一致します。無効時は検証が後回しになる場合があります。受理は処理完了や容量の解放を意味しません。';
 
   @override
-  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+  String get containerCreateAcknowledge => '条件を確認し、このポリシーが無効のままであることを理解しました。';
 
   @override
   String get containerCreateExisting =>
@@ -2900,7 +2941,7 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
 
   @override
-  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+  String get containerCreateAccepted => 'クリーンアップポリシーの作成が受理されました。';
 
   @override
   String get containerCreateInvalid =>
@@ -2928,6 +2969,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
+
+  @override
+  String get containerCreateEnable => '作成時にクリーンアップを有効化';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '有効なポリシーは、スケジュールに従い、このプロジェクトのすべてのイメージリポジトリから一致するタグを完全に削除する可能性があります。実行間隔、保持数、期間、両方のパターンを確認してください。保護されたタグや不変タグの除外はGitLabが決定します。保存は削除や容量解放の完了を意味しません。';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'すべての条件を確認し、プロジェクト全体で一致するタグが定期的に完全削除されることに同意します。';
+
+  @override
+  String get containerCreateEnabledSave => '有効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'アカウントが変更されました。このダイアログを閉じて開き直し、現在のプロジェクトを確認してからポリシーを作成してください。';
 
   @override
   String get containerPolicyAge => '次の期間より古いタグを削除';
@@ -3840,6 +3899,58 @@ class AppLocalizationsJa extends AppLocalizations {
       'リポジトリ保護ルールを表示する権限がありません。';
 
   @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '最低削除ロールを解除';
+
+  @override
+  String get containerProtectionDeleteClearSave => '削除制限を解除';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'このルールの最低削除ロール制限を解除し、一致するリポジトリの削除保護を弱めます。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'ルールを確認し、この削除制限を解除する影響を理解しました。';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '削除制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '最低削除ロール制限を解除しました。';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'サーバーが削除制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
   String get containerRepositoryProtectionUnavailable =>
       'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
 
@@ -3910,6 +4021,26 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerAgeTitle => 'クリーンアップ期限を編集';
+
+  @override
+  String get containerAgeSave => '期限の変更を確認';
+
+  @override
+  String get containerAgeSelect => '新しい期限 (GitLab API期間)';
+
+  @override
+  String get containerAgeWarning =>
+      'プロジェクト全体の期限を短くすると、定期クリーンアップで各イメージリポジトリの新しい一致タグも完全に削除される可能性があります。以下の有効状態と削除条件を確認してください。他の設定は変更されず、削除完了も意味しません。';
+
+  @override
+  String get containerAgeUnknown =>
+      '有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerAgeAccepted => 'クリーンアップ期限の更新が受理されました。';
 
   @override
   String get containerProtectionPatternTitle => 'リポジトリ保護パターンを編集';

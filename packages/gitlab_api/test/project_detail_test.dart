@@ -6,6 +6,67 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'project GET exposes cleanup policy without scheduling any writes',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          raw: false,
+          body: {
+            'id': 7,
+            'name': 'app',
+            'path_with_namespace': 'team/app',
+            'container_expiration_policy': {
+              'enabled': true,
+              'cadence': '1month',
+              'keep_n': 5,
+              'name_regex_delete': 'release.+',
+              'name_regex_keep': 'stable',
+            },
+          },
+        );
+      });
+      final project = await client.projects.get(7);
+      expect(request.method, 'GET');
+      expect(request.path, '/projects/7');
+      expect(request.queryParameters, isEmpty);
+      expect(request.data, isNull);
+      expect(project.containerExpirationPolicy!.cadence, '1month');
+      expect(project.containerExpirationPolicy!.nameRegexDelete, 'release.+');
+      expect(project.containerExpirationPolicy!.nameRegexKeep, 'stable');
+      expect(project.containerExpirationPolicy!.keepN, 5);
+    },
+  );
+
+  test('project GET preserves an unreported cleanup policy', () async {
+    final client = _client(
+      (_) => (
+        status: 200,
+        raw: false,
+        body: {'id': 7, 'name': 'app', 'path_with_namespace': 'team/app'},
+      ),
+    );
+    expect((await client.projects.get(7)).containerExpirationPolicy, isNull);
+  });
+
+  for (final status in [401, 403, 404, 429, 500]) {
+    test('cleanup inspection preserves project error $status', () async {
+      final client = _client((_) => (status: status, raw: false, body: {}));
+      await expectLater(
+        client.projects.get(7),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   group('ProjectsApi.get', () {
     test('fetches a single project by id', () async {
       late RequestOptions captured;
