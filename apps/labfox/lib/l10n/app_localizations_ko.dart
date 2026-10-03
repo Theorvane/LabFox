@@ -3746,5 +3746,57 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPushClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushClearTitle => '최소 푸시 역할 해제';
+
+  @override
+  String get containerProtectionPushClearSave => '푸시 제한 해제';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      '이 규칙의 최소 푸시 역할 제한을 해제하여 일치하는 저장소의 푸시 보호가 약해집니다. 경로 패턴과 최소 삭제 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      '규칙을 검토했으며 이 푸시 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionPushClearError =>
+      '푸시 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPushClearSaved => '최소 푸시 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      '서버가 푸시 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
   String get containerRepositoryProtectionRoleAdmin => '관리자';
 }

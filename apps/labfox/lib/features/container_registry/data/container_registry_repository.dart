@@ -244,6 +244,14 @@ class ContainerRegistryRepository {
     int page = 1,
   }) => client.containerRegistry.listTags(projectId, repositoryId, page: page);
 
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearRepositoryProtectionPushRole(
+    projectId,
+    ruleId,
+  );
+
   Future<RegistryTag> tag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.getTag(projectId, repositoryId, tagName);
   Future<void> deleteTagProtectionRule(int projectId, int ruleId) =>

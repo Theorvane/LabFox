@@ -3856,5 +3856,59 @@ class AppLocalizationsHi extends AppLocalizations {
       'नियम में निर्दिष्ट नहीं';
 
   @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPushClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushClearTitle => 'न्यूनतम पुश भूमिका हटाएँ';
+
+  @override
+  String get containerProtectionPushClearSave => 'पुश प्रतिबंध हटाएँ';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      'यह इस नियम का न्यूनतम पुश-भूमिका प्रतिबंध हटाता है और मेल खाने वाली रिपॉज़िटरी की पुश सुरक्षा कम करता है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; इससे सभी को पहुँच नहीं मिलती और इमेज नहीं हटतीं।';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस पुश प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionPushClearError =>
+      'पुश प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPushClearSaved =>
+      'न्यूनतम पुश-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      'सर्वर ने पुश प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
+
+  @override
   String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }

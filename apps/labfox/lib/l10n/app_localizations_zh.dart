@@ -3634,5 +3634,52 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionPushClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionPushClearReload => '重新加载规则';
+
+  @override
+  String get containerProtectionPushClearMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionPushClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionPushClearTitle => '清除最低推送角色';
+
+  @override
+  String get containerProtectionPushClearSave => '清除推送限制';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      '这会移除此规则的最低推送角色限制，并削弱匹配仓库的推送保护。路径模式和最低删除角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionPushClearAcknowledge => '我已检查规则并了解移除此推送限制的影响。';
+
+  @override
+  String get containerProtectionPushClearError =>
+      '无法确认推送限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionPushClearSaved => '最低推送角色限制已清除。';
+
+  @override
+  String get containerProtectionPushClearInvalid => '服务器拒绝清除此推送限制。请检查规则后重试。';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。';
+
+  @override
   String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

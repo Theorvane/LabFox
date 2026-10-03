@@ -3738,5 +3738,57 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
 
   @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionPushClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPushClearTitle => '最低プッシュロールを解除';
+
+  @override
+  String get containerProtectionPushClearSave => 'プッシュ制限を解除';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      'このルールの最低プッシュロール制限を解除し、一致するリポジトリのプッシュ保護を弱めます。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      'ルールを確認し、このプッシュ制限を解除する影響を理解しました。';
+
+  @override
+  String get containerProtectionPushClearError =>
+      'プッシュ制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionPushClearSaved => '最低プッシュロール制限を解除しました。';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      'サーバーがプッシュ制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
   String get containerRepositoryProtectionRoleAdmin => '管理者';
 }
