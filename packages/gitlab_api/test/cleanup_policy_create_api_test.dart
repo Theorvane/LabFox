@@ -41,6 +41,38 @@ void main() {
       );
     });
   }
+  test('creates disabled policy with only explicit exact criteria', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (
+        status: 200,
+        body: {'id': 7, 'name': 'app', 'path_with_namespace': 'team/app'},
+      );
+    });
+    await client.projects.createDisabledCleanupPolicy(
+      'team/app',
+      cadence: '1month',
+      keepN: 100,
+      olderThan: '365d',
+      nameRegexDelete: r' release\..+ ',
+      nameRegexKeep: '',
+    );
+    expect(request.method, 'PUT');
+    expect(request.path, '/projects/team%2Fapp');
+    expect(request.contentType, Headers.jsonContentType);
+    expect(request.data, {
+      'container_expiration_policy_attributes': {
+        'enabled': false,
+        'cadence': '1month',
+        'keep_n': 100,
+        'older_than': '365d',
+        'name_regex_delete': r' release\..+ ',
+        'name_regex_keep': '',
+      },
+    });
+  });
+
   for (final enabled in [false, true]) {
     test(
       'creates policy with explicit activation $enabled and exact criteria',

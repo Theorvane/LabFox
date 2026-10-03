@@ -2821,9 +2821,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyCadence => '运行间隔';
 
   @override
-  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
-
-  @override
   String get containerCreateTitle => '创建清理策略';
 
   @override
@@ -2867,6 +2864,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String containerCreateDays(int days) {
     return '$days天';
   }
+
+  @override
+  String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
 
   @override
   String get containerCreateEnable => '创建时启用清理';
@@ -2920,6 +2920,37 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
+
+  @override
+  String get containerActivationIncomplete =>
+      '启用清理需要已报告的运行间隔、保留数量、时间限制和删除模式。请在 GitLab 中检查策略。';
+
+  @override
+  String get containerActivationTitle => '更改清理策略状态';
+
+  @override
+  String get containerActivationEnable => '启用清理';
+
+  @override
+  String get containerActivationDisable => '禁用清理';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '启用此项目级策略可能在计划运行时永久删除匹配标签。显示的保留设置和模式不会更改。删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '禁用此项目未来的计划清理，不更改保留设置或模式。请勿假定正在运行的清理任务会被取消。';
+
+  @override
+  String get containerActivationUnknown => '需要已知的启用状态。请在 GitLab 中检查策略设置。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab 拒绝了此状态更改。请在 GitLab 中检查现有策略设置。';
+
+  @override
+  String get containerActivationAccepted => '清理策略状态更新已接受。';
 
   @override
   String get containerActivationForbidden => '您无权更改此清理策略。';
@@ -3025,9 +3056,122 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => '编辑最低推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleSave => '保存推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '更改最低推送角色将改变本项目中可推送匹配容器镜像标签的人员范围。降低角色会削弱保护，提高角色可能阻止现有工作流程。标签模式和最低删除角色保持不变，其他规则和权限仍然适用。此操作不会删除标签或镜像，不影响 Git 标签，也不代表您的当前访问权限。';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      '我已检查规则和新的最低推送角色，并了解访问权限的变化。';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      '无法确认推送角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionPushRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionPushRoleReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '最低推送角色已更新。';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid => '推送角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '新的最低推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => '选择推送角色';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '当前推送角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return '删除所需最低角色：$role';
   }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle => '编辑最低删除角色';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => '保存删除角色';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      '更改最低删除角色将改变本项目中可删除匹配容器镜像标签的人员范围。降低角色会削弱删除保护，提高角色可能阻止现有清理流程。标签模式和最低推送角色保持不变，其他规则和权限仍然适用。保存此规则不会删除标签或镜像，不影响 Git 标签，也不代表您的当前访问权限。';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      '我已检查规则和新的最低删除角色，并了解访问权限的变化。';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      '无法确认删除角色已更新。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved => '最低删除角色已更新。';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid => '删除角色被拒绝。请选择支持的角色后重试。';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => '新的最低删除角色';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => '选择删除角色';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      '当前删除角色未知。为避免覆盖不支持的设置，编辑已被禁用。';
 
   @override
   String get containerTagProtectionRoleUnset => '规则未指定';
@@ -3619,6 +3763,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionPushClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionPushClearReload => '重新加载规则';
+
+  @override
+  String get containerProtectionPushClearMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionPushClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionPushClearTitle => '清除最低推送角色';
+
+  @override
+  String get containerProtectionPushClearSave => '清除推送限制';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      '这会移除此规则的最低推送角色限制，并削弱匹配仓库的推送保护。路径模式和最低删除角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionPushClearAcknowledge => '我已检查规则并了解移除此推送限制的影响。';
+
+  @override
+  String get containerProtectionPushClearError =>
+      '无法确认推送限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionPushClearSaved => '最低推送角色限制已清除。';
+
+  @override
+  String get containerProtectionPushClearInvalid => '服务器拒绝清除此推送限制。请检查规则后重试。';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。';
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理员';
