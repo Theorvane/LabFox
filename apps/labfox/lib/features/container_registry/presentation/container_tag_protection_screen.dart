@@ -110,8 +110,8 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  Wrap(
+                                    alignment: WrapAlignment.end,
                                     children: [
                                       IconButton(
                                         tooltip: l10n
