@@ -9,6 +9,25 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '编辑执行设置';
+
+  @override
+  String get pipelineScheduleExecutionSave => '保存';
+
+  @override
+  String get pipelineScheduleExecutionActive => '启用';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => '请输入引用。';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab 会验证引用。如果分支和标签同名，请使用完整引用。保存将重新安排后续运行；cron、时区、变量和输入保持不变。';
+
+  @override
+  String get pipelineScheduleExecutionError => '无法更新执行设置。请检查权限和引用后重试。';
+
+  @override
   String get pipelineScheduleCreate => '创建计划';
 
   @override
@@ -2997,6 +3016,46 @@ class AppLocalizationsZh extends AppLocalizations {
       '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
 
   @override
+  String get containerTagProtectionRemoveTitle => '删除标签保护规则';
+
+  @override
+  String get containerTagProtectionRemoveSave => '删除规则';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      '删除此规则将解除本项目中匹配的容器镜像标签的推送和删除保护。其他规则和权限仍然适用。此操作不会删除标签或镜像，也不会影响 Git 标签。';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge => '我已了解并确认删除此规则。';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => '您没有删除此规则的权限。';
+
+  @override
+  String get containerTagProtectionRemoveError => '请求失败，但可能已到达服务器。重试前请检查规则列表。';
+
+  @override
+  String get containerTagProtectionRemoveStale => '此规则已更改或存在重复。请重新加载并确认。';
+
+  @override
+  String get containerTagProtectionRemoveReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionRemoveSaved => '标签保护规则已删除。';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      '规则不存在、无法访问或不受支持。删除需要 GitLab 18.9 或更高版本。请重新加载后再继续。';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited => '请求过多。请稍后重试。';
+
+  @override
   String get containerTagProtectionPatternRateLimited => '请求过多。请稍后重试。';
 
   @override
@@ -3018,6 +3077,70 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagDeleteWarning => '此操作仅删除标签，不会删除底层镜像数据。删除标签不会释放磁盘空间。';
+
+  @override
+  String get containerCleanupTitle => '清理标签';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return '项目 $projectId，镜像仓库 $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '匹配的标签将永久删除。latest 和受保护标签除外。保留模式优先于删除模式。';
+
+  @override
+  String get containerCleanupLimits =>
+      '清理异步执行，每个仓库每小时最多一次，可能只删除部分匹配标签。时间和排序依据清单创建时间，而非推送时间。删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerCleanupDeletePattern => '删除模式（RE2，必填）';
+
+  @override
+  String get containerCleanupKeepPattern => '保留模式（RE2，可选）';
+
+  @override
+  String get containerCleanupKeepCount => '保留最新匹配标签数（可选）';
+
+  @override
+  String get containerCleanupAge => '仅删除早于以下时间的标签';
+
+  @override
+  String get containerCleanupNoAge => '无时间限制';
+
+  @override
+  String get containerCleanupDay => '1 天';
+
+  @override
+  String get containerCleanupWeek => '7 天';
+
+  @override
+  String get containerCleanupMonth => '1 个月';
+
+  @override
+  String get containerCleanupRequired => '请输入明确的删除模式。';
+
+  @override
+  String get containerCleanupCountError => '请输入非负整数或留空。';
+
+  @override
+  String get containerCleanupSchedule => '安排清理';
+
+  @override
+  String get containerCleanupScheduled => '清理已安排。处理完成前标签可能仍存在，请稍后刷新查看进度。';
+
+  @override
+  String get containerCleanupError => '无法安排清理。请检查连接后重试。';
+
+  @override
+  String get containerCleanupForbidden => '您无权清理此仓库的标签。';
+
+  @override
+  String get containerCleanupRateLimited => '清理请求受到限制。每个仓库每小时最多清理一次，请稍后重试。';
+
+  @override
+  String get containerCleanupInvalid => 'GitLab 拒绝了清理条件。请检查 RE2 模式和保留设置。';
 
   @override
   String get containerTagDeleteForbidden => '无法删除此标签。它可能受保护，或您没有权限。';
@@ -3367,6 +3490,49 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerProtectionCreateTitle => '创建仓库保护规则';
+
+  @override
+  String get containerProtectionCreateSave => '创建规则';
+
+  @override
+  String get containerProtectionCreatePattern => '仓库路径模式';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      '此规则限制与准确模式匹配的仓库中所选的推送和删除操作。通配符 (*) 可能影响多个仓库。未选择角色的操作不受此规则限制。其他规则和权限仍然适用。这些设置不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionCreateAcknowledge => '我已检查模式和最低角色，并了解其影响。';
+
+  @override
+  String get containerProtectionCreateUnset => '此规则不作限制';
+
+  @override
+  String get containerProtectionCreateCreated => '规则已创建。';
+
+  @override
+  String get containerProtectionCreateForbidden => '你没有创建此规则的权限。';
+
+  @override
+  String get containerProtectionCreateInvalid => '模式或角色被拒绝，或模式已被使用。请修改草稿后重试。';
+
+  @override
+  String get containerProtectionCreateError =>
+      '无法确认规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionCreatePush => '最低推送角色';
+
+  @override
+  String get containerProtectionCreateDelete => '最低删除角色';
 
   @override
   String get containerRepositoryProtectionError => '无法加载仓库保护规则。';

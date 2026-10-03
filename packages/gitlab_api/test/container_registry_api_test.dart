@@ -105,6 +105,107 @@ void main() {
       );
     });
   }
+  test('schedules cleanup with encoded IDs and exact JSON criteria', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 202, headers: const {}, body: const {});
+    });
+    await client.containerRegistry.deleteTags(
+      'team/app',
+      3,
+      nameRegexDelete: '^release.+',
+      nameRegexKeep: r'^stable$',
+      keepN: 10,
+      olderThan: '7d',
+    );
+    expect(request.method, 'DELETE');
+    expect(request.contentType, Headers.jsonContentType);
+    expect(request.path, '/projects/team%2Fapp/registry/repositories/3/tags');
+    expect(request.data, {
+      'name_regex_delete': '^release.+',
+      'name_regex_keep': r'^stable$',
+      'keep_n': 10,
+      'older_than': '7d',
+    });
+  });
+
+  test('omits optional criteria and preserves zero retention', () async {
+    final bodies = <Object?>[];
+    final client = _client((options) {
+      bodies.add(options.data);
+      return (status: 202, headers: const {}, body: const {});
+    });
+    await client.containerRegistry.deleteTags(7, 3, nameRegexDelete: '.*');
+    await client.containerRegistry.deleteTags(
+      7,
+      3,
+      nameRegexDelete: '.*',
+      keepN: 0,
+    );
+    expect(bodies, [
+      {'name_regex_delete': '.*'},
+      {'name_regex_delete': '.*', 'keep_n': 0},
+    ]);
+  });
+
+  for (final status in [200, 204, 400, 401, 403, 404, 422, 429, 500]) {
+    test(
+      'does not accept cleanup HTTP $status as scheduling success',
+      () async {
+        final client = _client(
+          (_) => (status: status, headers: const {}, body: const {}),
+        );
+        await expectLater(
+          client.containerRegistry.deleteTags(7, 3, nameRegexDelete: '.*'),
+          throwsA(
+            isA<GitLabException>().having(
+              (e) => e.statusCode,
+              'status',
+              status,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  test(
+    'maps cleanup permission, authentication and rate errors distinctly',
+    () async {
+      for (final (status, matcher) in [
+        (401, isA<GitLabAuthException>()),
+        (403, isA<GitLabForbiddenException>()),
+        (404, isA<GitLabNotFoundException>()),
+        (429, isA<GitLabRateLimitException>()),
+      ]) {
+        final client = _client(
+          (_) => (status: status, headers: const {}, body: const {}),
+        );
+        await expectLater(
+          client.containerRegistry.deleteTags(7, 3, nameRegexDelete: 'release'),
+          throwsA(matcher),
+        );
+      }
+    },
+  );
+
+  test(
+    'maps cleanup transport failure without leaking Dio exceptions',
+    () async {
+      final client = _client(
+        (options) => throw DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionError,
+        ),
+      );
+      await expectLater(
+        client.containerRegistry.deleteTags(7, 3, nameRegexDelete: 'release'),
+        throwsA(isA<GitLabConnectionException>()),
+      );
+    },
+  );
+
   test(
     'lists repository protection rules using an encoded project path',
     () async {

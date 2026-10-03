@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleExecutionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit execution settings'**
+  String get pipelineScheduleExecutionEdit;
+
+  /// No description provided for @pipelineScheduleExecutionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleExecutionSave;
+
+  /// No description provided for @pipelineScheduleExecutionActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineScheduleExecutionActive;
+
+  /// No description provided for @pipelineScheduleExecutionRefRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a ref.'**
+  String get pipelineScheduleExecutionRefRequired;
+
+  /// No description provided for @pipelineScheduleExecutionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.'**
+  String get pipelineScheduleExecutionHint;
+
+  /// No description provided for @pipelineScheduleExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update execution settings. Check your permissions and ref, then try again.'**
+  String get pipelineScheduleExecutionError;
+
   /// No description provided for @pipelineScheduleCreate.
   ///
   /// In en, this message translates to:
@@ -5828,6 +5864,78 @@ abstract class AppLocalizations {
   /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
   String get containerTagProtectionPatternMissing;
 
+  /// No description provided for @containerTagProtectionRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag protection rule'**
+  String get containerTagProtectionRemoveTitle;
+
+  /// No description provided for @containerTagProtectionRemoveSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerTagProtectionRemoveSave;
+
+  /// No description provided for @containerTagProtectionRemoveWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.'**
+  String get containerTagProtectionRemoveWarning;
+
+  /// No description provided for @containerTagProtectionRemoveAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand and want to delete this exact rule.'**
+  String get containerTagProtectionRemoveAcknowledge;
+
+  /// No description provided for @containerTagProtectionRemoveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionRemoveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to delete this rule.'**
+  String get containerTagProtectionRemoveForbidden;
+
+  /// No description provided for @containerTagProtectionRemoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request failed and may have reached the server. Inspect the rule list before retrying.'**
+  String get containerTagProtectionRemoveError;
+
+  /// No description provided for @containerTagProtectionRemoveStale.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changed or is ambiguous. Reload it and confirm again.'**
+  String get containerTagProtectionRemoveStale;
+
+  /// No description provided for @containerTagProtectionRemoveReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionRemoveReload;
+
+  /// No description provided for @containerTagProtectionRemoveSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule deleted.'**
+  String get containerTagProtectionRemoveSaved;
+
+  /// No description provided for @containerTagProtectionRemoveMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.'**
+  String get containerTagProtectionRemoveMissing;
+
+  /// No description provided for @containerTagProtectionRemoveRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait before retrying.'**
+  String get containerTagProtectionRemoveRateLimited;
+
   /// No description provided for @containerTagProtectionPatternRateLimited.
   ///
   /// In en, this message translates to:
@@ -5869,6 +5977,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.'**
   String get containerTagDeleteWarning;
+
+  /// No description provided for @containerCleanupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean up tags'**
+  String get containerCleanupTitle;
+
+  /// No description provided for @containerCleanupTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}, image repository {repositoryId}'**
+  String containerCleanupTarget(String projectId, String repositoryId);
+
+  /// No description provided for @containerCleanupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.'**
+  String get containerCleanupWarning;
+
+  /// No description provided for @containerCleanupLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.'**
+  String get containerCleanupLimits;
+
+  /// No description provided for @containerCleanupDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (RE2, required)'**
+  String get containerCleanupDeletePattern;
+
+  /// No description provided for @containerCleanupKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern (RE2, optional)'**
+  String get containerCleanupKeepPattern;
+
+  /// No description provided for @containerCleanupKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep newest matching tags (optional)'**
+  String get containerCleanupKeepCount;
+
+  /// No description provided for @containerCleanupAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Only remove tags older than'**
+  String get containerCleanupAge;
+
+  /// No description provided for @containerCleanupNoAge.
+  ///
+  /// In en, this message translates to:
+  /// **'No age limit'**
+  String get containerCleanupNoAge;
+
+  /// No description provided for @containerCleanupDay.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day'**
+  String get containerCleanupDay;
+
+  /// No description provided for @containerCleanupWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'7 days'**
+  String get containerCleanupWeek;
+
+  /// No description provided for @containerCleanupMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 month'**
+  String get containerCleanupMonth;
+
+  /// No description provided for @containerCleanupRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an explicit delete pattern.'**
+  String get containerCleanupRequired;
+
+  /// No description provided for @containerCleanupCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a non-negative whole number or leave blank.'**
+  String get containerCleanupCountError;
+
+  /// No description provided for @containerCleanupSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule cleanup'**
+  String get containerCleanupSchedule;
+
+  /// No description provided for @containerCleanupScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.'**
+  String get containerCleanupScheduled;
+
+  /// No description provided for @containerCleanupError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule cleanup. Check your connection and try again.'**
+  String get containerCleanupError;
+
+  /// No description provided for @containerCleanupForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to clean up tags in this repository.'**
+  String get containerCleanupForbidden;
+
+  /// No description provided for @containerCleanupRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.'**
+  String get containerCleanupRateLimited;
+
+  /// No description provided for @containerCleanupInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.'**
+  String get containerCleanupInvalid;
 
   /// No description provided for @containerTagDeleteForbidden.
   ///
@@ -6487,6 +6715,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No repository protection rules.'**
   String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create repository protection rule'**
+  String get containerProtectionCreateTitle;
+
+  /// No description provided for @containerProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerProtectionCreateSave;
+
+  /// No description provided for @containerProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository path pattern'**
+  String get containerProtectionCreatePattern;
+
+  /// Project identifier for repository protection creation
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.'**
+  String get containerProtectionCreateWarning;
+
+  /// No description provided for @containerProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the pattern and minimum roles and understand their impact.'**
+  String get containerProtectionCreateAcknowledge;
+
+  /// No description provided for @containerProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'No restriction from this rule'**
+  String get containerProtectionCreateUnset;
+
+  /// No description provided for @containerProtectionCreateCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was created.'**
+  String get containerProtectionCreateCreated;
+
+  /// No description provided for @containerProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerProtectionCreateForbidden;
+
+  /// No description provided for @containerProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.'**
+  String get containerProtectionCreateInvalid;
+
+  /// No description provided for @containerProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionCreateError;
+
+  /// No description provided for @containerProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerProtectionCreatePush;
+
+  /// No description provided for @containerProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerProtectionCreateDelete;
 
   /// No description provided for @containerRepositoryProtectionError.
   ///
