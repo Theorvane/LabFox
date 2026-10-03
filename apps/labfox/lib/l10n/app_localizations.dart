@@ -5444,6 +5444,120 @@ abstract class AppLocalizations {
   /// **'Matching tags to keep per image'**
   String get containerPolicyKeepCount;
 
+  /// No description provided for @containerCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create cleanup policy'**
+  String get containerCreateTitle;
+
+  /// No description provided for @containerCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm disabled policy creation'**
+  String get containerCreateSave;
+
+  /// No description provided for @containerCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.'**
+  String get containerCreateWarning;
+
+  /// No description provided for @containerCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed these criteria and understand that this policy will stay disabled.'**
+  String get containerCreateAcknowledge;
+
+  /// No description provided for @containerCreateExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'This project already has a cleanup policy. Creation will not replace it; use its existing settings.'**
+  String get containerCreateExisting;
+
+  /// No description provided for @containerCreateUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.'**
+  String get containerCreateUnknown;
+
+  /// No description provided for @containerCreateAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy creation accepted.'**
+  String get containerCreateAccepted;
+
+  /// No description provided for @containerCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected these policy settings. Review the criteria, then edit or retry.'**
+  String get containerCreateInvalid;
+
+  /// No description provided for @containerCreateDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get containerCreateDaily;
+
+  /// No description provided for @containerCreateWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week'**
+  String get containerCreateWeekly;
+
+  /// No description provided for @containerCreateFortnightly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every two weeks'**
+  String get containerCreateFortnightly;
+
+  /// No description provided for @containerCreateMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every month'**
+  String get containerCreateMonthly;
+
+  /// No description provided for @containerCreateQuarterly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every three months'**
+  String get containerCreateQuarterly;
+
+  /// No description provided for @containerCreateDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, one{1 day} other{{days} days}}'**
+  String containerCreateDays(int days);
+
+  /// No description provided for @containerCreateEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup when creating'**
+  String get containerCreateEnable;
+
+  /// No description provided for @containerCreateEnabledWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.'**
+  String get containerCreateEnabledWarning;
+
+  /// No description provided for @containerCreateEnabledAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.'**
+  String get containerCreateEnabledAcknowledge;
+
+  /// No description provided for @containerCreateEnabledSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm enabled policy creation'**
+  String get containerCreateEnabledSave;
+
+  /// No description provided for @containerCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project before creating a policy.'**
+  String get containerCreateSessionChanged;
+
   /// No description provided for @containerPolicyAge.
   ///
   /// In en, this message translates to:
@@ -6272,119 +6386,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// No description provided for @containerCreateTitle.
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create cleanup policy'**
-  String get containerCreateTitle;
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerCreateSave.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Confirm disabled policy creation'**
-  String get containerCreateSave;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerCreateWarning.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.'**
-  String get containerCreateWarning;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerCreateAcknowledge.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed these criteria and understand that this policy will stay disabled.'**
-  String get containerCreateAcknowledge;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerCreateExisting.
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'This project already has a cleanup policy. Creation will not replace it; use its existing settings.'**
-  String get containerCreateExisting;
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerCreateUnknown.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.'**
-  String get containerCreateUnknown;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerCreateAccepted.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Cleanup policy creation accepted.'**
-  String get containerCreateAccepted;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerCreateInvalid.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'GitLab rejected these policy settings. Review the criteria, then edit or retry.'**
-  String get containerCreateInvalid;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerCreateDaily.
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'Every day'**
-  String get containerCreateDaily;
-
-  /// No description provided for @containerCreateWeekly.
-  ///
-  /// In en, this message translates to:
-  /// **'Every week'**
-  String get containerCreateWeekly;
-
-  /// No description provided for @containerCreateFortnightly.
-  ///
-  /// In en, this message translates to:
-  /// **'Every two weeks'**
-  String get containerCreateFortnightly;
-
-  /// No description provided for @containerCreateMonthly.
-  ///
-  /// In en, this message translates to:
-  /// **'Every month'**
-  String get containerCreateMonthly;
-
-  /// No description provided for @containerCreateQuarterly.
-  ///
-  /// In en, this message translates to:
-  /// **'Every three months'**
-  String get containerCreateQuarterly;
-
-  /// No description provided for @containerCreateDays.
-  ///
-  /// In en, this message translates to:
-  /// **'{days, plural, one{1 day} other{{days} days}}'**
-  String containerCreateDays(int days);
-
-  /// No description provided for @containerCreateEnable.
-  ///
-  /// In en, this message translates to:
-  /// **'Enable cleanup when creating'**
-  String get containerCreateEnable;
-
-  /// No description provided for @containerCreateEnabledWarning.
-  ///
-  /// In en, this message translates to:
-  /// **'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.'**
-  String get containerCreateEnabledWarning;
-
-  /// No description provided for @containerCreateEnabledAcknowledge.
-  ///
-  /// In en, this message translates to:
-  /// **'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.'**
-  String get containerCreateEnabledAcknowledge;
-
-  /// No description provided for @containerCreateEnabledSave.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm enabled policy creation'**
-  String get containerCreateEnabledSave;
-
-  /// No description provided for @containerCreateSessionChanged.
-  ///
-  /// In en, this message translates to:
-  /// **'The account changed. Close this dialog and reopen it to review the current project before creating a policy.'**
-  String get containerCreateSessionChanged;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate

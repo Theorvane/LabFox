@@ -2848,6 +2848,73 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
 
   @override
+  String get containerCreateTitle => '정리 정책 만들기';
+
+  @override
+  String get containerCreateSave => '비활성 정책 생성 확인';
+
+  @override
+  String get containerCreateWarning =>
+      '모든 이미지 저장소의 정리 기준을 저장합니다. 활성화를 선택하지 않으면 정리는 비활성 상태로 유지됩니다. 기본 보존 패턴 .*는 모든 태그를 보존하며, 빈 보존 패턴은 패턴에 따른 보존을 제공하지 않습니다. 패턴은 입력한 그대로 전송되고 GitLab RE2 전체 태그 일치를 사용합니다. 비활성 상태에서는 검증이 나중으로 미뤄질 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateAcknowledge =>
+      '기준을 검토했으며 이 정책이 비활성 상태로 유지됨을 이해합니다.';
+
+  @override
+  String get containerCreateExisting =>
+      '프로젝트에 정리 정책이 이미 있습니다. 생성으로 덮어쓰지 않습니다. 기존 설정을 사용하세요.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab이 정책 존재 여부를 보고하지 않았습니다. GitLab에서 확인하세요. 생성할 수 없습니다.';
+
+  @override
+  String get containerCreateAccepted => '정리 정책 생성 요청이 수락되었습니다.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab이 정책 설정을 거부했습니다. 조건을 확인한 후 수정하거나 재시도하세요.';
+
+  @override
+  String get containerCreateDaily => '매일';
+
+  @override
+  String get containerCreateWeekly => '매주';
+
+  @override
+  String get containerCreateFortnightly => '2주마다';
+
+  @override
+  String get containerCreateMonthly => '매월';
+
+  @override
+  String get containerCreateQuarterly => '3개월마다';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days일';
+  }
+
+  @override
+  String get containerCreateEnable => '생성 시 정리 활성화';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '활성 정책은 일정에 따라 이 프로젝트의 모든 이미지 저장소에서 일치하는 태그를 영구 삭제할 수 있습니다. 실행 주기, 보존 수, 보존 기간, 두 패턴을 검토하세요. 보호되거나 변경 불가능한 태그의 제외 여부는 GitLab이 결정합니다. 저장은 삭제 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      '모든 기준을 검토했으며 프로젝트 전체의 일치하는 태그가 일정에 따라 영구 삭제되는 것에 동의합니다.';
+
+  @override
+  String get containerCreateEnabledSave => '활성 정책 생성 확인';
+
+  @override
+  String get containerCreateSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토한 후 정책을 만드세요.';
+
+  @override
   String get containerPolicyAge => '제거할 태그의 최소 나이';
 
   @override
@@ -3341,69 +3408,34 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 보관 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
-  String get containerCreateTitle => '정리 정책 만들기';
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
 
   @override
-  String get containerCreateSave => '비활성 정책 생성 확인';
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
 
   @override
-  String get containerCreateWarning =>
-      '모든 이미지 저장소의 정리 기준을 저장합니다. 활성화를 선택하지 않으면 정리는 비활성 상태로 유지됩니다. 기본 보존 패턴 .*는 모든 태그를 보존하며, 빈 보존 패턴은 패턴에 따른 보존을 제공하지 않습니다. 패턴은 입력한 그대로 전송되고 GitLab RE2 전체 태그 일치를 사용합니다. 비활성 상태에서는 검증이 나중으로 미뤄질 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
 
   @override
-  String get containerCreateAcknowledge =>
-      '기준을 검토했으며 이 정책이 비활성 상태로 유지됨을 이해합니다.';
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
 
   @override
-  String get containerCreateExisting =>
-      '프로젝트에 정리 정책이 이미 있습니다. 생성으로 덮어쓰지 않습니다. 기존 설정을 사용하세요.';
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
 
   @override
-  String get containerCreateUnknown =>
-      'GitLab이 정책 존재 여부를 보고하지 않았습니다. GitLab에서 확인하세요. 생성할 수 없습니다.';
-
-  @override
-  String get containerCreateAccepted => '정리 정책 생성 요청이 수락되었습니다.';
-
-  @override
-  String get containerCreateInvalid =>
-      'GitLab이 정책 설정을 거부했습니다. 조건을 확인한 후 수정하거나 재시도하세요.';
-
-  @override
-  String get containerCreateDaily => '매일';
-
-  @override
-  String get containerCreateWeekly => '매주';
-
-  @override
-  String get containerCreateFortnightly => '2주마다';
-
-  @override
-  String get containerCreateMonthly => '매월';
-
-  @override
-  String get containerCreateQuarterly => '3개월마다';
-
-  @override
-  String containerCreateDays(int days) {
-    return '$days일';
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
   }
 
   @override
-  String get containerCreateEnable => '생성 시 정리 활성화';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
 
   @override
-  String get containerCreateEnabledWarning =>
-      '활성 정책은 일정에 따라 이 프로젝트의 모든 이미지 저장소에서 일치하는 태그를 영구 삭제할 수 있습니다. 실행 주기, 보존 수, 보존 기간, 두 패턴을 검토하세요. 보호되거나 변경 불가능한 태그의 제외 여부는 GitLab이 결정합니다. 저장은 삭제 완료나 저장 공간 확보를 의미하지 않습니다.';
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override
-  String get containerCreateEnabledAcknowledge =>
-      '모든 기준을 검토했으며 프로젝트 전체의 일치하는 태그가 일정에 따라 영구 삭제되는 것에 동의합니다.';
-
-  @override
-  String get containerCreateEnabledSave => '활성 정책 생성 확인';
-
-  @override
-  String get containerCreateSessionChanged =>
-      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토한 후 정책을 만드세요.';
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 }

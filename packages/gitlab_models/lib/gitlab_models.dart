@@ -12,6 +12,7 @@ export 'src/commit.dart';
 export 'src/container_cleanup_policy.dart';
 export 'src/container_cleanup_policy_snapshot.dart';
 export 'src/container_immutability_rule.dart';
+export 'src/container_repository_protection_rule.dart';
 export 'src/container_tag_protection_rule.dart';
 export 'src/file_diff.dart';
 export 'src/gitlab_deployment.dart';
