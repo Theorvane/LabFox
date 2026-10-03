@@ -19,6 +19,7 @@ class _Repository extends PipelinesRepository {
   final pending =
       <(PipelineStatusFilter?, int), Completer<Paginated<Pipeline>>>{};
   bool fail = false;
+  int firstId = 33;
   @override
   Future<Paginated<Pipeline>> list(
     int projectId, {
@@ -31,7 +32,10 @@ class _Repository extends PipelinesRepository {
     if (fail) throw const GitLabForbiddenException('Rejected');
     return Paginated(
       items: [
-        Pipeline(id: page == 1 ? 33 : 32, status: status?.name ?? 'scheduled'),
+        Pipeline(
+          id: page == 1 ? firstId : firstId - 1,
+          status: status?.name ?? 'scheduled',
+        ),
       ],
       nextPage: page == 1 ? 4 : null,
     );
@@ -150,8 +154,20 @@ void main() {
         )).items.single.status,
         'scheduled',
       );
+      final oldRepository = repository;
+      final oldPage = Completer<Paginated<Pipeline>>();
+      oldRepository.pending[(PipelineStatusFilter.manual, 4)] = oldPage;
+      final oldRequest = container.read(provider.notifier).loadMore();
+      await Future<void>.delayed(Duration.zero);
+      repository = _Repository()..firstId = 77;
       container.invalidate(pipelinesRepositoryProvider);
-      await container.read(provider.future);
+      expect((await container.read(provider.future)).items.single.id, 77);
+      oldPage.complete(
+        const Paginated(items: [Pipeline(id: 999, status: 'manual')]),
+      );
+      await oldRequest;
+      expect(container.read(provider).requireValue.items.single.id, 77);
+      expect(container.read(provider).requireValue.nextPage, 4);
       expect(repository.calls.last, (
         projectId: 7,
         page: 1,
