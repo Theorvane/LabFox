@@ -9,6 +9,26 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => '실행 설정 편집';
+
+  @override
+  String get pipelineScheduleExecutionSave => '저장';
+
+  @override
+  String get pipelineScheduleExecutionActive => '활성';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab에서 ref를 검증합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요. 저장하면 향후 실행 일정이 다시 계산되며 cron, 시간대, 변수 및 입력값은 변경되지 않습니다.';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      '실행 설정을 수정하지 못했습니다. 권한과 ref를 확인하고 다시 시도하세요.';
+
+  @override
   String get pipelineScheduleCreate => '스케줄 생성';
 
   @override
@@ -3070,6 +3090,50 @@ class AppLocalizationsKo extends AppLocalizations {
       '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
 
   @override
+  String get containerTagProtectionRemoveTitle => '태그 보호 규칙 삭제';
+
+  @override
+  String get containerTagProtectionRemoveSave => '규칙 삭제';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      '이 규칙을 삭제하면 프로젝트에서 일치하는 컨테이너 이미지 태그의 푸시 및 삭제 보호가 해제됩니다. 다른 규칙과 권한은 계속 적용됩니다. 태그나 이미지를 삭제하지 않으며 Git 태그에는 영향을 주지 않습니다.';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      '이 내용을 이해했으며 이 규칙을 삭제하겠습니다.';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => '이 규칙을 삭제할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      '요청이 실패했지만 서버에 전달되었을 수 있습니다. 재시도 전에 규칙 목록을 확인하세요.';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      '규칙이 변경되었거나 중복됩니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionRemoveReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionRemoveSaved => '태그 보호 규칙을 삭제했습니다.';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      '규칙이 없거나 접근할 수 없거나 지원되지 않습니다. 삭제에는 GitLab 18.9 이상이 필요합니다. 계속하려면 다시 불러오세요.';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
 
@@ -3094,6 +3158,73 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerTagDeleteWarning =>
       '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
+
+  @override
+  String get containerCleanupTitle => '태그 정리';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return '프로젝트 $projectId, 이미지 저장소 $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '조건에 맞는 태그가 영구 삭제됩니다. latest 및 보호된 태그는 제외됩니다. 보존 패턴은 삭제 패턴보다 우선합니다.';
+
+  @override
+  String get containerCleanupLimits =>
+      '정리는 저장소당 시간당 최대 한 번 비동기로 실행되며 일부 태그만 제거될 수 있습니다. 나이와 순서는 푸시 시간이 아닌 매니페스트 생성 시간을 기준으로 합니다. 태그를 제거해도 이미지 저장 공간은 회수되지 않습니다.';
+
+  @override
+  String get containerCleanupDeletePattern => '삭제 패턴 (RE2, 필수)';
+
+  @override
+  String get containerCleanupKeepPattern => '보존 패턴 (RE2, 선택)';
+
+  @override
+  String get containerCleanupKeepCount => '최신 일치 태그 보존 개수 (선택)';
+
+  @override
+  String get containerCleanupAge => '다음 기간보다 오래된 태그만 제거';
+
+  @override
+  String get containerCleanupNoAge => '나이 제한 없음';
+
+  @override
+  String get containerCleanupDay => '1일';
+
+  @override
+  String get containerCleanupWeek => '7일';
+
+  @override
+  String get containerCleanupMonth => '1개월';
+
+  @override
+  String get containerCleanupRequired => '삭제 패턴을 명시적으로 입력하세요.';
+
+  @override
+  String get containerCleanupCountError => '0 이상의 정수를 입력하거나 비워 두세요.';
+
+  @override
+  String get containerCleanupSchedule => '정리 예약';
+
+  @override
+  String get containerCleanupScheduled =>
+      '정리가 예약되었습니다. 처리가 완료될 때까지 태그가 남아 있을 수 있으니 나중에 새로고침하세요.';
+
+  @override
+  String get containerCleanupError => '정리를 예약하지 못했습니다. 연결을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerCleanupForbidden => '이 저장소의 태그를 정리할 권한이 없습니다.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      '정리 요청이 제한되었습니다. 저장소당 시간당 최대 한 번 실행할 수 있습니다. 나중에 다시 시도하세요.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab이 정리 조건을 거부했습니다. RE2 패턴과 보존 설정을 확인하세요.';
 
   @override
   String get containerTagDeleteForbidden =>
@@ -3465,6 +3596,51 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
+
+  @override
+  String get containerProtectionCreateTitle => '저장소 보호 규칙 생성';
+
+  @override
+  String get containerProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerProtectionCreatePattern => '저장소 경로 패턴';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      '이 규칙은 정확한 패턴과 일치하는 저장소의 선택된 푸시 및 삭제 작업을 제한합니다. 와일드카드(*)는 여러 저장소에 영향을 줄 수 있습니다. 역할을 선택하지 않은 작업은 이 규칙으로 제한되지 않습니다. 다른 규칙과 권한은 계속 적용됩니다. 이 설정은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      '패턴과 최소 역할을 검토했으며 적용 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionCreateUnset => '이 규칙에 의한 제한 없음';
+
+  @override
+  String get containerProtectionCreateCreated => '규칙이 생성되었습니다.';
+
+  @override
+  String get containerProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      '패턴이나 역할이 거부되었거나 패턴이 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionCreateError =>
+      '규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerProtectionCreateDelete => '최소 삭제 역할';
 
   @override
   String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';

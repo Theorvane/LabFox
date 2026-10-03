@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_registry_controllers.dart';
+import 'widgets/container_tag_cleanup_dialog.dart';
 
 /// Tags published to one container image repository.
 class ContainerRepositoryScreen extends ConsumerWidget {
@@ -23,14 +24,41 @@ class ContainerRepositoryScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final key = RegistryRef(projectId: projectId, repositoryId: repositoryId);
     final tags = ref.watch(containerTagsControllerProvider(key));
+    final pending = ref
+        .watch(containerTagCleanupControllerProvider(key))
+        .isLoading;
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerTagsTitle),
         leading: BackButton(
-          onPressed: () => context.canPop()
-              ? context.pop()
-              : context.go(Routes.containerRegistry(projectId)),
+          onPressed: pending
+              ? null
+              : () => context.canPop()
+                    ? context.pop()
+                    : context.go(Routes.containerRegistry(projectId)),
         ),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerCleanupTitle,
+            icon: const Icon(Icons.cleaning_services_outlined),
+            onPressed:
+                pending || tags.isLoading || tags.hasError || !tags.hasValue
+                ? null
+                : () async {
+                    final scheduled = await showDialog<bool>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) =>
+                          ContainerTagCleanupDialog(repository: key),
+                    );
+                    if (scheduled == true && context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(l10n.containerCleanupScheduled)),
+                      );
+                    }
+                  },
+          ),
+        ],
       ),
       body: tags.when(
         loading: () => const Center(child: CircularProgressIndicator()),
