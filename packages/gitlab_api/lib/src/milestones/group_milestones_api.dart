@@ -18,11 +18,17 @@ class GroupMilestonesApi {
     int page = 1,
     int perPage = 20,
     String? state,
+    String? search,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
         _path(groupId),
-        queryParameters: {'page': page, 'per_page': perPage, 'state': ?state},
+        queryParameters: {
+          'page': page,
+          'per_page': perPage,
+          'state': ?state,
+          'search': ?search,
+        },
       );
       if (response.statusCode != 200) {
         throw mapStatus(
