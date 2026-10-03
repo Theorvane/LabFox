@@ -4029,6 +4029,64 @@ class AppLocalizationsJa extends AppLocalizations {
       '要求が多すぎます。待ってから再試行してください。';
 
   @override
+  String get containerProtectionDeleteRoleTitle => '最低削除ロールを編集';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '削除ロールを保存';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '最低削除ロールを変更すると、一致するリポジトリのイメージを削除できる人が変わります。低いロールは削除保護を弱め、高いロールは既存のクリーンアップを妨げる可能性があります。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示しません。ルールの保存ではイメージは削除されません。';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      'ルールと新しい最低削除ロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '削除ロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionDeleteRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '最低削除ロールを更新しました。';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      '削除ロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '新しい最低削除ロール';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '削除ロールを選択';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+
+  @override
   String get containerProtectionDeleteClearTitle => '最低削除ロールを解除';
 
   @override
@@ -4096,6 +4154,64 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerProtectionPushClearRateLimited =>
       '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPushRoleTitle => '最低プッシュロールを編集';
+
+  @override
+  String get containerProtectionPushRoleSave => 'プッシュロールを保存';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      '最低プッシュロールを変更すると、一致するリポジトリにプッシュできる人が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる可能性があります。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したり、イメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionPushRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerProtectionPushRoleDraft => '新しい最低プッシュロール';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'プッシュロールを選択';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
 
   @override
   String get containerProtectionPushClearTitle => '最低プッシュロールを解除';
