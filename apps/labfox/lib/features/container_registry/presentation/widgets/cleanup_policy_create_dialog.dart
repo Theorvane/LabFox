@@ -7,8 +7,9 @@ import 'package:intl/intl.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../controllers/cleanup_policy_create_controller.dart';
+import '../controllers/container_registry_controllers.dart';
 
-/// Disabled-first creation; no missing-policy inference or automatic activation.
+/// Disabled-first creation with explicit project-wide activation confirmation.
 class CleanupPolicyCreateDialog extends ConsumerStatefulWidget {
   const CleanupPolicyCreateDialog({required this.projectId, super.key});
   final int projectId;
@@ -19,18 +20,30 @@ class CleanupPolicyCreateDialog extends ConsumerStatefulWidget {
 
 class _CleanupPolicyCreateDialogState
     extends ConsumerState<CleanupPolicyCreateDialog> {
+  late final Object _session;
+  @override
+  void initState() {
+    super.initState();
+    _session = ref.read(containerRegistryRepositoryProvider.future);
+  }
+
+  bool get _sessionChanged => !identical(
+    _session,
+    ref.read(containerRegistryRepositoryProvider.future),
+  );
   String _cadence = '1month';
   int _keepN = 100;
   String _age = '365d';
   String _delete = '';
   String _keep = '.*';
+  bool _enabled = false;
   bool _acknowledged = false;
   bool _busy = false;
   bool _stale = false;
   String? _error;
 
   void _draftChanged(VoidCallback change) {
-    if (_busy || _stale) return;
+    if (_busy || _stale || _sessionChanged) return;
     setState(() {
       change();
       _acknowledged = false;
@@ -39,7 +52,7 @@ class _CleanupPolicyCreateDialogState
   }
 
   void _reload() {
-    if (_busy) return;
+    if (_busy || _sessionChanged) return;
     setState(() {
       _stale = false;
       _acknowledged = false;
@@ -49,7 +62,13 @@ class _CleanupPolicyCreateDialogState
   }
 
   Future<void> _save(ContainerCleanupPolicySnapshot expected) async {
-    if (_busy || _stale || !_acknowledged || _delete.trim().isEmpty) return;
+    if (_busy ||
+        _stale ||
+        _sessionChanged ||
+        !_acknowledged ||
+        _delete.trim().isEmpty) {
+      return;
+    }
     setState(() {
       _busy = true;
       _error = null;
@@ -62,13 +81,14 @@ class _CleanupPolicyCreateDialogState
           )
           .create(
             expected: expected,
+            enabled: _enabled,
             cadence: _cadence,
             keepN: _keepN,
             olderThan: _age,
             nameRegexDelete: _delete,
             nameRegexKeep: _keep,
           );
-      if (mounted) Navigator.of(context).pop(true);
+      if (mounted && !_sessionChanged) Navigator.of(context).pop(true);
     } catch (error) {
       if (!mounted) return;
       setState(() {
@@ -105,7 +125,8 @@ class _CleanupPolicyCreateDialogState
         !load.hasError &&
         snapshot != null &&
         canCreateCleanupPolicy(snapshot);
-    final locked = _busy || _stale;
+    ref.watch(containerRegistryRepositoryProvider.future);
+    final locked = _busy || _stale || _sessionChanged;
     return PopScope(
       canPop: !_busy,
       child: AlertDialog(
@@ -125,6 +146,7 @@ class _CleanupPolicyCreateDialogState
                   ),
                 ),
                 const SizedBox(height: LabFoxSpacing.md),
+                if (_sessionChanged) Text(l10n.containerCreateSessionChanged),
                 load.when(
                   skipLoadingOnRefresh: false,
                   skipLoadingOnReload: false,
@@ -146,6 +168,18 @@ class _CleanupPolicyCreateDialogState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(l10n.containerCreateWarning),
+                            SwitchListTile(
+                              key: const ValueKey('cleanup-create-enabled'),
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(l10n.containerCreateEnable),
+                              value: _enabled,
+                              onChanged: locked
+                                  ? null
+                                  : (value) =>
+                                        _draftChanged(() => _enabled = value),
+                            ),
+                            if (_enabled)
+                              Text(l10n.containerCreateEnabledWarning),
                             const SizedBox(height: LabFoxSpacing.md),
                             DropdownButtonFormField<String>(
                               key: const ValueKey('cleanup-create-cadence'),
@@ -245,7 +279,11 @@ class _CleanupPolicyCreateDialogState
                             CheckboxListTile(
                               contentPadding: EdgeInsets.zero,
                               value: _acknowledged,
-                              title: Text(l10n.containerCreateAcknowledge),
+                              title: Text(
+                                _enabled
+                                    ? l10n.containerCreateEnabledAcknowledge
+                                    : l10n.containerCreateAcknowledge,
+                              ),
                               onChanged: locked
                                   ? null
                                   : (value) => setState(() {
@@ -276,7 +314,7 @@ class _CleanupPolicyCreateDialogState
           ),
           if (_error != null || load.hasError || !actionable && !load.isLoading)
             TextButton(
-              onPressed: _busy ? null : _reload,
+              onPressed: _busy || _sessionChanged ? null : _reload,
               child: Text(l10n.containerActivationReload),
             ),
           if (actionable || _busy)
@@ -290,7 +328,11 @@ class _CleanupPolicyCreateDialogState
                       height: 20,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : Text(l10n.containerCreateSave),
+                  : Text(
+                      _enabled
+                          ? l10n.containerCreateEnabledSave
+                          : l10n.containerCreateSave,
+                    ),
             ),
         ],
       ),

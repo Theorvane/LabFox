@@ -21,6 +21,7 @@ class PolicyCreateRepository extends ContainerRegistryRepository {
   Object? failure;
   Object? readFailure;
   Completer<void>? pending;
+  Completer<void>? pendingRead;
   int reads = 0;
   final writes = <ContainerCleanupPolicy>[];
   @override
@@ -28,13 +29,15 @@ class PolicyCreateRepository extends ContainerRegistryRepository {
     int projectId,
   ) async {
     reads++;
+    if (pendingRead != null) await pendingRead!.future;
     if (readFailure != null) throw readFailure!;
     return snapshot;
   }
 
   @override
-  Future<void> createDisabledCleanupPolicy(
+  Future<void> createCleanupPolicy(
     int projectId, {
+    bool enabled = false,
     required String cadence,
     required int keepN,
     required String olderThan,
@@ -42,7 +45,7 @@ class PolicyCreateRepository extends ContainerRegistryRepository {
     required String nameRegexKeep,
   }) async {
     final policy = ContainerCleanupPolicy(
-      enabled: false,
+      enabled: enabled,
       cadence: cadence,
       keepN: keepN,
       olderThan: olderThan,
@@ -72,6 +75,7 @@ void main() {
   tearDown(() => container.dispose());
   Future<void> create({
     ContainerCleanupPolicySnapshot expected = absentPolicy,
+    bool enabled = false,
     String cadence = '1month',
     int keepN = 100,
     String olderThan = '365d',
@@ -81,6 +85,7 @@ void main() {
       .read(cleanupPolicyCreateControllerProvider(7).notifier)
       .create(
         expected: expected,
+        enabled: enabled,
         cadence: cadence,
         keepN: keepN,
         olderThan: olderThan,
@@ -107,6 +112,16 @@ void main() {
         repository.writes.single,
       );
       sub.close();
+    },
+  );
+  test(
+    'explicit activation sends enabled criteria after absence preflight',
+    () async {
+      await create(enabled: true, delete: r' release\..+ ', keep: '');
+      expect(repository.reads, 1);
+      expect(repository.writes.single.enabled, isTrue);
+      expect(repository.writes.single.nameRegexDelete, r' release\..+ ');
+      expect(repository.writes.single.nameRegexKeep, '');
     },
   );
   for (final expected in [
@@ -176,6 +191,41 @@ void main() {
     await expectLater(create(), throwsA(isA<GitLabForbiddenException>()));
     expect(repository.writes, isEmpty);
   });
+  test('session change during preflight prevents enabled dispatch', () async {
+    repository.pendingRead = Completer<void>();
+    final pending = create(enabled: true);
+    final expectation = expectLater(
+      pending,
+      throwsA(isA<GitLabConflictException>()),
+    );
+    await Future<void>.delayed(Duration.zero);
+    container.invalidate(containerRegistryRepositoryProvider);
+    await container.read(containerRegistryRepositoryProvider.future);
+    repository.pendingRead!.complete();
+    await expectation;
+    expect(repository.writes, isEmpty);
+  });
+  test(
+    'session change during write cannot report acceptance or refresh',
+    () async {
+      repository.pending = Completer<void>();
+      final pending = create(enabled: true);
+      final expectation = expectLater(
+        pending,
+        throwsA(isA<GitLabConflictException>()),
+      );
+      await Future<void>.delayed(Duration.zero);
+      container.invalidate(containerRegistryRepositoryProvider);
+      await container.read(containerRegistryRepositoryProvider.future);
+      repository.pending!.complete();
+      await expectation;
+      expect(repository.writes, hasLength(1));
+      expect(
+        container.read(cleanupPolicyCreateControllerProvider(7)).isLoading,
+        isFalse,
+      );
+    },
+  );
   test('pending command blocks duplicate creation', () async {
     repository.pending = Completer<void>();
     final pending = create();

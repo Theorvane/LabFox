@@ -136,6 +136,14 @@ class ContainerRegistryRepository {
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
 
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionDeleteRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearRepositoryProtectionDeleteRole(
+    projectId,
+    ruleId,
+  );
+
   /// Preflight is best effort, not an atomic uniqueness or permission check.
   Future<ContainerTagImmutabilityRule> createImmutableTagRule(
     int projectId,
@@ -197,6 +205,13 @@ class ContainerRegistryRepository {
     await client.projects.clearCleanupPolicyKeepPattern(projectId);
   }
 
+  Future<void> setCleanupPolicyAge(
+    int projectId, {
+    required String olderThan,
+  }) async {
+    await client.projects.setCleanupPolicyAge(projectId, olderThan: olderThan);
+  }
+
   Future<void> setCleanupPolicyKeepPattern(
     int projectId, {
     required String nameRegexKeep,
@@ -233,6 +248,26 @@ class ContainerRegistryRepository {
   }) async {
     await client.projects.createDisabledCleanupPolicy(
       projectId,
+      cadence: cadence,
+      keepN: keepN,
+      olderThan: olderThan,
+      nameRegexDelete: nameRegexDelete,
+      nameRegexKeep: nameRegexKeep,
+    );
+  }
+
+  Future<void> createCleanupPolicy(
+    int projectId, {
+    bool enabled = false,
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    await client.projects.createCleanupPolicy(
+      projectId,
+      enabled: enabled,
       cadence: cadence,
       keepN: keepN,
       olderThan: olderThan,

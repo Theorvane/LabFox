@@ -2946,6 +2946,50 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerPolicyStatus => 'स्थिति';
 
   @override
+  String get containerPolicyTitle => 'सफ़ाई नीति';
+
+  @override
+  String get containerPolicyAbsent =>
+      'GitLab ने सफ़ाई नीति की जानकारी नहीं दी।';
+
+  @override
+  String get containerPolicyHint =>
+      'इस प्रोजेक्ट की सभी कंटेनर इमेज रिपॉज़िटरी के लिए केवल-पढ़ने योग्य सेटिंग। सफ़ाई मिलते टैग असमकालिक रूप से हटाती है, जबकि रखने के नियम, latest, संरक्षित और अपरिवर्तनीय टैग सुरक्षित रहते हैं। कई बार चलाना पड़ सकता है; टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerPolicyNextRun =>
+      'GitLab द्वारा बताया अगला रन (स्थानीय समय)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString दिन',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString महीने',
+      one: '1 महीना',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => 'सक्रिय';
 
   @override
@@ -2958,18 +3002,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerPolicyCadence => 'चलने का अंतराल';
 
   @override
-  String get containerCreateTitle => 'निष्क्रिय क्लीनअप नीति बनाएँ';
+  String get containerCreateTitle => 'सफाई नीति बनाएँ';
 
   @override
   String get containerCreateSave => 'निष्क्रिय नीति बनाने की पुष्टि करें';
 
   @override
   String get containerCreateWarning =>
-      'सभी इमेज रिपॉज़िटरी के लिए निष्क्रिय नीति सहेजें। इससे क्लीनअप सक्रिय नहीं होगा। बाद में सक्रिय करने से पहले सभी शर्तों की समीक्षा करें; मेल खाने वाले टैग स्थायी रूप से हट सकते हैं। डिफ़ॉल्ट रखने वाला पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित सुरक्षा नहीं देता। पैटर्न ठीक वैसे भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग से मिलान करता है। सत्यापन सक्रिय करने तक टल सकता है। स्वीकार होने का अर्थ क्लीनअप पूरा होना या स्टोरेज खाली होना नहीं है।';
+      'सभी इमेज रिपॉज़िटरी के लिए सफाई मानदंड सहेजें। सक्रियण चुनने तक सफाई निष्क्रिय रहती है। डिफ़ॉल्ट रखने का पैटर्न .* सभी टैग रखता है; खाली पैटर्न कोई पैटर्न-आधारित संरक्षण नहीं देता। पैटर्न ठीक वैसे ही भेजे जाते हैं जैसे दर्ज किए गए हैं और GitLab RE2 पूरे टैग का मिलान करता है। निष्क्रिय अवस्था में सत्यापन बाद में हो सकता है। स्वीकृति सफाई पूरी होने या संग्रहण खाली होने की पुष्टि नहीं करती।';
 
   @override
   String get containerCreateAcknowledge =>
-      'मैंने शर्तों की समीक्षा की है और समझता हूँ कि सक्रिय करना अलग कार्रवाई है।';
+      'मैंने मानदंडों की समीक्षा की है और समझता हूँ कि यह नीति निष्क्रिय रहेगी।';
 
   @override
   String get containerCreateExisting =>
@@ -2981,7 +3025,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerCreateAccepted =>
-      'निष्क्रिय क्लीनअप नीति बनाने का अनुरोध स्वीकार हुआ।';
+      'सफाई नीति बनाने का अनुरोध स्वीकार किया गया।';
 
   @override
   String get containerCreateInvalid =>
@@ -3009,6 +3053,24 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerPolicyKeepCount => 'हर इमेज के लिए रखने वाले मिलते टैग';
+
+  @override
+  String get containerCreateEnable => 'बनाते समय सफाई सक्रिय करें';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      'सक्रिय नीति अपने समयानुसार इस प्रोजेक्ट की सभी इमेज रिपॉज़िटरी में मेल खाने वाले टैग स्थायी रूप से हटा सकती है। आवृत्ति, रखने की संख्या, आयु और दोनों पैटर्न जाँचें। संरक्षित या अपरिवर्तनीय टैग के अपवाद GitLab तय करता है; सहेजना हटाने या संग्रहण खाली होने की पुष्टि नहीं करता।';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      'मैंने हर मानदंड की समीक्षा की है और इस प्रोजेक्ट में मेल खाने वाले टैग के नियत समय पर स्थायी विलोपन को स्वीकार करता हूँ।';
+
+  @override
+  String get containerCreateEnabledSave => 'सक्रिय नीति बनाने की पुष्टि करें';
+
+  @override
+  String get containerCreateSessionChanged =>
+      'खाता बदल गया है। नीति बनाने से पहले यह संवाद बंद करके फिर खोलें और वर्तमान प्रोजेक्ट की समीक्षा करें।';
 
   @override
   String get containerPolicyAge => 'इससे पुराने टैग हटाएँ';
@@ -3963,6 +4025,61 @@ class AppLocalizationsHi extends AppLocalizations {
       'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
 
   @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionDeleteClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteClearTitle =>
+      'न्यूनतम हटाने की भूमिका हटाएँ';
+
+  @override
+  String get containerProtectionDeleteClearSave => 'हटाने की प्रतिबंध हटाएँ';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      'यह इस नियम का न्यूनतम हटाने की भूमिका का प्रतिबंध हटाता है और मेल खाने वाली रिपॉज़िटरी की हटाने की सुरक्षा कम करता है। पथ पैटर्न और न्यूनतम पुश भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; इससे सभी को पहुँच नहीं मिलती और इमेज नहीं हटतीं।';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस हटाने की प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      'हटाने की प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionDeleteClearSaved =>
+      'न्यूनतम हटाने की-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      'सर्वर ने हटाने की प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान हटाने की भूमिका और समर्थित गैर-खाली पुश भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
+
+  @override
   String get containerRepositoryProtectionUnavailable =>
       'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
 
@@ -4036,6 +4153,27 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
+
+  @override
+  String get containerAgeTitle => 'सफ़ाई आयु सीमा संपादित करें';
+
+  @override
+  String get containerAgeSave => 'आयु सीमा में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerAgeSelect => 'नई आयु सीमा (GitLab API अवधि)';
+
+  @override
+  String get containerAgeWarning =>
+      'परियोजना की आयु सीमा घटाने से नियोजित सफ़ाई में हर इमेज रिपॉज़िटरी के नए मिलते टैग भी स्थायी रूप से हट सकते हैं। नीचे सक्रिय स्थिति और हटाने के मानदंड जाँचें। अन्य सेटिंग नहीं बदलतीं और सफ़ाई पूर्ण होने की पुष्टि नहीं होती।';
+
+  @override
+  String get containerAgeUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerAgeAccepted =>
+      'सफ़ाई आयु सीमा का अपडेट स्वीकार किया गया।';
 
   @override
   String get containerKeepPatternClearTitle => 'क्लीनअप रखने का पैटर्न हटाएँ';

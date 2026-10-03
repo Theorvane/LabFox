@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
@@ -29,6 +30,31 @@ class ProjectsApi {
       return Project.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'clearing cleanup policy keep pattern');
+    }
+  }
+
+  /// Changes only the cleanup age threshold, preserving other policy settings.
+  Future<Project> setCleanupPolicyAge(
+    Object projectId, {
+    required String olderThan,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'older_than': olderThan},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy age limit',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy age limit');
     }
   }
 
@@ -192,6 +218,51 @@ class ProjectsApi {
       throw mapError(error, context: 'loading cleanup policy presence');
     }
   }
+
+  /// Saves complete criteria with explicit activation, disabled by default.
+  Future<Project> createCleanupPolicy(
+    Object projectId, {
+    bool enabled = false,
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'enabled': enabled,
+            'cadence': cadence,
+            'keep_n': keepN,
+            'older_than': olderThan,
+            'name_regex_delete': nameRegexDelete,
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating cleanup policy',
+        );
+      }
+      try {
+        return Project.fromJson(response.data as Map<String, dynamic>);
+      } on TypeError {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      } on FormatException {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating cleanup policy');
+    }
+  }
+
+  /// Reads policy presence separately from a reduced or omitted project field.
 
   /// Saves a complete policy draft disabled; activation is a separate action.
   Future<Project> createDisabledCleanupPolicy(

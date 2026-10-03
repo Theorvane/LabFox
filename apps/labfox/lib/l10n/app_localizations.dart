@@ -5492,6 +5492,42 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get containerPolicyStatus;
 
+  /// No description provided for @containerPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy'**
+  String get containerPolicyTitle;
+
+  /// No description provided for @containerPolicyAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report a cleanup policy.'**
+  String get containerPolicyAbsent;
+
+  /// No description provided for @containerPolicyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.'**
+  String get containerPolicyHint;
+
+  /// No description provided for @containerPolicyNextRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run reported by GitLab (local time)'**
+  String get containerPolicyNextRun;
+
+  /// No description provided for @containerPolicyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String containerPolicyDays(int count);
+
+  /// No description provided for @containerPolicyMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month} other{{count} months}}'**
+  String containerPolicyMonths(int count);
+
   /// No description provided for @containerPolicyEnabled.
   ///
   /// In en, this message translates to:
@@ -5519,7 +5555,7 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create disabled cleanup policy'**
+  /// **'Create cleanup policy'**
   String get containerCreateTitle;
 
   /// No description provided for @containerCreateSave.
@@ -5531,13 +5567,13 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateWarning.
   ///
   /// In en, this message translates to:
-  /// **'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.'**
+  /// **'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.'**
   String get containerCreateWarning;
 
   /// No description provided for @containerCreateAcknowledge.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed these criteria and understand that activation is a separate action.'**
+  /// **'I have reviewed these criteria and understand that this policy will stay disabled.'**
   String get containerCreateAcknowledge;
 
   /// No description provided for @containerCreateExisting.
@@ -5555,7 +5591,7 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateAccepted.
   ///
   /// In en, this message translates to:
-  /// **'Disabled cleanup policy creation accepted.'**
+  /// **'Cleanup policy creation accepted.'**
   String get containerCreateAccepted;
 
   /// No description provided for @containerCreateInvalid.
@@ -5605,6 +5641,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Matching tags to keep per image'**
   String get containerPolicyKeepCount;
+
+  /// No description provided for @containerCreateEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup when creating'**
+  String get containerCreateEnable;
+
+  /// No description provided for @containerCreateEnabledWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.'**
+  String get containerCreateEnabledWarning;
+
+  /// No description provided for @containerCreateEnabledAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.'**
+  String get containerCreateEnabledAcknowledge;
+
+  /// No description provided for @containerCreateEnabledSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm enabled policy creation'**
+  String get containerCreateEnabledSave;
+
+  /// No description provided for @containerCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project before creating a policy.'**
+  String get containerCreateSessionChanged;
 
   /// No description provided for @containerPolicyAge.
   ///
@@ -7139,6 +7205,90 @@ abstract class AppLocalizations {
   /// **'You do not have permission to view repository protection rules.'**
   String get containerRepositoryProtectionForbidden;
 
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionDeleteClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionDeleteClearForbidden;
+
+  /// No description provided for @containerProtectionDeleteClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionDeleteClearStale;
+
+  /// No description provided for @containerProtectionDeleteClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionDeleteClearReload;
+
+  /// No description provided for @containerProtectionDeleteClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionDeleteClearMissing;
+
+  /// No description provided for @containerProtectionDeleteClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionDeleteClearRateLimited;
+
+  /// No description provided for @containerProtectionDeleteClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum delete role'**
+  String get containerProtectionDeleteClearTitle;
+
+  /// No description provided for @containerProtectionDeleteClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear delete restriction'**
+  String get containerProtectionDeleteClearSave;
+
+  /// No description provided for @containerProtectionDeleteClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.'**
+  String get containerProtectionDeleteClearWarning;
+
+  /// No description provided for @containerProtectionDeleteClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
+  String get containerProtectionDeleteClearAcknowledge;
+
+  /// No description provided for @containerProtectionDeleteClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionDeleteClearError;
+
+  /// No description provided for @containerProtectionDeleteClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete-role restriction cleared.'**
+  String get containerProtectionDeleteClearSaved;
+
+  /// No description provided for @containerProtectionDeleteClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
+  String get containerProtectionDeleteClearInvalid;
+
+  /// No description provided for @containerProtectionDeleteClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerProtectionDeleteClearBlocked;
+
   /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
@@ -7252,6 +7402,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Administrator'**
   String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup age limit'**
+  String get containerAgeTitle;
+
+  /// No description provided for @containerAgeSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm age limit change'**
+  String get containerAgeSave;
+
+  /// No description provided for @containerAgeSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New age limit (GitLab API duration)'**
+  String get containerAgeSelect;
+
+  /// No description provided for @containerAgeWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerAgeWarning;
+
+  /// No description provided for @containerAgeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerAgeUnknown;
+
+  /// No description provided for @containerAgeAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup age limit update accepted.'**
+  String get containerAgeAccepted;
 
   /// No description provided for @containerKeepPatternClearTitle.
   ///
