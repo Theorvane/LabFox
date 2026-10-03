@@ -25,148 +25,170 @@ class ContainerRegistryScreen extends ConsumerWidget {
     final repositories = ref.watch(
       containerRepositoriesControllerProvider(projectId),
     );
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          onPressed: () => context.canPop()
-              ? context.pop()
-              : context.go(Routes.projectOverview(projectId)),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(LabFoxIcons.private),
-            tooltip: l10n.containerRepositoryProtectionTitle,
-            onPressed: () => context.push(
-              Routes.containerRepositoryProtectionRules(projectId),
-            ),
-          ),
-          IconButton(
-            tooltip: l10n.containerKeepPatternTitle,
-            icon: const Icon(Icons.shield_outlined),
-            onPressed: () async {
-              final accepted = await showDialog<bool>(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) =>
-                    CleanupPolicyKeepPatternDialog(projectId: projectId),
-              );
-              if (accepted == true && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.containerKeepPatternAccepted)),
-                );
-              }
-            },
-          ),
-          IconButton(
-            tooltip: l10n.containerKeepCountTitle,
-            icon: const Icon(Icons.inventory_2_outlined),
-            onPressed: () async {
-              final accepted = await showDialog<bool>(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) =>
-                    CleanupPolicyKeepCountDialog(projectId: projectId),
-              );
-              if (accepted == true && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.containerKeepCountAccepted)),
-                );
-              }
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.lock_outline),
-            tooltip: l10n.containerImmutabilityTitle,
-            onPressed: () =>
-                context.push(Routes.containerImmutability(projectId)),
-          ),
-          IconButton(
-            tooltip: l10n.containerCadenceTitle,
-            icon: const Icon(Icons.schedule),
-            onPressed: () async {
-              final accepted = await showDialog<bool>(
-                context: context,
-                barrierDismissible: false,
-                builder: (_) =>
-                    CleanupPolicyCadenceDialog(projectId: projectId),
-              );
-              if (accepted == true && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(l10n.containerCadenceAccepted)),
-                );
-              }
-            },
-          ),
-          IconButton(
-            tooltip: l10n.containerTagProtectionTitle,
-            icon: const Icon(Icons.shield_outlined),
-            onPressed: () =>
-                context.push(Routes.containerTagProtectionRules(projectId)),
-          ),
-        ],
-        title: Text(l10n.containerRegistryTitle),
+    final actions = <Widget>[
+      IconButton(
+        icon: const Icon(LabFoxIcons.private),
+        tooltip: l10n.containerRepositoryProtectionTitle,
+        onPressed: () =>
+            context.push(Routes.containerRepositoryProtectionRules(projectId)),
       ),
-      body: repositories.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(l10n.containerRegistryError),
-              const SizedBox(height: LabFoxSpacing.md),
-              FilledButton(
-                onPressed: () => ref.invalidate(
-                  containerRepositoriesControllerProvider(projectId),
-                ),
-                child: Text(l10n.retry),
-              ),
-            ],
+      IconButton(
+        tooltip: l10n.containerKeepPatternTitle,
+        icon: const Icon(Icons.shield_outlined),
+        onPressed: () async {
+          final accepted = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>
+                CleanupPolicyKeepPatternDialog(projectId: projectId),
+          );
+          if (accepted == true && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.containerKeepPatternAccepted)),
+            );
+          }
+        },
+      ),
+      IconButton(
+        tooltip: l10n.containerKeepCountTitle,
+        icon: const Icon(Icons.inventory_2_outlined),
+        onPressed: () async {
+          final accepted = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => CleanupPolicyKeepCountDialog(projectId: projectId),
+          );
+          if (accepted == true && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.containerKeepCountAccepted)),
+            );
+          }
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.lock_outline),
+        tooltip: l10n.containerImmutabilityTitle,
+        onPressed: () => context.push(Routes.containerImmutability(projectId)),
+      ),
+      IconButton(
+        tooltip: l10n.containerCadenceTitle,
+        icon: const Icon(Icons.schedule),
+        onPressed: () async {
+          final accepted = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => CleanupPolicyCadenceDialog(projectId: projectId),
+          );
+          if (accepted == true && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.containerCadenceAccepted)),
+            );
+          }
+        },
+      ),
+      IconButton(
+        tooltip: l10n.containerTagProtectionTitle,
+        icon: const Icon(Icons.shield_outlined),
+        onPressed: () =>
+            context.push(Routes.containerTagProtectionRules(projectId)),
+      ),
+    ];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final inlineActions =
+            constraints.maxWidth >= LabFoxBreakpoints.tablet &&
+            actions.length * kMinInteractiveDimension + kToolbarHeight * 2 <=
+                constraints.maxWidth;
+        final actionRows =
+            (actions.length * kMinInteractiveDimension / constraints.maxWidth)
+                .ceil();
+        return Scaffold(
+          appBar: AppBar(
+            leading: BackButton(
+              onPressed: () => context.canPop()
+                  ? context.pop()
+                  : context.go(Routes.projectOverview(projectId)),
+            ),
+            actions: inlineActions ? actions : null,
+            bottom: inlineActions
+                ? null
+                : PreferredSize(
+                    preferredSize: Size.fromHeight(
+                      actionRows * kMinInteractiveDimension,
+                    ),
+                    child: SizedBox(
+                      width: constraints.maxWidth,
+                      child: Wrap(
+                        alignment: WrapAlignment.end,
+                        children: actions,
+                      ),
+                    ),
+                  ),
+            title: Text(l10n.containerRegistryTitle),
           ),
-        ),
-        data: (page) => page.items.isEmpty
-            ? Center(child: Text(l10n.containerRegistryEmpty))
-            : RefreshIndicator(
-                onRefresh: () => ref.refresh(
-                  containerRepositoriesControllerProvider(projectId).future,
-                ),
-                child: ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  children: [
-                    Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(maxWidth: 900),
-                        child: Padding(
-                          padding: const EdgeInsets.all(LabFoxSpacing.md),
-                          child: Card.outlined(
-                            margin: EdgeInsets.zero,
-                            child: Column(
-                              children: [
-                                for (final repository in page.items)
-                                  _RepositoryTile(
-                                    projectId: projectId,
-                                    repository: repository,
-                                  ),
-                                if (page.hasMore)
-                                  TextButton(
-                                    onPressed: () => ref
-                                        .read(
-                                          containerRepositoriesControllerProvider(
-                                            projectId,
-                                          ).notifier,
-                                        )
-                                        .loadMore(),
-                                    child: Text(l10n.containerLoadMore),
-                                  ),
-                              ],
+          body: repositories.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (_, _) => Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(l10n.containerRegistryError),
+                  const SizedBox(height: LabFoxSpacing.md),
+                  FilledButton(
+                    onPressed: () => ref.invalidate(
+                      containerRepositoriesControllerProvider(projectId),
+                    ),
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              ),
+            ),
+            data: (page) => page.items.isEmpty
+                ? Center(child: Text(l10n.containerRegistryEmpty))
+                : RefreshIndicator(
+                    onRefresh: () => ref.refresh(
+                      containerRepositoriesControllerProvider(projectId).future,
+                    ),
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        Center(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 900),
+                            child: Padding(
+                              padding: const EdgeInsets.all(LabFoxSpacing.md),
+                              child: Card.outlined(
+                                margin: EdgeInsets.zero,
+                                child: Column(
+                                  children: [
+                                    for (final repository in page.items)
+                                      _RepositoryTile(
+                                        projectId: projectId,
+                                        repository: repository,
+                                      ),
+                                    if (page.hasMore)
+                                      TextButton(
+                                        onPressed: () => ref
+                                            .read(
+                                              containerRepositoriesControllerProvider(
+                                                projectId,
+                                              ).notifier,
+                                            )
+                                            .loadMore(),
+                                        child: Text(l10n.containerLoadMore),
+                                      ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-      ),
+                  ),
+          ),
+        );
+      },
     );
   }
 }
