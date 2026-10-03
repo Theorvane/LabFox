@@ -39,6 +39,18 @@ class PipelineSchedulesRepository {
   Future<PipelineSchedule> get(int projectId, int scheduleId) =>
       client.pipelineSchedules.get(projectId, scheduleId);
 
+  Future<PipelineSchedule> updateExecution(
+    int projectId,
+    int scheduleId, {
+    String? ref,
+    bool? active,
+  }) => client.pipelineSchedules.updateExecution(
+    projectId,
+    scheduleId,
+    ref: ref,
+    active: active,
+  );
+
   Future<PipelineSchedule> takeOwnership(int projectId, int scheduleId) =>
       client.pipelineSchedules.takeOwnership(projectId, scheduleId);
 
