@@ -1723,7 +1723,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelinesStatusManual => '手动';
 
   @override
-  String get pipelinesFilteredEmpty => '没有符合此状态的流水线。';
+  String get pipelinesFilteredEmpty => '没有与这些筛选条件匹配的流水线。';
 
   @override
   String get pipelinesError => '无法加载流水线。';
@@ -4208,4 +4208,24 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerKeepPatternClearInvalid =>
       'GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。';
+
+  @override
+  String get pipelinesRefAll => '所有引用';
+
+  @override
+  String get pipelinesRefTitle => '分支或标签';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return '引用：$ref';
+  }
+
+  @override
+  String get pipelinesRefApply => '应用';
+
+  @override
+  String get pipelinesRefClear => '清除';
+
+  @override
+  String get pipelinesRefHint => '输入准确的分支或标签名称。';
 }

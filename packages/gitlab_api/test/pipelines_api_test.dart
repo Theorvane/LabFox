@@ -9,6 +9,33 @@ import 'package:test/test.dart';
 void main() {
   group('PipelinesApi.list', () {
     test(
+      'sends the exact branch or tag together with status and pagination',
+      () async {
+        late RequestOptions captured;
+        final client = _client((options) {
+          captured = options;
+          return (status: 200, headers: const {}, body: []);
+        });
+        await client.pipelines.list(
+          'team/app',
+          page: 4,
+          ref: 'release/\u65e5\u672c\u8a9e+v1',
+          status: PipelineStatusFilter.failed,
+        );
+        expect(
+          captured.queryParameters['ref'],
+          'release/\u65e5\u672c\u8a9e+v1',
+        );
+        expect(captured.queryParameters['status'], 'failed');
+        expect(captured.queryParameters['page'], 4);
+        expect(
+          Uri.splitQueryString(captured.uri.query)['ref'],
+          'release/\u65e5\u672c\u8a9e+v1',
+        );
+      },
+    );
+
+    test(
       'uses the requested page and explicit newest-first ordering',
       () async {
         late RequestOptions captured;

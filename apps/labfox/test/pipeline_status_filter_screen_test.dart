@@ -31,6 +31,7 @@ class _Repository extends PipelinesRepository {
     int projectId, {
     int page = 1,
     PipelineStatusFilter? status,
+    String? ref,
   }) async {
     calls.add(status);
     requests.add((page: page, status: status));
@@ -206,7 +207,7 @@ void main() {
     repository.pending = null;
     pending.complete(const Paginated(items: []));
     await tester.pumpAndSettle();
-    expect(find.text('No pipelines match this status.'), findsOneWidget);
+    expect(find.text('No pipelines match these filters.'), findsOneWidget);
   });
 
   testWidgets('resizing retains the selected status and does not refetch', (
@@ -219,7 +220,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Failed'), findsOneWidget);
     expect(repository.calls, [null, PipelineStatusFilter.failed]);
-    expect(find.text('No pipelines match this status.'), findsOneWidget);
+    expect(find.text('No pipelines match these filters.'), findsOneWidget);
   });
 
   testWidgets(
@@ -231,7 +232,7 @@ void main() {
       expect(find.text('No pipelines yet.'), findsOneWidget);
       await _choose(tester, 'Failed');
       expect(repository.calls, [null, PipelineStatusFilter.failed]);
-      expect(find.text('No pipelines match this status.'), findsOneWidget);
+      expect(find.text('No pipelines match these filters.'), findsOneWidget);
       repository.fail = true;
       final context = tester.element(find.byType(PipelinesScreen));
       final container = ProviderScope.containerOf(context);

@@ -439,7 +439,7 @@
   "pipelinesStatusCanceled": "已取消",
   "pipelinesStatusSkipped": "已跳过",
   "pipelinesStatusManual": "手动",
-  "pipelinesFilteredEmpty": "没有符合此状态的流水线。",
+  "pipelinesFilteredEmpty": "没有与这些筛选条件匹配的流水线。",
   "pipelinesError": "无法加载流水线。",
   "pipelinesEmpty": "还没有流水线。",
   "pipelinesLoadMore": "加载更多",
@@ -1229,5 +1229,11 @@
   "containerKeepPatternClearAcknowledge": "我了解原先保留的标签可能成为永久删除的对象。",
   "containerKeepPatternClearUnknown": "必须报告启用状态、运行间隔、保留数量、期限、有效删除模式及非空保留模式。无法在此清除空或未报告的保留模式。不会创建策略。",
   "containerKeepPatternClearAccepted": "保留模式移除请求已被接受。",
-  "containerKeepPatternClearInvalid": "GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。"
+  "containerKeepPatternClearInvalid": "GitLab 拒绝移除保留模式。请检查现有策略，然后重试或重新加载。",
+  "pipelinesRefAll": "所有引用",
+  "pipelinesRefTitle": "分支或标签",
+  "pipelinesRefSelected": "引用：{ref}",
+  "pipelinesRefApply": "应用",
+  "pipelinesRefClear": "清除",
+  "pipelinesRefHint": "输入准确的分支或标签名称。"
 }

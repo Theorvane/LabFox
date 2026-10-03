@@ -3434,10 +3434,10 @@ abstract class AppLocalizations {
   /// **'Manual'**
   String get pipelinesStatusManual;
 
-  /// Empty state when the selected server-side status has no pipelines
+  /// Empty state when no pipelines match the selected server-side filters
   ///
   /// In en, this message translates to:
-  /// **'No pipelines match this status.'**
+  /// **'No pipelines match these filters.'**
   String get pipelinesFilteredEmpty;
 
   /// Shown when the pipelines list fails
@@ -7945,6 +7945,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.'**
   String get containerKeepPatternClearInvalid;
+
+  /// Pipeline filter button when no branch or tag is selected
+  ///
+  /// In en, this message translates to:
+  /// **'All refs'**
+  String get pipelinesRefAll;
+
+  /// Branch or tag filter dialog title and input label
+  ///
+  /// In en, this message translates to:
+  /// **'Branch or tag'**
+  String get pipelinesRefTitle;
+
+  /// Pipeline filter button showing the selected branch or tag
+  ///
+  /// In en, this message translates to:
+  /// **'Ref: {ref}'**
+  String pipelinesRefSelected(String ref);
+
+  /// Apply the pipeline branch or tag filter
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get pipelinesRefApply;
+
+  /// Remove the pipeline branch or tag filter
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get pipelinesRefClear;
+
+  /// Exact-match branch or tag filter input hint
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact branch or tag name.'**
+  String get pipelinesRefHint;
 }
 
 class _AppLocalizationsDelegate

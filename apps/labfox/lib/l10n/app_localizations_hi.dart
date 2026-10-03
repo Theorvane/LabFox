@@ -1788,7 +1788,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pipelinesFilteredEmpty =>
-      'इस स्थिति से मेल खाने वाली कोई पाइपलाइन नहीं है।';
+      'इन फ़िल्टर से मेल खाने वाली कोई पाइपलाइन नहीं है।';
 
   @override
   String get pipelinesError => 'पाइपलाइन लोड नहीं हो सकीं।';
@@ -4491,4 +4491,24 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerKeepPatternClearInvalid =>
       'GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।';
+
+  @override
+  String get pipelinesRefAll => 'सभी रेफ़';
+
+  @override
+  String get pipelinesRefTitle => 'ब्रांच या टैग';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return 'रेफ़: $ref';
+  }
+
+  @override
+  String get pipelinesRefApply => 'लागू करें';
+
+  @override
+  String get pipelinesRefClear => 'हटाएँ';
+
+  @override
+  String get pipelinesRefHint => 'ब्रांच या टैग का सटीक नाम दर्ज करें।';
 }

@@ -1790,7 +1790,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pipelinesStatusManual => 'Manual';
 
   @override
-  String get pipelinesFilteredEmpty => 'No pipelines match this status.';
+  String get pipelinesFilteredEmpty => 'No pipelines match these filters.';
 
   @override
   String get pipelinesError => 'Could not load pipelines.';
@@ -4491,4 +4491,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerKeepPatternClearInvalid =>
       'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.';
+
+  @override
+  String get pipelinesRefAll => 'All refs';
+
+  @override
+  String get pipelinesRefTitle => 'Branch or tag';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return 'Ref: $ref';
+  }
+
+  @override
+  String get pipelinesRefApply => 'Apply';
+
+  @override
+  String get pipelinesRefClear => 'Clear';
+
+  @override
+  String get pipelinesRefHint => 'Enter an exact branch or tag name.';
 }

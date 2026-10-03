@@ -25,6 +25,7 @@ class _Repository extends PipelinesRepository {
     int projectId, {
     int page = 1,
     PipelineStatusFilter? status,
+    String? ref,
   }) async {
     calls.add((projectId: projectId, page: page, status: status));
     final request = pending[(status, page)];

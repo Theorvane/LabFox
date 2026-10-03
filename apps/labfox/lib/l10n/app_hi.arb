@@ -439,7 +439,7 @@
   "pipelinesStatusCanceled": "रद्द किया गया",
   "pipelinesStatusSkipped": "छोड़ दिया गया",
   "pipelinesStatusManual": "मैन्युअल",
-  "pipelinesFilteredEmpty": "इस स्थिति से मेल खाने वाली कोई पाइपलाइन नहीं है।",
+  "pipelinesFilteredEmpty": "इन फ़िल्टर से मेल खाने वाली कोई पाइपलाइन नहीं है।",
   "pipelinesError": "पाइपलाइन लोड नहीं हो सकीं।",
   "pipelinesEmpty": "अभी तक कोई पाइपलाइन नहीं।",
   "pipelinesLoadMore": "और लोड करें",
@@ -1229,5 +1229,11 @@
   "containerKeepPatternClearAcknowledge": "मैं समझता हूँ कि पहले सुरक्षित टैग स्थायी रूप से हटाए जाने योग्य हो सकते हैं।",
   "containerKeepPatternClearUnknown": "सक्रिय स्थिति, अंतराल, संख्या, उम्र, प्रभावी हटाने का पैटर्न और गैर-खाली रखने का पैटर्न रिपोर्ट होना आवश्यक है। खाली या रिपोर्ट न किए गए रखने के पैटर्न को यहाँ नहीं हटाया जा सकता। कोई नीति नहीं बनाई जाएगी।",
   "containerKeepPatternClearAccepted": "रखने का पैटर्न हटाने का अनुरोध स्वीकार हुआ।",
-  "containerKeepPatternClearInvalid": "GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।"
+  "containerKeepPatternClearInvalid": "GitLab ने रखने का पैटर्न हटाने से मना किया। मौजूदा नीति की समीक्षा करें और फिर प्रयास करें या पुनः लोड करें।",
+  "pipelinesRefAll": "सभी रेफ़",
+  "pipelinesRefTitle": "ब्रांच या टैग",
+  "pipelinesRefSelected": "रेफ़: {ref}",
+  "pipelinesRefApply": "लागू करें",
+  "pipelinesRefClear": "हटाएँ",
+  "pipelinesRefHint": "ब्रांच या टैग का सटीक नाम दर्ज करें।"
 }

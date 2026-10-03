@@ -439,7 +439,7 @@
   "pipelinesStatusCanceled": "キャンセル済み",
   "pipelinesStatusSkipped": "スキップ済み",
   "pipelinesStatusManual": "手動",
-  "pipelinesFilteredEmpty": "このステータスに一致するパイプラインはありません。",
+  "pipelinesFilteredEmpty": "これらのフィルターに一致するパイプラインはありません。",
   "pipelinesError": "パイプラインを読み込めませんでした。",
   "pipelinesEmpty": "まだパイプラインはありません。",
   "pipelinesLoadMore": "さらに読み込む",
@@ -1229,5 +1229,11 @@
   "containerKeepPatternClearAcknowledge": "以前保持されていたタグが完全削除の対象になる場合があることを理解しました。",
   "containerKeepPatternClearUnknown": "有効状態、実行間隔、保持数、期間、有効な削除パターン、および空でない保持パターンの報告が必要です。空または未報告の保持パターンはここでは削除できません。ポリシーは作成しません。",
   "containerKeepPatternClearAccepted": "保持パターン削除リクエストが受理されました。",
-  "containerKeepPatternClearInvalid": "GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。"
+  "containerKeepPatternClearInvalid": "GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。",
+  "pipelinesRefAll": "すべての参照",
+  "pipelinesRefTitle": "ブランチまたはタグ",
+  "pipelinesRefSelected": "参照: {ref}",
+  "pipelinesRefApply": "適用",
+  "pipelinesRefClear": "解除",
+  "pipelinesRefHint": "正確なブランチ名またはタグ名を入力してください。"
 }

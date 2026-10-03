@@ -57,11 +57,25 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
     }
   }
 
+  Future<void> _editRef() async {
+    final projectId = widget.projectId;
+    final choice = await showDialog<({String? value})>(
+      context: context,
+      builder: (context) => _PipelineRefFilterDialog(
+        initialValue: ref.read(pipelineRefFilterProvider(projectId)),
+      ),
+    );
+    if (!mounted || widget.projectId != projectId || choice == null) return;
+    ref.read(pipelineRefFilterProvider(projectId).notifier).state =
+        choice.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final projectId = widget.projectId;
     final status = ref.watch(pipelineStatusFilterProvider(projectId));
+    final pipelineRef = ref.watch(pipelineRefFilterProvider(projectId));
     final provider = pipelinesControllerProvider(projectId);
     ref.listen<AsyncValue<Paginated<Pipeline>>>(provider, (_, next) {
       if (next.isLoading) {
@@ -86,20 +100,52 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
                 right: LabFoxSpacing.md,
                 bottom: LabFoxSpacing.sm,
               ),
-              // A record keeps the All option distinct from menu cancellation.
-              child: FilterMenuChip<({PipelineStatusFilter? status})>(
-                selected: (status: status),
-                options: [
-                  (status: null),
-                  for (final value in PipelineStatusFilter.values)
-                    (status: value),
+              child: Row(
+                children: [
+                  // A record keeps the All option distinct from menu cancellation.
+                  FilterMenuChip<({PipelineStatusFilter? status})>(
+                    selected: (status: status),
+                    options: [
+                      (status: null),
+                      for (final value in PipelineStatusFilter.values)
+                        (status: value),
+                    ],
+                    labelOf: (choice) => _statusLabel(l10n, choice.status),
+                    onSelected: (choice) =>
+                        ref
+                            .read(
+                              pipelineStatusFilterProvider(projectId).notifier,
+                            )
+                            .state = choice
+                            .status,
+                  ),
+                  const SizedBox(width: LabFoxSpacing.sm),
+                  Tooltip(
+                    message: pipelineRef == null
+                        ? l10n.pipelinesRefAll
+                        : l10n.pipelinesRefSelected(pipelineRef),
+                    child: OutlinedButton(
+                      key: const ValueKey('pipeline-ref-filter'),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(
+                          0,
+                          LabFoxSpacing.minTouchTarget,
+                        ),
+                      ),
+                      onPressed: _editRef,
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 200),
+                        child: Text(
+                          pipelineRef == null
+                              ? l10n.pipelinesRefAll
+                              : l10n.pipelinesRefSelected(pipelineRef),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
-                labelOf: (choice) => _statusLabel(l10n, choice.status),
-                onSelected: (choice) =>
-                    ref
-                        .read(pipelineStatusFilterProvider(projectId).notifier)
-                        .state = choice
-                        .status,
               ),
             ),
           ),
@@ -145,7 +191,7 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
                 if (items.isEmpty && index == 0) {
                   return EmptyState(
                     icon: LabFoxIcons.pipeline,
-                    title: status == null
+                    title: status == null && pipelineRef == null
                         ? l10n.pipelinesEmpty
                         : l10n.pipelinesFilteredEmpty,
                   );
@@ -239,3 +285,61 @@ String _statusLabel(AppLocalizations l10n, PipelineStatusFilter? status) =>
       PipelineStatusFilter.skipped => l10n.pipelinesStatusSkipped,
       PipelineStatusFilter.manual => l10n.pipelinesStatusManual,
     };
+
+/// Owns draft input until the user explicitly applies or clears the filter.
+class _PipelineRefFilterDialog extends StatefulWidget {
+  const _PipelineRefFilterDialog({required this.initialValue});
+  final String? initialValue;
+  @override
+  State<_PipelineRefFilterDialog> createState() =>
+      _PipelineRefFilterDialogState();
+}
+
+class _PipelineRefFilterDialogState extends State<_PipelineRefFilterDialog> {
+  late final TextEditingController _controller = TextEditingController(
+    text: widget.initialValue,
+  );
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _apply() {
+    final text = _controller.text;
+    // Preserve the exact ref; only an empty input removes the filter.
+    Navigator.of(context).pop((value: text.isEmpty ? null : text));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.pipelinesRefTitle),
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        autocorrect: false,
+        enableSuggestions: false,
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          labelText: l10n.pipelinesRefTitle,
+          helperText: l10n.pipelinesRefHint,
+          helperMaxLines: 3,
+        ),
+        onSubmitted: (_) => _apply(),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context).pop((value: null)),
+          child: Text(l10n.pipelinesRefClear),
+        ),
+        FilledButton(onPressed: _apply, child: Text(l10n.pipelinesRefApply)),
+      ],
+    );
+  }
+}
