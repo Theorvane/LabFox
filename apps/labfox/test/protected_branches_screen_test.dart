@@ -80,6 +80,7 @@ void main() {
     expect(find.text('Maintainers'), findsOneWidget);
     expect(find.text('Release team'), findsOneWidget);
     expect(find.text('Code owner approval'), findsOneWidget);
+    expect(find.text('Unprotect branch rule'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 

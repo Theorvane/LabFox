@@ -7,6 +7,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_immutability_controller.dart';
 import 'widgets/container_immutability_create_dialog.dart';
+import 'widgets/container_immutability_delete_dialog.dart';
 
 /// Project-wide rules, not per-tag access decisions.
 class ContainerImmutabilityScreen extends ConsumerWidget {
@@ -101,7 +102,47 @@ class ContainerImmutabilityScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.all(
                                     LabFoxSpacing.md,
                                   ),
-                                  child: Text(rule.tagNamePattern),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(rule.tagNamePattern),
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional.centerEnd,
+                                        child: IconButton(
+                                          tooltip: l10n
+                                              .containerImmutabilityDeleteTitle,
+                                          icon: const Icon(
+                                            Icons.delete_outline,
+                                          ),
+                                          onPressed: () async {
+                                            final deleted = await showDialog<bool>(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (_) =>
+                                                  ContainerImmutabilityDeleteDialog(
+                                                    projectId: projectId,
+                                                    rule: rule,
+                                                  ),
+                                            );
+                                            if (deleted == true &&
+                                                context.mounted) {
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    l10n.containerImmutabilityDeleteDone,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                           ],
