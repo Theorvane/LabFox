@@ -87,6 +87,9 @@ class ProtectedBranchesRepository {
     accessLevel: accessLevel,
   );
 
+  Future<void> unprotect(int projectId, String name) =>
+      client.protectedBranches.unprotect(projectId, name);
+
   /// Read every page so an exact name cannot be confused with another rule.
   Future<ProtectedBranch> findUnique(int projectId, String name) async {
     ProtectedBranch? found;
