@@ -3096,6 +3096,26 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryDeletionNotice => '已安排删除仓库。请刷新以查看进度。';
 
   @override
+  String get containerKeepCountTitle => '编辑清理保留数量';
+
+  @override
+  String get containerKeepCountSave => '确认保留数量变更';
+
+  @override
+  String get containerKeepCountSelect => '每个镜像保留的匹配标签新数量';
+
+  @override
+  String get containerKeepCountWarning =>
+      '降低项目级保留数量可能导致计划清理时从所有镜像仓库永久删除更多匹配标签。请检查下面的启用状态和删除条件。其他设置保持不变，这不表示清理已完成。';
+
+  @override
+  String get containerKeepCountUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerKeepCountAccepted => '清理保留数量更新已接受。';
+
+  @override
   String get containerTagProtectionRemoveTitle => '删除标签保护规则';
 
   @override
