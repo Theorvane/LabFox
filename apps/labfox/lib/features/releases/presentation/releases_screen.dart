@@ -152,6 +152,7 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
   final _milestoneTitle = TextEditingController();
   final _milestones = <String>[];
   String? _milestoneError;
+  DateTime? _releasedAt;
   bool _saving = false;
   String? _error;
 
@@ -185,6 +186,7 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
             name: _name.text,
             description: _description.text,
             milestones: _milestones,
+            releasedAt: _releasedAt,
           );
       if (!mounted) return;
       Navigator.of(context).pop(created);
@@ -214,6 +216,46 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
       _milestoneError = null;
     });
     return true;
+  }
+
+  Future<void> _chooseDate() async {
+    final initial = _releasedAt ?? DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: initial,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(9998, 12, 31),
+    );
+    if (!mounted || picked == null) return;
+    setState(
+      () => _releasedAt = DateTime(
+        picked.year,
+        picked.month,
+        picked.day,
+        _releasedAt?.hour ?? 0,
+        _releasedAt?.minute ?? 0,
+      ),
+    );
+  }
+
+  Future<void> _chooseTime() async {
+    final date = _releasedAt;
+    if (date == null) return;
+    final picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(date),
+      initialEntryMode: TimePickerEntryMode.input,
+    );
+    if (!mounted || picked == null) return;
+    setState(
+      () => _releasedAt = DateTime(
+        date.year,
+        date.month,
+        date.day,
+        picked.hour,
+        picked.minute,
+      ),
+    );
   }
 
   @override
@@ -281,6 +323,43 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
                             _milestoneError = null;
                           }),
                   ),
+              ],
+            ),
+            const SizedBox(height: LabFoxSpacing.md),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(l10n.releaseCreationDateLabel),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                _releasedAt == null
+                    ? l10n.releaseCreationDateDefault
+                    : DateFormat.yMMMd(
+                        Localizations.localeOf(context).toString(),
+                      ).add_jm().format(_releasedAt!),
+              ),
+            ),
+            if (_releasedAt != null)
+              Text(l10n.releaseCreationDateHelp(_releasedAt!.timeZoneName)),
+            Wrap(
+              children: [
+                TextButton(
+                  onPressed: _saving ? null : _chooseDate,
+                  child: Text(l10n.releaseCreationChooseDate),
+                ),
+                if (_releasedAt != null) ...[
+                  TextButton(
+                    onPressed: _saving ? null : _chooseTime,
+                    child: Text(l10n.releaseCreationChooseTime),
+                  ),
+                  TextButton(
+                    onPressed: _saving
+                        ? null
+                        : () => setState(() => _releasedAt = null),
+                    child: Text(l10n.releaseCreationClearDate),
+                  ),
+                ],
               ],
             ),
             if (_error != null) ...[

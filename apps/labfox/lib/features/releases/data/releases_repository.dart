@@ -44,6 +44,7 @@ class ReleasesRepository {
     String? name,
     String? description,
     List<String>? milestones,
+    DateTime? releasedAt,
   }) => client.releases.create(
     projectId,
     tagName: tagName,
@@ -51,6 +52,7 @@ class ReleasesRepository {
     name: name,
     description: description,
     milestones: milestones,
+    releasedAt: releasedAt,
   );
 
   Future<ReleaseAssetLink> createAssetLink(
