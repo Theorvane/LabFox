@@ -6,34 +6,6 @@ class ContainerRegistryRepository {
   const ContainerRegistryRepository(this.client);
 
   final GitLabClient client;
-  Future<void> deleteImmutableTagRule(
-    int projectId,
-    ContainerTagImmutabilityRule expected, {
-    bool Function()? isCurrent,
-  }) async {
-    if (projectId <= 0 ||
-        !expected.immutable ||
-        expected.id.trim().isEmpty ||
-        expected.tagNamePattern.trim().isEmpty) {
-      throw ArgumentError(
-        'A positive project ID and complete immutable rule are required',
-      );
-    }
-    final rules = await immutableTagRules(projectId);
-    final matching = rules.where((r) => r.id == expected.id).toList();
-    if (matching.isEmpty) {
-      throw const GitLabNotFoundException('Immutable rule is unavailable');
-    }
-    if (matching.length != 1 || matching.single != expected) {
-      throw const GitLabConflictException(
-        'Rule changed; reload before deleting',
-      );
-    }
-    if (isCurrent != null && !isCurrent()) {
-      throw StateError('Authenticated session changed before mutation');
-    }
-    await client.containerImmutability.deleteRule(expected);
-  }
 
   /// Scan the whole connection before exposing a filtered immutable list.
   Future<List<ContainerTagImmutabilityRule>> immutableTagRules(
@@ -68,6 +40,35 @@ class ContainerRegistryRepository {
       }
       after = next;
     }
+  }
+
+  Future<void> deleteImmutableTagRule(
+    int projectId,
+    ContainerTagImmutabilityRule expected, {
+    bool Function()? isCurrent,
+  }) async {
+    if (projectId <= 0 ||
+        !expected.immutable ||
+        expected.id.trim().isEmpty ||
+        expected.tagNamePattern.trim().isEmpty) {
+      throw ArgumentError(
+        'A positive project ID and complete immutable rule are required',
+      );
+    }
+    final rules = await immutableTagRules(projectId);
+    final matching = rules.where((r) => r.id == expected.id).toList();
+    if (matching.isEmpty) {
+      throw const GitLabNotFoundException('Immutable rule is unavailable');
+    }
+    if (matching.length != 1 || matching.single != expected) {
+      throw const GitLabConflictException(
+        'Rule changed; reload before deleting',
+      );
+    }
+    if (isCurrent != null && !isCurrent()) {
+      throw StateError('Authenticated session changed before mutation');
+    }
+    await client.containerImmutability.deleteRule(expected);
   }
 
   Future<void> cleanupTags(

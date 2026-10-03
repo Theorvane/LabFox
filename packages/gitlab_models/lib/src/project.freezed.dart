@@ -14,6 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Project {
   int get id;
+  @JsonKey(name: 'namespace')
+  ProjectNamespace? get namespaceDetails;
   String get name;
   @JsonKey(name: 'path_with_namespace')
   String get pathWithNamespace;
@@ -62,6 +64,8 @@ mixin _$Project {
         (other.runtimeType == runtimeType &&
             other is Project &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.namespaceDetails, namespaceDetails) ||
+                other.namespaceDetails == namespaceDetails) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.pathWithNamespace, pathWithNamespace) ||
                 other.pathWithNamespace == pathWithNamespace) &&
@@ -110,6 +114,7 @@ mixin _$Project {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    namespaceDetails,
     name,
     pathWithNamespace,
     description,
@@ -130,7 +135,7 @@ mixin _$Project {
 
   @override
   String toString() {
-    return 'Project(id: $id, name: $name, pathWithNamespace: $pathWithNamespace, description: $description, starCount: $starCount, visibility: $visibility, defaultBranch: $defaultBranch, containerRegistryAccessLevel: $containerRegistryAccessLevel, containerExpirationPolicy: $containerExpirationPolicy, packageRegistryAccessLevel: $packageRegistryAccessLevel, openIssuesCount: $openIssuesCount, forksCount: $forksCount, wikiAccessLevel: $wikiAccessLevel, wikiEnabled: $wikiEnabled, avatarUrl: $avatarUrl, webUrl: $webUrl, lastActivityAt: $lastActivityAt)';
+    return 'Project(id: $id, namespaceDetails: $namespaceDetails, name: $name, pathWithNamespace: $pathWithNamespace, description: $description, starCount: $starCount, visibility: $visibility, defaultBranch: $defaultBranch, containerRegistryAccessLevel: $containerRegistryAccessLevel, containerExpirationPolicy: $containerExpirationPolicy, packageRegistryAccessLevel: $packageRegistryAccessLevel, openIssuesCount: $openIssuesCount, forksCount: $forksCount, wikiAccessLevel: $wikiAccessLevel, wikiEnabled: $wikiEnabled, avatarUrl: $avatarUrl, webUrl: $webUrl, lastActivityAt: $lastActivityAt)';
   }
 }
 
@@ -141,6 +146,7 @@ abstract mixin class $ProjectCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
+    @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
     String name,
     @JsonKey(name: 'path_with_namespace') String pathWithNamespace,
     String? description,
@@ -162,6 +168,7 @@ abstract mixin class $ProjectCopyWith<$Res> {
     @JsonKey(name: 'last_activity_at') DateTime? lastActivityAt,
   });
 
+  $ProjectNamespaceCopyWith<$Res>? get namespaceDetails;
   $ContainerCleanupPolicyCopyWith<$Res>? get containerExpirationPolicy;
 }
 
@@ -178,6 +185,7 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? namespaceDetails = freezed,
     Object? name = null,
     Object? pathWithNamespace = null,
     Object? description = freezed,
@@ -201,6 +209,10 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
             ? _self.id
             : id // ignore: cast_nullable_to_non_nullable
                   as int,
+        namespaceDetails: freezed == namespaceDetails
+            ? _self.namespaceDetails
+            : namespaceDetails // ignore: cast_nullable_to_non_nullable
+                  as ProjectNamespace?,
         name: null == name
             ? _self.name
             : name // ignore: cast_nullable_to_non_nullable
@@ -267,6 +279,20 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
                   as DateTime?,
       ),
     );
+  }
+
+  /// Create a copy of Project
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProjectNamespaceCopyWith<$Res>? get namespaceDetails {
+    if (_self.namespaceDetails == null) {
+      return null;
+    }
+
+    return $ProjectNamespaceCopyWith<$Res>(_self.namespaceDetails!, (value) {
+      return _then(_self.copyWith(namespaceDetails: value));
+    });
   }
 
   /// Create a copy of Project
@@ -382,6 +408,7 @@ extension ProjectPatterns on Project {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
       int id,
+      @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
       String name,
       @JsonKey(name: 'path_with_namespace') String pathWithNamespace,
       String? description,
@@ -410,6 +437,7 @@ extension ProjectPatterns on Project {
       case _Project() when $default != null:
         return $default(
           _that.id,
+          _that.namespaceDetails,
           _that.name,
           _that.pathWithNamespace,
           _that.description,
@@ -449,6 +477,7 @@ extension ProjectPatterns on Project {
   TResult when<TResult extends Object?>(
     TResult Function(
       int id,
+      @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
       String name,
       @JsonKey(name: 'path_with_namespace') String pathWithNamespace,
       String? description,
@@ -476,6 +505,7 @@ extension ProjectPatterns on Project {
       case _Project():
         return $default(
           _that.id,
+          _that.namespaceDetails,
           _that.name,
           _that.pathWithNamespace,
           _that.description,
@@ -514,6 +544,7 @@ extension ProjectPatterns on Project {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
       int id,
+      @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
       String name,
       @JsonKey(name: 'path_with_namespace') String pathWithNamespace,
       String? description,
@@ -541,6 +572,7 @@ extension ProjectPatterns on Project {
       case _Project() when $default != null:
         return $default(
           _that.id,
+          _that.namespaceDetails,
           _that.name,
           _that.pathWithNamespace,
           _that.description,
@@ -569,6 +601,7 @@ extension ProjectPatterns on Project {
 class _Project extends Project {
   const _Project({
     required this.id,
+    @JsonKey(name: 'namespace') this.namespaceDetails,
     required this.name,
     @JsonKey(name: 'path_with_namespace') required this.pathWithNamespace,
     this.description,
@@ -594,6 +627,9 @@ class _Project extends Project {
 
   @override
   final int id;
+  @override
+  @JsonKey(name: 'namespace')
+  final ProjectNamespace? namespaceDetails;
   @override
   final String name;
   @override
@@ -662,6 +698,8 @@ class _Project extends Project {
         (other.runtimeType == runtimeType &&
             other is _Project &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.namespaceDetails, namespaceDetails) ||
+                other.namespaceDetails == namespaceDetails) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.pathWithNamespace, pathWithNamespace) ||
                 other.pathWithNamespace == pathWithNamespace) &&
@@ -710,6 +748,7 @@ class _Project extends Project {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    namespaceDetails,
     name,
     pathWithNamespace,
     description,
@@ -730,7 +769,7 @@ class _Project extends Project {
 
   @override
   String toString() {
-    return 'Project(id: $id, name: $name, pathWithNamespace: $pathWithNamespace, description: $description, starCount: $starCount, visibility: $visibility, defaultBranch: $defaultBranch, containerRegistryAccessLevel: $containerRegistryAccessLevel, containerExpirationPolicy: $containerExpirationPolicy, packageRegistryAccessLevel: $packageRegistryAccessLevel, openIssuesCount: $openIssuesCount, forksCount: $forksCount, wikiAccessLevel: $wikiAccessLevel, wikiEnabled: $wikiEnabled, avatarUrl: $avatarUrl, webUrl: $webUrl, lastActivityAt: $lastActivityAt)';
+    return 'Project(id: $id, namespaceDetails: $namespaceDetails, name: $name, pathWithNamespace: $pathWithNamespace, description: $description, starCount: $starCount, visibility: $visibility, defaultBranch: $defaultBranch, containerRegistryAccessLevel: $containerRegistryAccessLevel, containerExpirationPolicy: $containerExpirationPolicy, packageRegistryAccessLevel: $packageRegistryAccessLevel, openIssuesCount: $openIssuesCount, forksCount: $forksCount, wikiAccessLevel: $wikiAccessLevel, wikiEnabled: $wikiEnabled, avatarUrl: $avatarUrl, webUrl: $webUrl, lastActivityAt: $lastActivityAt)';
   }
 }
 
@@ -742,6 +781,7 @@ abstract mixin class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   @useResult
   $Res call({
     int id,
+    @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
     String name,
     @JsonKey(name: 'path_with_namespace') String pathWithNamespace,
     String? description,
@@ -764,6 +804,8 @@ abstract mixin class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   });
 
   @override
+  $ProjectNamespaceCopyWith<$Res>? get namespaceDetails;
+  @override
   $ContainerCleanupPolicyCopyWith<$Res>? get containerExpirationPolicy;
 }
 
@@ -780,6 +822,7 @@ class __$ProjectCopyWithImpl<$Res> implements _$ProjectCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
+    Object? namespaceDetails = freezed,
     Object? name = null,
     Object? pathWithNamespace = null,
     Object? description = freezed,
@@ -803,6 +846,10 @@ class __$ProjectCopyWithImpl<$Res> implements _$ProjectCopyWith<$Res> {
             ? _self.id
             : id // ignore: cast_nullable_to_non_nullable
                   as int,
+        namespaceDetails: freezed == namespaceDetails
+            ? _self.namespaceDetails
+            : namespaceDetails // ignore: cast_nullable_to_non_nullable
+                  as ProjectNamespace?,
         name: null == name
             ? _self.name
             : name // ignore: cast_nullable_to_non_nullable
@@ -875,6 +922,20 @@ class __$ProjectCopyWithImpl<$Res> implements _$ProjectCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $ProjectNamespaceCopyWith<$Res>? get namespaceDetails {
+    if (_self.namespaceDetails == null) {
+      return null;
+    }
+
+    return $ProjectNamespaceCopyWith<$Res>(_self.namespaceDetails!, (value) {
+      return _then(_self.copyWith(namespaceDetails: value));
+    });
+  }
+
+  /// Create a copy of Project
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $ContainerCleanupPolicyCopyWith<$Res>? get containerExpirationPolicy {
     if (_self.containerExpirationPolicy == null) {
       return null;
@@ -885,6 +946,322 @@ class __$ProjectCopyWithImpl<$Res> implements _$ProjectCopyWith<$Res> {
       (value) {
         return _then(_self.copyWith(containerExpirationPolicy: value));
       },
+    );
+  }
+}
+
+/// @nodoc
+mixin _$ProjectNamespace {
+  int? get id;
+  String? get kind;
+
+  /// Create a copy of ProjectNamespace
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $ProjectNamespaceCopyWith<ProjectNamespace> get copyWith =>
+      _$ProjectNamespaceCopyWithImpl<ProjectNamespace>(
+        this as ProjectNamespace,
+        _$identity,
+      );
+
+  /// Serializes this ProjectNamespace to a JSON map.
+  Map<String, dynamic> toJson();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ProjectNamespace &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.kind, kind) || other.kind == kind));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, kind);
+
+  @override
+  String toString() {
+    return 'ProjectNamespace(id: $id, kind: $kind)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ProjectNamespaceCopyWith<$Res> {
+  factory $ProjectNamespaceCopyWith(
+    ProjectNamespace value,
+    $Res Function(ProjectNamespace) _then,
+  ) = _$ProjectNamespaceCopyWithImpl;
+  @useResult
+  $Res call({int? id, String? kind});
+}
+
+/// @nodoc
+class _$ProjectNamespaceCopyWithImpl<$Res>
+    implements $ProjectNamespaceCopyWith<$Res> {
+  _$ProjectNamespaceCopyWithImpl(this._self, this._then);
+
+  final ProjectNamespace _self;
+  final $Res Function(ProjectNamespace) _then;
+
+  /// Create a copy of ProjectNamespace
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? id = freezed, Object? kind = freezed}) {
+    return _then(
+      _self.copyWith(
+        id: freezed == id
+            ? _self.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        kind: freezed == kind
+            ? _self.kind
+            : kind // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
+    );
+  }
+}
+
+/// Adds pattern-matching-related methods to [ProjectNamespace].
+extension ProjectNamespacePatterns on ProjectNamespace {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_ProjectNamespace value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_ProjectNamespace value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_ProjectNamespace value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(int? id, String? kind)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace() when $default != null:
+        return $default(_that.id, _that.kind);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(int? id, String? kind) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace():
+        return $default(_that.id, _that.kind);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(int? id, String? kind)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _ProjectNamespace() when $default != null:
+        return $default(_that.id, _that.kind);
+      case _:
+        return null;
+    }
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _ProjectNamespace implements ProjectNamespace {
+  const _ProjectNamespace({this.id, this.kind});
+  factory _ProjectNamespace.fromJson(Map<String, dynamic> json) =>
+      _$ProjectNamespaceFromJson(json);
+
+  @override
+  final int? id;
+  @override
+  final String? kind;
+
+  /// Create a copy of ProjectNamespace
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ProjectNamespaceCopyWith<_ProjectNamespace> get copyWith =>
+      __$ProjectNamespaceCopyWithImpl<_ProjectNamespace>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$ProjectNamespaceToJson(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ProjectNamespace &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.kind, kind) || other.kind == kind));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, kind);
+
+  @override
+  String toString() {
+    return 'ProjectNamespace(id: $id, kind: $kind)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ProjectNamespaceCopyWith<$Res>
+    implements $ProjectNamespaceCopyWith<$Res> {
+  factory _$ProjectNamespaceCopyWith(
+    _ProjectNamespace value,
+    $Res Function(_ProjectNamespace) _then,
+  ) = __$ProjectNamespaceCopyWithImpl;
+  @override
+  @useResult
+  $Res call({int? id, String? kind});
+}
+
+/// @nodoc
+class __$ProjectNamespaceCopyWithImpl<$Res>
+    implements _$ProjectNamespaceCopyWith<$Res> {
+  __$ProjectNamespaceCopyWithImpl(this._self, this._then);
+
+  final _ProjectNamespace _self;
+  final $Res Function(_ProjectNamespace) _then;
+
+  /// Create a copy of ProjectNamespace
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({Object? id = freezed, Object? kind = freezed}) {
+    return _then(
+      _ProjectNamespace(
+        id: freezed == id
+            ? _self.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        kind: freezed == kind
+            ? _self.kind
+            : kind // ignore: cast_nullable_to_non_nullable
+                  as String?,
+      ),
     );
   }
 }
