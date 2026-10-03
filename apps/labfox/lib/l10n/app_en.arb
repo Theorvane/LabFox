@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "Select project milestones",
+  "releasePickerSearch": "Search project milestones",
+  "releasePickerEmpty": "No project milestones found.",
+  "releasePickerError": "Could not load milestones.",
+  "releasePickerMore": "Load more milestones",
+  "releasePickerUse": "Use milestones",
+  "releasePickerRemove": "Remove milestone {title}",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "Publication date (optional)",
   "releaseCreationDateDefault": "Publication time will be set by GitLab.",
   "releaseCreationChooseDate": "Choose publication date",

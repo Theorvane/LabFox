@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "प्रोजेक्ट माइलस्टोन चुनें",
+  "releasePickerSearch": "प्रोजेक्ट माइलस्टोन खोजें",
+  "releasePickerEmpty": "कोई प्रोजेक्ट माइलस्टोन नहीं मिला।",
+  "releasePickerError": "माइलस्टोन लोड नहीं हो सके।",
+  "releasePickerMore": "और माइलस्टोन लोड करें",
+  "releasePickerUse": "माइलस्टोन इस्तेमाल करें",
+  "releasePickerRemove": "माइलस्टोन {title} हटाएँ",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "प्रकाशन की तारीख (वैकल्पिक)",
   "releaseCreationDateDefault": "प्रकाशन का समय GitLab तय करेगा।",
   "releaseCreationChooseDate": "प्रकाशन की तारीख चुनें",

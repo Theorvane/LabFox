@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "プロジェクトのマイルストーンを選択",
+  "releasePickerSearch": "プロジェクトのマイルストーンを検索",
+  "releasePickerEmpty": "プロジェクトのマイルストーンが見つかりません。",
+  "releasePickerError": "マイルストーンを読み込めませんでした。",
+  "releasePickerMore": "マイルストーンをさらに読み込む",
+  "releasePickerUse": "マイルストーンを使用",
+  "releasePickerRemove": "マイルストーン {title} を削除",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "公開日時（任意）",
   "releaseCreationDateDefault": "公開日時はGitLabが設定します。",
   "releaseCreationChooseDate": "公開日を選択",
