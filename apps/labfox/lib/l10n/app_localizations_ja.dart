@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => '公開日時（任意）';
+
+  @override
+  String get releaseCreationDateDefault => '公開日時はGitLabが設定します。';
+
+  @override
+  String get releaseCreationChooseDate => '公開日を選択';
+
+  @override
+  String get releaseCreationChooseTime => '公開時刻を選択';
+
+  @override
+  String get releaseCreationClearDate => 'GitLabの公開日時を使用';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'タイムゾーン: $zone。未来の日時は予定リリース、過去の日時は過去のリリースを作成します。';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override

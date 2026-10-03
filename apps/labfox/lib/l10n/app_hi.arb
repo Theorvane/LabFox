@@ -1,4 +1,11 @@
 {
+  "releaseCreationDateLabel": "प्रकाशन की तारीख (वैकल्पिक)",
+  "releaseCreationDateDefault": "प्रकाशन का समय GitLab तय करेगा।",
+  "releaseCreationChooseDate": "प्रकाशन की तारीख चुनें",
+  "releaseCreationChooseTime": "प्रकाशन का समय चुनें",
+  "releaseCreationClearDate": "GitLab का प्रकाशन समय इस्तेमाल करें",
+  "releaseCreationDateHelp": "समय क्षेत्र: {zone}। भविष्य की तारीख आगामी रिलीज़ और पिछली तारीख ऐतिहासिक रिलीज़ बनाती है।",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "शेड्यूल हटाएँ",
   "pipelineScheduleDeleteConfirmTitle": "यह पाइपलाइन शेड्यूल हटाएँ?",
   "pipelineScheduleDeleteConfirmBody": "पाइपलाइन शेड्यूल \"{name}\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।",
