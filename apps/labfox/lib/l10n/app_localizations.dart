@@ -5948,6 +5948,93 @@ abstract class AppLocalizations {
   /// **'Project {projectId} — rule {ruleId}'**
   String containerTagProtectionPushClearTarget(String projectId, String ruleId);
 
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  );
+
+  /// No description provided for @containerTagProtectionDeleteClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionDeleteClearForbidden;
+
+  /// No description provided for @containerTagProtectionDeleteClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionDeleteClearStale;
+
+  /// No description provided for @containerTagProtectionDeleteClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionDeleteClearReload;
+
+  /// No description provided for @containerTagProtectionDeleteClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.'**
+  String get containerTagProtectionDeleteClearMissing;
+
+  /// No description provided for @containerTagProtectionDeleteClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionDeleteClearRateLimited;
+
+  /// No description provided for @containerTagProtectionDeleteClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum delete role'**
+  String get containerTagProtectionDeleteClearTitle;
+
+  /// No description provided for @containerTagProtectionDeleteClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear delete restriction'**
+  String get containerTagProtectionDeleteClearSave;
+
+  /// No description provided for @containerTagProtectionDeleteClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.'**
+  String get containerTagProtectionDeleteClearWarning;
+
+  /// No description provided for @containerTagProtectionDeleteClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
+  String get containerTagProtectionDeleteClearAcknowledge;
+
+  /// No description provided for @containerTagProtectionDeleteClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionDeleteClearError;
+
+  /// No description provided for @containerTagProtectionDeleteClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete-role restriction cleared.'**
+  String get containerTagProtectionDeleteClearSaved;
+
+  /// No description provided for @containerTagProtectionDeleteClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
+  String get containerTagProtectionDeleteClearInvalid;
+
+  /// No description provided for @containerTagProtectionDeleteClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerTagProtectionDeleteClearBlocked;
+
   /// No description provided for @containerTagProtectionPushClearForbidden.
   ///
   /// In en, this message translates to:
@@ -6272,92 +6359,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// Exact project and protection rule identifiers
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'Project {projectId} — rule {ruleId}'**
-  String containerTagProtectionDeleteClearTarget(
-    String projectId,
-    String ruleId,
-  );
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerTagProtectionDeleteClearForbidden.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'You do not have permission to change this rule.'**
-  String get containerTagProtectionDeleteClearForbidden;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerTagProtectionDeleteClearStale.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'The rule changed since confirmation. Reload and review it before saving.'**
-  String get containerTagProtectionDeleteClearStale;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerTagProtectionDeleteClearReload.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'Reload rule'**
-  String get containerTagProtectionDeleteClearReload;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerTagProtectionDeleteClearMissing.
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.'**
-  String get containerTagProtectionDeleteClearMissing;
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerTagProtectionDeleteClearRateLimited.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Too many requests. Wait and retry.'**
-  String get containerTagProtectionDeleteClearRateLimited;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerTagProtectionDeleteClearTitle.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Clear minimum delete role'**
-  String get containerTagProtectionDeleteClearTitle;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerTagProtectionDeleteClearSave.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'Clear delete restriction'**
-  String get containerTagProtectionDeleteClearSave;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerTagProtectionDeleteClearWarning.
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.'**
-  String get containerTagProtectionDeleteClearWarning;
-
-  /// No description provided for @containerTagProtectionDeleteClearAcknowledge.
-  ///
-  /// In en, this message translates to:
-  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
-  String get containerTagProtectionDeleteClearAcknowledge;
-
-  /// No description provided for @containerTagProtectionDeleteClearError.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
-  String get containerTagProtectionDeleteClearError;
-
-  /// No description provided for @containerTagProtectionDeleteClearSaved.
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum delete-role restriction cleared.'**
-  String get containerTagProtectionDeleteClearSaved;
-
-  /// No description provided for @containerTagProtectionDeleteClearInvalid.
-  ///
-  /// In en, this message translates to:
-  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
-  String get containerTagProtectionDeleteClearInvalid;
-
-  /// No description provided for @containerTagProtectionDeleteClearBlocked.
-  ///
-  /// In en, this message translates to:
-  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
-  String get containerTagProtectionDeleteClearBlocked;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate

@@ -3233,6 +3233,65 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle =>
+      'Clear minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteClearSave =>
+      'Clear delete restriction';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this delete restriction.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved =>
+      'Minimum delete-role restriction cleared.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'The server rejected clearing this delete restriction. Check the rule and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
   String get containerTagProtectionPushClearForbidden =>
       'You do not have permission to change this rule.';
 
@@ -3434,61 +3493,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String containerTagProtectionDeleteClearTarget(
-    String projectId,
-    String ruleId,
-  ) {
-    return 'Project $projectId — rule $ruleId';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
   }
 
   @override
-  String get containerTagProtectionDeleteClearForbidden =>
-      'You do not have permission to change this rule.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
 
   @override
-  String get containerTagProtectionDeleteClearStale =>
-      'The rule changed since confirmation. Reload and review it before saving.';
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerTagProtectionDeleteClearReload => 'Reload rule';
-
-  @override
-  String get containerTagProtectionDeleteClearMissing =>
-      'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.';
-
-  @override
-  String get containerTagProtectionDeleteClearRateLimited =>
-      'Too many requests. Wait and retry.';
-
-  @override
-  String get containerTagProtectionDeleteClearTitle =>
-      'Clear minimum delete role';
-
-  @override
-  String get containerTagProtectionDeleteClearSave =>
-      'Clear delete restriction';
-
-  @override
-  String get containerTagProtectionDeleteClearWarning =>
-      'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.';
-
-  @override
-  String get containerTagProtectionDeleteClearAcknowledge =>
-      'I have reviewed the rule and understand the loss of this delete restriction.';
-
-  @override
-  String get containerTagProtectionDeleteClearError =>
-      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
-
-  @override
-  String get containerTagProtectionDeleteClearSaved =>
-      'Minimum delete-role restriction cleared.';
-
-  @override
-  String get containerTagProtectionDeleteClearInvalid =>
-      'The server rejected clearing this delete restriction. Check the rule and retry.';
-
-  @override
-  String get containerTagProtectionDeleteClearBlocked =>
-      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

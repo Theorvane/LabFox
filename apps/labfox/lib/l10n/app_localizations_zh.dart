@@ -3071,6 +3071,59 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionDeleteClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      '规则不存在、重复、无法访问，或此实例不支持更新（GitLab 18.9+）。确认前请重新加载。';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '清除最低删除角色';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '清除删除限制';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      '这会移除此规则的最低删除角色限制，并削弱整个项目中匹配容器标签的删除保护。标签模式和最低推送角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除标签或镜像。';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      '我已检查规则并了解移除此删除限制的影响。';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '无法确认删除限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '最低删除角色限制已清除。';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      '服务器拒绝清除此删除限制。请检查规则后重试。';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。';
+
+  @override
   String get containerTagProtectionPushClearForbidden => '你没有更改此规则的权限。';
 
   @override
@@ -3251,55 +3304,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String containerTagProtectionDeleteClearTarget(
-    String projectId,
-    String ruleId,
-  ) {
-    return '项目 $projectId — 规则 $ruleId';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
   }
 
   @override
-  String get containerTagProtectionDeleteClearForbidden => '你没有更改此规则的权限。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
 
   @override
-  String get containerTagProtectionDeleteClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
-  String get containerTagProtectionDeleteClearReload => '重新加载规则';
-
-  @override
-  String get containerTagProtectionDeleteClearMissing =>
-      '规则不存在、重复、无法访问，或此实例不支持更新（GitLab 18.9+）。确认前请重新加载。';
-
-  @override
-  String get containerTagProtectionDeleteClearRateLimited => '请求过多。请等待后重试。';
-
-  @override
-  String get containerTagProtectionDeleteClearTitle => '清除最低删除角色';
-
-  @override
-  String get containerTagProtectionDeleteClearSave => '清除删除限制';
-
-  @override
-  String get containerTagProtectionDeleteClearWarning =>
-      '这会移除此规则的最低删除角色限制，并削弱整个项目中匹配容器标签的删除保护。标签模式和最低推送角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除标签或镜像。';
-
-  @override
-  String get containerTagProtectionDeleteClearAcknowledge =>
-      '我已检查规则并了解移除此删除限制的影响。';
-
-  @override
-  String get containerTagProtectionDeleteClearError =>
-      '无法确认删除限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
-
-  @override
-  String get containerTagProtectionDeleteClearSaved => '最低删除角色限制已清除。';
-
-  @override
-  String get containerTagProtectionDeleteClearInvalid =>
-      '服务器拒绝清除此删除限制。请检查规则后重试。';
-
-  @override
-  String get containerTagProtectionDeleteClearBlocked =>
-      '清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。';
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

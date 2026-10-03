@@ -11,42 +11,6 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
-  /// Clears only the minimum delete role; tag glob and push role are omitted.
-  Future<ContainerTagProtectionRule> clearTagProtectionDeleteRole(
-    Object projectId,
-    int ruleId,
-  ) async {
-    try {
-      final response = await _dio.patch<dynamic>(
-        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
-        data: {'minimum_access_level_for_delete': ''},
-      );
-      if (response.statusCode != 200) {
-        throw mapStatus(
-          response.statusCode,
-          response.headers.map,
-          context: 'clearing container tag protection delete role',
-        );
-      }
-      try {
-        final data = response.data as Map<String, dynamic>;
-        if (!data.containsKey('minimum_access_level_for_delete')) {
-          throw const FormatException('Missing cleared delete role');
-        }
-        return ContainerTagProtectionRule.fromJson(data);
-      } catch (_) {
-        throw const GitLabServerException(
-          'Invalid protection delete role clear response',
-        );
-      }
-    } on DioException catch (error) {
-      throw mapError(
-        error,
-        context: 'clearing container tag protection delete role',
-      );
-    }
-  }
-
   /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     Object projectId,
@@ -120,6 +84,36 @@ class ContainerRegistryApi {
 
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
+
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing container repository protection rules',
+        );
+      }
+      return (response.data as List<dynamic>)
+          .map(
+            (item) => ContainerRepositoryProtectionRule.fromJson(
+              item as Map<String, dynamic>,
+            ),
+          )
+          .toList(growable: false);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
+    }
+  }
 
   /// Schedules asynchronous repository removal; acceptance is not completion.
   Future<void> deleteRepository(Object projectId, int repositoryId) async {
@@ -253,6 +247,42 @@ class ContainerRegistryApi {
       );
     } on DioException catch (error) {
       throw mapError(error, context: 'listing container tags');
+    }
+  }
+
+  /// Clears only the minimum delete role; tag glob and push role are omitted.
+  Future<ContainerTagProtectionRule> clearTagProtectionDeleteRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_delete': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing container tag protection delete role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_delete')) {
+          throw const FormatException('Missing cleared delete role');
+        }
+        return ContainerTagProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection delete role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing container tag protection delete role',
+      );
     }
   }
 
