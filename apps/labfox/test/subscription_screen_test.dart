@@ -105,10 +105,15 @@ void main() {
     expect(find.textContaining('cancel', findRichText: true), findsWidgets);
   });
 
-  testWidgets('links to the Terms of Use and the privacy policy', (
+  testWidgets('a Play Store purchase links its terms and privacy policy', (
     tester,
   ) async {
-    await pump(tester);
+    await pump(
+      tester,
+      overrides: [
+        subscriptionTermsUrlProvider.overrideWithValue('$labfoxSiteUrl/terms'),
+      ],
+    );
 
     await tester.tap(find.text('Terms of Use'));
     await tester.pumpAndSettle();

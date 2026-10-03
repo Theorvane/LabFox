@@ -7,6 +7,22 @@ class PipelineSchedulesRepository {
 
   final GitLabClient client;
 
+  Future<PipelineSchedule> create(
+    int projectId, {
+    required String description,
+    required String ref,
+    required String cron,
+    String? cronTimezone,
+    bool active = true,
+  }) => client.pipelineSchedules.create(
+    projectId,
+    description: description,
+    ref: ref,
+    cron: cron,
+    cronTimezone: cronTimezone,
+    active: active,
+  );
+
   Future<Paginated<Pipeline>> listPipelines(
     int projectId,
     int scheduleId, {
