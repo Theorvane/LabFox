@@ -3264,4 +3264,25 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerRepositoryDeletionNotice =>
       'Repository deletion has been scheduled. Refresh to check progress.';
+
+  @override
+  String get containerKeepCountTitle => 'Edit cleanup retention count';
+
+  @override
+  String get containerKeepCountSave => 'Confirm retention change';
+
+  @override
+  String get containerKeepCountSelect => 'New matching tags to keep per image';
+
+  @override
+  String get containerKeepCountWarning =>
+      'Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.';
+
+  @override
+  String get containerKeepCountUnknown =>
+      'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerKeepCountAccepted =>
+      'Cleanup retention count update accepted.';
 }
