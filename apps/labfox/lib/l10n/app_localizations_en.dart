@@ -9,6 +9,28 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releaseCreationMilestoneTitle => 'Milestone title (optional)';
+
+  @override
+  String get releaseCreationMilestoneAdd => 'Add milestone';
+
+  @override
+  String get releaseCreationMilestoneRequired => 'Enter a milestone title.';
+
+  @override
+  String get releaseCreationMilestoneDuplicate =>
+      'This milestone is already selected.';
+
+  @override
+  String releaseCreationMilestoneRemove(String title) {
+    return 'Remove milestone $title';
+  }
+
+  @override
+  String get releaseCreationMilestoneHelp =>
+      'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.';
+
+  @override
   String get releasePickerTitle => 'Select project milestones';
 
   @override

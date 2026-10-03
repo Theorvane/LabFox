@@ -9,6 +9,27 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releaseCreationMilestoneTitle => 'マイルストーンのタイトル（任意）';
+
+  @override
+  String get releaseCreationMilestoneAdd => 'マイルストーンを追加';
+
+  @override
+  String get releaseCreationMilestoneRequired => 'マイルストーンのタイトルを入力してください。';
+
+  @override
+  String get releaseCreationMilestoneDuplicate => 'このマイルストーンは既に選択されています。';
+
+  @override
+  String releaseCreationMilestoneRemove(String title) {
+    return 'マイルストーン $title を削除';
+  }
+
+  @override
+  String get releaseCreationMilestoneHelp =>
+      '既存のタイトルを1つずつ正確に入力してください。グループマイルストーンの利用可否はGitLabのプランによって異なります。';
+
+  @override
   String get releasePickerTitle => 'プロジェクトのマイルストーンを選択';
 
   @override
