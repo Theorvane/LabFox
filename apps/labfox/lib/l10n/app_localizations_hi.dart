@@ -3262,6 +3262,29 @@ class AppLocalizationsHi extends AppLocalizations {
       'रिपॉज़िटरी हटाना निर्धारित हो गया है। प्रगति देखने के लिए रीफ़्रेश करें।';
 
   @override
+  String get containerKeepCountTitle => 'सफ़ाई में रखने की संख्या संपादित करें';
+
+  @override
+  String get containerKeepCountSave =>
+      'रखने की संख्या में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerKeepCountSelect =>
+      'प्रत्येक इमेज में रखने वाले मिलते टैग की नई संख्या';
+
+  @override
+  String get containerKeepCountWarning =>
+      'परियोजना में रखने की संख्या घटाने से नियोजित सफ़ाई में हर इमेज रिपॉज़िटरी के अधिक मिलते टैग स्थायी रूप से हट सकते हैं। नीचे सक्रिय स्थिति और हटाने के मानदंड जाँचें। अन्य सेटिंग नहीं बदलतीं और सफ़ाई पूर्ण होने की पुष्टि नहीं होती।';
+
+  @override
+  String get containerKeepCountUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerKeepCountAccepted =>
+      'सफ़ाई में रखने की संख्या का अपडेट स्वीकार किया गया।';
+
+  @override
   String get containerTagProtectionCreateTitle => 'टैग सुरक्षा नियम बनाएँ';
 
   @override
