@@ -10,6 +10,33 @@ class ProjectsApi {
 
   final Dio _dio;
 
+  /// Replaces only the keep pattern of an existing cleanup policy.
+  Future<Project> setCleanupPolicyKeepPattern(
+    Object projectId, {
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy keep pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy keep pattern');
+    }
+  }
+
   /// Changes only matching-tag retention count, preserving other policy settings.
   Future<Project> setCleanupPolicyKeepCount(
     Object projectId, {
