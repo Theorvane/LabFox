@@ -8,6 +8,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_tag_protection_controller.dart';
 import 'widgets/container_tag_protection_create_dialog.dart';
+import 'widgets/container_tag_protection_delete_dialog.dart';
 import 'widgets/container_tag_protection_pattern_dialog.dart';
 import 'widgets/container_tag_protection_push_clear_dialog.dart';
 
@@ -109,6 +110,34 @@ class ContainerTagProtectionScreen extends ConsumerWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
+                                      IconButton(
+                                        tooltip: l10n
+                                            .containerTagProtectionRemoveTitle,
+                                        icon: const Icon(Icons.delete_outline),
+                                        onPressed: () async {
+                                          final removed = await showDialog<bool>(
+                                            context: context,
+                                            barrierDismissible: false,
+                                            builder: (_) =>
+                                                ContainerTagProtectionDeleteDialog(
+                                                  projectId: projectId,
+                                                  rule: rule,
+                                                ),
+                                          );
+                                          if (removed == true &&
+                                              context.mounted) {
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  l10n.containerTagProtectionRemoveSaved,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
                                       IconButton(
                                         tooltip: l10n
                                             .containerTagProtectionPatternTitle,

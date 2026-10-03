@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_repository_protection_controller.dart';
+import 'widgets/container_repository_protection_create_dialog.dart';
 import 'widgets/container_repository_protection_delete_dialog.dart';
 import 'widgets/container_repository_protection_push_clear_dialog.dart';
 
@@ -26,6 +27,28 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.containerRepositoryProtectionTitle),
+        actions: [
+          IconButton(
+            tooltip: l10n.containerProtectionCreateTitle,
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final created = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => ContainerRepositoryProtectionCreateDialog(
+                  projectId: projectId,
+                ),
+              );
+              if (created == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.containerProtectionCreateCreated),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
         leading: BackButton(
           onPressed: () => context.canPop()
               ? context.pop()

@@ -11,6 +11,46 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Creates a rule; omitted role fields impose no restriction from this rule.
+  Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
+    Object projectId, {
+    required String repositoryPathPattern,
+    String? minimumAccessLevelForPush,
+    String? minimumAccessLevelForDelete,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+        data: {
+          'repository_path_pattern': repositoryPathPattern,
+          'minimum_access_level_for_push': ?minimumAccessLevelForPush,
+          'minimum_access_level_for_delete': ?minimumAccessLevelForDelete,
+        },
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating container repository protection rule',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Creation response did not contain a valid protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'creating container repository protection rule',
+      );
+    }
+  }
+
   /// Deletes a rule, not the repositories or images matching its pattern.
   Future<void> deleteRepositoryProtectionRule(
     Object projectId,
@@ -287,6 +327,37 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Schedules asynchronous tag cleanup; acceptance does not mean completion.
+  Future<void> deleteTags(
+    Object projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags',
+        data: {
+          'name_regex_delete': nameRegexDelete,
+          'name_regex_keep': ?nameRegexKeep,
+          'keep_n': ?keepN,
+          'older_than': ?olderThan,
+        },
+      );
+      if (response.statusCode != 202) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'scheduling container tag cleanup',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'scheduling container tag cleanup');
+    }
+  }
+
   /// Lists a container repository's tags.
   Future<Paginated<RegistryTag>> listTags(
     Object projectId,
@@ -373,6 +444,24 @@ class ContainerRegistryApi {
       return RegistryTag.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading a container tag');
+    }
+  }
+
+  /// Deletes only a tag protection rule (GitLab 18.9+), not image tags.
+  Future<void> deleteTagProtectionRule(Object projectId, int ruleId) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting container tag protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'deleting container tag protection rule');
     }
   }
 }

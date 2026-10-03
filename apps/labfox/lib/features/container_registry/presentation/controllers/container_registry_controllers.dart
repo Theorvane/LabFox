@@ -150,3 +150,44 @@ final containerTagProvider = FutureProvider.family<RegistryTag, RegistryTagRef>(
     ref,
   )).tag(key.repository.projectId, key.repository.repositoryId, key.name),
 );
+
+/// Schedules cleanup, without optimistically removing asynchronously deleted tags.
+class ContainerTagCleanupController
+    extends FamilyAsyncNotifier<void, RegistryRef> {
+  @override
+  void build(RegistryRef arg) {}
+
+  Future<void> schedule({
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) async {
+    if (state.isLoading) throw StateError('Cleanup is already pending');
+    state = const AsyncLoading();
+    try {
+      final repository = await _repository(ref);
+      await repository.cleanupTags(
+        arg.projectId,
+        arg.repositoryId,
+        nameRegexDelete: nameRegexDelete,
+        nameRegexKeep: nameRegexKeep,
+        keepN: keepN,
+        olderThan: olderThan,
+      );
+      state = const AsyncData(null);
+      ref.invalidate(containerTagsControllerProvider(arg));
+      ref.invalidate(containerRepositoriesControllerProvider(arg.projectId));
+    } catch (error, stackTrace) {
+      state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final containerTagCleanupControllerProvider =
+    AsyncNotifierProvider.family<
+      ContainerTagCleanupController,
+      void,
+      RegistryRef
+    >(ContainerTagCleanupController.new);
