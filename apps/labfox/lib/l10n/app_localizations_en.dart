@@ -32,6 +32,29 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.';
 
   @override
+  String get releasePickerTitle => 'Select project milestones';
+
+  @override
+  String get releasePickerSearch => 'Search project milestones';
+
+  @override
+  String get releasePickerEmpty => 'No project milestones found.';
+
+  @override
+  String get releasePickerError => 'Could not load milestones.';
+
+  @override
+  String get releasePickerMore => 'Load more milestones';
+
+  @override
+  String get releasePickerUse => 'Use milestones';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'Remove milestone $title';
+  }
+
+  @override
   String get releaseCreationDateLabel => 'Publication date (optional)';
 
   @override
@@ -3211,4 +3234,57 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
+  String get packageFileDelete => 'Delete file';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'Delete package file?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return 'Delete “$fileName” from “$packageName”? This cannot be undone.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'You cannot delete this file. The package may be protected or you may not have permission.';
+
+  @override
+  String get packageFileDeleteError => 'Could not delete this file. Try again.';
+
+  @override
+  String get containerRepositoryDelete => 'Delete repository';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle =>
+      'Delete image repository?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return 'Delete “$path” and all its tags? This cannot be undone.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'You cannot delete this repository. Check your permissions and protection rules.';
+
+  @override
+  String get containerRepositoryDeleteError =>
+      'Could not schedule repository deletion. Try again.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => 'Deletion scheduled';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'Repository deletion has been scheduled. Refresh to check progress.';
 }
