@@ -93,6 +93,28 @@ Future<void> _pump(WidgetTester tester, {Size? size, bool dark = false}) async {
 }
 
 void main() {
+  for (final width in [320.0, 800.0, 1200.0]) {
+    testWidgets('all registry toolbar actions fit width $width', (
+      tester,
+    ) async {
+      await _pump(tester, size: Size(width, 844));
+      expect(tester.takeException(), isNull);
+      final toolbarButtons = find.descendant(
+        of: find.byType(AppBar),
+        matching: find.byType(IconButton),
+      );
+      expect(toolbarButtons.evaluate().length, greaterThanOrEqualTo(7));
+      for (final button in toolbarButtons.evaluate()) {
+        final finder = find.byWidget(button.widget);
+        final bounds = tester.getRect(finder);
+        expect(bounds.left, greaterThanOrEqualTo(0));
+        expect(bounds.right, lessThanOrEqualTo(width));
+        expect(finder.hitTestable(), findsOneWidget);
+      }
+      expect(find.text('team/app/service'), findsOneWidget);
+    });
+  }
+
   testWidgets('navigates from image repository to tag details', (tester) async {
     await _pump(tester);
     expect(find.text('team/app/service'), findsOneWidget);

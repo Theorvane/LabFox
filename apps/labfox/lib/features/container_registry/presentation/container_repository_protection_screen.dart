@@ -8,6 +8,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/container_repository_protection_controller.dart';
 import 'widgets/container_repository_protection_delete_clear_dialog.dart';
+import 'widgets/container_repository_protection_delete_dialog.dart';
 
 /// Reads protection patterns and required roles without guessing user access.
 class ContainerRepositoryProtectionScreen extends ConsumerWidget {
@@ -141,6 +142,40 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
                                                   SnackBar(
                                                     content: Text(
                                                       l10n.containerProtectionDeleteClearSaved,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            tooltip: l10n
+                                                .containerProtectionRemoveTitle,
+                                            icon: const Icon(
+                                              Icons.delete_outline,
+                                            ),
+                                            onPressed: () async {
+                                              final removed =
+                                                  await showDialog<bool>(
+                                                    context: context,
+                                                    barrierDismissible: false,
+                                                    builder: (_) =>
+                                                        ContainerRepositoryProtectionDeleteDialog(
+                                                          projectId: projectId,
+                                                          rule: rule,
+                                                        ),
+                                                  );
+                                              if (removed == true &&
+                                                  context.mounted) {
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      l10n.containerProtectionRemoveDeleted,
                                                     ),
                                                   ),
                                                 );
