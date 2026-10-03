@@ -136,6 +136,14 @@ class ContainerRegistryRepository {
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
 
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionDeleteRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearRepositoryProtectionDeleteRole(
+    projectId,
+    ruleId,
+  );
+
   /// Preflight is best effort, not an atomic uniqueness or permission check.
   Future<ContainerTagImmutabilityRule> createImmutableTagRule(
     int projectId,
