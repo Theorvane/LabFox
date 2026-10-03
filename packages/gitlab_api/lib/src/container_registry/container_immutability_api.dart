@@ -68,6 +68,52 @@ mutation CreateContainerImmutabilityRule($input: createContainerProtectionTagRul
     }
   }
 
+  Future<void> deleteRule(ContainerTagImmutabilityRule expected) async {
+    if (!expected.immutable ||
+        expected.id.trim().isEmpty ||
+        expected.tagNamePattern.trim().isEmpty) {
+      throw ArgumentError('A complete immutable rule is required');
+    }
+    final data = await _graphql.mutate(
+      document: r'''
+mutation DeleteContainerImmutabilityRule($input: DeleteContainerProtectionTagRuleInput!) {
+  deleteContainerProtectionTagRule(input: $input) {
+    errors
+    containerProtectionTagRule { id tagNamePattern immutable }
+  }
+}
+''',
+      operationName: 'DeleteContainerImmutabilityRule',
+      variables: {
+        'input': {'id': expected.id},
+      },
+    );
+    try {
+      final payload =
+          data['deleteContainerProtectionTagRule'] as Map<String, dynamic>;
+      final errors = payload['errors'];
+      if (errors is! List || errors.any((e) => e is! String)) {
+        throw const FormatException('Missing mutation errors');
+      }
+      if (errors.isNotEmpty) {
+        throw const GitLabConflictException(
+          'Rule deletion was rejected',
+          statusCode: 422,
+        );
+      }
+      final deleted = ContainerTagImmutabilityRule.fromJson(
+        payload['containerProtectionTagRule'] as Map<String, dynamic>,
+      );
+      if (deleted != expected) {
+        throw const FormatException('Unconfirmed deleted rule');
+      }
+    } on GitLabConflictException {
+      rethrow;
+    } catch (_) {
+      throw const GitLabServerException('Rule deletion could not be confirmed');
+    }
+  }
+
   static const _document = r'''
 query ContainerImmutabilityRules($fullPath: ID!, $after: String) {
   project(fullPath: $fullPath) {
