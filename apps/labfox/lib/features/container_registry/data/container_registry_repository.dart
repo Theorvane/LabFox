@@ -197,6 +197,26 @@ class ContainerRegistryRepository {
     await client.projects.setCleanupPolicyCadence(projectId, cadence: cadence);
   }
 
+  Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(int projectId) =>
+      client.projects.cleanupPolicySnapshot(projectId);
+  Future<void> createDisabledCleanupPolicy(
+    int projectId, {
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    await client.projects.createDisabledCleanupPolicy(
+      projectId,
+      cadence: cadence,
+      keepN: keepN,
+      olderThan: olderThan,
+      nameRegexDelete: nameRegexDelete,
+      nameRegexKeep: nameRegexKeep,
+    );
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,

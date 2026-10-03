@@ -2879,6 +2879,54 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyCadence => '実行間隔';
 
   @override
+  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+
+  @override
+  String get containerCreateSave => '無効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateWarning =>
+      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+
+  @override
+  String get containerCreateExisting =>
+      'このプロジェクトには既存のクリーンアップポリシーがあります。作成では上書きしません。既存の設定を使用してください。';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
+
+  @override
+  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab が設定を拒否しました。条件を確認し、編集するか再試行してください。';
+
+  @override
+  String get containerCreateDaily => '毎日';
+
+  @override
+  String get containerCreateWeekly => '毎週';
+
+  @override
+  String get containerCreateFortnightly => '2週間ごと';
+
+  @override
+  String get containerCreateMonthly => '毎月';
+
+  @override
+  String get containerCreateQuarterly => '3か月ごと';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days日';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
 
   @override
