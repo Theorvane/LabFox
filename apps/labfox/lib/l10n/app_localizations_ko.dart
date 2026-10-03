@@ -3020,6 +3020,73 @@ class AppLocalizationsKo extends AppLocalizations {
       '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
 
   @override
+  String get containerCleanupTitle => '태그 정리';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return '프로젝트 $projectId, 이미지 저장소 $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '조건에 맞는 태그가 영구 삭제됩니다. latest 및 보호된 태그는 제외됩니다. 보존 패턴은 삭제 패턴보다 우선합니다.';
+
+  @override
+  String get containerCleanupLimits =>
+      '정리는 저장소당 시간당 최대 한 번 비동기로 실행되며 일부 태그만 제거될 수 있습니다. 나이와 순서는 푸시 시간이 아닌 매니페스트 생성 시간을 기준으로 합니다. 태그를 제거해도 이미지 저장 공간은 회수되지 않습니다.';
+
+  @override
+  String get containerCleanupDeletePattern => '삭제 패턴 (RE2, 필수)';
+
+  @override
+  String get containerCleanupKeepPattern => '보존 패턴 (RE2, 선택)';
+
+  @override
+  String get containerCleanupKeepCount => '최신 일치 태그 보존 개수 (선택)';
+
+  @override
+  String get containerCleanupAge => '다음 기간보다 오래된 태그만 제거';
+
+  @override
+  String get containerCleanupNoAge => '나이 제한 없음';
+
+  @override
+  String get containerCleanupDay => '1일';
+
+  @override
+  String get containerCleanupWeek => '7일';
+
+  @override
+  String get containerCleanupMonth => '1개월';
+
+  @override
+  String get containerCleanupRequired => '삭제 패턴을 명시적으로 입력하세요.';
+
+  @override
+  String get containerCleanupCountError => '0 이상의 정수를 입력하거나 비워 두세요.';
+
+  @override
+  String get containerCleanupSchedule => '정리 예약';
+
+  @override
+  String get containerCleanupScheduled =>
+      '정리가 예약되었습니다. 처리가 완료될 때까지 태그가 남아 있을 수 있으니 나중에 새로고침하세요.';
+
+  @override
+  String get containerCleanupError => '정리를 예약하지 못했습니다. 연결을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerCleanupForbidden => '이 저장소의 태그를 정리할 권한이 없습니다.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      '정리 요청이 제한되었습니다. 저장소당 시간당 최대 한 번 실행할 수 있습니다. 나중에 다시 시도하세요.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab이 정리 조건을 거부했습니다. RE2 패턴과 보존 설정을 확인하세요.';
+
+  @override
   String get containerTagDeleteForbidden =>
       '이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.';
 
@@ -3341,69 +3408,34 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 보관 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
-  String get containerCleanupTitle => '태그 정리';
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
 
   @override
-  String containerCleanupTarget(String projectId, String repositoryId) {
-    return '프로젝트 $projectId, 이미지 저장소 $repositoryId';
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
   }
 
   @override
-  String get containerCleanupWarning =>
-      '조건에 맞는 태그가 영구 삭제됩니다. latest 및 보호된 태그는 제외됩니다. 보존 패턴은 삭제 패턴보다 우선합니다.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
 
   @override
-  String get containerCleanupLimits =>
-      '정리는 저장소당 시간당 최대 한 번 비동기로 실행되며 일부 태그만 제거될 수 있습니다. 나이와 순서는 푸시 시간이 아닌 매니페스트 생성 시간을 기준으로 합니다. 태그를 제거해도 이미지 저장 공간은 회수되지 않습니다.';
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
 
   @override
-  String get containerCleanupDeletePattern => '삭제 패턴 (RE2, 필수)';
-
-  @override
-  String get containerCleanupKeepPattern => '보존 패턴 (RE2, 선택)';
-
-  @override
-  String get containerCleanupKeepCount => '최신 일치 태그 보존 개수 (선택)';
-
-  @override
-  String get containerCleanupAge => '다음 기간보다 오래된 태그만 제거';
-
-  @override
-  String get containerCleanupNoAge => '나이 제한 없음';
-
-  @override
-  String get containerCleanupDay => '1일';
-
-  @override
-  String get containerCleanupWeek => '7일';
-
-  @override
-  String get containerCleanupMonth => '1개월';
-
-  @override
-  String get containerCleanupRequired => '삭제 패턴을 명시적으로 입력하세요.';
-
-  @override
-  String get containerCleanupCountError => '0 이상의 정수를 입력하거나 비워 두세요.';
-
-  @override
-  String get containerCleanupSchedule => '정리 예약';
-
-  @override
-  String get containerCleanupScheduled =>
-      '정리가 예약되었습니다. 처리가 완료될 때까지 태그가 남아 있을 수 있으니 나중에 새로고침하세요.';
-
-  @override
-  String get containerCleanupError => '정리를 예약하지 못했습니다. 연결을 확인하고 다시 시도하세요.';
-
-  @override
-  String get containerCleanupForbidden => '이 저장소의 태그를 정리할 권한이 없습니다.';
-
-  @override
-  String get containerCleanupRateLimited =>
-      '정리 요청이 제한되었습니다. 저장소당 시간당 최대 한 번 실행할 수 있습니다. 나중에 다시 시도하세요.';
-
-  @override
-  String get containerCleanupInvalid =>
-      'GitLab이 정리 조건을 거부했습니다. RE2 패턴과 보존 설정을 확인하세요.';
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 }

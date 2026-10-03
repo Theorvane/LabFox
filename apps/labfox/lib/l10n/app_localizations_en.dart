@@ -3101,6 +3101,77 @@ class AppLocalizationsEn extends AppLocalizations {
       'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.';
 
   @override
+  String get containerCleanupTitle => 'Clean up tags';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'Project $projectId, image repository $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.';
+
+  @override
+  String get containerCleanupLimits =>
+      'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.';
+
+  @override
+  String get containerCleanupDeletePattern => 'Delete pattern (RE2, required)';
+
+  @override
+  String get containerCleanupKeepPattern => 'Keep pattern (RE2, optional)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'Keep newest matching tags (optional)';
+
+  @override
+  String get containerCleanupAge => 'Only remove tags older than';
+
+  @override
+  String get containerCleanupNoAge => 'No age limit';
+
+  @override
+  String get containerCleanupDay => '1 day';
+
+  @override
+  String get containerCleanupWeek => '7 days';
+
+  @override
+  String get containerCleanupMonth => '1 month';
+
+  @override
+  String get containerCleanupRequired => 'Enter an explicit delete pattern.';
+
+  @override
+  String get containerCleanupCountError =>
+      'Enter a non-negative whole number or leave blank.';
+
+  @override
+  String get containerCleanupSchedule => 'Schedule cleanup';
+
+  @override
+  String get containerCleanupScheduled =>
+      'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.';
+
+  @override
+  String get containerCleanupError =>
+      'Could not schedule cleanup. Check your connection and try again.';
+
+  @override
+  String get containerCleanupForbidden =>
+      'You do not have permission to clean up tags in this repository.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.';
+
+  @override
   String get containerTagDeleteForbidden =>
       'You cannot delete this tag. It may be protected or you may not have permission.';
 
@@ -3434,73 +3505,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerCleanupTitle => 'Clean up tags';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
 
   @override
-  String containerCleanupTarget(String projectId, String repositoryId) {
-    return 'Project $projectId, image repository $repositoryId';
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
   }
 
   @override
-  String get containerCleanupWarning =>
-      'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
 
   @override
-  String get containerCleanupLimits =>
-      'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.';
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerCleanupDeletePattern => 'Delete pattern (RE2, required)';
-
-  @override
-  String get containerCleanupKeepPattern => 'Keep pattern (RE2, optional)';
-
-  @override
-  String get containerCleanupKeepCount =>
-      'Keep newest matching tags (optional)';
-
-  @override
-  String get containerCleanupAge => 'Only remove tags older than';
-
-  @override
-  String get containerCleanupNoAge => 'No age limit';
-
-  @override
-  String get containerCleanupDay => '1 day';
-
-  @override
-  String get containerCleanupWeek => '7 days';
-
-  @override
-  String get containerCleanupMonth => '1 month';
-
-  @override
-  String get containerCleanupRequired => 'Enter an explicit delete pattern.';
-
-  @override
-  String get containerCleanupCountError =>
-      'Enter a non-negative whole number or leave blank.';
-
-  @override
-  String get containerCleanupSchedule => 'Schedule cleanup';
-
-  @override
-  String get containerCleanupScheduled =>
-      'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.';
-
-  @override
-  String get containerCleanupError =>
-      'Could not schedule cleanup. Check your connection and try again.';
-
-  @override
-  String get containerCleanupForbidden =>
-      'You do not have permission to clean up tags in this repository.';
-
-  @override
-  String get containerCleanupRateLimited =>
-      'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.';
-
-  @override
-  String get containerCleanupInvalid =>
-      'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.';
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

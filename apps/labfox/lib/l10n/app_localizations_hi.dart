@@ -3097,6 +3097,77 @@ class AppLocalizationsHi extends AppLocalizations {
       'इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।';
 
   @override
+  String get containerCleanupTitle => 'टैग साफ़ करें';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'प्रोजेक्ट $projectId, इमेज रिपॉज़िटरी $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'मेल खाने वाले टैग स्थायी रूप से हटेंगे। latest और संरक्षित टैग शामिल नहीं हैं। रखने का पैटर्न हटाने के पैटर्न पर प्राथमिकता रखता है।';
+
+  @override
+  String get containerCleanupLimits =>
+      'सफ़ाई हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे असमकालिक रूप से होती है और कुछ मिलते टैग ही हट सकते हैं। आयु और क्रम मैनिफ़ेस्ट बनने के समय पर आधारित हैं, पुश समय पर नहीं। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerCleanupDeletePattern => 'हटाने का पैटर्न (RE2, आवश्यक)';
+
+  @override
+  String get containerCleanupKeepPattern => 'रखने का पैटर्न (RE2, वैकल्पिक)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'नवीनतम मिलते टैग रखने की संख्या (वैकल्पिक)';
+
+  @override
+  String get containerCleanupAge => 'इससे पुराने टैग ही हटाएँ';
+
+  @override
+  String get containerCleanupNoAge => 'आयु सीमा नहीं';
+
+  @override
+  String get containerCleanupDay => '1 दिन';
+
+  @override
+  String get containerCleanupWeek => '7 दिन';
+
+  @override
+  String get containerCleanupMonth => '1 महीना';
+
+  @override
+  String get containerCleanupRequired => 'हटाने का स्पष्ट पैटर्न दर्ज करें।';
+
+  @override
+  String get containerCleanupCountError =>
+      'शून्य या धनात्मक पूर्णांक दर्ज करें या खाली छोड़ें।';
+
+  @override
+  String get containerCleanupSchedule => 'सफ़ाई शेड्यूल करें';
+
+  @override
+  String get containerCleanupScheduled =>
+      'सफ़ाई शेड्यूल हुई। प्रक्रिया पूरी होने तक टैग रह सकते हैं; प्रगति देखने के लिए बाद में रीफ़्रेश करें।';
+
+  @override
+  String get containerCleanupError =>
+      'सफ़ाई शेड्यूल नहीं हो सकी। कनेक्शन जाँचें और पुनः प्रयास करें।';
+
+  @override
+  String get containerCleanupForbidden =>
+      'इस रिपॉज़िटरी के टैग साफ़ करने की अनुमति नहीं है।';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'सफ़ाई अनुरोध सीमित है। हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे सफ़ाई हो सकती है। बाद में प्रयास करें।';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab ने सफ़ाई मानदंड अस्वीकार किए। RE2 पैटर्न और रखने की सेटिंग जाँचें।';
+
+  @override
   String get containerTagDeleteForbidden =>
       'आप यह टैग नहीं हटा सकते। यह सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।';
 
@@ -3434,73 +3505,38 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
-  String get containerCleanupTitle => 'टैग साफ़ करें';
+  String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String containerCleanupTarget(String projectId, String repositoryId) {
-    return 'प्रोजेक्ट $projectId, इमेज रिपॉज़िटरी $repositoryId';
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
   }
 
   @override
-  String get containerCleanupWarning =>
-      'मेल खाने वाले टैग स्थायी रूप से हटेंगे। latest और संरक्षित टैग शामिल नहीं हैं। रखने का पैटर्न हटाने के पैटर्न पर प्राथमिकता रखता है।';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
 
   @override
-  String get containerCleanupLimits =>
-      'सफ़ाई हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे असमकालिक रूप से होती है और कुछ मिलते टैग ही हट सकते हैं। आयु और क्रम मैनिफ़ेस्ट बनने के समय पर आधारित हैं, पुश समय पर नहीं। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
 
   @override
-  String get containerCleanupDeletePattern => 'हटाने का पैटर्न (RE2, आवश्यक)';
-
-  @override
-  String get containerCleanupKeepPattern => 'रखने का पैटर्न (RE2, वैकल्पिक)';
-
-  @override
-  String get containerCleanupKeepCount =>
-      'नवीनतम मिलते टैग रखने की संख्या (वैकल्पिक)';
-
-  @override
-  String get containerCleanupAge => 'इससे पुराने टैग ही हटाएँ';
-
-  @override
-  String get containerCleanupNoAge => 'आयु सीमा नहीं';
-
-  @override
-  String get containerCleanupDay => '1 दिन';
-
-  @override
-  String get containerCleanupWeek => '7 दिन';
-
-  @override
-  String get containerCleanupMonth => '1 महीना';
-
-  @override
-  String get containerCleanupRequired => 'हटाने का स्पष्ट पैटर्न दर्ज करें।';
-
-  @override
-  String get containerCleanupCountError =>
-      'शून्य या धनात्मक पूर्णांक दर्ज करें या खाली छोड़ें।';
-
-  @override
-  String get containerCleanupSchedule => 'सफ़ाई शेड्यूल करें';
-
-  @override
-  String get containerCleanupScheduled =>
-      'सफ़ाई शेड्यूल हुई। प्रक्रिया पूरी होने तक टैग रह सकते हैं; प्रगति देखने के लिए बाद में रीफ़्रेश करें।';
-
-  @override
-  String get containerCleanupError =>
-      'सफ़ाई शेड्यूल नहीं हो सकी। कनेक्शन जाँचें और पुनः प्रयास करें।';
-
-  @override
-  String get containerCleanupForbidden =>
-      'इस रिपॉज़िटरी के टैग साफ़ करने की अनुमति नहीं है।';
-
-  @override
-  String get containerCleanupRateLimited =>
-      'सफ़ाई अनुरोध सीमित है। हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे सफ़ाई हो सकती है। बाद में प्रयास करें।';
-
-  @override
-  String get containerCleanupInvalid =>
-      'GitLab ने सफ़ाई मानदंड अस्वीकार किए। RE2 पैटर्न और रखने की सेटिंग जाँचें।';
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }

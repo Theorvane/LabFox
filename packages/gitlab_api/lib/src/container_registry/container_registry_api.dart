@@ -85,34 +85,33 @@ class ContainerRegistryApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/registry/repositories';
 
-  /// Schedules asynchronous tag cleanup; acceptance does not mean completion.
-  Future<void> deleteTags(
+  /// Lists all repository protection rules. This endpoint is not paginated.
+  Future<List<ContainerRepositoryProtectionRule>> listRepositoryProtectionRules(
     Object projectId,
-    int repositoryId, {
-    required String nameRegexDelete,
-    String? nameRegexKeep,
-    int? keepN,
-    String? olderThan,
-  }) async {
+  ) async {
     try {
-      final response = await _dio.delete<dynamic>(
-        '${_path(projectId)}/$repositoryId/tags',
-        data: {
-          'name_regex_delete': nameRegexDelete,
-          'name_regex_keep': ?nameRegexKeep,
-          'keep_n': ?keepN,
-          'older_than': ?olderThan,
-        },
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
       );
-      if (response.statusCode != 202) {
+      if (response.statusCode != 200) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
-          context: 'scheduling container tag cleanup',
+          context: 'listing container repository protection rules',
         );
       }
+      return (response.data as List<dynamic>)
+          .map(
+            (item) => ContainerRepositoryProtectionRule.fromJson(
+              item as Map<String, dynamic>,
+            ),
+          )
+          .toList(growable: false);
     } on DioException catch (error) {
-      throw mapError(error, context: 'scheduling container tag cleanup');
+      throw mapError(
+        error,
+        context: 'listing container repository protection rules',
+      );
     }
   }
 
@@ -218,6 +217,37 @@ class ContainerRegistryApi {
       );
     } on DioException catch (error) {
       throw mapError(error, context: 'listing container repositories');
+    }
+  }
+
+  /// Schedules asynchronous tag cleanup; acceptance does not mean completion.
+  Future<void> deleteTags(
+    Object projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/$repositoryId/tags',
+        data: {
+          'name_regex_delete': nameRegexDelete,
+          'name_regex_keep': ?nameRegexKeep,
+          'keep_n': ?keepN,
+          'older_than': ?olderThan,
+        },
+      );
+      if (response.statusCode != 202) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'scheduling container tag cleanup',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'scheduling container tag cleanup');
     }
   }
 

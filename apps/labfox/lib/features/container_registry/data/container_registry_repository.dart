@@ -71,21 +71,9 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
-  Future<void> cleanupTags(
+  Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
     int projectId,
-    int repositoryId, {
-    required String nameRegexDelete,
-    String? nameRegexKeep,
-    int? keepN,
-    String? olderThan,
-  }) => client.containerRegistry.deleteTags(
-    projectId,
-    repositoryId,
-    nameRegexDelete: nameRegexDelete,
-    nameRegexKeep: nameRegexKeep,
-    keepN: keepN,
-    olderThan: olderThan,
-  );
+  ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
 
   Future<void> deleteRepository(int projectId, int repositoryId) =>
       client.containerRegistry.deleteRepository(projectId, repositoryId);
@@ -176,6 +164,22 @@ class ContainerRegistryRepository {
     int projectId, {
     int page = 1,
   }) => client.containerRegistry.listRepositories(projectId, page: page);
+
+  Future<void> cleanupTags(
+    int projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) => client.containerRegistry.deleteTags(
+    projectId,
+    repositoryId,
+    nameRegexDelete: nameRegexDelete,
+    nameRegexKeep: nameRegexKeep,
+    keepN: keepN,
+    olderThan: olderThan,
+  );
 
   Future<Paginated<RegistryTag>> tags(
     int projectId,
