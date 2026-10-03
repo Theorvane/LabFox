@@ -7981,6 +7981,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter an exact branch or tag name.'**
   String get pipelinesRefHint;
+
+  /// Project pipeline source filter option: All top-level sources
+  ///
+  /// In en, this message translates to:
+  /// **'All top-level sources'**
+  String get pipelinesSourceAll;
+
+  /// Project pipeline source filter option: Push
+  ///
+  /// In en, this message translates to:
+  /// **'Push'**
+  String get pipelinesSourcePush;
+
+  /// Project pipeline source filter option: Web
+  ///
+  /// In en, this message translates to:
+  /// **'Web'**
+  String get pipelinesSourceWeb;
+
+  /// Project pipeline source filter option: API
+  ///
+  /// In en, this message translates to:
+  /// **'API'**
+  String get pipelinesSourceApi;
+
+  /// Project pipeline source filter option: Schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get pipelinesSourceSchedule;
+
+  /// Project pipeline source filter option: Trigger
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger'**
+  String get pipelinesSourceTrigger;
+
+  /// Project pipeline source filter option: Multi-project pipelines
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-project pipelines'**
+  String get pipelinesSourcePipeline;
+
+  /// Project pipeline source filter option: Merge request
+  ///
+  /// In en, this message translates to:
+  /// **'Merge request'**
+  String get pipelinesSourceMergeRequest;
+
+  /// Project pipeline source filter option: Child pipelines
+  ///
+  /// In en, this message translates to:
+  /// **'Child pipelines'**
+  String get pipelinesSourceChild;
+
+  /// GitLab 17.0 minimum-version hint for explicit child pipeline discovery
+  ///
+  /// In en, this message translates to:
+  /// **'Child pipeline discovery requires GitLab 17.0 or later.'**
+  String get pipelinesChildHint;
 }
 
 class _AppLocalizationsDelegate

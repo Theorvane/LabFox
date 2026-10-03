@@ -4511,4 +4511,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pipelinesRefHint => 'Enter an exact branch or tag name.';
+
+  @override
+  String get pipelinesSourceAll => 'All top-level sources';
+
+  @override
+  String get pipelinesSourcePush => 'Push';
+
+  @override
+  String get pipelinesSourceWeb => 'Web';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => 'Schedule';
+
+  @override
+  String get pipelinesSourceTrigger => 'Trigger';
+
+  @override
+  String get pipelinesSourcePipeline => 'Multi-project pipelines';
+
+  @override
+  String get pipelinesSourceMergeRequest => 'Merge request';
+
+  @override
+  String get pipelinesSourceChild => 'Child pipelines';
+
+  @override
+  String get pipelinesChildHint =>
+      'Child pipeline discovery requires GitLab 17.0 or later.';
 }

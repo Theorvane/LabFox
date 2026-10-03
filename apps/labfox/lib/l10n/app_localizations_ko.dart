@@ -4372,4 +4372,34 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelinesRefHint => '정확한 브랜치 또는 태그 이름을 입력하세요.';
+
+  @override
+  String get pipelinesSourceAll => '모든 최상위 실행 원인';
+
+  @override
+  String get pipelinesSourcePush => '푸시';
+
+  @override
+  String get pipelinesSourceWeb => '웹';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => '스케줄';
+
+  @override
+  String get pipelinesSourceTrigger => '트리거';
+
+  @override
+  String get pipelinesSourcePipeline => '다중 프로젝트 파이프라인';
+
+  @override
+  String get pipelinesSourceMergeRequest => '병합 요청';
+
+  @override
+  String get pipelinesSourceChild => '하위 파이프라인';
+
+  @override
+  String get pipelinesChildHint => '하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다.';
 }

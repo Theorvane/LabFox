@@ -1235,5 +1235,15 @@
   "pipelinesRefSelected": "रेफ़: {ref}",
   "pipelinesRefApply": "लागू करें",
   "pipelinesRefClear": "हटाएँ",
-  "pipelinesRefHint": "ब्रांच या टैग का सटीक नाम दर्ज करें।"
+  "pipelinesRefHint": "ब्रांच या टैग का सटीक नाम दर्ज करें।",
+  "pipelinesSourceAll": "सभी शीर्ष स्तर के स्रोत",
+  "pipelinesSourcePush": "पुश",
+  "pipelinesSourceWeb": "वेब",
+  "pipelinesSourceApi": "API",
+  "pipelinesSourceSchedule": "शेड्यूल",
+  "pipelinesSourceTrigger": "ट्रिगर",
+  "pipelinesSourcePipeline": "बहु-प्रोजेक्ट पाइपलाइन",
+  "pipelinesSourceMergeRequest": "मर्ज अनुरोध",
+  "pipelinesSourceChild": "चाइल्ड पाइपलाइन",
+  "pipelinesChildHint": "चाइल्ड पाइपलाइन खोजने के लिए GitLab 17.0 या बाद का संस्करण आवश्यक है।"
 }

@@ -24,6 +24,7 @@ class _Repository extends PipelinesRepository {
     int page = 1,
     PipelineStatusFilter? status,
     String? ref,
+    PipelineSourceFilter? source,
   }) async {
     expect(projectId, 7);
     pages.add(page);

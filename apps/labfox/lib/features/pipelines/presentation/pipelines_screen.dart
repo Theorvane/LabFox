@@ -76,6 +76,7 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
     final projectId = widget.projectId;
     final status = ref.watch(pipelineStatusFilterProvider(projectId));
     final pipelineRef = ref.watch(pipelineRefFilterProvider(projectId));
+    final source = ref.watch(pipelineSourceFilterProvider(projectId));
     final provider = pipelinesControllerProvider(projectId);
     ref.listen<AsyncValue<Paginated<Pipeline>>>(provider, (_, next) {
       if (next.isLoading) {
@@ -145,92 +146,134 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
                       ),
                     ),
                   ),
+                  const SizedBox(width: LabFoxSpacing.sm),
+                  FilterMenuChip<({PipelineSourceFilter? source})>(
+                    key: const ValueKey('pipeline-source-filter'),
+                    selected: (source: source),
+                    options: [
+                      (source: null),
+                      for (final value in PipelineSourceFilter.values)
+                        (source: value),
+                    ],
+                    labelOf: (choice) => _sourceLabel(l10n, choice.source),
+                    onSelected: (choice) =>
+                        ref
+                            .read(
+                              pipelineSourceFilterProvider(projectId).notifier,
+                            )
+                            .state = choice
+                            .source,
+                  ),
                 ],
               ),
             ),
           ),
         ),
       ),
-      body: pipelines.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(LabFoxSpacing.lg),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(l10n.pipelinesError, textAlign: TextAlign.center),
-                const SizedBox(height: LabFoxSpacing.md),
-                FilledButton(
-                  onPressed: () =>
-                      ref.invalidate(pipelinesControllerProvider(projectId)),
-                  child: Text(l10n.retry),
-                ),
-              ],
+      body: Column(
+        children: [
+          if (source == PipelineSourceFilter.parentPipeline)
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: LabFoxSpacing.md,
+                vertical: LabFoxSpacing.sm,
+              ),
+              child: Text(
+                l10n.pipelinesChildHint,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
-          ),
-        ),
-        skipLoadingOnRefresh: false,
-        data: (page) {
-          final items = page.items;
-          final rowCount = items.isEmpty ? 1 : items.length;
-          return RefreshIndicator(
-            onRefresh: () async {
-              try {
-                final refreshed = ref.refresh(provider.future);
-                await refreshed;
-              } catch (_) {
-                // The provider owns the localized, retryable error state.
-              }
-            },
-            child: ListView.separated(
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: rowCount + (page.nextPage == null ? 0 : 1),
-              separatorBuilder: (context, index) => const Divider(height: 1),
-              itemBuilder: (context, index) {
-                if (items.isEmpty && index == 0) {
-                  return EmptyState(
-                    icon: LabFoxIcons.pipeline,
-                    title: status == null && pipelineRef == null
-                        ? l10n.pipelinesEmpty
-                        : l10n.pipelinesFilteredEmpty,
-                  );
-                }
-                if (index == rowCount) {
-                  return Padding(
-                    padding: const EdgeInsets.all(LabFoxSpacing.md),
-                    child: Column(
-                      children: [
-                        if (_pageFailed) Text(l10n.pipelinesLoadMoreError),
-                        OutlinedButton(
-                          onPressed: _busy ? null : _loadMore,
-                          child: _busy
-                              ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                              : Text(
-                                  _pageFailed
-                                      ? l10n.retry
-                                      : l10n.pipelinesLoadMore,
-                                ),
+          Expanded(
+            child: pipelines.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(LabFoxSpacing.lg),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(l10n.pipelinesError, textAlign: TextAlign.center),
+                      const SizedBox(height: LabFoxSpacing.md),
+                      FilledButton(
+                        onPressed: () => ref.invalidate(
+                          pipelinesControllerProvider(projectId),
                         ),
-                      ],
-                    ),
-                  );
-                }
-                return _PipelineTile(
-                  pipeline: items[index],
-                  onTap: () =>
-                      context.push(Routes.pipeline(projectId, items[index].id)),
+                        child: Text(l10n.retry),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              skipLoadingOnRefresh: false,
+              data: (page) {
+                final items = page.items;
+                final rowCount = items.isEmpty ? 1 : items.length;
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    try {
+                      final refreshed = ref.refresh(provider.future);
+                      await refreshed;
+                    } catch (_) {
+                      // The provider owns the localized, retryable error state.
+                    }
+                  },
+                  child: ListView.separated(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: rowCount + (page.nextPage == null ? 0 : 1),
+                    separatorBuilder: (context, index) =>
+                        const Divider(height: 1),
+                    itemBuilder: (context, index) {
+                      if (items.isEmpty && index == 0) {
+                        return EmptyState(
+                          icon: LabFoxIcons.pipeline,
+                          title:
+                              status == null &&
+                                  pipelineRef == null &&
+                                  source == null
+                              ? l10n.pipelinesEmpty
+                              : l10n.pipelinesFilteredEmpty,
+                        );
+                      }
+                      if (index == rowCount) {
+                        return Padding(
+                          padding: const EdgeInsets.all(LabFoxSpacing.md),
+                          child: Column(
+                            children: [
+                              if (_pageFailed)
+                                Text(l10n.pipelinesLoadMoreError),
+                              OutlinedButton(
+                                onPressed: _busy ? null : _loadMore,
+                                child: _busy
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        ),
+                                      )
+                                    : Text(
+                                        _pageFailed
+                                            ? l10n.retry
+                                            : l10n.pipelinesLoadMore,
+                                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      return _PipelineTile(
+                        pipeline: items[index],
+                        onTap: () => context.push(
+                          Routes.pipeline(projectId, items[index].id),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -259,7 +302,12 @@ class _PipelineTile extends StatelessWidget {
         // indistinguishable until you know one was scheduled and the other
         // came from a push; gitlab.com tags it for that reason, and it is
         // already in the list response.
-        if (pipeline.sourceLabel != null) MetaText(pipeline.sourceLabel!),
+        if (pipeline.sourceLabel != null)
+          MetaText(
+            pipeline.source == 'parent_pipeline'
+                ? l10n.pipelinesSourceChild
+                : pipeline.sourceLabel!,
+          ),
         if (pipeline.sha != null) MetaText(_shortSha(pipeline.sha!)),
         if (pipeline.createdAt != null)
           MetaText(DateFormat.yMMMd().format(pipeline.createdAt!.toLocal())),
@@ -343,3 +391,17 @@ class _PipelineRefFilterDialogState extends State<_PipelineRefFilterDialog> {
     );
   }
 }
+
+String _sourceLabel(AppLocalizations l10n, PipelineSourceFilter? source) =>
+    switch (source) {
+      null => l10n.pipelinesSourceAll,
+      PipelineSourceFilter.push => l10n.pipelinesSourcePush,
+      PipelineSourceFilter.web => l10n.pipelinesSourceWeb,
+      PipelineSourceFilter.api => l10n.pipelinesSourceApi,
+      PipelineSourceFilter.schedule => l10n.pipelinesSourceSchedule,
+      PipelineSourceFilter.trigger => l10n.pipelinesSourceTrigger,
+      PipelineSourceFilter.pipeline => l10n.pipelinesSourcePipeline,
+      PipelineSourceFilter.mergeRequestEvent =>
+        l10n.pipelinesSourceMergeRequest,
+      PipelineSourceFilter.parentPipeline => l10n.pipelinesSourceChild,
+    };

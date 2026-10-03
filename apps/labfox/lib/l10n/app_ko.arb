@@ -1235,5 +1235,15 @@
   "pipelinesRefSelected": "참조: {ref}",
   "pipelinesRefApply": "적용",
   "pipelinesRefClear": "해제",
-  "pipelinesRefHint": "정확한 브랜치 또는 태그 이름을 입력하세요."
+  "pipelinesRefHint": "정확한 브랜치 또는 태그 이름을 입력하세요.",
+  "pipelinesSourceAll": "모든 최상위 실행 원인",
+  "pipelinesSourcePush": "푸시",
+  "pipelinesSourceWeb": "웹",
+  "pipelinesSourceApi": "API",
+  "pipelinesSourceSchedule": "스케줄",
+  "pipelinesSourceTrigger": "트리거",
+  "pipelinesSourcePipeline": "다중 프로젝트 파이프라인",
+  "pipelinesSourceMergeRequest": "병합 요청",
+  "pipelinesSourceChild": "하위 파이프라인",
+  "pipelinesChildHint": "하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다."
 }

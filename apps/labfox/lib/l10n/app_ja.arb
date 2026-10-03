@@ -1235,5 +1235,15 @@
   "pipelinesRefSelected": "参照: {ref}",
   "pipelinesRefApply": "適用",
   "pipelinesRefClear": "解除",
-  "pipelinesRefHint": "正確なブランチ名またはタグ名を入力してください。"
+  "pipelinesRefHint": "正確なブランチ名またはタグ名を入力してください。",
+  "pipelinesSourceAll": "すべてのトップレベルの実行元",
+  "pipelinesSourcePush": "プッシュ",
+  "pipelinesSourceWeb": "ウェブ",
+  "pipelinesSourceApi": "API",
+  "pipelinesSourceSchedule": "スケジュール",
+  "pipelinesSourceTrigger": "トリガー",
+  "pipelinesSourcePipeline": "マルチプロジェクトパイプライン",
+  "pipelinesSourceMergeRequest": "マージリクエスト",
+  "pipelinesSourceChild": "子パイプライン",
+  "pipelinesChildHint": "子パイプラインの検索には GitLab 17.0 以降が必要です。"
 }
