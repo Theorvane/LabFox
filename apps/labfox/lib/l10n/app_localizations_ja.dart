@@ -9,6 +9,26 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => '公開日時（任意）';
+
+  @override
+  String get releaseCreationDateDefault => '公開日時はGitLabが設定します。';
+
+  @override
+  String get releaseCreationChooseDate => '公開日を選択';
+
+  @override
+  String get releaseCreationChooseTime => '公開時刻を選択';
+
+  @override
+  String get releaseCreationClearDate => 'GitLabの公開日時を使用';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'タイムゾーン: $zone。未来の日時は予定リリース、過去の日時は過去のリリースを作成します。';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
@@ -3076,6 +3096,28 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       '解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
+  String get packageFileDelete => 'ファイルを削除';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'パッケージファイルを削除しますか？';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '「$packageName」から「$fileName」を削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'ファイルを削除するとパッケージが破損し、使用やパッケージマネージャーからの取得ができなくなる可能性があります。';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'このファイルを削除できません。パッケージが保護されているか、権限がない可能性があります。';
+
+  @override
+  String get packageFileDeleteError => 'ファイルを削除できませんでした。再試行してください。';
 
   @override
   String get containerCleanupTitle => 'タグを整理';
