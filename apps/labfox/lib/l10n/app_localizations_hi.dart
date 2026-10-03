@@ -9,6 +9,29 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'शेड्यूल बनाएँ';
+
+  @override
+  String get pipelineScheduleCreateTitle => 'नया पाइपलाइन शेड्यूल';
+
+  @override
+  String get pipelineScheduleCreateDescription => 'विवरण';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => 'कोई मान दर्ज करें।';
+
+  @override
+  String get pipelineScheduleCreateActive => 'सक्रिय';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab रेफ़, cron और समय क्षेत्र की जाँच करता है। UTC के लिए समय क्षेत्र खाली छोड़ें। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें।';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'इस पाइपलाइन शेड्यूल को बनाया नहीं जा सका। अनुमतियाँ, रेफ़, cron और समय क्षेत्र जाँचें।';
+
+  @override
   String get releaseCreationMilestoneTitle => 'माइलस्टोन का शीर्षक (वैकल्पिक)';
 
   @override
@@ -3044,6 +3067,60 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerTagProtectionTitle => 'टैग सुरक्षा नियम';
 
   @override
+  String get containerTagProtectionCreateTitle => 'टैग सुरक्षा नियम बनाएँ';
+
+  @override
+  String get containerTagProtectionCreateSave => 'नियम बनाएँ';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'टैग नाम पैटर्न';
+
+  @override
+  String get containerTagProtectionCreatePush => 'न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerTagProtectionCreateDelete => 'न्यूनतम हटाने की भूमिका';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'भूमिका चुनें';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'यह पूरे प्रोजेक्ट का नियम सटीक glob पैटर्न से मेल खाने वाले टैग के पुश और हटाने को सीमित करता है। वाइल्डकार्ड कई टैग को प्रभावित कर सकते हैं और मौजूदा रिलीज़ या सफ़ाई रोक सकते हैं। दोनों भूमिकाएँ आवश्यक हैं। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      'मैंने सटीक टैग पैटर्न और दोनों भूमिकाएँ जाँच ली हैं और मेल खाने वाले टैग पर प्रभाव समझता हूँ।';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'टैग पैटर्न या भूमिकाएँ अस्वीकार हुईं। दोनों आवश्यक भूमिकाएँ जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'टैग नियम बनने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'टैग नियम बन गया।';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'टैग नियम बनाने के लिए GitLab 18.8 या नया संस्करण और उपलब्ध प्रोजेक्ट आवश्यक है।';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
   String get containerTagProtectionEmpty => 'कोई टैग सुरक्षा नियम नहीं है।';
 
   @override
@@ -3075,7 +3152,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      'ये कंटेनर इमेज टैग के नियम हैं, Git टैग के नहीं। न्यूनतम भूमिकाएँ आपकी वर्तमान पहुँच की पुष्टि नहीं करतीं। सूची के लिए GitLab 18.7 या बाद का संस्करण और संपादन के लिए 18.9 या बाद का संस्करण चाहिए।';
+      'ये कंटेनर इमेज टैग के नियम हैं, Git टैग के नहीं। न्यूनतम भूमिकाएँ आपकी मौजूदा पहुँच की पुष्टि नहीं करतीं। सूची के लिए GitLab 18.7 या नया संस्करण, बनाने के लिए 18.8 या नया संस्करण और संपादन के लिए 18.9 या नया संस्करण चाहिए।';
 
   @override
   String get containerTagProtectionPatternTitle =>
@@ -3485,6 +3562,52 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
+
+  @override
+  String get containerProtectionRemoveTitle => 'रिपॉज़िटरी सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerProtectionRemoveSave => 'नियम हटाने की पुष्टि करें';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'यह नियम हटाने से पथ पैटर्न से मेल खाने वाली रिपॉज़िटरी के पुश या हटाने के प्रतिबंध कम हो सकते हैं। अन्य नियम और अनुमतियाँ लागू रहेंगे। केवल सुरक्षा नियम हटता है, रिपॉज़िटरी, टैग या इमेज नहीं। सटीक लक्ष्य और न्यूनतम भूमिकाओं की समीक्षा करें; ये भूमिकाएँ आपकी अनुमतियाँ नहीं बतातीं।';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ कि इस नियम के सुरक्षा प्रतिबंध हटेंगे।';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden =>
+      'आपको यह रिपॉज़िटरी सुरक्षा नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'नियम हटाने की पुष्टि नहीं हुई। पुनः लोड करें या फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      'पुष्टि के बाद नियम बदला है। हटाने से पहले पुनः लोड करके समीक्षा करें।';
+
+  @override
+  String get containerProtectionRemoveReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionRemoveDeleted =>
+      'रिपॉज़िटरी सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'नियम नहीं मिला, लक्ष्य अस्पष्ट है या पहुँच नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध। प्रतीक्षा करें और फिर प्रयास करें।';
 
   @override
   String get containerRepositoryProtectionEmpty =>
