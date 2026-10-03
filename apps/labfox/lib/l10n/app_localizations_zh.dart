@@ -2875,6 +2875,57 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerTagProtectionTitle => '标签保护规则';
 
   @override
+  String get containerTagProtectionCreateTitle => '创建标签保护规则';
+
+  @override
+  String get containerTagProtectionCreateSave => '创建规则';
+
+  @override
+  String get containerTagProtectionCreatePattern => '标签名称模式';
+
+  @override
+  String get containerTagProtectionCreatePush => '最低推送角色';
+
+  @override
+  String get containerTagProtectionCreateDelete => '最低删除角色';
+
+  @override
+  String get containerTagProtectionCreateUnset => '选择角色';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '此项目范围的规则会限制与精确glob模式匹配的标签推送和删除。通配符可能影响许多标签并阻断现有发布或清理流程。两个角色都必须选择。其他规则和权限仍然适用；这些值不代表你的访问权限，也不会删除镜像。';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '我已检查精确标签模式和两个角色，并了解对匹配标签的影响。';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '项目 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '你没有创建此规则的权限。';
+
+  @override
+  String get containerTagProtectionCreateInvalid => '标签模式或角色被拒绝。请检查两个必需角色后重试。';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '无法确认标签规则已创建。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionCreateSaved => '标签规则已创建。';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '创建标签规则需要GitLab 18.8或更高版本以及可访问的项目。';
+
+  @override
+  String get containerTagProtectionCreateRateLimited => '请求过多。请等待后重试。';
+
+  @override
   String get containerTagProtectionEmpty => '没有标签保护规则。';
 
   @override
@@ -2904,7 +2955,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      '这些规则用于容器镜像标签，而非 Git 标签。最低角色不代表您的当前访问权限。查看需要 GitLab 18.7 或更高版本，编辑需要 18.9 或更高版本。';
+      '这是容器镜像标签规则，而非 Git 标签规则。最低角色不代表您当前具有访问权限。查看列表需要 GitLab 18.7 或更高版本，创建需要 18.8 或更高版本，编辑需要 18.9 或更高版本。';
 
   @override
   String get containerTagProtectionPatternTitle => '编辑标签保护模式';

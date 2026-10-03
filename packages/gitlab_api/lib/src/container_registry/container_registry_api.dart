@@ -182,6 +182,43 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Creates a container tag rule (GitLab 18.8+) with both required roles.
+  Future<ContainerTagProtectionRule> createTagProtectionRule(
+    Object projectId, {
+    required String tagNamePattern,
+    required String minimumAccessLevelForPush,
+    required String minimumAccessLevelForDelete,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules',
+        data: {
+          'tag_name_pattern': tagNamePattern,
+          'minimum_access_level_for_push': minimumAccessLevelForPush,
+          'minimum_access_level_for_delete': minimumAccessLevelForDelete,
+        },
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating container tag protection rule',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection creation response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating container tag protection rule');
+    }
+  }
+
   /// Lists project tag protection rules (available from GitLab 18.7).
   Future<List<ContainerTagProtectionRule>> listTagProtectionRules(
     Object projectId,

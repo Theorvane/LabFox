@@ -89,6 +89,18 @@ class ContainerRegistryRepository {
     int ruleId,
   ) => client.containerRegistry.clearTagProtectionPushRole(projectId, ruleId);
 
+  Future<ContainerTagProtectionRule> createTagProtectionRule(
+    int projectId, {
+    required String tagNamePattern,
+    required String minimumAccessLevelForPush,
+    required String minimumAccessLevelForDelete,
+  }) => client.containerRegistry.createTagProtectionRule(
+    projectId,
+    tagNamePattern: tagNamePattern,
+    minimumAccessLevelForPush: minimumAccessLevelForPush,
+    minimumAccessLevelForDelete: minimumAccessLevelForDelete,
+  );
+
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
 
