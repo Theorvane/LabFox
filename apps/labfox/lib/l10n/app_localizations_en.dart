@@ -4087,4 +4087,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'Administrator';
+
+  @override
+  String get containerAgeTitle => 'Edit cleanup age limit';
+
+  @override
+  String get containerAgeSave => 'Confirm age limit change';
+
+  @override
+  String get containerAgeSelect => 'New age limit (GitLab API duration)';
+
+  @override
+  String get containerAgeWarning =>
+      'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.';
+
+  @override
+  String get containerAgeUnknown =>
+      'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerAgeAccepted => 'Cleanup age limit update accepted.';
 }

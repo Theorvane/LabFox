@@ -2160,5 +2160,11 @@
   "containerProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.",
   "containerRepositoryProtectionRoleAdmin": "Administrator",
   "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
-  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}}
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "containerAgeTitle": "Edit cleanup age limit",
+  "containerAgeSave": "Confirm age limit change",
+  "containerAgeSelect": "New age limit (GitLab API duration)",
+  "containerAgeWarning": "Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.",
+  "containerAgeUnknown": "Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerAgeAccepted": "Cleanup age limit update accepted."
 }

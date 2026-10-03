@@ -3951,4 +3951,24 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerAgeTitle => 'クリーンアップ期限を編集';
+
+  @override
+  String get containerAgeSave => '期限の変更を確認';
+
+  @override
+  String get containerAgeSelect => '新しい期限 (GitLab API期間)';
+
+  @override
+  String get containerAgeWarning =>
+      'プロジェクト全体の期限を短くすると、定期クリーンアップで各イメージリポジトリの新しい一致タグも完全に削除される可能性があります。以下の有効状態と削除条件を確認してください。他の設定は変更されず、削除完了も意味しません。';
+
+  @override
+  String get containerAgeUnknown =>
+      '有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerAgeAccepted => 'クリーンアップ期限の更新が受理されました。';
 }

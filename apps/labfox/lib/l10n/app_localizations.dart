@@ -7288,6 +7288,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Administrator'**
   String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup age limit'**
+  String get containerAgeTitle;
+
+  /// No description provided for @containerAgeSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm age limit change'**
+  String get containerAgeSave;
+
+  /// No description provided for @containerAgeSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New age limit (GitLab API duration)'**
+  String get containerAgeSelect;
+
+  /// No description provided for @containerAgeWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerAgeWarning;
+
+  /// No description provided for @containerAgeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerAgeUnknown;
+
+  /// No description provided for @containerAgeAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup age limit update accepted.'**
+  String get containerAgeAccepted;
 }
 
 class _AppLocalizationsDelegate

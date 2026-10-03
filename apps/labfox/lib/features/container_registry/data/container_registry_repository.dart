@@ -193,6 +193,13 @@ class ContainerRegistryRepository {
     pattern,
   );
 
+  Future<void> setCleanupPolicyAge(
+    int projectId, {
+    required String olderThan,
+  }) async {
+    await client.projects.setCleanupPolicyAge(projectId, olderThan: olderThan);
+  }
+
   Future<void> setCleanupPolicyKeepPattern(
     int projectId, {
     required String nameRegexKeep,

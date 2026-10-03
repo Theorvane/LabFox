@@ -4080,4 +4080,25 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
+
+  @override
+  String get containerAgeTitle => 'सफ़ाई आयु सीमा संपादित करें';
+
+  @override
+  String get containerAgeSave => 'आयु सीमा में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerAgeSelect => 'नई आयु सीमा (GitLab API अवधि)';
+
+  @override
+  String get containerAgeWarning =>
+      'परियोजना की आयु सीमा घटाने से नियोजित सफ़ाई में हर इमेज रिपॉज़िटरी के नए मिलते टैग भी स्थायी रूप से हट सकते हैं। नीचे सक्रिय स्थिति और हटाने के मानदंड जाँचें। अन्य सेटिंग नहीं बदलतीं और सफ़ाई पूर्ण होने की पुष्टि नहीं होती।';
+
+  @override
+  String get containerAgeUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerAgeAccepted =>
+      'सफ़ाई आयु सीमा का अपडेट स्वीकार किया गया।';
 }

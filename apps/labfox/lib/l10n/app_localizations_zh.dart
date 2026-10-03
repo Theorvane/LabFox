@@ -3836,4 +3836,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerAgeTitle => '编辑清理期限';
+
+  @override
+  String get containerAgeSave => '确认期限变更';
+
+  @override
+  String get containerAgeSelect => '新期限 (GitLab API 时长)';
+
+  @override
+  String get containerAgeWarning =>
+      '缩短项目级期限可能导致计划清理时从所有镜像仓库永久删除较新的匹配标签。请检查下面的启用状态和删除条件。其他设置保持不变，这不表示清理已完成。';
+
+  @override
+  String get containerAgeUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerAgeAccepted => '清理期限更新已接受。';
 }
