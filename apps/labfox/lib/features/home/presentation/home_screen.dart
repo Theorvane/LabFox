@@ -113,8 +113,12 @@ class _MyWork extends ConsumerWidget {
           label: l10n.homeProjects,
           onTap: () => context.push(Routes.projects),
         ),
-        // The To-do tab already lives in the bottom navigation; the launcher
-        // points at Groups instead of duplicating it.
+        LauncherTile(
+          icon: LabFoxIcons.inbox,
+          color: status.warning.foreground,
+          label: l10n.homeInbox,
+          onTap: () => context.push(Routes.inbox),
+        ),
         LauncherTile(
           icon: LabFoxIcons.group,
           color: status.warning.foreground,

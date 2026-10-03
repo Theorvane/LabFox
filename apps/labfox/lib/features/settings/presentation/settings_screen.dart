@@ -39,15 +39,7 @@ class SettingsScreen extends ConsumerWidget {
     final freePlatform = ref.watch(freePlatformProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settingsTitle),
-        // This route lives outside the navigation shell, so it carries its own
-        // way back; entered with context.go there is no stack to pop.
-        leading: BackButton(
-          onPressed: () =>
-              context.canPop() ? context.pop() : context.go(Routes.home),
-        ),
-      ),
+      appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
         children: [
           // First, not buried: the subscription is the one row here a user
