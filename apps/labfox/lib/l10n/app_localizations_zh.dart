@@ -9,6 +9,29 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releasePickerTitle => '选择项目里程碑';
+
+  @override
+  String get releasePickerSearch => '搜索项目里程碑';
+
+  @override
+  String get releasePickerEmpty => '未找到项目里程碑。';
+
+  @override
+  String get releasePickerError => '无法加载里程碑。';
+
+  @override
+  String get releasePickerMore => '加载更多里程碑';
+
+  @override
+  String get releasePickerUse => '使用里程碑';
+
+  @override
+  String releasePickerRemove(String title) {
+    return '移除里程碑 $title';
+  }
+
+  @override
   String get releaseCreationDateLabel => '发布日期（可选）';
 
   @override
@@ -3069,4 +3092,51 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       '清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。';
+
+  @override
+  String get packageFileDelete => '删除文件';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '删除软件包文件？';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '从“$packageName”中删除“$fileName”？此操作无法撤销。';
+  }
+
+  @override
+  String get packageFileDeleteWarning => '删除文件可能损坏软件包，导致其无法使用或无法通过软件包管理器获取。';
+
+  @override
+  String get packageFileDeleteForbidden => '无法删除此文件。软件包可能受保护，或您没有权限。';
+
+  @override
+  String get packageFileDeleteError => '无法删除此文件。请重试。';
+
+  @override
+  String get containerRepositoryDelete => '删除仓库';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => '删除镜像仓库？';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '删除“$path”及其所有标签？此操作无法撤销。';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '删除操作将在后台执行，可能需要一些时间。刷新镜像仓库列表以查看进度。';
+
+  @override
+  String get containerRepositoryDeleteForbidden => '无法删除此仓库。请检查您的权限和保护规则。';
+
+  @override
+  String get containerRepositoryDeleteError => '无法安排仓库删除。请重试。';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '已安排删除';
+
+  @override
+  String get containerRepositoryDeletionNotice => '已安排删除仓库。请刷新以查看进度。';
 }

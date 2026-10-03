@@ -9,6 +9,29 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get releasePickerTitle => '프로젝트 마일스톤 선택';
+
+  @override
+  String get releasePickerSearch => '프로젝트 마일스톤 검색';
+
+  @override
+  String get releasePickerEmpty => '프로젝트 마일스톤이 없습니다.';
+
+  @override
+  String get releasePickerError => '마일스톤을 불러오지 못했습니다.';
+
+  @override
+  String get releasePickerMore => '마일스톤 더 불러오기';
+
+  @override
+  String get releasePickerUse => '마일스톤 사용';
+
+  @override
+  String releasePickerRemove(String title) {
+    return '마일스톤 $title 제거';
+  }
+
+  @override
   String get releaseCreationDateLabel => '공개 날짜(선택 사항)';
 
   @override
@@ -3151,4 +3174,55 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get packageFileDelete => '파일 삭제';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '패키지 파일을 삭제할까요?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '“$packageName”에서 “$fileName”을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      '파일을 삭제하면 패키지가 손상되어 사용할 수 없거나 패키지 관리자로 가져올 수 없게 될 수 있습니다.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      '이 파일을 삭제할 수 없습니다. 패키지가 보호되어 있거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get packageFileDeleteError => '파일을 삭제할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerRepositoryDelete => '저장소 삭제';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => '이미지 저장소를 삭제할까요?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '“$path”와 모든 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '삭제는 비동기로 예약되며 시간이 걸릴 수 있습니다. 레지스트리를 새로고침해 진행 상태를 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      '이 저장소를 삭제할 수 없습니다. 권한과 보호 규칙을 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteError => '저장소 삭제를 예약할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '삭제 예약됨';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      '저장소 삭제가 예약되었습니다. 새로고침해 진행 상태를 확인하세요.';
 }
