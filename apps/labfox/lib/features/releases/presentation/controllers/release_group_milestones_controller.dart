@@ -20,6 +20,7 @@ class ReleaseGroupMilestonesController
           Paginated<GitLabMilestone>,
           ReleaseGroupMilestoneQuery
         > {
+  int _generation = 0;
   int? _groupId;
   bool _loadingMore = false;
 
@@ -27,11 +28,18 @@ class ReleaseGroupMilestonesController
   Future<Paginated<GitLabMilestone>> build(
     ReleaseGroupMilestoneQuery arg,
   ) async {
+    final generation = ++_generation;
+    _loadingMore = false;
+    _groupId = null;
+    ref.onDispose(() => _generation++);
     final repository = await ref.watch(
       releaseGroupMilestonesRepositoryProvider.future,
     );
+    if (generation != _generation) return const Paginated(items: []);
     if (repository == null) throw StateError('No authenticated account');
-    _groupId = await repository.getDirectGroupId(arg.projectId);
+    final groupId = await repository.getDirectGroupId(arg.projectId);
+    if (generation != _generation) return const Paginated(items: []);
+    _groupId = groupId;
     if (_groupId == null) return const Paginated(items: []);
     return repository.list(_groupId!, search: arg.search.trim());
   }
@@ -39,23 +47,27 @@ class ReleaseGroupMilestonesController
   Future<void> loadMore() async {
     final current = state.valueOrNull;
     final groupId = _groupId;
-    if (_loadingMore ||
+    if (state.isLoading ||
+        _loadingMore ||
         current == null ||
         current.nextPage == null ||
         groupId == null) {
       return;
     }
+    final generation = _generation;
     _loadingMore = true;
     try {
       final repository = await ref.read(
         releaseGroupMilestonesRepositoryProvider.future,
       );
+      if (generation != _generation) return;
       if (repository == null) throw StateError('No authenticated account');
       final next = await repository.list(
         groupId,
         search: arg.search.trim(),
         page: current.nextPage!,
       );
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: {
@@ -68,7 +80,7 @@ class ReleaseGroupMilestonesController
         ),
       );
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -45,7 +47,96 @@ class _Repository extends ReleaseGroupMilestonesRepository {
   }
 }
 
+class _PendingRepository extends _Repository {
+  int firstPageLoads = 0;
+  final pendingPages = <Completer<Paginated<GitLabMilestone>>>[];
+
+  @override
+  Future<Paginated<GitLabMilestone>> list(
+    int groupId, {
+    String search = '',
+    int page = 1,
+  }) async {
+    requests.add((groupId: groupId, search: search, page: page));
+    if (page != 1) {
+      final pending = Completer<Paginated<GitLabMilestone>>();
+      pendingPages.add(pending);
+      return pending.future;
+    }
+    firstPageLoads++;
+    return Paginated(
+      items: [GitLabMilestone(id: firstPageLoads * 10, iid: 1,
+        title: 'Current milestone', state: 'active', groupId: groupId)],
+      nextPage: 4,
+    );
+  }
+
+  void completePage(int index) => pendingPages[index].complete(
+    const Paginated(items: [GitLabMilestone(id: 99, iid: 9,
+      title: 'Delayed milestone', state: 'active', groupId: 42)]),
+  );
+}
+
 void main() {
+  for (final switchAccount in [false, true]) {
+    test('pending page cannot overwrite first page after '
+        '${switchAccount ? 'account switch' : 'refresh'}', () async {
+      final oldRepository = _PendingRepository();
+      final newRepository = _PendingRepository()..groupId = 84;
+      final account = StateProvider<_PendingRepository>((ref) => oldRepository);
+      final container = ProviderContainer(overrides: [
+        releaseGroupMilestonesRepositoryProvider.overrideWith(
+          (ref) async => ref.watch(account),
+        ),
+      ]);
+      addTearDown(container.dispose);
+      final provider = releaseGroupMilestonesControllerProvider(
+        (projectId: 7, search: ''),
+      );
+      await container.read(provider.future);
+      final pending = container.read(provider.notifier).loadMore();
+      await Future<void>.delayed(Duration.zero);
+      expect(oldRepository.pendingPages, hasLength(1));
+      if (switchAccount) {
+        container.read(account.notifier).state = newRepository;
+      } else {
+        container.invalidate(provider);
+      }
+      final fresh = await container.read(provider.future);
+      oldRepository.completePage(0);
+      await pending;
+      expect(container.read(provider).requireValue, fresh);
+    });
+  }
+
+  test('stale page finally does not release a current page request', () async {
+    final repository = _PendingRepository();
+    final container = ProviderContainer(overrides: [
+      releaseGroupMilestonesRepositoryProvider.overrideWith(
+        (ref) async => repository,
+      ),
+    ]);
+    addTearDown(container.dispose);
+    final provider = releaseGroupMilestonesControllerProvider(
+      (projectId: 7, search: ''),
+    );
+    await container.read(provider.future);
+    final controller = container.read(provider.notifier);
+    final stale = controller.loadMore();
+    await Future<void>.delayed(Duration.zero);
+    container.invalidate(provider);
+    await container.read(provider.future);
+    final current = controller.loadMore();
+    await Future<void>.delayed(Duration.zero);
+    expect(repository.pendingPages, hasLength(2));
+    repository.completePage(0);
+    await stale;
+    await controller.loadMore();
+    expect(repository.pendingPages, hasLength(2));
+    repository.completePage(1);
+    await current;
+  });
+
   test(
     'project lookup errors are not treated as an empty personal namespace',
     () async {
