@@ -149,6 +149,9 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
   final _ref = TextEditingController();
   final _name = TextEditingController();
   final _description = TextEditingController();
+  final _milestoneTitle = TextEditingController();
+  final _milestones = <String>[];
+  String? _milestoneError;
   DateTime? _releasedAt;
   bool _saving = false;
   String? _error;
@@ -159,6 +162,7 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
     _ref.dispose();
     _name.dispose();
     _description.dispose();
+    _milestoneTitle.dispose();
     super.dispose();
   }
 
@@ -168,6 +172,7 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
       setState(() => _error = l10n.releaseTagRequired);
       return;
     }
+    if (_milestoneTitle.text.trim().isNotEmpty && !_addMilestone()) return;
     setState(() {
       _saving = true;
       _error = null;
@@ -180,6 +185,7 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
             ref: _ref.text,
             name: _name.text,
             description: _description.text,
+            milestones: _milestones,
             releasedAt: _releasedAt,
           );
       if (!mounted) return;
@@ -191,6 +197,25 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
         _error = l10n.releaseCreateError;
       });
     }
+  }
+
+  bool _addMilestone() {
+    final title = _milestoneTitle.text.trim();
+    final l10n = AppLocalizations.of(context);
+    if (title.isEmpty || _milestones.contains(title)) {
+      setState(
+        () => _milestoneError = title.isEmpty
+            ? l10n.releaseCreationMilestoneRequired
+            : l10n.releaseCreationMilestoneDuplicate,
+      );
+      return false;
+    }
+    setState(() {
+      _milestones.add(title);
+      _milestoneTitle.clear();
+      _milestoneError = null;
+    });
+    return true;
   }
 
   Future<void> _chooseDate() async {
@@ -267,6 +292,38 @@ class _CreateReleaseDialogState extends ConsumerState<_CreateReleaseDialog> {
               enabled: !_saving,
               maxLines: 5,
               decoration: InputDecoration(labelText: l10n.releaseDescription),
+            ),
+            const SizedBox(height: LabFoxSpacing.md),
+            TextField(
+              controller: _milestoneTitle,
+              enabled: !_saving,
+              decoration: InputDecoration(
+                labelText: l10n.releaseCreationMilestoneTitle,
+                helperText: l10n.releaseCreationMilestoneHelp,
+                helperMaxLines: 3,
+                errorText: _milestoneError,
+              ),
+            ),
+            TextButton(
+              onPressed: _saving ? null : _addMilestone,
+              child: Text(l10n.releaseCreationMilestoneAdd),
+            ),
+            Wrap(
+              spacing: LabFoxSpacing.sm,
+              children: [
+                for (final title in _milestones)
+                  InputChip(
+                    label: Text(title),
+                    deleteButtonTooltipMessage: l10n
+                        .releaseCreationMilestoneRemove(title),
+                    onDeleted: _saving
+                        ? null
+                        : () => setState(() {
+                            _milestones.remove(title);
+                            _milestoneError = null;
+                          }),
+                  ),
+              ],
             ),
             const SizedBox(height: LabFoxSpacing.md),
             Align(

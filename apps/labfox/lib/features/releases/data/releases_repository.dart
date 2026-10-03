@@ -53,6 +53,7 @@ class ReleasesRepository {
     String? ref,
     String? name,
     String? description,
+    List<String>? milestones,
     DateTime? releasedAt,
   }) => client.releases.create(
     projectId,
@@ -60,6 +61,7 @@ class ReleasesRepository {
     ref: ref,
     name: name,
     description: description,
+    milestones: milestones,
     releasedAt: releasedAt,
   );
 
