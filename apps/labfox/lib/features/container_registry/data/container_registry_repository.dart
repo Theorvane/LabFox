@@ -10,6 +10,9 @@ class ContainerRegistryRepository {
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
+  Future<void> deleteRepository(int projectId, int repositoryId) =>
+      client.containerRegistry.deleteRepository(projectId, repositoryId);
+
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     int projectId,
     int ruleId,
