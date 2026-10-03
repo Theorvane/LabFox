@@ -953,11 +953,6 @@
   "containerRepositoryProtectionEmpty": "リポジトリ保護ルールはありません。",
   "containerRepositoryProtectionError": "リポジトリ保護ルールを読み込めませんでした。",
   "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
-  "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
-  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
-  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
-  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理者",
   "containerProtectionDeleteClearTarget": "プロジェクト {projectId} — ルール {ruleId}",
   "containerProtectionDeleteClearForbidden": "このルールを変更する権限がありません。",
   "containerProtectionDeleteClearStale": "確認後にルールが変更されました。再読み込みして確認してから保存してください。",
@@ -971,5 +966,10 @@
   "containerProtectionDeleteClearError": "削除制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。",
   "containerProtectionDeleteClearSaved": "最低削除ロール制限を解除しました。",
   "containerProtectionDeleteClearInvalid": "サーバーが削除制限の解除を拒否しました。ルールを確認して再試行してください。",
-  "containerProtectionDeleteClearBlocked": "解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。"
+  "containerProtectionDeleteClearBlocked": "解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。",
+  "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
+  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
+  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }

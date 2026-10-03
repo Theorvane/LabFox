@@ -6296,36 +6296,6 @@ abstract class AppLocalizations {
   /// **'You do not have permission to view repository protection rules.'**
   String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerRepositoryProtectionUnavailable.
-  ///
-  /// In en, this message translates to:
-  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
-  String get containerRepositoryProtectionUnavailable;
-
-  /// Minimum push role in a repository protection rule
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum push role: {role}'**
-  String containerRepositoryProtectionPushRole(String role);
-
-  /// Minimum delete role in a repository protection rule
-  ///
-  /// In en, this message translates to:
-  /// **'Minimum delete role: {role}'**
-  String containerRepositoryProtectionDeleteRole(String role);
-
-  /// No description provided for @containerRepositoryProtectionRoleUnset.
-  ///
-  /// In en, this message translates to:
-  /// **'Not specified by rule'**
-  String get containerRepositoryProtectionRoleUnset;
-
-  /// No description provided for @containerRepositoryProtectionRoleAdmin.
-  ///
-  /// In en, this message translates to:
-  /// **'Administrator'**
-  String get containerRepositoryProtectionRoleAdmin;
-
   /// Exact project and protection rule identifiers
   ///
   /// In en, this message translates to:
@@ -6409,6 +6379,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
   String get containerProtectionDeleteClearBlocked;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate

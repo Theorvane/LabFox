@@ -3263,26 +3263,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String get containerRepositoryProtectionUnavailable =>
-      '此实例不支持仓库保护规则，或无法访问该项目。';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return '推送所需的最低角色：$role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '删除所需的最低角色：$role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => '规则未指定';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '管理员';
-
-  @override
   String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
     return '项目 $projectId — 规则 $ruleId';
   }
@@ -3329,4 +3309,24 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get containerProtectionDeleteClearBlocked =>
       '清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

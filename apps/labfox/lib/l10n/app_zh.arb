@@ -953,11 +953,6 @@
   "containerRepositoryProtectionEmpty": "没有仓库保护规则。",
   "containerRepositoryProtectionError": "无法加载仓库保护规则。",
   "containerRepositoryProtectionForbidden": "您没有查看仓库保护规则的权限。",
-  "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
-  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
-  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
-  "containerRepositoryProtectionRoleUnset": "规则未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理员",
   "containerProtectionDeleteClearTarget": "项目 {projectId} — 规则 {ruleId}",
   "containerProtectionDeleteClearForbidden": "你没有更改此规则的权限。",
   "containerProtectionDeleteClearStale": "确认后规则已更改。请重新加载并检查后再保存。",
@@ -971,5 +966,10 @@
   "containerProtectionDeleteClearError": "无法确认删除限制已清除。重试前请检查规则列表；服务器可能已接受请求。",
   "containerProtectionDeleteClearSaved": "最低删除角色限制已清除。",
   "containerProtectionDeleteClearInvalid": "服务器拒绝清除此删除限制。请检查规则后重试。",
-  "containerProtectionDeleteClearBlocked": "清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。"
+  "containerProtectionDeleteClearBlocked": "清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。",
+  "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
+  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
+  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
+  "containerRepositoryProtectionRoleUnset": "规则未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理员"
 }

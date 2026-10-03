@@ -953,11 +953,6 @@
   "containerRepositoryProtectionEmpty": "कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।",
   "containerRepositoryProtectionError": "रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।",
   "containerRepositoryProtectionForbidden": "आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।",
-  "containerRepositoryProtectionUnavailable": "इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।",
-  "containerRepositoryProtectionPushRole": "पुश करने के लिए न्यूनतम भूमिका: {role}",
-  "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
-  "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
-  "containerRepositoryProtectionRoleAdmin": "प्रशासक",
   "containerProtectionDeleteClearTarget": "प्रोजेक्ट {projectId} — नियम {ruleId}",
   "containerProtectionDeleteClearForbidden": "आपको यह नियम बदलने की अनुमति नहीं है।",
   "containerProtectionDeleteClearStale": "पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।",
@@ -971,5 +966,10 @@
   "containerProtectionDeleteClearError": "हटाने की प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।",
   "containerProtectionDeleteClearSaved": "न्यूनतम हटाने की-भूमिका प्रतिबंध हट गया।",
   "containerProtectionDeleteClearInvalid": "सर्वर ने हटाने की प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।",
-  "containerProtectionDeleteClearBlocked": "हटाने के लिए समर्थित वर्तमान हटाने की भूमिका और समर्थित गैर-खाली पुश भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।"
+  "containerProtectionDeleteClearBlocked": "हटाने के लिए समर्थित वर्तमान हटाने की भूमिका और समर्थित गैर-खाली पुश भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।",
+  "containerRepositoryProtectionUnavailable": "इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।",
+  "containerRepositoryProtectionPushRole": "पुश करने के लिए न्यूनतम भूमिका: {role}",
+  "containerRepositoryProtectionDeleteRole": "हटाने के लिए न्यूनतम भूमिका: {role}",
+  "containerRepositoryProtectionRoleUnset": "नियम में निर्दिष्ट नहीं",
+  "containerRepositoryProtectionRoleAdmin": "प्रशासक"
 }

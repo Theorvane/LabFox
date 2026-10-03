@@ -3450,26 +3450,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'You do not have permission to view repository protection rules.';
 
   @override
-  String get containerRepositoryProtectionUnavailable =>
-      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'Minimum push role: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return 'Minimum delete role: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
-
-  @override
   String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
     return 'Project $projectId — rule $ruleId';
   }
@@ -3522,4 +3502,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerProtectionDeleteClearBlocked =>
       'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

@@ -1976,13 +1976,6 @@
   "containerRepositoryProtectionEmpty": "No repository protection rules.",
   "containerRepositoryProtectionError": "Could not load repository protection rules.",
   "containerRepositoryProtectionForbidden": "You do not have permission to view repository protection rules.",
-  "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",
-  "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
-  "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
-  "containerRepositoryProtectionRoleUnset": "Not specified by rule",
-  "containerRepositoryProtectionRoleAdmin": "Administrator",
-  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
-  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
   "containerProtectionDeleteClearTarget": "Project {projectId} — rule {ruleId}",
   "containerProtectionDeleteClearForbidden": "You do not have permission to change this rule.",
   "containerProtectionDeleteClearStale": "The rule changed since confirmation. Reload and review it before saving.",
@@ -1997,5 +1990,12 @@
   "containerProtectionDeleteClearError": "Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
   "containerProtectionDeleteClearSaved": "Minimum delete-role restriction cleared.",
   "containerProtectionDeleteClearInvalid": "The server rejected clearing this delete restriction. Check the rule and retry.",
-  "containerProtectionDeleteClearBlocked": "Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared."
+  "containerProtectionDeleteClearBlocked": "Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.",
+  "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
+  "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
+  "containerRepositoryProtectionRoleUnset": "Not specified by rule",
+  "containerRepositoryProtectionRoleAdmin": "Administrator",
+  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}}
 }

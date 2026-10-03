@@ -3353,26 +3353,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
 
   @override
-  String get containerRepositoryProtectionUnavailable =>
-      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return '최소 push 역할: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '최소 삭제 역할: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '관리자';
-
-  @override
   String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
     return '프로젝트 $projectId — 규칙 $ruleId';
   }
@@ -3423,4 +3403,24 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerProtectionDeleteClearBlocked =>
       '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
 }
