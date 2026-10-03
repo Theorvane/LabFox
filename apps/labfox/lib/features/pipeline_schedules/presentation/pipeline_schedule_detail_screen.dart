@@ -11,6 +11,7 @@ import 'controllers/pipeline_schedule_history_controller.dart';
 import 'controllers/pipeline_schedules_controller.dart';
 import 'widgets/pipeline_schedule_delete_dialog.dart';
 import 'widgets/pipeline_schedule_edit_dialog.dart';
+import 'widgets/pipeline_schedule_execution_dialog.dart';
 import 'widgets/pipeline_schedule_history.dart';
 import 'widgets/pipeline_schedule_ownership_dialog.dart';
 
@@ -54,6 +55,19 @@ class PipelineScheduleDetailScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            tooltip: l10n.pipelineScheduleExecutionEdit,
+            icon: const Icon(Icons.tune),
+            onPressed: schedule.valueOrNull == null || action.isLoading
+                ? null
+                : () => showDialog<void>(
+                    context: context,
+                    builder: (_) => PipelineScheduleExecutionDialog(
+                      scheduleRef: key,
+                      schedule: schedule.requireValue,
+                    ),
+                  ),
+          ),
           IconButton(
             tooltip: l10n.pipelineScheduleEdit,
             icon: const Icon(Icons.edit_outlined),
