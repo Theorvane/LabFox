@@ -3408,6 +3408,32 @@ class AppLocalizationsHi extends AppLocalizations {
       'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
 
   @override
+  String get containerKeepPatternTitle => 'सफ़ाई रखने का पैटर्न संपादित करें';
+
+  @override
+  String get containerKeepPatternSave =>
+      'रखने के पैटर्न में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerKeepPatternSelect => 'नया रखने का पैटर्न (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      'परियोजना के रखने के पैटर्न का दायरा घटाने से नियोजित सफ़ाई में हर रिपॉज़िटरी के पहले संरक्षित टैग स्थायी रूप से हटने के पात्र हो सकते हैं। नीचे सक्रिय स्थिति और हटाने/रखने के मानदंड जाँचें। GitLab RE2 उपयोग करता है और पूरे टैग नाम पर पैटर्न लागू करता है। इनपुट जैसा है वैसा भेजा जाता है और GitLab जाँचता है। अन्य सेटिंग नहीं बदलतीं और स्वीकृति सफ़ाई पूर्ण होने की पुष्टि नहीं है। खाली इनपुट पैटर्न नहीं मिटाता।';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      'सक्रिय स्थिति, अंतराल, संख्या, आयु और प्रभावी हटाने/रखने के पैटर्न ज्ञात होना आवश्यक है। रिपोर्ट किया खाली रखने का पैटर्न बदला जा सकता है, अज्ञात मान नहीं। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerKeepPatternAccepted =>
+      'सफ़ाई रखने के पैटर्न का अपडेट स्वीकार किया गया।';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
+
+  @override
   String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
 
   @override
