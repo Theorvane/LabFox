@@ -15,6 +15,8 @@ T _$identity<T>(T value) => value;
 mixin _$Pipeline {
   int get id;
   String get status;
+  @JsonKey(name: 'project_id')
+  int? get projectId;
   String? get ref;
   String? get sha;
 
@@ -45,6 +47,8 @@ mixin _$Pipeline {
             other is Pipeline &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.projectId, projectId) ||
+                other.projectId == projectId) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.sha, sha) || other.sha == sha) &&
             (identical(other.source, source) || other.source == source) &&
@@ -61,6 +65,7 @@ mixin _$Pipeline {
     runtimeType,
     id,
     status,
+    projectId,
     ref,
     sha,
     source,
@@ -71,7 +76,7 @@ mixin _$Pipeline {
 
   @override
   String toString() {
-    return 'Pipeline(id: $id, status: $status, ref: $ref, sha: $sha, source: $source, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Pipeline(id: $id, status: $status, projectId: $projectId, ref: $ref, sha: $sha, source: $source, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -83,6 +88,7 @@ abstract mixin class $PipelineCopyWith<$Res> {
   $Res call({
     int id,
     String status,
+    @JsonKey(name: 'project_id') int? projectId,
     String? ref,
     String? sha,
     String? source,
@@ -106,6 +112,7 @@ class _$PipelineCopyWithImpl<$Res> implements $PipelineCopyWith<$Res> {
   $Res call({
     Object? id = null,
     Object? status = null,
+    Object? projectId = freezed,
     Object? ref = freezed,
     Object? sha = freezed,
     Object? source = freezed,
@@ -123,6 +130,10 @@ class _$PipelineCopyWithImpl<$Res> implements $PipelineCopyWith<$Res> {
             ? _self.status
             : status // ignore: cast_nullable_to_non_nullable
                   as String,
+        projectId: freezed == projectId
+            ? _self.projectId
+            : projectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
         ref: freezed == ref
             ? _self.ref
             : ref // ignore: cast_nullable_to_non_nullable
@@ -248,6 +259,7 @@ extension PipelinePatterns on Pipeline {
     TResult Function(
       int id,
       String status,
+      @JsonKey(name: 'project_id') int? projectId,
       String? ref,
       String? sha,
       String? source,
@@ -264,6 +276,7 @@ extension PipelinePatterns on Pipeline {
         return $default(
           _that.id,
           _that.status,
+          _that.projectId,
           _that.ref,
           _that.sha,
           _that.source,
@@ -294,6 +307,7 @@ extension PipelinePatterns on Pipeline {
     TResult Function(
       int id,
       String status,
+      @JsonKey(name: 'project_id') int? projectId,
       String? ref,
       String? sha,
       String? source,
@@ -309,6 +323,7 @@ extension PipelinePatterns on Pipeline {
         return $default(
           _that.id,
           _that.status,
+          _that.projectId,
           _that.ref,
           _that.sha,
           _that.source,
@@ -338,6 +353,7 @@ extension PipelinePatterns on Pipeline {
     TResult? Function(
       int id,
       String status,
+      @JsonKey(name: 'project_id') int? projectId,
       String? ref,
       String? sha,
       String? source,
@@ -353,6 +369,7 @@ extension PipelinePatterns on Pipeline {
         return $default(
           _that.id,
           _that.status,
+          _that.projectId,
           _that.ref,
           _that.sha,
           _that.source,
@@ -372,6 +389,7 @@ class _Pipeline extends Pipeline {
   const _Pipeline({
     required this.id,
     required this.status,
+    @JsonKey(name: 'project_id') this.projectId,
     this.ref,
     this.sha,
     this.source,
@@ -386,6 +404,9 @@ class _Pipeline extends Pipeline {
   final int id;
   @override
   final String status;
+  @override
+  @JsonKey(name: 'project_id')
+  final int? projectId;
   @override
   final String? ref;
   @override
@@ -425,6 +446,8 @@ class _Pipeline extends Pipeline {
             other is _Pipeline &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.projectId, projectId) ||
+                other.projectId == projectId) &&
             (identical(other.ref, ref) || other.ref == ref) &&
             (identical(other.sha, sha) || other.sha == sha) &&
             (identical(other.source, source) || other.source == source) &&
@@ -441,6 +464,7 @@ class _Pipeline extends Pipeline {
     runtimeType,
     id,
     status,
+    projectId,
     ref,
     sha,
     source,
@@ -451,7 +475,7 @@ class _Pipeline extends Pipeline {
 
   @override
   String toString() {
-    return 'Pipeline(id: $id, status: $status, ref: $ref, sha: $sha, source: $source, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Pipeline(id: $id, status: $status, projectId: $projectId, ref: $ref, sha: $sha, source: $source, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -465,6 +489,7 @@ abstract mixin class _$PipelineCopyWith<$Res>
   $Res call({
     int id,
     String status,
+    @JsonKey(name: 'project_id') int? projectId,
     String? ref,
     String? sha,
     String? source,
@@ -488,6 +513,7 @@ class __$PipelineCopyWithImpl<$Res> implements _$PipelineCopyWith<$Res> {
   $Res call({
     Object? id = null,
     Object? status = null,
+    Object? projectId = freezed,
     Object? ref = freezed,
     Object? sha = freezed,
     Object? source = freezed,
@@ -505,6 +531,10 @@ class __$PipelineCopyWithImpl<$Res> implements _$PipelineCopyWith<$Res> {
             ? _self.status
             : status // ignore: cast_nullable_to_non_nullable
                   as String,
+        projectId: freezed == projectId
+            ? _self.projectId
+            : projectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
         ref: freezed == ref
             ? _self.ref
             : ref // ignore: cast_nullable_to_non_nullable

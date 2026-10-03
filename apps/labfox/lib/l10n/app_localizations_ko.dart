@@ -4402,4 +4402,31 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelinesChildHint => '하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다.';
+
+  @override
+  String get pipelineDownstreamTitle => '연결된 하위 파이프라인';
+
+  @override
+  String get pipelineDownstreamEmpty => '파이프라인 트리거가 없습니다.';
+
+  @override
+  String get pipelineDownstreamError => '연결된 하위 파이프라인을 불러오지 못했습니다.';
+
+  @override
+  String get pipelineDownstreamLoadMoreError => '연결된 하위 파이프라인을 더 불러오지 못했습니다.';
+
+  @override
+  String get pipelineDownstreamUnavailable => '연결된 하위 파이프라인을 열 수 없습니다.';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
+  }
 }

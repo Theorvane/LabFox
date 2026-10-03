@@ -12,6 +12,12 @@ import 'package:labfox/features/pipelines/presentation/pipelines_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
 class _Repository extends PipelinesRepository {
+  @override
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) async => const Paginated(items: []);
   _Repository()
     : super(
         GitLabClient(

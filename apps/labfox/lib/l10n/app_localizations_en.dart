@@ -4542,4 +4542,33 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pipelinesChildHint =>
       'Child pipeline discovery requires GitLab 17.0 or later.';
+
+  @override
+  String get pipelineDownstreamTitle => 'Downstream pipelines';
+
+  @override
+  String get pipelineDownstreamEmpty => 'No pipeline triggers.';
+
+  @override
+  String get pipelineDownstreamError => 'Could not load downstream pipelines.';
+
+  @override
+  String get pipelineDownstreamLoadMoreError =>
+      'Could not load more downstream pipelines.';
+
+  @override
+  String get pipelineDownstreamUnavailable =>
+      'Downstream pipeline unavailable to open.';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return 'Project $projectIdString · Pipeline #$pipelineIdString';
+  }
 }

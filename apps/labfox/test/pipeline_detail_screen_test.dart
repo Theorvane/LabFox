@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/features/pipelines/presentation/controllers/pipelines_controllers.dart';
 import 'package:labfox/features/pipelines/presentation/pipeline_detail_screen.dart';
@@ -22,6 +23,7 @@ Future<void> _pump(
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
+        pipelineTriggerJobsControllerProvider.overrideWith(_NoTriggers.new),
         pipelineDetailProvider.overrideWith((ref, arg) async => pipeline),
         pipelineJobsControllerProvider.overrideWith(() => _StubJobs(jobs)),
       ],
@@ -129,4 +131,10 @@ void main() {
     expect(find.byKey(const ValueKey('pipeline-stage-connector-0')), findsOne);
     expect(tester.takeException(), isNull);
   });
+}
+
+class _NoTriggers extends PipelineTriggerJobsController {
+  @override
+  Future<Paginated<PipelineTriggerJob>> build(PipelineRef arg) async =>
+      const Paginated(items: []);
 }

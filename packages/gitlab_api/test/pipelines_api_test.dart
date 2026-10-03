@@ -7,6 +7,123 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:test/test.dart';
 
 void main() {
+  group('PipelinesApi.triggerJobs', () {
+    test(
+      'uses the modern endpoint, encoded project path and header cursor',
+      () async {
+        RequestOptions? captured;
+        final client = _client((options) {
+          captured = options;
+          return (
+            status: 200,
+            headers: {
+              'x-next-page': ['9'],
+            },
+            body: [
+              {
+                'id': 10,
+                'name': 'deploy',
+                'status': 'success',
+                'downstream_pipeline': {
+                  'id': 33,
+                  'project_id': 8,
+                  'status': 'running',
+                },
+              },
+            ],
+          );
+        });
+        final page = await client.pipelines.triggerJobs(
+          'team/app',
+          pipelineId: 944,
+          page: 4,
+          perPage: 10,
+        );
+        expect(
+          captured?.path,
+          '/projects/team%2Fapp/pipelines/944/trigger_jobs',
+        );
+        expect(captured?.queryParameters, {'page': 4, 'per_page': 10});
+        expect(page.nextPage, 9);
+        expect(page.items.single.downstreamPipeline?.projectId, 8);
+      },
+    );
+    for (final strict in [false, true]) {
+      test('only a 404 selects the legacy route with strict=$strict', () async {
+        final paths = <String>[];
+        final client = _client((options) {
+          paths.add(options.path);
+          if (options.path.endsWith('/trigger_jobs')) {
+            return (
+              status: 404,
+              headers: const {},
+              body: {'message': 'Not found'},
+            );
+          }
+          expect(options.queryParameters, {'page': 4, 'per_page': 20});
+          return (
+            status: 200,
+            headers: {
+              'x-next-page': ['9'],
+            },
+            body: [
+              {'id': 10, 'name': 'deploy', 'status': 'pending'},
+            ],
+          );
+        }, strict404: strict);
+        final result = await client.pipelines.triggerJobs(
+          7,
+          pipelineId: 944,
+          page: 4,
+        );
+        expect(paths, [
+          '/projects/7/pipelines/944/trigger_jobs',
+          '/projects/7/pipelines/944/bridges',
+        ]);
+        expect(result.nextPage, 9);
+        expect(result.items.single.downstreamPipeline, isNull);
+      });
+    }
+    for (final code in [401, 403, 404, 429, 500]) {
+      test(
+        'HTTP $code is a domain error and does not retry other failures',
+        () async {
+          final paths = <String>[];
+          final client = _client((options) {
+            paths.add(options.path);
+            return (
+              status: code,
+              headers: const {},
+              body: {'message': 'private server response'},
+            );
+          });
+          await expectLater(
+            client.pipelines.triggerJobs(7, pipelineId: 944),
+            throwsA(isA<GitLabException>()),
+          );
+          expect(paths.length, code == 404 ? 2 : 1);
+        },
+      );
+    }
+  });
+
+  test(
+    'trigger jobs map transport failures without leaking Dio exceptions',
+    () async {
+      final client = _client((options) {
+        throw DioException(
+          requestOptions: options,
+          type: DioExceptionType.connectionError,
+          error: 'private payload',
+        );
+      });
+      await expectLater(
+        client.pipelines.triggerJobs(7, pipelineId: 944),
+        throwsA(isA<GitLabConnectionException>()),
+      );
+    },
+  );
+
   group('PipelinesApi.list', () {
     for (final entry in <PipelineSourceFilter, String>{
       PipelineSourceFilter.push: 'push',
@@ -275,9 +392,14 @@ GitLabClient _client(
   ({int status, Map<String, List<String>> headers, Object? body}) Function(
     RequestOptions,
   )
-  handler,
-) {
-  final dio = Dio(BaseOptions(validateStatus: (s) => s != null && s < 500));
+  handler, {
+  bool strict404 = false,
+}) {
+  final dio = Dio(
+    BaseOptions(
+      validateStatus: (s) => s != null && s < (strict404 ? 400 : 500),
+    ),
+  );
   dio.httpClientAdapter = _Adapter(handler);
   return GitLabClient(
     baseUrl: 'https://gitlab.com',

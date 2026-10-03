@@ -1245,5 +1245,11 @@
   "pipelinesSourcePipeline": "多项目流水线",
   "pipelinesSourceMergeRequest": "合并请求",
   "pipelinesSourceChild": "子流水线",
-  "pipelinesChildHint": "查询子流水线需要 GitLab 17.0 或更高版本。"
+  "pipelinesChildHint": "查询子流水线需要 GitLab 17.0 或更高版本。",
+  "pipelineDownstreamTitle": "下游流水线",
+  "pipelineDownstreamEmpty": "没有流水线触发作业。",
+  "pipelineDownstreamError": "无法加载下游流水线。",
+  "pipelineDownstreamLoadMoreError": "无法加载更多下游流水线。",
+  "pipelineDownstreamUnavailable": "无法打开下游流水线。",
+  "pipelineDownstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}"
 }

@@ -9,6 +9,7 @@ part of 'pipeline.dart';
 _Pipeline _$PipelineFromJson(Map<String, dynamic> json) => _Pipeline(
   id: (json['id'] as num).toInt(),
   status: json['status'] as String,
+  projectId: (json['project_id'] as num?)?.toInt(),
   ref: json['ref'] as String?,
   sha: json['sha'] as String?,
   source: json['source'] as String?,
@@ -24,6 +25,7 @@ _Pipeline _$PipelineFromJson(Map<String, dynamic> json) => _Pipeline(
 Map<String, dynamic> _$PipelineToJson(_Pipeline instance) => <String, dynamic>{
   'id': instance.id,
   'status': instance.status,
+  'project_id': instance.projectId,
   'ref': instance.ref,
   'sha': instance.sha,
   'source': instance.source,
