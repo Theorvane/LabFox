@@ -3156,6 +3156,53 @@ class AppLocalizationsEn extends AppLocalizations {
       'The account changed. Close this dialog and reopen it for the selected account.';
 
   @override
+  String get containerImmutabilityDeleteTitle => 'Delete immutable rule';
+
+  @override
+  String get containerImmutabilityDeleteButton => 'Delete rule';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'Immutable rule deleted.';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => 'Rule ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => 'Type the exact pattern';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      'Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      'I understand the project-wide protection loss.';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      'Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.';
+
+  @override
+  String get containerImmutabilityDeleteReload => 'Reload rule';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      'The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      'Your session was rejected. Sign in again before deleting a rule.';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      'The account changed. Close this dialog and reopen it for the selected account.';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,

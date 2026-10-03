@@ -5828,6 +5828,84 @@ abstract class AppLocalizations {
   /// **'The account changed. Close this dialog and reopen it for the selected account.'**
   String get containerImmutabilityAccountChanged;
 
+  /// No description provided for @containerImmutabilityDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete immutable rule'**
+  String get containerImmutabilityDeleteTitle;
+
+  /// No description provided for @containerImmutabilityDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerImmutabilityDeleteButton;
+
+  /// No description provided for @containerImmutabilityDeleteDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable rule deleted.'**
+  String get containerImmutabilityDeleteDone;
+
+  /// No description provided for @containerImmutabilityDeleteProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerImmutabilityDeleteProject(String projectId);
+
+  /// No description provided for @containerImmutabilityDeleteRuleId.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule ID'**
+  String get containerImmutabilityDeleteRuleId;
+
+  /// No description provided for @containerImmutabilityDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact pattern'**
+  String get containerImmutabilityDeleteConfirm;
+
+  /// No description provided for @containerImmutabilityDeleteImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.'**
+  String get containerImmutabilityDeleteImpact;
+
+  /// No description provided for @containerImmutabilityDeleteAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide protection loss.'**
+  String get containerImmutabilityDeleteAcknowledge;
+
+  /// No description provided for @containerImmutabilityDeleteUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.'**
+  String get containerImmutabilityDeleteUncertain;
+
+  /// No description provided for @containerImmutabilityDeleteReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerImmutabilityDeleteReload;
+
+  /// No description provided for @containerImmutabilityDeleteRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.'**
+  String get containerImmutabilityDeleteRejected;
+
+  /// No description provided for @containerImmutabilityDeleteAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before deleting a rule.'**
+  String get containerImmutabilityDeleteAuth;
+
+  /// No description provided for @containerImmutabilityDeleteAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it for the selected account.'**
+  String get containerImmutabilityDeleteAccountChanged;
+
   /// Exact project and protection rule identifiers
   ///
   /// In en, this message translates to:

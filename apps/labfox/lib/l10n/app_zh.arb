@@ -867,6 +867,26 @@
       }
     }
   },
+  "containerImmutabilityDeleteTitle": "删除不可变规则",
+  "containerImmutabilityDeleteButton": "删除规则",
+  "containerImmutabilityDeleteDone": "不可变规则已删除。",
+  "containerImmutabilityDeleteProject": "项目 {projectId}",
+  "containerImmutabilityDeleteRuleId": "规则ID",
+  "containerImmutabilityDeleteConfirm": "输入完全相同的模式",
+  "containerImmutabilityDeleteImpact": "删除此规则会移除其对项目中所有容器仓库的保护。匹配的标签可能可以被覆盖或删除，包括通过清理策略删除。移除最后一条不可变规则可能允许直接删除清单。其他规则和权限仍可能适用。此操作不会删除镜像或标签。需要Owner权限，变更生效可能需要一些时间。",
+  "containerImmutabilityDeleteAcknowledge": "我了解项目范围的保护丢失风险。",
+  "containerImmutabilityDeleteUncertain": "无法确认删除结果。请求可能已经成功。重试前请重新加载规则。",
+  "containerImmutabilityDeleteReload": "重新加载规则",
+  "containerImmutabilityDeleteRejected": "规则已更改或GitLab拒绝了请求。重试前请重新加载并确认当前规则。",
+  "containerImmutabilityDeleteAuth": "会话被拒绝。删除规则前请重新登录。",
+  "containerImmutabilityDeleteAccountChanged": "账户已更改。请关闭此对话框，然后为所选账户重新打开。",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerTagProtectionPushClearTarget": "项目 {projectId} — 规则 {ruleId}",
   "containerTagProtectionPushClearForbidden": "你没有更改此规则的权限。",
   "containerTagProtectionPushClearStale": "确认后规则已更改。请重新加载并检查后再保存。",

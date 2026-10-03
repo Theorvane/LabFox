@@ -867,6 +867,26 @@
       }
     }
   },
+  "containerImmutabilityDeleteTitle": "अपरिवर्तनीय नियम हटाएँ",
+  "containerImmutabilityDeleteButton": "नियम हटाएँ",
+  "containerImmutabilityDeleteDone": "अपरिवर्तनीय नियम हटाया गया।",
+  "containerImmutabilityDeleteProject": "प्रोजेक्ट {projectId}",
+  "containerImmutabilityDeleteRuleId": "नियम ID",
+  "containerImmutabilityDeleteConfirm": "सटीक पैटर्न दर्ज करें",
+  "containerImmutabilityDeleteImpact": "इस नियम को हटाने से इस प्रोजेक्ट के सभी कंटेनर रिपॉज़िटरी में इसकी सुरक्षा हट जाती है। मेल खाने वाले टैग ओवरराइट किए जा सकते हैं या क्लीनअप नीतियों से भी हटाए जा सकते हैं। अंतिम अपरिवर्तनीय नियम हटाने से मैनिफेस्ट को सीधे हटाना संभव हो सकता है। अन्य नियम और अनुमतियाँ फिर भी लागू हो सकती हैं। इससे इमेज या टैग नहीं हटते। Owner पहुँच आवश्यक है और बदलाव लागू होने में समय लग सकता है।",
+  "containerImmutabilityDeleteAcknowledge": "मैं पूरे प्रोजेक्ट में सुरक्षा हटने का प्रभाव समझता हूँ।",
+  "containerImmutabilityDeleteUncertain": "हटाने की पुष्टि नहीं हुई। अनुरोध पहले ही सफल हो सकता है। फिर से प्रयास करने से पहले नियम दोबारा लोड करें।",
+  "containerImmutabilityDeleteReload": "नियम दोबारा लोड करें",
+  "containerImmutabilityDeleteRejected": "नियम बदल गया है या GitLab ने अनुरोध अस्वीकार किया है। फिर से प्रयास करने से पहले वर्तमान नियम दोबारा लोड करके पुष्टि करें।",
+  "containerImmutabilityDeleteAuth": "सत्र अस्वीकार कर दिया गया। नियम हटाने से पहले फिर से साइन इन करें।",
+  "containerImmutabilityDeleteAccountChanged": "खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerTagProtectionPushClearTarget": "प्रोजेक्ट {projectId} — नियम {ruleId}",
   "containerTagProtectionPushClearForbidden": "आपको यह नियम बदलने की अनुमति नहीं है।",
   "containerTagProtectionPushClearStale": "पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।",

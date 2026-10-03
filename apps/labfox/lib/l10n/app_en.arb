@@ -1886,6 +1886,26 @@
       }
     }
   },
+  "containerImmutabilityDeleteTitle": "Delete immutable rule",
+  "containerImmutabilityDeleteButton": "Delete rule",
+  "containerImmutabilityDeleteDone": "Immutable rule deleted.",
+  "containerImmutabilityDeleteProject": "Project {projectId}",
+  "containerImmutabilityDeleteRuleId": "Rule ID",
+  "containerImmutabilityDeleteConfirm": "Type the exact pattern",
+  "containerImmutabilityDeleteImpact": "Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.",
+  "containerImmutabilityDeleteAcknowledge": "I understand the project-wide protection loss.",
+  "containerImmutabilityDeleteUncertain": "Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.",
+  "containerImmutabilityDeleteReload": "Reload rule",
+  "containerImmutabilityDeleteRejected": "The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.",
+  "containerImmutabilityDeleteAuth": "Your session was rejected. Sign in again before deleting a rule.",
+  "containerImmutabilityDeleteAccountChanged": "The account changed. Close this dialog and reopen it for the selected account.",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerTagProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
   "containerTagProtectionPushClearForbidden": "You do not have permission to change this rule.",
   "containerTagProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",

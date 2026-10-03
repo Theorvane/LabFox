@@ -3152,6 +3152,53 @@ class AppLocalizationsHi extends AppLocalizations {
       'खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।';
 
   @override
+  String get containerImmutabilityDeleteTitle => 'अपरिवर्तनीय नियम हटाएँ';
+
+  @override
+  String get containerImmutabilityDeleteButton => 'नियम हटाएँ';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'अपरिवर्तनीय नियम हटाया गया।';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => 'नियम ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => 'सटीक पैटर्न दर्ज करें';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      'इस नियम को हटाने से इस प्रोजेक्ट के सभी कंटेनर रिपॉज़िटरी में इसकी सुरक्षा हट जाती है। मेल खाने वाले टैग ओवरराइट किए जा सकते हैं या क्लीनअप नीतियों से भी हटाए जा सकते हैं। अंतिम अपरिवर्तनीय नियम हटाने से मैनिफेस्ट को सीधे हटाना संभव हो सकता है। अन्य नियम और अनुमतियाँ फिर भी लागू हो सकती हैं। इससे इमेज या टैग नहीं हटते। Owner पहुँच आवश्यक है और बदलाव लागू होने में समय लग सकता है।';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      'मैं पूरे प्रोजेक्ट में सुरक्षा हटने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      'हटाने की पुष्टि नहीं हुई। अनुरोध पहले ही सफल हो सकता है। फिर से प्रयास करने से पहले नियम दोबारा लोड करें।';
+
+  @override
+  String get containerImmutabilityDeleteReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      'नियम बदल गया है या GitLab ने अनुरोध अस्वीकार किया है। फिर से प्रयास करने से पहले वर्तमान नियम दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      'सत्र अस्वीकार कर दिया गया। नियम हटाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      'खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,
