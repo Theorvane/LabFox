@@ -6707,6 +6707,93 @@ abstract class AppLocalizations {
   /// **'Project {projectId} — rule {ruleId}'**
   String containerTagProtectionPushClearTarget(String projectId, String ruleId);
 
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  );
+
+  /// No description provided for @containerTagProtectionDeleteClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionDeleteClearForbidden;
+
+  /// No description provided for @containerTagProtectionDeleteClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionDeleteClearStale;
+
+  /// No description provided for @containerTagProtectionDeleteClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionDeleteClearReload;
+
+  /// No description provided for @containerTagProtectionDeleteClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.'**
+  String get containerTagProtectionDeleteClearMissing;
+
+  /// No description provided for @containerTagProtectionDeleteClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionDeleteClearRateLimited;
+
+  /// No description provided for @containerTagProtectionDeleteClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum delete role'**
+  String get containerTagProtectionDeleteClearTitle;
+
+  /// No description provided for @containerTagProtectionDeleteClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear delete restriction'**
+  String get containerTagProtectionDeleteClearSave;
+
+  /// No description provided for @containerTagProtectionDeleteClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.'**
+  String get containerTagProtectionDeleteClearWarning;
+
+  /// No description provided for @containerTagProtectionDeleteClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
+  String get containerTagProtectionDeleteClearAcknowledge;
+
+  /// No description provided for @containerTagProtectionDeleteClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionDeleteClearError;
+
+  /// No description provided for @containerTagProtectionDeleteClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete-role restriction cleared.'**
+  String get containerTagProtectionDeleteClearSaved;
+
+  /// No description provided for @containerTagProtectionDeleteClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
+  String get containerTagProtectionDeleteClearInvalid;
+
+  /// No description provided for @containerTagProtectionDeleteClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerTagProtectionDeleteClearBlocked;
+
   /// No description provided for @containerTagProtectionPushClearForbidden.
   ///
   /// In en, this message translates to:
@@ -7438,6 +7525,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleanup age limit update accepted.'**
   String get containerAgeAccepted;
+
+  /// No description provided for @containerDeletePatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup delete pattern'**
+  String get containerDeletePatternTitle;
+
+  /// No description provided for @containerDeletePatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm delete pattern change'**
+  String get containerDeletePatternSave;
+
+  /// No description provided for @containerDeletePatternSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New delete pattern (GitLab RE2)'**
+  String get containerDeletePatternSelect;
+
+  /// No description provided for @containerDeletePatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.'**
+  String get containerDeletePatternWarning;
+
+  /// No description provided for @containerDeletePatternUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerDeletePatternUnknown;
+
+  /// No description provided for @containerDeletePatternAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup delete pattern update accepted.'**
+  String get containerDeletePatternAccepted;
+
+  /// No description provided for @containerDeletePatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
+  String get containerDeletePatternInvalid;
 
   /// No description provided for @containerProtectionDeleteRoleTitle.
   ///
