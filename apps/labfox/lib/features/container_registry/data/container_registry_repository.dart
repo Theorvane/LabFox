@@ -252,6 +252,26 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<void> createCleanupPolicy(
+    int projectId, {
+    bool enabled = false,
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    await client.projects.createCleanupPolicy(
+      projectId,
+      enabled: enabled,
+      cadence: cadence,
+      keepN: keepN,
+      olderThan: olderThan,
+      nameRegexDelete: nameRegexDelete,
+      nameRegexKeep: nameRegexKeep,
+    );
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,

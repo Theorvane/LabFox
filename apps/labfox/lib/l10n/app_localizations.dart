@@ -5555,7 +5555,7 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateTitle.
   ///
   /// In en, this message translates to:
-  /// **'Create disabled cleanup policy'**
+  /// **'Create cleanup policy'**
   String get containerCreateTitle;
 
   /// No description provided for @containerCreateSave.
@@ -5567,13 +5567,13 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateWarning.
   ///
   /// In en, this message translates to:
-  /// **'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.'**
+  /// **'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.'**
   String get containerCreateWarning;
 
   /// No description provided for @containerCreateAcknowledge.
   ///
   /// In en, this message translates to:
-  /// **'I have reviewed these criteria and understand that activation is a separate action.'**
+  /// **'I have reviewed these criteria and understand that this policy will stay disabled.'**
   String get containerCreateAcknowledge;
 
   /// No description provided for @containerCreateExisting.
@@ -5591,7 +5591,7 @@ abstract class AppLocalizations {
   /// No description provided for @containerCreateAccepted.
   ///
   /// In en, this message translates to:
-  /// **'Disabled cleanup policy creation accepted.'**
+  /// **'Cleanup policy creation accepted.'**
   String get containerCreateAccepted;
 
   /// No description provided for @containerCreateInvalid.
@@ -5641,6 +5641,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Matching tags to keep per image'**
   String get containerPolicyKeepCount;
+
+  /// No description provided for @containerCreateEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup when creating'**
+  String get containerCreateEnable;
+
+  /// No description provided for @containerCreateEnabledWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.'**
+  String get containerCreateEnabledWarning;
+
+  /// No description provided for @containerCreateEnabledAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.'**
+  String get containerCreateEnabledAcknowledge;
+
+  /// No description provided for @containerCreateEnabledSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm enabled policy creation'**
+  String get containerCreateEnabledSave;
+
+  /// No description provided for @containerCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project before creating a policy.'**
+  String get containerCreateSessionChanged;
 
   /// No description provided for @containerPolicyAge.
   ///
