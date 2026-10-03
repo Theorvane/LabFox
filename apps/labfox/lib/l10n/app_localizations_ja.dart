@@ -9,6 +9,29 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get releasePickerTitle => 'プロジェクトのマイルストーンを選択';
+
+  @override
+  String get releasePickerSearch => 'プロジェクトのマイルストーンを検索';
+
+  @override
+  String get releasePickerEmpty => 'プロジェクトのマイルストーンが見つかりません。';
+
+  @override
+  String get releasePickerError => 'マイルストーンを読み込めませんでした。';
+
+  @override
+  String get releasePickerMore => 'マイルストーンをさらに読み込む';
+
+  @override
+  String get releasePickerUse => 'マイルストーンを使用';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'マイルストーン $title を削除';
+  }
+
+  @override
   String get releaseCreationDateLabel => '公開日時（任意）';
 
   @override
@@ -3118,6 +3141,35 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get packageFileDeleteError => 'ファイルを削除できませんでした。再試行してください。';
+
+  @override
+  String get containerRepositoryDelete => 'リポジトリを削除';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => 'イメージリポジトリを削除しますか？';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '「$path」とすべてのタグを削除しますか？この操作は取り消せません。';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '削除は非同期で予約され、時間がかかる場合があります。レジストリを更新して進行状況を確認してください。';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'このリポジトリを削除できません。権限と保護ルールを確認してください。';
+
+  @override
+  String get containerRepositoryDeleteError => 'リポジトリの削除を予約できませんでした。再試行してください。';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '削除予約済み';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'リポジトリの削除が予約されました。更新して進行状況を確認してください。';
 
   @override
   String get containerCreateTitle => '無効なクリーンアップポリシーを作成';

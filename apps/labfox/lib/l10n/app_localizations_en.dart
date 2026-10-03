@@ -9,6 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releasePickerTitle => 'Select project milestones';
+
+  @override
+  String get releasePickerSearch => 'Search project milestones';
+
+  @override
+  String get releasePickerEmpty => 'No project milestones found.';
+
+  @override
+  String get releasePickerError => 'Could not load milestones.';
+
+  @override
+  String get releasePickerMore => 'Load more milestones';
+
+  @override
+  String get releasePickerUse => 'Use milestones';
+
+  @override
+  String releasePickerRemove(String title) {
+    return 'Remove milestone $title';
+  }
+
+  @override
   String get releaseCreationDateLabel => 'Publication date (optional)';
 
   @override
@@ -3210,6 +3233,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get packageFileDeleteError => 'Could not delete this file. Try again.';
+
+  @override
+  String get containerRepositoryDelete => 'Delete repository';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle =>
+      'Delete image repository?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return 'Delete “$path” and all its tags? This cannot be undone.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      'You cannot delete this repository. Check your permissions and protection rules.';
+
+  @override
+  String get containerRepositoryDeleteError =>
+      'Could not schedule repository deletion. Try again.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => 'Deletion scheduled';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      'Repository deletion has been scheduled. Refresh to check progress.';
 
   @override
   String get containerCreateTitle => 'Create disabled cleanup policy';
