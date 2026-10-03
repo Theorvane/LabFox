@@ -3246,6 +3246,53 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerProtectionPatternDraft => 'New repository path pattern';
 
   @override
+  String get containerImmutabilityDeleteTitle => 'Delete immutable rule';
+
+  @override
+  String get containerImmutabilityDeleteButton => 'Delete rule';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'Immutable rule deleted.';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return 'Project $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => 'Rule ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => 'Type the exact pattern';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      'Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      'I understand the project-wide protection loss.';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      'Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.';
+
+  @override
+  String get containerImmutabilityDeleteReload => 'Reload rule';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      'The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      'Your session was rejected. Sign in again before deleting a rule.';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      'The account changed. Close this dialog and reopen it for the selected account.';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,
@@ -3375,4 +3422,57 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerKeepCountAccepted =>
       'Cleanup retention count update accepted.';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'Unprotect branch rule';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'Project $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.';
+
+  @override
+  String get protectedBranchUnprotectName => 'Type the exact rule name';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge =>
+      'I understand the effect on matching branches.';
+
+  @override
+  String get protectedBranchUnprotectReload => 'Check rule again';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'Branch rule removed.';
+
+  @override
+  String get protectedBranchUnprotectAuth =>
+      'Sign in again before changing this rule.';
+
+  @override
+  String get protectedBranchUnprotectForbidden =>
+      'You do not have permission to remove this rule.';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'This rule is no longer available. Check the list before continuing.';
+
+  @override
+  String get protectedBranchUnprotectStale =>
+      'The rule changed. Check it again before continuing.';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab is limiting requests. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'Could not confirm whether the rule was removed. Check it before trying again.';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'The account changed. Close this dialog and open the rule again.';
 }

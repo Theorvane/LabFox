@@ -3242,6 +3242,53 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerProtectionPatternDraft => 'नया रिपॉज़िटरी पथ पैटर्न';
 
   @override
+  String get containerImmutabilityDeleteTitle => 'अपरिवर्तनीय नियम हटाएँ';
+
+  @override
+  String get containerImmutabilityDeleteButton => 'नियम हटाएँ';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'अपरिवर्तनीय नियम हटाया गया।';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => 'नियम ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => 'सटीक पैटर्न दर्ज करें';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      'इस नियम को हटाने से इस प्रोजेक्ट के सभी कंटेनर रिपॉज़िटरी में इसकी सुरक्षा हट जाती है। मेल खाने वाले टैग ओवरराइट किए जा सकते हैं या क्लीनअप नीतियों से भी हटाए जा सकते हैं। अंतिम अपरिवर्तनीय नियम हटाने से मैनिफेस्ट को सीधे हटाना संभव हो सकता है। अन्य नियम और अनुमतियाँ फिर भी लागू हो सकती हैं। इससे इमेज या टैग नहीं हटते। Owner पहुँच आवश्यक है और बदलाव लागू होने में समय लग सकता है।';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      'मैं पूरे प्रोजेक्ट में सुरक्षा हटने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      'हटाने की पुष्टि नहीं हुई। अनुरोध पहले ही सफल हो सकता है। फिर से प्रयास करने से पहले नियम दोबारा लोड करें।';
+
+  @override
+  String get containerImmutabilityDeleteReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      'नियम बदल गया है या GitLab ने अनुरोध अस्वीकार किया है। फिर से प्रयास करने से पहले वर्तमान नियम दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      'सत्र अस्वीकार कर दिया गया। नियम हटाने से पहले फिर से साइन इन करें।';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      'खाता बदल गया। यह संवाद बंद करें और चयनित खाते के लिए फिर से खोलें।';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,
@@ -3373,4 +3420,57 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerKeepCountAccepted =>
       'सफ़ाई में रखने की संख्या का अपडेट स्वीकार किया गया।';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'ब्रांच नियम से सुरक्षा हटाएं';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'प्रोजेक्ट $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'इस नियम को हटाने से पुश या मर्ज की अनुमति मिल सकती है और CI का व्यवहार बदल सकता है। वाइल्डकार्ड नियम कई ब्रांचों को प्रभावित कर सकता है।';
+
+  @override
+  String get protectedBranchUnprotectName => 'नियम का सटीक नाम लिखें';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge =>
+      'मैं मिलान वाली ब्रांचों पर इसका प्रभाव समझता/समझती हूं।';
+
+  @override
+  String get protectedBranchUnprotectReload => 'नियम फिर जांचें';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'ब्रांच नियम हटा दिया गया।';
+
+  @override
+  String get protectedBranchUnprotectAuth =>
+      'इस नियम को बदलने से पहले फिर साइन इन करें।';
+
+  @override
+  String get protectedBranchUnprotectForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'यह नियम अब उपलब्ध नहीं है। आगे बढ़ने से पहले सूची जांचें।';
+
+  @override
+  String get protectedBranchUnprotectStale =>
+      'नियम बदल गया है। आगे बढ़ने से पहले फिर जांचें।';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab अनुरोध सीमित कर रहा है। फिर प्रयास करने से पहले नियम जांचें।';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'नियम हटाया गया या नहीं, इसकी पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले जांचें।';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'खाता बदल गया है। यह संवाद बंद करें और नियम दोबारा खोलें।';
 }
