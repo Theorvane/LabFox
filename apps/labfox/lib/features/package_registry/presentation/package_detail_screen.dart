@@ -8,7 +8,9 @@ import '../../../l10n/app_localizations.dart';
 import '../data/package_overview.dart';
 import 'controllers/package_controllers.dart';
 import 'controllers/package_delete_controller.dart';
+import 'controllers/package_file_delete_controller.dart';
 import 'widgets/package_delete_dialog.dart';
+import 'widgets/package_file_delete_dialog.dart';
 
 /// Package metadata and its published files.
 class PackageDetailScreen extends ConsumerWidget {
@@ -195,6 +197,35 @@ class _Files extends ConsumerWidget {
               ListTile(
                 leading: const Icon(LabFoxIcons.file),
                 title: Text(file.fileName),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  tooltip: l10n.packageFileDelete,
+                  onPressed:
+                      ref
+                          .watch(
+                            packageFileDeleteControllerProvider(
+                              PackageFileRef(
+                                projectId: packageRef.projectId,
+                                packageId: packageRef.packageId,
+                                fileId: file.id,
+                              ),
+                            ),
+                          )
+                          .isLoading
+                      ? null
+                      : () => showDialog<void>(
+                          context: context,
+                          builder: (_) => PackageFileDeleteDialog(
+                            fileRef: PackageFileRef(
+                              projectId: packageRef.projectId,
+                              packageId: packageRef.packageId,
+                              fileId: file.id,
+                            ),
+                            package: data.package,
+                            file: file,
+                          ),
+                        ),
+                ),
               ),
           if (data.files.hasMore)
             TextButton(

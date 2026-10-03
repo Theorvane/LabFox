@@ -7,6 +7,16 @@ class ReleasesRepository {
 
   final GitLabClient client;
 
+  Future<Paginated<GitLabMilestone>> listMilestones(
+    int projectId, {
+    String search = '',
+    int page = 1,
+  }) => client.milestones.list(
+    projectId,
+    search: search.isEmpty ? null : search,
+    page: page,
+  );
+
   Future<Paginated<GitLabRelease>> list(int projectId, {int page = 1}) =>
       client.releases.list(projectId, page: page);
 
@@ -43,12 +53,14 @@ class ReleasesRepository {
     String? ref,
     String? name,
     String? description,
+    DateTime? releasedAt,
   }) => client.releases.create(
     projectId,
     tagName: tagName,
     ref: ref,
     name: name,
     description: description,
+    releasedAt: releasedAt,
   );
 
   Future<ReleaseAssetLink> createAssetLink(

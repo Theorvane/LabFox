@@ -42,6 +42,9 @@ class ContainerRegistryRepository {
     }
   }
 
+  Future<void> deleteRepository(int projectId, int repositoryId) =>
+      client.containerRegistry.deleteRepository(projectId, repositoryId);
+
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     int projectId,
     int ruleId,
