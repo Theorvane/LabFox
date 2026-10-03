@@ -10,6 +10,7 @@ import 'controllers/container_repository_protection_controller.dart';
 import 'widgets/container_repository_protection_create_dialog.dart';
 import 'widgets/container_repository_protection_delete_clear_dialog.dart';
 import 'widgets/container_repository_protection_delete_dialog.dart';
+import 'widgets/container_repository_protection_delete_role_dialog.dart';
 import 'widgets/container_repository_protection_push_clear_dialog.dart';
 
 /// Reads protection patterns and required roles without guessing user access.
@@ -138,6 +139,39 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
                                               l10n,
                                               rule.minimumAccessLevelForPush,
                                             ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            tooltip: l10n
+                                                .containerProtectionDeleteRoleTitle,
+                                            icon: const Icon(
+                                              Icons.manage_accounts_outlined,
+                                            ),
+                                            onPressed: () async {
+                                              final saved = await showDialog<bool>(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (_) =>
+                                                    ContainerRepositoryProtectionDeleteRoleDialog(
+                                                      projectId: projectId,
+                                                      rule: rule,
+                                                    ),
+                                              );
+                                              if (saved == true &&
+                                                  context.mounted) {
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      l10n.containerProtectionDeleteRoleSaved,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
                                           ),
                                         ),
                                         Align(

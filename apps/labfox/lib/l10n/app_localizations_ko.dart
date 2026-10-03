@@ -3987,6 +3987,64 @@ class AppLocalizationsKo extends AppLocalizations {
       '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
 
   @override
+  String get containerProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 바꾸면 일치하는 저장소의 이미지를 삭제할 수 있는 사람이 달라집니다. 낮은 역할은 삭제 보호를 약화하고 높은 역할은 기존 정리 작업을 막을 수 있습니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내지 않습니다. 이 규칙을 저장해도 이미지는 삭제되지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
   String get containerProtectionDeleteClearTitle => '최소 삭제 역할 해제';
 
   @override

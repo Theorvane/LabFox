@@ -2166,6 +2166,33 @@
   "containerProtectionDeleteClearMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
   "containerProtectionDeleteClearRateLimited": "Too many requests. Wait and retry.",
   "@containerProtectionDeleteClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerProtectionDeleteRoleTitle": "Edit minimum delete role",
+  "containerProtectionDeleteRoleSave": "Save delete role",
+  "containerProtectionDeleteRoleWarning": "Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.",
+  "containerProtectionDeleteRoleAcknowledge": "I have reviewed the rule and new minimum delete role and understand the access changes.",
+  "containerProtectionDeleteRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionDeleteRoleForbidden": "You do not have permission to change this rule.",
+  "containerProtectionDeleteRoleError": "Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionDeleteRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionDeleteRoleReload": "Reload rule",
+  "containerProtectionDeleteRoleSaved": "Minimum delete role updated.",
+  "containerProtectionDeleteRoleMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionDeleteRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionDeleteRoleInvalid": "The delete role was rejected. Choose a supported role and retry.",
+  "containerProtectionDeleteRoleDraft": "New minimum delete role",
+  "containerProtectionDeleteRoleSelect": "Select a delete role",
+  "containerProtectionDeleteRoleUnknown": "The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerProtectionDeleteRoleTarget": {
+    "description": "Exact project and protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  },
   "containerProtectionDeleteClearTitle": "Clear minimum delete role",
   "containerProtectionDeleteClearSave": "Clear delete restriction",
   "containerProtectionDeleteClearWarning": "This removes this rule's minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.",

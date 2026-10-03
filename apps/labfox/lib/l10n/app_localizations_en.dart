@@ -4115,6 +4115,66 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many requests. Wait and retry.';
 
   @override
+  String get containerProtectionDeleteRoleTitle => 'Edit minimum delete role';
+
+  @override
+  String get containerProtectionDeleteRoleSave => 'Save delete role';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      'Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      'I have reviewed the rule and new minimum delete role and understand the access changes.';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionDeleteRoleReload => 'Reload rule';
+
+  @override
+  String get containerProtectionDeleteRoleSaved =>
+      'Minimum delete role updated.';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      'The delete role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => 'New minimum delete role';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => 'Select a delete role';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String get containerProtectionDeleteClearTitle => 'Clear minimum delete role';
 
   @override

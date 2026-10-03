@@ -178,6 +178,17 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<ContainerRepositoryProtectionRule>
+  updateRepositoryProtectionDeleteRole(
+    int projectId,
+    int ruleId,
+    String role,
+  ) => client.containerRegistry.updateRepositoryProtectionDeleteRole(
+    projectId,
+    ruleId,
+    role,
+  );
+
   Future<ContainerTagProtectionRule> clearTagProtectionDeleteRole(
     int projectId,
     int ruleId,
