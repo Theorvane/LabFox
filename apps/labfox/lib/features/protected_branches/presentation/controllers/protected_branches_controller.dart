@@ -354,6 +354,118 @@ final protectedBranchMergeRoleControllerProvider =
       ProtectedBranchRef
     >(ProtectedBranchMergeRoleController.new);
 
+/// Best-effort compare-and-unprotect for an exact project rule.
+class ProtectedBranchUnprotectController
+    extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
+  bool _disposed = false;
+  bool _requiresInspection = false;
+
+  /// Account-bound retry lock that survives closing a confirmation dialog.
+  bool get requiresInspection => _requiresInspection;
+
+  @override
+  void build(ProtectedBranchRef arg) {
+    ref.watch(protectedBranchesRepositoryProvider.future);
+    _disposed = false;
+    _requiresInspection = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedBranch> inspect() async {
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    final repository = await session;
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    final listed = await repository.findUnique(arg.projectId, arg.name);
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.get(arg.projectId, arg.name);
+    if (_disposed ||
+        !identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        )) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (listed != detail) {
+      throw const GitLabConflictException('Protection rule changed');
+    }
+    if (!state.isLoading && detail.inherited != true) {
+      _requiresInspection = false;
+      state = const AsyncData(null);
+    }
+    return detail;
+  }
+
+  Future<void> unprotect({required ProtectedBranch expected}) async {
+    if (state.isLoading) {
+      throw StateError('Branch unprotection is already pending');
+    }
+    if (_requiresInspection) {
+      throw const GitLabConflictException('Inspect the rule before retrying');
+    }
+    if (expected.name != arg.name || expected.name.trim().isEmpty) {
+      throw ArgumentError('Exact frozen rule identity required');
+    }
+    if (expected.inherited == true) {
+      throw const GitLabForbiddenException('Inherited protection rule');
+    }
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      if (current.inherited == true) {
+        throw const GitLabForbiddenException('Inherited protection rule');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      _requiresInspection = true;
+      await repository.unprotect(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      _requiresInspection = false;
+      state = const AsyncData(null);
+      ref.invalidate(protectedBranchesControllerProvider(arg.projectId));
+      ref.invalidate(protectedBranchDetailProvider(arg));
+      ref.invalidate(branchesControllerProvider(arg.projectId));
+    } catch (error, stackTrace) {
+      if (isCurrent()) state = AsyncError(error, stackTrace);
+      rethrow;
+    }
+  }
+}
+
+final protectedBranchUnprotectControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedBranchUnprotectController,
+      void,
+      ProtectedBranchRef
+    >(ProtectedBranchUnprotectController.new);
+
 /// Role-only rules can be edited without disturbing other push grants.
 ProtectedBranchAccess? editableProtectedBranchPushAccess(ProtectedBranch rule) {
   if (rule.inherited == true || rule.pushAccessLevels.length != 1) {

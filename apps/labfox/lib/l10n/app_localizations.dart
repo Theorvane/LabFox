@@ -146,6 +146,42 @@ abstract class AppLocalizations {
   /// **'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.'**
   String get pipelineScheduleCreateError;
 
+  /// No description provided for @releaseCreationMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title (optional)'**
+  String get releaseCreationMilestoneTitle;
+
+  /// No description provided for @releaseCreationMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseCreationMilestoneAdd;
+
+  /// No description provided for @releaseCreationMilestoneRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseCreationMilestoneRequired;
+
+  /// No description provided for @releaseCreationMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseCreationMilestoneDuplicate;
+
+  /// No description provided for @releaseCreationMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releaseCreationMilestoneRemove(String title);
+
+  /// No description provided for @releaseCreationMilestoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.'**
+  String get releaseCreationMilestoneHelp;
+
   /// No description provided for @releasePickerTitle.
   ///
   /// In en, this message translates to:
@@ -5870,6 +5906,84 @@ abstract class AppLocalizations {
   /// **'The account changed. Close this dialog and reopen it for the selected account.'**
   String get containerImmutabilityAccountChanged;
 
+  /// No description provided for @containerImmutabilityDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete immutable rule'**
+  String get containerImmutabilityDeleteTitle;
+
+  /// No description provided for @containerImmutabilityDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerImmutabilityDeleteButton;
+
+  /// No description provided for @containerImmutabilityDeleteDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable rule deleted.'**
+  String get containerImmutabilityDeleteDone;
+
+  /// No description provided for @containerImmutabilityDeleteProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerImmutabilityDeleteProject(String projectId);
+
+  /// No description provided for @containerImmutabilityDeleteRuleId.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule ID'**
+  String get containerImmutabilityDeleteRuleId;
+
+  /// No description provided for @containerImmutabilityDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact pattern'**
+  String get containerImmutabilityDeleteConfirm;
+
+  /// No description provided for @containerImmutabilityDeleteImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.'**
+  String get containerImmutabilityDeleteImpact;
+
+  /// No description provided for @containerImmutabilityDeleteAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide protection loss.'**
+  String get containerImmutabilityDeleteAcknowledge;
+
+  /// No description provided for @containerImmutabilityDeleteUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.'**
+  String get containerImmutabilityDeleteUncertain;
+
+  /// No description provided for @containerImmutabilityDeleteReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerImmutabilityDeleteReload;
+
+  /// No description provided for @containerImmutabilityDeleteRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.'**
+  String get containerImmutabilityDeleteRejected;
+
+  /// No description provided for @containerImmutabilityDeleteAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before deleting a rule.'**
+  String get containerImmutabilityDeleteAuth;
+
+  /// No description provided for @containerImmutabilityDeleteAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it for the selected account.'**
+  String get containerImmutabilityDeleteAccountChanged;
+
   /// Exact project and protection rule identifiers
   ///
   /// In en, this message translates to:
@@ -6037,6 +6151,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Repository deletion has been scheduled. Refresh to check progress.'**
   String get containerRepositoryDeletionNotice;
+
+  /// No description provided for @containerKeepCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup retention count'**
+  String get containerKeepCountTitle;
+
+  /// No description provided for @containerKeepCountSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm retention change'**
+  String get containerKeepCountSave;
+
+  /// No description provided for @containerKeepCountSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New matching tags to keep per image'**
+  String get containerKeepCountSelect;
+
+  /// No description provided for @containerKeepCountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerKeepCountWarning;
+
+  /// No description provided for @containerKeepCountUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerKeepCountUnknown;
+
+  /// No description provided for @containerKeepCountAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup retention count update accepted.'**
+  String get containerKeepCountAccepted;
+
+  /// No description provided for @protectedBranchUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect branch rule'**
+  String get protectedBranchUnprotectTitle;
+
+  /// No description provided for @protectedBranchUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedBranchUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchUnprotectWarning;
+
+  /// No description provided for @protectedBranchUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact rule name'**
+  String get protectedBranchUnprotectName;
+
+  /// No description provided for @protectedBranchUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the effect on matching branches.'**
+  String get protectedBranchUnprotectAcknowledge;
+
+  /// No description provided for @protectedBranchUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchUnprotectReload;
+
+  /// No description provided for @protectedBranchUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch rule removed.'**
+  String get protectedBranchUnprotectSuccess;
+
+  /// No description provided for @protectedBranchUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchUnprotectAuth;
+
+  /// No description provided for @protectedBranchUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this rule.'**
+  String get protectedBranchUnprotectForbidden;
+
+  /// No description provided for @protectedBranchUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchUnprotectUnavailable;
+
+  /// No description provided for @protectedBranchUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchUnprotectStale;
+
+  /// No description provided for @protectedBranchUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchUnprotectRateLimited;
+
+  /// No description provided for @protectedBranchUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm whether the rule was removed. Check it before trying again.'**
+  String get protectedBranchUnprotectError;
+
+  /// No description provided for @protectedBranchUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchUnprotectSessionChanged;
 }
 
 class _AppLocalizationsDelegate

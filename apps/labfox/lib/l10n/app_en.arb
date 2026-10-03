@@ -6,6 +6,13 @@
   "pipelineScheduleCreateActive": "Active",
   "pipelineScheduleCreateHint": "GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.",
   "pipelineScheduleCreateError": "Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.",
+  "releaseCreationMilestoneTitle": "Milestone title (optional)",
+  "releaseCreationMilestoneAdd": "Add milestone",
+  "releaseCreationMilestoneRequired": "Enter a milestone title.",
+  "releaseCreationMilestoneDuplicate": "This milestone is already selected.",
+  "releaseCreationMilestoneRemove": "Remove milestone {title}",
+  "releaseCreationMilestoneHelp": "Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "Select project milestones",
   "releasePickerSearch": "Search project milestones",
   "releasePickerEmpty": "No project milestones found.",
@@ -1893,6 +1900,26 @@
       }
     }
   },
+  "containerImmutabilityDeleteTitle": "Delete immutable rule",
+  "containerImmutabilityDeleteButton": "Delete rule",
+  "containerImmutabilityDeleteDone": "Immutable rule deleted.",
+  "containerImmutabilityDeleteProject": "Project {projectId}",
+  "containerImmutabilityDeleteRuleId": "Rule ID",
+  "containerImmutabilityDeleteConfirm": "Type the exact pattern",
+  "containerImmutabilityDeleteImpact": "Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.",
+  "containerImmutabilityDeleteAcknowledge": "I understand the project-wide protection loss.",
+  "containerImmutabilityDeleteUncertain": "Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.",
+  "containerImmutabilityDeleteReload": "Reload rule",
+  "containerImmutabilityDeleteRejected": "The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.",
+  "containerImmutabilityDeleteAuth": "Your session was rejected. Sign in again before deleting a rule.",
+  "containerImmutabilityDeleteAccountChanged": "The account changed. Close this dialog and reopen it for the selected account.",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
   "containerTagProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
   "containerTagProtectionPushClearForbidden": "You do not have permission to change this rule.",
   "containerTagProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",
@@ -1923,5 +1950,26 @@
   "containerRepositoryDeleteError": "Could not schedule repository deletion. Try again.",
   "containerRepositoryDeletionScheduled": "Deletion scheduled",
   "containerRepositoryDeletionNotice": "Repository deletion has been scheduled. Refresh to check progress.",
-  "@containerRepositoryDeleteConfirmBody": {"description": "Confirmation identifying the complete image repository", "placeholders": {"path": {"type": "String"}}}
+  "@containerRepositoryDeleteConfirmBody": {"description": "Confirmation identifying the complete image repository", "placeholders": {"path": {"type": "String"}}},
+  "containerKeepCountTitle": "Edit cleanup retention count",
+  "containerKeepCountSave": "Confirm retention change",
+  "containerKeepCountSelect": "New matching tags to keep per image",
+  "containerKeepCountWarning": "Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.",
+  "containerKeepCountUnknown": "Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerKeepCountAccepted": "Cleanup retention count update accepted.",
+  "protectedBranchUnprotectTitle": "Unprotect branch rule",
+  "protectedBranchUnprotectTarget": "Project {project}: {name}",
+  "@protectedBranchUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "protectedBranchUnprotectWarning": "Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.",
+  "protectedBranchUnprotectName": "Type the exact rule name",
+  "protectedBranchUnprotectAcknowledge": "I understand the effect on matching branches.",
+  "protectedBranchUnprotectReload": "Check rule again",
+  "protectedBranchUnprotectSuccess": "Branch rule removed.",
+  "protectedBranchUnprotectAuth": "Sign in again before changing this rule.",
+  "protectedBranchUnprotectForbidden": "You do not have permission to remove this rule.",
+  "protectedBranchUnprotectUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchUnprotectStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchUnprotectRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchUnprotectError": "Could not confirm whether the rule was removed. Check it before trying again.",
+  "protectedBranchUnprotectSessionChanged": "The account changed. Close this dialog and open the rule again."
 }
