@@ -2037,6 +2037,27 @@
   "containerProtectionRemoveRateLimited": "Too many requests. Wait and retry.",
   "@containerProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerRepositoryProtectionEmpty": "No repository protection rules.",
+  "containerProtectionCreateTitle": "Create repository protection rule",
+  "containerProtectionCreateSave": "Create rule",
+  "containerProtectionCreatePattern": "Repository path pattern",
+  "containerProtectionCreateProject": "Project {projectId}",
+  "containerProtectionCreateWarning": "This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.",
+  "containerProtectionCreateAcknowledge": "I have reviewed the pattern and minimum roles and understand their impact.",
+  "containerProtectionCreateUnset": "No restriction from this rule",
+  "containerProtectionCreateCreated": "The rule was created.",
+  "containerProtectionCreateForbidden": "You do not have permission to create this rule.",
+  "containerProtectionCreateInvalid": "The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.",
+  "containerProtectionCreateError": "Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.",
+  "@containerProtectionCreateProject": {
+    "description": "Project identifier for repository protection creation",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerProtectionCreatePush": "Minimum push role",
+  "containerProtectionCreateDelete": "Minimum delete role",
   "containerRepositoryProtectionError": "Could not load repository protection rules.",
   "containerRepositoryProtectionForbidden": "You do not have permission to view repository protection rules.",
   "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",

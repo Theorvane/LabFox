@@ -3554,6 +3554,51 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
 
   @override
+  String get containerProtectionCreateTitle => '저장소 보호 규칙 생성';
+
+  @override
+  String get containerProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerProtectionCreatePattern => '저장소 경로 패턴';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      '이 규칙은 정확한 패턴과 일치하는 저장소의 선택된 푸시 및 삭제 작업을 제한합니다. 와일드카드(*)는 여러 저장소에 영향을 줄 수 있습니다. 역할을 선택하지 않은 작업은 이 규칙으로 제한되지 않습니다. 다른 규칙과 권한은 계속 적용됩니다. 이 설정은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      '패턴과 최소 역할을 검토했으며 적용 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionCreateUnset => '이 규칙에 의한 제한 없음';
+
+  @override
+  String get containerProtectionCreateCreated => '규칙이 생성되었습니다.';
+
+  @override
+  String get containerProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      '패턴이나 역할이 거부되었거나 패턴이 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionCreateError =>
+      '규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerProtectionCreateDelete => '최소 삭제 역할';
+
+  @override
   String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
 
   @override

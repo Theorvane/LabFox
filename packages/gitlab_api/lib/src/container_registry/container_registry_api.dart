@@ -11,6 +11,46 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Creates a rule; omitted role fields impose no restriction from this rule.
+  Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
+    Object projectId, {
+    required String repositoryPathPattern,
+    String? minimumAccessLevelForPush,
+    String? minimumAccessLevelForDelete,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules',
+        data: {
+          'repository_path_pattern': repositoryPathPattern,
+          'minimum_access_level_for_push': ?minimumAccessLevelForPush,
+          'minimum_access_level_for_delete': ?minimumAccessLevelForDelete,
+        },
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating container repository protection rule',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Creation response did not contain a valid protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'creating container repository protection rule',
+      );
+    }
+  }
+
   /// Deletes a rule, not the repositories or images matching its pattern.
   Future<void> deleteRepositoryProtectionRule(
     Object projectId,

@@ -71,6 +71,18 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
+  Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
+    int projectId, {
+    required String repositoryPathPattern,
+    String? minimumAccessLevelForPush,
+    String? minimumAccessLevelForDelete,
+  }) => client.containerRegistry.createRepositoryProtectionRule(
+    projectId,
+    repositoryPathPattern: repositoryPathPattern,
+    minimumAccessLevelForPush: minimumAccessLevelForPush,
+    minimumAccessLevelForDelete: minimumAccessLevelForDelete,
+  );
+
   Future<void> deleteRepositoryProtectionRule(int projectId, int ruleId) =>
       client.containerRegistry.deleteRepositoryProtectionRule(
         projectId,

@@ -6644,6 +6644,84 @@ abstract class AppLocalizations {
   /// **'No repository protection rules.'**
   String get containerRepositoryProtectionEmpty;
 
+  /// No description provided for @containerProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create repository protection rule'**
+  String get containerProtectionCreateTitle;
+
+  /// No description provided for @containerProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerProtectionCreateSave;
+
+  /// No description provided for @containerProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository path pattern'**
+  String get containerProtectionCreatePattern;
+
+  /// Project identifier for repository protection creation
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.'**
+  String get containerProtectionCreateWarning;
+
+  /// No description provided for @containerProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the pattern and minimum roles and understand their impact.'**
+  String get containerProtectionCreateAcknowledge;
+
+  /// No description provided for @containerProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'No restriction from this rule'**
+  String get containerProtectionCreateUnset;
+
+  /// No description provided for @containerProtectionCreateCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was created.'**
+  String get containerProtectionCreateCreated;
+
+  /// No description provided for @containerProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerProtectionCreateForbidden;
+
+  /// No description provided for @containerProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.'**
+  String get containerProtectionCreateInvalid;
+
+  /// No description provided for @containerProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionCreateError;
+
+  /// No description provided for @containerProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerProtectionCreatePush;
+
+  /// No description provided for @containerProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerProtectionCreateDelete;
+
   /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
