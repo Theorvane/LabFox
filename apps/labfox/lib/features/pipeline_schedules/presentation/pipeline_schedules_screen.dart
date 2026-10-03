@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/pipeline_schedules_controller.dart';
+import 'widgets/pipeline_schedule_create_dialog.dart';
 
 /// Project pipeline schedules with active-state filtering.
 class PipelineSchedulesScreen extends ConsumerStatefulWidget {
@@ -22,6 +23,16 @@ class PipelineSchedulesScreen extends ConsumerStatefulWidget {
 class _PipelineSchedulesScreenState
     extends ConsumerState<PipelineSchedulesScreen> {
   bool? _active;
+
+  Future<void> _create() async {
+    final scheduleId = await showDialog<int>(
+      context: context,
+      builder: (_) => PipelineScheduleCreateDialog(projectId: widget.projectId),
+    );
+    if (mounted && scheduleId != null) {
+      await context.push(Routes.pipelineSchedule(widget.projectId, scheduleId));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +49,13 @@ class _PipelineSchedulesScreenState
     ];
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            tooltip: l10n.pipelineScheduleCreate,
+            icon: const Icon(Icons.add),
+            onPressed: _create,
+          ),
+        ],
         title: Text(l10n.pipelineSchedulesTitle),
         leading: BackButton(
           onPressed: () => context.canPop()
