@@ -7,6 +7,13 @@
   "releasePickerUse": "Use milestones",
   "releasePickerRemove": "Remove milestone {title}",
   "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
+  "releaseCreationDateLabel": "Publication date (optional)",
+  "releaseCreationDateDefault": "Publication time will be set by GitLab.",
+  "releaseCreationChooseDate": "Choose publication date",
+  "releaseCreationChooseTime": "Choose publication time",
+  "releaseCreationClearDate": "Use publication time from GitLab",
+  "releaseCreationDateHelp": "Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "Delete schedule",
   "pipelineScheduleDeleteConfirmTitle": "Delete this pipeline schedule?",
   "pipelineScheduleDeleteConfirmBody": "The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.",
@@ -1878,5 +1885,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "containerTagProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionPushClearForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionPushClearReload": "Reload rule",
+  "containerTagProtectionPushClearMissing": "The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.",
+  "containerTagProtectionPushClearRateLimited": "Too many requests. Wait and retry.",
+  "@containerTagProtectionPushClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionPushClearTitle": "Clear minimum push role",
+  "containerTagProtectionPushClearSave": "Clear push restriction",
+  "containerTagProtectionPushClearWarning": "This removes this rule's minimum push-role restriction for matching container image tags across the project and weakens push protection. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not grant everyone access, delete tags or images, or affect Git tags.",
+  "containerTagProtectionPushClearAcknowledge": "I have reviewed the rule and understand the loss of this push restriction.",
+  "containerTagProtectionPushClearError": "Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionPushClearSaved": "Minimum push-role restriction cleared.",
+  "containerTagProtectionPushClearInvalid": "The server rejected clearing this push restriction. Check the rule and retry.",
+  "containerTagProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared."
 }

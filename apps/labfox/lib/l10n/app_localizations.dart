@@ -146,6 +146,42 @@ abstract class AppLocalizations {
   /// **'Remove milestone {title}'**
   String releasePickerRemove(String title);
 
+  /// No description provided for @releaseCreationDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication date (optional)'**
+  String get releaseCreationDateLabel;
+
+  /// No description provided for @releaseCreationDateDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication time will be set by GitLab.'**
+  String get releaseCreationDateDefault;
+
+  /// No description provided for @releaseCreationChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication date'**
+  String get releaseCreationChooseDate;
+
+  /// No description provided for @releaseCreationChooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication time'**
+  String get releaseCreationChooseTime;
+
+  /// No description provided for @releaseCreationClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Use publication time from GitLab'**
+  String get releaseCreationClearDate;
+
+  /// No description provided for @releaseCreationDateHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
+  String releaseCreationDateHelp(String zone);
+
   /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
@@ -5791,6 +5827,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account changed. Close this dialog and reopen it for the selected account.'**
   String get containerImmutabilityAccountChanged;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPushClearTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPushClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPushClearForbidden;
+
+  /// No description provided for @containerTagProtectionPushClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPushClearStale;
+
+  /// No description provided for @containerTagProtectionPushClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPushClearReload;
+
+  /// No description provided for @containerTagProtectionPushClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPushClearMissing;
+
+  /// No description provided for @containerTagProtectionPushClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPushClearRateLimited;
+
+  /// No description provided for @containerTagProtectionPushClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum push role'**
+  String get containerTagProtectionPushClearTitle;
+
+  /// No description provided for @containerTagProtectionPushClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear push restriction'**
+  String get containerTagProtectionPushClearSave;
+
+  /// No description provided for @containerTagProtectionPushClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum push-role restriction for matching container image tags across the project and weakens push protection. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not grant everyone access, delete tags or images, or affect Git tags.'**
+  String get containerTagProtectionPushClearWarning;
+
+  /// No description provided for @containerTagProtectionPushClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this push restriction.'**
+  String get containerTagProtectionPushClearAcknowledge;
+
+  /// No description provided for @containerTagProtectionPushClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPushClearError;
+
+  /// No description provided for @containerTagProtectionPushClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push-role restriction cleared.'**
+  String get containerTagProtectionPushClearSaved;
+
+  /// No description provided for @containerTagProtectionPushClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this push restriction. Check the rule and retry.'**
+  String get containerTagProtectionPushClearInvalid;
+
+  /// No description provided for @containerTagProtectionPushClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerTagProtectionPushClearBlocked;
 }
 
 class _AppLocalizationsDelegate

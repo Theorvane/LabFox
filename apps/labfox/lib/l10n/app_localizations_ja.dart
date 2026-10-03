@@ -32,6 +32,26 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get releaseCreationDateLabel => '公開日時（任意）';
+
+  @override
+  String get releaseCreationDateDefault => '公開日時はGitLabが設定します。';
+
+  @override
+  String get releaseCreationChooseDate => '公開日を選択';
+
+  @override
+  String get releaseCreationChooseTime => '公開時刻を選択';
+
+  @override
+  String get releaseCreationClearDate => 'GitLabの公開日時を使用';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'タイムゾーン: $zone。未来の日時は予定リリース、過去の日時は過去のリリースを作成します。';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'スケジュールを削除';
 
   @override
@@ -3044,4 +3064,59 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerImmutabilityAccountChanged =>
       'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
+
+  @override
+  String containerTagProtectionPushClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushClearForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionPushClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionPushClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionPushClearMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPushClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionPushClearTitle => '最低プッシュロールを解除';
+
+  @override
+  String get containerTagProtectionPushClearSave => 'プッシュ制限を解除';
+
+  @override
+  String get containerTagProtectionPushClearWarning =>
+      'このルールの最低プッシュロール制限を解除すると、プロジェクト内の一致するコンテナイメージタグのプッシュ保護が弱まります。タグパターンと最低削除ロールは維持され、他のルールと権限も引き続き適用されます。全員にアクセス権を与えることはなく、タグやイメージは削除されず、Gitタグにも影響しません。';
+
+  @override
+  String get containerTagProtectionPushClearAcknowledge =>
+      'ルールを確認し、このプッシュ制限を解除する影響を理解しました。';
+
+  @override
+  String get containerTagProtectionPushClearError =>
+      'プッシュ制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionPushClearSaved => '最低プッシュロール制限を解除しました。';
+
+  @override
+  String get containerTagProtectionPushClearInvalid =>
+      'サーバーがプッシュ制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerTagProtectionPushClearBlocked =>
+      '解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。';
 }
