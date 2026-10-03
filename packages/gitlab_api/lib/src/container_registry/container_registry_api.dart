@@ -494,6 +494,42 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Clears only the minimum delete role; tag glob and push role are omitted.
+  Future<ContainerTagProtectionRule> clearTagProtectionDeleteRole(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules/$ruleId',
+        data: {'minimum_access_level_for_delete': ''},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing container tag protection delete role',
+        );
+      }
+      try {
+        final data = response.data as Map<String, dynamic>;
+        if (!data.containsKey('minimum_access_level_for_delete')) {
+          throw const FormatException('Missing cleared delete role');
+        }
+        return ContainerTagProtectionRule.fromJson(data);
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection delete role clear response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'clearing container tag protection delete role',
+      );
+    }
+  }
+
   /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
     Object projectId,

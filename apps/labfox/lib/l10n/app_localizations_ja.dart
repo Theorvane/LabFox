@@ -3606,6 +3606,62 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'ルールが存在しない、重複している、アクセスできない、またはこのインスタンスが更新をサポートしていません（GitLab 18.9以降）。確認前に再読み込みしてください。';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '最低削除ロールを解除';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '削除制限を解除';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'このルールの最低削除ロール制限を解除し、プロジェクト全体で一致するコンテナタグの削除保護を弱めます。タグのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりタグやイメージを削除したりするものではありません。';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'ルールを確認し、この削除制限を解除する影響を理解しました。';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '削除制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '最低削除ロール制限を解除しました。';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'サーバーが削除制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
   String get containerTagProtectionPushClearForbidden => 'このルールを変更する権限がありません。';
 
   @override

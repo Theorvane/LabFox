@@ -3714,6 +3714,64 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'नियम नहीं मिला, अस्पष्ट है, उपलब्ध नहीं है या यह इंस्टेंस अपडेट समर्थित नहीं करता (GitLab 18.9+)। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle =>
+      'न्यूनतम हटाने की भूमिका हटाएँ';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => 'हटाने की प्रतिबंध हटाएँ';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'यह इस नियम का न्यूनतम हटाने की भूमिका का प्रतिबंध हटाता है और पूरे प्रोजेक्ट में मेल खाने वाले कंटेनर टैग की हटाने की सुरक्षा कम करता है। टैग पैटर्न और न्यूनतम पुश भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; इससे सभी को पहुँच नहीं मिलती और टैग या इमेज नहीं हटते।';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'मैंने नियम जाँच लिया है और इस हटाने की प्रतिबंध को हटाने का प्रभाव समझता हूँ।';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      'हटाने की प्रतिबंध हटने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved =>
+      'न्यूनतम हटाने की-भूमिका प्रतिबंध हट गया।';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'सर्वर ने हटाने की प्रतिबंध हटाना अस्वीकार किया। नियम जाँचकर फिर प्रयास करें।';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      'हटाने के लिए समर्थित वर्तमान हटाने की भूमिका और समर्थित गैर-खाली पुश भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
+
+  @override
   String get containerTagProtectionPushClearForbidden =>
       'आपको यह नियम बदलने की अनुमति नहीं है।';
 

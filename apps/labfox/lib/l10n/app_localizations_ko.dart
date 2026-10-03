@@ -3616,6 +3616,62 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없거나 이 인스턴스가 업데이트를 지원하지 않습니다(GitLab 18.9 이상). 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 프로젝트 전체에서 일치하는 컨테이너 태그의 삭제 보호가 약해집니다. 태그 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 태그 또는 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
   String get containerTagProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
 
   @override
