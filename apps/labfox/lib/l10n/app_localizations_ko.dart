@@ -2876,6 +2876,47 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerPolicyStatus => '상태';
 
   @override
+  String get containerPolicyTitle => '정리 정책';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab이 정리 정책을 보고하지 않았습니다.';
+
+  @override
+  String get containerPolicyHint =>
+      '이 프로젝트의 모든 컨테이너 이미지 저장소에 적용되는 읽기 전용 설정입니다. 정리는 일치하는 태그를 비동기로 제거하며 보존 규칙, latest, 보호된 태그 및 변경 불가능한 태그는 유지합니다. 여러 번 실행해야 할 수 있으며 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab이 보고한 다음 실행 시간 (현지 시간)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString일',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString개월',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '활성화';
 
   @override
@@ -2888,17 +2929,18 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerPolicyCadence => '실행 주기';
 
   @override
-  String get containerCreateTitle => '비활성 정리 정책 생성';
+  String get containerCreateTitle => '정리 정책 만들기';
 
   @override
   String get containerCreateSave => '비활성 정책 생성 확인';
 
   @override
   String get containerCreateWarning =>
-      '모든 이미지 저장소에 비활성 정책을 저장합니다. 정리는 활성화되지 않습니다. 나중에 활성화하기 전에 모든 조건을 확인하세요. 일치하는 태그는 영구 삭제될 수 있습니다. 기본 보관 패턴 .*는 모든 태그를 보관하며, 빈 보관 패턴은 패턴 기반 보관을 제공하지 않습니다. 패턴은 입력 그대로 전송되며 GitLab RE2 전체 태그 일치 규칙을 사용합니다. 유효성 검사는 활성화 시 수행될 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+      '모든 이미지 저장소의 정리 기준을 저장합니다. 활성화를 선택하지 않으면 정리는 비활성 상태로 유지됩니다. 기본 보존 패턴 .*는 모든 태그를 보존하며, 빈 보존 패턴은 패턴에 따른 보존을 제공하지 않습니다. 패턴은 입력한 그대로 전송되고 GitLab RE2 전체 태그 일치를 사용합니다. 비활성 상태에서는 검증이 나중으로 미뤄질 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
 
   @override
-  String get containerCreateAcknowledge => '조건을 확인했으며 활성화가 별도 작업임을 이해했습니다.';
+  String get containerCreateAcknowledge =>
+      '기준을 검토했으며 이 정책이 비활성 상태로 유지됨을 이해합니다.';
 
   @override
   String get containerCreateExisting =>
@@ -2909,7 +2951,7 @@ class AppLocalizationsKo extends AppLocalizations {
       'GitLab이 정책 존재 여부를 보고하지 않았습니다. GitLab에서 확인하세요. 생성할 수 없습니다.';
 
   @override
-  String get containerCreateAccepted => '비활성 정리 정책 생성 요청이 수락되었습니다.';
+  String get containerCreateAccepted => '정리 정책 생성 요청이 수락되었습니다.';
 
   @override
   String get containerCreateInvalid =>
@@ -2937,6 +2979,24 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
+
+  @override
+  String get containerCreateEnable => '생성 시 정리 활성화';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '활성 정책은 일정에 따라 이 프로젝트의 모든 이미지 저장소에서 일치하는 태그를 영구 삭제할 수 있습니다. 실행 주기, 보존 수, 보존 기간, 두 패턴을 검토하세요. 보호되거나 변경 불가능한 태그의 제외 여부는 GitLab이 결정합니다. 저장은 삭제 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      '모든 기준을 검토했으며 프로젝트 전체의 일치하는 태그가 일정에 따라 영구 삭제되는 것에 동의합니다.';
+
+  @override
+  String get containerCreateEnabledSave => '활성 정책 생성 확인';
+
+  @override
+  String get containerCreateSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토한 후 정책을 만드세요.';
 
   @override
   String get containerPolicyAge => '제거할 태그의 최소 나이';
@@ -3848,6 +3908,58 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
 
   @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 일치하는 저장소의 삭제 보호가 약해집니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
   String get containerRepositoryProtectionUnavailable =>
       '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
 
@@ -3918,6 +4030,26 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerAgeTitle => '정리 보관 기간 편집';
+
+  @override
+  String get containerAgeSave => '보관 기간 변경 확인';
+
+  @override
+  String get containerAgeSelect => '새 보관 기간 (GitLab API 기간)';
+
+  @override
+  String get containerAgeWarning =>
+      '프로젝트 전체 보관 기간을 줄이면 예약된 정리 실행 시 모든 이미지 저장소에서 더 최근의 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 삭제 기준을 확인하세요. 다른 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerAgeUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerAgeAccepted => '정리 보관 기간 변경 요청이 수락되었습니다.';
 
   @override
   String get containerProtectionPushRoleTitle => '최소 푸시 역할 수정';
