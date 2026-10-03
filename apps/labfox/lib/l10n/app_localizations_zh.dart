@@ -2809,6 +2809,47 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyStatus => '状态';
 
   @override
+  String get containerPolicyTitle => '清理策略';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab 未报告清理策略。';
+
+  @override
+  String get containerPolicyHint =>
+      '此项目所有容器镜像仓库的只读设置。清理异步删除匹配标签，同时遵循保留规则并保留 latest、受保护和不可变标签。某些标签可能需要多次运行才能清理；删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab 报告的下次运行时间（本地时间）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 个月',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '已启用';
 
   @override
@@ -2821,17 +2862,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyCadence => '运行间隔';
 
   @override
-  String get containerCreateTitle => '创建停用的清理策略';
+  String get containerCreateTitle => '创建清理策略';
 
   @override
-  String get containerCreateSave => '确认创建停用策略';
+  String get containerCreateSave => '确认创建未启用的策略';
 
   @override
   String get containerCreateWarning =>
-      '为所有镜像仓库保存停用的策略。这不会启用清理。以后启用前请检查所有条件：匹配的标签可能被永久删除。默认保留模式 .* 保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，使用 GitLab RE2 整个标签匹配规则。验证可能推迟到启用时进行。请求被接受不代表清理完成或存储空间已回收。';
+      '为所有镜像仓库保存清理条件。除非选择启用，否则清理保持关闭。默认保留模式 .* 会保留所有标签；空保留模式不提供基于模式的保留。模式按原样发送，并使用 GitLab RE2 匹配完整标签。未启用时验证可能推迟。请求被接受不代表清理已完成或空间已释放。';
 
   @override
-  String get containerCreateAcknowledge => '我已检查这些条件，并了解启用是单独的操作。';
+  String get containerCreateAcknowledge => '我已检查这些条件，并了解此策略将保持关闭。';
 
   @override
   String get containerCreateExisting => '此项目已有清理策略。创建不会覆盖它；请使用现有设置。';
@@ -2840,7 +2881,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerCreateUnknown => 'GitLab 未报告是否存在策略。请在 GitLab 中检查；创建已被阻止。';
 
   @override
-  String get containerCreateAccepted => '停用的清理策略创建请求已被接受。';
+  String get containerCreateAccepted => '清理策略创建请求已被接受。';
 
   @override
   String get containerCreateInvalid => 'GitLab 拒绝这些策略设置。请检查条件，然后修改或重试。';
@@ -2867,6 +2908,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerPolicyKeepCount => '每个镜像保留的匹配标签数';
+
+  @override
+  String get containerCreateEnable => '创建时启用清理';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '启用的策略可按计划永久删除此项目所有镜像仓库中匹配的标签。请检查执行间隔、保留数量、时间及两个模式。GitLab 决定受保护或不可变标签的排除规则；保存不代表删除已完成或空间已释放。';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      '我已检查所有条件，并接受此项目中匹配的标签被按计划永久删除。';
+
+  @override
+  String get containerCreateEnabledSave => '确认创建已启用的策略';
+
+  @override
+  String get containerCreateSessionChanged =>
+      '账户已更改。请关闭并重新打开此对话框，检查当前项目后再创建策略。';
 
   @override
   String get containerPolicyAge => '删除早于以下时间的标签';
@@ -3730,6 +3789,54 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerProtectionDeleteClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerProtectionDeleteClearReload => '重新加载规则';
+
+  @override
+  String get containerProtectionDeleteClearMissing => '规则不存在、重复或无法访问。确认前请重新加载。';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '清除最低删除角色';
+
+  @override
+  String get containerProtectionDeleteClearSave => '清除删除限制';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      '这会移除此规则的最低删除角色限制，并削弱匹配仓库的删除保护。路径模式和最低推送角色保持不变。其他规则和权限仍然适用；这不会向所有人授予访问权限，也不会删除镜像。';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      '我已检查规则并了解移除此删除限制的影响。';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '无法确认删除限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '最低删除角色限制已清除。';
+
+  @override
+  String get containerProtectionDeleteClearInvalid => '服务器拒绝清除此删除限制。请检查规则后重试。';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '清除需要受支持的当前删除角色和受支持的非空推送角色。已清除或未知的设置无法清除。';
+
+  @override
   String get containerRepositoryProtectionUnavailable =>
       '此实例不支持仓库保护规则，或无法访问该项目。';
 
@@ -3795,6 +3902,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理员';
+
+  @override
+  String get containerAgeTitle => '编辑清理期限';
+
+  @override
+  String get containerAgeSave => '确认期限变更';
+
+  @override
+  String get containerAgeSelect => '新期限 (GitLab API 时长)';
+
+  @override
+  String get containerAgeWarning =>
+      '缩短项目级期限可能导致计划清理时从所有镜像仓库永久删除较新的匹配标签。请检查下面的启用状态和删除条件。其他设置保持不变，这不表示清理已完成。';
+
+  @override
+  String get containerAgeUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerAgeAccepted => '清理期限更新已接受。';
 
   @override
   String get containerDeletePatternTitle => '编辑清理删除模式';
