@@ -3178,6 +3178,77 @@ class AppLocalizationsEn extends AppLocalizations {
       'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.';
 
   @override
+  String get containerCleanupTitle => 'Clean up tags';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'Project $projectId, image repository $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.';
+
+  @override
+  String get containerCleanupLimits =>
+      'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.';
+
+  @override
+  String get containerCleanupDeletePattern => 'Delete pattern (RE2, required)';
+
+  @override
+  String get containerCleanupKeepPattern => 'Keep pattern (RE2, optional)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'Keep newest matching tags (optional)';
+
+  @override
+  String get containerCleanupAge => 'Only remove tags older than';
+
+  @override
+  String get containerCleanupNoAge => 'No age limit';
+
+  @override
+  String get containerCleanupDay => '1 day';
+
+  @override
+  String get containerCleanupWeek => '7 days';
+
+  @override
+  String get containerCleanupMonth => '1 month';
+
+  @override
+  String get containerCleanupRequired => 'Enter an explicit delete pattern.';
+
+  @override
+  String get containerCleanupCountError =>
+      'Enter a non-negative whole number or leave blank.';
+
+  @override
+  String get containerCleanupSchedule => 'Schedule cleanup';
+
+  @override
+  String get containerCleanupScheduled =>
+      'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.';
+
+  @override
+  String get containerCleanupError =>
+      'Could not schedule cleanup. Check your connection and try again.';
+
+  @override
+  String get containerCleanupForbidden =>
+      'You do not have permission to clean up tags in this repository.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.';
+
+  @override
   String get containerTagDeleteForbidden =>
       'You cannot delete this tag. It may be protected or you may not have permission.';
 

@@ -183,6 +183,22 @@ class ContainerRegistryRepository {
     int page = 1,
   }) => client.containerRegistry.listRepositories(projectId, page: page);
 
+  Future<void> cleanupTags(
+    int projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) => client.containerRegistry.deleteTags(
+    projectId,
+    repositoryId,
+    nameRegexDelete: nameRegexDelete,
+    nameRegexKeep: nameRegexKeep,
+    keepN: keepN,
+    olderThan: olderThan,
+  );
+
   Future<Paginated<RegistryTag>> tags(
     int projectId,
     int repositoryId, {

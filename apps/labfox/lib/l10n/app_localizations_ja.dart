@@ -3087,6 +3087,73 @@ class AppLocalizationsJa extends AppLocalizations {
       'タグのみが削除され、画像のブロブは削除されません。タグを削除してもディスク容量は解放されません。';
 
   @override
+  String get containerCleanupTitle => 'タグを整理';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'プロジェクト $projectId、イメージリポジトリ $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '一致するタグは完全に削除されます。latest と保護されたタグは除外されます。保持パターンは削除パターンより優先されます。';
+
+  @override
+  String get containerCleanupLimits =>
+      '整理はリポジトリごとに最大1時間に1回、非同期で実行され、一部のタグのみ削除される場合があります。期間と順序はプッシュ日時ではなくマニフェスト作成日時に基づきます。タグの削除でイメージの容量は解放されません。';
+
+  @override
+  String get containerCleanupDeletePattern => '削除パターン（RE2、必須）';
+
+  @override
+  String get containerCleanupKeepPattern => '保持パターン（RE2、任意）';
+
+  @override
+  String get containerCleanupKeepCount => '最新の一致タグを保持する数（任意）';
+
+  @override
+  String get containerCleanupAge => '次の期間より古いタグのみ削除';
+
+  @override
+  String get containerCleanupNoAge => '期間の制限なし';
+
+  @override
+  String get containerCleanupDay => '1日';
+
+  @override
+  String get containerCleanupWeek => '7日';
+
+  @override
+  String get containerCleanupMonth => '1か月';
+
+  @override
+  String get containerCleanupRequired => '削除パターンを明示的に入力してください。';
+
+  @override
+  String get containerCleanupCountError => '0以上の整数を入力するか、空欄にしてください。';
+
+  @override
+  String get containerCleanupSchedule => '整理を予約';
+
+  @override
+  String get containerCleanupScheduled =>
+      '整理を予約しました。処理が完了するまでタグが残る場合があります。後で更新して確認してください。';
+
+  @override
+  String get containerCleanupError => '整理を予約できませんでした。接続を確認して再試行してください。';
+
+  @override
+  String get containerCleanupForbidden => 'このリポジトリのタグを整理する権限がありません。';
+
+  @override
+  String get containerCleanupRateLimited =>
+      '整理の回数が制限されています。リポジトリごとに最大1時間に1回です。後で再試行してください。';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab が整理条件を拒否しました。RE2 パターンと保持設定を確認してください。';
+
+  @override
   String get containerTagDeleteForbidden =>
       'このタグを削除できません。保護されているか、権限がない可能性があります。';
 

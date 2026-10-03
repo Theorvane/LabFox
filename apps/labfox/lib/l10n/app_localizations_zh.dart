@@ -3020,6 +3020,70 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerTagDeleteWarning => '此操作仅删除标签，不会删除底层镜像数据。删除标签不会释放磁盘空间。';
 
   @override
+  String get containerCleanupTitle => '清理标签';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return '项目 $projectId，镜像仓库 $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '匹配的标签将永久删除。latest 和受保护标签除外。保留模式优先于删除模式。';
+
+  @override
+  String get containerCleanupLimits =>
+      '清理异步执行，每个仓库每小时最多一次，可能只删除部分匹配标签。时间和排序依据清单创建时间，而非推送时间。删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerCleanupDeletePattern => '删除模式（RE2，必填）';
+
+  @override
+  String get containerCleanupKeepPattern => '保留模式（RE2，可选）';
+
+  @override
+  String get containerCleanupKeepCount => '保留最新匹配标签数（可选）';
+
+  @override
+  String get containerCleanupAge => '仅删除早于以下时间的标签';
+
+  @override
+  String get containerCleanupNoAge => '无时间限制';
+
+  @override
+  String get containerCleanupDay => '1 天';
+
+  @override
+  String get containerCleanupWeek => '7 天';
+
+  @override
+  String get containerCleanupMonth => '1 个月';
+
+  @override
+  String get containerCleanupRequired => '请输入明确的删除模式。';
+
+  @override
+  String get containerCleanupCountError => '请输入非负整数或留空。';
+
+  @override
+  String get containerCleanupSchedule => '安排清理';
+
+  @override
+  String get containerCleanupScheduled => '清理已安排。处理完成前标签可能仍存在，请稍后刷新查看进度。';
+
+  @override
+  String get containerCleanupError => '无法安排清理。请检查连接后重试。';
+
+  @override
+  String get containerCleanupForbidden => '您无权清理此仓库的标签。';
+
+  @override
+  String get containerCleanupRateLimited => '清理请求受到限制。每个仓库每小时最多清理一次，请稍后重试。';
+
+  @override
+  String get containerCleanupInvalid => 'GitLab 拒绝了清理条件。请检查 RE2 模式和保留设置。';
+
+  @override
   String get containerTagDeleteForbidden => '无法删除此标签。它可能受保护，或您没有权限。';
 
   @override
