@@ -3853,6 +3853,57 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
+  String get containerProtectionPatternTitle => 'リポジトリ保護パターンを編集';
+
+  @override
+  String get containerProtectionPatternSave => 'パターンを保存';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'パターンの変更により、以前一致したリポジトリの保護が外れ、他のリポジトリに適用される場合があります。ワイルドカード(*)は複数のリポジトリに影響します。両方の最低ロールは変更せず、他のルールと権限は引き続き適用されます。イメージを削除したり、自分のアクセス権を示したりするものではありません。';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      '現在のルールと新しいパターンを確認し、保護の変更を理解しました。';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionPatternError =>
+      'パターンの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionPatternStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionPatternReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionPatternSaved => 'リポジトリ保護パターンを更新しました。';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'パターンが拒否されたか、既に使用されています。入力を編集して再試行してください。';
+
+  @override
+  String get containerProtectionPatternDraft => '新しいリポジトリパスのパターン';
+
+  @override
   String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override

@@ -3981,6 +3981,60 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
+  String get containerProtectionPatternTitle =>
+      'Edit repository protection pattern';
+
+  @override
+  String get containerProtectionPatternSave => 'Save pattern';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'I have reviewed the current rule and new pattern and understand the protection changes.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPatternError =>
+      'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPatternReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'Repository protection pattern updated.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'The pattern was rejected or is already taken. Edit the draft and retry.';
+
+  @override
+  String get containerProtectionPatternDraft => 'New repository path pattern';
+
+  @override
   String get containerRepositoryProtectionTitle =>
       'Repository protection rules';
 

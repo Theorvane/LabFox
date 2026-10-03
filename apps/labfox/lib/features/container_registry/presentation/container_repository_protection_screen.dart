@@ -11,6 +11,7 @@ import 'widgets/container_repository_protection_create_dialog.dart';
 import 'widgets/container_repository_protection_delete_clear_dialog.dart';
 import 'widgets/container_repository_protection_delete_dialog.dart';
 import 'widgets/container_repository_protection_delete_role_dialog.dart';
+import 'widgets/container_repository_protection_pattern_dialog.dart';
 import 'widgets/container_repository_protection_push_clear_dialog.dart';
 import 'widgets/container_repository_protection_push_role_dialog.dart';
 
@@ -234,6 +235,39 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
                                                   SnackBar(
                                                     content: Text(
                                                       l10n.containerProtectionPushRoleSaved,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            tooltip: l10n
+                                                .containerProtectionPatternTitle,
+                                            icon: const Icon(
+                                              Icons.edit_outlined,
+                                            ),
+                                            onPressed: () async {
+                                              final saved = await showDialog<bool>(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (_) =>
+                                                    ContainerRepositoryProtectionPatternDialog(
+                                                      projectId: projectId,
+                                                      rule: rule,
+                                                    ),
+                                              );
+                                              if (saved == true &&
+                                                  context.mounted) {
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      l10n.containerProtectionPatternSaved,
                                                     ),
                                                   ),
                                                 );

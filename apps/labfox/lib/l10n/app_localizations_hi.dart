@@ -3976,6 +3976,60 @@ class AppLocalizationsHi extends AppLocalizations {
       'GitLab ने रखने का पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 
   @override
+  String get containerProtectionPatternTitle =>
+      'रिपॉज़िटरी सुरक्षा पैटर्न बदलें';
+
+  @override
+  String get containerProtectionPatternSave => 'पैटर्न सहेजें';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      'पैटर्न बदलने से पहले मेल खाने वाली रिपॉज़िटरी की सुरक्षा हट सकती है और अन्य पर लागू हो सकती है। वाइल्डकार्ड (*) कई रिपॉज़िटरी को प्रभावित कर सकता है। दोनों न्यूनतम भूमिकाएँ नहीं बदलतीं; अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे इमेज नहीं हटतीं और आपकी पहुँच नहीं बताई जाती।';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      'मैंने वर्तमान नियम और नया पैटर्न जाँच लिया है और सुरक्षा के बदलाव समझता हूँ।';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPatternError =>
+      'पैटर्न बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPatternStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPatternReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPatternSaved =>
+      'रिपॉज़िटरी सुरक्षा पैटर्न बदल गया।';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      'पैटर्न अस्वीकार हुआ या पहले से उपयोग में है। मसौदा बदलकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPatternDraft => 'नया रिपॉज़िटरी पथ पैटर्न';
+
+  @override
   String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override

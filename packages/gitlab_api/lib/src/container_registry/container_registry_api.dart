@@ -181,6 +181,41 @@ class ContainerRegistryApi {
     }
   }
 
+  /// Changes only the path pattern, leaving both minimum roles untouched.
+  Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPattern(
+    Object projectId,
+    int ruleId,
+    String pattern,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'repository_path_pattern': pattern},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating repository protection path pattern',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection pattern update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating repository protection path pattern',
+      );
+    }
+  }
+
   /// Changes only the minimum delete role; other criteria stay unchanged (18.9+).
   Future<ContainerTagProtectionRule> updateTagProtectionDeleteRole(
     Object projectId,

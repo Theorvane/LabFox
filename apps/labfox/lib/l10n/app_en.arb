@@ -2121,6 +2121,31 @@
   "containerKeepPatternUnknown": "Reported activation, cadence, count, age, effective delete pattern and keep pattern are required. A reported empty keep pattern can be replaced; an unreported value cannot. Review missing settings in GitLab. No policy will be created.",
   "containerKeepPatternAccepted": "Cleanup keep pattern update accepted.",
   "containerKeepPatternInvalid": "GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.",
+  "containerProtectionPatternTitle": "Edit repository protection pattern",
+  "containerProtectionPatternSave": "Save pattern",
+  "containerProtectionPatternWarning": "Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.",
+  "containerProtectionPatternAcknowledge": "I have reviewed the current rule and new pattern and understand the protection changes.",
+  "containerProtectionPatternTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionPatternForbidden": "You do not have permission to change this rule.",
+  "containerProtectionPatternError": "Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionPatternStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionPatternReload": "Reload rule",
+  "containerProtectionPatternSaved": "Repository protection pattern updated.",
+  "containerProtectionPatternMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionPatternRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionPatternInvalid": "The pattern was rejected or is already taken. Edit the draft and retry.",
+  "containerProtectionPatternDraft": "New repository path pattern",
+  "@containerProtectionPatternTarget": {
+    "description": "Exact project and repository protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  },
   "containerRepositoryProtectionTitle": "Repository protection rules",
   "containerProtectionRemoveTitle": "Delete repository protection rule",
   "containerProtectionRemoveSave": "Confirm rule deletion",
