@@ -6230,6 +6230,48 @@ abstract class AppLocalizations {
   /// **'The account changed. Close this dialog and open the rule again.'**
   String get protectedBranchUnprotectSessionChanged;
 
+  /// No description provided for @containerKeepPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup keep pattern'**
+  String get containerKeepPatternTitle;
+
+  /// No description provided for @containerKeepPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm keep pattern change'**
+  String get containerKeepPatternSave;
+
+  /// No description provided for @containerKeepPatternSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New keep pattern (GitLab RE2)'**
+  String get containerKeepPatternSelect;
+
+  /// No description provided for @containerKeepPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Narrowing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. Review the current activation and deletion/retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Exact input is sent to GitLab for validation. Other settings are unchanged; acceptance does not confirm cleanup completion. Blank input does not clear the pattern.'**
+  String get containerKeepPatternWarning;
+
+  /// No description provided for @containerKeepPatternUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, count, age, effective delete pattern and keep pattern are required. A reported empty keep pattern can be replaced; an unreported value cannot. Review missing settings in GitLab. No policy will be created.'**
+  String get containerKeepPatternUnknown;
+
+  /// No description provided for @containerKeepPatternAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup keep pattern update accepted.'**
+  String get containerKeepPatternAccepted;
+
+  /// No description provided for @containerKeepPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
+  String get containerKeepPatternInvalid;
+
   /// No description provided for @containerPolicyTitle.
   ///
   /// In en, this message translates to:
