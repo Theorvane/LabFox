@@ -9,6 +9,27 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => 'Publication date (optional)';
+
+  @override
+  String get releaseCreationDateDefault =>
+      'Publication time will be set by GitLab.';
+
+  @override
+  String get releaseCreationChooseDate => 'Choose publication date';
+
+  @override
+  String get releaseCreationChooseTime => 'Choose publication time';
+
+  @override
+  String get releaseCreationClearDate => 'Use publication time from GitLab';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'Time zone: $zone. Future dates create upcoming releases; past dates create historical releases.';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'Delete schedule';
 
   @override
@@ -3262,4 +3283,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
+  String get packageFileDelete => 'Delete file';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'Delete package file?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return 'Delete “$fileName” from “$packageName”? This cannot be undone.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'You cannot delete this file. The package may be protected or you may not have permission.';
+
+  @override
+  String get packageFileDeleteError => 'Could not delete this file. Try again.';
 }
