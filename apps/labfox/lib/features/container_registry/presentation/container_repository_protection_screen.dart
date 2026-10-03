@@ -10,6 +10,7 @@ import 'controllers/container_repository_protection_controller.dart';
 import 'widgets/container_repository_protection_create_dialog.dart';
 import 'widgets/container_repository_protection_delete_clear_dialog.dart';
 import 'widgets/container_repository_protection_delete_dialog.dart';
+import 'widgets/container_repository_protection_push_clear_dialog.dart';
 
 /// Reads protection patterns and required roles without guessing user access.
 class ContainerRepositoryProtectionScreen extends ConsumerWidget {
@@ -121,10 +122,10 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
                                           height: LabFoxSpacing.sm,
                                         ),
                                         Text(
-                                          l10n.containerRepositoryProtectionPushRole(
+                                          l10n.containerRepositoryProtectionDeleteRole(
                                             _role(
                                               l10n,
-                                              rule.minimumAccessLevelForPush,
+                                              rule.minimumAccessLevelForDelete,
                                             ),
                                           ),
                                         ),
@@ -132,11 +133,44 @@ class ContainerRepositoryProtectionScreen extends ConsumerWidget {
                                           height: LabFoxSpacing.sm,
                                         ),
                                         Text(
-                                          l10n.containerRepositoryProtectionDeleteRole(
+                                          l10n.containerRepositoryProtectionPushRole(
                                             _role(
                                               l10n,
-                                              rule.minimumAccessLevelForDelete,
+                                              rule.minimumAccessLevelForPush,
                                             ),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: IconButton(
+                                            tooltip: l10n
+                                                .containerProtectionPushClearTitle,
+                                            icon: const Icon(
+                                              Icons.lock_open_outlined,
+                                            ),
+                                            onPressed: () async {
+                                              final saved = await showDialog<bool>(
+                                                context: context,
+                                                barrierDismissible: false,
+                                                builder: (_) =>
+                                                    ContainerRepositoryProtectionPushClearDialog(
+                                                      projectId: projectId,
+                                                      rule: rule,
+                                                    ),
+                                              );
+                                              if (saved == true &&
+                                                  context.mounted) {
+                                                ScaffoldMessenger.of(
+                                                  context,
+                                                ).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      l10n.containerProtectionPushClearSaved,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            },
                                           ),
                                         ),
                                         Align(

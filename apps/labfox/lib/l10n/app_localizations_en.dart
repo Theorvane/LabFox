@@ -2961,6 +2961,62 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerPolicyCadence => 'Run interval';
 
   @override
+  String get containerCreateTitle => 'Create disabled cleanup policy';
+
+  @override
+  String get containerCreateSave => 'Confirm disabled policy creation';
+
+  @override
+  String get containerCreateWarning =>
+      'Save a disabled policy for all image repositories. This does not enable cleanup. Review every criterion before later activation: matching tags may be permanently deleted. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred until activation. Acceptance does not confirm cleanup completion or reclaimed storage.';
+
+  @override
+  String get containerCreateAcknowledge =>
+      'I have reviewed these criteria and understand that activation is a separate action.';
+
+  @override
+  String get containerCreateExisting =>
+      'This project already has a cleanup policy. Creation will not replace it; use its existing settings.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.';
+
+  @override
+  String get containerCreateAccepted =>
+      'Disabled cleanup policy creation accepted.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab rejected these policy settings. Review the criteria, then edit or retry.';
+
+  @override
+  String get containerCreateDaily => 'Every day';
+
+  @override
+  String get containerCreateWeekly => 'Every week';
+
+  @override
+  String get containerCreateFortnightly => 'Every two weeks';
+
+  @override
+  String get containerCreateMonthly => 'Every month';
+
+  @override
+  String get containerCreateQuarterly => 'Every three months';
+
+  @override
+  String containerCreateDays(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'Matching tags to keep per image';
 
   @override
@@ -3000,6 +3056,39 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get containerActivationError =>
       'Could not confirm the update. Reload the policy and try again.';
+
+  @override
+  String get containerActivationIncomplete =>
+      'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.';
+
+  @override
+  String get containerActivationTitle => 'Change cleanup policy status';
+
+  @override
+  String get containerActivationEnable => 'Enable cleanup';
+
+  @override
+  String get containerActivationDisable => 'Disable cleanup';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.';
+
+  @override
+  String get containerActivationUnknown =>
+      'A known activation status is required. Review policy settings in GitLab.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab rejected this status change. Review the existing policy settings in GitLab.';
+
+  @override
+  String get containerActivationAccepted =>
+      'Cleanup policy status update accepted.';
 
   @override
   String get containerActivationForbidden =>
@@ -3114,9 +3203,133 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => 'Edit minimum push role';
+
+  @override
+  String get containerTagProtectionPushRoleSave => 'Save push role';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      'I have reviewed the rule and new minimum push role and understand the access changes.';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionPushRoleReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionPushRoleSaved =>
+      'Minimum push role updated.';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      'The push role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => 'New minimum push role';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => 'Select a push role';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return 'Minimum delete role: $role';
   }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle =>
+      'Edit minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => 'Save delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      'Changing the minimum delete role changes who can delete matching container image tags across this project. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The tag pattern and minimum push role stay unchanged. Other rules and permissions still apply. Saving this rule does not delete tags or images, affect Git tags, or describe your current access.';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      'I have reviewed the rule and new minimum delete role and understand the access changes.';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved =>
+      'Minimum delete role updated.';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      'The delete role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => 'New minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => 'Select a delete role';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.';
 
   @override
   String get containerTagProtectionRoleUnset => 'Not specified by rule';
@@ -3827,6 +4040,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPushClearReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPushClearTitle => 'Clear minimum push role';
+
+  @override
+  String get containerProtectionPushClearSave => 'Clear push restriction';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      'This removes this rule\'s minimum push-role restriction for matching repositories and weakens push protection. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this push restriction.';
+
+  @override
+  String get containerProtectionPushClearError =>
+      'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPushClearSaved =>
+      'Minimum push-role restriction cleared.';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      'The server rejected clearing this push restriction. Check the rule and retry.';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
 
   @override
   String get containerRepositoryProtectionRoleAdmin => 'Administrator';
