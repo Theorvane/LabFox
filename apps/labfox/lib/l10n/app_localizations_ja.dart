@@ -3066,6 +3066,53 @@ class AppLocalizationsJa extends AppLocalizations {
       'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
 
   @override
+  String get containerImmutabilityDeleteTitle => '不変ルールを削除';
+
+  @override
+  String get containerImmutabilityDeleteButton => 'ルールを削除';
+
+  @override
+  String get containerImmutabilityDeleteDone => '不変ルールを削除しました。';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => 'ルールID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => 'パターンを正確に入力してください';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      'このルールを削除すると、プロジェクト内のすべてのコンテナリポジトリでこの保護が解除されます。一致するタグは上書きやクリーンアップポリシーによる削除が可能になる場合があります。最後の不変ルールを削除すると、マニフェストの直接削除が許可される場合があります。他のルールや権限は引き続き適用されます。画像やタグ自体は削除しません。Owner権限が必要で、変更の反映には時間がかかる場合があります。';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      'プロジェクト全体で保護が失われる影響を理解しました。';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      '削除結果を確認できません。既に成功している可能性があります。再試行前にルールを再読み込みしてください。';
+
+  @override
+  String get containerImmutabilityDeleteReload => 'ルールを再読み込み';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      'ルールが変更されたか、GitLabが要求を拒否しました。再試行前に現在のルールを再読み込みして確認してください。';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      'セッションが拒否されました。ルールを削除する前に再度サインインしてください。';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
+
+  @override
   String containerTagProtectionPushClearTarget(
     String projectId,
     String ruleId,
@@ -3190,6 +3237,55 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerKeepCountAccepted => 'クリーンアップ保持数の更新が受理されました。';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'ブランチルールの保護を解除';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'このルールを削除すると、プッシュやマージが許可され、CI の動作が変わる場合があります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchUnprotectName => '正確なルール名を入力';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '対象ブランチへの影響を理解しました。';
+
+  @override
+  String get protectedBranchUnprotectReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'ブランチルールを削除しました。';
+
+  @override
+  String get protectedBranchUnprotectAuth => 'このルールを変更するには再度サインインしてください。';
+
+  @override
+  String get protectedBranchUnprotectForbidden => 'このルールを削除する権限がありません。';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchUnprotectStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab がリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'ルールが削除されたか確認できません。再試行前に確認してください。';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
 
   @override
   String get containerKeepPatternClearTitle => 'クリーンアップ保持パターンを削除';
