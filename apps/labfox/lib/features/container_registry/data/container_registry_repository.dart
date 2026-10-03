@@ -28,6 +28,14 @@ class ContainerRegistryRepository {
     );
   }
 
+  Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearTagProtectionPushRole(projectId, ruleId);
+
+  Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
+      client.containerRegistry.listTagProtectionRules(projectId);
+
   /// Preflight is best effort, not an atomic uniqueness or permission check.
   Future<ContainerTagImmutabilityRule> createImmutableTagRule(
     int projectId,
@@ -109,9 +117,6 @@ class ContainerRegistryRepository {
     ruleId,
     pattern,
   );
-
-  Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
-      client.containerRegistry.listTagProtectionRules(projectId);
 
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
