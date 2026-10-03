@@ -55,6 +55,40 @@ class ActivationRepository extends ContainerRegistryRepository {
 }
 
 void main() {
+  test(
+    'unreported keep pattern blocks deletion expansion before reading',
+    () async {
+      final repository = ActivationRepository();
+      final container = ProviderContainer(
+        overrides: [
+          containerRegistryRepositoryProvider.overrideWith(
+            (ref) async => repository,
+          ),
+        ],
+      );
+      addTearDown(container.dispose);
+      final expected = reviewedPolicy.copyWith(
+        enabled: false,
+        nameRegexKeep: null,
+      );
+      repository.policy = expected;
+      await expectLater(
+        container
+            .read(cleanupPolicyActivationControllerProvider(7).notifier)
+            .setEnabled(expected: expected, enabled: true),
+        throwsArgumentError,
+      );
+      expect(repository.reads, 0);
+      expect(repository.writes, isEmpty);
+    },
+  );
+  test('explicit empty keep pattern is reported', () {
+    expect(
+      canEnableCleanupPolicy(reviewedPolicy.copyWith(nameRegexKeep: '')),
+      isTrue,
+    );
+  });
+
   test('cannot enable a policy with unreported retention criteria', () async {
     final repository = ActivationRepository();
     final container = ProviderContainer(

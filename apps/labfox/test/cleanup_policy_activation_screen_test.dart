@@ -55,6 +55,16 @@ Future<void> _pump(
 }
 
 void main() {
+  testWidgets('unreported keep pattern hides deletion expansion', (
+    tester,
+  ) async {
+    final repository = ActivationRepository()
+      ..policy = reviewedPolicy.copyWith(enabled: false, nameRegexKeep: null);
+    await _pump(tester, repository);
+    expect(find.text('Enable cleanup'), findsNothing);
+    expect(repository.writes, isEmpty);
+  });
+
   testWidgets('loading cannot be interpreted as an activation state', (
     tester,
   ) async {

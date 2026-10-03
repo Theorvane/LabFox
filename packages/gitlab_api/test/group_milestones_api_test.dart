@@ -6,6 +6,37 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'searches only direct-group milestones and retains header pagination',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: {
+            'x-next-page': ['4'],
+          },
+          body: const [],
+        );
+      });
+      final page = await client.groupMilestones.list(
+        'parent/direct',
+        search: 'Release, phase 1',
+        page: 2,
+      );
+      expect(request.path, '/groups/parent%2Fdirect/milestones');
+      expect(request.queryParameters['search'], 'Release, phase 1');
+      expect(request.queryParameters['page'], 2);
+      expect(request.queryParameters.containsKey('include_ancestors'), isFalse);
+      expect(
+        request.queryParameters.containsKey('include_descendants'),
+        isFalse,
+      );
+      expect(request.queryParameters.containsKey('state'), isFalse);
+      expect(page.nextPage, 4);
+    },
+  );
   test('lists group milestones with pagination and group identity', () async {
     late RequestOptions request;
     final client = _client((options) {

@@ -53,6 +53,7 @@ final cleanupPolicyActivationControllerProvider =
 /// Never activate against unknown core deletion/retention criteria.
 bool canEnableCleanupPolicy(ContainerCleanupPolicy policy) =>
     policy.cadence?.isNotEmpty == true &&
+    policy.nameRegexKeep != null &&
     policy.keepN != null &&
     policy.keepN! >= 0 &&
     policy.olderThan?.isNotEmpty == true &&
