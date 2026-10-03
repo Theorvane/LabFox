@@ -11,6 +11,7 @@ import 'controllers/container_repository_delete_controller.dart';
 import 'widgets/cleanup_policy_cadence_dialog.dart';
 import 'widgets/cleanup_policy_delete_pattern_dialog.dart';
 import 'widgets/cleanup_policy_keep_count_dialog.dart';
+import 'widgets/cleanup_policy_keep_pattern_dialog.dart';
 import 'widgets/container_repository_delete_dialog.dart';
 
 /// Project container image repositories.
@@ -46,6 +47,23 @@ class ContainerRegistryScreen extends ConsumerWidget {
               if (accepted == true && context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(l10n.containerDeletePatternAccepted)),
+                );
+              }
+            },
+          ),
+          IconButton(
+            tooltip: l10n.containerKeepPatternTitle,
+            icon: const Icon(Icons.shield_outlined),
+            onPressed: () async {
+              final accepted = await showDialog<bool>(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) =>
+                    CleanupPolicyKeepPatternDialog(projectId: projectId),
+              );
+              if (accepted == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(l10n.containerKeepPatternAccepted)),
                 );
               }
             },
