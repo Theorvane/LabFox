@@ -9,6 +9,27 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => 'Publication date (optional)';
+
+  @override
+  String get releaseCreationDateDefault =>
+      'Publication time will be set by GitLab.';
+
+  @override
+  String get releaseCreationChooseDate => 'Choose publication date';
+
+  @override
+  String get releaseCreationChooseTime => 'Choose publication time';
+
+  @override
+  String get releaseCreationClearDate => 'Use publication time from GitLab';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'Time zone: $zone. Future dates create upcoming releases; past dates create historical releases.';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'Delete schedule';
 
   @override
