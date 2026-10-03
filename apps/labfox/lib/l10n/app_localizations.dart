@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releaseCreationDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication date (optional)'**
+  String get releaseCreationDateLabel;
+
+  /// No description provided for @releaseCreationDateDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication time will be set by GitLab.'**
+  String get releaseCreationDateDefault;
+
+  /// No description provided for @releaseCreationChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication date'**
+  String get releaseCreationChooseDate;
+
+  /// No description provided for @releaseCreationChooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication time'**
+  String get releaseCreationChooseTime;
+
+  /// No description provided for @releaseCreationClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Use publication time from GitLab'**
+  String get releaseCreationClearDate;
+
+  /// No description provided for @releaseCreationDateHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
+  String releaseCreationDateHelp(String zone);
+
   /// No description provided for @pipelineScheduleDelete.
   ///
   /// In en, this message translates to:
@@ -5833,6 +5869,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
   String get containerTagProtectionPushClearBlocked;
+
+  /// No description provided for @packageFileDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get packageFileDelete;
+
+  /// No description provided for @packageFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package file?'**
+  String get packageFileDeleteConfirmTitle;
+
+  /// Confirmation identifying the file and its package
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{fileName}” from “{packageName}”? This cannot be undone.'**
+  String packageFileDeleteConfirmBody(String fileName, String packageName);
+
+  /// No description provided for @packageFileDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.'**
+  String get packageFileDeleteWarning;
+
+  /// No description provided for @packageFileDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this file. The package may be protected or you may not have permission.'**
+  String get packageFileDeleteForbidden;
+
+  /// No description provided for @packageFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this file. Try again.'**
+  String get packageFileDeleteError;
 
   /// No description provided for @containerKeepPatternTitle.
   ///

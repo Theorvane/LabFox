@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get releaseCreationDateLabel => 'प्रकाशन की तारीख (वैकल्पिक)';
+
+  @override
+  String get releaseCreationDateDefault => 'प्रकाशन का समय GitLab तय करेगा।';
+
+  @override
+  String get releaseCreationChooseDate => 'प्रकाशन की तारीख चुनें';
+
+  @override
+  String get releaseCreationChooseTime => 'प्रकाशन का समय चुनें';
+
+  @override
+  String get releaseCreationClearDate => 'GitLab का प्रकाशन समय इस्तेमाल करें';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return 'समय क्षेत्र: $zone। भविष्य की तारीख आगामी रिलीज़ और पिछली तारीख ऐतिहासिक रिलीज़ बनाती है।';
+  }
+
+  @override
   String get pipelineScheduleDelete => 'शेड्यूल हटाएँ';
 
   @override
@@ -3164,6 +3184,29 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerTagProtectionPushClearBlocked =>
       'हटाने के लिए समर्थित वर्तमान पुश भूमिका और समर्थित गैर-खाली हटाने की भूमिका आवश्यक हैं। पहले से हटाई गई या अज्ञात सेटिंग नहीं हटाई जा सकती।';
+
+  @override
+  String get packageFileDelete => 'फ़ाइल हटाएँ';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'पैकेज फ़ाइल हटाएँ?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '“$packageName” से “$fileName” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'फ़ाइल हटाने से पैकेज खराब हो सकता है, जिससे वह अनुपयोगी हो सकता है या पैकेज मैनेजर से प्राप्त नहीं किया जा सकता।';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'आप यह फ़ाइल नहीं हटा सकते। पैकेज सुरक्षित हो सकता है या आपके पास अनुमति नहीं है।';
+
+  @override
+  String get packageFileDeleteError =>
+      'यह फ़ाइल नहीं हटाई जा सकी। फिर प्रयास करें।';
 
   @override
   String get containerKeepPatternTitle => 'सफ़ाई रखने का पैटर्न संपादित करें';
