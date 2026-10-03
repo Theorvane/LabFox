@@ -9,6 +9,27 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get releaseCreationMilestoneTitle => '里程碑标题（可选）';
+
+  @override
+  String get releaseCreationMilestoneAdd => '添加里程碑';
+
+  @override
+  String get releaseCreationMilestoneRequired => '请输入里程碑标题。';
+
+  @override
+  String get releaseCreationMilestoneDuplicate => '已选择此里程碑。';
+
+  @override
+  String releaseCreationMilestoneRemove(String title) {
+    return '移除里程碑 $title';
+  }
+
+  @override
+  String get releaseCreationMilestoneHelp =>
+      '逐一输入现有里程碑的准确标题。群组里程碑的可用性取决于您的 GitLab 套餐。';
+
+  @override
   String get releasePickerTitle => '选择项目里程碑';
 
   @override
