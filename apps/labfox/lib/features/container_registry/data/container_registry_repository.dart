@@ -81,6 +81,18 @@ class ContainerRegistryRepository {
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
+  Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
+    int projectId, {
+    required String repositoryPathPattern,
+    String? minimumAccessLevelForPush,
+    String? minimumAccessLevelForDelete,
+  }) => client.containerRegistry.createRepositoryProtectionRule(
+    projectId,
+    repositoryPathPattern: repositoryPathPattern,
+    minimumAccessLevelForPush: minimumAccessLevelForPush,
+    minimumAccessLevelForDelete: minimumAccessLevelForDelete,
+  );
+
   Future<void> deleteRepositoryProtectionRule(int projectId, int ruleId) =>
       client.containerRegistry.deleteRepositoryProtectionRule(
         projectId,
@@ -190,6 +202,22 @@ class ContainerRegistryRepository {
     int page = 1,
   }) => client.containerRegistry.listRepositories(projectId, page: page);
 
+  Future<void> cleanupTags(
+    int projectId,
+    int repositoryId, {
+    required String nameRegexDelete,
+    String? nameRegexKeep,
+    int? keepN,
+    String? olderThan,
+  }) => client.containerRegistry.deleteTags(
+    projectId,
+    repositoryId,
+    nameRegexDelete: nameRegexDelete,
+    nameRegexKeep: nameRegexKeep,
+    keepN: keepN,
+    olderThan: olderThan,
+  );
+
   Future<Paginated<RegistryTag>> tags(
     int projectId,
     int repositoryId, {
@@ -198,4 +226,6 @@ class ContainerRegistryRepository {
 
   Future<RegistryTag> tag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.getTag(projectId, repositoryId, tagName);
+  Future<void> deleteTagProtectionRule(int projectId, int ruleId) =>
+      client.containerRegistry.deleteTagProtectionRule(projectId, ruleId);
 }

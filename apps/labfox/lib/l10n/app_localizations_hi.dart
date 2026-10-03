@@ -9,6 +9,26 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get pipelineScheduleExecutionEdit => 'निष्पादन सेटिंग संपादित करें';
+
+  @override
+  String get pipelineScheduleExecutionSave => 'सहेजें';
+
+  @override
+  String get pipelineScheduleExecutionActive => 'सक्रिय';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'रेफ़ दर्ज करें।';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab रेफ़ की जाँच करता है। ब्रांच और टैग का नाम समान हो तो पूर्ण रेफ़ दर्ज करें। सहेजने पर भविष्य के रन पुनर्निर्धारित होते हैं; cron, समय क्षेत्र, वेरिएबल और इनपुट नहीं बदलते।';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      'निष्पादन सेटिंग अपडेट नहीं की जा सकीं। अनुमतियाँ और रेफ़ जाँचें, फिर दोबारा प्रयास करें।';
+
+  @override
   String get pipelineScheduleCreate => 'शेड्यूल बनाएँ';
 
   @override
@@ -3181,6 +3201,52 @@ class AppLocalizationsHi extends AppLocalizations {
       'नियम उपलब्ध नहीं है, अस्पष्ट है, पहुँच योग्य नहीं है या समर्थित नहीं है। संपादन के लिए GitLab 18.9 या बाद का संस्करण चाहिए। पुष्टि से पहले दोबारा लोड करें।';
 
   @override
+  String get containerTagProtectionRemoveTitle => 'टैग सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveSave => 'नियम हटाएँ';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      'इस नियम को हटाने से इस प्रोजेक्ट में मेल खाने वाले कंटेनर इमेज टैग की पुश और हटाने की सुरक्षा हट जाती है। अन्य नियम और अनुमतियाँ लागू रहती हैं। इससे टैग या इमेज नहीं हटते और Git टैग प्रभावित नहीं होते।';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ और इसी नियम को हटाना चाहता हूँ।';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden =>
+      'आपको यह नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      'अनुरोध विफल हुआ लेकिन सर्वर तक पहुँच सकता है। पुनः प्रयास से पहले नियम सूची जाँचें।';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      'नियम बदल गया है या अस्पष्ट है। दोबारा लोड करके पुष्टि करें।';
+
+  @override
+  String get containerTagProtectionRemoveReload => 'नियम दोबारा लोड करें';
+
+  @override
+  String get containerTagProtectionRemoveSaved =>
+      'टैग सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      'नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।';
+
+  @override
   String get containerTagProtectionPatternRateLimited =>
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और पुनः प्रयास करें।';
 
@@ -3205,6 +3271,77 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerTagDeleteWarning =>
       'इससे केवल टैग हटता है, इमेज ब्लॉब नहीं। टैग हटाने से डिस्क स्थान खाली नहीं होता।';
+
+  @override
+  String get containerCleanupTitle => 'टैग साफ़ करें';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return 'प्रोजेक्ट $projectId, इमेज रिपॉज़िटरी $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      'मेल खाने वाले टैग स्थायी रूप से हटेंगे। latest और संरक्षित टैग शामिल नहीं हैं। रखने का पैटर्न हटाने के पैटर्न पर प्राथमिकता रखता है।';
+
+  @override
+  String get containerCleanupLimits =>
+      'सफ़ाई हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे असमकालिक रूप से होती है और कुछ मिलते टैग ही हट सकते हैं। आयु और क्रम मैनिफ़ेस्ट बनने के समय पर आधारित हैं, पुश समय पर नहीं। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerCleanupDeletePattern => 'हटाने का पैटर्न (RE2, आवश्यक)';
+
+  @override
+  String get containerCleanupKeepPattern => 'रखने का पैटर्न (RE2, वैकल्पिक)';
+
+  @override
+  String get containerCleanupKeepCount =>
+      'नवीनतम मिलते टैग रखने की संख्या (वैकल्पिक)';
+
+  @override
+  String get containerCleanupAge => 'इससे पुराने टैग ही हटाएँ';
+
+  @override
+  String get containerCleanupNoAge => 'आयु सीमा नहीं';
+
+  @override
+  String get containerCleanupDay => '1 दिन';
+
+  @override
+  String get containerCleanupWeek => '7 दिन';
+
+  @override
+  String get containerCleanupMonth => '1 महीना';
+
+  @override
+  String get containerCleanupRequired => 'हटाने का स्पष्ट पैटर्न दर्ज करें।';
+
+  @override
+  String get containerCleanupCountError =>
+      'शून्य या धनात्मक पूर्णांक दर्ज करें या खाली छोड़ें।';
+
+  @override
+  String get containerCleanupSchedule => 'सफ़ाई शेड्यूल करें';
+
+  @override
+  String get containerCleanupScheduled =>
+      'सफ़ाई शेड्यूल हुई। प्रक्रिया पूरी होने तक टैग रह सकते हैं; प्रगति देखने के लिए बाद में रीफ़्रेश करें।';
+
+  @override
+  String get containerCleanupError =>
+      'सफ़ाई शेड्यूल नहीं हो सकी। कनेक्शन जाँचें और पुनः प्रयास करें।';
+
+  @override
+  String get containerCleanupForbidden =>
+      'इस रिपॉज़िटरी के टैग साफ़ करने की अनुमति नहीं है।';
+
+  @override
+  String get containerCleanupRateLimited =>
+      'सफ़ाई अनुरोध सीमित है। हर रिपॉज़िटरी में अधिकतम एक बार प्रति घंटे सफ़ाई हो सकती है। बाद में प्रयास करें।';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab ने सफ़ाई मानदंड अस्वीकार किए। RE2 पैटर्न और रखने की सेटिंग जाँचें।';
 
   @override
   String get containerTagDeleteForbidden =>
@@ -3595,6 +3732,52 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerRepositoryProtectionEmpty =>
       'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerProtectionCreateTitle => 'रिपॉज़िटरी सुरक्षा नियम बनाएँ';
+
+  @override
+  String get containerProtectionCreateSave => 'नियम बनाएँ';
+
+  @override
+  String get containerProtectionCreatePattern => 'रिपॉज़िटरी पथ पैटर्न';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return 'प्रोजेक्ट $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      'यह नियम सटीक पैटर्न से मेल खाने वाली रिपॉज़िटरी में चुने गए पुश और हटाने के कार्यों को सीमित करता है। वाइल्डकार्ड (*) कई रिपॉज़िटरी को प्रभावित कर सकता है। न चुनी गई भूमिका के कार्य पर इस नियम से कोई प्रतिबंध नहीं लगता। अन्य नियम और अनुमतियाँ लागू रहती हैं। ये सेटिंग आपकी पहुँच नहीं बतातीं और इमेज नहीं हटातीं।';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      'मैंने पैटर्न और न्यूनतम भूमिकाएँ जाँच ली हैं और उनका प्रभाव समझता हूँ।';
+
+  @override
+  String get containerProtectionCreateUnset => 'इस नियम से कोई प्रतिबंध नहीं';
+
+  @override
+  String get containerProtectionCreateCreated => 'नियम बनाया गया।';
+
+  @override
+  String get containerProtectionCreateForbidden =>
+      'आपको यह नियम बनाने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      'पैटर्न या भूमिकाएँ अस्वीकार हुईं या पैटर्न पहले से उपयोग में है। मसौदा बदलकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionCreateError =>
+      'नियम बनने की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionCreatePush => 'न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerProtectionCreateDelete => 'न्यूनतम हटाने की भूमिका';
 
   @override
   String get containerRepositoryProtectionError =>
