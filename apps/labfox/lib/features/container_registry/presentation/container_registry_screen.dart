@@ -25,6 +25,11 @@ class ContainerRegistryScreen extends ConsumerWidget {
     );
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () => context.canPop()
+              ? context.pop()
+              : context.go(Routes.projectOverview(projectId)),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.lock_outline),
@@ -57,11 +62,6 @@ class ContainerRegistryScreen extends ConsumerWidget {
           ),
         ],
         title: Text(l10n.containerRegistryTitle),
-        leading: BackButton(
-          onPressed: () => context.canPop()
-              ? context.pop()
-              : context.go(Routes.projectOverview(projectId)),
-        ),
       ),
       body: repositories.when(
         loading: () => const Center(child: CircularProgressIndicator()),
