@@ -4232,4 +4232,31 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerAgeAccepted =>
       'सफ़ाई आयु सीमा का अपडेट स्वीकार किया गया।';
+
+  @override
+  String get containerDeletePatternTitle =>
+      'सफ़ाई हटाने का पैटर्न संपादित करें';
+
+  @override
+  String get containerDeletePatternSave =>
+      'हटाने के पैटर्न में बदलाव की पुष्टि करें';
+
+  @override
+  String get containerDeletePatternSelect => 'नया हटाने का पैटर्न (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      'परियोजना के हटाने के पैटर्न का दायरा बढ़ाने से नियोजित सफ़ाई में हर इमेज रिपॉज़िटरी के अधिक मिलते टैग स्थायी रूप से हट सकते हैं। नीचे सक्रिय स्थिति और रखने के मानदंड जाँचें। GitLab RE2 उपयोग करता है और पूरे टैग नाम पर पैटर्न लागू करता है। इनपुट जैसा है वैसा भेजा जाता है और GitLab जाँचता है। अन्य सेटिंग नहीं बदलतीं और स्वीकृति सफ़ाई पूर्ण होने की पुष्टि नहीं है।';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      'सक्रिय स्थिति, अंतराल, रखने की संख्या, आयु सीमा और प्रभावी हटाने का पैटर्न ज्ञात होना आवश्यक है। GitLab में अनुपलब्ध सेटिंग जाँचें। नई नीति नहीं बनाई जाएगी।';
+
+  @override
+  String get containerDeletePatternAccepted =>
+      'सफ़ाई हटाने के पैटर्न का अपडेट स्वीकार किया गया।';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab ने पैटर्न अस्वीकार किया। RE2 सिंटैक्स और मौजूदा नीति जाँचें, फिर संपादित करें या पुनः प्रयास करें।';
 }

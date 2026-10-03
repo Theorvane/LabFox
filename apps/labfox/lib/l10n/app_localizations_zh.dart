@@ -3975,4 +3975,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => '清理期限更新已接受。';
+
+  @override
+  String get containerDeletePatternTitle => '编辑清理删除模式';
+
+  @override
+  String get containerDeletePatternSave => '确认删除模式变更';
+
+  @override
+  String get containerDeletePatternSelect => '新删除模式 (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      '扩大项目级删除模式可能导致计划清理时从所有镜像仓库永久删除更多匹配标签。请检查下面的启用状态和保留条件。GitLab 使用 RE2 并将模式应用于完整标签名。输入会原样发送，由 GitLab 验证。其他设置保持不变，接受请求不表示清理已完成。';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      '需要已报告的启用状态、周期、保留数量、期限和有效删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。';
+
+  @override
+  String get containerDeletePatternAccepted => '清理删除模式更新已接受。';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab 拒绝了此模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 }

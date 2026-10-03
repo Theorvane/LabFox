@@ -7525,6 +7525,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleanup age limit update accepted.'**
   String get containerAgeAccepted;
+
+  /// No description provided for @containerDeletePatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup delete pattern'**
+  String get containerDeletePatternTitle;
+
+  /// No description provided for @containerDeletePatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm delete pattern change'**
+  String get containerDeletePatternSave;
+
+  /// No description provided for @containerDeletePatternSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New delete pattern (GitLab RE2)'**
+  String get containerDeletePatternSelect;
+
+  /// No description provided for @containerDeletePatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.'**
+  String get containerDeletePatternWarning;
+
+  /// No description provided for @containerDeletePatternUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerDeletePatternUnknown;
+
+  /// No description provided for @containerDeletePatternAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup delete pattern update accepted.'**
+  String get containerDeletePatternAccepted;
+
+  /// No description provided for @containerDeletePatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
+  String get containerDeletePatternInvalid;
 }
 
 class _AppLocalizationsDelegate

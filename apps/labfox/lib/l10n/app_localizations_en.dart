@@ -4237,4 +4237,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => 'Cleanup age limit update accepted.';
+
+  @override
+  String get containerDeletePatternTitle => 'Edit cleanup delete pattern';
+
+  @override
+  String get containerDeletePatternSave => 'Confirm delete pattern change';
+
+  @override
+  String get containerDeletePatternSelect => 'New delete pattern (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      'Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      'Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerDeletePatternAccepted =>
+      'Cleanup delete pattern update accepted.';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 }

@@ -4106,4 +4106,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => '정리 보관 기간 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternTitle => '정리 삭제 패턴 편집';
+
+  @override
+  String get containerDeletePatternSave => '삭제 패턴 변경 확인';
+
+  @override
+  String get containerDeletePatternSelect => '새 삭제 패턴 (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      '프로젝트 전체 삭제 패턴의 범위를 넓히면 예약된 정리 실행 시 모든 이미지 저장소에서 더 많은 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 보관 기준을 확인하세요. GitLab은 RE2를 사용하며 태그 이름 전체에 패턴을 적용합니다. 입력은 그대로 전송되고 GitLab이 검증합니다. 다른 설정은 변경되지 않으며 수락은 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간과 유효 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerDeletePatternAccepted => '정리 삭제 패턴 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab이 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 }

@@ -206,6 +206,16 @@ class ContainerRegistryRepository {
     pattern,
   );
 
+  Future<void> setCleanupPolicyDeletePattern(
+    int projectId, {
+    required String nameRegexDelete,
+  }) async {
+    await client.projects.setCleanupPolicyDeletePattern(
+      projectId,
+      nameRegexDelete: nameRegexDelete,
+    );
+  }
+
   Future<void> setCleanupPolicyAge(
     int projectId, {
     required String olderThan,
