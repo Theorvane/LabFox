@@ -107,6 +107,13 @@ class ContainerRegistryRepository {
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
+  Future<void> setCleanupPolicyKeepCount(
+    int projectId, {
+    required int keepN,
+  }) async {
+    await client.projects.setCleanupPolicyKeepCount(projectId, keepN: keepN);
+  }
+
   Future<void> setCleanupPolicyCadence(
     int projectId, {
     required String cadence,
