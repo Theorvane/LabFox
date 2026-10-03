@@ -2809,6 +2809,47 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerPolicyStatus => '状态';
 
   @override
+  String get containerPolicyTitle => '清理策略';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab 未报告清理策略。';
+
+  @override
+  String get containerPolicyHint =>
+      '此项目所有容器镜像仓库的只读设置。清理异步删除匹配标签，同时遵循保留规则并保留 latest、受保护和不可变标签。某些标签可能需要多次运行才能清理；删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab 报告的下次运行时间（本地时间）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 天',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString 个月',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '已启用';
 
   @override

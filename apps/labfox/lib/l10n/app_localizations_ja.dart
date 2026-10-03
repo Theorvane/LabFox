@@ -2867,6 +2867,47 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyStatus => '状態';
 
   @override
+  String get containerPolicyTitle => 'クリーンアップポリシー';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab からクリーンアップポリシーが報告されていません。';
+
+  @override
+  String get containerPolicyHint =>
+      'このプロジェクトのすべてのコンテナイメージリポジトリに適用される読み取り専用設定です。一致するタグを非同期で削除し、保持ルール、latest、保護されたタグと不変タグを維持します。複数回の実行が必要な場合があり、タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab が報告した次回実行日時（現地時間）';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString日',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countStringか月',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '有効';
 
   @override

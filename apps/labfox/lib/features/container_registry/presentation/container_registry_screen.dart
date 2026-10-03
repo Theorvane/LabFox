@@ -111,6 +111,11 @@ class ContainerRegistryScreen extends ConsumerWidget {
             context.push(Routes.containerTagProtectionRules(projectId)),
       ),
       IconButton(
+        tooltip: l10n.containerPolicyTitle,
+        icon: const Icon(Icons.auto_delete_outlined),
+        onPressed: () => context.push(Routes.containerCleanupPolicy(projectId)),
+      ),
+      IconButton(
         tooltip: l10n.containerActivationTitle,
         icon: const Icon(Icons.power_settings_new),
         onPressed: () async {

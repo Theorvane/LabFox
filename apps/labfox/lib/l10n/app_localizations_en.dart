@@ -2949,6 +2949,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get containerPolicyStatus => 'Status';
 
   @override
+  String get containerPolicyTitle => 'Cleanup policy';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab did not report a cleanup policy.';
+
+  @override
+  String get containerPolicyHint =>
+      'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.';
+
+  @override
+  String get containerPolicyNextRun =>
+      'Next run reported by GitLab (local time)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString months',
+      one: '1 month',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => 'Enabled';
 
   @override

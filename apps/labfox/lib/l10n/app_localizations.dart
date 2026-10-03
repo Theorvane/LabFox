@@ -5492,6 +5492,42 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get containerPolicyStatus;
 
+  /// No description provided for @containerPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy'**
+  String get containerPolicyTitle;
+
+  /// No description provided for @containerPolicyAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report a cleanup policy.'**
+  String get containerPolicyAbsent;
+
+  /// No description provided for @containerPolicyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.'**
+  String get containerPolicyHint;
+
+  /// No description provided for @containerPolicyNextRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run reported by GitLab (local time)'**
+  String get containerPolicyNextRun;
+
+  /// No description provided for @containerPolicyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String containerPolicyDays(int count);
+
+  /// No description provided for @containerPolicyMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month} other{{count} months}}'**
+  String containerPolicyMonths(int count);
+
   /// No description provided for @containerPolicyEnabled.
   ///
   /// In en, this message translates to:

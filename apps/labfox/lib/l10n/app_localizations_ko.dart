@@ -2876,6 +2876,47 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerPolicyStatus => '상태';
 
   @override
+  String get containerPolicyTitle => '정리 정책';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab이 정리 정책을 보고하지 않았습니다.';
+
+  @override
+  String get containerPolicyHint =>
+      '이 프로젝트의 모든 컨테이너 이미지 저장소에 적용되는 읽기 전용 설정입니다. 정리는 일치하는 태그를 비동기로 제거하며 보존 규칙, latest, 보호된 태그 및 변경 불가능한 태그는 유지합니다. 여러 번 실행해야 할 수 있으며 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab이 보고한 다음 실행 시간 (현지 시간)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString일',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString개월',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get containerPolicyEnabled => '활성화';
 
   @override
