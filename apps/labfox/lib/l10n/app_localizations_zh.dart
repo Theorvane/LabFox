@@ -2954,6 +2954,58 @@ class AppLocalizationsZh extends AppLocalizations {
       '账户已更改。请关闭此对话框，然后为所选账户重新打开。';
 
   @override
+  String containerTagProtectionPushClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushClearForbidden => '你没有更改此规则的权限。';
+
+  @override
+  String get containerTagProtectionPushClearStale => '确认后规则已更改。请重新加载并检查后再保存。';
+
+  @override
+  String get containerTagProtectionPushClearReload => '重新加载规则';
+
+  @override
+  String get containerTagProtectionPushClearMissing =>
+      '规则不存在、重复、无法访问或不受支持。编辑需要 GitLab 18.9 或更高版本。请重新加载后确认。';
+
+  @override
+  String get containerTagProtectionPushClearRateLimited => '请求过多。请等待后重试。';
+
+  @override
+  String get containerTagProtectionPushClearTitle => '清除最低推送角色';
+
+  @override
+  String get containerTagProtectionPushClearSave => '清除推送限制';
+
+  @override
+  String get containerTagProtectionPushClearWarning =>
+      '清除此规则的最低推送角色限制会削弱本项目中匹配容器镜像标签的推送保护。标签模式和最低删除角色保持不变，其他规则和权限仍然适用。此操作不会授予所有人访问权限，不会删除标签或镜像，也不会影响 Git 标签。';
+
+  @override
+  String get containerTagProtectionPushClearAcknowledge =>
+      '我已检查规则并了解移除此推送限制的影响。';
+
+  @override
+  String get containerTagProtectionPushClearError =>
+      '无法确认推送限制已清除。重试前请检查规则列表；服务器可能已接受请求。';
+
+  @override
+  String get containerTagProtectionPushClearSaved => '最低推送角色限制已清除。';
+
+  @override
+  String get containerTagProtectionPushClearInvalid => '服务器拒绝清除此推送限制。请检查规则后重试。';
+
+  @override
+  String get containerTagProtectionPushClearBlocked =>
+      '清除需要受支持的当前推送角色和受支持的非空删除角色。已清除或未知的设置无法清除。';
+
+  @override
   String get containerTagProtectionPushRoleTitle => '编辑最低推送角色';
 
   @override
