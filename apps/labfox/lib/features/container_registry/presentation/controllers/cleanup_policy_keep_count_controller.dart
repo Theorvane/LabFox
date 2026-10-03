@@ -16,6 +16,7 @@ bool canEditCleanupKeepCount(ContainerCleanupPolicy? policy) =>
     policy.keepN != null &&
     policy.keepN! >= 0 &&
     policy.olderThan?.isNotEmpty == true &&
+    policy.nameRegexKeep != null &&
     (policy.nameRegexDelete ?? policy.nameRegex)?.isNotEmpty == true;
 
 class CleanupPolicyKeepCountController extends FamilyAsyncNotifier<void, int> {

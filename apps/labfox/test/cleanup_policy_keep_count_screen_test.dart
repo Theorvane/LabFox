@@ -77,6 +77,15 @@ Future<void> selectOne(WidgetTester tester) async {
 }
 
 void main() {
+  testWidgets('unreported keep pattern hides retention editing', (tester) async {
+    final repository = KeepCountRepository()
+      ..policy = reviewedPolicy.copyWith(nameRegexKeep: null);
+    await open(tester, repository);
+    expect(find.byType(DropdownButtonFormField<int>), findsNothing);
+    expect(find.byType(FilledButton), findsNothing);
+    expect(repository.writes, isEmpty);
+  });
+
   testWidgets(
     'registry entry opens project-wide retention count confirmation',
     (tester) async {
