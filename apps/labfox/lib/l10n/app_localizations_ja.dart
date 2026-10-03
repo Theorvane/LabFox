@@ -9,6 +9,29 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'スケジュールを作成';
+
+  @override
+  String get pipelineScheduleCreateTitle => '新しいパイプラインスケジュール';
+
+  @override
+  String get pipelineScheduleCreateDescription => '説明';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '値を入力してください。';
+
+  @override
+  String get pipelineScheduleCreateActive => '有効';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab が参照、cron 式、タイムゾーンを検証します。タイムゾーンを空欄にすると UTC を使用します。ブランチとタグが同名の場合は完全な参照を入力してください。';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'このパイプラインスケジュールを作成できませんでした。権限、参照、cron 式、タイムゾーンを確認してください。';
+
+  @override
   String get releaseCreationMilestoneTitle => 'マイルストーンのタイトル（任意）';
 
   @override
@@ -2912,6 +2935,59 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerTagProtectionTitle => 'タグ保護ルール';
 
   @override
+  String get containerTagProtectionCreateTitle => 'タグ保護ルールを作成';
+
+  @override
+  String get containerTagProtectionCreateSave => 'ルールを作成';
+
+  @override
+  String get containerTagProtectionCreatePattern => 'タグ名パターン';
+
+  @override
+  String get containerTagProtectionCreatePush => '最低プッシュロール';
+
+  @override
+  String get containerTagProtectionCreateDelete => '最低削除ロール';
+
+  @override
+  String get containerTagProtectionCreateUnset => 'ロールを選択';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      'このプロジェクト全体のルールは正確なglobパターンに一致するタグのプッシュと削除を制限します。ワイルドカードは多くのタグに影響し、既存のリリースやクリーンアップを妨げる可能性があります。両方のロールが必須です。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '正確なタグパターンと両方のロールを確認し、一致するタグへの影響を理解しました。';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return 'プロジェクト $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => 'このルールを作成する権限がありません。';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      'タグパターンまたはロールが拒否されました。必須の両ロールを確認して再試行してください。';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      'タグルールの作成を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionCreateSaved => 'タグルールを作成しました。';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      'タグルールの作成にはGitLab 18.8以降とアクセス可能なプロジェクトが必要です。';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
   String get containerTagProtectionEmpty => 'タグ保護ルールはありません。';
 
   @override
@@ -2942,7 +3018,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      'Gitタグではなくコンテナイメージタグのルールです。最低ロールは現在のアクセス権を保証しません。表示にはGitLab 18.7以降、編集には18.9以降が必要です。';
+      'Git タグではなくコンテナイメージタグのルールです。最低ロールは現在のアクセス権限を保証しません。表示には GitLab 18.7 以降、作成には 18.8 以降、編集には 18.9 以降が必要です。';
 
   @override
   String get containerTagProtectionPatternTitle => 'タグ保護パターンを編集';
@@ -3085,97 +3161,6 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerImmutabilityAccountChanged =>
       'アカウントが変更されました。このダイアログを閉じ、選択したアカウントで開き直してください。';
-
-  @override
-  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
-
-  @override
-  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
-
-  @override
-  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
-
-  @override
-  String get containerRepositoryProtectionForbidden =>
-      'リポジトリ保護ルールを表示する権限がありません。';
-
-  @override
-  String get containerRepositoryProtectionUnavailable =>
-      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'プッシュに必要な最小ロール: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '削除に必要な最小ロール: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '管理者';
-
-  @override
-  String get containerProtectionDeleteRoleTitle => '最低削除ロールを編集';
-
-  @override
-  String get containerProtectionDeleteRoleSave => '削除ロールを保存';
-
-  @override
-  String get containerProtectionDeleteRoleWarning =>
-      '最低削除ロールを変更すると、一致するリポジトリのイメージを削除できる人が変わります。低いロールは削除保護を弱め、高いロールは既存のクリーンアップを妨げる可能性があります。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示しません。ルールの保存ではイメージは削除されません。';
-
-  @override
-  String get containerProtectionDeleteRoleAcknowledge =>
-      'ルールと新しい最低削除ロールを確認し、アクセスの変更を理解しました。';
-
-  @override
-  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
-    return 'プロジェクト $projectId — ルール $ruleId';
-  }
-
-  @override
-  String get containerProtectionDeleteRoleForbidden => 'このルールを変更する権限がありません。';
-
-  @override
-  String get containerProtectionDeleteRoleError =>
-      '削除ロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
-
-  @override
-  String get containerProtectionDeleteRoleStale =>
-      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
-
-  @override
-  String get containerProtectionDeleteRoleReload => 'ルールを再読み込み';
-
-  @override
-  String get containerProtectionDeleteRoleSaved => '最低削除ロールを更新しました。';
-
-  @override
-  String get containerProtectionDeleteRoleMissing =>
-      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
-
-  @override
-  String get containerProtectionDeleteRoleRateLimited =>
-      '要求が多すぎます。待ってから再試行してください。';
-
-  @override
-  String get containerProtectionDeleteRoleInvalid =>
-      '削除ロールが拒否されました。対応するロールを選んで再試行してください。';
-
-  @override
-  String get containerProtectionDeleteRoleDraft => '新しい最低削除ロール';
-
-  @override
-  String get containerProtectionDeleteRoleSelect => '削除ロールを選択';
-
-  @override
-  String get containerProtectionDeleteRoleUnknown =>
-      '現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
 
   @override
   String get containerImmutabilityDeleteTitle => '不変ルールを削除';
@@ -3422,4 +3407,139 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerKeepPatternInvalid =>
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
+
+  @override
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
+
+  @override
+  String get containerProtectionRemoveTitle => 'リポジトリ保護ルールを削除';
+
+  @override
+  String get containerProtectionRemoveSave => 'ルール削除を確認';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'このルールを削除すると、パスパターンに一致するリポジトリのプッシュまたは削除制限が緩和される場合があります。他のルールと権限は引き続き適用されます。保護ルールのみ削除し、リポジトリ、タグ、イメージは削除しません。対象と最低ロールを確認してください。これらのロールはユーザーの権限を示しません。';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'このルールによる保護制限が削除されることを理解しました。';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => 'このリポジトリ保護ルールを削除する権限がありません。';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'ルール削除を確認できません。再読み込みまたは再試行してください。';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      '確認後にルールが変更されました。削除前に再読み込みして確認してください。';
+
+  @override
+  String get containerProtectionRemoveReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionRemoveDeleted => 'リポジトリ保護ルールを削除しました。';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'ルールが見つからない、対象が曖昧、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'リクエストが多すぎます。しばらく待って再試行してください。';
+
+  @override
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
+
+  @override
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
+
+  @override
+  String get containerProtectionDeleteRoleTitle => '最低削除ロールを編集';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '削除ロールを保存';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '最低削除ロールを変更すると、一致するリポジトリのイメージを削除できる人が変わります。低いロールは削除保護を弱め、高いロールは既存のクリーンアップを妨げる可能性があります。パスのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、この値は自分のアクセス権を示しません。ルールの保存ではイメージは削除されません。';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      'ルールと新しい最低削除ロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '削除ロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionDeleteRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '最低削除ロールを更新しました。';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      '削除ロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '新しい最低削除ロール';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '削除ロールを選択';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
 }

@@ -11,6 +11,29 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Deletes a rule, not the repositories or images matching its pattern.
+  Future<void> deleteRepositoryProtectionRule(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting container repository protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'deleting container repository protection rule',
+      );
+    }
+  }
 
   /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
@@ -198,6 +221,43 @@ class ContainerRegistryApi {
       }
     } on DioException catch (error) {
       throw mapError(error, context: 'deleting a container tag');
+    }
+  }
+
+  /// Creates a container tag rule (GitLab 18.8+) with both required roles.
+  Future<ContainerTagProtectionRule> createTagProtectionRule(
+    Object projectId, {
+    required String tagNamePattern,
+    required String minimumAccessLevelForPush,
+    required String minimumAccessLevelForDelete,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/tag/rules',
+        data: {
+          'tag_name_pattern': tagNamePattern,
+          'minimum_access_level_for_push': minimumAccessLevelForPush,
+          'minimum_access_level_for_delete': minimumAccessLevelForDelete,
+        },
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating container tag protection rule',
+        );
+      }
+      try {
+        return ContainerTagProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid tag protection creation response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating container tag protection rule');
     }
   }
 
