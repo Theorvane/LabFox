@@ -3190,6 +3190,28 @@ class AppLocalizationsEn extends AppLocalizations {
       'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.';
 
   @override
+  String get packageFileDelete => 'Delete file';
+
+  @override
+  String get packageFileDeleteConfirmTitle => 'Delete package file?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return 'Delete “$fileName” from “$packageName”? This cannot be undone.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      'You cannot delete this file. The package may be protected or you may not have permission.';
+
+  @override
+  String get packageFileDeleteError => 'Could not delete this file. Try again.';
+
+  @override
   String get containerCreateTitle => 'Create cleanup policy';
 
   @override

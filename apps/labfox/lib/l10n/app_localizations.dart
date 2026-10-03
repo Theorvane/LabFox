@@ -5870,6 +5870,42 @@ abstract class AppLocalizations {
   /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
   String get containerTagProtectionPushClearBlocked;
 
+  /// No description provided for @packageFileDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get packageFileDelete;
+
+  /// No description provided for @packageFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package file?'**
+  String get packageFileDeleteConfirmTitle;
+
+  /// Confirmation identifying the file and its package
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{fileName}” from “{packageName}”? This cannot be undone.'**
+  String packageFileDeleteConfirmBody(String fileName, String packageName);
+
+  /// No description provided for @packageFileDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.'**
+  String get packageFileDeleteWarning;
+
+  /// No description provided for @packageFileDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this file. The package may be protected or you may not have permission.'**
+  String get packageFileDeleteForbidden;
+
+  /// No description provided for @packageFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this file. Try again.'**
+  String get packageFileDeleteError;
+
   /// No description provided for @containerCreateTitle.
   ///
   /// In en, this message translates to:
