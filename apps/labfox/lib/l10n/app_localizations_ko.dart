@@ -3180,6 +3180,26 @@ class AppLocalizationsKo extends AppLocalizations {
       '저장소 삭제가 예약되었습니다. 새로고침해 진행 상태를 확인하세요.';
 
   @override
+  String get containerKeepCountTitle => '정리 보관 개수 편집';
+
+  @override
+  String get containerKeepCountSave => '보관 개수 변경 확인';
+
+  @override
+  String get containerKeepCountSelect => '이미지별로 보관할 새 일치 태그 개수';
+
+  @override
+  String get containerKeepCountWarning =>
+      '프로젝트 전체 보관 개수를 줄이면 예약된 정리 실행 시 모든 이미지 저장소에서 더 많은 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 삭제 기준을 확인하세요. 다른 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerKeepCountUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerKeepCountAccepted => '정리 보관 개수 변경 요청이 수락되었습니다.';
+
+  @override
   String get containerCreateTitle => '정리 정책 만들기';
 
   @override
