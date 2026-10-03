@@ -1,4 +1,11 @@
 {
+  "pipelineScheduleCreate": "スケジュールを作成",
+  "pipelineScheduleCreateTitle": "新しいパイプラインスケジュール",
+  "pipelineScheduleCreateDescription": "説明",
+  "pipelineScheduleCreateFieldRequired": "値を入力してください。",
+  "pipelineScheduleCreateActive": "有効",
+  "pipelineScheduleCreateHint": "GitLab が参照、cron 式、タイムゾーンを検証します。タイムゾーンを空欄にすると UTC を使用します。ブランチとタグが同名の場合は完全な参照を入力してください。",
+  "pipelineScheduleCreateError": "このパイプラインスケジュールを作成できませんでした。権限、参照、cron 式、タイムゾーンを確認してください。",
   "releaseCreationMilestoneTitle": "マイルストーンのタイトル（任意）",
   "releaseCreationMilestoneAdd": "マイルストーンを追加",
   "releaseCreationMilestoneRequired": "マイルストーンのタイトルを入力してください。",

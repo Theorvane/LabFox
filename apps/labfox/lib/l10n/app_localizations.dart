@@ -104,6 +104,48 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @pipelineScheduleCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create schedule'**
+  String get pipelineScheduleCreate;
+
+  /// No description provided for @pipelineScheduleCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New pipeline schedule'**
+  String get pipelineScheduleCreateTitle;
+
+  /// No description provided for @pipelineScheduleCreateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get pipelineScheduleCreateDescription;
+
+  /// No description provided for @pipelineScheduleCreateFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value.'**
+  String get pipelineScheduleCreateFieldRequired;
+
+  /// No description provided for @pipelineScheduleCreateActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineScheduleCreateActive;
+
+  /// No description provided for @pipelineScheduleCreateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.'**
+  String get pipelineScheduleCreateHint;
+
+  /// No description provided for @pipelineScheduleCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.'**
+  String get pipelineScheduleCreateError;
+
   /// No description provided for @releaseCreationMilestoneTitle.
   ///
   /// In en, this message translates to:

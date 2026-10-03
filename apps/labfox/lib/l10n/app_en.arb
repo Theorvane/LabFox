@@ -1,4 +1,11 @@
 {
+  "pipelineScheduleCreate": "Create schedule",
+  "pipelineScheduleCreateTitle": "New pipeline schedule",
+  "pipelineScheduleCreateDescription": "Description",
+  "pipelineScheduleCreateFieldRequired": "Enter a value.",
+  "pipelineScheduleCreateActive": "Active",
+  "pipelineScheduleCreateHint": "GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.",
+  "pipelineScheduleCreateError": "Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.",
   "releaseCreationMilestoneTitle": "Milestone title (optional)",
   "releaseCreationMilestoneAdd": "Add milestone",
   "releaseCreationMilestoneRequired": "Enter a milestone title.",

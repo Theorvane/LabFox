@@ -9,6 +9,29 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => 'スケジュールを作成';
+
+  @override
+  String get pipelineScheduleCreateTitle => '新しいパイプラインスケジュール';
+
+  @override
+  String get pipelineScheduleCreateDescription => '説明';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '値を入力してください。';
+
+  @override
+  String get pipelineScheduleCreateActive => '有効';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab が参照、cron 式、タイムゾーンを検証します。タイムゾーンを空欄にすると UTC を使用します。ブランチとタグが同名の場合は完全な参照を入力してください。';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      'このパイプラインスケジュールを作成できませんでした。権限、参照、cron 式、タイムゾーンを確認してください。';
+
+  @override
   String get releaseCreationMilestoneTitle => 'マイルストーンのタイトル（任意）';
 
   @override
