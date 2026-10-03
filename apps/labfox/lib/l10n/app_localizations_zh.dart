@@ -1696,6 +1696,36 @@ class AppLocalizationsZh extends AppLocalizations {
   String get pipelinesTitle => '流水线';
 
   @override
+  String get pipelinesStatusAll => '所有状态';
+
+  @override
+  String get pipelinesStatusCreated => '已创建';
+
+  @override
+  String get pipelinesStatusPending => '等待中';
+
+  @override
+  String get pipelinesStatusRunning => '运行中';
+
+  @override
+  String get pipelinesStatusSuccess => '成功';
+
+  @override
+  String get pipelinesStatusFailed => '失败';
+
+  @override
+  String get pipelinesStatusCanceled => '已取消';
+
+  @override
+  String get pipelinesStatusSkipped => '已跳过';
+
+  @override
+  String get pipelinesStatusManual => '手动';
+
+  @override
+  String get pipelinesFilteredEmpty => '没有符合此状态的流水线。';
+
+  @override
   String get pipelinesError => '无法加载流水线。';
 
   @override

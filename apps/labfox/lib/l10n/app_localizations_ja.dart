@@ -1724,6 +1724,36 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelinesTitle => 'パイプライン';
 
   @override
+  String get pipelinesStatusAll => 'すべてのステータス';
+
+  @override
+  String get pipelinesStatusCreated => '作成済み';
+
+  @override
+  String get pipelinesStatusPending => '保留中';
+
+  @override
+  String get pipelinesStatusRunning => '実行中';
+
+  @override
+  String get pipelinesStatusSuccess => '成功';
+
+  @override
+  String get pipelinesStatusFailed => '失敗';
+
+  @override
+  String get pipelinesStatusCanceled => 'キャンセル済み';
+
+  @override
+  String get pipelinesStatusSkipped => 'スキップ済み';
+
+  @override
+  String get pipelinesStatusManual => '手動';
+
+  @override
+  String get pipelinesFilteredEmpty => 'このステータスに一致するパイプラインはありません。';
+
+  @override
   String get pipelinesError => 'パイプラインを読み込めませんでした。';
 
   @override
