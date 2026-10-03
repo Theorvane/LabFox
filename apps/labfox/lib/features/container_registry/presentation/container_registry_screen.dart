@@ -12,6 +12,7 @@ import 'widgets/cleanup_policy_activation_dialog.dart';
 import 'widgets/cleanup_policy_age_dialog.dart';
 import 'widgets/cleanup_policy_cadence_dialog.dart';
 import 'widgets/cleanup_policy_create_dialog.dart';
+import 'widgets/cleanup_policy_delete_pattern_dialog.dart';
 import 'widgets/cleanup_policy_keep_count_dialog.dart';
 import 'widgets/cleanup_policy_keep_pattern_clear_dialog.dart';
 import 'widgets/cleanup_policy_keep_pattern_dialog.dart';
@@ -43,6 +44,23 @@ class ContainerRegistryScreen extends ConsumerWidget {
           if (accepted == true && context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(l10n.containerKeepPatternClearAccepted)),
+            );
+          }
+        },
+      ),
+      IconButton(
+        tooltip: l10n.containerDeletePatternTitle,
+        icon: const Icon(Icons.filter_alt_outlined),
+        onPressed: () async {
+          final accepted = await showDialog<bool>(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) =>
+                CleanupPolicyDeletePatternDialog(projectId: projectId),
+          );
+          if (accepted == true && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(l10n.containerDeletePatternAccepted)),
             );
           }
         },

@@ -156,6 +156,30 @@ Future<GoRouter> _pump(
 }
 
 void main() {
+  for (final width in [320.0, 800.0, 1200.0]) {
+    for (final dark in [false, true]) {
+      testWidgets(
+        'all tag protection actions remain hittable at $width dark=$dark',
+        (tester) async {
+          final repository = _Repository()..rules = [_rules.first];
+          await _pump(tester, repository, width: width, dark: dark);
+          expect(tester.takeException(), isNull);
+          final actions = find.descendant(
+            of: find.byType(Card).first,
+            matching: find.byType(IconButton),
+          );
+          expect(actions, findsNWidgets(6));
+          for (final element in actions.evaluate()) {
+            final action = find.byWidget(element.widget);
+            expect(action.hitTestable(), findsOneWidget);
+            final bounds = tester.getRect(action);
+            expect(bounds.left, greaterThanOrEqualTo(0));
+            expect(bounds.right, lessThanOrEqualTo(width));
+          }
+        },
+      );
+    }
+  }
   test('missing account is an error rather than an empty rule set', () async {
     final container = ProviderContainer(
       overrides: [
