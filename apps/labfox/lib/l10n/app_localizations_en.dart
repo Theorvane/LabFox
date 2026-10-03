@@ -4246,6 +4246,65 @@ class AppLocalizationsEn extends AppLocalizations {
       'Too many requests. Wait and retry.';
 
   @override
+  String get containerProtectionPushRoleTitle => 'Edit minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSave => 'Save push role';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      'Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'I have reviewed the rule and new minimum push role and understand the access changes.';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerProtectionPushRoleReload => 'Reload rule';
+
+  @override
+  String get containerProtectionPushRoleSaved => 'Minimum push role updated.';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'The rule is missing, ambiguous, or inaccessible. Reload before confirming.';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'The push role was rejected. Choose a supported role and retry.';
+
+  @override
+  String get containerProtectionPushRoleDraft => 'New minimum push role';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'Select a push role';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.';
+
+  @override
   String get containerProtectionPushClearTitle => 'Clear minimum push role';
 
   @override

@@ -4241,6 +4241,65 @@ class AppLocalizationsHi extends AppLocalizations {
       'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
 
   @override
+  String get containerProtectionPushRoleTitle => 'न्यूनतम पुश भूमिका बदलें';
+
+  @override
+  String get containerProtectionPushRoleSave => 'पुश भूमिका सहेजें';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      'न्यूनतम पुश भूमिका बदलने से मेल खाने वाली रिपॉज़िटरी में पुश करने वाले लोग बदलते हैं। निचली भूमिका सुरक्षा कम करती है; ऊँची भूमिका मौजूदा कार्यप्रवाह रोक सकती है। पथ पैटर्न और न्यूनतम हटाने की भूमिका नहीं बदलते। अन्य नियम और अनुमतियाँ लागू रहती हैं; ये मान आपकी पहुँच नहीं बताते और इमेज नहीं हटाते।';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      'मैंने नियम और नई न्यूनतम पुश भूमिका जाँच ली है और पहुँच के बदलाव समझता हूँ।';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden =>
+      'आपको यह नियम बदलने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      'पुश भूमिका बदलाव की पुष्टि नहीं हुई। फिर प्रयास करने से पहले नियम सूची जाँचें; सर्वर ने अनुरोध स्वीकार किया हो सकता है।';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      'पुष्टि के बाद नियम बदल गया। सहेजने से पहले पुनः लोड करके जाँचें।';
+
+  @override
+  String get containerProtectionPushRoleReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionPushRoleSaved => 'न्यूनतम पुश भूमिका बदल गई।';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      'नियम नहीं मिला, अस्पष्ट है या उपलब्ध नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      'बहुत अधिक अनुरोध हैं। प्रतीक्षा करके फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      'पुश भूमिका अस्वीकार हुई। समर्थित भूमिका चुनकर फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionPushRoleDraft => 'नई न्यूनतम पुश भूमिका';
+
+  @override
+  String get containerProtectionPushRoleSelect => 'पुश भूमिका चुनें';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      'वर्तमान पुश भूमिका अज्ञात है। असमर्थित सेटिंग बदलने से बचाने के लिए संपादन रोका गया है।';
+
+  @override
   String get containerProtectionPushClearTitle => 'न्यूनतम पुश भूमिका हटाएँ';
 
   @override

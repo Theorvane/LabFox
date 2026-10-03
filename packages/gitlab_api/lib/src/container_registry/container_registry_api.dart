@@ -11,6 +11,41 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Changes only the minimum push role; pattern and delete role are omitted.
+  Future<ContainerRepositoryProtectionRule> updateRepositoryProtectionPushRole(
+    Object projectId,
+    int ruleId,
+    String role,
+  ) async {
+    try {
+      final response = await _dio.patch<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+        data: {'minimum_access_level_for_push': role},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating repository protection push role',
+        );
+      }
+      try {
+        return ContainerRepositoryProtectionRule.fromJson(
+          response.data as Map<String, dynamic>,
+        );
+      } catch (_) {
+        throw const GitLabServerException(
+          'Invalid protection push role update response',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating repository protection push role',
+      );
+    }
+  }
+
   /// Changes only the minimum push role; other criteria stay unchanged (18.9+).
   Future<ContainerTagProtectionRule> updateTagProtectionPushRole(
     Object projectId,
