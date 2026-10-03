@@ -2818,6 +2818,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerActivationError => '无法确认更新。请重新加载策略后重试。';
 
   @override
+  String get containerActivationIncomplete =>
+      '启用清理需要已报告的运行间隔、保留数量、时间限制和删除模式。请在 GitLab 中检查策略。';
+
+  @override
+  String get containerActivationTitle => '更改清理策略状态';
+
+  @override
+  String get containerActivationEnable => '启用清理';
+
+  @override
+  String get containerActivationDisable => '禁用清理';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '启用此项目级策略可能在计划运行时永久删除匹配标签。显示的保留设置和模式不会更改。删除标签不会回收镜像存储空间。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '禁用此项目未来的计划清理，不更改保留设置或模式。请勿假定正在运行的清理任务会被取消。';
+
+  @override
+  String get containerActivationUnknown => '需要已知的启用状态。请在 GitLab 中检查策略设置。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab 拒绝了此状态更改。请在 GitLab 中检查现有策略设置。';
+
+  @override
+  String get containerActivationAccepted => '清理策略状态更新已接受。';
+
+  @override
   String get containerActivationForbidden => '您无权更改此清理策略。';
 
   @override
@@ -3251,33 +3282,34 @@ class AppLocalizationsZh extends AppLocalizations {
       'GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。';
 
   @override
-  String get containerActivationIncomplete =>
-      '启用清理需要已报告的运行间隔、保留数量、时间限制和删除模式。请在 GitLab 中检查策略。';
+  String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
-  String get containerActivationTitle => '更改清理策略状态';
+  String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override
-  String get containerActivationEnable => '启用清理';
+  String get containerRepositoryProtectionError => '无法加载仓库保护规则。';
 
   @override
-  String get containerActivationDisable => '禁用清理';
+  String get containerRepositoryProtectionForbidden => '您没有查看仓库保护规则的权限。';
 
   @override
-  String get containerActivationEnableWarning =>
-      '启用此项目级策略可能在计划运行时永久删除匹配标签。显示的保留设置和模式不会更改。删除标签不会回收镜像存储空间。';
+  String get containerRepositoryProtectionUnavailable =>
+      '此实例不支持仓库保护规则，或无法访问该项目。';
 
   @override
-  String get containerActivationDisableWarning =>
-      '禁用此项目未来的计划清理，不更改保留设置或模式。请勿假定正在运行的清理任务会被取消。';
+  String containerRepositoryProtectionPushRole(String role) {
+    return '推送所需的最低角色：$role';
+  }
 
   @override
-  String get containerActivationUnknown => '需要已知的启用状态。请在 GitLab 中检查策略设置。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '删除所需的最低角色：$role';
+  }
 
   @override
-  String get containerActivationInvalid =>
-      'GitLab 拒绝了此状态更改。请在 GitLab 中检查现有策略设置。';
+  String get containerRepositoryProtectionRoleUnset => '规则未指定';
 
   @override
-  String get containerActivationAccepted => '清理策略状态更新已接受。';
+  String get containerRepositoryProtectionRoleAdmin => '管理员';
 }

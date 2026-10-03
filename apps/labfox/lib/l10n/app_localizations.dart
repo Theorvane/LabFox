@@ -5510,6 +5510,60 @@ abstract class AppLocalizations {
   /// **'Could not confirm the update. Reload the policy and try again.'**
   String get containerActivationError;
 
+  /// No description provided for @containerActivationIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.'**
+  String get containerActivationIncomplete;
+
+  /// No description provided for @containerActivationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change cleanup policy status'**
+  String get containerActivationTitle;
+
+  /// No description provided for @containerActivationEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup'**
+  String get containerActivationEnable;
+
+  /// No description provided for @containerActivationDisable.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable cleanup'**
+  String get containerActivationDisable;
+
+  /// No description provided for @containerActivationEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.'**
+  String get containerActivationEnableWarning;
+
+  /// No description provided for @containerActivationDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.'**
+  String get containerActivationDisableWarning;
+
+  /// No description provided for @containerActivationUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'A known activation status is required. Review policy settings in GitLab.'**
+  String get containerActivationUnknown;
+
+  /// No description provided for @containerActivationInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this status change. Review the existing policy settings in GitLab.'**
+  String get containerActivationInvalid;
+
+  /// No description provided for @containerActivationAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy status update accepted.'**
+  String get containerActivationAccepted;
+
   /// No description provided for @containerActivationForbidden.
   ///
   /// In en, this message translates to:
@@ -6272,59 +6326,59 @@ abstract class AppLocalizations {
   /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
   String get containerKeepPatternInvalid;
 
-  /// No description provided for @containerActivationIncomplete.
+  /// No description provided for @containerRepositoryProtectionTitle.
   ///
   /// In en, this message translates to:
-  /// **'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.'**
-  String get containerActivationIncomplete;
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
 
-  /// No description provided for @containerActivationTitle.
+  /// No description provided for @containerRepositoryProtectionEmpty.
   ///
   /// In en, this message translates to:
-  /// **'Change cleanup policy status'**
-  String get containerActivationTitle;
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
 
-  /// No description provided for @containerActivationEnable.
+  /// No description provided for @containerRepositoryProtectionError.
   ///
   /// In en, this message translates to:
-  /// **'Enable cleanup'**
-  String get containerActivationEnable;
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
 
-  /// No description provided for @containerActivationDisable.
+  /// No description provided for @containerRepositoryProtectionForbidden.
   ///
   /// In en, this message translates to:
-  /// **'Disable cleanup'**
-  String get containerActivationDisable;
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
 
-  /// No description provided for @containerActivationEnableWarning.
+  /// No description provided for @containerRepositoryProtectionUnavailable.
   ///
   /// In en, this message translates to:
-  /// **'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.'**
-  String get containerActivationEnableWarning;
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
 
-  /// No description provided for @containerActivationDisableWarning.
+  /// Minimum push role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.'**
-  String get containerActivationDisableWarning;
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
 
-  /// No description provided for @containerActivationUnknown.
+  /// Minimum delete role in a repository protection rule
   ///
   /// In en, this message translates to:
-  /// **'A known activation status is required. Review policy settings in GitLab.'**
-  String get containerActivationUnknown;
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
 
-  /// No description provided for @containerActivationInvalid.
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
   ///
   /// In en, this message translates to:
-  /// **'GitLab rejected this status change. Review the existing policy settings in GitLab.'**
-  String get containerActivationInvalid;
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
 
-  /// No description provided for @containerActivationAccepted.
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
   ///
   /// In en, this message translates to:
-  /// **'Cleanup policy status update accepted.'**
-  String get containerActivationAccepted;
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
 }
 
 class _AppLocalizationsDelegate

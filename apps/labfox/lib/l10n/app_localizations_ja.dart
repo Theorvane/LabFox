@@ -2875,6 +2875,38 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
 
   @override
+  String get containerActivationIncomplete =>
+      'クリーンアップを有効化するには、実行間隔、保持数、期間制限、削除パターンが報告されている必要があります。GitLab でポリシーを確認してください。';
+
+  @override
+  String get containerActivationTitle => 'クリーンアップポリシーの状態を変更';
+
+  @override
+  String get containerActivationEnable => 'クリーンアップを有効化';
+
+  @override
+  String get containerActivationDisable => 'クリーンアップを無効化';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'プロジェクト全体のポリシーを有効化すると、定期実行で一致するタグが完全に削除される可能性があります。表示された保持設定とパターンは変更しません。タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '保持設定やパターンを変更せず、このプロジェクトの今後の定期クリーンアップを無効化します。実行中のジョブがキャンセルされるとは限りません。';
+
+  @override
+  String get containerActivationUnknown =>
+      '既知の有効化状態が必要です。GitLab でポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab が状態変更を拒否しました。GitLab で既存のポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationAccepted => 'クリーンアップポリシーの状態更新が受け付けられました。';
+
+  @override
   String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
 
   @override
@@ -3333,34 +3365,35 @@ class AppLocalizationsJa extends AppLocalizations {
       'GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
-  String get containerActivationIncomplete =>
-      'クリーンアップを有効化するには、実行間隔、保持数、期間制限、削除パターンが報告されている必要があります。GitLab でポリシーを確認してください。';
+  String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override
-  String get containerActivationTitle => 'クリーンアップポリシーの状態を変更';
+  String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override
-  String get containerActivationEnable => 'クリーンアップを有効化';
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
 
   @override
-  String get containerActivationDisable => 'クリーンアップを無効化';
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
 
   @override
-  String get containerActivationEnableWarning =>
-      'プロジェクト全体のポリシーを有効化すると、定期実行で一致するタグが完全に削除される可能性があります。表示された保持設定とパターンは変更しません。タグの削除ではイメージ容量は解放されません。';
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
 
   @override
-  String get containerActivationDisableWarning =>
-      '保持設定やパターンを変更せず、このプロジェクトの今後の定期クリーンアップを無効化します。実行中のジョブがキャンセルされるとは限りません。';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
 
   @override
-  String get containerActivationUnknown =>
-      '既知の有効化状態が必要です。GitLab でポリシー設定を確認してください。';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
 
   @override
-  String get containerActivationInvalid =>
-      'GitLab が状態変更を拒否しました。GitLab で既存のポリシー設定を確認してください。';
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
 
   @override
-  String get containerActivationAccepted => 'クリーンアップポリシーの状態更新が受け付けられました。';
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

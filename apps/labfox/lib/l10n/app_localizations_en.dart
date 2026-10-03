@@ -2959,6 +2959,39 @@ class AppLocalizationsEn extends AppLocalizations {
       'Could not confirm the update. Reload the policy and try again.';
 
   @override
+  String get containerActivationIncomplete =>
+      'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.';
+
+  @override
+  String get containerActivationTitle => 'Change cleanup policy status';
+
+  @override
+  String get containerActivationEnable => 'Enable cleanup';
+
+  @override
+  String get containerActivationDisable => 'Disable cleanup';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.';
+
+  @override
+  String get containerActivationUnknown =>
+      'A known activation status is required. Review policy settings in GitLab.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab rejected this status change. Review the existing policy settings in GitLab.';
+
+  @override
+  String get containerActivationAccepted =>
+      'Cleanup policy status update accepted.';
+
+  @override
   String get containerActivationForbidden =>
       'You do not have permission to change this cleanup policy.';
 
@@ -3434,35 +3467,38 @@ class AppLocalizationsEn extends AppLocalizations {
       'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
-  String get containerActivationIncomplete =>
-      'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.';
+  String get containerRepositoryProtectionTitle =>
+      'Repository protection rules';
 
   @override
-  String get containerActivationTitle => 'Change cleanup policy status';
+  String get containerRepositoryProtectionEmpty =>
+      'No repository protection rules.';
 
   @override
-  String get containerActivationEnable => 'Enable cleanup';
+  String get containerRepositoryProtectionError =>
+      'Could not load repository protection rules.';
 
   @override
-  String get containerActivationDisable => 'Disable cleanup';
+  String get containerRepositoryProtectionForbidden =>
+      'You do not have permission to view repository protection rules.';
 
   @override
-  String get containerActivationEnableWarning =>
-      'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.';
+  String get containerRepositoryProtectionUnavailable =>
+      'Repository protection rules are unavailable on this instance, or the project is not accessible.';
 
   @override
-  String get containerActivationDisableWarning =>
-      'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.';
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'Minimum push role: $role';
+  }
 
   @override
-  String get containerActivationUnknown =>
-      'A known activation status is required. Review policy settings in GitLab.';
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'Minimum delete role: $role';
+  }
 
   @override
-  String get containerActivationInvalid =>
-      'GitLab rejected this status change. Review the existing policy settings in GitLab.';
+  String get containerRepositoryProtectionRoleUnset => 'Not specified by rule';
 
   @override
-  String get containerActivationAccepted =>
-      'Cleanup policy status update accepted.';
+  String get containerRepositoryProtectionRoleAdmin => 'Administrator';
 }

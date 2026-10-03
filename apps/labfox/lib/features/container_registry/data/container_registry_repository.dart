@@ -71,15 +71,19 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
-  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
-      (await client.projects.get(projectId)).containerExpirationPolicy;
-
   Future<void> setCleanupPolicyEnabled(
     int projectId, {
     required bool enabled,
   }) async {
     await client.projects.setCleanupPolicyEnabled(projectId, enabled: enabled);
   }
+
+  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
+      (await client.projects.get(projectId)).containerExpirationPolicy;
+
+  Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
+    int projectId,
+  ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
 
   Future<void> deleteRepository(int projectId, int repositoryId) =>
       client.containerRegistry.deleteRepository(projectId, repositoryId);
