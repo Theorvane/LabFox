@@ -6,6 +6,105 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  const validRule = {
+    'id': 2,
+    'project_id': 7,
+    'repository_path_pattern': 'team/app/*',
+    'minimum_access_level_for_push': null,
+    'minimum_access_level_for_delete': 'owner',
+  };
+  final malformed = <String, Object?>{
+    'null body': null,
+    'object instead of array': {'private-fixture': true},
+    'string instead of array': 'private-fixture',
+    'scalar instead of array': 7,
+    'non-object item': ['private-fixture'],
+    'missing required fields': [{}],
+    'invalid required field type': [
+      {...validRule, 'id': 'private-fixture'},
+    ],
+    'invalid optional role type': [
+      {...validRule, 'minimum_access_level_for_push': 40},
+    ],
+    'mixed valid and invalid items': [validRule, 'private-fixture'],
+  };
+  for (final entry in malformed.entries) {
+    test(
+      'malformed protection rule list maps to safe domain error: ${entry.key}',
+      () async {
+        final client = _client(
+          (_) => (status: 200, headers: const {}, body: entry.value),
+        );
+        await expectLater(
+          client.containerRegistry.listRepositoryProtectionRules(7),
+          throwsA(
+            isA<GitLabServerException>().having(
+              (error) => error.message,
+              'safe message',
+              isNot(contains('private-fixture')),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  test(
+    'lists repository protection rules using an encoded project path',
+    () async {
+      late RequestOptions request;
+      final client = _client((options) {
+        request = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: [
+            {
+              'id': 2,
+              'project_id': 7,
+              'repository_path_pattern': 'team/app/*',
+              'minimum_access_level_for_push': null,
+              'minimum_access_level_for_delete': 'owner',
+            },
+          ],
+        );
+      });
+      final rules = await client.containerRegistry
+          .listRepositoryProtectionRules('team/project');
+      expect(request.method, 'GET');
+      expect(
+        request.path,
+        '/projects/team%2Fproject/registry/protection/repository/rules',
+      );
+      expect(request.queryParameters, isEmpty);
+      expect(rules.single.repositoryPathPattern, 'team/app/*');
+      expect(rules.single.minimumAccessLevelForPush, isNull);
+      expect(rules.single.minimumAccessLevelForDelete, 'owner');
+    },
+  );
+  test('empty protection rules remain an empty list', () async {
+    final client = _client((_) => (status: 200, headers: const {}, body: []));
+    expect(
+      await client.containerRegistry.listRepositoryProtectionRules(7),
+      isEmpty,
+    );
+  });
+  for (final status in [401, 403, 404, 429, 500]) {
+    test('maps rejected protection rule reads $status', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: {}),
+      );
+      await expectLater(
+        client.containerRegistry.listRepositoryProtectionRules(7),
+        throwsA(switch (status) {
+          401 => isA<GitLabAuthException>(),
+          403 => isA<GitLabForbiddenException>(),
+          404 => isA<GitLabNotFoundException>(),
+          429 => isA<GitLabRateLimitException>(),
+          _ => isA<GitLabServerException>(),
+        }),
+      );
+    });
+  }
   test('schedules cleanup with encoded IDs and exact JSON criteria', () async {
     late RequestOptions request;
     final client = _client((options) {

@@ -2920,6 +2920,54 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerPolicyCadence => '実行間隔';
 
   @override
+  String get containerCreateTitle => '無効なクリーンアップポリシーを作成';
+
+  @override
+  String get containerCreateSave => '無効なポリシーの作成を確認';
+
+  @override
+  String get containerCreateWarning =>
+      'すべてのイメージリポジトリに無効なポリシーを保存します。クリーンアップは有効になりません。後で有効にする前にすべての条件を確認してください。一致するタグは完全削除される場合があります。既定の保持パターン .* はすべてのタグを保持し、空の保持パターンはパターンによる保持を提供しません。入力したパターンをそのまま送信し、GitLab RE2 のタグ全体一致を使用します。検証は有効化時まで延期される場合があります。受理はクリーンアップの完了や容量の回復を意味しません。';
+
+  @override
+  String get containerCreateAcknowledge => '条件を確認し、有効化は別の操作であることを理解しました。';
+
+  @override
+  String get containerCreateExisting =>
+      'このプロジェクトには既存のクリーンアップポリシーがあります。作成では上書きしません。既存の設定を使用してください。';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab がポリシーの有無を報告していません。GitLab で確認してください。作成はできません。';
+
+  @override
+  String get containerCreateAccepted => '無効なクリーンアップポリシーの作成が受理されました。';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab が設定を拒否しました。条件を確認し、編集するか再試行してください。';
+
+  @override
+  String get containerCreateDaily => '毎日';
+
+  @override
+  String get containerCreateWeekly => '毎週';
+
+  @override
+  String get containerCreateFortnightly => '2週間ごと';
+
+  @override
+  String get containerCreateMonthly => '毎月';
+
+  @override
+  String get containerCreateQuarterly => '3か月ごと';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days日';
+  }
+
+  @override
   String get containerPolicyKeepCount => 'イメージごとに保持する一致タグ数';
 
   @override
@@ -2957,6 +3005,38 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerActivationError => '更新を確認できませんでした。ポリシーを再読み込みして再試行してください。';
+
+  @override
+  String get containerActivationIncomplete =>
+      'クリーンアップを有効化するには、実行間隔、保持数、期間制限、削除パターンが報告されている必要があります。GitLab でポリシーを確認してください。';
+
+  @override
+  String get containerActivationTitle => 'クリーンアップポリシーの状態を変更';
+
+  @override
+  String get containerActivationEnable => 'クリーンアップを有効化';
+
+  @override
+  String get containerActivationDisable => 'クリーンアップを無効化';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'プロジェクト全体のポリシーを有効化すると、定期実行で一致するタグが完全に削除される可能性があります。表示された保持設定とパターンは変更しません。タグの削除ではイメージ容量は解放されません。';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '保持設定やパターンを変更せず、このプロジェクトの今後の定期クリーンアップを無効化します。実行中のジョブがキャンセルされるとは限りません。';
+
+  @override
+  String get containerActivationUnknown =>
+      '既知の有効化状態が必要です。GitLab でポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab が状態変更を拒否しました。GitLab で既存のポリシー設定を確認してください。';
+
+  @override
+  String get containerActivationAccepted => 'クリーンアップポリシーの状態更新が受け付けられました。';
 
   @override
   String get containerActivationForbidden => 'このクリーンアップポリシーを変更する権限がありません。';
@@ -3067,9 +3147,128 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get containerTagProtectionPushRoleTitle => '最低プッシュロールを編集';
+
+  @override
+  String get containerTagProtectionPushRoleSave => 'プッシュロールを保存';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '最低プッシュロールを変更すると、プロジェクト内の一致するコンテナイメージタグをプッシュできる対象が変わります。低いロールは保護を弱め、高いロールは既存のワークフローを妨げる場合があります。タグパターンと最低削除ロールは維持され、他のルールと権限も引き続き適用されます。タグやイメージは削除されず、Gitタグには影響せず、現在のアクセス権も示しません。';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      'ルールと新しい最低プッシュロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      'プッシュロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionPushRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '最低プッシュロールを更新しました。';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      'プッシュロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '新しい最低プッシュロール';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => 'プッシュロールを選択';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '現在のプッシュロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
+
+  @override
   String containerTagProtectionDeleteRole(String role) {
     return '削除の最低ロール: $role';
   }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle => '最低削除ロールを編集';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => '削除ロールを保存';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      '最低削除ロールを変更すると、プロジェクト内の一致するコンテナイメージタグを削除できる対象が変わります。低いロールは削除保護を弱め、高いロールは既存のクリーンアップを妨げる場合があります。タグパターンと最低プッシュロールは維持され、他のルールと権限も引き続き適用されます。保存してもタグやイメージは削除されず、Gitタグに影響せず、現在のアクセス権も示しません。';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      'ルールと新しい最低削除ロールを確認し、アクセスの変更を理解しました。';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      '削除ロールの更新を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved => '最低削除ロールを更新しました。';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      'ルールが存在しないか、重複しているか、アクセスできないか、未対応です。編集にはGitLab 18.9以降が必要です。再読み込みして確認してください。';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      '削除ロールが拒否されました。対応するロールを選んで再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => '新しい最低削除ロール';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => '削除ロールを選択';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      '現在の削除ロールは不明です。未対応の設定を上書きしないよう編集を無効にしています。';
 
   @override
   String get containerTagProtectionRoleUnset => 'ルールで未指定';
@@ -3697,6 +3896,58 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => 'このルールを変更する権限がありません。';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerProtectionPushClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      'ルールが存在しない、重複している、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerProtectionPushClearTitle => '最低プッシュロールを解除';
+
+  @override
+  String get containerProtectionPushClearSave => 'プッシュ制限を解除';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      'このルールの最低プッシュロール制限を解除し、一致するリポジトリのプッシュ保護を弱めます。パスのパターンと最低削除ロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりイメージを削除したりするものではありません。';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      'ルールを確認し、このプッシュ制限を解除する影響を理解しました。';
+
+  @override
+  String get containerProtectionPushClearError =>
+      'プッシュ制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerProtectionPushClearSaved => '最低プッシュロール制限を解除しました。';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      'サーバーがプッシュ制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。';
 
   @override
   String get containerRepositoryProtectionRoleAdmin => '管理者';

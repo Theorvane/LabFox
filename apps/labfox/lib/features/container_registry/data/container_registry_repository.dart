@@ -71,6 +71,13 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
+  Future<void> setCleanupPolicyEnabled(
+    int projectId, {
+    required bool enabled,
+  }) async {
+    await client.projects.setCleanupPolicyEnabled(projectId, enabled: enabled);
+  }
+
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
@@ -98,6 +105,16 @@ class ContainerRegistryRepository {
 
   Future<void> deleteRepository(int projectId, int repositoryId) =>
       client.containerRegistry.deleteRepository(projectId, repositoryId);
+
+  Future<ContainerTagProtectionRule> updateTagProtectionPushRole(
+    int projectId,
+    int ruleId,
+    String role,
+  ) => client.containerRegistry.updateTagProtectionPushRole(
+    projectId,
+    ruleId,
+    role,
+  );
 
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     int projectId,
@@ -156,6 +173,16 @@ class ContainerRegistryRepository {
   Future<void> deleteTag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.deleteTag(projectId, repositoryId, tagName);
 
+  Future<ContainerTagProtectionRule> updateTagProtectionDeleteRole(
+    int projectId,
+    int ruleId,
+    String role,
+  ) => client.containerRegistry.updateTagProtectionDeleteRole(
+    projectId,
+    ruleId,
+    role,
+  );
+
   Future<ContainerTagProtectionRule> updateTagProtectionPattern(
     int projectId,
     int ruleId,
@@ -190,6 +217,26 @@ class ContainerRegistryRepository {
     await client.projects.setCleanupPolicyCadence(projectId, cadence: cadence);
   }
 
+  Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(int projectId) =>
+      client.projects.cleanupPolicySnapshot(projectId);
+  Future<void> createDisabledCleanupPolicy(
+    int projectId, {
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    await client.projects.createDisabledCleanupPolicy(
+      projectId,
+      cadence: cadence,
+      keepN: keepN,
+      olderThan: olderThan,
+      nameRegexDelete: nameRegexDelete,
+      nameRegexKeep: nameRegexKeep,
+    );
+  }
+
   Future<Paginated<RegistryRepository>> repositories(
     int projectId, {
     int page = 1,
@@ -216,6 +263,14 @@ class ContainerRegistryRepository {
     int repositoryId, {
     int page = 1,
   }) => client.containerRegistry.listTags(projectId, repositoryId, page: page);
+
+  Future<ContainerRepositoryProtectionRule> clearRepositoryProtectionPushRole(
+    int projectId,
+    int ruleId,
+  ) => client.containerRegistry.clearRepositoryProtectionPushRole(
+    projectId,
+    ruleId,
+  );
 
   Future<RegistryTag> tag(int projectId, int repositoryId, String tagName) =>
       client.containerRegistry.getTag(projectId, repositoryId, tagName);
