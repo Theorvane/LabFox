@@ -81,6 +81,12 @@ class ContainerRegistryRepository {
   Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
       (await client.projects.get(projectId)).containerExpirationPolicy;
 
+  Future<void> deleteRepositoryProtectionRule(int projectId, int ruleId) =>
+      client.containerRegistry.deleteRepositoryProtectionRule(
+        projectId,
+        ruleId,
+      );
+
   Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
     int projectId,
   ) => client.containerRegistry.listRepositoryProtectionRules(projectId);
@@ -92,6 +98,18 @@ class ContainerRegistryRepository {
     int projectId,
     int ruleId,
   ) => client.containerRegistry.clearTagProtectionPushRole(projectId, ruleId);
+
+  Future<ContainerTagProtectionRule> createTagProtectionRule(
+    int projectId, {
+    required String tagNamePattern,
+    required String minimumAccessLevelForPush,
+    required String minimumAccessLevelForDelete,
+  }) => client.containerRegistry.createTagProtectionRule(
+    projectId,
+    tagNamePattern: tagNamePattern,
+    minimumAccessLevelForPush: minimumAccessLevelForPush,
+    minimumAccessLevelForDelete: minimumAccessLevelForDelete,
+  );
 
   Future<List<ContainerTagProtectionRule>> tagProtectionRules(int projectId) =>
       client.containerRegistry.listTagProtectionRules(projectId);
