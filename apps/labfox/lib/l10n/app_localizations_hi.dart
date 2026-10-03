@@ -3437,39 +3437,6 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
-  String get containerRepositoryProtectionEmpty =>
-      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
-
-  @override
-  String get containerRepositoryProtectionError =>
-      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
-
-  @override
-  String get containerRepositoryProtectionForbidden =>
-      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
-
-  @override
-  String get containerRepositoryProtectionUnavailable =>
-      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return 'हटाने के लिए न्यूनतम भूमिका: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset =>
-      'नियम में निर्दिष्ट नहीं';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
-
-  @override
   String get containerProtectionRemoveTitle => 'रिपॉज़िटरी सुरक्षा नियम हटाएँ';
 
   @override
@@ -3514,4 +3481,37 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get containerProtectionRemoveRateLimited =>
       'बहुत अधिक अनुरोध। प्रतीक्षा करें और फिर प्रयास करें।';
+
+  @override
+  String get containerRepositoryProtectionEmpty =>
+      'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionError =>
+      'रिपॉज़िटरी सुरक्षा नियम लोड नहीं किए जा सके।';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'आपके पास रिपॉज़िटरी सुरक्षा नियम देखने की अनुमति नहीं है।';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'इस इंस्टेंस पर रिपॉज़िटरी सुरक्षा नियम उपलब्ध नहीं हैं या प्रोजेक्ट तक पहुँच नहीं है।';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'पुश करने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return 'हटाने के लिए न्यूनतम भूमिका: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset =>
+      'नियम में निर्दिष्ट नहीं';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => 'प्रशासक';
 }
