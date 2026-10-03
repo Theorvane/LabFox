@@ -5996,6 +5996,42 @@ abstract class AppLocalizations {
   /// **'Repository deletion has been scheduled. Refresh to check progress.'**
   String get containerRepositoryDeletionNotice;
 
+  /// No description provided for @containerKeepCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup retention count'**
+  String get containerKeepCountTitle;
+
+  /// No description provided for @containerKeepCountSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm retention change'**
+  String get containerKeepCountSave;
+
+  /// No description provided for @containerKeepCountSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New matching tags to keep per image'**
+  String get containerKeepCountSelect;
+
+  /// No description provided for @containerKeepCountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerKeepCountWarning;
+
+  /// No description provided for @containerKeepCountUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerKeepCountUnknown;
+
+  /// No description provided for @containerKeepCountAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup retention count update accepted.'**
+  String get containerKeepCountAccepted;
+
   /// No description provided for @containerActivationIncomplete.
   ///
   /// In en, this message translates to:
