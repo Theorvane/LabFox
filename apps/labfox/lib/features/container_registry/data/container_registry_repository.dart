@@ -71,6 +71,16 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
+  Future<void> setCleanupPolicyEnabled(
+    int projectId, {
+    required bool enabled,
+  }) async {
+    await client.projects.setCleanupPolicyEnabled(projectId, enabled: enabled);
+  }
+
+  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
+      (await client.projects.get(projectId)).containerExpirationPolicy;
+
   Future<ContainerRepositoryProtectionRule> createRepositoryProtectionRule(
     int projectId, {
     required String repositoryPathPattern,
@@ -162,9 +172,6 @@ class ContainerRegistryRepository {
     ruleId,
     pattern,
   );
-
-  Future<ContainerCleanupPolicy?> cleanupPolicy(int projectId) async =>
-      (await client.projects.get(projectId)).containerExpirationPolicy;
 
   Future<void> setCleanupPolicyKeepPattern(
     int projectId, {

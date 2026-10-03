@@ -2927,6 +2927,38 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerActivationError => '변경을 확인하지 못했습니다. 정책을 다시 불러오고 재시도하세요.';
 
   @override
+  String get containerActivationIncomplete =>
+      '정리를 활성화하려면 주기, 보존 개수, 나이 제한 및 삭제 패턴이 보고되어야 합니다. GitLab에서 정책을 확인하세요.';
+
+  @override
+  String get containerActivationTitle => '정리 정책 상태 변경';
+
+  @override
+  String get containerActivationEnable => '정리 활성화';
+
+  @override
+  String get containerActivationDisable => '정리 비활성화';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '이 프로젝트 전체 정책을 활성화하면 예약 실행에서 일치하는 태그가 영구 삭제될 수 있습니다. 표시된 보존 설정과 패턴은 변경되지 않습니다. 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '보존 설정이나 패턴을 변경하지 않고 이 프로젝트의 향후 예약 정리를 비활성화합니다. 이미 실행 중인 정리 작업이 취소된다고 가정하지 마세요.';
+
+  @override
+  String get containerActivationUnknown =>
+      '확인된 활성 상태가 필요합니다. GitLab에서 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab이 상태 변경을 거부했습니다. GitLab에서 기존 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationAccepted => '정리 정책 상태 변경이 접수되었습니다.';
+
+  @override
   String get containerActivationForbidden => '이 정리 정책을 변경할 권한이 없습니다.';
 
   @override

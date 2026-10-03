@@ -2999,6 +2999,39 @@ class AppLocalizationsHi extends AppLocalizations {
       'अपडेट की पुष्टि नहीं हो सकी। नीति फिर लोड करें और पुनः प्रयास करें।';
 
   @override
+  String get containerActivationIncomplete =>
+      'सफ़ाई सक्रिय करने के लिए अंतराल, रखने की संख्या, आयु सीमा और हटाने का पैटर्न ज्ञात होना चाहिए। GitLab में नीति देखें।';
+
+  @override
+  String get containerActivationTitle => 'सफ़ाई नीति की स्थिति बदलें';
+
+  @override
+  String get containerActivationEnable => 'सफ़ाई सक्रिय करें';
+
+  @override
+  String get containerActivationDisable => 'सफ़ाई निष्क्रिय करें';
+
+  @override
+  String get containerActivationEnableWarning =>
+      'यह प्रोजेक्ट-व्यापी नीति सक्रिय करने पर निर्धारित रन में मिलते टैग स्थायी रूप से हट सकते हैं। दिखाई गई रखने की सेटिंग और पैटर्न नहीं बदलेंगे। टैग हटाने से इमेज संग्रहण खाली नहीं होता।';
+
+  @override
+  String get containerActivationDisableWarning =>
+      'रखने की सेटिंग या पैटर्न बदले बिना इस प्रोजेक्ट की आगामी निर्धारित सफ़ाई निष्क्रिय करें। पहले से चल रहे सफ़ाई जॉब रद्द हो जाने की धारणा न रखें।';
+
+  @override
+  String get containerActivationUnknown =>
+      'सक्रिय होने की ज्ञात स्थिति आवश्यक है। GitLab में नीति सेटिंग देखें।';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab ने स्थिति बदलाव अस्वीकार किया। GitLab में मौजूदा नीति सेटिंग देखें।';
+
+  @override
+  String get containerActivationAccepted =>
+      'सफ़ाई नीति का स्थिति अपडेट स्वीकार हुआ।';
+
+  @override
   String get containerActivationForbidden =>
       'इस सफ़ाई नीति को बदलने की अनुमति नहीं है।';
 
