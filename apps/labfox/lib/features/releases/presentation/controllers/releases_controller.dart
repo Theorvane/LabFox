@@ -70,6 +70,7 @@ class ReleaseListController
     String? ref,
     String? name,
     String? description,
+    List<String>? milestones,
     DateTime? releasedAt,
   }) async {
     final trimmedTag = tagName.trim();
@@ -84,6 +85,9 @@ class ReleaseListController
       description: description?.trim().isEmpty == true
           ? null
           : description?.trim(),
+      milestones: milestones == null || milestones.isEmpty
+          ? null
+          : List<String>.unmodifiable(milestones),
       releasedAt: releasedAt?.toUtc(),
     );
     this.ref.invalidateSelf();
