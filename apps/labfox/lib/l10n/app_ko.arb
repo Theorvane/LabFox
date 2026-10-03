@@ -1,4 +1,12 @@
 {
+  "releasePickerTitle": "프로젝트 마일스톤 선택",
+  "releasePickerSearch": "프로젝트 마일스톤 검색",
+  "releasePickerEmpty": "프로젝트 마일스톤이 없습니다.",
+  "releasePickerError": "마일스톤을 불러오지 못했습니다.",
+  "releasePickerMore": "마일스톤 더 불러오기",
+  "releasePickerUse": "마일스톤 사용",
+  "releasePickerRemove": "마일스톤 {title} 제거",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "공개 날짜(선택 사항)",
   "releaseCreationDateDefault": "공개 시간은 GitLab에서 설정합니다.",
   "releaseCreationChooseDate": "공개 날짜 선택",
@@ -872,5 +880,19 @@
   "containerTagProtectionPushClearError": "푸시 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.",
   "containerTagProtectionPushClearSaved": "최소 푸시 역할 제한이 해제되었습니다.",
   "containerTagProtectionPushClearInvalid": "서버가 푸시 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.",
-  "containerTagProtectionPushClearBlocked": "해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다."
+  "containerTagProtectionPushClearBlocked": "해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.",
+  "packageFileDelete": "파일 삭제",
+  "packageFileDeleteConfirmTitle": "패키지 파일을 삭제할까요?",
+  "packageFileDeleteConfirmBody": "“{packageName}”에서 “{fileName}”을 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
+  "packageFileDeleteWarning": "파일을 삭제하면 패키지가 손상되어 사용할 수 없거나 패키지 관리자로 가져올 수 없게 될 수 있습니다.",
+  "packageFileDeleteForbidden": "이 파일을 삭제할 수 없습니다. 패키지가 보호되어 있거나 권한이 없을 수 있습니다.",
+  "packageFileDeleteError": "파일을 삭제할 수 없습니다. 다시 시도하세요.",
+  "containerRepositoryDelete": "저장소 삭제",
+  "containerRepositoryDeleteConfirmTitle": "이미지 저장소를 삭제할까요?",
+  "containerRepositoryDeleteConfirmBody": "“{path}”와 모든 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
+  "containerRepositoryDeleteWarning": "삭제는 비동기로 예약되며 시간이 걸릴 수 있습니다. 레지스트리를 새로고침해 진행 상태를 확인하세요.",
+  "containerRepositoryDeleteForbidden": "이 저장소를 삭제할 수 없습니다. 권한과 보호 규칙을 확인하세요.",
+  "containerRepositoryDeleteError": "저장소 삭제를 예약할 수 없습니다. 다시 시도하세요.",
+  "containerRepositoryDeletionScheduled": "삭제 예약됨",
+  "containerRepositoryDeletionNotice": "저장소 삭제가 예약되었습니다. 새로고침해 진행 상태를 확인하세요."
 }
