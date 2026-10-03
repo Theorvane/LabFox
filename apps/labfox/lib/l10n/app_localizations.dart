@@ -104,6 +104,48 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @releasePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select project milestones'**
+  String get releasePickerTitle;
+
+  /// No description provided for @releasePickerSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search project milestones'**
+  String get releasePickerSearch;
+
+  /// No description provided for @releasePickerEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No project milestones found.'**
+  String get releasePickerEmpty;
+
+  /// No description provided for @releasePickerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get releasePickerError;
+
+  /// No description provided for @releasePickerMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more milestones'**
+  String get releasePickerMore;
+
+  /// No description provided for @releasePickerUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use milestones'**
+  String get releasePickerUse;
+
+  /// No description provided for @releasePickerRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releasePickerRemove(String title);
+
   /// No description provided for @releaseCreationDateLabel.
   ///
   /// In en, this message translates to:
@@ -6043,6 +6085,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not delete this file. Try again.'**
   String get packageFileDeleteError;
+
+  /// No description provided for @containerRepositoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete repository'**
+  String get containerRepositoryDelete;
+
+  /// No description provided for @containerRepositoryDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete image repository?'**
+  String get containerRepositoryDeleteConfirmTitle;
+
+  /// Confirmation identifying the complete image repository
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{path}” and all its tags? This cannot be undone.'**
+  String containerRepositoryDeleteConfirmBody(String path);
+
+  /// No description provided for @containerRepositoryDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.'**
+  String get containerRepositoryDeleteWarning;
+
+  /// No description provided for @containerRepositoryDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this repository. Check your permissions and protection rules.'**
+  String get containerRepositoryDeleteForbidden;
+
+  /// No description provided for @containerRepositoryDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule repository deletion. Try again.'**
+  String get containerRepositoryDeleteError;
+
+  /// No description provided for @containerRepositoryDeletionScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion scheduled'**
+  String get containerRepositoryDeletionScheduled;
+
+  /// No description provided for @containerRepositoryDeletionNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository deletion has been scheduled. Refresh to check progress.'**
+  String get containerRepositoryDeletionNotice;
 }
 
 class _AppLocalizationsDelegate
