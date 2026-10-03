@@ -1,4 +1,11 @@
 {
+  "releaseCreationMilestoneTitle": "里程碑标题（可选）",
+  "releaseCreationMilestoneAdd": "添加里程碑",
+  "releaseCreationMilestoneRequired": "请输入里程碑标题。",
+  "releaseCreationMilestoneDuplicate": "已选择此里程碑。",
+  "releaseCreationMilestoneRemove": "移除里程碑 {title}",
+  "releaseCreationMilestoneHelp": "逐一输入现有里程碑的准确标题。群组里程碑的可用性取决于您的 GitLab 套餐。",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "选择项目里程碑",
   "releasePickerSearch": "搜索项目里程碑",
   "releasePickerEmpty": "未找到项目里程碑。",

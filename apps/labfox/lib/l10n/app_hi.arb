@@ -1,4 +1,11 @@
 {
+  "releaseCreationMilestoneTitle": "माइलस्टोन का शीर्षक (वैकल्पिक)",
+  "releaseCreationMilestoneAdd": "माइलस्टोन जोड़ें",
+  "releaseCreationMilestoneRequired": "माइलस्टोन का शीर्षक दर्ज करें।",
+  "releaseCreationMilestoneDuplicate": "यह माइलस्टोन पहले से चुना गया है।",
+  "releaseCreationMilestoneRemove": "माइलस्टोन {title} हटाएँ",
+  "releaseCreationMilestoneHelp": "मौजूदा सटीक शीर्षक एक-एक करके दर्ज करें। समूह माइलस्टोन की उपलब्धता आपके GitLab प्लान पर निर्भर करती है।",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "प्रोजेक्ट माइलस्टोन चुनें",
   "releasePickerSearch": "प्रोजेक्ट माइलस्टोन खोजें",
   "releasePickerEmpty": "कोई प्रोजेक्ट माइलस्टोन नहीं मिला।",
