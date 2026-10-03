@@ -3367,6 +3367,50 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
 
   @override
+  String get containerProtectionRemoveTitle => '저장소 보호 규칙 삭제';
+
+  @override
+  String get containerProtectionRemoveSave => '규칙 삭제 확인';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      '이 규칙을 제거하면 경로 패턴에 일치하는 저장소의 푸시 또는 삭제 제한이 줄어들 수 있습니다. 다른 규칙과 권한은 계속 적용됩니다. 보호 규칙만 삭제하며 저장소, 태그, 이미지는 삭제하지 않습니다. 정확한 대상과 최소 역할을 확인하세요. 표시된 역할은 사용자의 권한을 의미하지 않습니다.';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      '이 규칙의 보호 제한이 제거된다는 점을 이해했습니다.';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => '이 저장소 보호 규칙을 삭제할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionRemoveError =>
+      '규칙 삭제를 확인할 수 없습니다. 새로 불러오거나 재시도하세요.';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      '확인 이후 규칙이 변경되었습니다. 삭제 전에 새로 불러와 확인하세요.';
+
+  @override
+  String get containerProtectionRemoveReload => '규칙 새로 불러오기';
+
+  @override
+  String get containerProtectionRemoveDeleted => '저장소 보호 규칙이 삭제되었습니다.';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      '규칙을 찾을 수 없거나 대상이 모호하거나 접근할 수 없습니다. 확인 전에 새로 불러오세요.';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 재시도하세요.';
+
+  @override
   String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
 
   @override

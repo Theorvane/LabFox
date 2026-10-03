@@ -3276,6 +3276,45 @@ class AppLocalizationsZh extends AppLocalizations {
   String get containerRepositoryProtectionTitle => '仓库保护规则';
 
   @override
+  String get containerProtectionRemoveTitle => '删除仓库保护规则';
+
+  @override
+  String get containerProtectionRemoveSave => '确认删除规则';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      '移除此规则可能降低与路径模式匹配的仓库的推送或删除限制。其他规则和权限仍然适用。仅删除保护规则，不删除仓库、标签或镜像。请检查确切目标及最低角色；这些角色不代表您的权限。';
+
+  @override
+  String get containerProtectionRemoveAcknowledge => '我了解此规则的保护限制将被移除。';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return '项目 $projectId — 规则 $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => '您无权删除此仓库保护规则。';
+
+  @override
+  String get containerProtectionRemoveError => '无法确认规则删除。请重新加载或重试。';
+
+  @override
+  String get containerProtectionRemoveStale => '确认后规则已更改。请在删除前重新加载并检查。';
+
+  @override
+  String get containerProtectionRemoveReload => '重新加载规则';
+
+  @override
+  String get containerProtectionRemoveDeleted => '仓库保护规则已删除。';
+
+  @override
+  String get containerProtectionRemoveMissing => '未找到规则、目标不明确或无法访问。请在确认前重新加载。';
+
+  @override
+  String get containerProtectionRemoveRateLimited => '请求过多。请稍后重试。';
+
+  @override
   String get containerRepositoryProtectionEmpty => '没有仓库保护规则。';
 
   @override

@@ -3359,6 +3359,50 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerRepositoryProtectionTitle => 'リポジトリ保護ルール';
 
   @override
+  String get containerProtectionRemoveTitle => 'リポジトリ保護ルールを削除';
+
+  @override
+  String get containerProtectionRemoveSave => 'ルール削除を確認';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'このルールを削除すると、パスパターンに一致するリポジトリのプッシュまたは削除制限が緩和される場合があります。他のルールと権限は引き続き適用されます。保護ルールのみ削除し、リポジトリ、タグ、イメージは削除しません。対象と最低ロールを確認してください。これらのロールはユーザーの権限を示しません。';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'このルールによる保護制限が削除されることを理解しました。';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => 'このリポジトリ保護ルールを削除する権限がありません。';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'ルール削除を確認できません。再読み込みまたは再試行してください。';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      '確認後にルールが変更されました。削除前に再読み込みして確認してください。';
+
+  @override
+  String get containerProtectionRemoveReload => 'ルールを再読み込み';
+
+  @override
+  String get containerProtectionRemoveDeleted => 'リポジトリ保護ルールを削除しました。';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'ルールが見つからない、対象が曖昧、またはアクセスできません。確認前に再読み込みしてください。';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'リクエストが多すぎます。しばらく待って再試行してください。';
+
+  @override
   String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override

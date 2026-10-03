@@ -71,6 +71,12 @@ class ContainerRegistryRepository {
     await client.containerImmutability.deleteRule(expected);
   }
 
+  Future<void> deleteRepositoryProtectionRule(int projectId, int ruleId) =>
+      client.containerRegistry.deleteRepositoryProtectionRule(
+        projectId,
+        ruleId,
+      );
+
   Future<List<ContainerRepositoryProtectionRule>> repositoryProtectionRules(
     int projectId,
   ) => client.containerRegistry.listRepositoryProtectionRules(projectId);

@@ -11,6 +11,30 @@ class ContainerRegistryApi {
 
   final Dio _dio;
 
+  /// Deletes a rule, not the repositories or images matching its pattern.
+  Future<void> deleteRepositoryProtectionRule(
+    Object projectId,
+    int ruleId,
+  ) async {
+    try {
+      final response = await _dio.delete<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}/registry/protection/repository/rules/$ruleId',
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'deleting container repository protection rule',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'deleting container repository protection rule',
+      );
+    }
+  }
+
   /// Clears only the minimum push role; pattern and delete role are omitted.
   Future<ContainerTagProtectionRule> clearTagProtectionPushRole(
     Object projectId,

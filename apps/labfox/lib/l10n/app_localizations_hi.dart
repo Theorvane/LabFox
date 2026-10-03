@@ -3460,6 +3460,52 @@ class AppLocalizationsHi extends AppLocalizations {
   String get containerRepositoryProtectionTitle => 'रिपॉज़िटरी सुरक्षा नियम';
 
   @override
+  String get containerProtectionRemoveTitle => 'रिपॉज़िटरी सुरक्षा नियम हटाएँ';
+
+  @override
+  String get containerProtectionRemoveSave => 'नियम हटाने की पुष्टि करें';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      'यह नियम हटाने से पथ पैटर्न से मेल खाने वाली रिपॉज़िटरी के पुश या हटाने के प्रतिबंध कम हो सकते हैं। अन्य नियम और अनुमतियाँ लागू रहेंगे। केवल सुरक्षा नियम हटता है, रिपॉज़िटरी, टैग या इमेज नहीं। सटीक लक्ष्य और न्यूनतम भूमिकाओं की समीक्षा करें; ये भूमिकाएँ आपकी अनुमतियाँ नहीं बतातीं।';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      'मैं समझता हूँ कि इस नियम के सुरक्षा प्रतिबंध हटेंगे।';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return 'प्रोजेक्ट $projectId — नियम $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden =>
+      'आपको यह रिपॉज़िटरी सुरक्षा नियम हटाने की अनुमति नहीं है।';
+
+  @override
+  String get containerProtectionRemoveError =>
+      'नियम हटाने की पुष्टि नहीं हुई। पुनः लोड करें या फिर प्रयास करें।';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      'पुष्टि के बाद नियम बदला है। हटाने से पहले पुनः लोड करके समीक्षा करें।';
+
+  @override
+  String get containerProtectionRemoveReload => 'नियम पुनः लोड करें';
+
+  @override
+  String get containerProtectionRemoveDeleted =>
+      'रिपॉज़िटरी सुरक्षा नियम हटा दिया गया।';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      'नियम नहीं मिला, लक्ष्य अस्पष्ट है या पहुँच नहीं है। पुष्टि से पहले पुनः लोड करें।';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      'बहुत अधिक अनुरोध। प्रतीक्षा करें और फिर प्रयास करें।';
+
+  @override
   String get containerRepositoryProtectionEmpty =>
       'कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।';
 
