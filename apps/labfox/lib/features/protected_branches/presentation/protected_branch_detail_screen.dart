@@ -10,6 +10,7 @@ import 'controllers/protected_branches_controller.dart';
 import 'widgets/protected_branch_force_push_dialog.dart';
 import 'widgets/protected_branch_merge_role_dialog.dart';
 import 'widgets/protected_branch_push_role_dialog.dart';
+import 'widgets/protected_branch_unprotect_dialog.dart';
 
 /// One rule, restorable from its project and branch name.
 class ProtectedBranchDetailScreen extends ConsumerWidget {
@@ -124,6 +125,28 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
                           );
                         }
                       },
+                onUnprotect: data.inherited == true
+                    ? null
+                    : () async {
+                        final removed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchUnprotectDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (removed == true && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchUnprotectSuccess,
+                              ),
+                            ),
+                          );
+                          context.go(Routes.protectedBranches(projectId));
+                        }
+                      },
               );
               final access = Column(
                 children: [
@@ -181,12 +204,14 @@ class _Settings extends StatelessWidget {
     required this.rule,
     required this.onEditForcePush,
     required this.onEditMergeRole,
+    required this.onUnprotect,
     required this.onEditPushRole,
   });
 
   final ProtectedBranch rule;
   final VoidCallback? onEditForcePush;
   final VoidCallback? onEditMergeRole;
+  final VoidCallback? onUnprotect;
   final VoidCallback? onEditPushRole;
 
   @override
@@ -227,6 +252,13 @@ class _Settings extends StatelessWidget {
                 key: const ValueKey('protected-branch-merge-role-edit'),
                 onPressed: onEditMergeRole,
                 child: Text(l10n.protectedBranchMergeRoleEditTitle),
+              ),
+            ],
+            if (onUnprotect != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                onPressed: onUnprotect,
+                child: Text(l10n.protectedBranchUnprotectTitle),
               ),
             ],
             if (onEditPushRole != null) ...[
