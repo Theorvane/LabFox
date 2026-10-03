@@ -3606,6 +3606,62 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'プロジェクト $projectId — ルール $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'このルールを変更する権限がありません。';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      '確認後にルールが変更されました。再読み込みして確認してから保存してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'ルールを再読み込み';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'ルールが存在しない、重複している、アクセスできない、またはこのインスタンスが更新をサポートしていません（GitLab 18.9以降）。確認前に再読み込みしてください。';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      '要求が多すぎます。待ってから再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '最低削除ロールを解除';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '削除制限を解除';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'このルールの最低削除ロール制限を解除し、プロジェクト全体で一致するコンテナタグの削除保護を弱めます。タグのパターンと最低プッシュロールは変わりません。他のルールと権限は引き続き適用され、全員にアクセスを許可したりタグやイメージを削除したりするものではありません。';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'ルールを確認し、この削除制限を解除する影響を理解しました。';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '削除制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '最低削除ロール制限を解除しました。';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'サーバーが削除制限の解除を拒否しました。ルールを確認して再試行してください。';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '解除には対応する現在の削除ロールと空でないプッシュロールが必要です。解除済みまたは不明な設定は解除できません。';
+
+  @override
   String get containerTagProtectionPushClearForbidden => 'このルールを変更する権限がありません。';
 
   @override
@@ -4041,6 +4097,30 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => 'クリーンアップ期限の更新が受理されました。';
+
+  @override
+  String get containerDeletePatternTitle => 'クリーンアップ削除パターンを編集';
+
+  @override
+  String get containerDeletePatternSave => '削除パターンの変更を確認';
+
+  @override
+  String get containerDeletePatternSelect => '新しい削除パターン (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      'プロジェクト全体の削除パターンを広げると、定期クリーンアップで各イメージリポジトリの一致タグがさらに多く完全に削除される可能性があります。以下の有効状態と保持条件を確認してください。GitLabはRE2を使い、タグ名全体にパターンを適用します。入力はそのまま送信されGitLabが検証します。他の設定は変更されず、受理は削除完了も意味しません。';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      '有効状態、間隔、保持数、期限、有効な削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。';
+
+  @override
+  String get containerDeletePatternAccepted => 'クリーンアップ削除パターンの更新が受理されました。';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLabがパターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。';
 
   @override
   String get containerProtectionPushRoleTitle => '最低プッシュロールを編集';

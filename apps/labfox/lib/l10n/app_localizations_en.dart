@@ -3721,6 +3721,65 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return 'Project $projectId — rule $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      'You do not have permission to change this rule.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      'The rule changed since confirmation. Reload and review it before saving.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => 'Reload rule';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      'Too many requests. Wait and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle =>
+      'Clear minimum delete role';
+
+  @override
+  String get containerTagProtectionDeleteClearSave =>
+      'Clear delete restriction';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      'I have reviewed the rule and understand the loss of this delete restriction.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved =>
+      'Minimum delete-role restriction cleared.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      'The server rejected clearing this delete restriction. Check the rule and retry.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.';
+
+  @override
   String get containerTagProtectionPushClearForbidden =>
       'You do not have permission to change this rule.';
 
@@ -4178,6 +4237,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => 'Cleanup age limit update accepted.';
+
+  @override
+  String get containerDeletePatternTitle => 'Edit cleanup delete pattern';
+
+  @override
+  String get containerDeletePatternSave => 'Confirm delete pattern change';
+
+  @override
+  String get containerDeletePatternSelect => 'New delete pattern (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      'Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      'Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.';
+
+  @override
+  String get containerDeletePatternAccepted =>
+      'Cleanup delete pattern update accepted.';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.';
 
   @override
   String get containerProtectionPushRoleTitle => 'Edit minimum push role';

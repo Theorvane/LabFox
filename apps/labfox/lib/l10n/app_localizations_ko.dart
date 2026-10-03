@@ -3616,6 +3616,62 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없거나 이 인스턴스가 업데이트를 지원하지 않습니다(GitLab 18.9 이상). 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 프로젝트 전체에서 일치하는 컨테이너 태그의 삭제 보호가 약해집니다. 태그 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 태그 또는 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
   String get containerTagProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
 
   @override
@@ -4050,6 +4106,30 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerAgeAccepted => '정리 보관 기간 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternTitle => '정리 삭제 패턴 편집';
+
+  @override
+  String get containerDeletePatternSave => '삭제 패턴 변경 확인';
+
+  @override
+  String get containerDeletePatternSelect => '새 삭제 패턴 (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      '프로젝트 전체 삭제 패턴의 범위를 넓히면 예약된 정리 실행 시 모든 이미지 저장소에서 더 많은 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 보관 기준을 확인하세요. GitLab은 RE2를 사용하며 태그 이름 전체에 패턴을 적용합니다. 입력은 그대로 전송되고 GitLab이 검증합니다. 다른 설정은 변경되지 않으며 수락은 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간과 유효 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerDeletePatternAccepted => '정리 삭제 패턴 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab이 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
 
   @override
   String get containerProtectionPushRoleTitle => '최소 푸시 역할 수정';
