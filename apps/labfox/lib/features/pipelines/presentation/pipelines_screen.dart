@@ -61,6 +61,7 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final projectId = widget.projectId;
+    final status = ref.watch(pipelineStatusFilterProvider(projectId));
     final provider = pipelinesControllerProvider(projectId);
     ref.listen<AsyncValue<Paginated<Pipeline>>>(provider, (_, next) {
       if (next.isLoading) {
@@ -72,7 +73,38 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
     final pipelines = ref.watch(provider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.pipelinesTitle)),
+      appBar: AppBar(
+        title: Text(l10n.pipelinesTitle),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(52),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(
+                left: LabFoxSpacing.md,
+                right: LabFoxSpacing.md,
+                bottom: LabFoxSpacing.sm,
+              ),
+              // A record keeps the All option distinct from menu cancellation.
+              child: FilterMenuChip<({PipelineStatusFilter? status})>(
+                selected: (status: status),
+                options: [
+                  (status: null),
+                  for (final value in PipelineStatusFilter.values)
+                    (status: value),
+                ],
+                labelOf: (choice) => _statusLabel(l10n, choice.status),
+                onSelected: (choice) =>
+                    ref
+                        .read(pipelineStatusFilterProvider(projectId).notifier)
+                        .state = choice
+                        .status,
+              ),
+            ),
+          ),
+        ),
+      ),
       body: pipelines.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, _) => Center(
@@ -113,7 +145,9 @@ class _PipelinesScreenState extends ConsumerState<PipelinesScreen> {
                 if (items.isEmpty && index == 0) {
                   return EmptyState(
                     icon: LabFoxIcons.pipeline,
-                    title: l10n.pipelinesEmpty,
+                    title: status == null
+                        ? l10n.pipelinesEmpty
+                        : l10n.pipelinesFilteredEmpty,
                   );
                 }
                 if (index == rowCount) {
@@ -192,3 +226,16 @@ class _PipelineTile extends StatelessWidget {
   static String _shortSha(String sha) =>
       sha.length <= 8 ? sha : sha.substring(0, 8);
 }
+
+String _statusLabel(AppLocalizations l10n, PipelineStatusFilter? status) =>
+    switch (status) {
+      null => l10n.pipelinesStatusAll,
+      PipelineStatusFilter.created => l10n.pipelinesStatusCreated,
+      PipelineStatusFilter.pending => l10n.pipelinesStatusPending,
+      PipelineStatusFilter.running => l10n.pipelinesStatusRunning,
+      PipelineStatusFilter.success => l10n.pipelinesStatusSuccess,
+      PipelineStatusFilter.failed => l10n.pipelinesStatusFailed,
+      PipelineStatusFilter.canceled => l10n.pipelinesStatusCanceled,
+      PipelineStatusFilter.skipped => l10n.pipelinesStatusSkipped,
+      PipelineStatusFilter.manual => l10n.pipelinesStatusManual,
+    };

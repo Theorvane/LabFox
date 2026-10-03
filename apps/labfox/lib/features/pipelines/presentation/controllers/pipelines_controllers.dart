@@ -15,6 +15,10 @@ final pipelinesRepositoryProvider = FutureProvider<PipelinesRepository?>((
   return client == null ? null : PipelinesRepository(client);
 });
 
+/// The selected server-side filter, scoped to one project.
+final pipelineStatusFilterProvider =
+    StateProvider.family<PipelineStatusFilter?, int>((ref, projectId) => null);
+
 /// Lists a project's pipelines.
 class PipelinesController
     extends FamilyAsyncNotifier<Paginated<Pipeline>, int> {
@@ -25,11 +29,12 @@ class PipelinesController
   Future<Paginated<Pipeline>> build(int projectId) async {
     _generation++;
     _loadingMore = false;
+    final status = ref.watch(pipelineStatusFilterProvider(projectId));
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
     if (repo == null) {
       throw StateError('No authenticated account');
     }
-    return repo.list(projectId);
+    return repo.list(projectId, status: status);
   }
 
   Future<void> loadMore() async {
@@ -38,11 +43,12 @@ class PipelinesController
     final page = current?.nextPage;
     if (current == null || page == null) return;
     final generation = _generation;
+    final status = ref.read(pipelineStatusFilterProvider(arg));
     _loadingMore = true;
     try {
       final repo = await ref.read(pipelinesRepositoryProvider.future);
       if (repo == null) throw StateError('No authenticated account');
-      final next = await repo.list(arg, page: page);
+      final next = await repo.list(arg, page: page, status: status);
       if (generation != _generation) return;
       final items = {for (final item in current.items) item.id: item};
       for (final item in next.items) {

@@ -1095,6 +1095,46 @@
   "@pipelinesTitle": {
     "description": "Title of the pipelines list screen"
   },
+  "pipelinesStatusAll": "All statuses",
+  "@pipelinesStatusAll": {
+    "description": "Project pipeline status filter option: All statuses"
+  },
+  "pipelinesStatusCreated": "Created",
+  "@pipelinesStatusCreated": {
+    "description": "Project pipeline status filter option: Created"
+  },
+  "pipelinesStatusPending": "Pending",
+  "@pipelinesStatusPending": {
+    "description": "Project pipeline status filter option: Pending"
+  },
+  "pipelinesStatusRunning": "Running",
+  "@pipelinesStatusRunning": {
+    "description": "Project pipeline status filter option: Running"
+  },
+  "pipelinesStatusSuccess": "Success",
+  "@pipelinesStatusSuccess": {
+    "description": "Project pipeline status filter option: Success"
+  },
+  "pipelinesStatusFailed": "Failed",
+  "@pipelinesStatusFailed": {
+    "description": "Project pipeline status filter option: Failed"
+  },
+  "pipelinesStatusCanceled": "Canceled",
+  "@pipelinesStatusCanceled": {
+    "description": "Project pipeline status filter option: Canceled"
+  },
+  "pipelinesStatusSkipped": "Skipped",
+  "@pipelinesStatusSkipped": {
+    "description": "Project pipeline status filter option: Skipped"
+  },
+  "pipelinesStatusManual": "Manual",
+  "@pipelinesStatusManual": {
+    "description": "Project pipeline status filter option: Manual"
+  },
+  "pipelinesFilteredEmpty": "No pipelines match this status.",
+  "@pipelinesFilteredEmpty": {
+    "description": "Empty state when the selected server-side status has no pipelines"
+  },
   "pipelinesError": "Could not load pipelines.",
   "@pipelinesError": {
     "description": "Shown when the pipelines list fails"

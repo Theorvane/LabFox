@@ -3380,6 +3380,66 @@ abstract class AppLocalizations {
   /// **'Pipelines'**
   String get pipelinesTitle;
 
+  /// Project pipeline status filter option: All statuses
+  ///
+  /// In en, this message translates to:
+  /// **'All statuses'**
+  String get pipelinesStatusAll;
+
+  /// Project pipeline status filter option: Created
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get pipelinesStatusCreated;
+
+  /// Project pipeline status filter option: Pending
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pipelinesStatusPending;
+
+  /// Project pipeline status filter option: Running
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get pipelinesStatusRunning;
+
+  /// Project pipeline status filter option: Success
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get pipelinesStatusSuccess;
+
+  /// Project pipeline status filter option: Failed
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get pipelinesStatusFailed;
+
+  /// Project pipeline status filter option: Canceled
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get pipelinesStatusCanceled;
+
+  /// Project pipeline status filter option: Skipped
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get pipelinesStatusSkipped;
+
+  /// Project pipeline status filter option: Manual
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get pipelinesStatusManual;
+
+  /// Empty state when the selected server-side status has no pipelines
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines match this status.'**
+  String get pipelinesFilteredEmpty;
+
   /// Shown when the pipelines list fails
   ///
   /// In en, this message translates to:

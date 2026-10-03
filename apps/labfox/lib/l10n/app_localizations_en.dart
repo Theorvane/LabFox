@@ -1763,6 +1763,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pipelinesTitle => 'Pipelines';
 
   @override
+  String get pipelinesStatusAll => 'All statuses';
+
+  @override
+  String get pipelinesStatusCreated => 'Created';
+
+  @override
+  String get pipelinesStatusPending => 'Pending';
+
+  @override
+  String get pipelinesStatusRunning => 'Running';
+
+  @override
+  String get pipelinesStatusSuccess => 'Success';
+
+  @override
+  String get pipelinesStatusFailed => 'Failed';
+
+  @override
+  String get pipelinesStatusCanceled => 'Canceled';
+
+  @override
+  String get pipelinesStatusSkipped => 'Skipped';
+
+  @override
+  String get pipelinesStatusManual => 'Manual';
+
+  @override
+  String get pipelinesFilteredEmpty => 'No pipelines match this status.';
+
+  @override
   String get pipelinesError => 'Could not load pipelines.';
 
   @override

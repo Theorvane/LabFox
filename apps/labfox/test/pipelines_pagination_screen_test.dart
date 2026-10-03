@@ -27,7 +27,11 @@ class _Repository extends PipelinesRepository {
   Completer<void>? pending;
   int? openedPipelineId;
   @override
-  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) async {
+  Future<Paginated<Pipeline>> list(
+    int projectId, {
+    int page = 1,
+    PipelineStatusFilter? status,
+  }) async {
     expectSync(projectId, 7);
     pages.add(page);
     if (page == failPage) throw StateError('Private server response');

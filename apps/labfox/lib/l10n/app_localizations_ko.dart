@@ -1728,6 +1728,36 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesTitle => '파이프라인';
 
   @override
+  String get pipelinesStatusAll => '모든 상태';
+
+  @override
+  String get pipelinesStatusCreated => '생성됨';
+
+  @override
+  String get pipelinesStatusPending => '대기 중';
+
+  @override
+  String get pipelinesStatusRunning => '실행 중';
+
+  @override
+  String get pipelinesStatusSuccess => '성공';
+
+  @override
+  String get pipelinesStatusFailed => '실패';
+
+  @override
+  String get pipelinesStatusCanceled => '취소됨';
+
+  @override
+  String get pipelinesStatusSkipped => '건너뜀';
+
+  @override
+  String get pipelinesStatusManual => '수동';
+
+  @override
+  String get pipelinesFilteredEmpty => '이 상태에 해당하는 파이프라인이 없습니다.';
+
+  @override
   String get pipelinesError => '파이프라인을 불러올 수 없습니다.';
 
   @override

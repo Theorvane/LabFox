@@ -41,13 +41,22 @@ class _Repository extends PipelinesRepository {
   Completer<void>? pending;
   final commands = <String>[];
   final lists = <int, int>{};
+  final listStatuses = <int, List<PipelineStatusFilter?>>{};
   final details = <int, int>{};
   final jobLoads = <int, int>{};
   @override
-  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) async {
+  Future<Paginated<Pipeline>> list(
+    int projectId, {
+    int page = 1,
+    PipelineStatusFilter? status,
+  }) async {
     lists.update(projectId, (value) => value + 1, ifAbsent: () => 1);
+    listStatuses.putIfAbsent(projectId, () => []).add(status);
     return Paginated(
-      items: [Pipeline(id: 944, status: status, ref: 'main')],
+      items: [
+        if (status == null || status.name == this.status)
+          Pipeline(id: 944, status: this.status, ref: 'main'),
+      ],
     );
   }
 
@@ -156,6 +165,27 @@ void main() {
         expect(container.read(action).hasError, false);
       },
     );
+    test('$command retains the filtered project view after success', () async {
+      container.read(pipelineStatusFilterProvider(7).notifier).state =
+          PipelineStatusFilter.failed;
+      await watchViews();
+      final controller = container.read(action.notifier);
+      await container.read(action.future);
+      await (command == 'retry' ? controller.retry() : controller.cancel());
+      final updated = await container.read(
+        pipelinesControllerProvider(7).future,
+      );
+      expect(updated.items, isEmpty);
+      expect(
+        container.read(pipelineStatusFilterProvider(7)),
+        PipelineStatusFilter.failed,
+      );
+      expect(repository.listStatuses[7], [
+        PipelineStatusFilter.failed,
+        PipelineStatusFilter.failed,
+      ]);
+      expect(repository.listStatuses[8], [null]);
+    });
     test(
       'rejected $command preserves views and supports a real retry',
       () async {

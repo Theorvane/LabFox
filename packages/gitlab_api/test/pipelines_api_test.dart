@@ -31,6 +31,51 @@ void main() {
         expect(result.nextPage, isNull);
       },
     );
+    for (final status in PipelineStatusFilter.values) {
+      test('sends exact $status on header-based continuation pages', () async {
+        late RequestOptions captured;
+        final client = _client((options) {
+          captured = options;
+          return (
+            status: 200,
+            headers: {
+              'x-next-page': ['9'],
+            },
+            body: [
+              {'id': 1, 'status': status.name},
+            ],
+          );
+        });
+        final result = await client.pipelines.list(
+          'team/app',
+          page: 4,
+          status: status,
+        );
+        expect(captured.path, '/projects/team%2Fapp/pipelines');
+        expect(captured.queryParameters, {
+          'page': 4,
+          'per_page': 20,
+          'order_by': 'id',
+          'sort': 'desc',
+          'status': status.name,
+        });
+        expect(result.nextPage, 9);
+        expect(result.items.single.status, status.name);
+      });
+    }
+    test('maps denied filtered reads to a sanitized domain error', () async {
+      final client = _client(
+        (_) => (
+          status: 403,
+          headers: const {},
+          body: {'message': 'private server response'},
+        ),
+      );
+      await expectLater(
+        client.pipelines.list(7, status: PipelineStatusFilter.failed),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
     test('lists pipelines with pagination', () async {
       late RequestOptions captured;
       final client = _client((o) {

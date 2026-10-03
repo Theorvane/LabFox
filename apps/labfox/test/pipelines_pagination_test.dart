@@ -19,7 +19,11 @@ class _Repository extends PipelinesRepository {
   bool fail = false;
   Completer<void>? pending;
   @override
-  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) async {
+  Future<Paginated<Pipeline>> list(
+    int projectId, {
+    int page = 1,
+    PipelineStatusFilter? status,
+  }) async {
     expect(projectId, 7);
     pages.add(page);
     if (fail) throw StateError('Rejected');

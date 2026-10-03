@@ -7,8 +7,11 @@ class PipelinesRepository {
 
   final GitLabClient _client;
 
-  Future<Paginated<Pipeline>> list(int projectId, {int page = 1}) =>
-      _client.pipelines.list(projectId, page: page);
+  Future<Paginated<Pipeline>> list(
+    int projectId, {
+    int page = 1,
+    PipelineStatusFilter? status,
+  }) => _client.pipelines.list(projectId, page: page, status: status);
 
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);

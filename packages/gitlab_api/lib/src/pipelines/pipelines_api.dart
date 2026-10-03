@@ -5,6 +5,19 @@ import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
+/// Stable project-pipeline statuses supported by the list filter.
+/// Other response statuses remain visible when no filter is applied.
+enum PipelineStatusFilter {
+  created,
+  pending,
+  running,
+  success,
+  failed,
+  canceled,
+  skipped,
+  manual,
+}
+
 /// Pipeline and job endpoints.
 class PipelinesApi {
   const PipelinesApi(this._dio);
@@ -16,6 +29,7 @@ class PipelinesApi {
     Object projectId, {
     int page = 1,
     int perPage = 20,
+    PipelineStatusFilter? status,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
@@ -25,6 +39,7 @@ class PipelinesApi {
           'per_page': perPage,
           'order_by': 'id',
           'sort': 'desc',
+          if (status != null) 'status': status.name,
         },
       );
       if (response.statusCode != 200) {

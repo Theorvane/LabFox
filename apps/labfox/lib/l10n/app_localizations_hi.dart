@@ -1760,6 +1760,37 @@ class AppLocalizationsHi extends AppLocalizations {
   String get pipelinesTitle => 'पाइपलाइन';
 
   @override
+  String get pipelinesStatusAll => 'सभी स्थितियाँ';
+
+  @override
+  String get pipelinesStatusCreated => 'बनाया गया';
+
+  @override
+  String get pipelinesStatusPending => 'लंबित';
+
+  @override
+  String get pipelinesStatusRunning => 'चल रहा है';
+
+  @override
+  String get pipelinesStatusSuccess => 'सफल';
+
+  @override
+  String get pipelinesStatusFailed => 'विफल';
+
+  @override
+  String get pipelinesStatusCanceled => 'रद्द किया गया';
+
+  @override
+  String get pipelinesStatusSkipped => 'छोड़ दिया गया';
+
+  @override
+  String get pipelinesStatusManual => 'मैन्युअल';
+
+  @override
+  String get pipelinesFilteredEmpty =>
+      'इस स्थिति से मेल खाने वाली कोई पाइपलाइन नहीं है।';
+
+  @override
   String get pipelinesError => 'पाइपलाइन लोड नहीं हो सकीं।';
 
   @override
