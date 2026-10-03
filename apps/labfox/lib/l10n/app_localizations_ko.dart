@@ -9,6 +9,29 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get pipelineScheduleCreate => '스케줄 생성';
+
+  @override
+  String get pipelineScheduleCreateTitle => '새 파이프라인 스케줄';
+
+  @override
+  String get pipelineScheduleCreateDescription => '설명';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '값을 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateActive => '활성';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab에서 실행 대상, cron 식 및 시간대를 검증합니다. 시간대를 비워 두면 UTC를 사용합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
+
+  @override
   String get releaseCreationMilestoneTitle => '마일스톤 제목(선택 사항)';
 
   @override
@@ -2921,6 +2944,59 @@ class AppLocalizationsKo extends AppLocalizations {
   String get containerTagProtectionTitle => '태그 보호 규칙';
 
   @override
+  String get containerTagProtectionCreateTitle => '태그 보호 규칙 생성';
+
+  @override
+  String get containerTagProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerTagProtectionCreatePattern => '태그 이름 패턴';
+
+  @override
+  String get containerTagProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerTagProtectionCreateDelete => '최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionCreateUnset => '역할 선택';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '이 프로젝트 전체 규칙은 정확한 glob 패턴과 일치하는 태그의 푸시와 삭제를 제한합니다. 와일드카드는 많은 태그에 영향을 주고 기존 릴리스나 정리 작업을 막을 수 있습니다. 두 역할 모두 필수입니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '정확한 태그 패턴과 두 역할을 검토했으며 일치하는 태그에 미치는 영향을 이해했습니다.';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      '태그 패턴 또는 역할이 거부되었습니다. 두 필수 역할을 검토하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '태그 규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionCreateSaved => '태그 규칙이 생성되었습니다.';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '태그 규칙 생성에는 GitLab 18.8 이상과 접근 가능한 프로젝트가 필요합니다.';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
   String get containerTagProtectionEmpty => '태그 보호 규칙이 없습니다.';
 
   @override
@@ -2951,7 +3027,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerTagProtectionHint =>
-      'Git 태그가 아닌 컨테이너 이미지 태그 규칙입니다. 최소 역할은 현재 접근 권한을 보장하지 않습니다. 조회에는 GitLab 18.7 이상, 수정에는 18.9 이상이 필요합니다.';
+      'Git 태그가 아닌 컨테이너 이미지 태그의 규칙입니다. 최소 역할은 현재 사용자의 접근 권한을 확정하지 않습니다. 조회에는 GitLab 18.7 이상, 생성에는 18.8 이상, 수정에는 18.9 이상이 필요합니다.';
 
   @override
   String get containerTagProtectionPatternTitle => '태그 보호 패턴 수정';
@@ -3342,6 +3418,50 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
+
+  @override
+  String get containerProtectionRemoveTitle => '저장소 보호 규칙 삭제';
+
+  @override
+  String get containerProtectionRemoveSave => '규칙 삭제 확인';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      '이 규칙을 제거하면 경로 패턴에 일치하는 저장소의 푸시 또는 삭제 제한이 줄어들 수 있습니다. 다른 규칙과 권한은 계속 적용됩니다. 보호 규칙만 삭제하며 저장소, 태그, 이미지는 삭제하지 않습니다. 정확한 대상과 최소 역할을 확인하세요. 표시된 역할은 사용자의 권한을 의미하지 않습니다.';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      '이 규칙의 보호 제한이 제거된다는 점을 이해했습니다.';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => '이 저장소 보호 규칙을 삭제할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionRemoveError =>
+      '규칙 삭제를 확인할 수 없습니다. 새로 불러오거나 재시도하세요.';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      '확인 이후 규칙이 변경되었습니다. 삭제 전에 새로 불러와 확인하세요.';
+
+  @override
+  String get containerProtectionRemoveReload => '규칙 새로 불러오기';
+
+  @override
+  String get containerProtectionRemoveDeleted => '저장소 보호 규칙이 삭제되었습니다.';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      '규칙을 찾을 수 없거나 대상이 모호하거나 접근할 수 없습니다. 확인 전에 새로 불러오세요.';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 재시도하세요.';
 
   @override
   String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
