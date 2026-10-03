@@ -140,6 +140,48 @@ abstract class AppLocalizations {
   /// **'Could not update execution settings. Check your permissions and ref, then try again.'**
   String get pipelineScheduleExecutionError;
 
+  /// No description provided for @releasePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select project milestones'**
+  String get releasePickerTitle;
+
+  /// No description provided for @releasePickerSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search project milestones'**
+  String get releasePickerSearch;
+
+  /// No description provided for @releasePickerEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No project milestones found.'**
+  String get releasePickerEmpty;
+
+  /// No description provided for @releasePickerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get releasePickerError;
+
+  /// No description provided for @releasePickerMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more milestones'**
+  String get releasePickerMore;
+
+  /// No description provided for @releasePickerUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use milestones'**
+  String get releasePickerUse;
+
+  /// No description provided for @releasePickerRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releasePickerRemove(String title);
+
   /// No description provided for @releaseCreationDateLabel.
   ///
   /// In en, this message translates to:
@@ -5905,6 +5947,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
   String get containerTagProtectionPushClearBlocked;
+
+  /// No description provided for @packageFileDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get packageFileDelete;
+
+  /// No description provided for @packageFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package file?'**
+  String get packageFileDeleteConfirmTitle;
+
+  /// Confirmation identifying the file and its package
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{fileName}” from “{packageName}”? This cannot be undone.'**
+  String packageFileDeleteConfirmBody(String fileName, String packageName);
+
+  /// No description provided for @packageFileDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.'**
+  String get packageFileDeleteWarning;
+
+  /// No description provided for @packageFileDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this file. The package may be protected or you may not have permission.'**
+  String get packageFileDeleteForbidden;
+
+  /// No description provided for @packageFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this file. Try again.'**
+  String get packageFileDeleteError;
+
+  /// No description provided for @containerRepositoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete repository'**
+  String get containerRepositoryDelete;
+
+  /// No description provided for @containerRepositoryDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete image repository?'**
+  String get containerRepositoryDeleteConfirmTitle;
+
+  /// Confirmation identifying the complete image repository
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{path}” and all its tags? This cannot be undone.'**
+  String containerRepositoryDeleteConfirmBody(String path);
+
+  /// No description provided for @containerRepositoryDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.'**
+  String get containerRepositoryDeleteWarning;
+
+  /// No description provided for @containerRepositoryDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this repository. Check your permissions and protection rules.'**
+  String get containerRepositoryDeleteForbidden;
+
+  /// No description provided for @containerRepositoryDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule repository deletion. Try again.'**
+  String get containerRepositoryDeleteError;
+
+  /// No description provided for @containerRepositoryDeletionScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion scheduled'**
+  String get containerRepositoryDeletionScheduled;
+
+  /// No description provided for @containerRepositoryDeletionNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository deletion has been scheduled. Refresh to check progress.'**
+  String get containerRepositoryDeletionNotice;
 }
 
 class _AppLocalizationsDelegate
