@@ -872,5 +872,11 @@
   "containerTagProtectionPushClearError": "プッシュ制限の解除を確認できませんでした。再試行前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。",
   "containerTagProtectionPushClearSaved": "最低プッシュロール制限を解除しました。",
   "containerTagProtectionPushClearInvalid": "サーバーがプッシュ制限の解除を拒否しました。ルールを確認して再試行してください。",
-  "containerTagProtectionPushClearBlocked": "解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。"
+  "containerTagProtectionPushClearBlocked": "解除には対応する現在のプッシュロールと空でない削除ロールが必要です。解除済みまたは不明な設定は解除できません。",
+  "packageFileDelete": "ファイルを削除",
+  "packageFileDeleteConfirmTitle": "パッケージファイルを削除しますか？",
+  "packageFileDeleteConfirmBody": "「{packageName}」から「{fileName}」を削除しますか？この操作は取り消せません。",
+  "packageFileDeleteWarning": "ファイルを削除するとパッケージが破損し、使用やパッケージマネージャーからの取得ができなくなる可能性があります。",
+  "packageFileDeleteForbidden": "このファイルを削除できません。パッケージが保護されているか、権限がない可能性があります。",
+  "packageFileDeleteError": "ファイルを削除できませんでした。再試行してください。"
 }
