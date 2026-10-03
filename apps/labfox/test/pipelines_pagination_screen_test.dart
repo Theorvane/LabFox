@@ -31,6 +31,7 @@ class _Repository extends PipelinesRepository {
     int projectId, {
     int page = 1,
     PipelineStatusFilter? status,
+    String? ref,
   }) async {
     expectSync(projectId, 7);
     pages.add(page);
@@ -186,7 +187,14 @@ void main() {
     await tester.tap(find.text('Load more'));
     await tester.pump();
     expect(
-      tester.widget<OutlinedButton>(find.byType(OutlinedButton)).onPressed,
+      tester
+          .widget<OutlinedButton>(
+            find.ancestor(
+              of: find.byType(CircularProgressIndicator),
+              matching: find.byType(OutlinedButton),
+            ),
+          )
+          .onPressed,
       isNull,
     );
     expect(repository.pages, [1, 4]);

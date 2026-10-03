@@ -1131,9 +1131,9 @@
   "@pipelinesStatusManual": {
     "description": "Project pipeline status filter option: Manual"
   },
-  "pipelinesFilteredEmpty": "No pipelines match this status.",
+  "pipelinesFilteredEmpty": "No pipelines match these filters.",
   "@pipelinesFilteredEmpty": {
-    "description": "Empty state when the selected server-side status has no pipelines"
+    "description": "Empty state when no pipelines match the selected server-side filters"
   },
   "pipelinesError": "Could not load pipelines.",
   "@pipelinesError": {
@@ -2334,5 +2334,34 @@
   "containerKeepPatternClearAcknowledge": "I understand that previously preserved tags may become eligible for permanent deletion.",
   "containerKeepPatternClearUnknown": "Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.",
   "containerKeepPatternClearAccepted": "Keep pattern removal accepted.",
-  "containerKeepPatternClearInvalid": "GitLab rejected keep pattern removal. Review the existing policy and retry or reload it."
+  "containerKeepPatternClearInvalid": "GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.",
+  "pipelinesRefAll": "All refs",
+  "@pipelinesRefAll": {
+    "description": "Pipeline filter button when no branch or tag is selected"
+  },
+  "pipelinesRefTitle": "Branch or tag",
+  "@pipelinesRefTitle": {
+    "description": "Branch or tag filter dialog title and input label"
+  },
+  "pipelinesRefSelected": "Ref: {ref}",
+  "@pipelinesRefSelected": {
+    "description": "Pipeline filter button showing the selected branch or tag",
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "pipelinesRefApply": "Apply",
+  "@pipelinesRefApply": {
+    "description": "Apply the pipeline branch or tag filter"
+  },
+  "pipelinesRefClear": "Clear",
+  "@pipelinesRefClear": {
+    "description": "Remove the pipeline branch or tag filter"
+  },
+  "pipelinesRefHint": "Enter an exact branch or tag name.",
+  "@pipelinesRefHint": {
+    "description": "Exact-match branch or tag filter input hint"
+  }
 }

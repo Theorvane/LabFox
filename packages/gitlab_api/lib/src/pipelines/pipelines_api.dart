@@ -30,6 +30,7 @@ class PipelinesApi {
     int page = 1,
     int perPage = 20,
     PipelineStatusFilter? status,
+    String? ref,
   }) async {
     try {
       final response = await _dio.get<dynamic>(
@@ -40,6 +41,7 @@ class PipelinesApi {
           'order_by': 'id',
           'sort': 'desc',
           if (status != null) 'status': status.name,
+          'ref': ?ref,
         },
       );
       if (response.statusCode != 200) {

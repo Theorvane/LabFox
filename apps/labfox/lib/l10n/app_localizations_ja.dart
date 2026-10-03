@@ -1751,7 +1751,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get pipelinesStatusManual => '手動';
 
   @override
-  String get pipelinesFilteredEmpty => 'このステータスに一致するパイプラインはありません。';
+  String get pipelinesFilteredEmpty => 'これらのフィルターに一致するパイプラインはありません。';
 
   @override
   String get pipelinesError => 'パイプラインを読み込めませんでした。';
@@ -4343,4 +4343,24 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get containerKeepPatternClearInvalid =>
       'GitLab が保持パターンの削除を拒否しました。既存のポリシーを確認し、再試行するか再読み込みしてください。';
+
+  @override
+  String get pipelinesRefAll => 'すべての参照';
+
+  @override
+  String get pipelinesRefTitle => 'ブランチまたはタグ';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return '参照: $ref';
+  }
+
+  @override
+  String get pipelinesRefApply => '適用';
+
+  @override
+  String get pipelinesRefClear => '解除';
+
+  @override
+  String get pipelinesRefHint => '正確なブランチ名またはタグ名を入力してください。';
 }

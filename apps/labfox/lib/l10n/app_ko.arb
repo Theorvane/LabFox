@@ -439,7 +439,7 @@
   "pipelinesStatusCanceled": "취소됨",
   "pipelinesStatusSkipped": "건너뜀",
   "pipelinesStatusManual": "수동",
-  "pipelinesFilteredEmpty": "이 상태에 해당하는 파이프라인이 없습니다.",
+  "pipelinesFilteredEmpty": "이 필터와 일치하는 파이프라인이 없습니다.",
   "pipelinesError": "파이프라인을 불러올 수 없습니다.",
   "pipelinesEmpty": "아직 파이프라인이 없습니다.",
   "pipelinesLoadMore": "더 보기",
@@ -1229,5 +1229,11 @@
   "containerKeepPatternClearAcknowledge": "기존 보호 태그가 영구 삭제 대상이 될 수 있음을 이해했습니다.",
   "containerKeepPatternClearUnknown": "활성화 상태, 실행 간격, 보관 개수, 보관 기간, 유효한 삭제 패턴 및 비어 있지 않은 보관 패턴이 보고되어야 합니다. 비어 있거나 보고되지 않은 보관 패턴은 여기서 제거할 수 없습니다. 정책을 생성하지 않습니다.",
   "containerKeepPatternClearAccepted": "보관 패턴 제거 요청이 수락되었습니다.",
-  "containerKeepPatternClearInvalid": "GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요."
+  "containerKeepPatternClearInvalid": "GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요.",
+  "pipelinesRefAll": "모든 참조",
+  "pipelinesRefTitle": "브랜치 또는 태그",
+  "pipelinesRefSelected": "참조: {ref}",
+  "pipelinesRefApply": "적용",
+  "pipelinesRefClear": "해제",
+  "pipelinesRefHint": "정확한 브랜치 또는 태그 이름을 입력하세요."
 }

@@ -1755,7 +1755,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesStatusManual => '수동';
 
   @override
-  String get pipelinesFilteredEmpty => '이 상태에 해당하는 파이프라인이 없습니다.';
+  String get pipelinesFilteredEmpty => '이 필터와 일치하는 파이프라인이 없습니다.';
 
   @override
   String get pipelinesError => '파이프라인을 불러올 수 없습니다.';
@@ -4352,4 +4352,24 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get containerKeepPatternClearInvalid =>
       'GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요.';
+
+  @override
+  String get pipelinesRefAll => '모든 참조';
+
+  @override
+  String get pipelinesRefTitle => '브랜치 또는 태그';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return '참조: $ref';
+  }
+
+  @override
+  String get pipelinesRefApply => '적용';
+
+  @override
+  String get pipelinesRefClear => '해제';
+
+  @override
+  String get pipelinesRefHint => '정확한 브랜치 또는 태그 이름을 입력하세요.';
 }
