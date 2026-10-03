@@ -951,13 +951,6 @@
   "containerKeepPatternInvalid": "GitLab 拒绝了此保留模式。请检查 RE2 语法和现有策略，然后编辑或重试。",
   "containerRepositoryProtectionTitle": "仓库保护规则",
   "containerRepositoryProtectionEmpty": "没有仓库保护规则。",
-  "containerRepositoryProtectionError": "无法加载仓库保护规则。",
-  "containerRepositoryProtectionForbidden": "您没有查看仓库保护规则的权限。",
-  "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
-  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
-  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
-  "containerRepositoryProtectionRoleUnset": "规则未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理员",
   "containerProtectionCreateTitle": "创建仓库保护规则",
   "containerProtectionCreateSave": "创建规则",
   "containerProtectionCreatePattern": "仓库路径模式",
@@ -970,5 +963,12 @@
   "containerProtectionCreateInvalid": "模式或角色被拒绝，或模式已被使用。请修改草稿后重试。",
   "containerProtectionCreateError": "无法确认规则已创建。重试前请检查规则列表；服务器可能已接受请求。",
   "containerProtectionCreatePush": "最低推送角色",
-  "containerProtectionCreateDelete": "最低删除角色"
+  "containerProtectionCreateDelete": "最低删除角色",
+  "containerRepositoryProtectionError": "无法加载仓库保护规则。",
+  "containerRepositoryProtectionForbidden": "您没有查看仓库保护规则的权限。",
+  "containerRepositoryProtectionUnavailable": "此实例不支持仓库保护规则，或无法访问该项目。",
+  "containerRepositoryProtectionPushRole": "推送所需的最低角色：{role}",
+  "containerRepositoryProtectionDeleteRole": "删除所需的最低角色：{role}",
+  "containerRepositoryProtectionRoleUnset": "规则未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理员"
 }

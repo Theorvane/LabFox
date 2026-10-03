@@ -3339,33 +3339,6 @@ class AppLocalizationsJa extends AppLocalizations {
   String get containerRepositoryProtectionEmpty => 'リポジトリ保護ルールはありません。';
 
   @override
-  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
-
-  @override
-  String get containerRepositoryProtectionForbidden =>
-      'リポジトリ保護ルールを表示する権限がありません。';
-
-  @override
-  String get containerRepositoryProtectionUnavailable =>
-      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
-
-  @override
-  String containerRepositoryProtectionPushRole(String role) {
-    return 'プッシュに必要な最小ロール: $role';
-  }
-
-  @override
-  String containerRepositoryProtectionDeleteRole(String role) {
-    return '削除に必要な最小ロール: $role';
-  }
-
-  @override
-  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
-
-  @override
-  String get containerRepositoryProtectionRoleAdmin => '管理者';
-
-  @override
   String get containerProtectionCreateTitle => 'リポジトリ保護ルールを作成';
 
   @override
@@ -3409,4 +3382,31 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerProtectionCreateDelete => '最低削除ロール';
+
+  @override
+  String get containerRepositoryProtectionError => 'リポジトリ保護ルールを読み込めませんでした。';
+
+  @override
+  String get containerRepositoryProtectionForbidden =>
+      'リポジトリ保護ルールを表示する権限がありません。';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      'このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return 'プッシュに必要な最小ロール: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '削除に必要な最小ロール: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => 'ルールで未指定';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '管理者';
 }

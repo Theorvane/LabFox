@@ -951,13 +951,6 @@
   "containerKeepPatternInvalid": "GitLabが保持パターンを拒否しました。RE2構文と既存のポリシーを確認し、編集または再試行してください。",
   "containerRepositoryProtectionTitle": "リポジトリ保護ルール",
   "containerRepositoryProtectionEmpty": "リポジトリ保護ルールはありません。",
-  "containerRepositoryProtectionError": "リポジトリ保護ルールを読み込めませんでした。",
-  "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
-  "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
-  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
-  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
-  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
-  "containerRepositoryProtectionRoleAdmin": "管理者",
   "containerProtectionCreateTitle": "リポジトリ保護ルールを作成",
   "containerProtectionCreateSave": "ルールを作成",
   "containerProtectionCreatePattern": "リポジトリパスのパターン",
@@ -970,5 +963,12 @@
   "containerProtectionCreateInvalid": "パターンまたはロールが拒否されたか、パターンが既に使用されています。入力を編集して再試行してください。",
   "containerProtectionCreateError": "ルールの作成を確認できませんでした。再試行の前にルール一覧を確認してください。サーバーが要求を受理した可能性があります。",
   "containerProtectionCreatePush": "最低プッシュロール",
-  "containerProtectionCreateDelete": "最低削除ロール"
+  "containerProtectionCreateDelete": "最低削除ロール",
+  "containerRepositoryProtectionError": "リポジトリ保護ルールを読み込めませんでした。",
+  "containerRepositoryProtectionForbidden": "リポジトリ保護ルールを表示する権限がありません。",
+  "containerRepositoryProtectionUnavailable": "このインスタンスではリポジトリ保護ルールを利用できないか、プロジェクトにアクセスできません。",
+  "containerRepositoryProtectionPushRole": "プッシュに必要な最小ロール: {role}",
+  "containerRepositoryProtectionDeleteRole": "削除に必要な最小ロール: {role}",
+  "containerRepositoryProtectionRoleUnset": "ルールで未指定",
+  "containerRepositoryProtectionRoleAdmin": "管理者"
 }
