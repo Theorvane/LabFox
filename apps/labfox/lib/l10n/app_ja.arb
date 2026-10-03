@@ -920,5 +920,19 @@
   "containerKeepCountSelect": "イメージごとに保持する一致タグ数",
   "containerKeepCountWarning": "プロジェクト全体の保持数を減らすと、定期クリーンアップで各イメージリポジトリの一致タグがさらに多く完全に削除される可能性があります。以下の有効状態と削除条件を確認してください。他の設定は変更されず、削除完了も意味しません。",
   "containerKeepCountUnknown": "有効状態、間隔、保持数、期限、削除パターンの報告が必要です。不足する設定をGitLabで確認してください。新しいポリシーは作成しません。",
-  "containerKeepCountAccepted": "クリーンアップ保持数の更新が受理されました。"
+  "containerKeepCountAccepted": "クリーンアップ保持数の更新が受理されました。",
+  "protectedBranchUnprotectTitle": "ブランチルールの保護を解除",
+  "protectedBranchUnprotectTarget": "プロジェクト {project}: {name}",
+  "protectedBranchUnprotectWarning": "このルールを削除すると、プッシュやマージが許可され、CI の動作が変わる場合があります。ワイルドカードは複数のブランチに影響します。",
+  "protectedBranchUnprotectName": "正確なルール名を入力",
+  "protectedBranchUnprotectAcknowledge": "対象ブランチへの影響を理解しました。",
+  "protectedBranchUnprotectReload": "ルールを再確認",
+  "protectedBranchUnprotectSuccess": "ブランチルールを削除しました。",
+  "protectedBranchUnprotectAuth": "このルールを変更するには再度サインインしてください。",
+  "protectedBranchUnprotectForbidden": "このルールを削除する権限がありません。",
+  "protectedBranchUnprotectUnavailable": "このルールは利用できません。続行する前に一覧を確認してください。",
+  "protectedBranchUnprotectStale": "ルールが変更されました。続行する前に再確認してください。",
+  "protectedBranchUnprotectRateLimited": "GitLab がリクエストを制限しています。再試行前にルールを確認してください。",
+  "protectedBranchUnprotectError": "ルールが削除されたか確認できません。再試行前に確認してください。",
+  "protectedBranchUnprotectSessionChanged": "アカウントが変わりました。ダイアログを閉じてルールを開き直してください。"
 }

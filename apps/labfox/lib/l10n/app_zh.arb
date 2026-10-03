@@ -920,5 +920,19 @@
   "containerKeepCountSelect": "每个镜像保留的匹配标签新数量",
   "containerKeepCountWarning": "降低项目级保留数量可能导致计划清理时从所有镜像仓库永久删除更多匹配标签。请检查下面的启用状态和删除条件。其他设置保持不变，这不表示清理已完成。",
   "containerKeepCountUnknown": "需要已报告的启用状态、周期、保留数量、期限和删除模式。请在 GitLab 中检查缺失设置。不会创建新策略。",
-  "containerKeepCountAccepted": "清理保留数量更新已接受。"
+  "containerKeepCountAccepted": "清理保留数量更新已接受。",
+  "protectedBranchUnprotectTitle": "取消分支规则保护",
+  "protectedBranchUnprotectTarget": "项目 {project}：{name}",
+  "protectedBranchUnprotectWarning": "移除此规则可能允许推送或合并，并改变 CI 行为。通配符规则可能影响多个分支。",
+  "protectedBranchUnprotectName": "输入完全一致的规则名称",
+  "protectedBranchUnprotectAcknowledge": "我了解这对匹配分支的影响。",
+  "protectedBranchUnprotectReload": "重新检查规则",
+  "protectedBranchUnprotectSuccess": "分支规则已移除。",
+  "protectedBranchUnprotectAuth": "请重新登录后再更改此规则。",
+  "protectedBranchUnprotectForbidden": "您没有权限移除此规则。",
+  "protectedBranchUnprotectUnavailable": "此规则已不可用。继续前请检查列表。",
+  "protectedBranchUnprotectStale": "规则已更改。继续前请重新检查。",
+  "protectedBranchUnprotectRateLimited": "GitLab 正在限制请求。重试前请检查规则。",
+  "protectedBranchUnprotectError": "无法确认规则是否已移除。重试前请先检查。",
+  "protectedBranchUnprotectSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。"
 }

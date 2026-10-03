@@ -6109,6 +6109,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleanup retention count update accepted.'**
   String get containerKeepCountAccepted;
+
+  /// No description provided for @protectedBranchUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect branch rule'**
+  String get protectedBranchUnprotectTitle;
+
+  /// No description provided for @protectedBranchUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedBranchUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchUnprotectWarning;
+
+  /// No description provided for @protectedBranchUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact rule name'**
+  String get protectedBranchUnprotectName;
+
+  /// No description provided for @protectedBranchUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the effect on matching branches.'**
+  String get protectedBranchUnprotectAcknowledge;
+
+  /// No description provided for @protectedBranchUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchUnprotectReload;
+
+  /// No description provided for @protectedBranchUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch rule removed.'**
+  String get protectedBranchUnprotectSuccess;
+
+  /// No description provided for @protectedBranchUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchUnprotectAuth;
+
+  /// No description provided for @protectedBranchUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this rule.'**
+  String get protectedBranchUnprotectForbidden;
+
+  /// No description provided for @protectedBranchUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchUnprotectUnavailable;
+
+  /// No description provided for @protectedBranchUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchUnprotectStale;
+
+  /// No description provided for @protectedBranchUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchUnprotectRateLimited;
+
+  /// No description provided for @protectedBranchUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm whether the rule was removed. Check it before trying again.'**
+  String get protectedBranchUnprotectError;
+
+  /// No description provided for @protectedBranchUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchUnprotectSessionChanged;
 }
 
 class _AppLocalizationsDelegate

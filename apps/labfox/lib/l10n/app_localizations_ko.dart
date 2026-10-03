@@ -3245,4 +3245,53 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get containerKeepCountAccepted => '정리 보관 개수 변경 요청이 수락되었습니다.';
+
+  @override
+  String get protectedBranchUnprotectTitle => '브랜치 규칙 보호 해제';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      '이 규칙을 제거하면 푸시나 병합이 허용되고 CI 동작이 달라질 수 있습니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchUnprotectName => '정확한 규칙 이름 입력';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '일치하는 브랜치에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchUnprotectReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchUnprotectSuccess => '브랜치 규칙을 제거했습니다.';
+
+  @override
+  String get protectedBranchUnprotectAuth => '이 규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchUnprotectForbidden => '이 규칙을 제거할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      '규칙이 제거되었는지 확인할 수 없습니다. 다시 시도하기 전에 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
 }

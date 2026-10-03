@@ -3237,4 +3237,53 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get containerKeepCountAccepted => 'クリーンアップ保持数の更新が受理されました。';
+
+  @override
+  String get protectedBranchUnprotectTitle => 'ブランチルールの保護を解除';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return 'プロジェクト $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      'このルールを削除すると、プッシュやマージが許可され、CI の動作が変わる場合があります。ワイルドカードは複数のブランチに影響します。';
+
+  @override
+  String get protectedBranchUnprotectName => '正確なルール名を入力';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '対象ブランチへの影響を理解しました。';
+
+  @override
+  String get protectedBranchUnprotectReload => 'ルールを再確認';
+
+  @override
+  String get protectedBranchUnprotectSuccess => 'ブランチルールを削除しました。';
+
+  @override
+  String get protectedBranchUnprotectAuth => 'このルールを変更するには再度サインインしてください。';
+
+  @override
+  String get protectedBranchUnprotectForbidden => 'このルールを削除する権限がありません。';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      'このルールは利用できません。続行する前に一覧を確認してください。';
+
+  @override
+  String get protectedBranchUnprotectStale => 'ルールが変更されました。続行する前に再確認してください。';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab がリクエストを制限しています。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      'ルールが削除されたか確認できません。再試行前に確認してください。';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      'アカウントが変わりました。ダイアログを閉じてルールを開き直してください。';
 }
