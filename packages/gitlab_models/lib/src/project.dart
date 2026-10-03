@@ -14,6 +14,7 @@ part 'project.g.dart';
 abstract class Project with _$Project {
   const factory Project({
     required int id,
+    @JsonKey(name: 'namespace') ProjectNamespace? namespaceDetails,
     required String name,
     @JsonKey(name: 'path_with_namespace') required String pathWithNamespace,
     String? description,
@@ -49,4 +50,13 @@ abstract class Project with _$Project {
     final lastSlash = pathWithNamespace.lastIndexOf('/');
     return lastSlash <= 0 ? '' : pathWithNamespace.substring(0, lastSlash);
   }
+}
+
+/// Namespace identity for determining whether a project belongs to a group.
+@freezed
+abstract class ProjectNamespace with _$ProjectNamespace {
+  const factory ProjectNamespace({int? id, String? kind}) = _ProjectNamespace;
+
+  factory ProjectNamespace.fromJson(Map<String, dynamic> json) =>
+      _$ProjectNamespaceFromJson(json);
 }

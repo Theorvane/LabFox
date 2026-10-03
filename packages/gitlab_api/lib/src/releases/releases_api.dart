@@ -137,6 +137,7 @@ class ReleasesApi {
     String? ref,
     String? name,
     String? description,
+    List<String>? milestones,
     DateTime? releasedAt,
   }) async {
     try {
@@ -147,6 +148,8 @@ class ReleasesApi {
           'ref': ?ref,
           'name': ?name,
           'description': ?description,
+          if (milestones != null && milestones.isNotEmpty)
+            'milestones': List<String>.unmodifiable(milestones),
           'released_at': ?releasedAt?.toUtc().toIso8601String(),
         },
       );
