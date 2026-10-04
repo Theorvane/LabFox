@@ -541,6 +541,86 @@ class MergeRequestsApi {
     }
   }
 
+  /// Reads one page of the authenticated author's unpublished review notes.
+  /// Empty pages can still have a next cursor; no eager pagination or writes.
+  Future<Paginated<MergeRequestDraftNote>> draftNotes(
+    Object projectId, {
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/draft_notes',
+        queryParameters: {'page': page, 'per_page': perPage},
+        options: Options(followRedirects: false),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading draft notes',
+        );
+      }
+      final drafts = _parseDraftNotes(response.data);
+      final cursors = response.headers['x-next-page'];
+      if (cursors != null && cursors.length != 1) {
+        throw const GitLabServerException('Invalid draft notes pagination.');
+      }
+      final cursor = cursors?.single;
+      if (cursor != null && cursor.isNotEmpty) {
+        final next = int.tryParse(cursor);
+        if (next == null || next <= page) {
+          throw const GitLabServerException('Invalid draft notes pagination.');
+        }
+      }
+      return Paginated.fromHeaders(drafts, response.headers.map);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading draft notes');
+    }
+  }
+
+  static List<MergeRequestDraftNote> _parseDraftNotes(Object? payload) {
+    try {
+      if (payload is! List) throw const FormatException();
+      final ids = <int>{};
+      int? mergeRequestId;
+      final drafts = <MergeRequestDraftNote>[];
+      for (final entry in payload) {
+        if (entry is! Map<String, dynamic>) throw const FormatException();
+        for (final key in ['id', 'author_id', 'merge_request_id']) {
+          final value = entry[key];
+          if (value is! int || value < 1) throw const FormatException();
+        }
+        if (!ids.add(entry['id'] as int)) throw const FormatException();
+        mergeRequestId ??= entry['merge_request_id'] as int;
+        if (entry['merge_request_id'] != mergeRequestId) {
+          throw const FormatException();
+        }
+        if (entry['note'] is! String) throw const FormatException();
+        final resolve = entry['resolve_discussion'];
+        if (resolve != null && resolve is! bool) throw const FormatException();
+        _validatePositionStrings(entry, [
+          'discussion_id',
+          'commit_id',
+          'line_code',
+        ]);
+        _validateDiffPosition(entry['position']);
+        drafts.add(MergeRequestDraftNote.fromJson(entry));
+      }
+      return List<MergeRequestDraftNote>.unmodifiable(drafts);
+    } on FormatException {
+      throw const GitLabServerException('Invalid draft notes response.');
+    } on TypeError {
+      throw const GitLabServerException('Invalid draft notes response.');
+    }
+  }
+
   /// Reads one page of discussion groups, including replies absent from notes.
   /// No total count is assumed; callers follow the returned next-page cursor.
   Future<Paginated<Discussion>> discussions(

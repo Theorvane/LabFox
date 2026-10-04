@@ -30,6 +30,7 @@ export 'src/label.dart';
 export 'src/merge_request.dart';
 export 'src/merge_request_approvals.dart';
 export 'src/merge_request_diff_version.dart';
+export 'src/merge_request_draft_note.dart';
 export 'src/note.dart';
 export 'src/oauth_token.dart';
 export 'src/package_file.dart';
