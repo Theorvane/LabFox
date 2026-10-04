@@ -431,6 +431,63 @@ class MergeRequestsApi {
     }
   }
 
+  /// Adds a reply to an existing discussion, using its string thread ID.
+  ///
+  /// Preserves nonempty Markdown exactly. A write is never automatically
+  /// replayed after authentication failure; callers can offer explicit retry.
+  Future<Note> replyToDiscussion(
+    Object projectId, {
+    required int iid,
+    required String discussionId,
+    required String body,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (discussionId.trim().isEmpty) {
+      throw ArgumentError('A discussion ID is required.', 'discussionId');
+    }
+    if (body.trim().isEmpty) {
+      throw ArgumentError('A reply body is required.', 'body');
+    }
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/discussions/'
+        '${Uri.encodeComponent(discussionId)}/notes',
+        data: {'body': body},
+        options: Options(extra: {'labfox_no_auth_retry': true}),
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'replying to a discussion',
+        );
+      }
+      return _parseDiscussionReply(response.data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'replying to a discussion');
+    }
+  }
+
+  static Note _parseDiscussionReply(Object? payload) {
+    try {
+      if (payload is! Map<String, dynamic>) throw const FormatException();
+      final id = payload['id'];
+      if (id is! int || id <= 0) throw const FormatException();
+      for (final key in ['author', 'resolved_by']) {
+        final user = payload[key];
+        if (user == null) continue;
+        if (user is! Map<String, dynamic>) throw const FormatException();
+        final userId = user['id'];
+        if (userId is! int || userId <= 0) throw const FormatException();
+      }
+      return Note.fromJson(payload);
+    } on FormatException {
+      throw const GitLabServerException('Invalid discussion reply response.');
+    } on TypeError {
+      throw const GitLabServerException('Invalid discussion reply response.');
+    }
+  }
+
   static List<Discussion> _parseDiscussions(Object? payload) {
     try {
       if (payload is! List) throw const FormatException();
