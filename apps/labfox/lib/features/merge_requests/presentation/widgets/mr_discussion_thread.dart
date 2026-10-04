@@ -11,6 +11,7 @@ import '../../../comments/presentation/controllers/comments_controller.dart';
 import '../../../comments/presentation/widgets/comment_thread.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
+import 'mr_discussion_position_context.dart';
 
 /// Grouped MR replies with explicit pagination and the shared note composer.
 class MrDiscussionThread extends ConsumerWidget {
@@ -174,6 +175,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
                 _DiscussionView(
                   key: ValueKey('mr-discussion-${group.id}'),
                   discussion: group,
+                  resource: widget.arg,
                   resolutionControl: discussionResolution(group) == null
                       ? null
                       : Column(
@@ -318,11 +320,13 @@ class _MoreDiscussionsState extends ConsumerState<_MoreDiscussions> {
 class _DiscussionView extends StatelessWidget {
   const _DiscussionView({
     required this.discussion,
+    required this.resource,
     required this.replyControl,
     this.resolutionControl,
     super.key,
   });
   final Discussion discussion;
+  final MergeRequestRef resource;
   final Widget replyControl;
   final Widget? resolutionControl;
   @override
@@ -372,6 +376,14 @@ class _DiscussionView extends StatelessWidget {
                     ),
                     const SizedBox(height: LabFoxSpacing.xs),
                     MarkdownViewer(data: note.body),
+                    if (note.position != null)
+                      MrDiscussionPositionContext(
+                        key: ValueKey((resource, note.id, note.position)),
+                        projectId: resource.projectId,
+                        iid: resource.iid,
+                        noteId: note.id,
+                        position: note.position!,
+                      ),
                   ],
                 ),
               ),

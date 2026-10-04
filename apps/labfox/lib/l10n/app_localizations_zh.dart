@@ -4381,4 +4381,30 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiscussionResolveError => '无法更新此讨论。请重试。';
+
+  @override
+  String get mrDiscussionContextViewButton => '查看原始差异';
+
+  @override
+  String get mrDiscussionContextHideButton => '隐藏原始差异';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return '原始差异 · 版本 $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable => '此评论的原始差异上下文不可用。';
+
+  @override
+  String get mrDiscussionContextError => '无法加载原始差异。请重试。';
+
+  @override
+  String get mrDiscussionContextOlderButton => '查找较早版本';
+
+  @override
+  String get mrDiscussionContextLineLabel => '评论所在行';
+
+  @override
+  String get mrDiscussionContextLoading => '正在加载原始差异';
 }

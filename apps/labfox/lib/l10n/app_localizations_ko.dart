@@ -4525,4 +4525,30 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiscussionResolveError => '토론을 변경하지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get mrDiscussionContextViewButton => '원본 diff 보기';
+
+  @override
+  String get mrDiscussionContextHideButton => '원본 diff 숨기기';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return '원본 diff · 버전 $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable => '이 댓글의 원본 diff 문맥을 확인할 수 없습니다.';
+
+  @override
+  String get mrDiscussionContextError => '원본 diff를 불러오지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get mrDiscussionContextOlderButton => '이전 버전 찾기';
+
+  @override
+  String get mrDiscussionContextLineLabel => '댓글이 달린 줄';
+
+  @override
+  String get mrDiscussionContextLoading => '원본 diff 불러오는 중';
 }

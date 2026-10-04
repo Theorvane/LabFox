@@ -1278,5 +1278,13 @@
   "mrDiscussionResolveButton": "ディスカッションを解決",
   "mrDiscussionReopenButton": "ディスカッションを再開",
   "mrDiscussionResolveForbidden": "このディスカッションを変更できません。アカウントの権限を確認してください。",
-  "mrDiscussionResolveError": "ディスカッションを更新できませんでした。もう一度お試しください。"
+  "mrDiscussionResolveError": "ディスカッションを更新できませんでした。もう一度お試しください。",
+  "mrDiscussionContextViewButton": "元の差分を表示",
+  "mrDiscussionContextHideButton": "元の差分を非表示",
+  "mrDiscussionContextTitle": "元の差分 · バージョン {version}",
+  "mrDiscussionContextUnavailable": "このコメントの元の差分を確認できません。",
+  "mrDiscussionContextError": "元の差分を読み込めませんでした。もう一度お試しください。",
+  "mrDiscussionContextOlderButton": "以前のバージョンを探す",
+  "mrDiscussionContextLineLabel": "コメント対象の行",
+  "mrDiscussionContextLoading": "元の差分を読み込み中"
 }
