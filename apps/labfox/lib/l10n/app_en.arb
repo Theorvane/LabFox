@@ -2513,5 +2513,10 @@
   },
   "@mrApprovalStatusError": {
     "description": "Sanitized merge request approval-state read failure."
-  }
+  },
+  "mrDiscussionResolved": "Resolved",
+  "mrDiscussionUnresolved": "Unresolved",
+  "mrDiscussionsLoadMore": "Load more discussions",
+  "mrDiscussionsMoreError": "Could not load more discussions.",
+  "mrDiscussionsPartial": "More discussions are available."
 }

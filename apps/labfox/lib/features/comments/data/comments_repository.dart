@@ -15,6 +15,12 @@ class CommentsRepository {
     return _client.notes.list(type, projectId: projectId, iid: iid);
   }
 
+  Future<Paginated<Discussion>> discussions({
+    required int projectId,
+    required int iid,
+    int page = 1,
+  }) => _client.mergeRequests.discussions(projectId, iid: iid, page: page);
+
   Future<Note> post({
     required NoteableType type,
     required int projectId,

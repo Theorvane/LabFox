@@ -9,10 +9,10 @@ import '../../../app/router.dart';
 import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../comments/presentation/widgets/comment_thread.dart';
 import 'controllers/merge_requests_controllers.dart';
 import 'controllers/mr_actions_controller.dart';
 import 'widgets/mr_actions.dart';
+import 'widgets/mr_discussion_thread.dart';
 
 /// One merge request: an identity header, the description and discussion, with
 /// the approve / merge actions pinned to a sticky bar so they never scroll away.
@@ -96,11 +96,7 @@ class MergeRequestDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             const SizedBox(height: LabFoxSpacing.xl),
-            CommentThread(
-              type: NoteableType.mergeRequest,
-              projectId: projectId,
-              iid: iid,
-            ),
+            MrDiscussionThread(projectId: projectId, iid: iid),
           ],
         ),
       ),

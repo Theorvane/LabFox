@@ -4635,4 +4635,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrApprovalStatusError => 'स्वीकृति की स्थिति लोड नहीं हो सकी।';
+
+  @override
+  String get mrDiscussionResolved => 'समाधान किया गया';
+
+  @override
+  String get mrDiscussionUnresolved => 'अनसुलझा';
+
+  @override
+  String get mrDiscussionsLoadMore => 'और चर्चाएँ लोड करें';
+
+  @override
+  String get mrDiscussionsMoreError => 'और चर्चाएँ लोड नहीं हो सकीं।';
+
+  @override
+  String get mrDiscussionsPartial => 'और चर्चाएँ उपलब्ध हैं।';
 }
