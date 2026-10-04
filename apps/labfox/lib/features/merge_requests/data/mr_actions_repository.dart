@@ -3,16 +3,30 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 /// Approve, unapprove, and merge actions for a merge request.
 class MrActionsRepository {
-  MrActionsRepository(this._client);
+  MrActionsRepository(this._client, {int? currentUserId})
+    : _currentUserId = currentUserId;
 
   final GitLabClient _client;
+  final int? _currentUserId;
 
   Future<MergeRequestApprovals?> approvals({
     required int projectId,
     required int iid,
   }) async {
     try {
-      return await _client.mergeRequests.approvals(projectId, iid: iid);
+      final approvals = await _client.mergeRequests.approvals(
+        projectId,
+        iid: iid,
+      );
+      // GitLab documents approved_by, not a current-user approval flag.
+      // Usernames can change and are not unique across instances.
+      return MergeRequestApprovals(
+        approvalsRequired: approvals.approvalsRequired,
+        userHasApproved: approvals.approvedBy.any(
+          (user) => user.id == _currentUserId,
+        ),
+        approvedBy: approvals.approvedBy,
+      );
     } on GitLabNotFoundException {
       // Approvals are not available on every plan or instance. Treat their
       // absence as "no approval info" rather than failing the whole screen.
