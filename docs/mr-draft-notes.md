@@ -1,6 +1,7 @@
 # Pending MR review note reader
 
-Issue [#598](https://github.com/Theorvane/labfox/issues/598) adds the read-only
+Issue [#598](https://github.com/Theorvane/labfox/issues/598) /
+[PR #599](https://github.com/Theorvane/labfox/pull/599) adds the read-only
 foundation for unpublished server-backed review notes in MW-07. Draft notes are
 visible only to their author until publication. This slice does not expose a UI
 or create, edit, delete, publish or bulk-publish notes.
