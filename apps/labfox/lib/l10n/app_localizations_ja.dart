@@ -4481,4 +4481,19 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrApprovalStatusError => '承認状況を読み込めませんでした。';
+
+  @override
+  String get mrDiscussionResolved => '解決済み';
+
+  @override
+  String get mrDiscussionUnresolved => '未解決';
+
+  @override
+  String get mrDiscussionsLoadMore => 'ディスカッションをさらに読み込む';
+
+  @override
+  String get mrDiscussionsMoreError => 'ディスカッションをさらに読み込めませんでした。';
+
+  @override
+  String get mrDiscussionsPartial => 'ほかのディスカッションがあります。';
 }

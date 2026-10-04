@@ -8167,6 +8167,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load approval status.'**
   String get mrApprovalStatusError;
+
+  /// No description provided for @mrDiscussionResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get mrDiscussionResolved;
+
+  /// No description provided for @mrDiscussionUnresolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Unresolved'**
+  String get mrDiscussionUnresolved;
+
+  /// No description provided for @mrDiscussionsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more discussions'**
+  String get mrDiscussionsLoadMore;
+
+  /// No description provided for @mrDiscussionsMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more discussions.'**
+  String get mrDiscussionsMoreError;
+
+  /// No description provided for @mrDiscussionsPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'More discussions are available.'**
+  String get mrDiscussionsPartial;
 }
 
 class _AppLocalizationsDelegate

@@ -4633,4 +4633,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrApprovalStatusError => 'Could not load approval status.';
+
+  @override
+  String get mrDiscussionResolved => 'Resolved';
+
+  @override
+  String get mrDiscussionUnresolved => 'Unresolved';
+
+  @override
+  String get mrDiscussionsLoadMore => 'Load more discussions';
+
+  @override
+  String get mrDiscussionsMoreError => 'Could not load more discussions.';
+
+  @override
+  String get mrDiscussionsPartial => 'More discussions are available.';
 }

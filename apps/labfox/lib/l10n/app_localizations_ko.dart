@@ -4489,4 +4489,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrApprovalStatusError => '승인 상태를 불러오지 못했습니다.';
+
+  @override
+  String get mrDiscussionResolved => '해결됨';
+
+  @override
+  String get mrDiscussionUnresolved => '미해결';
+
+  @override
+  String get mrDiscussionsLoadMore => '토론 더 불러오기';
+
+  @override
+  String get mrDiscussionsMoreError => '토론을 더 불러오지 못했습니다.';
+
+  @override
+  String get mrDiscussionsPartial => '더 많은 토론이 있습니다.';
 }

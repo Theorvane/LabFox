@@ -1266,5 +1266,10 @@
   "pipelineJobsPartialList": "केवल लोड किए गए जॉब दिखाए गए हैं। बाकी देखने के लिए और लोड करें।",
   "pipelineJobsLoadMoreError": "और जॉब लोड नहीं हो सके।",
   "mrApprovalStatusLoading": "स्वीकृति की स्थिति लोड हो रही है…",
-  "mrApprovalStatusError": "स्वीकृति की स्थिति लोड नहीं हो सकी।"
+  "mrApprovalStatusError": "स्वीकृति की स्थिति लोड नहीं हो सकी।",
+  "mrDiscussionResolved": "समाधान किया गया",
+  "mrDiscussionUnresolved": "अनसुलझा",
+  "mrDiscussionsLoadMore": "और चर्चाएँ लोड करें",
+  "mrDiscussionsMoreError": "और चर्चाएँ लोड नहीं हो सकीं।",
+  "mrDiscussionsPartial": "और चर्चाएँ उपलब्ध हैं।"
 }

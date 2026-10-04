@@ -4345,4 +4345,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrApprovalStatusError => '无法加载批准状态。';
+
+  @override
+  String get mrDiscussionResolved => '已解决';
+
+  @override
+  String get mrDiscussionUnresolved => '未解决';
+
+  @override
+  String get mrDiscussionsLoadMore => '加载更多讨论';
+
+  @override
+  String get mrDiscussionsMoreError => '无法加载更多讨论。';
+
+  @override
+  String get mrDiscussionsPartial => '还有更多讨论。';
 }

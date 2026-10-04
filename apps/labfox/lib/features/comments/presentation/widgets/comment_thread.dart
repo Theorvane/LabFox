@@ -18,12 +18,20 @@ class CommentThread extends ConsumerStatefulWidget {
     required this.type,
     required this.projectId,
     required this.iid,
+    this.conversation,
+    this.onPost,
+    this.postingAllowed = true,
     super.key,
   });
 
   final NoteableType type;
   final int projectId;
   final int iid;
+
+  /// A grouped conversation supplied by MR review while reusing the composer.
+  final Widget? conversation;
+  final Future<bool> Function(String body)? onPost;
+  final bool postingAllowed;
 
   @override
   ConsumerState<CommentThread> createState() => _CommentThreadState();
@@ -48,7 +56,7 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
 
   Future<void> _post() async {
     final body = _controller.text.trim();
-    if (body.isEmpty) {
+    if (body.isEmpty || _posting || !widget.postingAllowed) {
       return;
     }
     setState(() {
@@ -56,7 +64,11 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
       _error = null;
     });
     try {
-      await ref.read(commentsControllerProvider(_ref).notifier).post(body);
+      if (widget.onPost case final post?) {
+        if (!await post(body)) return;
+      } else {
+        await ref.read(commentsControllerProvider(_ref).notifier).post(body);
+      }
       if (!mounted) {
         return;
       }
@@ -78,7 +90,9 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
-    final notes = ref.watch(commentsControllerProvider(_ref));
+    final notes = widget.conversation == null
+        ? ref.watch(commentsControllerProvider(_ref))
+        : null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -88,34 +102,40 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: LabFoxSpacing.sm),
-        notes.when(
-          loading: () => const Padding(
-            padding: EdgeInsets.all(LabFoxSpacing.md),
-            child: Center(child: CircularProgressIndicator()),
-          ),
-          error: (error, _) => Text(l10n.commentsError),
-          data: (all) {
-            final comments = all.where((n) => !n.isSystem).toList();
-            if (comments.isEmpty) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: LabFoxSpacing.sm),
-                child: Text(
-                  l10n.commentsEmpty,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              );
-            }
-            return Column(
-              children: [for (final note in comments) _NoteView(note: note)],
-            );
-          },
-        ),
+        widget.conversation ??
+            notes!.when(
+              loading: () => const Padding(
+                padding: EdgeInsets.all(LabFoxSpacing.md),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+              error: (error, _) => Text(l10n.commentsError),
+              data: (all) {
+                final comments = all.where((n) => !n.isSystem).toList();
+                if (comments.isEmpty) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: LabFoxSpacing.sm,
+                    ),
+                    child: Text(
+                      l10n.commentsEmpty,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    for (final note in comments) _NoteView(note: note),
+                  ],
+                );
+              },
+            ),
         const SizedBox(height: LabFoxSpacing.md),
         _Composer(
           controller: _controller,
           posting: _posting,
           error: _error,
           onSubmit: _post,
+          canSubmit: widget.postingAllowed,
         ),
       ],
     );
@@ -173,12 +193,14 @@ class _Composer extends StatelessWidget {
     required this.posting,
     required this.error,
     required this.onSubmit,
+    required this.canSubmit,
   });
 
   final TextEditingController controller;
   final bool posting;
   final String? error;
   final VoidCallback onSubmit;
+  final bool canSubmit;
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +229,7 @@ class _Composer extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: FilledButton(
-            onPressed: posting ? null : onSubmit,
+            onPressed: posting || !canSubmit ? null : onSubmit,
             child: posting
                 ? const SizedBox(
                     height: 20,

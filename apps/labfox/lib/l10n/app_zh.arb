@@ -1266,5 +1266,10 @@
   "pipelineJobsPartialList": "仅显示已加载的作业。加载更多以查看其余作业。",
   "pipelineJobsLoadMoreError": "无法加载更多作业。",
   "mrApprovalStatusLoading": "正在加载批准状态…",
-  "mrApprovalStatusError": "无法加载批准状态。"
+  "mrApprovalStatusError": "无法加载批准状态。",
+  "mrDiscussionResolved": "已解决",
+  "mrDiscussionUnresolved": "未解决",
+  "mrDiscussionsLoadMore": "加载更多讨论",
+  "mrDiscussionsMoreError": "无法加载更多讨论。",
+  "mrDiscussionsPartial": "还有更多讨论。"
 }

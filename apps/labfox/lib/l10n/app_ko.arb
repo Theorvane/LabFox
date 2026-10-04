@@ -1266,5 +1266,10 @@
   "pipelineJobsPartialList": "불러온 작업만 표시됩니다. 나머지 작업을 보려면 더 불러오세요.",
   "pipelineJobsLoadMoreError": "추가 작업을 불러오지 못했습니다.",
   "mrApprovalStatusLoading": "승인 상태를 불러오는 중…",
-  "mrApprovalStatusError": "승인 상태를 불러오지 못했습니다."
+  "mrApprovalStatusError": "승인 상태를 불러오지 못했습니다.",
+  "mrDiscussionResolved": "해결됨",
+  "mrDiscussionUnresolved": "미해결",
+  "mrDiscussionsLoadMore": "토론 더 불러오기",
+  "mrDiscussionsMoreError": "토론을 더 불러오지 못했습니다.",
+  "mrDiscussionsPartial": "더 많은 토론이 있습니다."
 }
