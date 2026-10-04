@@ -2521,5 +2521,9 @@
   "mrDiscussionsPartial": "More discussions are available.",
   "mrDiscussionReplyButton": "Reply",
   "mrDiscussionReplyTitle": "Reply to discussion",
-  "mrDiscussionReplyHint": "Write a reply…"
+  "mrDiscussionReplyHint": "Write a reply…",
+  "mrDiscussionResolveButton": "Resolve discussion",
+  "mrDiscussionReopenButton": "Reopen discussion",
+  "mrDiscussionResolveForbidden": "You cannot change this discussion. Check your account permissions.",
+  "mrDiscussionResolveError": "Could not update this discussion. Try again."
 }

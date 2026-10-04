@@ -468,6 +468,54 @@ class MergeRequestsApi {
     }
   }
 
+  /// Resolves or reopens a discussion and confirms its updated server state.
+  /// The mutation is never redirected or replayed after authentication failure.
+  Future<Discussion> setDiscussionResolved(
+    Object projectId, {
+    required int iid,
+    required String discussionId,
+    required bool resolved,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (discussionId.trim().isEmpty) {
+      throw ArgumentError('A discussion ID is required.', 'discussionId');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/discussions/'
+        '${Uri.encodeComponent(discussionId)}',
+        data: {'resolved': resolved},
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating discussion resolution',
+        );
+      }
+      try {
+        final discussion = _parseDiscussions([response.data]).single;
+        final notes = discussion.notes.where((note) => note.resolvable == true);
+        if (discussion.id != discussionId ||
+            notes.isEmpty ||
+            notes.any((note) => note.resolved != resolved)) {
+          throw const GitLabServerException('Unconfirmed discussion state.');
+        }
+        return discussion;
+      } on GitLabServerException {
+        throw const GitLabServerException(
+          'Invalid discussion resolution response.',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating discussion resolution');
+    }
+  }
+
   static Note _parseDiscussionReply(Object? payload) {
     try {
       if (payload is! Map<String, dynamic>) throw const FormatException();

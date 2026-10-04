@@ -4657,4 +4657,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiscussionReplyHint => 'Write a reply…';
+
+  @override
+  String get mrDiscussionResolveButton => 'Resolve discussion';
+
+  @override
+  String get mrDiscussionReopenButton => 'Reopen discussion';
+
+  @override
+  String get mrDiscussionResolveForbidden =>
+      'You cannot change this discussion. Check your account permissions.';
+
+  @override
+  String get mrDiscussionResolveError =>
+      'Could not update this discussion. Try again.';
 }

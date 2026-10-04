@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../l10n/app_localizations.dart';
+import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import '../../../comments/presentation/widgets/comment_thread.dart';
 import '../controllers/merge_requests_controllers.dart';
@@ -56,6 +57,32 @@ class _ConversationState extends ConsumerState<_Conversation> {
   String? _replyId;
   bool _replyPosting = false;
   bool _topPosting = false;
+  String? _resolutionId;
+  String? _resolutionErrorId;
+  bool _resolutionForbidden = false;
+
+  Future<void> _setResolved(String id, bool resolved) async {
+    if (_resolutionId != null || _topPosting || _replyId != null) return;
+    setState(() {
+      _resolutionId = id;
+      _resolutionErrorId = null;
+    });
+    try {
+      await ref
+          .read(mrDiscussionsControllerProvider(widget.arg).notifier)
+          .setResolved(discussionId: id, resolved: resolved);
+    } on GitLabException catch (error) {
+      if (mounted) {
+        setState(() {
+          _resolutionErrorId = id;
+          _resolutionForbidden =
+              error is GitLabForbiddenException || error is GitLabAuthException;
+        });
+      }
+    } finally {
+      if (mounted) setState(() => _resolutionId = null);
+    }
+  }
 
   @override
   void didUpdateWidget(covariant _Conversation oldWidget) {
@@ -72,7 +99,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
   }
 
   Future<bool> _post(String body) async {
-    if (_topPosting || _replyId != null) return false;
+    if (_topPosting || _replyId != null || _resolutionId != null) return false;
     setState(() => _topPosting = true);
     try {
       return await ref
@@ -85,7 +112,9 @@ class _ConversationState extends ConsumerState<_Conversation> {
 
   Future<bool> _reply(String body) async {
     final id = _replyId;
-    if (id == null || _replyPosting || _topPosting) return false;
+    if (id == null || _replyPosting || _topPosting || _resolutionId != null) {
+      return false;
+    }
     setState(() => _replyPosting = true);
     try {
       final posted = await ref
@@ -108,7 +137,11 @@ class _ConversationState extends ConsumerState<_Conversation> {
       type: NoteableType.mergeRequest,
       projectId: widget.arg.projectId,
       iid: widget.arg.iid,
-      postingAllowed: canPost && _replyId == null && !_replyPosting,
+      postingAllowed:
+          canPost &&
+          _replyId == null &&
+          !_replyPosting &&
+          _resolutionId == null,
       onPost: _post,
       conversation: discussions.when(
         skipLoadingOnRefresh: false,
@@ -141,6 +174,48 @@ class _ConversationState extends ConsumerState<_Conversation> {
                 _DiscussionView(
                   key: ValueKey('mr-discussion-${group.id}'),
                   discussion: group,
+                  resolutionControl: discussionResolution(group) == null
+                      ? null
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            if (_resolutionErrorId == group.id)
+                              Text(
+                                _resolutionForbidden
+                                    ? l10n.mrDiscussionResolveForbidden
+                                    : l10n.mrDiscussionResolveError,
+                              ),
+                            TextButton(
+                              key: ValueKey(
+                                'mr-discussion-resolution-${group.id}',
+                              ),
+                              onPressed:
+                                  canPost &&
+                                      _replyId == null &&
+                                      !_topPosting &&
+                                      !_replyPosting &&
+                                      _resolutionId == null
+                                  ? () => _setResolved(
+                                      group.id,
+                                      !discussionResolution(group)!,
+                                    )
+                                  : null,
+                              child: _resolutionId == group.id
+                                  ? const SizedBox(
+                                      width: LabFoxSpacing.lg,
+                                      height: LabFoxSpacing.lg,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                      ),
+                                    )
+                                  : Text(
+                                      discussionResolution(group)!
+                                          ? l10n.mrDiscussionReopenButton
+                                          : l10n.mrDiscussionResolveButton,
+                                    ),
+                            ),
+                          ],
+                        ),
                   replyControl: _replyId == group.id
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -178,7 +253,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
                                 canPost &&
                                     _replyId == null &&
                                     !_topPosting &&
-                                    !_replyPosting
+                                    !_replyPosting &&
+                                    _resolutionId == null
                                 ? () => setState(() => _replyId = group.id)
                                 : null,
                             child: Text(l10n.mrDiscussionReplyButton),
@@ -243,24 +319,18 @@ class _DiscussionView extends StatelessWidget {
   const _DiscussionView({
     required this.discussion,
     required this.replyControl,
+    this.resolutionControl,
     super.key,
   });
   final Discussion discussion;
   final Widget replyControl;
+  final Widget? resolutionControl;
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final notes = discussion.notes.where((note) => !note.isSystem).toList();
-    final resolvable = discussion.notes
-        .where((note) => note.resolvable == true)
-        .toList();
-    final bool? resolved = resolvable.any((note) => note.resolved == false)
-        ? false
-        : resolvable.isNotEmpty &&
-              resolvable.every((note) => note.resolved == true)
-        ? true
-        : null;
+    final resolved = discussionResolution(discussion);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
@@ -306,6 +376,7 @@ class _DiscussionView extends StatelessWidget {
                 ),
               ),
             replyControl,
+            ?resolutionControl,
           ],
         ),
       ),
