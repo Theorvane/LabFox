@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -85,18 +89,21 @@ ProviderContainer _container(_Repository repo, _Analytics analytics) {
   return container;
 }
 
+final _captureKey = GlobalKey();
 Future<AppLocalizations> _pump(
   WidgetTester tester,
   _Repository repo, {
   double width = 390,
   bool dark = false,
+  double height = 1400,
+  double textScale = 1,
   Locale locale = const Locale('en'),
   bool settle = true,
   ProviderContainer? container,
   ThemeData? theme,
   int iid = 142,
 }) async {
-  tester.view.physicalSize = Size(width, 1400);
+  tester.view.physicalSize = Size(width, height);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
@@ -104,16 +111,25 @@ Future<AppLocalizations> _pump(
   await tester.pumpWidget(
     UncontrolledProviderScope(
       container: scope,
-      child: MaterialApp(
-        theme: theme ?? (dark ? LabFoxTheme.dark : LabFoxTheme.light),
-        locale: locale,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-        home: Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: MrDiscussionThread(projectId: 8, iid: iid),
+      child: RepaintBoundary(
+        key: _captureKey,
+        child: MaterialApp(
+          builder: (context, child) => MediaQuery(
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: TextScaler.linear(textScale)),
+            child: child!,
+          ),
+          theme: theme ?? (dark ? LabFoxTheme.dark : LabFoxTheme.light),
+          locale: locale,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: MrDiscussionThread(projectId: 8, iid: iid),
+              ),
             ),
           ),
         ),
@@ -458,4 +474,105 @@ void main() {
       expect(find.byType(SelectableText), findsNWidgets(2));
     },
   );
+
+  testWidgets('resource replacement resets expansion without old code', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      );
+    final container = _container(repo, _Analytics());
+    await _pump(tester, repo, container: container);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-open-301-7')));
+    await tester.pumpAndSettle();
+    await _pump(tester, repo, container: container, iid: 143);
+    expect(
+      find.byKey(const ValueKey('mr-suggestion-open-301-7')),
+      findsOneWidget,
+    );
+    expect(find.byType(SelectableText), findsNothing);
+    expect(repo.reads, [(8, 142, 1), (8, 143, 1)]);
+  });
+  testWidgets('large text stays readable on a narrow viewport', (tester) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      );
+    await _pump(tester, repo, width: 320, textScale: 2);
+    await tester.ensureVisible(
+      find.byKey(const ValueKey('mr-suggestion-open-301-7')),
+    );
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-open-301-7')));
+    await tester.pumpAndSettle();
+    expect(find.byType(SelectableText), findsNWidgets(2));
+    expect(tester.takeException(), isNull);
+  });
+  if (Platform.environment['LABFOX_PREVIEW_CAPTURE']
+      case final String directory) {
+    for (final width in [390.0, 1200.0]) {
+      for (final dark in [false, true]) {
+        testWidgets('synthetic preview capture $width $dark', (tester) async {
+          final sdk = Platform.environment['FLUTTER_ROOT']!;
+          for (final (family, name) in [
+            ('Roboto', 'Roboto-Regular.ttf'),
+            ('monospace', 'Roboto-Regular.ttf'),
+            ('MaterialIcons', 'MaterialIcons-Regular.otf'),
+          ]) {
+            final loader = FontLoader(family)
+              ..addFont(
+                Future.value(
+                  ByteData.sublistView(
+                    File(
+                      '$sdk/bin/cache/artifacts/material_fonts/$name',
+                    ).readAsBytesSync(),
+                  ),
+                ),
+              );
+            await loader.load();
+          }
+          final repo = _Repository()
+            ..pages[1] = Paginated(
+              items: [
+                _suggestions([
+                  _suggestion(
+                    original: '  return oldValue;\n',
+                    replacement: '  return reviewedValue;\n',
+                  ),
+                ]),
+              ],
+            );
+          await _pump(
+            tester,
+            repo,
+            width: width,
+            height: width < 600 ? 844 : 900,
+            dark: dark,
+          );
+          await tester.tap(
+            find.byKey(const ValueKey('mr-suggestion-open-301-7')),
+          );
+          await tester.pumpAndSettle();
+          expect(tester.takeException(), isNull);
+          final boundary = tester.renderObject<RenderRepaintBoundary>(
+            find.byKey(_captureKey),
+          );
+          final image = await boundary.toImage();
+          final data = await image.toByteData(format: ui.ImageByteFormat.png);
+          await tester.runAsync(() async {
+            final file = File(
+              '$directory/preview-${width.toInt()}-${dark ? 'dark' : 'light'}.png',
+            );
+            await file.parent.create(recursive: true);
+            await file.writeAsBytes(data!.buffer.asUint8List());
+          });
+          image.dispose();
+        });
+      }
+    }
+  }
 }

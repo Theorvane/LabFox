@@ -8389,6 +8389,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No discussions at this line in the loaded pages.'**
   String get mrDiffDiscussionNoMatches;
+
+  /// MR code suggestion preview Title
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion {number}'**
+  String mrSuggestionTitle(String number);
+
+  /// MR code suggestion preview Range
+  ///
+  /// In en, this message translates to:
+  /// **'Original lines {from}–{to}'**
+  String mrSuggestionRange(String from, String to);
+
+  /// MR code suggestion preview RangeUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Original line range unavailable'**
+  String get mrSuggestionRangeUnknown;
+
+  /// MR code suggestion preview Applied
+  ///
+  /// In en, this message translates to:
+  /// **'Applied'**
+  String get mrSuggestionApplied;
+
+  /// MR code suggestion preview NotApplied
+  ///
+  /// In en, this message translates to:
+  /// **'Not applied'**
+  String get mrSuggestionNotApplied;
+
+  /// MR code suggestion preview AppliedUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Application status unknown'**
+  String get mrSuggestionAppliedUnknown;
+
+  /// MR code suggestion preview Applicable
+  ///
+  /// In en, this message translates to:
+  /// **'Patch applicable'**
+  String get mrSuggestionApplicable;
+
+  /// MR code suggestion preview NotApplicable
+  ///
+  /// In en, this message translates to:
+  /// **'Patch not applicable'**
+  String get mrSuggestionNotApplicable;
+
+  /// MR code suggestion preview ApplicableUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Patch applicability unknown'**
+  String get mrSuggestionApplicableUnknown;
+
+  /// MR code suggestion preview Original
+  ///
+  /// In en, this message translates to:
+  /// **'Original code'**
+  String get mrSuggestionOriginal;
+
+  /// MR code suggestion preview Replacement
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested code'**
+  String get mrSuggestionReplacement;
+
+  /// MR code suggestion preview ContentUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Content unavailable'**
+  String get mrSuggestionContentUnknown;
+
+  /// MR code suggestion preview ContentEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'Empty content'**
+  String get mrSuggestionContentEmpty;
+
+  /// MR code suggestion preview ViewButton
+  ///
+  /// In en, this message translates to:
+  /// **'View suggestion'**
+  String get mrSuggestionViewButton;
+
+  /// MR code suggestion preview HideButton
+  ///
+  /// In en, this message translates to:
+  /// **'Hide suggestion'**
+  String get mrSuggestionHideButton;
 }
 
 class _AppLocalizationsDelegate

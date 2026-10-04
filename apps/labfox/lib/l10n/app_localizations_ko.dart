@@ -4607,4 +4607,53 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiffDiscussionNoMatches => '불러온 페이지에는 이 줄의 토론이 없습니다.';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return '제안 $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return '원본 줄 $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => '원본 줄 범위를 확인할 수 없음';
+
+  @override
+  String get mrSuggestionApplied => '적용됨';
+
+  @override
+  String get mrSuggestionNotApplied => '적용되지 않음';
+
+  @override
+  String get mrSuggestionAppliedUnknown => '적용 상태 알 수 없음';
+
+  @override
+  String get mrSuggestionApplicable => '패치 적용 가능';
+
+  @override
+  String get mrSuggestionNotApplicable => '패치 적용 불가';
+
+  @override
+  String get mrSuggestionApplicableUnknown => '패치 적용 가능 여부 알 수 없음';
+
+  @override
+  String get mrSuggestionOriginal => '원본 코드';
+
+  @override
+  String get mrSuggestionReplacement => '제안 코드';
+
+  @override
+  String get mrSuggestionContentUnknown => '내용을 확인할 수 없음';
+
+  @override
+  String get mrSuggestionContentEmpty => '빈 내용';
+
+  @override
+  String get mrSuggestionViewButton => '제안 보기';
+
+  @override
+  String get mrSuggestionHideButton => '제안 숨기기';
 }

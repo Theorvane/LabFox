@@ -4762,4 +4762,53 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrDiffDiscussionNoMatches =>
       'लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return 'सुझाव $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return 'मूल पंक्तियाँ $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => 'मूल पंक्ति सीमा उपलब्ध नहीं है';
+
+  @override
+  String get mrSuggestionApplied => 'लागू किया गया';
+
+  @override
+  String get mrSuggestionNotApplied => 'लागू नहीं किया गया';
+
+  @override
+  String get mrSuggestionAppliedUnknown => 'लागू होने की स्थिति अज्ञात';
+
+  @override
+  String get mrSuggestionApplicable => 'पैच लागू किया जा सकता है';
+
+  @override
+  String get mrSuggestionNotApplicable => 'पैच लागू नहीं किया जा सकता';
+
+  @override
+  String get mrSuggestionApplicableUnknown => 'पैच लागू होने की क्षमता अज्ञात';
+
+  @override
+  String get mrSuggestionOriginal => 'मूल कोड';
+
+  @override
+  String get mrSuggestionReplacement => 'सुझाया गया कोड';
+
+  @override
+  String get mrSuggestionContentUnknown => 'सामग्री उपलब्ध नहीं है';
+
+  @override
+  String get mrSuggestionContentEmpty => 'खाली सामग्री';
+
+  @override
+  String get mrSuggestionViewButton => 'सुझाव देखें';
+
+  @override
+  String get mrSuggestionHideButton => 'सुझाव छिपाएँ';
 }

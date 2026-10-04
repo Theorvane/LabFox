@@ -4462,4 +4462,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiffDiscussionNoMatches => '已加载的页面中没有此行的讨论。';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return '建议 $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return '原始行 $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => '原始行范围不可用';
+
+  @override
+  String get mrSuggestionApplied => '已应用';
+
+  @override
+  String get mrSuggestionNotApplied => '未应用';
+
+  @override
+  String get mrSuggestionAppliedUnknown => '应用状态未知';
+
+  @override
+  String get mrSuggestionApplicable => '补丁可应用';
+
+  @override
+  String get mrSuggestionNotApplicable => '补丁不可应用';
+
+  @override
+  String get mrSuggestionApplicableUnknown => '补丁可应用状态未知';
+
+  @override
+  String get mrSuggestionOriginal => '原始代码';
+
+  @override
+  String get mrSuggestionReplacement => '建议代码';
+
+  @override
+  String get mrSuggestionContentUnknown => '内容不可用';
+
+  @override
+  String get mrSuggestionContentEmpty => '空内容';
+
+  @override
+  String get mrSuggestionViewButton => '查看建议';
+
+  @override
+  String get mrSuggestionHideButton => '隐藏建议';
 }

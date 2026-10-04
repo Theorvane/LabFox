@@ -18,13 +18,7 @@
   "releaseCreationMilestoneDuplicate": "यह माइलस्टोन पहले से चुना गया है।",
   "releaseCreationMilestoneRemove": "माइलस्टोन {title} हटाएँ",
   "releaseCreationMilestoneHelp": "मौजूदा सटीक शीर्षक एक-एक करके दर्ज करें। समूह माइलस्टोन की उपलब्धता आपके GitLab प्लान पर निर्भर करती है।",
-  "@releaseCreationMilestoneRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "प्रोजेक्ट माइलस्टोन चुनें",
   "releasePickerSearch": "प्रोजेक्ट माइलस्टोन खोजें",
   "releasePickerEmpty": "कोई प्रोजेक्ट माइलस्टोन नहीं मिला।",
@@ -32,26 +26,14 @@
   "releasePickerMore": "और माइलस्टोन लोड करें",
   "releasePickerUse": "माइलस्टोन इस्तेमाल करें",
   "releasePickerRemove": "माइलस्टोन {title} हटाएँ",
-  "@releasePickerRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "प्रकाशन की तारीख (वैकल्पिक)",
   "releaseCreationDateDefault": "प्रकाशन का समय GitLab तय करेगा।",
   "releaseCreationChooseDate": "प्रकाशन की तारीख चुनें",
   "releaseCreationChooseTime": "प्रकाशन का समय चुनें",
   "releaseCreationClearDate": "GitLab का प्रकाशन समय इस्तेमाल करें",
   "releaseCreationDateHelp": "समय क्षेत्र: {zone}। भविष्य की तारीख आगामी रिलीज़ और पिछली तारीख ऐतिहासिक रिलीज़ बनाती है।",
-  "@releaseCreationDateHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "शेड्यूल हटाएँ",
   "pipelineScheduleDeleteConfirmTitle": "यह पाइपलाइन शेड्यूल हटाएँ?",
   "pipelineScheduleDeleteConfirmBody": "पाइपलाइन शेड्यूल \"{name}\" स्थायी रूप से हटा दिया जाएगा। इसे पूर्ववत नहीं किया जा सकता।",
@@ -62,13 +44,7 @@
   "releaseScheduleSave": "रिलीज़ की तारीख सहेजें",
   "releaseScheduleError": "रिलीज़ की तारीख अपडेट नहीं हो सकी।",
   "releaseScheduleHelp": "समय आपके डिवाइस के समय क्षेत्र ({zone}) में है। भविष्य की तारीख आगामी रिलीज़ निर्धारित करती है।",
-  "@releaseScheduleHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleEdit": "शेड्यूल संपादित करें",
   "pipelineScheduleSave": "सहेजें",
   "pipelineScheduleDescription": "विवरण",
@@ -97,13 +73,7 @@
   "protectedTagProtectSessionChanged": "आपका खाता बदल गया है। इस ड्राफ्ट को बंद करके फिर शुरू करें।",
   "protectedTagProtectCreated": "सुरक्षित टैग नियम बनाया गया।",
   "protectedTagProtectCancel": "रद्द करें",
-  "@protectedTagProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedTagProtectForbidden": "आपको यह नियम बनाने की अनुमति नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।",
   "protectedTagProtectUnauthorized": "आपका सत्र समाप्त हो गया है। नियम बनाने से पहले फिर से साइन इन करें।",
   "protectedTagProtectRateLimited": "GitLab अनुरोधों को सीमित कर रहा है। प्रतीक्षा करें, फिर नियम दोबारा लोड करें।",
@@ -121,13 +91,7 @@
   "protectedEnvironmentDeployAccess": "डिप्लॉय करने की अनुमति",
   "protectedEnvironmentApprovalRules": "अनुमोदन नियम",
   "protectedEnvironmentApprovalCount": "आवश्यक अनुमोदन: {count}",
-  "@protectedEnvironmentApprovalCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "@protectedEnvironmentApprovalCount": {"placeholders": {"count": {"type": "int"}}},
   "protectedBranchProtectTitle": "ब्रांच सुरक्षित करें",
   "protectedBranchProtectName": "नियम का नाम",
   "protectedBranchProtectPush": "पुश की अनुमति",
@@ -150,13 +114,7 @@
   "protectedBranchProtectUnauthorized": "आपका सत्र समाप्त हो गया है। नियम बनाने से पहले फिर से साइन इन करें।",
   "protectedBranchProtectRateLimited": "GitLab अनुरोधों को सीमित कर रहा है। प्रतीक्षा करें, फिर नियम दोबारा लोड करें।",
   "protectedBranchProtectUnavailable": "यह प्रोजेक्ट या सुरक्षित ब्रांच उपलब्ध नहीं है। फिर कोशिश करने से पहले दोबारा लोड करें।",
-  "@protectedBranchProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedBranchesTitle": "सुरक्षित ब्रांच",
   "protectedBranchesEmpty": "कोई सुरक्षित ब्रांच नियम नहीं मिला।",
   "protectedBranchesError": "सुरक्षित ब्रांच लोड नहीं हो सके।",
@@ -715,13 +673,7 @@
   "issueMilestoneSaveError": "माइलस्टोन अपडेट नहीं हो सका। अनुमतियाँ जाँचें और फिर कोशिश करें।",
   "issueDueDate": "नियत तारीख",
   "issueDueDateValue": "नियत तारीख: {date}",
-  "@issueDueDateValue": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
+  "@issueDueDateValue": {"placeholders": {"date": {"type": "String"}}},
   "issueSelectDueDate": "तारीख चुनें",
   "issueClearDueDate": "नियत तारीख हटाएँ",
   "issueDueDateError": "नियत तारीख अपडेट नहीं हो सकी। फिर से कोशिश करें।",
@@ -757,35 +709,8 @@
   "protectedTagUnprotectReload": "नियम पुनः लोड करें",
   "protectedTagUnprotectSessionChanged": "खाता बदल गया है। वर्तमान प्रोजेक्ट की समीक्षा के लिए संवाद बंद करके दोबारा खोलें।",
   "protectedTagUnprotectAccepted": "टैग सुरक्षा नियम हटा दिया गया। कोई टैग नहीं हटाया गया।",
-  "@protectedTagUnprotectTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedTagUnprotectAccess": {
-    "placeholders": {
-      "description": {
-        "type": "String"
-      },
-      "role": {
-        "type": "String"
-      },
-      "user": {
-        "type": "String"
-      },
-      "group": {
-        "type": "String"
-      },
-      "key": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagUnprotectTarget": {"placeholders": {"projectId": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedTagUnprotectAccess": {"placeholders": {"description": {"type": "String"}, "role": {"type": "String"}, "user": {"type": "String"}, "group": {"type": "String"}, "key": {"type": "String"}}},
   "protectedBranchForcePushEditTitle": "फ़ोर्स पुश संपादित करें",
   "protectedBranchForcePushEditTarget": "प्रोजेक्ट {project}: {name}",
   "protectedBranchForcePushCurrentAllowed": "फ़ोर्स पुश अभी अनुमत है।",
@@ -822,23 +747,8 @@
   "protectedBranchMergeRoleRateLimited": "GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।",
   "protectedBranchMergeRoleError": "बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।",
   "protectedBranchMergeRoleSessionChanged": "खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।",
-  "@protectedBranchMergeRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchMergeRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedBranchPushRoleEditTitle": "पुश अनुमति संपादित करें",
   "protectedBranchPushRoleTarget": "प्रोजेक्ट {project}: {name}",
   "protectedBranchPushRoleCurrent": "वर्तमान पुश अनुमति: {role}",
@@ -857,23 +767,8 @@
   "protectedBranchPushRoleRateLimited": "GitLab अनुरोध सीमित कर रहा है। फिर कोशिश से पहले नियम जाँचें।",
   "protectedBranchPushRoleError": "बदलाव की पुष्टि नहीं हो सकी। फिर कोशिश से पहले नियम जाँचें।",
   "protectedBranchPushRoleSessionChanged": "खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।",
-  "@protectedBranchPushRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchPushRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchPushRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchPushRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedEnvironmentCreateTitle": "परिवेश सुरक्षित करें",
   "protectedEnvironmentCreateName": "परिवेश का नाम",
   "protectedEnvironmentCreateDeveloper": "डेवलपर और मेंटेनर",
@@ -895,16 +790,7 @@
   "protectedEnvironmentRemoveRoleForbidden": "आपके पास यह डिप्लॉय अनुमति हटाने की अनुमति नहीं है।",
   "protectedEnvironmentRemoveRoleError": "डिप्लॉय अनुमति हटने की पुष्टि नहीं हो सकी। फिर प्रयास करने से पहले नियम जाँचें।",
   "protectedEnvironmentRemoveRoleGrantLabel": "{role} (अनुमति {id})",
-  "@protectedEnvironmentRemoveRoleGrantLabel": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      },
-      "id": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentRemoveRoleGrantLabel": {"placeholders": {"role": {"type": "String"}, "id": {"type": "String"}}},
   "protectedEnvironmentDeployRoleTitle": "डिप्लॉय भूमिका जोड़ें",
   "protectedEnvironmentDeployRoleWarning": "चुनी गई भूमिका को डिप्लॉय करने की अनुमति मिलेगी। मौजूदा डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे।",
   "protectedEnvironmentDeployRoleAcknowledge": "मैं समझता हूँ कि इससे डिप्लॉय पहुँच बढ़ती है।",
@@ -926,16 +812,7 @@
   "protectedEnvironmentUnprotectSessionChanged": "खाता बदल गया है। यह संवाद बंद करके नियम फिर खोलें।",
   "protectedEnvironmentUnprotectSuccess": "परिवेश की सुरक्षा हटा दी गई।",
   "protectedEnvironmentUnprotectUnreported": "पहुँच प्रविष्टि",
-  "@protectedEnvironmentUnprotectTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
   "containerPolicyStatus": "स्थिति",
   "containerPolicyTitle": "सफ़ाई नीति",
   "containerPolicyAbsent": "GitLab ने सफ़ाई नीति की जानकारी नहीं दी।",
@@ -961,13 +838,7 @@
   "containerCreateMonthly": "हर महीने",
   "containerCreateQuarterly": "हर तीन महीने",
   "containerCreateDays": "{days} दिन",
-  "@containerCreateDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
+  "@containerCreateDays": {"placeholders":{"days":{"type":"int"}}},
   "containerPolicyKeepCount": "हर इमेज के लिए रखने वाले मिलते टैग",
   "containerCreateEnable": "बनाते समय सफाई सक्रिय करें",
   "containerCreateEnabledWarning": "सक्रिय नीति अपने समयानुसार इस प्रोजेक्ट की सभी इमेज रिपॉज़िटरी में मेल खाने वाले टैग स्थायी रूप से हटा सकती है। आवृत्ति, रखने की संख्या, आयु और दोनों पैटर्न जाँचें। संरक्षित या अपरिवर्तनीय टैग के अपवाद GitLab तय करता है; सहेजना हटाने या संग्रहण खाली होने की पुष्टि नहीं करता।",
@@ -1084,29 +955,11 @@
   "containerTagProtectionRemoveSaved": "टैग सुरक्षा नियम हटा दिया गया।",
   "containerTagProtectionRemoveMissing": "नियम उपलब्ध नहीं है, पहुँच योग्य नहीं है या समर्थित नहीं है। हटाने के लिए GitLab 18.9 या बाद का संस्करण चाहिए। जारी रखने से पहले दोबारा लोड करें।",
   "containerTagProtectionRemoveRateLimited": "बहुत अधिक अनुरोध हैं। पुनः प्रयास से पहले प्रतीक्षा करें।",
-  "@containerTagProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagProtectionPatternRateLimited": "बहुत अधिक अनुरोध हैं। प्रतीक्षा करें और पुनः प्रयास करें।",
   "containerTagProtectionPatternInvalid": "पैटर्न अस्वीकार हुआ या पहले से उपयोग में है। ड्राफ़्ट बदलें और पुनः प्रयास करें।",
   "containerTagProtectionPatternDraft": "नया कंटेनर टैग पैटर्न",
-  "@containerTagProtectionPatternTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagDelete": "टैग हटाएँ",
   "containerTagDeleteConfirmTitle": "कंटेनर टैग हटाएँ?",
   "containerTagDeleteConfirmBody": "“{path}” पर टैग “{tagName}” हटाएँ? इसे पूर्ववत नहीं किया जा सकता।",
@@ -1275,16 +1128,7 @@
   "containerProtectionRemoveDeleted": "रिपॉज़िटरी सुरक्षा नियम हटा दिया गया।",
   "containerProtectionRemoveMissing": "नियम नहीं मिला, लक्ष्य अस्पष्ट है या पहुँच नहीं है। पुष्टि से पहले पुनः लोड करें।",
   "containerProtectionRemoveRateLimited": "बहुत अधिक अनुरोध। प्रतीक्षा करें और फिर प्रयास करें।",
-  "@containerProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerRepositoryProtectionEmpty": "कोई रिपॉज़िटरी सुरक्षा नियम नहीं है।",
   "containerProtectionCreateTitle": "रिपॉज़िटरी सुरक्षा नियम बनाएँ",
   "containerProtectionCreateSave": "नियम बनाएँ",

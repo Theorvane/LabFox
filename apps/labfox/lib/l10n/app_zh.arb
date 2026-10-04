@@ -18,13 +18,7 @@
   "releaseCreationMilestoneDuplicate": "已选择此里程碑。",
   "releaseCreationMilestoneRemove": "移除里程碑 {title}",
   "releaseCreationMilestoneHelp": "逐一输入现有里程碑的准确标题。群组里程碑的可用性取决于您的 GitLab 套餐。",
-  "@releaseCreationMilestoneRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "选择项目里程碑",
   "releasePickerSearch": "搜索项目里程碑",
   "releasePickerEmpty": "未找到项目里程碑。",
@@ -32,26 +26,14 @@
   "releasePickerMore": "加载更多里程碑",
   "releasePickerUse": "使用里程碑",
   "releasePickerRemove": "移除里程碑 {title}",
-  "@releasePickerRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "发布日期（可选）",
   "releaseCreationDateDefault": "发布时间将由 GitLab 设置。",
   "releaseCreationChooseDate": "选择发布日期",
   "releaseCreationChooseTime": "选择发布时间",
   "releaseCreationClearDate": "使用 GitLab 的发布时间",
   "releaseCreationDateHelp": "时区：{zone}。未来日期创建即将发布的版本，过去日期创建历史版本。",
-  "@releaseCreationDateHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "删除计划",
   "pipelineScheduleDeleteConfirmTitle": "删除此流水线计划？",
   "pipelineScheduleDeleteConfirmBody": "流水线计划“{name}”将被永久删除。此操作无法撤销。",
@@ -62,13 +44,7 @@
   "releaseScheduleSave": "保存发布日期",
   "releaseScheduleError": "无法更新发布日期。",
   "releaseScheduleHelp": "时间使用设备时区（{zone}）。选择未来日期会安排即将发布的版本。",
-  "@releaseScheduleHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleEdit": "编辑计划",
   "pipelineScheduleSave": "保存",
   "pipelineScheduleDescription": "描述",
@@ -97,13 +73,7 @@
   "protectedTagProtectSessionChanged": "账号已更改。请关闭此草稿并重新开始。",
   "protectedTagProtectCreated": "已创建受保护标签规则。",
   "protectedTagProtectCancel": "取消",
-  "@protectedTagProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedTagProtectForbidden": "您无权创建此规则。重试前请重新加载。",
   "protectedTagProtectUnauthorized": "会话已过期。请重新登录后再创建规则。",
   "protectedTagProtectRateLimited": "GitLab 正在限制请求。请稍后重新加载规则。",
@@ -121,13 +91,7 @@
   "protectedEnvironmentDeployAccess": "允许部署",
   "protectedEnvironmentApprovalRules": "批准规则",
   "protectedEnvironmentApprovalCount": "所需批准数：{count}",
-  "@protectedEnvironmentApprovalCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "@protectedEnvironmentApprovalCount": {"placeholders": {"count": {"type": "int"}}},
   "protectedBranchProtectTitle": "保护分支",
   "protectedBranchProtectName": "规则名称",
   "protectedBranchProtectPush": "允许推送",
@@ -150,13 +114,7 @@
   "protectedBranchProtectUnauthorized": "会话已过期。请重新登录后再创建规则。",
   "protectedBranchProtectRateLimited": "GitLab 正在限制请求。请稍后重新加载规则。",
   "protectedBranchProtectUnavailable": "此项目或受保护分支资源不可用。重试前请重新加载。",
-  "@protectedBranchProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedBranchesTitle": "受保护分支",
   "protectedBranchesEmpty": "没有受保护分支规则。",
   "protectedBranchesError": "无法加载受保护分支。",
@@ -715,13 +673,7 @@
   "issueMilestoneSaveError": "无法更新里程碑。请检查权限后重试。",
   "issueDueDate": "截止日期",
   "issueDueDateValue": "截止日期：{date}",
-  "@issueDueDateValue": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
+  "@issueDueDateValue": {"placeholders": {"date": {"type": "String"}}},
   "issueSelectDueDate": "选择日期",
   "issueClearDueDate": "清除截止日期",
   "issueDueDateError": "无法更新截止日期，请重试。",
@@ -757,35 +709,8 @@
   "protectedTagUnprotectReload": "重新加载规则",
   "protectedTagUnprotectSessionChanged": "账户已更改。请关闭并重新打开此对话框，检查当前项目。",
   "protectedTagUnprotectAccepted": "标签保护规则已移除。未删除任何标签。",
-  "@protectedTagUnprotectTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedTagUnprotectAccess": {
-    "placeholders": {
-      "description": {
-        "type": "String"
-      },
-      "role": {
-        "type": "String"
-      },
-      "user": {
-        "type": "String"
-      },
-      "group": {
-        "type": "String"
-      },
-      "key": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagUnprotectTarget": {"placeholders": {"projectId": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedTagUnprotectAccess": {"placeholders": {"description": {"type": "String"}, "role": {"type": "String"}, "user": {"type": "String"}, "group": {"type": "String"}, "key": {"type": "String"}}},
   "protectedBranchForcePushEditTitle": "编辑强制推送",
   "protectedBranchForcePushEditTarget": "项目 {project}：{name}",
   "protectedBranchForcePushCurrentAllowed": "目前允许强制推送。",
@@ -822,23 +747,8 @@
   "protectedBranchMergeRoleRateLimited": "GitLab 正在限制请求。重试前请检查规则。",
   "protectedBranchMergeRoleError": "无法确认更改。重试前请检查规则。",
   "protectedBranchMergeRoleSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。",
-  "@protectedBranchMergeRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchMergeRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedBranchPushRoleEditTitle": "编辑推送权限",
   "protectedBranchPushRoleTarget": "项目 {project}：{name}",
   "protectedBranchPushRoleCurrent": "当前推送权限：{role}",
@@ -857,23 +767,8 @@
   "protectedBranchPushRoleRateLimited": "GitLab 正在限制请求。重试前请检查规则。",
   "protectedBranchPushRoleError": "无法确认更改。重试前请检查规则。",
   "protectedBranchPushRoleSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。",
-  "@protectedBranchPushRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchPushRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchPushRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchPushRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedEnvironmentCreateTitle": "保护环境",
   "protectedEnvironmentCreateName": "环境名称",
   "protectedEnvironmentCreateDeveloper": "开发者和维护者",
@@ -895,16 +790,7 @@
   "protectedEnvironmentRemoveRoleForbidden": "您没有权限移除此部署授权。",
   "protectedEnvironmentRemoveRoleError": "无法确认部署授权已移除。重试前请检查规则。",
   "protectedEnvironmentRemoveRoleGrantLabel": "{role}（授权 {id}）",
-  "@protectedEnvironmentRemoveRoleGrantLabel": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      },
-      "id": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentRemoveRoleGrantLabel": {"placeholders": {"role": {"type": "String"}, "id": {"type": "String"}}},
   "protectedEnvironmentDeployRoleTitle": "添加部署角色",
   "protectedEnvironmentDeployRoleWarning": "所选角色将获得部署权限。现有部署授权和审批规则保持不变。",
   "protectedEnvironmentDeployRoleAcknowledge": "我了解这会扩大部署权限。",
@@ -926,16 +812,7 @@
   "protectedEnvironmentUnprotectSessionChanged": "账户已更改。请关闭此对话框并重新打开规则。",
   "protectedEnvironmentUnprotectSuccess": "环境保护已取消。",
   "protectedEnvironmentUnprotectUnreported": "访问条目",
-  "@protectedEnvironmentUnprotectTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
   "containerPolicyStatus": "状态",
   "containerPolicyTitle": "清理策略",
   "containerPolicyAbsent": "GitLab 未报告清理策略。",
@@ -961,13 +838,7 @@
   "containerCreateMonthly": "每月",
   "containerCreateQuarterly": "每三个月",
   "containerCreateDays": "{days}天",
-  "@containerCreateDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
+  "@containerCreateDays": {"placeholders":{"days":{"type":"int"}}},
   "containerPolicyKeepCount": "每个镜像保留的匹配标签数",
   "containerCreateEnable": "创建时启用清理",
   "containerCreateEnabledWarning": "启用的策略可按计划永久删除此项目所有镜像仓库中匹配的标签。请检查执行间隔、保留数量、时间及两个模式。GitLab 决定受保护或不可变标签的排除规则；保存不代表删除已完成或空间已释放。",
@@ -1084,29 +955,11 @@
   "containerTagProtectionRemoveSaved": "标签保护规则已删除。",
   "containerTagProtectionRemoveMissing": "规则不存在、无法访问或不受支持。删除需要 GitLab 18.9 或更高版本。请重新加载后再继续。",
   "containerTagProtectionRemoveRateLimited": "请求过多。请稍后重试。",
-  "@containerTagProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagProtectionPatternRateLimited": "请求过多。请稍后重试。",
   "containerTagProtectionPatternInvalid": "模式被拒绝或已被使用。请编辑草稿后重试。",
   "containerTagProtectionPatternDraft": "新容器标签模式",
-  "@containerTagProtectionPatternTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagDelete": "删除标签",
   "containerTagDeleteConfirmTitle": "删除容器标签？",
   "containerTagDeleteConfirmBody": "删除“{path}”中的标签“{tagName}”？此操作无法撤销。",
@@ -1275,16 +1128,7 @@
   "containerProtectionRemoveDeleted": "仓库保护规则已删除。",
   "containerProtectionRemoveMissing": "未找到规则、目标不明确或无法访问。请在确认前重新加载。",
   "containerProtectionRemoveRateLimited": "请求过多。请稍后重试。",
-  "@containerProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerRepositoryProtectionEmpty": "没有仓库保护规则。",
   "containerProtectionCreateTitle": "创建仓库保护规则",
   "containerProtectionCreateSave": "创建规则",

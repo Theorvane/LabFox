@@ -18,13 +18,7 @@
   "releaseCreationMilestoneDuplicate": "이미 선택된 마일스톤입니다.",
   "releaseCreationMilestoneRemove": "마일스톤 {title} 제거",
   "releaseCreationMilestoneHelp": "기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.",
-  "@releaseCreationMilestoneRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
   "releasePickerTitle": "프로젝트 마일스톤 선택",
   "releasePickerSearch": "프로젝트 마일스톤 검색",
   "releasePickerEmpty": "프로젝트 마일스톤이 없습니다.",
@@ -32,26 +26,14 @@
   "releasePickerMore": "마일스톤 더 불러오기",
   "releasePickerUse": "마일스톤 사용",
   "releasePickerRemove": "마일스톤 {title} 제거",
-  "@releasePickerRemove": {
-    "placeholders": {
-      "title": {
-        "type": "String"
-      }
-    }
-  },
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
   "releaseCreationDateLabel": "공개 날짜(선택 사항)",
   "releaseCreationDateDefault": "공개 시간은 GitLab에서 설정합니다.",
   "releaseCreationChooseDate": "공개 날짜 선택",
   "releaseCreationChooseTime": "공개 시간 선택",
   "releaseCreationClearDate": "GitLab 공개 시간 사용",
   "releaseCreationDateHelp": "시간대: {zone}. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.",
-  "@releaseCreationDateHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleDelete": "스케줄 삭제",
   "pipelineScheduleDeleteConfirmTitle": "이 파이프라인 스케줄을 삭제하시겠습니까?",
   "pipelineScheduleDeleteConfirmBody": "파이프라인 스케줄 \"{name}\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
@@ -62,13 +44,7 @@
   "releaseScheduleSave": "릴리스 날짜 저장",
   "releaseScheduleError": "릴리스 날짜를 업데이트하지 못했습니다.",
   "releaseScheduleHelp": "시간은 기기 시간대({zone})를 사용합니다. 미래 날짜를 선택하면 예정된 릴리스로 설정됩니다.",
-  "@releaseScheduleHelp": {
-    "placeholders": {
-      "zone": {
-        "type": "String"
-      }
-    }
-  },
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
   "pipelineScheduleEdit": "스케줄 편집",
   "pipelineScheduleSave": "저장",
   "pipelineScheduleDescription": "설명",
@@ -97,13 +73,7 @@
   "protectedTagProtectSessionChanged": "계정이 변경되었습니다. 이 창을 닫고 다시 시작하세요.",
   "protectedTagProtectCreated": "보호 태그 규칙이 생성되었습니다.",
   "protectedTagProtectCancel": "취소",
-  "@protectedTagProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedTagProtectForbidden": "이 규칙을 생성할 권한이 없습니다. 다시 시도하기 전에 새로고침하세요.",
   "protectedTagProtectUnauthorized": "세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.",
   "protectedTagProtectRateLimited": "GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.",
@@ -121,13 +91,7 @@
   "protectedEnvironmentDeployAccess": "배포 권한",
   "protectedEnvironmentApprovalRules": "승인 규칙",
   "protectedEnvironmentApprovalCount": "필요한 승인: {count}",
-  "@protectedEnvironmentApprovalCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "@protectedEnvironmentApprovalCount": {"placeholders": {"count": {"type": "int"}}},
   "protectedBranchProtectTitle": "브랜치 보호",
   "protectedBranchProtectName": "규칙 이름",
   "protectedBranchProtectPush": "푸시 허용",
@@ -150,13 +114,7 @@
   "protectedBranchProtectUnauthorized": "세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.",
   "protectedBranchProtectRateLimited": "GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.",
   "protectedBranchProtectUnavailable": "프로젝트 또는 보호 브랜치 리소스에 접근할 수 없습니다. 다시 시도하기 전에 새로고침하세요.",
-  "@protectedBranchProtectWarning": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
   "protectedBranchesTitle": "보호 브랜치",
   "protectedBranchesEmpty": "보호 브랜치 규칙이 없습니다.",
   "protectedBranchesError": "보호 브랜치를 불러올 수 없습니다.",
@@ -715,13 +673,7 @@
   "issueMilestoneSaveError": "마일스톤을 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.",
   "issueDueDate": "마감일",
   "issueDueDateValue": "마감일: {date}",
-  "@issueDueDateValue": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
+  "@issueDueDateValue": {"placeholders": {"date": {"type": "String"}}},
   "issueSelectDueDate": "날짜 선택",
   "issueClearDueDate": "마감일 지우기",
   "issueDueDateError": "마감일을 변경할 수 없습니다. 다시 시도해 주세요.",
@@ -757,35 +709,8 @@
   "protectedTagUnprotectReload": "규칙 다시 불러오기",
   "protectedTagUnprotectSessionChanged": "계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토하세요.",
   "protectedTagUnprotectAccepted": "태그 보호 규칙이 제거되었습니다. 태그는 삭제되지 않았습니다.",
-  "@protectedTagUnprotectTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedTagUnprotectAccess": {
-    "placeholders": {
-      "description": {
-        "type": "String"
-      },
-      "role": {
-        "type": "String"
-      },
-      "user": {
-        "type": "String"
-      },
-      "group": {
-        "type": "String"
-      },
-      "key": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedTagUnprotectTarget": {"placeholders": {"projectId": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedTagUnprotectAccess": {"placeholders": {"description": {"type": "String"}, "role": {"type": "String"}, "user": {"type": "String"}, "group": {"type": "String"}, "key": {"type": "String"}}},
   "protectedBranchForcePushEditTitle": "강제 푸시 수정",
   "protectedBranchForcePushEditTarget": "프로젝트 {project}: {name}",
   "protectedBranchForcePushCurrentAllowed": "현재 강제 푸시가 허용됩니다.",
@@ -822,23 +747,8 @@
   "protectedBranchMergeRoleRateLimited": "GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.",
   "protectedBranchMergeRoleError": "변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.",
   "protectedBranchMergeRoleSessionChanged": "계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.",
-  "@protectedBranchMergeRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchMergeRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedBranchPushRoleEditTitle": "푸시 권한 편집",
   "protectedBranchPushRoleTarget": "프로젝트 {project}: {name}",
   "protectedBranchPushRoleCurrent": "현재 푸시 권한: {role}",
@@ -857,23 +767,8 @@
   "protectedBranchPushRoleRateLimited": "GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.",
   "protectedBranchPushRoleError": "변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.",
   "protectedBranchPushRoleSessionChanged": "계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.",
-  "@protectedBranchPushRoleTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "@protectedBranchPushRoleCurrent": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedBranchPushRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchPushRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
   "protectedEnvironmentCreateTitle": "환경 보호",
   "protectedEnvironmentCreateName": "환경 이름",
   "protectedEnvironmentCreateDeveloper": "개발자 + 유지관리자",
@@ -895,16 +790,7 @@
   "protectedEnvironmentRemoveRoleForbidden": "이 배포 권한을 제거할 권한이 없습니다.",
   "protectedEnvironmentRemoveRoleError": "배포 권한 제거를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.",
   "protectedEnvironmentRemoveRoleGrantLabel": "{role} (권한 {id})",
-  "@protectedEnvironmentRemoveRoleGrantLabel": {
-    "placeholders": {
-      "role": {
-        "type": "String"
-      },
-      "id": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentRemoveRoleGrantLabel": {"placeholders": {"role": {"type": "String"}, "id": {"type": "String"}}},
   "protectedEnvironmentDeployRoleTitle": "배포 역할 추가",
   "protectedEnvironmentDeployRoleWarning": "선택한 역할에 배포 권한이 부여됩니다. 기존 배포 권한과 승인 규칙은 유지됩니다.",
   "protectedEnvironmentDeployRoleAcknowledge": "배포 권한이 확대되는 것을 이해했습니다.",
@@ -926,16 +812,7 @@
   "protectedEnvironmentUnprotectSessionChanged": "계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.",
   "protectedEnvironmentUnprotectSuccess": "환경 보호가 해제되었습니다.",
   "protectedEnvironmentUnprotectUnreported": "접근 항목",
-  "@protectedEnvironmentUnprotectTarget": {
-    "placeholders": {
-      "project": {
-        "type": "String"
-      },
-      "name": {
-        "type": "String"
-      }
-    }
-  },
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
   "containerPolicyStatus": "상태",
   "containerPolicyTitle": "정리 정책",
   "containerPolicyAbsent": "GitLab이 정리 정책을 보고하지 않았습니다.",
@@ -961,13 +838,7 @@
   "containerCreateMonthly": "매월",
   "containerCreateQuarterly": "3개월마다",
   "containerCreateDays": "{days}일",
-  "@containerCreateDays": {
-    "placeholders": {
-      "days": {
-        "type": "int"
-      }
-    }
-  },
+  "@containerCreateDays": {"placeholders":{"days":{"type":"int"}}},
   "containerPolicyKeepCount": "이미지당 보존할 일치 태그 개수",
   "containerCreateEnable": "생성 시 정리 활성화",
   "containerCreateEnabledWarning": "활성 정책은 일정에 따라 이 프로젝트의 모든 이미지 저장소에서 일치하는 태그를 영구 삭제할 수 있습니다. 실행 주기, 보존 수, 보존 기간, 두 패턴을 검토하세요. 보호되거나 변경 불가능한 태그의 제외 여부는 GitLab이 결정합니다. 저장은 삭제 완료나 저장 공간 확보를 의미하지 않습니다.",
@@ -1084,29 +955,11 @@
   "containerTagProtectionRemoveSaved": "태그 보호 규칙을 삭제했습니다.",
   "containerTagProtectionRemoveMissing": "규칙이 없거나 접근할 수 없거나 지원되지 않습니다. 삭제에는 GitLab 18.9 이상이 필요합니다. 계속하려면 다시 불러오세요.",
   "containerTagProtectionRemoveRateLimited": "요청이 너무 많습니다. 잠시 후 다시 시도하세요.",
-  "@containerTagProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagProtectionPatternRateLimited": "요청이 너무 많습니다. 잠시 후 다시 시도하세요.",
   "containerTagProtectionPatternInvalid": "패턴이 거부되었거나 이미 사용 중입니다. 초안을 수정하고 다시 시도하세요.",
   "containerTagProtectionPatternDraft": "새 컨테이너 태그 패턴",
-  "@containerTagProtectionPatternTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerTagDelete": "태그 삭제",
   "containerTagDeleteConfirmTitle": "컨테이너 태그를 삭제할까요?",
   "containerTagDeleteConfirmBody": "“{path}”의 “{tagName}” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.",
@@ -1275,16 +1128,7 @@
   "containerProtectionRemoveDeleted": "저장소 보호 규칙이 삭제되었습니다.",
   "containerProtectionRemoveMissing": "규칙을 찾을 수 없거나 대상이 모호하거나 접근할 수 없습니다. 확인 전에 새로 불러오세요.",
   "containerProtectionRemoveRateLimited": "요청이 너무 많습니다. 잠시 후 재시도하세요.",
-  "@containerProtectionRemoveTarget": {
-    "placeholders": {
-      "projectId": {
-        "type": "String"
-      },
-      "ruleId": {
-        "type": "String"
-      }
-    }
-  },
+  "@containerProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
   "containerRepositoryProtectionEmpty": "저장소 보호 규칙이 없습니다.",
   "containerProtectionCreateTitle": "저장소 보호 규칙 생성",
   "containerProtectionCreateSave": "규칙 생성",
