@@ -4865,4 +4865,60 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrSuggestionSessionChanged =>
       'The account or merge request changed. Close this dialog and reopen the suggestion.';
+
+  @override
+  String get mrSuggestionsBatchButton => 'Apply multiple suggestions';
+
+  @override
+  String get mrSuggestionsSelectTitle => 'Select suggestions';
+
+  @override
+  String get mrSuggestionsSelectHint =>
+      'Select at least two suggestions from the loaded discussions.';
+
+  @override
+  String get mrSuggestionsReviewButton => 'Review selected';
+
+  @override
+  String mrSuggestionsReviewTitle(String count) {
+    return 'Apply $count suggestions?';
+  }
+
+  @override
+  String get mrSuggestionsApplyButton => 'Apply selected';
+
+  @override
+  String get mrSuggestionsApplyImpact =>
+      'These changes will be sent together to the merge request source branch. Review every replacement before applying.';
+
+  @override
+  String get mrSuggestionsApplyProgress => 'Checking and applying suggestions…';
+
+  @override
+  String get mrSuggestionsApplySuccess => 'Selected suggestions applied.';
+
+  @override
+  String get mrSuggestionsApplyError =>
+      'The batch could not be confirmed. Reload every selected discussion before trying again.';
+
+  @override
+  String get mrSuggestionsApplyChanged =>
+      'One or more suggestions changed. Reload and review every selected patch.';
+
+  @override
+  String get mrSuggestionsReloadButton => 'Reload selected discussions';
+
+  @override
+  String get mrSuggestionsReloadProgress => 'Reloading selected discussions…';
+
+  @override
+  String get mrSuggestionsReloadError =>
+      'Not all discussions could be reloaded. Reload again before applying.';
+
+  @override
+  String get mrSuggestionsApplyForbidden =>
+      'GitLab denied this operation. Check your access and reload every selected discussion before trying again.';
+
+  @override
+  String get mrSuggestionsBackButton => 'Back to selection';
 }

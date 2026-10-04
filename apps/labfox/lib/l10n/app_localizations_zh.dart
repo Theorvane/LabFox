@@ -4558,4 +4558,55 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrSuggestionSessionChanged => '账号或合并请求已更改。请关闭此对话框并重新打开建议。';
+
+  @override
+  String get mrSuggestionsBatchButton => '应用多个建议';
+
+  @override
+  String get mrSuggestionsSelectTitle => '选择建议';
+
+  @override
+  String get mrSuggestionsSelectHint => '从已加载的讨论中选择至少两个建议。';
+
+  @override
+  String get mrSuggestionsReviewButton => '检查所选建议';
+
+  @override
+  String mrSuggestionsReviewTitle(String count) {
+    return '应用 $count 个建议？';
+  }
+
+  @override
+  String get mrSuggestionsApplyButton => '应用所选建议';
+
+  @override
+  String get mrSuggestionsApplyImpact => '这些更改将一起发送到合并请求的源分支。应用前请检查每项替换内容。';
+
+  @override
+  String get mrSuggestionsApplyProgress => '正在检查并应用建议…';
+
+  @override
+  String get mrSuggestionsApplySuccess => '已应用所选建议。';
+
+  @override
+  String get mrSuggestionsApplyError => '无法确认批量应用结果。重试前请重新加载所有选中的讨论。';
+
+  @override
+  String get mrSuggestionsApplyChanged => '一个或多个建议已更改。请重新加载并检查每个选中的补丁。';
+
+  @override
+  String get mrSuggestionsReloadButton => '重新加载所选讨论';
+
+  @override
+  String get mrSuggestionsReloadProgress => '正在重新加载所选讨论…';
+
+  @override
+  String get mrSuggestionsReloadError => '未能加载所有讨论。应用前请重新加载。';
+
+  @override
+  String get mrSuggestionsApplyForbidden =>
+      'GitLab 拒绝了此操作。请检查访问权限，并在重试前重新加载所有选中的讨论。';
+
+  @override
+  String get mrSuggestionsBackButton => '返回选择';
 }

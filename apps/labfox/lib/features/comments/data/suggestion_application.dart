@@ -1,5 +1,11 @@
 import 'package:gitlab_models/gitlab_models.dart';
 
+typedef SuggestionTarget = ({
+  String discussionId,
+  Note note,
+  Suggestion suggestion,
+});
+
 /// Patch eligibility is not a permission check: GitLab enforces write access.
 bool canApplySuggestion(Note note, Suggestion suggestion) =>
     !note.isSystem &&
@@ -53,3 +59,37 @@ bool confirmsAppliedSuggestion(Suggestion returned, Suggestion expected) =>
     (returned.fromContent == null ||
         returned.fromContent == expected.fromContent) &&
     (returned.toContent == null || returned.toContent == expected.toContent);
+
+List<SuggestionTarget> applicableSuggestionTargets(List<Discussion> groups) {
+  final counts = <int, int>{};
+  for (final group in groups) {
+    for (final note in group.notes) {
+      for (final suggestion in note.suggestions ?? <Suggestion>[]) {
+        counts.update(suggestion.id, (v) => v + 1, ifAbsent: () => 1);
+      }
+    }
+  }
+  return List<SuggestionTarget>.unmodifiable([
+    for (final group in groups)
+      for (final note in group.notes)
+        for (final suggestion in note.suggestions ?? <Suggestion>[])
+          if (counts[suggestion.id] == 1 &&
+              canApplySuggestion(note, suggestion))
+            (discussionId: group.id, note: note, suggestion: suggestion),
+  ]);
+}
+
+bool containsApplicableSuggestionTargets(
+  List<Discussion> groups,
+  List<SuggestionTarget> targets,
+) =>
+    targets.length >= 2 &&
+    targets.map((t) => t.suggestion.id).toSet().length == targets.length &&
+    targets.every(
+      (t) => containsApplicableSuggestion(
+        groups,
+        discussionId: t.discussionId,
+        note: t.note,
+        suggestion: t.suggestion,
+      ),
+    );

@@ -10,7 +10,7 @@ The write disables redirects and automatic OAuth refresh/replay. Status-first ma
 
 This confirms returned suggestion states, not a commit count, branch SHA, permission claim or client-side atomicity guarantee. An error or incomplete response can follow an accepted repository write. Callers must freshly inspect every selected discussion and require renewed confirmation before an explicit manual retry. There is no automatic application retry, single-write fallback, rollback or inferred success for part of a batch.
 
-This slice provides the API only. The existing app still offers single-suggestion confirmation/application. Batch selection, MR grouping, multi-patch confirmation, shared UI reservations and complete fresh-state recovery belong to a separate UI slice. No model, dependency or generated file changes, live GitLab writes or physical-device validation are included.
+The original API slice changed no models, dependencies or generated files. The app now provides [batch selection, multi-patch confirmation and complete read-only recovery](mr-suggestion-batch-ui.md), alongside single-suggestion application. No live GitLab writes or physical-device validation are claimed.
 
 Test-first coverage includes missing-method failure and 130 failing behavior contracts against a minimal unsafe implementation, followed by all 149 batch contracts and 254 existing single-application/metadata cases passing together. Tests cover exact routing/authentication/messages, invalid inputs, reordered and sparse confirmed payloads, every member's strict metadata boundary, incomplete identities, caller mutation, immutable results, typed failures and no OAuth replay.
 

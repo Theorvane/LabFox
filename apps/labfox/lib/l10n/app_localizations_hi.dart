@@ -4867,4 +4867,61 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrSuggestionSessionChanged =>
       'खाता या मर्ज अनुरोध बदल गया है। यह संवाद बंद करके सुझाव दोबारा खोलें।';
+
+  @override
+  String get mrSuggestionsBatchButton => 'कई सुझाव लागू करें';
+
+  @override
+  String get mrSuggestionsSelectTitle => 'सुझाव चुनें';
+
+  @override
+  String get mrSuggestionsSelectHint =>
+      'लोड की गई चर्चाओं से कम से कम दो सुझाव चुनें।';
+
+  @override
+  String get mrSuggestionsReviewButton => 'चुने हुए सुझावों की समीक्षा करें';
+
+  @override
+  String mrSuggestionsReviewTitle(String count) {
+    return '$count सुझाव लागू करें?';
+  }
+
+  @override
+  String get mrSuggestionsApplyButton => 'चुने हुए सुझाव लागू करें';
+
+  @override
+  String get mrSuggestionsApplyImpact =>
+      'ये बदलाव मर्ज अनुरोध की स्रोत शाखा में एक साथ भेजे जाएंगे। लागू करने से पहले हर प्रतिस्थापन की समीक्षा करें।';
+
+  @override
+  String get mrSuggestionsApplyProgress =>
+      'सुझावों की जाँच और लागू करना जारी है…';
+
+  @override
+  String get mrSuggestionsApplySuccess => 'चुने हुए सुझाव लागू किए गए।';
+
+  @override
+  String get mrSuggestionsApplyError =>
+      'बैच की पुष्टि नहीं हो सकी। फिर कोशिश करने से पहले सभी चुनी हुई चर्चाएँ फिर से लोड करें।';
+
+  @override
+  String get mrSuggestionsApplyChanged =>
+      'एक या अधिक सुझाव बदल गए हैं। हर चुने हुए पैच को फिर से लोड करके समीक्षा करें।';
+
+  @override
+  String get mrSuggestionsReloadButton => 'चुनी हुई चर्चाएँ फिर से लोड करें';
+
+  @override
+  String get mrSuggestionsReloadProgress => 'चुनी हुई चर्चाएँ लोड हो रही हैं…';
+
+  @override
+  String get mrSuggestionsReloadError =>
+      'सभी चर्चाएँ लोड नहीं हो सकीं। लागू करने से पहले फिर से लोड करें।';
+
+  @override
+  String get mrSuggestionsApplyForbidden =>
+      'GitLab ने इस कार्रवाई को अस्वीकार किया। अपनी पहुँच जाँचें और फिर कोशिश करने से पहले सभी चुनी हुई चर्चाएँ फिर से लोड करें।';
+
+  @override
+  String get mrSuggestionsBackButton => 'चयन पर वापस जाएँ';
 }

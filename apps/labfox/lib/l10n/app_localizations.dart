@@ -8569,6 +8569,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The account or merge request changed. Close this dialog and reopen the suggestion.'**
   String get mrSuggestionSessionChanged;
+
+  /// No description provided for @mrSuggestionsBatchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply multiple suggestions'**
+  String get mrSuggestionsBatchButton;
+
+  /// No description provided for @mrSuggestionsSelectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select suggestions'**
+  String get mrSuggestionsSelectTitle;
+
+  /// No description provided for @mrSuggestionsSelectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least two suggestions from the loaded discussions.'**
+  String get mrSuggestionsSelectHint;
+
+  /// No description provided for @mrSuggestionsReviewButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Review selected'**
+  String get mrSuggestionsReviewButton;
+
+  /// Confirmation title for the selected suggestion batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply {count} suggestions?'**
+  String mrSuggestionsReviewTitle(String count);
+
+  /// No description provided for @mrSuggestionsApplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply selected'**
+  String get mrSuggestionsApplyButton;
+
+  /// No description provided for @mrSuggestionsApplyImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'These changes will be sent together to the merge request source branch. Review every replacement before applying.'**
+  String get mrSuggestionsApplyImpact;
+
+  /// No description provided for @mrSuggestionsApplyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking and applying suggestions…'**
+  String get mrSuggestionsApplyProgress;
+
+  /// No description provided for @mrSuggestionsApplySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected suggestions applied.'**
+  String get mrSuggestionsApplySuccess;
+
+  /// No description provided for @mrSuggestionsApplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'The batch could not be confirmed. Reload every selected discussion before trying again.'**
+  String get mrSuggestionsApplyError;
+
+  /// No description provided for @mrSuggestionsApplyChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'One or more suggestions changed. Reload and review every selected patch.'**
+  String get mrSuggestionsApplyChanged;
+
+  /// No description provided for @mrSuggestionsReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload selected discussions'**
+  String get mrSuggestionsReloadButton;
+
+  /// No description provided for @mrSuggestionsReloadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Reloading selected discussions…'**
+  String get mrSuggestionsReloadProgress;
+
+  /// No description provided for @mrSuggestionsReloadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Not all discussions could be reloaded. Reload again before applying.'**
+  String get mrSuggestionsReloadError;
+
+  /// No description provided for @mrSuggestionsApplyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied this operation. Check your access and reload every selected discussion before trying again.'**
+  String get mrSuggestionsApplyForbidden;
+
+  /// No description provided for @mrSuggestionsBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to selection'**
+  String get mrSuggestionsBackButton;
 }
 
 class _AppLocalizationsDelegate

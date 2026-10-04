@@ -1333,5 +1333,21 @@
   "mrSuggestionReloadProgress": "토론을 새로고침하는 중…",
   "mrSuggestionReloadError": "토론을 새로고침하지 못했습니다. 다시 새로고침하세요.",
   "mrSuggestionUnavailable": "이 제안은 적용할 수 없습니다.",
-  "mrSuggestionSessionChanged": "계정 또는 병합 요청이 변경되었습니다. 이 창을 닫고 제안을 다시 여세요."
+  "mrSuggestionSessionChanged": "계정 또는 병합 요청이 변경되었습니다. 이 창을 닫고 제안을 다시 여세요.",
+  "mrSuggestionsBatchButton": "여러 제안 적용",
+  "mrSuggestionsSelectTitle": "제안 선택",
+  "mrSuggestionsSelectHint": "불러온 토론에서 제안을 두 개 이상 선택하세요.",
+  "mrSuggestionsReviewButton": "선택한 제안 검토",
+  "mrSuggestionsReviewTitle": "제안 {count}개를 적용할까요?",
+  "mrSuggestionsApplyButton": "선택한 제안 적용",
+  "mrSuggestionsApplyImpact": "이 변경 사항은 머지 리퀘스트의 소스 브랜치에 함께 전송됩니다. 적용하기 전에 모든 대체 내용을 검토하세요.",
+  "mrSuggestionsApplyProgress": "제안 확인 및 적용 중…",
+  "mrSuggestionsApplySuccess": "선택한 제안을 적용했습니다.",
+  "mrSuggestionsApplyError": "일괄 적용을 확인하지 못했습니다. 다시 시도하기 전에 선택한 모든 토론을 새로 불러오세요.",
+  "mrSuggestionsApplyChanged": "하나 이상의 제안이 변경되었습니다. 선택한 모든 패치를 새로 불러와 검토하세요.",
+  "mrSuggestionsReloadButton": "선택한 토론 새로 불러오기",
+  "mrSuggestionsReloadProgress": "선택한 토론 불러오는 중…",
+  "mrSuggestionsReloadError": "일부 토론을 불러오지 못했습니다. 적용하기 전에 다시 불러오세요.",
+  "mrSuggestionsApplyForbidden": "GitLab에서 이 작업을 거부했습니다. 접근 권한을 확인하고 선택한 모든 토론을 새로 불러온 후 다시 시도하세요.",
+  "mrSuggestionsBackButton": "선택으로 돌아가기"
 }

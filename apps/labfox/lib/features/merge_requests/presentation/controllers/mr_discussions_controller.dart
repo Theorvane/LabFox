@@ -214,12 +214,96 @@ class MrDiscussionsController
     }
   }
 
+  bool _currentSuggestions(List<SuggestionTarget> targets) =>
+      !state.isLoading &&
+      !state.hasError &&
+      state.hasValue &&
+      containsApplicableSuggestionTargets(state.value!.items, targets);
+
+  /// Confirms all selected patches before one batch; never applies a subset.
+  Future<bool> applySuggestions(
+    List<SuggestionTarget> selection, {
+    String? commitMessage,
+    bool Function()? isCurrent,
+  }) async {
+    final targets = List<SuggestionTarget>.unmodifiable(selection);
+    if (_posting ||
+        _loadingMore ||
+        !_currentSuggestions(targets) ||
+        isCurrent?.call() == false) {
+      return false;
+    }
+    final generation = _generation;
+    _posting = true;
+    bool current() => generation == _generation && isCurrent?.call() != false;
+    try {
+      final repo = await _repository();
+      if (!current()) return false;
+      if (repo == null) {
+        throw const GitLabAuthException('No authenticated account.');
+      }
+      if (!_currentSuggestions(targets)) return false;
+      final fresh = await _readDiscussions(
+        repo,
+        targets.map((t) => t.discussionId).toSet().toList(),
+        current,
+      );
+      if (!current() || fresh == null) return false;
+      if (!_currentSuggestions(targets) ||
+          !containsApplicableSuggestionTargets(fresh, targets)) {
+        throw const GitLabConflictException(
+          'Suggestions changed. Reload before applying.',
+        );
+      }
+      final returned = await repo.applySuggestions(
+        suggestionIds: targets.map((t) => t.suggestion.id).toList(),
+        commitMessage: commitMessage,
+      );
+      if (!current()) return false;
+      final byId = {for (final s in returned) s.id: s};
+      if (returned.length != targets.length ||
+          byId.length != targets.length ||
+          !targets.every(
+            (t) =>
+                byId[t.suggestion.id] != null &&
+                confirmsAppliedSuggestion(byId[t.suggestion.id]!, t.suggestion),
+          )) {
+        throw const GitLabServerException(
+          'Unconfirmed suggestion batch application.',
+        );
+      }
+      ref.invalidate(mergeRequestControllerProvider(arg));
+      ref.invalidate(mrReviewSnapshotControllerProvider(arg));
+      ref.invalidateSelf();
+      return true;
+    } catch (_) {
+      if (!current()) return false;
+      rethrow;
+    } finally {
+      if (generation == _generation) _posting = false;
+    }
+  }
+
   /// Explicit read-only recovery never retries an application automatically.
   Future<Discussion?> inspectDiscussion(
     String discussionId, {
     bool Function()? isCurrent,
+  }) async =>
+      (await inspectDiscussions([discussionId], isCurrent: isCurrent))?.single;
+
+  /// Stages every selected thread before replacing any loaded cache entry.
+  Future<List<Discussion>?> inspectDiscussions(
+    List<String> discussionIds, {
+    bool Function()? isCurrent,
   }) async {
-    if (_posting || _loadingMore || isCurrent?.call() == false) return null;
+    final ids = List<String>.unmodifiable(discussionIds);
+    if (_posting ||
+        _loadingMore ||
+        isCurrent?.call() == false ||
+        ids.isEmpty ||
+        ids.toSet().length != ids.length) {
+      return null;
+    }
     final generation = _generation;
     _posting = true;
     bool current() => generation == _generation && isCurrent?.call() != false;
@@ -229,21 +313,15 @@ class MrDiscussionsController
       if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
       }
-      final fresh = await repo.discussion(
-        projectId: arg.projectId,
-        iid: arg.iid,
-        discussionId: discussionId,
-      );
-      if (!current()) return null;
-      if (fresh.id != discussionId) {
-        throw const GitLabServerException('Invalid discussion response.');
-      }
+      final fresh = await _readDiscussions(repo, ids, current);
+      if (!current() || fresh == null) return null;
       final page = state.valueOrNull;
       if (page != null && !state.isLoading && !state.hasError) {
+        final byId = {for (final g in fresh) g.id: g};
         state = AsyncData(
           Paginated(
             items: List<Discussion>.unmodifiable(
-              page.items.map((g) => g.id == discussionId ? fresh : g),
+              page.items.map((g) => byId[g.id] ?? g),
             ),
             nextPage: page.nextPage,
             total: page.total,
@@ -258,6 +336,28 @@ class MrDiscussionsController
     } finally {
       if (generation == _generation) _posting = false;
     }
+  }
+
+  Future<List<Discussion>?> _readDiscussions(
+    CommentsRepository repo,
+    List<String> ids,
+    bool Function() isCurrent,
+  ) async {
+    final result = <Discussion>[];
+    for (final id in ids) {
+      if (!isCurrent()) return null;
+      final fresh = await repo.discussion(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        discussionId: id,
+      );
+      if (!isCurrent()) return null;
+      if (fresh.id != id) {
+        throw const GitLabServerException('Invalid discussion response.');
+      }
+      result.add(fresh);
+    }
+    return List<Discussion>.unmodifiable(result);
   }
 
   Future<bool> _post(

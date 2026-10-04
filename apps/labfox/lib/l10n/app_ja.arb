@@ -1333,5 +1333,21 @@
   "mrSuggestionReloadProgress": "ディスカッションを再読み込み中…",
   "mrSuggestionReloadError": "ディスカッションを再読み込みできませんでした。もう一度再読み込みしてください。",
   "mrSuggestionUnavailable": "この提案は適用できません。",
-  "mrSuggestionSessionChanged": "アカウントまたはマージリクエストが変更されました。このダイアログを閉じて提案を開き直してください。"
+  "mrSuggestionSessionChanged": "アカウントまたはマージリクエストが変更されました。このダイアログを閉じて提案を開き直してください。",
+  "mrSuggestionsBatchButton": "複数の提案を適用",
+  "mrSuggestionsSelectTitle": "提案を選択",
+  "mrSuggestionsSelectHint": "読み込まれたディスカッションから提案を2つ以上選択してください。",
+  "mrSuggestionsReviewButton": "選択した提案を確認",
+  "mrSuggestionsReviewTitle": "{count}件の提案を適用しますか？",
+  "mrSuggestionsApplyButton": "選択した提案を適用",
+  "mrSuggestionsApplyImpact": "これらの変更はマージリクエストのソースブランチにまとめて送信されます。適用前にすべての置換内容を確認してください。",
+  "mrSuggestionsApplyProgress": "提案を確認して適用中…",
+  "mrSuggestionsApplySuccess": "選択した提案を適用しました。",
+  "mrSuggestionsApplyError": "一括適用を確認できませんでした。再試行する前に選択したすべてのディスカッションを再読み込みしてください。",
+  "mrSuggestionsApplyChanged": "一部の提案が変更されました。選択したすべてのパッチを再読み込みして確認してください。",
+  "mrSuggestionsReloadButton": "選択したディスカッションを再読み込み",
+  "mrSuggestionsReloadProgress": "選択したディスカッションを読み込み中…",
+  "mrSuggestionsReloadError": "一部のディスカッションを読み込めませんでした。適用前に再読み込みしてください。",
+  "mrSuggestionsApplyForbidden": "GitLabがこの操作を拒否しました。アクセス権を確認し、選択したすべてのディスカッションを再読み込みしてから再試行してください。",
+  "mrSuggestionsBackButton": "選択に戻る"
 }
