@@ -581,6 +581,44 @@ class MergeRequestsApi {
     }
   }
 
+  /// Fetches one authoritative discussion without following redirects.
+  /// Read-only OAuth refresh remains available through the account-bound client.
+  Future<Discussion> discussion(
+    Object projectId, {
+    required int iid,
+    required String discussionId,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (discussionId.trim().isEmpty) {
+      throw ArgumentError('A discussion ID is required.', 'discussionId');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/discussions/'
+        '${Uri.encodeComponent(discussionId)}',
+        options: Options(followRedirects: false),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'reading a discussion',
+        );
+      }
+      try {
+        final result = _parseDiscussions([response.data]).single;
+        if (result.id != discussionId) {
+          throw const GitLabServerException('Unconfirmed discussion.');
+        }
+        return result;
+      } on GitLabServerException {
+        throw const GitLabServerException('Invalid discussion response.');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'reading a discussion');
+    }
+  }
+
   /// Adds a reply to an existing discussion, using its string thread ID.
   ///
   /// Preserves nonempty Markdown exactly. A write is never automatically

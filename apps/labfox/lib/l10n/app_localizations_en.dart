@@ -4810,4 +4810,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrSuggestionHideButton => 'Hide suggestion';
+
+  @override
+  String get mrSuggestionApplyButton => 'Apply suggestion';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return 'Apply suggestion $suggestionId?';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact =>
+      'This creates a commit on the merge request source branch. Review the replacement code before applying.';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => 'Commit message (optional)';
+
+  @override
+  String get mrSuggestionCommitMessageHint =>
+      'Leave empty to use GitLab’s default message.';
+
+  @override
+  String get mrSuggestionApplyProgress => 'Checking and applying suggestion…';
+
+  @override
+  String get mrSuggestionApplySuccess => 'Suggestion applied.';
+
+  @override
+  String get mrSuggestionApplyError =>
+      'The application could not be confirmed. Reload the discussion to check its current state before trying again.';
+
+  @override
+  String get mrSuggestionApplyForbidden =>
+      'GitLab denied this operation. Check your access, then reload before trying again.';
+
+  @override
+  String get mrSuggestionApplyChanged =>
+      'The suggestion changed. Reload and review its current code before applying.';
+
+  @override
+  String get mrSuggestionReloadButton => 'Reload discussion';
+
+  @override
+  String get mrSuggestionReloadProgress => 'Reloading discussion…';
+
+  @override
+  String get mrSuggestionReloadError =>
+      'The discussion could not be reloaded. Try reloading again.';
+
+  @override
+  String get mrSuggestionUnavailable =>
+      'This suggestion is unavailable for application.';
+
+  @override
+  String get mrSuggestionSessionChanged =>
+      'The account or merge request changed. Close this dialog and reopen the suggestion.';
 }

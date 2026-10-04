@@ -1318,5 +1318,20 @@
   "mrSuggestionContentUnknown": "内容を確認できません",
   "mrSuggestionContentEmpty": "空の内容",
   "mrSuggestionViewButton": "提案を表示",
-  "mrSuggestionHideButton": "提案を非表示"
+  "mrSuggestionHideButton": "提案を非表示",
+  "mrSuggestionApplyButton": "提案を適用",
+  "mrSuggestionApplyTitle": "提案 {suggestionId} を適用しますか？",
+  "mrSuggestionApplyImpact": "マージリクエストのソースブランチにコミットを作成します。適用前に置換コードを確認してください。",
+  "mrSuggestionCommitMessageLabel": "コミットメッセージ（任意）",
+  "mrSuggestionCommitMessageHint": "空欄の場合は GitLab の既定メッセージを使用します。",
+  "mrSuggestionApplyProgress": "提案を確認して適用中…",
+  "mrSuggestionApplySuccess": "提案を適用しました。",
+  "mrSuggestionApplyError": "適用結果を確認できませんでした。再試行する前にディスカッションを再読み込みし、現在の状態を確認してください。",
+  "mrSuggestionApplyForbidden": "GitLab が操作を拒否しました。アクセス権を確認し、再試行前に再読み込みしてください。",
+  "mrSuggestionApplyChanged": "提案が変更されました。再読み込みして現在のコードを確認してから適用してください。",
+  "mrSuggestionReloadButton": "ディスカッションを再読み込み",
+  "mrSuggestionReloadProgress": "ディスカッションを再読み込み中…",
+  "mrSuggestionReloadError": "ディスカッションを再読み込みできませんでした。もう一度再読み込みしてください。",
+  "mrSuggestionUnavailable": "この提案は適用できません。",
+  "mrSuggestionSessionChanged": "アカウントまたはマージリクエストが変更されました。このダイアログを閉じて提案を開き直してください。"
 }

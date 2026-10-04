@@ -7,6 +7,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../../../../core/analytics/analytics.dart';
 import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
+import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import 'merge_requests_controllers.dart';
 import 'mr_review_snapshot_controller.dart';
@@ -131,6 +132,132 @@ class MrDiscussionsController
       return Future.value(false);
     }
     return _post('', discussionId: discussionId, resolved: resolved);
+  }
+
+  bool _currentSuggestion(
+    String discussionId,
+    Note note,
+    Suggestion suggestion,
+  ) {
+    final groups = state.valueOrNull?.items;
+    return !state.isLoading &&
+        !state.hasError &&
+        groups != null &&
+        containsApplicableSuggestion(
+          groups,
+          discussionId: discussionId,
+          note: note,
+          suggestion: suggestion,
+        );
+  }
+
+  /// Holds the same reservation as comments, replies and resolution writes.
+  Future<bool> applySuggestion({
+    required String discussionId,
+    required Note note,
+    required Suggestion suggestion,
+    String? commitMessage,
+    bool Function()? isCurrent,
+  }) async {
+    if (_posting ||
+        _loadingMore ||
+        !_currentSuggestion(discussionId, note, suggestion) ||
+        isCurrent?.call() == false) {
+      return false;
+    }
+    final generation = _generation;
+    _posting = true;
+    bool current() => generation == _generation && isCurrent?.call() != false;
+    try {
+      final repo = await _repository();
+      if (!current()) return false;
+      if (repo == null) {
+        throw const GitLabAuthException('No authenticated account.');
+      }
+      if (!_currentSuggestion(discussionId, note, suggestion)) return false;
+      final fresh = await repo.discussion(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        discussionId: discussionId,
+      );
+      if (!current()) return false;
+      if (!_currentSuggestion(discussionId, note, suggestion) ||
+          !containsApplicableSuggestion(
+            [fresh],
+            discussionId: discussionId,
+            note: note,
+            suggestion: suggestion,
+          )) {
+        throw const GitLabConflictException(
+          'Suggestion changed. Reload before applying.',
+        );
+      }
+      final returned = await repo.applySuggestion(
+        suggestionId: suggestion.id,
+        commitMessage: commitMessage,
+      );
+      if (!current()) return false;
+      if (!confirmsAppliedSuggestion(returned, suggestion)) {
+        throw const GitLabServerException(
+          'Unconfirmed suggestion application.',
+        );
+      }
+      ref.invalidate(mergeRequestControllerProvider(arg));
+      ref.invalidate(mrReviewSnapshotControllerProvider(arg));
+      ref.invalidateSelf();
+      return true;
+    } catch (_) {
+      if (!current()) return false;
+      rethrow;
+    } finally {
+      if (generation == _generation) _posting = false;
+    }
+  }
+
+  /// Explicit read-only recovery never retries an application automatically.
+  Future<Discussion?> inspectDiscussion(
+    String discussionId, {
+    bool Function()? isCurrent,
+  }) async {
+    if (_posting || _loadingMore || isCurrent?.call() == false) return null;
+    final generation = _generation;
+    _posting = true;
+    bool current() => generation == _generation && isCurrent?.call() != false;
+    try {
+      final repo = await _repository();
+      if (!current()) return null;
+      if (repo == null) {
+        throw const GitLabAuthException('No authenticated account.');
+      }
+      final fresh = await repo.discussion(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        discussionId: discussionId,
+      );
+      if (!current()) return null;
+      if (fresh.id != discussionId) {
+        throw const GitLabServerException('Invalid discussion response.');
+      }
+      final page = state.valueOrNull;
+      if (page != null && !state.isLoading && !state.hasError) {
+        state = AsyncData(
+          Paginated(
+            items: List<Discussion>.unmodifiable(
+              page.items.map((g) => g.id == discussionId ? fresh : g),
+            ),
+            nextPage: page.nextPage,
+            total: page.total,
+            totalPages: page.totalPages,
+          ),
+        );
+      }
+      return fresh;
+    } catch (_) {
+      if (!current()) return null;
+      rethrow;
+    } finally {
+      if (generation == _generation) _posting = false;
+    }
   }
 
   Future<bool> _post(

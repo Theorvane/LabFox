@@ -2641,5 +2641,27 @@
   "mrSuggestionHideButton": "Hide suggestion",
   "@mrSuggestionHideButton": {
     "description": "MR code suggestion preview HideButton"
+  },
+  "mrSuggestionApplyButton": "Apply suggestion",
+  "mrSuggestionApplyTitle": "Apply suggestion {suggestionId}?",
+  "mrSuggestionApplyImpact": "This creates a commit on the merge request source branch. Review the replacement code before applying.",
+  "mrSuggestionCommitMessageLabel": "Commit message (optional)",
+  "mrSuggestionCommitMessageHint": "Leave empty to use GitLab’s default message.",
+  "mrSuggestionApplyProgress": "Checking and applying suggestion…",
+  "mrSuggestionApplySuccess": "Suggestion applied.",
+  "mrSuggestionApplyError": "The application could not be confirmed. Reload the discussion to check its current state before trying again.",
+  "mrSuggestionApplyForbidden": "GitLab denied this operation. Check your access, then reload before trying again.",
+  "mrSuggestionApplyChanged": "The suggestion changed. Reload and review its current code before applying.",
+  "mrSuggestionReloadButton": "Reload discussion",
+  "mrSuggestionReloadProgress": "Reloading discussion…",
+  "mrSuggestionReloadError": "The discussion could not be reloaded. Try reloading again.",
+  "mrSuggestionUnavailable": "This suggestion is unavailable for application.",
+  "mrSuggestionSessionChanged": "The account or merge request changed. Close this dialog and reopen the suggestion.",
+  "@mrSuggestionApplyTitle": {
+    "placeholders": {
+      "suggestionId": {
+        "type": "String"
+      }
+    }
   }
 }

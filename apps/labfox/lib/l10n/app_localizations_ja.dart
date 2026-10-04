@@ -4649,4 +4649,57 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrSuggestionHideButton => '提案を非表示';
+
+  @override
+  String get mrSuggestionApplyButton => '提案を適用';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return '提案 $suggestionId を適用しますか？';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact =>
+      'マージリクエストのソースブランチにコミットを作成します。適用前に置換コードを確認してください。';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => 'コミットメッセージ（任意）';
+
+  @override
+  String get mrSuggestionCommitMessageHint => '空欄の場合は GitLab の既定メッセージを使用します。';
+
+  @override
+  String get mrSuggestionApplyProgress => '提案を確認して適用中…';
+
+  @override
+  String get mrSuggestionApplySuccess => '提案を適用しました。';
+
+  @override
+  String get mrSuggestionApplyError =>
+      '適用結果を確認できませんでした。再試行する前にディスカッションを再読み込みし、現在の状態を確認してください。';
+
+  @override
+  String get mrSuggestionApplyForbidden =>
+      'GitLab が操作を拒否しました。アクセス権を確認し、再試行前に再読み込みしてください。';
+
+  @override
+  String get mrSuggestionApplyChanged =>
+      '提案が変更されました。再読み込みして現在のコードを確認してから適用してください。';
+
+  @override
+  String get mrSuggestionReloadButton => 'ディスカッションを再読み込み';
+
+  @override
+  String get mrSuggestionReloadProgress => 'ディスカッションを再読み込み中…';
+
+  @override
+  String get mrSuggestionReloadError =>
+      'ディスカッションを再読み込みできませんでした。もう一度再読み込みしてください。';
+
+  @override
+  String get mrSuggestionUnavailable => 'この提案は適用できません。';
+
+  @override
+  String get mrSuggestionSessionChanged =>
+      'アカウントまたはマージリクエストが変更されました。このダイアログを閉じて提案を開き直してください。';
 }

@@ -7,11 +7,13 @@ import 'package:intl/intl.dart';
 
 import '../../../../l10n/app_localizations.dart';
 import '../../../comments/data/discussion_resolution.dart';
+import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import '../../../comments/presentation/widgets/comment_thread.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import 'mr_discussion_position_context.dart';
+import 'mr_suggestion_apply_dialog.dart';
 import 'mr_suggestion_preview.dart';
 
 /// Grouped MR replies with explicit pagination and the shared note composer.
@@ -56,6 +58,8 @@ class _Conversation extends ConsumerStatefulWidget {
 }
 
 class _ConversationState extends ConsumerState<_Conversation> {
+  int? _applicationId;
+  ValueNotifier<bool>? _applicationView;
   String? _replyId;
   bool _replyPosting = false;
   bool _topPosting = false;
@@ -63,8 +67,19 @@ class _ConversationState extends ConsumerState<_Conversation> {
   String? _resolutionErrorId;
   bool _resolutionForbidden = false;
 
+  @override
+  void dispose() {
+    _applicationView?.value = false;
+    super.dispose();
+  }
+
   Future<void> _setResolved(String id, bool resolved) async {
-    if (_resolutionId != null || _topPosting || _replyId != null) return;
+    if (_applicationId != null ||
+        _resolutionId != null ||
+        _topPosting ||
+        _replyId != null) {
+      return;
+    }
     setState(() {
       _resolutionId = id;
       _resolutionErrorId = null;
@@ -101,7 +116,12 @@ class _ConversationState extends ConsumerState<_Conversation> {
   }
 
   Future<bool> _post(String body) async {
-    if (_topPosting || _replyId != null || _resolutionId != null) return false;
+    if (_applicationId != null ||
+        _topPosting ||
+        _replyId != null ||
+        _resolutionId != null) {
+      return false;
+    }
     setState(() => _topPosting = true);
     try {
       return await ref
@@ -114,7 +134,11 @@ class _ConversationState extends ConsumerState<_Conversation> {
 
   Future<bool> _reply(String body) async {
     final id = _replyId;
-    if (id == null || _replyPosting || _topPosting || _resolutionId != null) {
+    if (id == null ||
+        _applicationId != null ||
+        _replyPosting ||
+        _topPosting ||
+        _resolutionId != null) {
       return false;
     }
     setState(() => _replyPosting = true);
@@ -126,6 +150,55 @@ class _ConversationState extends ConsumerState<_Conversation> {
       return posted;
     } finally {
       if (mounted) setState(() => _replyPosting = false);
+    }
+  }
+
+  Future<void> _apply(
+    String discussionId,
+    Note note,
+    Suggestion suggestion,
+  ) async {
+    if (_applicationId != null ||
+        _topPosting ||
+        _replyId != null ||
+        _resolutionId != null ||
+        widget.discussions.isLoading ||
+        widget.discussions.hasError) {
+      return;
+    }
+    final session = ref.read(commentsRepositoryProvider);
+    final view = ValueNotifier(true);
+    _applicationView = view;
+    setState(() => _applicationId = suggestion.id);
+    try {
+      final applied = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => MrSuggestionApplyDialog(
+          resource: widget.arg,
+          discussionId: discussionId,
+          note: note,
+          suggestion: suggestion,
+          session: session,
+          isCurrent: () => mounted,
+          viewActive: view,
+        ),
+      );
+      if (mounted &&
+          applied == true &&
+          ref.read(commentsRepositoryProvider) == session) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context).mrSuggestionApplySuccess,
+            ),
+          ),
+        );
+      }
+    } finally {
+      _applicationView = null;
+      view.dispose();
+      if (mounted) setState(() => _applicationId = null);
     }
   }
 
@@ -143,7 +216,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
           canPost &&
           _replyId == null &&
           !_replyPosting &&
-          _resolutionId == null,
+          _resolutionId == null &&
+          _applicationId == null,
       onPost: _post,
       conversation: discussions.when(
         skipLoadingOnRefresh: false,
@@ -162,6 +236,18 @@ class _ConversationState extends ConsumerState<_Conversation> {
           ],
         ),
         data: (page) {
+          final counts = <int, int>{};
+          for (final group in page.items) {
+            for (final note in group.notes) {
+              for (final suggestion in note.suggestions ?? <Suggestion>[]) {
+                counts.update(
+                  suggestion.id,
+                  (value) => value + 1,
+                  ifAbsent: () => 1,
+                );
+              }
+            }
+          }
           final groups = page.items
               .where((group) => group.notes.any((note) => !note.isSystem))
               .toList();
@@ -177,6 +263,15 @@ class _ConversationState extends ConsumerState<_Conversation> {
                   key: ValueKey('mr-discussion-${group.id}'),
                   discussion: group,
                   resource: widget.arg,
+                  suggestionCounts: counts,
+                  onApply:
+                      canPost &&
+                          _applicationId == null &&
+                          !_topPosting &&
+                          _replyId == null &&
+                          _resolutionId == null
+                      ? (note, suggestion) => _apply(group.id, note, suggestion)
+                      : null,
                   resolutionControl: discussionResolution(group) == null
                       ? null
                       : Column(
@@ -197,7 +292,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
                                       _replyId == null &&
                                       !_topPosting &&
                                       !_replyPosting &&
-                                      _resolutionId == null
+                                      _resolutionId == null &&
+                                      _applicationId == null
                                   ? () => _setResolved(
                                       group.id,
                                       !discussionResolution(group)!,
@@ -233,7 +329,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
                               composerSubmit: l10n.mrDiscussionReplyButton,
                               conversation: const SizedBox.shrink(),
                               onPost: _reply,
-                              postingAllowed: canPost,
+                              postingAllowed: canPost && _applicationId == null,
                               preserveWhitespace: true,
                             ),
                             Align(
@@ -257,7 +353,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
                                     _replyId == null &&
                                     !_topPosting &&
                                     !_replyPosting &&
-                                    _resolutionId == null
+                                    _resolutionId == null &&
+                                    _applicationId == null
                                 ? () => setState(() => _replyId = group.id)
                                 : null,
                             child: Text(l10n.mrDiscussionReplyButton),
@@ -323,12 +420,16 @@ class _DiscussionView extends StatelessWidget {
     required this.discussion,
     required this.resource,
     required this.replyControl,
+    required this.suggestionCounts,
+    this.onApply,
     this.resolutionControl,
     super.key,
   });
   final Discussion discussion;
   final MergeRequestRef resource;
   final Widget replyControl;
+  final Map<int, int> suggestionCounts;
+  final void Function(Note, Suggestion)? onApply;
   final Widget? resolutionControl;
   @override
   Widget build(BuildContext context) {
@@ -382,6 +483,22 @@ class _DiscussionView extends StatelessWidget {
                         key: ValueKey((resource, note.id, suggestion)),
                         noteId: note.id,
                         suggestion: suggestion,
+                        action:
+                            canApplySuggestion(note, suggestion) &&
+                                suggestionCounts[suggestion.id] == 1
+                            ? Align(
+                                alignment: AlignmentDirectional.centerStart,
+                                child: TextButton(
+                                  key: ValueKey(
+                                    'mr-suggestion-apply-${note.id}-${suggestion.id}',
+                                  ),
+                                  onPressed: onApply == null
+                                      ? null
+                                      : () => onApply!(note, suggestion),
+                                  child: Text(l10n.mrSuggestionApplyButton),
+                                ),
+                              )
+                            : null,
                       ),
                     if (note.position != null)
                       MrDiscussionPositionContext(
