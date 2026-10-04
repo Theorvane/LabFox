@@ -20,7 +20,7 @@ An uncertain write keeps the exact range and draft and requires an explicit disc
 
 ## Responsive presentation and evidence
 
-The same MR Changes screen uses a scrollable composer below the diff on mobile and beside it from 600 logical pixels. Selection and draft survive resize/theme changes and same-version reads. Newer snapshots show no old-range markers and cannot submit an obsolete selection; account or MR replacement clears them. All new controls and recovery text use the five localization delegates.
+The same MR Changes screen uses a scrollable composer below the diff on mobile and beside it from 600 logical pixels. Selection and draft survive resize/theme changes and same-version reads. Newer snapshots show no old-range markers and cannot submit an obsolete selection; account or MR replacement clears them. All new controls and recovery text use the five localization delegates. Diff line actions retain the standard 48 dp touch target in both themes; the previous compact density produced a 40 dp target below the repository minimum.
 
 Test-first evidence covers absent range support, incomplete empty hunks, pre-dispatch repository replacement and immediate stale-session failures, same-version refresh editing and stale markers after a newer snapshot before their fixes. Tests cover old/new/context/mixed ranges, new/deleted files with zero opposite counters, renamed paths, adjacent and gapped hunks, duplicate/foreign identities, forged positions, request/response validation and no OAuth replay. Presentation tests cover five locales, three widths and both themes, shared reservations, uncertain-write inspection, session/resource replacement and compact keyboard/doubled-text editing.
 

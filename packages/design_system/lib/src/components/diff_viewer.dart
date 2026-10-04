@@ -190,7 +190,7 @@ class _DiffLineRow extends StatelessWidget {
                 onPressed: onSelected,
                 tooltip: actionLabel,
                 icon: const Icon(LabFoxIcons.comment, size: LabFoxIconSize.sm),
-                visualDensity: VisualDensity.compact,
+                visualDensity: VisualDensity.standard,
               ),
             _gutter(line.oldLine),
             _gutter(line.newLine),
