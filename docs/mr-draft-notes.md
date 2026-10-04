@@ -2,7 +2,9 @@
 
 Issue [#598](https://github.com/Theorvane/labfox/issues/598) /
 [PR #599](https://github.com/Theorvane/labfox/pull/599) adds the read-only
-foundation for unpublished server-backed review notes in MW-07. Draft notes are
+foundation for unpublished server-backed review notes in MW-07. The later
+[creation prerequisite](mr-draft-note-creation.md) adds a separate single-attempt
+mutation; the reader itself never writes. Draft notes are
 visible only to their author until publication. This slice does not expose a UI
 or create, edit, delete, publish or bulk-publish notes.
 

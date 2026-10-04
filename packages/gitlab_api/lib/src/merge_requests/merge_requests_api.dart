@@ -585,6 +585,115 @@ class MergeRequestsApi {
     }
   }
 
+  /// Saves a new unpublished regular or original text-positioned review note.
+  /// A failed/unconfirmed response can follow a successful server write. Callers
+  /// must inspect pending drafts before an explicit retry; this never replays.
+  Future<MergeRequestDraftNote> createDraftNote(
+    Object projectId, {
+    required int iid,
+    required String note,
+    DiffNotePosition? position,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (note.trim().isEmpty) {
+      throw ArgumentError('A draft note is required.', 'note');
+    }
+    if (position != null && !validTextDiscussionPosition(position)) {
+      throw ArgumentError(
+        'A complete original text position is required.',
+        'position',
+      );
+    }
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/draft_notes',
+        data: {
+          'note': note,
+          'resolve_discussion': false,
+          if (position != null)
+            'position': positionedDiscussionPayload(position),
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode == 409 || response.statusCode == 422) {
+        throw GitLabConflictException(
+          'The draft could not be saved. Reload before retrying.',
+          statusCode: response.statusCode,
+        );
+      }
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'saving a review draft',
+        );
+      }
+      try {
+        final draft = _parseDraftNotes([response.data]).single;
+        if (draft.note != note ||
+            draft.resolveDiscussion != false ||
+            draft.discussionId != null ||
+            draft.commitId != null ||
+            !_confirmsDraftPosition(position, draft.position) ||
+            (position == null && draft.lineCode != null)) {
+          throw const GitLabServerException('Unconfirmed draft note creation.');
+        }
+        return draft;
+      } on GitLabServerException {
+        throw const GitLabServerException(
+          'Invalid draft note creation response.',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response?.statusCode == 409 ||
+          error.response?.statusCode == 422) {
+        throw GitLabConflictException(
+          'The draft could not be saved. Reload before retrying.',
+          statusCode: error.response?.statusCode,
+        );
+      }
+      throw mapError(error, context: 'saving a review draft');
+    }
+  }
+
+  static bool _confirmsDraftPosition(
+    DiffNotePosition? expected,
+    DiffNotePosition? returned,
+  ) {
+    if (expected == null) {
+      // GitLab represents a regular draft with null/empty text coordinates.
+      return returned == null ||
+          ((returned.positionType == null || returned.positionType == 'text') &&
+              [
+                returned.baseSha,
+                returned.startSha,
+                returned.headSha,
+                returned.oldPath,
+                returned.newPath,
+                returned.oldLine,
+                returned.newLine,
+                returned.lineRange,
+                returned.width,
+                returned.height,
+                returned.x,
+                returned.y,
+              ].every((field) => field == null));
+    }
+    return returned != null &&
+        validTextDiscussionPosition(returned) &&
+        returned.baseSha == expected.baseSha &&
+        returned.startSha == expected.startSha &&
+        returned.headSha == expected.headSha &&
+        returned.oldPath == expected.oldPath &&
+        returned.newPath == expected.newPath &&
+        returned.oldLine == expected.oldLine &&
+        returned.newLine == expected.newLine &&
+        sameDiscussionRange(expected.lineRange, returned.lineRange);
+  }
+
   static List<MergeRequestDraftNote> _parseDraftNotes(Object? payload) {
     try {
       if (payload is! List) throw const FormatException();
@@ -752,24 +861,7 @@ class MergeRequestsApi {
     if (body.trim().isEmpty) {
       throw ArgumentError('A discussion body is required.', 'body');
     }
-    if (position.positionType != 'text' ||
-        [
-          position.baseSha,
-          position.startSha,
-          position.headSha,
-        ].any((value) => value == null || value.trim().isEmpty) ||
-        [
-          position.oldPath,
-          position.newPath,
-        ].any((value) => value == null || value.isEmpty) ||
-        (position.oldLine == null && position.newLine == null) ||
-        (position.oldLine != null && position.oldLine! < 1) ||
-        (position.newLine != null && position.newLine! < 1) ||
-        !validMultilinePosition(position) ||
-        position.width != null ||
-        position.height != null ||
-        position.x != null ||
-        position.y != null) {
+    if (!validTextDiscussionPosition(position)) {
       throw ArgumentError(
         'A complete original text position is required.',
         'position',
