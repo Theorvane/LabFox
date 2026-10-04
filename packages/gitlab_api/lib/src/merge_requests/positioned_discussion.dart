@@ -27,6 +27,28 @@ final _lineCode = RegExp(r'^[0-9a-f]{40}_(0|[1-9][0-9]*)_(0|[1-9][0-9]*)$');
   return (old, newer);
 }
 
+/// Restricts creation to complete original text anchors with supported ranges.
+/// Path and SHA guards precede range hashing so incomplete positions are safe.
+bool validTextDiscussionPosition(DiffNotePosition position) =>
+    position.positionType == 'text' &&
+    [
+      position.baseSha,
+      position.startSha,
+      position.headSha,
+    ].every((value) => value != null && value.trim().isNotEmpty) &&
+    [
+      position.oldPath,
+      position.newPath,
+    ].every((value) => value != null && value.isNotEmpty) &&
+    (position.oldLine != null || position.newLine != null) &&
+    (position.oldLine == null || position.oldLine! > 0) &&
+    (position.newLine == null || position.newLine! > 0) &&
+    position.width == null &&
+    position.height == null &&
+    position.x == null &&
+    position.y == null &&
+    validMultilinePosition(position);
+
 /// Checks the structural original range; callers still verify literal diff membership.
 bool validMultilinePosition(DiffNotePosition position) {
   final range = position.lineRange;
