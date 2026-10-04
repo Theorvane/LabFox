@@ -23,4 +23,4 @@ These are synthetic Flutter widget-test captures with dummy metadata and SDK fon
 | Mobile, 390 × 844 | [Capture](images/mr-suggestion-apply/apply-390-light.png) | [Capture](images/mr-suggestion-apply/apply-390-dark.png) |
 | Desktop, 1200 × 900 | [Capture](images/mr-suggestion-apply/apply-1200-light.png) | [Capture](images/mr-suggestion-apply/apply-1200-dark.png) |
 
-The [batch application API](mr-suggestion-batch-api.md) now powers [batch selection, confirmation and complete read-only recovery](mr-suggestion-batch-ui.md). Multiline discussion context/creation remains a separate parity slice.
+The [batch application API](mr-suggestion-batch-api.md) now powers [batch selection, confirmation and complete read-only recovery](mr-suggestion-batch-ui.md). [Multiline original context](mr-discussion-context.md) is available; multiline positioned thread creation remains a separate parity slice.

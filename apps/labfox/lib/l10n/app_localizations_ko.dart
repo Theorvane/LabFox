@@ -4762,4 +4762,12 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrSuggestionsBackButton => '선택으로 돌아가기';
+
+  @override
+  String mrDiscussionContextRangeLabel(String start, String end) {
+    return '댓글이 달린 줄 $start–$end';
+  }
+
+  @override
+  String get mrDiscussionContextRangeLineLabel => '댓글 범위에 포함된 줄';
 }

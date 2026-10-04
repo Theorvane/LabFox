@@ -2687,5 +2687,18 @@
         "type": "String"
       }
     }
+  },
+  "mrDiscussionContextRangeLabel": "Commented lines {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "Line in commented range",
+  "@mrDiscussionContextRangeLabel": {
+    "description": "Inclusive original commented range. Minus denotes old-side coordinates; plus denotes new-side coordinates.",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
   }
 }

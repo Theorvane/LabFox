@@ -1349,5 +1349,7 @@
   "mrSuggestionsReloadProgress": "선택한 토론 불러오는 중…",
   "mrSuggestionsReloadError": "일부 토론을 불러오지 못했습니다. 적용하기 전에 다시 불러오세요.",
   "mrSuggestionsApplyForbidden": "GitLab에서 이 작업을 거부했습니다. 접근 권한을 확인하고 선택한 모든 토론을 새로 불러온 후 다시 시도하세요.",
-  "mrSuggestionsBackButton": "선택으로 돌아가기"
+  "mrSuggestionsBackButton": "선택으로 돌아가기",
+  "mrDiscussionContextRangeLabel": "댓글이 달린 줄 {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "댓글 범위에 포함된 줄"
 }

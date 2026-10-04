@@ -4924,4 +4924,12 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrSuggestionsBackButton => 'चयन पर वापस जाएँ';
+
+  @override
+  String mrDiscussionContextRangeLabel(String start, String end) {
+    return 'टिप्पणी वाली पंक्तियाँ $start–$end';
+  }
+
+  @override
+  String get mrDiscussionContextRangeLineLabel => 'टिप्पणी की सीमा में पंक्ति';
 }

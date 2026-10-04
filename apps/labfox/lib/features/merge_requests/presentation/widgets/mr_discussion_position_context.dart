@@ -98,6 +98,13 @@ class _PositionContextState extends ConsumerState<MrDiscussionPositionContext> {
                           ),
                           const SizedBox(height: LabFoxSpacing.xs),
                           Text(file.displayPath),
+                          if (widget.position.lineRange case final range?)
+                            Text(
+                              l10n.mrDiscussionContextRangeLabel(
+                                _endpointLabel(range.start!, l10n.localeName),
+                                _endpointLabel(range.end!, l10n.localeName),
+                              ),
+                            ),
                           const SizedBox(height: LabFoxSpacing.sm),
                           ConstrainedBox(
                             constraints: BoxConstraints(
@@ -107,8 +114,11 @@ class _PositionContextState extends ConsumerState<MrDiscussionPositionContext> {
                               child: DiffViewer(
                                 file: file,
                                 highlightedLine: line,
+                                highlightedLines: value.lines,
                                 highlightedLineLabel:
-                                    l10n.mrDiscussionContextLineLabel,
+                                    widget.position.lineRange == null
+                                    ? l10n.mrDiscussionContextLineLabel
+                                    : l10n.mrDiscussionContextRangeLineLabel,
                                 focusOnHighlightedLine: true,
                                 binaryLabel: l10n.changesBinary,
                                 omittedLabel: l10n.changesOmitted,
@@ -143,4 +153,13 @@ class _PositionContextState extends ConsumerState<MrDiscussionPositionContext> {
       ],
     );
   }
+}
+
+String _endpointLabel(DiffNoteRangeEndpoint endpoint, String locale) {
+  final code = endpoint.lineCode!.split('_');
+  final number = endpoint.type == 'old'
+      ? -int.parse(code[1])
+      : int.parse(code[2]);
+  final formatted = NumberFormat.decimalPattern(locale).format(number);
+  return endpoint.type == 'old' ? formatted : '+$formatted';
 }
