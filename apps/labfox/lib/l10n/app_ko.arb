@@ -1256,5 +1256,8 @@
   "pipelineUpstreamEmpty": "조회 가능한 상위 파이프라인이 없습니다.",
   "pipelineUpstreamError": "상위 파이프라인을 불러오지 못했습니다.",
   "pipelineUpstreamUnavailable": "상위 파이프라인을 열 수 없습니다.",
-  "pipelineUpstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}"
+  "pipelineUpstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}",
+  "pipelineJobsTitle": "작업",
+  "pipelineJobsStatusAll": "모든 작업 상태",
+  "pipelineJobsFilteredEmpty": "이 상태에 해당하는 작업이 없습니다."
 }

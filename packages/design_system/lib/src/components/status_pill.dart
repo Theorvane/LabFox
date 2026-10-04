@@ -74,11 +74,15 @@ class StatusPill extends StatelessWidget {
                   child: const SizedBox(width: 7, height: 7),
                 ),
               ),
-            Text(
-              label,
-              style: LabFoxTextRoles.of(
-                context,
-              ).chipLabel.copyWith(color: foreground),
+            Flexible(
+              child: Text(
+                label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: LabFoxTextRoles.of(
+                  context,
+                ).chipLabel.copyWith(color: foreground),
+              ),
             ),
           ],
         ),

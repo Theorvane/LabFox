@@ -8107,6 +8107,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Project {projectId} · Pipeline #{pipelineId}'**
   String pipelineUpstreamTarget(int projectId, int pipelineId);
+
+  /// Pipeline detail job status filtering: pipelineJobsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Jobs'**
+  String get pipelineJobsTitle;
+
+  /// Pipeline detail job status filtering: pipelineJobsStatusAll
+  ///
+  /// In en, this message translates to:
+  /// **'All job statuses'**
+  String get pipelineJobsStatusAll;
+
+  /// Pipeline detail job status filtering: pipelineJobsFilteredEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No jobs match this status.'**
+  String get pipelineJobsFilteredEmpty;
 }
 
 class _AppLocalizationsDelegate

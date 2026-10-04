@@ -338,6 +338,105 @@ void main() {
   });
 
   group('PipelinesApi.jobs', () {
+    for (final filter in PipelineJobStatusFilter.values) {
+      test(
+        'maps job filter ${filter.name} to scalar scope across every header page',
+        () async {
+          final pages = <int>[];
+          final c = _client((o) {
+            final page = o.queryParameters['page'] as int;
+            pages.add(page);
+            expect(o.path, '/projects/team%2Fapp/pipelines/944/jobs');
+            expect(o.queryParameters, {
+              'page': page,
+              'per_page': 10,
+              'scope': filter.name,
+            });
+            return (
+              status: 200,
+              headers: {
+                'x-next-page': [
+                  page == 1
+                      ? '4'
+                      : page == 4
+                      ? '9'
+                      : '',
+                ],
+              },
+              body: page == 4
+                  ? []
+                  : [
+                      {'id': page, 'name': 'job-$page', 'status': filter.name},
+                    ],
+            );
+          });
+          final jobs = await c.pipelines.jobs(
+            'team/app',
+            pipelineId: 944,
+            perPage: 10,
+            status: filter,
+          );
+          expect(pages, [1, 4, 9]);
+          expect(jobs.map((j) => j.id), [1, 9]);
+        },
+      );
+    }
+    test(
+      'no filter omits scope and preserves newer response statuses and retry defaults',
+      () async {
+        final c = _client((o) {
+          expect(o.queryParameters, {'page': 1, 'per_page': 100});
+          return (
+            status: 200,
+            headers: const {},
+            body: [
+              {'id': 1, 'name': 'callback', 'status': 'waiting_for_callback'},
+            ],
+          );
+        });
+        expect(
+          (await c.pipelines.jobs(7, pipelineId: 944)).single.status,
+          'waiting_for_callback',
+        );
+      },
+    );
+    for (final code in [401, 403, 404, 429, 500]) {
+      test(
+        'filtered page HTTP $code discards incomplete results without unfiltered fallback',
+        () async {
+          var count = 0;
+          final c = _client((o) {
+            count++;
+            expect(o.queryParameters['scope'], 'failed');
+            return count == 1
+                ? (
+                    status: 200,
+                    headers: {
+                      'x-next-page': ['4'],
+                    },
+                    body: [
+                      {'id': 1, 'name': 'first', 'status': 'failed'},
+                    ],
+                  )
+                : (
+                    status: code,
+                    headers: const {},
+                    body: {'message': 'private payload'},
+                  );
+          });
+          await expectLater(
+            c.pipelines.jobs(
+              7,
+              pipelineId: 944,
+              status: PipelineJobStatusFilter.failed,
+            ),
+            throwsA(isA<GitLabException>()),
+          );
+          expect(count, 2);
+        },
+      );
+    }
+
     test('lists a pipeline\'s jobs', () async {
       late RequestOptions captured;
       final client = _client((o) {

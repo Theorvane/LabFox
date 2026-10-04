@@ -4453,4 +4453,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
     return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
   }
+
+  @override
+  String get pipelineJobsTitle => '작업';
+
+  @override
+  String get pipelineJobsStatusAll => '모든 작업 상태';
+
+  @override
+  String get pipelineJobsFilteredEmpty => '이 상태에 해당하는 작업이 없습니다.';
 }

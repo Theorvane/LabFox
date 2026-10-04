@@ -34,6 +34,19 @@ enum PipelineSourceFilter {
   final String apiValue;
 }
 
+/// Common stable job statuses accepted by the pipeline jobs scope parameter.
+/// Leaving the filter unset preserves every server-returned status.
+enum PipelineJobStatusFilter {
+  created,
+  pending,
+  running,
+  success,
+  failed,
+  canceled,
+  skipped,
+  manual,
+}
+
 /// Pipeline and job endpoints.
 class PipelinesApi {
   const PipelinesApi(this._dio);
@@ -161,6 +174,7 @@ class PipelinesApi {
     Object projectId, {
     required int pipelineId,
     int perPage = 100,
+    PipelineJobStatusFilter? status,
   }) async {
     try {
       final jobs = <Job>[];
@@ -168,7 +182,11 @@ class PipelinesApi {
       while (page != null) {
         final response = await _dio.get<dynamic>(
           '/projects/${_enc(projectId)}/pipelines/$pipelineId/jobs',
-          queryParameters: {'page': page, 'per_page': perPage},
+          queryParameters: {
+            'page': page,
+            'per_page': perPage,
+            if (status != null) 'scope': status.name,
+          },
         );
         if (response.statusCode != 200) {
           throw mapStatus(

@@ -34,6 +34,7 @@ class PipelineDetailScreen extends ConsumerWidget {
       projectId: projectId,
       pipelineId: pipelineId,
     );
+    final status = ref.watch(pipelineJobStatusFilterProvider(pipelineRef));
     final detail = ref.watch(pipelineDetailProvider(pipelineRef));
     final jobs = ref.watch(pipelineJobsControllerProvider(pipelineRef));
 
@@ -64,13 +65,60 @@ class PipelineDetailScreen extends ConsumerWidget {
                   _PipelineHeader(pipelineRef: pipelineRef, pipeline: p),
             ),
             const Divider(height: LabFoxSpacing.xl),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: LabFoxSpacing.md),
+              child: Wrap(
+                spacing: LabFoxSpacing.sm,
+                runSpacing: LabFoxSpacing.sm,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  Text(
+                    l10n.pipelineJobsTitle,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  // The record distinguishes clearing from dismissing the menu.
+                  FilterMenuChip<({PipelineJobStatusFilter? status})>(
+                    key: const ValueKey('pipeline-job-status-filter'),
+                    selected: (status: status),
+                    options: [
+                      (status: null),
+                      for (final value in PipelineJobStatusFilter.values)
+                        (status: value),
+                    ],
+                    labelOf: (choice) => _jobStatusLabel(l10n, choice.status),
+                    onSelected: (choice) =>
+                        ref
+                                .read(
+                                  pipelineJobStatusFilterProvider(
+                                    pipelineRef,
+                                  ).notifier,
+                                )
+                                .state =
+                            choice.status,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: LabFoxSpacing.sm),
             jobs.when(
+              skipLoadingOnRefresh: false,
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (error, _) => Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: LabFoxSpacing.md,
                 ),
-                child: Text(l10n.pipelineJobsError),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(l10n.pipelineJobsError),
+                    TextButton(
+                      onPressed: () => ref.invalidate(
+                        pipelineJobsControllerProvider(pipelineRef),
+                      ),
+                      child: Text(l10n.retry),
+                    ),
+                  ],
+                ),
               ),
               data: (all) {
                 if (all.isEmpty) {
@@ -78,7 +126,11 @@ class PipelineDetailScreen extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(
                       horizontal: LabFoxSpacing.md,
                     ),
-                    child: Text(l10n.pipelineNoJobs),
+                    child: Text(
+                      status == null
+                          ? l10n.pipelineNoJobs
+                          : l10n.pipelineJobsFilteredEmpty,
+                    ),
                   );
                 }
                 final byStage = groupJobsByStage(all);
@@ -407,3 +459,18 @@ class _PipelineActions extends ConsumerWidget {
     }
   }
 }
+
+String _jobStatusLabel(
+  AppLocalizations l10n,
+  PipelineJobStatusFilter? status,
+) => switch (status) {
+  null => l10n.pipelineJobsStatusAll,
+  PipelineJobStatusFilter.created => l10n.pipelinesStatusCreated,
+  PipelineJobStatusFilter.pending => l10n.pipelinesStatusPending,
+  PipelineJobStatusFilter.running => l10n.pipelinesStatusRunning,
+  PipelineJobStatusFilter.success => l10n.pipelinesStatusSuccess,
+  PipelineJobStatusFilter.failed => l10n.pipelinesStatusFailed,
+  PipelineJobStatusFilter.canceled => l10n.pipelinesStatusCanceled,
+  PipelineJobStatusFilter.skipped => l10n.pipelinesStatusSkipped,
+  PipelineJobStatusFilter.manual => l10n.pipelinesStatusManual,
+};

@@ -2467,5 +2467,17 @@
         "format": "decimalPattern"
       }
     }
+  },
+  "pipelineJobsTitle": "Jobs",
+  "@pipelineJobsTitle": {
+    "description": "Pipeline detail job status filtering: pipelineJobsTitle"
+  },
+  "pipelineJobsStatusAll": "All job statuses",
+  "@pipelineJobsStatusAll": {
+    "description": "Pipeline detail job status filtering: pipelineJobsStatusAll"
+  },
+  "pipelineJobsFilteredEmpty": "No jobs match this status.",
+  "@pipelineJobsFilteredEmpty": {
+    "description": "Pipeline detail job status filtering: pipelineJobsFilteredEmpty"
   }
 }

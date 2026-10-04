@@ -87,9 +87,10 @@ class _Repository extends PipelinesRepository {
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,
+    PipelineJobStatusFilter? status,
   }) async {
     jobLoads.update(pipelineId, (value) => value + 1, ifAbsent: () => 1);
-    return [Job(id: 1, name: 'test', status: status)];
+    return [Job(id: 1, name: 'test', status: this.status)];
   }
 
   Future<Pipeline> _run(String command, int projectId, int pipelineId) async {
