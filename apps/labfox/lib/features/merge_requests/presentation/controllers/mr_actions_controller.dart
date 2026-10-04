@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
+import '../../../../core/auth/auth_controller.dart';
 import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../../inbox/presentation/controllers/inbox_controllers.dart';
 import '../../data/mr_actions_repository.dart';
@@ -12,8 +13,12 @@ import 'merge_requests_controllers.dart';
 final mrActionsRepositoryProvider = FutureProvider<MrActionsRepository?>((
   ref,
 ) async {
+  final account = ref.watch(currentAccountProvider);
+  if (account == null) return null;
   final client = await ref.watch(gitLabClientProvider.future);
-  return client == null ? null : MrActionsRepository(client);
+  return client == null
+      ? null
+      : MrActionsRepository(client, currentUserId: account.user.id);
 });
 
 /// The approval state for a merge request, or null when the instance does not
