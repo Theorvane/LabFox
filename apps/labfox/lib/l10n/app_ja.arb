@@ -1274,5 +1274,9 @@
   "mrDiscussionsPartial": "ほかのディスカッションがあります。",
   "mrDiscussionReplyButton": "返信",
   "mrDiscussionReplyTitle": "ディスカッションに返信",
-  "mrDiscussionReplyHint": "返信を入力…"
+  "mrDiscussionReplyHint": "返信を入力…",
+  "mrDiscussionResolveButton": "ディスカッションを解決",
+  "mrDiscussionReopenButton": "ディスカッションを再開",
+  "mrDiscussionResolveForbidden": "このディスカッションを変更できません。アカウントの権限を確認してください。",
+  "mrDiscussionResolveError": "ディスカッションを更新できませんでした。もう一度お試しください。"
 }

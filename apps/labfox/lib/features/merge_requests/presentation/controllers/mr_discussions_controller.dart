@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
 import '../../../comments/data/comments_repository.dart';
+import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import 'merge_requests_controllers.dart';
 
@@ -99,20 +100,51 @@ class MrDiscussionsController
     return _post(body, discussionId: discussionId);
   }
 
-  Future<bool> _post(String body, {String? discussionId}) async {
-    if (_posting || state.isLoading || state.hasError || body.trim().isEmpty) {
+  Future<bool> setResolved({
+    required String discussionId,
+    required bool resolved,
+  }) {
+    final groups = state.valueOrNull?.items;
+    if (groups == null ||
+        !groups.any(
+          (group) =>
+              group.id == discussionId &&
+              group.notes.any((note) => !note.isSystem) &&
+              discussionResolution(group) == !resolved,
+        )) {
+      return Future.value(false);
+    }
+    return _post('', discussionId: discussionId, resolved: resolved);
+  }
+
+  Future<bool> _post(
+    String body, {
+    String? discussionId,
+    bool? resolved,
+  }) async {
+    if (_posting ||
+        state.isLoading ||
+        state.hasError ||
+        (resolved == null && body.trim().isEmpty)) {
       return false;
     }
     final generation = _generation;
     _posting = true;
-    // A successful post reloads page one, superseding any in-flight pagination.
+    // A successful write reloads page one, superseding any in-flight pagination.
     try {
       final repo = await _repository();
       if (generation != _generation) return false;
       if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
       }
-      if (discussionId == null) {
+      if (resolved != null) {
+        await repo.setDiscussionResolved(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          discussionId: discussionId!,
+          resolved: resolved,
+        );
+      } else if (discussionId == null) {
         await repo.post(
           type: NoteableType.mergeRequest,
           projectId: arg.projectId,
@@ -128,11 +160,15 @@ class MrDiscussionsController
         );
       }
       if (generation != _generation) return false;
-      unawaited(
-        ref.read(analyticsProvider).track('comment_posted', {
-          'target': 'merge_request',
-        }),
-      );
+      if (resolved == null) {
+        unawaited(
+          ref.read(analyticsProvider).track('comment_posted', {
+            'target': 'merge_request',
+          }),
+        );
+      } else {
+        ref.invalidate(mergeRequestControllerProvider(arg));
+      }
       ref.invalidateSelf();
       return true;
     } catch (_) {

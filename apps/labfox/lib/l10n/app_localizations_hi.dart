@@ -4659,4 +4659,18 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiscussionReplyHint => 'जवाब लिखें…';
+
+  @override
+  String get mrDiscussionResolveButton => 'चर्चा हल करें';
+
+  @override
+  String get mrDiscussionReopenButton => 'चर्चा फिर से खोलें';
+
+  @override
+  String get mrDiscussionResolveForbidden =>
+      'आप इस चर्चा को बदल नहीं सकते। अपने खाते की अनुमतियाँ जाँचें।';
+
+  @override
+  String get mrDiscussionResolveError =>
+      'चर्चा अपडेट नहीं हो सकी। फिर से प्रयास करें।';
 }

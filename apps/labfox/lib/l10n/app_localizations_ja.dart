@@ -4505,4 +4505,17 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiscussionReplyHint => '返信を入力…';
+
+  @override
+  String get mrDiscussionResolveButton => 'ディスカッションを解決';
+
+  @override
+  String get mrDiscussionReopenButton => 'ディスカッションを再開';
+
+  @override
+  String get mrDiscussionResolveForbidden =>
+      'このディスカッションを変更できません。アカウントの権限を確認してください。';
+
+  @override
+  String get mrDiscussionResolveError => 'ディスカッションを更新できませんでした。もう一度お試しください。';
 }

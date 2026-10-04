@@ -8215,6 +8215,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Write a reply…'**
   String get mrDiscussionReplyHint;
+
+  /// No description provided for @mrDiscussionResolveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolve discussion'**
+  String get mrDiscussionResolveButton;
+
+  /// No description provided for @mrDiscussionReopenButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen discussion'**
+  String get mrDiscussionReopenButton;
+
+  /// No description provided for @mrDiscussionResolveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot change this discussion. Check your account permissions.'**
+  String get mrDiscussionResolveForbidden;
+
+  /// No description provided for @mrDiscussionResolveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update this discussion. Try again.'**
+  String get mrDiscussionResolveError;
 }
 
 class _AppLocalizationsDelegate

@@ -33,6 +33,18 @@ class CommentsRepository {
     body: body,
   );
 
+  Future<Discussion> setDiscussionResolved({
+    required int projectId,
+    required int iid,
+    required String discussionId,
+    required bool resolved,
+  }) => _client.mergeRequests.setDiscussionResolved(
+    projectId,
+    iid: iid,
+    discussionId: discussionId,
+    resolved: resolved,
+  );
+
   Future<Note> post({
     required NoteableType type,
     required int projectId,

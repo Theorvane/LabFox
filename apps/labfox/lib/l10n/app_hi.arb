@@ -1274,5 +1274,9 @@
   "mrDiscussionsPartial": "और चर्चाएँ उपलब्ध हैं।",
   "mrDiscussionReplyButton": "जवाब दें",
   "mrDiscussionReplyTitle": "चर्चा का जवाब दें",
-  "mrDiscussionReplyHint": "जवाब लिखें…"
+  "mrDiscussionReplyHint": "जवाब लिखें…",
+  "mrDiscussionResolveButton": "चर्चा हल करें",
+  "mrDiscussionReopenButton": "चर्चा फिर से खोलें",
+  "mrDiscussionResolveForbidden": "आप इस चर्चा को बदल नहीं सकते। अपने खाते की अनुमतियाँ जाँचें।",
+  "mrDiscussionResolveError": "चर्चा अपडेट नहीं हो सकी। फिर से प्रयास करें।"
 }

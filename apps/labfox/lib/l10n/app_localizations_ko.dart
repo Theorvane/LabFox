@@ -4513,4 +4513,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiscussionReplyHint => '답글을 작성하세요…';
+
+  @override
+  String get mrDiscussionResolveButton => '토론 해결';
+
+  @override
+  String get mrDiscussionReopenButton => '토론 다시 열기';
+
+  @override
+  String get mrDiscussionResolveForbidden => '이 토론을 변경할 수 없습니다. 계정 권한을 확인하세요.';
+
+  @override
+  String get mrDiscussionResolveError => '토론을 변경하지 못했습니다. 다시 시도하세요.';
 }
