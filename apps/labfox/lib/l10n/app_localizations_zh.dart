@@ -4369,4 +4369,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiscussionReplyHint => '撰写回复…';
+
+  @override
+  String get mrDiscussionResolveButton => '解决讨论';
+
+  @override
+  String get mrDiscussionReopenButton => '重新打开讨论';
+
+  @override
+  String get mrDiscussionResolveForbidden => '无法更改此讨论。请检查账户权限。';
+
+  @override
+  String get mrDiscussionResolveError => '无法更新此讨论。请重试。';
 }
