@@ -4627,4 +4627,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pipelineJobsLoadMoreError => 'Could not load more jobs.';
+
+  @override
+  String get mrApprovalStatusLoading => 'Loading approval status…';
+
+  @override
+  String get mrApprovalStatusError => 'Could not load approval status.';
 }

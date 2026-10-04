@@ -23,7 +23,7 @@ final mrApprovalsProvider =
       ref,
       arg,
     ) async {
-      final repo = await ref.read(mrActionsRepositoryProvider.future);
+      final repo = await ref.watch(mrActionsRepositoryProvider.future);
       if (repo == null) {
         return null;
       }

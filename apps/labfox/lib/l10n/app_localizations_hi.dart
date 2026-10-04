@@ -4629,4 +4629,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get pipelineJobsLoadMoreError => 'और जॉब लोड नहीं हो सके।';
+
+  @override
+  String get mrApprovalStatusLoading => 'स्वीकृति की स्थिति लोड हो रही है…';
+
+  @override
+  String get mrApprovalStatusError => 'स्वीकृति की स्थिति लोड नहीं हो सकी।';
 }

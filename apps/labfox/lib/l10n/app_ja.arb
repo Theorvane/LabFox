@@ -1264,5 +1264,7 @@
   "pipelineJobsAttemptsAll": "すべての実行履歴",
   "pipelineJobIdentifier": "ジョブ #{jobId}",
   "pipelineJobsPartialList": "読み込んだジョブのみ表示しています。残りを表示するにはさらに読み込んでください。",
-  "pipelineJobsLoadMoreError": "追加のジョブを読み込めませんでした。"
+  "pipelineJobsLoadMoreError": "追加のジョブを読み込めませんでした。",
+  "mrApprovalStatusLoading": "承認状況を読み込み中…",
+  "mrApprovalStatusError": "承認状況を読み込めませんでした。"
 }

@@ -4483,4 +4483,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelineJobsLoadMoreError => '추가 작업을 불러오지 못했습니다.';
+
+  @override
+  String get mrApprovalStatusLoading => '승인 상태를 불러오는 중…';
+
+  @override
+  String get mrApprovalStatusError => '승인 상태를 불러오지 못했습니다.';
 }
