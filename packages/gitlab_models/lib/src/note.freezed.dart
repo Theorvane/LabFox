@@ -23,6 +23,7 @@ mixin _$Note {
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
   String? get type;
+  DiffNotePosition? get position;
   bool? get resolvable;
   bool? get resolved;
   @JsonKey(name: 'resolved_by')
@@ -55,6 +56,8 @@ mixin _$Note {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
             (identical(other.resolvable, resolvable) ||
                 other.resolvable == resolvable) &&
             (identical(other.resolved, resolved) ||
@@ -76,6 +79,7 @@ mixin _$Note {
     createdAt,
     updatedAt,
     type,
+    position,
     resolvable,
     resolved,
     resolvedBy,
@@ -84,7 +88,7 @@ mixin _$Note {
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -101,6 +105,7 @@ abstract mixin class $NoteCopyWith<$Res> {
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     String? type,
+    DiffNotePosition? position,
     bool? resolvable,
     bool? resolved,
     @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -108,6 +113,7 @@ abstract mixin class $NoteCopyWith<$Res> {
   });
 
   $UserCopyWith<$Res>? get author;
+  $DiffNotePositionCopyWith<$Res>? get position;
   $UserCopyWith<$Res>? get resolvedBy;
 }
 
@@ -130,6 +136,7 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? type = freezed,
+    Object? position = freezed,
     Object? resolvable = freezed,
     Object? resolved = freezed,
     Object? resolvedBy = freezed,
@@ -165,6 +172,10 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
             ? _self.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String?,
+        position: freezed == position
+            ? _self.position
+            : position // ignore: cast_nullable_to_non_nullable
+                  as DiffNotePosition?,
         resolvable: freezed == resolvable
             ? _self.resolvable
             : resolvable // ignore: cast_nullable_to_non_nullable
@@ -196,6 +207,20 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
 
     return $UserCopyWith<$Res>(_self.author!, (value) {
       return _then(_self.copyWith(author: value));
+    });
+  }
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DiffNotePositionCopyWith<$Res>? get position {
+    if (_self.position == null) {
+      return null;
+    }
+
+    return $DiffNotePositionCopyWith<$Res>(_self.position!, (value) {
+      return _then(_self.copyWith(position: value));
     });
   }
 
@@ -313,6 +338,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
+      DiffNotePosition? position,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -332,6 +358,7 @@ extension NotePatterns on Note {
           _that.createdAt,
           _that.updatedAt,
           _that.type,
+          _that.position,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -365,6 +392,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
+      DiffNotePosition? position,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -383,6 +411,7 @@ extension NotePatterns on Note {
           _that.createdAt,
           _that.updatedAt,
           _that.type,
+          _that.position,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -415,6 +444,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
+      DiffNotePosition? position,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -433,6 +463,7 @@ extension NotePatterns on Note {
           _that.createdAt,
           _that.updatedAt,
           _that.type,
+          _that.position,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -455,6 +486,7 @@ class _Note implements Note {
     @JsonKey(name: 'created_at') this.createdAt,
     @JsonKey(name: 'updated_at') this.updatedAt,
     this.type,
+    this.position,
     this.resolvable,
     this.resolved,
     @JsonKey(name: 'resolved_by') this.resolvedBy,
@@ -479,6 +511,8 @@ class _Note implements Note {
   final DateTime? updatedAt;
   @override
   final String? type;
+  @override
+  final DiffNotePosition? position;
   @override
   final bool? resolvable;
   @override
@@ -518,6 +552,8 @@ class _Note implements Note {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.position, position) ||
+                other.position == position) &&
             (identical(other.resolvable, resolvable) ||
                 other.resolvable == resolvable) &&
             (identical(other.resolved, resolved) ||
@@ -539,6 +575,7 @@ class _Note implements Note {
     createdAt,
     updatedAt,
     type,
+    position,
     resolvable,
     resolved,
     resolvedBy,
@@ -547,7 +584,7 @@ class _Note implements Note {
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -565,6 +602,7 @@ abstract mixin class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     String? type,
+    DiffNotePosition? position,
     bool? resolvable,
     bool? resolved,
     @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -573,6 +611,8 @@ abstract mixin class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
 
   @override
   $UserCopyWith<$Res>? get author;
+  @override
+  $DiffNotePositionCopyWith<$Res>? get position;
   @override
   $UserCopyWith<$Res>? get resolvedBy;
 }
@@ -596,6 +636,7 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? type = freezed,
+    Object? position = freezed,
     Object? resolvable = freezed,
     Object? resolved = freezed,
     Object? resolvedBy = freezed,
@@ -631,6 +672,10 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
             ? _self.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String?,
+        position: freezed == position
+            ? _self.position
+            : position // ignore: cast_nullable_to_non_nullable
+                  as DiffNotePosition?,
         resolvable: freezed == resolvable
             ? _self.resolvable
             : resolvable // ignore: cast_nullable_to_non_nullable
@@ -662,6 +707,20 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
 
     return $UserCopyWith<$Res>(_self.author!, (value) {
       return _then(_self.copyWith(author: value));
+    });
+  }
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $DiffNotePositionCopyWith<$Res>? get position {
+    if (_self.position == null) {
+      return null;
+    }
+
+    return $DiffNotePositionCopyWith<$Res>(_self.position!, (value) {
+      return _then(_self.copyWith(position: value));
     });
   }
 
