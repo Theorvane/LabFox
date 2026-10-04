@@ -63,11 +63,13 @@ class PipelinesRepository {
     required int projectId,
     required int pipelineId,
     PipelineJobStatusFilter? status,
+    bool includeRetried = false,
   }) {
     return _client.pipelines.jobs(
       projectId,
       pipelineId: pipelineId,
       status: status,
+      includeRetried: includeRetried,
     );
   }
 

@@ -1259,5 +1259,8 @@
   "pipelineUpstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}",
   "pipelineJobsTitle": "作业",
   "pipelineJobsStatusAll": "所有作业状态",
-  "pipelineJobsFilteredEmpty": "没有符合此状态的作业。"
+  "pipelineJobsFilteredEmpty": "没有符合此状态的作业。",
+  "pipelineJobsAttemptsLatest": "最新作业",
+  "pipelineJobsAttemptsAll": "所有尝试",
+  "pipelineJobIdentifier": "作业 #{jobId}"
 }

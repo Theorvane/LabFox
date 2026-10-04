@@ -23,6 +23,7 @@ class Repository extends PipelinesRepository {
     required int projectId,
     required int pipelineId,
     PipelineJobStatusFilter? status,
+    bool includeRetried = false,
   }) async {
     calls.add((
       key: PipelineRef(projectId: projectId, pipelineId: pipelineId),

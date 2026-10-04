@@ -8125,6 +8125,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No jobs match this status.'**
   String get pipelineJobsFilteredEmpty;
+
+  /// Job list option excluding superseded retry attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest jobs'**
+  String get pipelineJobsAttemptsLatest;
+
+  /// Job list option including latest and superseded retry attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'All attempts'**
+  String get pipelineJobsAttemptsAll;
+
+  /// Immutable job ID distinguishing attempts with the same name.
+  ///
+  /// In en, this message translates to:
+  /// **'Job #{jobId}'**
+  String pipelineJobIdentifier(int jobId);
 }
 
 class _AppLocalizationsDelegate

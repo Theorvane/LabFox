@@ -121,12 +121,17 @@ final pipelineJobStatusFilterProvider =
       (ref, arg) => null,
     );
 
+/// Whether to include previous attempts, scoped to the project and pipeline.
+final pipelineJobIncludeRetriedProvider =
+    StateProvider.family<bool, PipelineRef>((ref, arg) => false);
+
 /// The jobs of a pipeline, grouped by stage in first-seen order.
 class PipelineJobsController
     extends FamilyAsyncNotifier<List<Job>, PipelineRef> {
   @override
   Future<List<Job>> build(PipelineRef arg) async {
     final status = ref.watch(pipelineJobStatusFilterProvider(arg));
+    final includeRetried = ref.watch(pipelineJobIncludeRetriedProvider(arg));
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
     if (repo == null) {
       throw StateError('No authenticated account');
@@ -135,6 +140,7 @@ class PipelineJobsController
       projectId: arg.projectId,
       pipelineId: arg.pipelineId,
       status: status,
+      includeRetried: includeRetried,
     );
   }
 }

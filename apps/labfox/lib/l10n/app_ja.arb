@@ -1259,5 +1259,8 @@
   "pipelineUpstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}",
   "pipelineJobsTitle": "ジョブ",
   "pipelineJobsStatusAll": "すべてのジョブ状態",
-  "pipelineJobsFilteredEmpty": "この状態のジョブはありません。"
+  "pipelineJobsFilteredEmpty": "この状態のジョブはありません。",
+  "pipelineJobsAttemptsLatest": "最新のジョブ",
+  "pipelineJobsAttemptsAll": "すべての実行履歴",
+  "pipelineJobIdentifier": "ジョブ #{jobId}"
 }

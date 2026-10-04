@@ -2479,5 +2479,23 @@
   "pipelineJobsFilteredEmpty": "No jobs match this status.",
   "@pipelineJobsFilteredEmpty": {
     "description": "Pipeline detail job status filtering: pipelineJobsFilteredEmpty"
+  },
+  "pipelineJobsAttemptsLatest": "Latest jobs",
+  "pipelineJobsAttemptsAll": "All attempts",
+  "pipelineJobIdentifier": "Job #{jobId}",
+  "@pipelineJobsAttemptsLatest": {
+    "description": "Job list option excluding superseded retry attempts."
+  },
+  "@pipelineJobsAttemptsAll": {
+    "description": "Job list option including latest and superseded retry attempts."
+  },
+  "@pipelineJobIdentifier": {
+    "description": "Immutable job ID distinguishing attempts with the same name.",
+    "placeholders": {
+      "jobId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
   }
 }

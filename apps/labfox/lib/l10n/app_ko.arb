@@ -1259,5 +1259,8 @@
   "pipelineUpstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}",
   "pipelineJobsTitle": "작업",
   "pipelineJobsStatusAll": "모든 작업 상태",
-  "pipelineJobsFilteredEmpty": "이 상태에 해당하는 작업이 없습니다."
+  "pipelineJobsFilteredEmpty": "이 상태에 해당하는 작업이 없습니다.",
+  "pipelineJobsAttemptsLatest": "최신 작업",
+  "pipelineJobsAttemptsAll": "모든 실행 이력",
+  "pipelineJobIdentifier": "작업 #{jobId}"
 }

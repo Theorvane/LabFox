@@ -35,6 +35,9 @@ class PipelineDetailScreen extends ConsumerWidget {
       pipelineId: pipelineId,
     );
     final status = ref.watch(pipelineJobStatusFilterProvider(pipelineRef));
+    final includeRetried = ref.watch(
+      pipelineJobIncludeRetriedProvider(pipelineRef),
+    );
     final detail = ref.watch(pipelineDetailProvider(pipelineRef));
     final jobs = ref.watch(pipelineJobsControllerProvider(pipelineRef));
 
@@ -95,6 +98,23 @@ class PipelineDetailScreen extends ConsumerWidget {
                                 )
                                 .state =
                             choice.status,
+                  ),
+                  FilterMenuChip<bool>(
+                    key: const ValueKey('pipeline-job-attempts-filter'),
+                    selected: includeRetried,
+                    options: const [false, true],
+                    labelOf: (all) => all
+                        ? l10n.pipelineJobsAttemptsAll
+                        : l10n.pipelineJobsAttemptsLatest,
+                    onSelected: (all) =>
+                        ref
+                                .read(
+                                  pipelineJobIncludeRetriedProvider(
+                                    pipelineRef,
+                                  ).notifier,
+                                )
+                                .state =
+                            all,
                   ),
                 ],
               ),
@@ -360,6 +380,11 @@ class _Stage extends StatelessWidget {
                         iconColor: colors.foreground,
                         title: job.name,
                         metadata: [
+                          MetaText(
+                            AppLocalizations.of(
+                              context,
+                            ).pipelineJobIdentifier(job.id),
+                          ),
                           StatusPill(
                             label: ciLabel(job.status),
                             colors: colors,

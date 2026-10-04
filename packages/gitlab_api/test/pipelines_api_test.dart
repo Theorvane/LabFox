@@ -338,6 +338,88 @@ void main() {
   });
 
   group('PipelinesApi.jobs', () {
+    for (final status in PipelineJobStatusFilter.values) {
+      for (final include in [false, true]) {
+        test(
+          'attempt visibility $include retains ${status.name} on all pages',
+          () async {
+            final pages = <int>[];
+            final c = _client((o) {
+              final page = o.queryParameters['page'] as int;
+              pages.add(page);
+              expect(o.path, '/projects/team%2Fapp/pipelines/944/jobs');
+              expect(o.queryParameters, {
+                'page': page,
+                'per_page': 10,
+                'scope': status.name,
+                if (include) 'include_retried': true,
+              });
+              return (
+                status: 200,
+                headers: {
+                  'x-next-page': [
+                    page == 1
+                        ? '4'
+                        : page == 4
+                        ? '9'
+                        : '',
+                  ],
+                },
+                body: page == 4
+                    ? []
+                    : [
+                        {'id': page, 'name': 'same-job', 'status': status.name},
+                      ],
+              );
+            });
+            final jobs = await c.pipelines.jobs(
+              'team/app',
+              pipelineId: 944,
+              perPage: 10,
+              status: status,
+              includeRetried: include,
+            );
+            expect(pages, [1, 4, 9]);
+            expect(jobs.map((j) => j.id), [1, 9]);
+            expect(jobs.map((j) => j.name), ['same-job', 'same-job']);
+          },
+        );
+      }
+    }
+    for (final code in [401, 403, 404, 429, 500]) {
+      test(
+        'all attempts HTTP $code discards partial data without latest-only fallback',
+        () async {
+          var count = 0;
+          final c = _client((o) {
+            count++;
+            expect(o.queryParameters['include_retried'], true);
+            expect(o.queryParameters.containsKey('scope'), false);
+            return count == 1
+                ? (
+                    status: 200,
+                    headers: {
+                      'x-next-page': ['4'],
+                    },
+                    body: [
+                      {'id': 1, 'name': 'test', 'status': 'failed'},
+                    ],
+                  )
+                : (
+                    status: code,
+                    headers: const {},
+                    body: {'message': 'private'},
+                  );
+          });
+          await expectLater(
+            c.pipelines.jobs(7, pipelineId: 944, includeRetried: true),
+            throwsA(isA<GitLabException>()),
+          );
+          expect(count, 2);
+        },
+      );
+    }
+
     for (final filter in PipelineJobStatusFilter.values) {
       test(
         'maps job filter ${filter.name} to scalar scope across every header page',
