@@ -113,15 +113,8 @@ Future<void> _choose(
   await tester.pumpAndSettle();
 }
 
-const labels = {
-  'en': (latest: 'Latest jobs', all: 'All attempts', old: 'Job #901'),
-  'ko': (latest: '최신 작업', all: '모든 실행 이력', old: '작업 #901'),
-  'ja': (latest: '最新のジョブ', all: 'すべての実行履歴', old: 'ジョブ #901'),
-  'hi': (latest: 'नवीनतम जॉब', all: 'सभी प्रयास', old: 'जॉब #901'),
-  'zh': (latest: '最新作业', all: '所有尝试', old: '作业 #901'),
-};
 void main() {
-  for (final locale in labels.keys) {
+  for (final locale in ['en', 'ko', 'ja', 'hi', 'zh']) {
     for (final width in [320.0, 800.0, 1200.0]) {
       for (final dark in [false, true]) {
         testWidgets('attempt browsing $locale $width dark=$dark', (
@@ -135,19 +128,19 @@ void main() {
             dark: dark,
             locale: Locale(locale),
           );
-          expect(find.text(labels[locale]!.latest), findsOneWidget);
+          final l10n = AppLocalizations.of(
+            tester.element(find.byType(PipelineDetailScreen)),
+          );
+          expect(find.text(l10n.pipelineJobsAttemptsLatest), findsOneWidget);
           expect(find.text('verify-job'), findsOneWidget);
           await _choose(
             tester,
-            labels[locale]!.all,
+            l10n.pipelineJobsAttemptsAll,
             key: 'pipeline-job-attempts-filter',
           );
           expect(repo.attempts, [false, true]);
           expect(find.text('verify-job'), findsNWidgets(2));
-          expect(find.text(labels[locale]!.old), findsOneWidget);
-          final l10n = AppLocalizations.of(
-            tester.element(find.byType(PipelineDetailScreen)),
-          );
+          expect(find.text(l10n.pipelineJobIdentifier(901)), findsOneWidget);
           await _choose(tester, l10n.pipelinesStatusFailed);
           expect(repo.attempts.last, true);
           expect(repo.calls.last, PipelineJobStatusFilter.failed);
@@ -157,7 +150,7 @@ void main() {
           expect(tester.takeException(), isNull);
           await _choose(
             tester,
-            labels[locale]!.latest,
+            l10n.pipelineJobsAttemptsLatest,
             key: 'pipeline-job-attempts-filter',
           );
           expect(repo.calls.last, PipelineJobStatusFilter.failed);
