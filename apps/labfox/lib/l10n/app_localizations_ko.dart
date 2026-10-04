@@ -4462,4 +4462,19 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get pipelineJobsFilteredEmpty => '이 상태에 해당하는 작업이 없습니다.';
+
+  @override
+  String get pipelineJobsAttemptsLatest => '최신 작업';
+
+  @override
+  String get pipelineJobsAttemptsAll => '모든 실행 이력';
+
+  @override
+  String pipelineJobIdentifier(int jobId) {
+    final intl.NumberFormat jobIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String jobIdString = jobIdNumberFormat.format(jobId);
+
+    return '작업 #$jobIdString';
+  }
 }

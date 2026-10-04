@@ -55,6 +55,7 @@ class _Repository extends PipelinesRepository {
     required int projectId,
     required int pipelineId,
     PipelineJobStatusFilter? status,
+    bool includeRetried = false,
   }) async => const [
     Job(id: 1, name: 'unit-tests', status: 'success', stage: 'test'),
   ];

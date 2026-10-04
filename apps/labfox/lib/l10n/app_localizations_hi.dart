@@ -4607,4 +4607,19 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get pipelineJobsFilteredEmpty =>
       'इस स्थिति से मेल खाने वाला कोई जॉब नहीं है।';
+
+  @override
+  String get pipelineJobsAttemptsLatest => 'नवीनतम जॉब';
+
+  @override
+  String get pipelineJobsAttemptsAll => 'सभी प्रयास';
+
+  @override
+  String pipelineJobIdentifier(int jobId) {
+    final intl.NumberFormat jobIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String jobIdString = jobIdNumberFormat.format(jobId);
+
+    return 'जॉब #$jobIdString';
+  }
 }

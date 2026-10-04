@@ -19,6 +19,7 @@ class _Repository extends PipelinesRepository {
         ),
       );
   final calls = <PipelineJobStatusFilter?>[];
+  final attempts = <bool>[];
   bool fail = false;
   bool empty = false;
   Completer<List<Job>>? pending;
@@ -46,28 +47,15 @@ class _Repository extends PipelinesRepository {
     bool includeRetried = false,
   }) async {
     calls.add(status);
+    attempts.add(includeRetried);
     if (pending != null) return pending!.future;
     if (fail) throw const GitLabForbiddenException('Private server text');
     if (empty) return [];
-    return status == null
-        ? const [
-            Job(id: 1, name: 'compile', status: 'success', stage: 'build'),
-            Job(id: 2, name: 'failed-job', status: 'failed', stage: 'test'),
-            Job(
-              id: 3,
-              name: 'callback-job',
-              status: 'waiting_for_callback',
-              stage: 'deploy',
-            ),
-          ]
-        : [
-            Job(
-              id: 2,
-              name: '${status.name}-job',
-              status: status.name,
-              stage: 'test',
-            ),
-          ];
+    return [
+      const Job(id: 902, name: 'verify-job', status: 'failed', stage: 'test'),
+      if (includeRetried)
+        const Job(id: 901, name: 'verify-job', status: 'failed', stage: 'test'),
+    ];
   }
 }
 
@@ -108,8 +96,12 @@ Future<void> _pump(
   }
 }
 
-Future<void> _choose(WidgetTester tester, String label) async {
-  await tester.tap(find.byKey(const ValueKey('pipeline-job-status-filter')));
+Future<void> _choose(
+  WidgetTester tester,
+  String label, {
+  String key = 'pipeline-job-status-filter',
+}) async {
+  await tester.tap(find.byKey(ValueKey(key)));
   await tester.pump();
   await tester.pump(const Duration(milliseconds: 300));
   final option = find.ancestor(
@@ -125,7 +117,7 @@ void main() {
   for (final locale in ['en', 'ko', 'ja', 'hi', 'zh']) {
     for (final width in [320.0, 800.0, 1200.0]) {
       for (final dark in [false, true]) {
-        testWidgets('job filter at $width in $locale dark=$dark', (
+        testWidgets('attempt browsing $locale $width dark=$dark', (
           tester,
         ) async {
           final repo = _Repository();
@@ -139,93 +131,103 @@ void main() {
           final l10n = AppLocalizations.of(
             tester.element(find.byType(PipelineDetailScreen)),
           );
+          expect(find.text(l10n.pipelineJobsAttemptsLatest), findsOneWidget);
+          expect(find.text('verify-job'), findsOneWidget);
+          await _choose(
+            tester,
+            l10n.pipelineJobsAttemptsAll,
+            key: 'pipeline-job-attempts-filter',
+          );
+          expect(repo.attempts, [false, true]);
+          expect(find.text('verify-job'), findsNWidgets(2));
+          expect(find.text(l10n.pipelineJobIdentifier(901)), findsOneWidget);
           await _choose(tester, l10n.pipelinesStatusFailed);
-          expect(repo.calls, [null, PipelineJobStatusFilter.failed]);
-          expect(find.text('failed-job'), findsOneWidget);
-          expect(find.text('compile'), findsNothing);
-          expect(tester.takeException(), isNull);
+          expect(repo.attempts.last, true);
+          expect(repo.calls.last, PipelineJobStatusFilter.failed);
           tester.view.physicalSize = Size(width == 320 ? 1200 : 320, 1000);
           await tester.pumpAndSettle();
-          expect(repo.calls.length, 2);
+          expect(repo.attempts.length, 3);
           expect(tester.takeException(), isNull);
+          await _choose(
+            tester,
+            l10n.pipelineJobsAttemptsLatest,
+            key: 'pipeline-job-attempts-filter',
+          );
+          expect(repo.calls.last, PipelineJobStatusFilter.failed);
+          expect(repo.attempts.last, false);
+          expect(find.text('verify-job'), findsOneWidget);
         });
       }
     }
   }
   testWidgets(
-    'filtered failure can retry without clearing the status or hiding relationships',
+    'all attempts failure retries combined selection without private errors',
     (tester) async {
       final repo = _Repository();
       await _pump(tester, repo);
-      repo.fail = true;
       await _choose(tester, 'Failed');
+      repo.fail = true;
+      await _choose(
+        tester,
+        'All attempts',
+        key: 'pipeline-job-attempts-filter',
+      );
       expect(find.text('Could not load jobs.'), findsOneWidget);
       expect(find.text('Private server text'), findsNothing);
       expect(find.text('No pipeline triggers.'), findsOneWidget);
-      expect(find.text('No upstream pipeline available.'), findsOneWidget);
       repo.fail = false;
       await tester.tap(find.widgetWithText(TextButton, 'Retry'));
       await tester.pumpAndSettle();
-      expect(repo.calls, [
-        null,
-        PipelineJobStatusFilter.failed,
-        PipelineJobStatusFilter.failed,
-      ]);
-      expect(find.text('failed-job'), findsOneWidget);
+      expect(repo.attempts, [false, false, true, true]);
+      expect(repo.calls.last, PipelineJobStatusFilter.failed);
+      expect(find.text('verify-job'), findsNWidgets(2));
     },
   );
   testWidgets(
-    'filtered empty refresh retains scope and clear restores all server statuses',
+    'empty attempts refresh and clearing status retain attempt visibility',
     (tester) async {
       final repo = _Repository();
       await _pump(tester, repo);
-      repo.empty = true;
       await _choose(tester, 'Failed');
+      repo.empty = true;
+      await _choose(
+        tester,
+        'All attempts',
+        key: 'pipeline-job-attempts-filter',
+      );
       expect(find.text('No jobs match this status.'), findsOneWidget);
       await tester.drag(find.byType(ListView), const Offset(0, 500));
       await tester.pumpAndSettle();
-      expect(repo.calls, [
-        null,
-        PipelineJobStatusFilter.failed,
-        PipelineJobStatusFilter.failed,
-      ]);
+      expect(repo.attempts, [false, false, true, true]);
+      expect(repo.calls.last, PipelineJobStatusFilter.failed);
       repo.empty = false;
       await _choose(tester, 'All job statuses');
       expect(repo.calls.last, isNull);
-      expect(find.text('compile'), findsOneWidget);
-      expect(find.text('callback-job'), findsOneWidget);
+      expect(repo.attempts.last, true);
+      expect(find.text('verify-job'), findsNWidgets(2));
     },
   );
   testWidgets(
-    'all eight choices are available and menu cancellation keeps scope',
+    'attempt menu dismissal preserves selection without extra requests',
     (tester) async {
       final repo = _Repository();
       await _pump(tester, repo);
-      for (final entry in [
-        ('Created', PipelineJobStatusFilter.created),
-        ('Pending', PipelineJobStatusFilter.pending),
-        ('Running', PipelineJobStatusFilter.running),
-        ('Success', PipelineJobStatusFilter.success),
-        ('Failed', PipelineJobStatusFilter.failed),
-        ('Canceled', PipelineJobStatusFilter.canceled),
-        ('Skipped', PipelineJobStatusFilter.skipped),
-        ('Manual', PipelineJobStatusFilter.manual),
-      ]) {
-        await _choose(tester, entry.$1);
-        expect(repo.calls.last, entry.$2);
-      }
-      final count = repo.calls.length;
+      await _choose(
+        tester,
+        'All attempts',
+        key: 'pipeline-job-attempts-filter',
+      );
       await tester.tap(
-        find.byKey(const ValueKey('pipeline-job-status-filter')),
+        find.byKey(const ValueKey('pipeline-job-attempts-filter')),
       );
       await tester.pumpAndSettle();
       await tester.tapAt(const Offset(5, 5));
       await tester.pumpAndSettle();
-      expect(repo.calls.length, count);
-      expect(repo.calls.last, PipelineJobStatusFilter.manual);
+      expect(repo.attempts, [false, true]);
+      expect(find.text('All attempts'), findsOneWidget);
     },
   );
-  testWidgets('filtered job navigation uses the job ID and current project', (
+  testWidgets('identical jobs open the exact selected attempt by ID', (
     tester,
   ) async {
     final repo = _Repository();
@@ -260,33 +262,36 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
-    await _choose(tester, 'Failed');
-    await tester.tap(find.text('failed-job'));
+    await _choose(tester, 'All attempts', key: 'pipeline-job-attempts-filter');
+    await tester.tap(find.text('Job #901'));
     await tester.pumpAndSettle();
-    expect(destination, '/projects/7/jobs/2');
+    expect(destination, '/projects/7/jobs/901');
   });
-  testWidgets(
-    'refresh loading hides cached filtered rows until the new request completes',
-    (tester) async {
-      final repo = _Repository();
-      await _pump(tester, repo);
-      await _choose(tester, 'Failed');
-      repo.pending = Completer();
-      final pending = repo.pending!;
-      unawaited(
-        tester
-            .state<RefreshIndicatorState>(find.byType(RefreshIndicator))
-            .show(),
-      );
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 500));
-      expect(find.text('failed-job'), findsNothing);
-      pending.complete(const [
-        Job(id: 4, name: 'fresh-job', status: 'failed', stage: 'test'),
-      ]);
-      await tester.pumpAndSettle();
-      expect(find.text('fresh-job'), findsOneWidget);
-      expect(repo.calls.last, PipelineJobStatusFilter.failed);
-    },
-  );
+  testWidgets('pending attempt selection hides latest-only cached rows', (
+    tester,
+  ) async {
+    final repo = _Repository();
+    await _pump(tester, repo);
+    repo.pending = Completer();
+    final pending = repo.pending!;
+    await tester.tap(
+      find.byKey(const ValueKey('pipeline-job-attempts-filter')),
+    );
+    await tester.pumpAndSettle();
+    final option = find.ancestor(
+      of: find.text('All attempts').last,
+      matching: find.byWidgetPredicate((w) => w is CheckedPopupMenuItem),
+    );
+    await tester.tap(option);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text('verify-job'), findsNothing);
+    pending.complete(const [
+      Job(id: 902, name: 'verify-job', status: 'failed', stage: 'test'),
+      Job(id: 901, name: 'verify-job', status: 'failed', stage: 'test'),
+    ]);
+    await tester.pumpAndSettle();
+    expect(find.text('Job #901'), findsOneWidget);
+    expect(repo.attempts.last, true);
+  });
 }

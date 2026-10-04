@@ -175,6 +175,7 @@ class PipelinesApi {
     required int pipelineId,
     int perPage = 100,
     PipelineJobStatusFilter? status,
+    bool includeRetried = false,
   }) async {
     try {
       final jobs = <Job>[];
@@ -186,6 +187,7 @@ class PipelinesApi {
             'page': page,
             'per_page': perPage,
             if (status != null) 'scope': status.name,
+            if (includeRetried) 'include_retried': true,
           },
         );
         if (response.statusCode != 200) {

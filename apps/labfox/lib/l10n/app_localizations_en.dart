@@ -4605,4 +4605,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pipelineJobsFilteredEmpty => 'No jobs match this status.';
+
+  @override
+  String get pipelineJobsAttemptsLatest => 'Latest jobs';
+
+  @override
+  String get pipelineJobsAttemptsAll => 'All attempts';
+
+  @override
+  String pipelineJobIdentifier(int jobId) {
+    final intl.NumberFormat jobIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String jobIdString = jobIdNumberFormat.format(jobId);
+
+    return 'Job #$jobIdString';
+  }
 }

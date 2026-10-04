@@ -88,6 +88,7 @@ class _Repository extends PipelinesRepository {
     required int projectId,
     required int pipelineId,
     PipelineJobStatusFilter? status,
+    bool includeRetried = false,
   }) async {
     jobLoads.update(pipelineId, (value) => value + 1, ifAbsent: () => 1);
     return [Job(id: 1, name: 'test', status: this.status)];

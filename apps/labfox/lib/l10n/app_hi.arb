@@ -1259,5 +1259,8 @@
   "pipelineUpstreamTarget": "प्रोजेक्ट {projectId} · पाइपलाइन #{pipelineId}",
   "pipelineJobsTitle": "जॉब",
   "pipelineJobsStatusAll": "सभी जॉब स्थितियाँ",
-  "pipelineJobsFilteredEmpty": "इस स्थिति से मेल खाने वाला कोई जॉब नहीं है।"
+  "pipelineJobsFilteredEmpty": "इस स्थिति से मेल खाने वाला कोई जॉब नहीं है।",
+  "pipelineJobsAttemptsLatest": "नवीनतम जॉब",
+  "pipelineJobsAttemptsAll": "सभी प्रयास",
+  "pipelineJobIdentifier": "जॉब #{jobId}"
 }

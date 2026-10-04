@@ -4318,4 +4318,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelineJobsFilteredEmpty => '没有符合此状态的作业。';
+
+  @override
+  String get pipelineJobsAttemptsLatest => '最新作业';
+
+  @override
+  String get pipelineJobsAttemptsAll => '所有尝试';
+
+  @override
+  String pipelineJobIdentifier(int jobId) {
+    final intl.NumberFormat jobIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String jobIdString = jobIdNumberFormat.format(jobId);
+
+    return '作业 #$jobIdString';
+  }
 }
