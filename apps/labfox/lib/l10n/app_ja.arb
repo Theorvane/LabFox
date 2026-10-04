@@ -1256,5 +1256,8 @@
   "pipelineUpstreamEmpty": "表示できるアップストリームパイプラインはありません。",
   "pipelineUpstreamError": "アップストリームパイプラインを読み込めませんでした。",
   "pipelineUpstreamUnavailable": "アップストリームパイプラインを開けません。",
-  "pipelineUpstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}"
+  "pipelineUpstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}",
+  "pipelineJobsTitle": "ジョブ",
+  "pipelineJobsStatusAll": "すべてのジョブ状態",
+  "pipelineJobsFilteredEmpty": "この状態のジョブはありません。"
 }

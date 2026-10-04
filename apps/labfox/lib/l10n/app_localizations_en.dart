@@ -4596,4 +4596,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
     return 'Project $projectIdString · Pipeline #$pipelineIdString';
   }
+
+  @override
+  String get pipelineJobsTitle => 'Jobs';
+
+  @override
+  String get pipelineJobsStatusAll => 'All job statuses';
+
+  @override
+  String get pipelineJobsFilteredEmpty => 'No jobs match this status.';
 }

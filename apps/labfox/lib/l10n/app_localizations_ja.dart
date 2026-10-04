@@ -4444,4 +4444,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
     return 'プロジェクト $projectIdString · パイプライン #$pipelineIdString';
   }
+
+  @override
+  String get pipelineJobsTitle => 'ジョブ';
+
+  @override
+  String get pipelineJobsStatusAll => 'すべてのジョブ状態';
+
+  @override
+  String get pipelineJobsFilteredEmpty => 'この状態のジョブはありません。';
 }

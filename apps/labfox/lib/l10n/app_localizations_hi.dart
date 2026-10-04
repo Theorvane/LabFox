@@ -4597,4 +4597,14 @@ class AppLocalizationsHi extends AppLocalizations {
 
     return 'प्रोजेक्ट $projectIdString · पाइपलाइन #$pipelineIdString';
   }
+
+  @override
+  String get pipelineJobsTitle => 'जॉब';
+
+  @override
+  String get pipelineJobsStatusAll => 'सभी जॉब स्थितियाँ';
+
+  @override
+  String get pipelineJobsFilteredEmpty =>
+      'इस स्थिति से मेल खाने वाला कोई जॉब नहीं है।';
 }

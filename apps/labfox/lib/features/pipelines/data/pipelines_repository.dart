@@ -59,8 +59,16 @@ class PipelinesRepository {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
   }
 
-  Future<List<Job>> jobs({required int projectId, required int pipelineId}) {
-    return _client.pipelines.jobs(projectId, pipelineId: pipelineId);
+  Future<List<Job>> jobs({
+    required int projectId,
+    required int pipelineId,
+    PipelineJobStatusFilter? status,
+  }) {
+    return _client.pipelines.jobs(
+      projectId,
+      pipelineId: pipelineId,
+      status: status,
+    );
   }
 
   Future<Pipeline> retry({required int projectId, required int pipelineId}) =>

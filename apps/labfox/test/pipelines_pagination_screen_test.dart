@@ -80,6 +80,7 @@ class _Repository extends PipelinesRepository {
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,
+    PipelineJobStatusFilter? status,
   }) async => [];
 }
 

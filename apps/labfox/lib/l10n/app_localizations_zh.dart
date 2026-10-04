@@ -4309,4 +4309,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
     return '项目 $projectIdString · 流水线 #$pipelineIdString';
   }
+
+  @override
+  String get pipelineJobsTitle => '作业';
+
+  @override
+  String get pipelineJobsStatusAll => '所有作业状态';
+
+  @override
+  String get pipelineJobsFilteredEmpty => '没有符合此状态的作业。';
 }

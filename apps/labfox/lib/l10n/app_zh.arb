@@ -1256,5 +1256,8 @@
   "pipelineUpstreamEmpty": "没有可显示的上游流水线。",
   "pipelineUpstreamError": "无法加载上游流水线。",
   "pipelineUpstreamUnavailable": "无法打开上游流水线。",
-  "pipelineUpstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}"
+  "pipelineUpstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}",
+  "pipelineJobsTitle": "作业",
+  "pipelineJobsStatusAll": "所有作业状态",
+  "pipelineJobsFilteredEmpty": "没有符合此状态的作业。"
 }

@@ -115,16 +115,27 @@ class PipelineRef {
   int get hashCode => Object.hash(projectId, pipelineId);
 }
 
+/// The job status selection, scoped to a project and pipeline.
+final pipelineJobStatusFilterProvider =
+    StateProvider.family<PipelineJobStatusFilter?, PipelineRef>(
+      (ref, arg) => null,
+    );
+
 /// The jobs of a pipeline, grouped by stage in first-seen order.
 class PipelineJobsController
     extends FamilyAsyncNotifier<List<Job>, PipelineRef> {
   @override
   Future<List<Job>> build(PipelineRef arg) async {
+    final status = ref.watch(pipelineJobStatusFilterProvider(arg));
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
     if (repo == null) {
       throw StateError('No authenticated account');
     }
-    return repo.jobs(projectId: arg.projectId, pipelineId: arg.pipelineId);
+    return repo.jobs(
+      projectId: arg.projectId,
+      pipelineId: arg.pipelineId,
+      status: status,
+    );
   }
 }
 
