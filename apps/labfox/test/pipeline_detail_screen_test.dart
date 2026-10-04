@@ -12,7 +12,8 @@ class _StubJobs extends PipelineJobsController {
   final List<Job> _value;
 
   @override
-  Future<List<Job>> build(PipelineRef arg) async => _value;
+  Future<Paginated<Job>> build(PipelineRef arg) async =>
+      Paginated(items: _value);
 }
 
 Future<void> _pump(

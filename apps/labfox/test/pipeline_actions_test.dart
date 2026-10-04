@@ -49,7 +49,8 @@ Future<_StubActions> _pump(
 
 class _NoJobs extends PipelineJobsController {
   @override
-  Future<List<Job>> build(PipelineRef arg) async => const [];
+  Future<Paginated<Job>> build(PipelineRef arg) async =>
+      const Paginated(items: []);
 }
 
 void main() {

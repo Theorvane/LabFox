@@ -163,13 +163,67 @@ class PipelinesApi {
     }
   }
 
+  /// One jobs page; the caller decides when to request the server cursor.
+  Future<Paginated<Job>> jobsPage(
+    Object projectId, {
+    required int pipelineId,
+    int page = 1,
+    int perPage = 20,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/pipelines/$pipelineId/jobs',
+        queryParameters: {
+          'page': page,
+          'per_page': perPage,
+          if (status != null) 'scope': status.name,
+          if (includeRetried) 'include_retried': true,
+        },
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading jobs',
+        );
+      }
+      final payload = response.data;
+      if (payload is! List) {
+        throw const GitLabServerException('Invalid jobs response.');
+      }
+      final jobs = <Job>[];
+      try {
+        for (final item in payload) {
+          if (item is! Map<String, dynamic>) throw const FormatException();
+          jobs.add(Job.fromJson(item));
+        }
+      } on FormatException {
+        throw const GitLabServerException('Invalid jobs response.');
+      } on TypeError {
+        throw const GitLabServerException('Invalid jobs response.');
+      }
+      final cursor = response.headers.value('x-next-page');
+      if (cursor != null && cursor.isNotEmpty) {
+        final next = int.tryParse(cursor);
+        if (next == null || next <= page) {
+          throw const GitLabServerException('Invalid jobs pagination.');
+        }
+      }
+      return Paginated.fromHeaders(
+        List<Job>.unmodifiable(jobs),
+        response.headers.map,
+      );
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading jobs');
+    }
+  }
+
   /// All jobs of a pipeline, in GitLab's order.
   ///
-  /// GitLab paginates this endpoint. The detail screen presents these as the
-  /// pipeline's complete job set and groups them by stage, so every page is
-  /// followed — returning only the first would drop jobs and leave stage groups
-  /// silently incomplete. A pipeline's job count is bounded in practice, so
-  /// fetching all pages is safe.
+  /// Convenience helper for callers that need the complete set. Interactive
+  /// browsing uses [jobsPage] to display results without waiting for every page.
   Future<List<Job>> jobs(
     Object projectId, {
     required int pipelineId,
@@ -177,38 +231,21 @@ class PipelinesApi {
     PipelineJobStatusFilter? status,
     bool includeRetried = false,
   }) async {
-    try {
-      final jobs = <Job>[];
-      int? page = 1;
-      while (page != null) {
-        final response = await _dio.get<dynamic>(
-          '/projects/${_enc(projectId)}/pipelines/$pipelineId/jobs',
-          queryParameters: {
-            'page': page,
-            'per_page': perPage,
-            if (status != null) 'scope': status.name,
-            if (includeRetried) 'include_retried': true,
-          },
-        );
-        if (response.statusCode != 200) {
-          throw mapStatus(
-            response.statusCode,
-            response.headers.map,
-            context: 'loading jobs',
-          );
-        }
-        jobs.addAll(
-          (response.data as List<dynamic>? ?? const [])
-              .cast<Map<String, dynamic>>()
-              .map(Job.fromJson),
-        );
-        final next = response.headers.value('x-next-page');
-        page = (next == null || next.isEmpty) ? null : int.tryParse(next);
-      }
-      return List.unmodifiable(jobs);
-    } on DioException catch (error) {
-      throw mapError(error, context: 'loading jobs');
+    final jobs = <Job>[];
+    int? page = 1;
+    while (page != null) {
+      final next = await jobsPage(
+        projectId,
+        pipelineId: pipelineId,
+        page: page,
+        perPage: perPage,
+        status: status,
+        includeRetried: includeRetried,
+      );
+      jobs.addAll(next.items);
+      page = next.nextPage;
     }
+    return List<Job>.unmodifiable(jobs);
   }
 
   /// Retries a pipeline, returning the updated resource.

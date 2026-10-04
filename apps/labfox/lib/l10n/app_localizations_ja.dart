@@ -4468,4 +4468,11 @@ class AppLocalizationsJa extends AppLocalizations {
 
     return 'ジョブ #$jobIdString';
   }
+
+  @override
+  String get pipelineJobsPartialList =>
+      '読み込んだジョブのみ表示しています。残りを表示するにはさらに読み込んでください。';
+
+  @override
+  String get pipelineJobsLoadMoreError => '追加のジョブを読み込めませんでした。';
 }

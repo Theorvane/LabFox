@@ -2497,5 +2497,13 @@
         "format": "decimalPattern"
       }
     }
+  },
+  "pipelineJobsPartialList": "Only loaded jobs are shown. Load more to see the rest.",
+  "pipelineJobsLoadMoreError": "Could not load more jobs.",
+  "@pipelineJobsPartialList": {
+    "description": "Explains that stage groups and counts contain only loaded jobs while a continuation cursor remains."
+  },
+  "@pipelineJobsLoadMoreError": {
+    "description": "Sanitized inline error when loading the next pipeline jobs page fails."
   }
 }

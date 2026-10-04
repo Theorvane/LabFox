@@ -4477,4 +4477,10 @@ class AppLocalizationsKo extends AppLocalizations {
 
     return '작업 #$jobIdString';
   }
+
+  @override
+  String get pipelineJobsPartialList => '불러온 작업만 표시됩니다. 나머지 작업을 보려면 더 불러오세요.';
+
+  @override
+  String get pipelineJobsLoadMoreError => '추가 작업을 불러오지 못했습니다.';
 }

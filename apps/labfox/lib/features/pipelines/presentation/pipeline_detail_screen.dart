@@ -17,7 +17,7 @@ import 'downstream_pipelines_section.dart';
 import 'upstream_pipeline_section.dart';
 
 /// One pipeline: its status header and jobs grouped by stage.
-class PipelineDetailScreen extends ConsumerWidget {
+class PipelineDetailScreen extends ConsumerStatefulWidget {
   const PipelineDetailScreen({
     required this.projectId,
     required this.pipelineId,
@@ -28,7 +28,50 @@ class PipelineDetailScreen extends ConsumerWidget {
   final int pipelineId;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PipelineDetailScreen> createState() =>
+      _PipelineDetailScreenState();
+}
+
+class _PipelineDetailScreenState extends ConsumerState<PipelineDetailScreen> {
+  bool _busy = false;
+  bool _pageFailed = false;
+  int _generation = 0;
+  int get projectId => widget.projectId;
+  int get pipelineId => widget.pipelineId;
+
+  @override
+  void didUpdateWidget(PipelineDetailScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.projectId != projectId ||
+        oldWidget.pipelineId != pipelineId) {
+      _generation++;
+      _busy = false;
+      _pageFailed = false;
+    }
+  }
+
+  Future<void> _loadMore(PipelineRef pipelineRef) async {
+    if (_busy) return;
+    final generation = _generation;
+    setState(() {
+      _busy = true;
+      _pageFailed = false;
+    });
+    try {
+      await ref
+          .read(pipelineJobsControllerProvider(pipelineRef).notifier)
+          .loadMore();
+    } catch (_) {
+      if (mounted && generation == _generation) {
+        setState(() => _pageFailed = true);
+      }
+    } finally {
+      if (mounted && generation == _generation) setState(() => _busy = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final pipelineRef = PipelineRef(
       projectId: projectId,
@@ -39,7 +82,15 @@ class PipelineDetailScreen extends ConsumerWidget {
       pipelineJobIncludeRetriedProvider(pipelineRef),
     );
     final detail = ref.watch(pipelineDetailProvider(pipelineRef));
-    final jobs = ref.watch(pipelineJobsControllerProvider(pipelineRef));
+    final jobsProvider = pipelineJobsControllerProvider(pipelineRef);
+    ref.listen<AsyncValue<Paginated<Job>>>(jobsProvider, (_, next) {
+      if (next.isLoading) {
+        _generation++;
+        _busy = false;
+        _pageFailed = false;
+      }
+    });
+    final jobs = ref.watch(jobsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -140,25 +191,63 @@ class PipelineDetailScreen extends ConsumerWidget {
                   ],
                 ),
               ),
-              data: (all) {
-                if (all.isEmpty) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: LabFoxSpacing.md,
+              data: (page) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (page.items.isEmpty && page.nextPage == null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: LabFoxSpacing.md,
+                      ),
+                      child: Text(
+                        status == null
+                            ? l10n.pipelineNoJobs
+                            : l10n.pipelineJobsFilteredEmpty,
+                      ),
                     ),
-                    child: Text(
-                      status == null
-                          ? l10n.pipelineNoJobs
-                          : l10n.pipelineJobsFilteredEmpty,
+                  if (page.nextPage != null)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: LabFoxSpacing.md,
+                      ),
+                      child: Text(l10n.pipelineJobsPartialList),
                     ),
-                  );
-                }
-                final byStage = groupJobsByStage(all);
-                return _PipelineStageFlow(
-                  projectId: projectId,
-                  stages: byStage,
-                );
-              },
+                  if (page.items.isNotEmpty)
+                    _PipelineStageFlow(
+                      projectId: projectId,
+                      stages: groupJobsByStage(page.items),
+                    ),
+                  if (page.nextPage != null)
+                    Padding(
+                      padding: const EdgeInsets.all(LabFoxSpacing.md),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (_pageFailed) Text(l10n.pipelineJobsLoadMoreError),
+                          OutlinedButton(
+                            key: const ValueKey('pipeline-jobs-load-more'),
+                            onPressed: _busy
+                                ? null
+                                : () => _loadMore(pipelineRef),
+                            child: _busy
+                                ? const SizedBox(
+                                    width: LabFoxIconSize.sm,
+                                    height: LabFoxIconSize.sm,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : Text(
+                                    _pageFailed
+                                        ? l10n.retry
+                                        : l10n.pipelinesLoadMore,
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
             ),
             const Divider(height: LabFoxSpacing.xl),
             DownstreamPipelinesSection(pipelineRef: pipelineRef),

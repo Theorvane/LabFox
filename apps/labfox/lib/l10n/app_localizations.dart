@@ -8143,6 +8143,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Job #{jobId}'**
   String pipelineJobIdentifier(int jobId);
+
+  /// Explains that stage groups and counts contain only loaded jobs while a continuation cursor remains.
+  ///
+  /// In en, this message translates to:
+  /// **'Only loaded jobs are shown. Load more to see the rest.'**
+  String get pipelineJobsPartialList;
+
+  /// Sanitized inline error when loading the next pipeline jobs page fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more jobs.'**
+  String get pipelineJobsLoadMoreError;
 }
 
 class _AppLocalizationsDelegate

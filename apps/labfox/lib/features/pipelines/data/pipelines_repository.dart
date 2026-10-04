@@ -59,6 +59,20 @@ class PipelinesRepository {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
   }
 
+  Future<Paginated<Job>> jobsPage({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) => _client.pipelines.jobsPage(
+    projectId,
+    pipelineId: pipelineId,
+    page: page,
+    status: status,
+    includeRetried: includeRetried,
+  );
+
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,
