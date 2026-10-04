@@ -24,6 +24,7 @@ mixin _$Note {
   DateTime? get updatedAt;
   String? get type;
   DiffNotePosition? get position;
+  List<Suggestion>? get suggestions;
   bool? get resolvable;
   bool? get resolved;
   @JsonKey(name: 'resolved_by')
@@ -58,6 +59,10 @@ mixin _$Note {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.position, position) ||
                 other.position == position) &&
+            const DeepCollectionEquality().equals(
+              other.suggestions,
+              suggestions,
+            ) &&
             (identical(other.resolvable, resolvable) ||
                 other.resolvable == resolvable) &&
             (identical(other.resolved, resolved) ||
@@ -80,6 +85,7 @@ mixin _$Note {
     updatedAt,
     type,
     position,
+    const DeepCollectionEquality().hash(suggestions),
     resolvable,
     resolved,
     resolvedBy,
@@ -88,7 +94,7 @@ mixin _$Note {
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, suggestions: $suggestions, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -106,6 +112,7 @@ abstract mixin class $NoteCopyWith<$Res> {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     String? type,
     DiffNotePosition? position,
+    List<Suggestion>? suggestions,
     bool? resolvable,
     bool? resolved,
     @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -137,6 +144,7 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? type = freezed,
     Object? position = freezed,
+    Object? suggestions = freezed,
     Object? resolvable = freezed,
     Object? resolved = freezed,
     Object? resolvedBy = freezed,
@@ -176,6 +184,10 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
             ? _self.position
             : position // ignore: cast_nullable_to_non_nullable
                   as DiffNotePosition?,
+        suggestions: freezed == suggestions
+            ? _self.suggestions
+            : suggestions // ignore: cast_nullable_to_non_nullable
+                  as List<Suggestion>?,
         resolvable: freezed == resolvable
             ? _self.resolvable
             : resolvable // ignore: cast_nullable_to_non_nullable
@@ -339,6 +351,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
       DiffNotePosition? position,
+      List<Suggestion>? suggestions,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -359,6 +372,7 @@ extension NotePatterns on Note {
           _that.updatedAt,
           _that.type,
           _that.position,
+          _that.suggestions,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -393,6 +407,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
       DiffNotePosition? position,
+      List<Suggestion>? suggestions,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -412,6 +427,7 @@ extension NotePatterns on Note {
           _that.updatedAt,
           _that.type,
           _that.position,
+          _that.suggestions,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -445,6 +461,7 @@ extension NotePatterns on Note {
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       String? type,
       DiffNotePosition? position,
+      List<Suggestion>? suggestions,
       bool? resolvable,
       bool? resolved,
       @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -464,6 +481,7 @@ extension NotePatterns on Note {
           _that.updatedAt,
           _that.type,
           _that.position,
+          _that.suggestions,
           _that.resolvable,
           _that.resolved,
           _that.resolvedBy,
@@ -487,11 +505,12 @@ class _Note implements Note {
     @JsonKey(name: 'updated_at') this.updatedAt,
     this.type,
     this.position,
+    final List<Suggestion>? suggestions,
     this.resolvable,
     this.resolved,
     @JsonKey(name: 'resolved_by') this.resolvedBy,
     @JsonKey(name: 'resolved_at') this.resolvedAt,
-  });
+  }) : _suggestions = suggestions;
   factory _Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
   @override
@@ -513,6 +532,16 @@ class _Note implements Note {
   final String? type;
   @override
   final DiffNotePosition? position;
+  final List<Suggestion>? _suggestions;
+  @override
+  List<Suggestion>? get suggestions {
+    final value = _suggestions;
+    if (value == null) return null;
+    if (_suggestions is EqualUnmodifiableListView) return _suggestions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final bool? resolvable;
   @override
@@ -554,6 +583,10 @@ class _Note implements Note {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.position, position) ||
                 other.position == position) &&
+            const DeepCollectionEquality().equals(
+              other._suggestions,
+              _suggestions,
+            ) &&
             (identical(other.resolvable, resolvable) ||
                 other.resolvable == resolvable) &&
             (identical(other.resolved, resolved) ||
@@ -576,6 +609,7 @@ class _Note implements Note {
     updatedAt,
     type,
     position,
+    const DeepCollectionEquality().hash(_suggestions),
     resolvable,
     resolved,
     resolvedBy,
@@ -584,7 +618,7 @@ class _Note implements Note {
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, position: $position, suggestions: $suggestions, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -603,6 +637,7 @@ abstract mixin class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
     String? type,
     DiffNotePosition? position,
+    List<Suggestion>? suggestions,
     bool? resolvable,
     bool? resolved,
     @JsonKey(name: 'resolved_by') User? resolvedBy,
@@ -637,6 +672,7 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? type = freezed,
     Object? position = freezed,
+    Object? suggestions = freezed,
     Object? resolvable = freezed,
     Object? resolved = freezed,
     Object? resolvedBy = freezed,
@@ -676,6 +712,10 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
             ? _self.position
             : position // ignore: cast_nullable_to_non_nullable
                   as DiffNotePosition?,
+        suggestions: freezed == suggestions
+            ? _self._suggestions
+            : suggestions // ignore: cast_nullable_to_non_nullable
+                  as List<Suggestion>?,
         resolvable: freezed == resolvable
             ? _self.resolvable
             : resolvable // ignore: cast_nullable_to_non_nullable

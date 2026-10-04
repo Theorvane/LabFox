@@ -49,6 +49,7 @@ export 'src/registry_tag.dart';
 export 'src/repository_entry.dart';
 export 'src/repository_tag.dart';
 export 'src/snippet.dart';
+export 'src/suggestion.dart';
 export 'src/todo.dart';
 export 'src/unified_diff.dart';
 export 'src/user.dart';

@@ -23,6 +23,9 @@ _Note _$NoteFromJson(Map<String, dynamic> json) => _Note(
   position: json['position'] == null
       ? null
       : DiffNotePosition.fromJson(json['position'] as Map<String, dynamic>),
+  suggestions: (json['suggestions'] as List<dynamic>?)
+      ?.map((e) => Suggestion.fromJson(e as Map<String, dynamic>))
+      .toList(),
   resolvable: json['resolvable'] as bool?,
   resolved: json['resolved'] as bool?,
   resolvedBy: json['resolved_by'] == null
@@ -42,6 +45,7 @@ Map<String, dynamic> _$NoteToJson(_Note instance) => <String, dynamic>{
   'updated_at': instance.updatedAt?.toIso8601String(),
   'type': instance.type,
   'position': instance.position?.toJson(),
+  'suggestions': instance.suggestions?.map((e) => e.toJson()).toList(),
   'resolvable': instance.resolvable,
   'resolved': instance.resolved,
   'resolved_by': instance.resolvedBy?.toJson(),
