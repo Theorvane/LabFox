@@ -21,6 +21,20 @@ class CommentsRepository {
     int page = 1,
   }) => _client.mergeRequests.discussions(projectId, iid: iid, page: page);
 
+  Future<Discussion> discussion({
+    required int projectId,
+    required int iid,
+    required String discussionId,
+  }) => _client.mergeRequests.discussion(
+    projectId,
+    iid: iid,
+    discussionId: discussionId,
+  );
+  Future<Suggestion> applySuggestion({
+    required int suggestionId,
+    String? commitMessage,
+  }) => _client.suggestions.apply(suggestionId, commitMessage: commitMessage);
+
   Future<Note> replyToDiscussion({
     required int projectId,
     required int iid,
