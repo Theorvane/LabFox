@@ -2568,5 +2568,78 @@
   "mrDiffDiscussionPending": "Creating discussion…",
   "mrDiffDiscussionReloading": "Refreshing discussions…",
   "mrDiffDiscussionInspect": "Inspect discussions at this line before submitting again.",
-  "mrDiffDiscussionNoMatches": "No discussions at this line in the loaded pages."
+  "mrDiffDiscussionNoMatches": "No discussions at this line in the loaded pages.",
+  "mrSuggestionTitle": "Suggestion {number}",
+  "@mrSuggestionTitle": {
+    "description": "MR code suggestion preview Title",
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "mrSuggestionRange": "Original lines {from}–{to}",
+  "@mrSuggestionRange": {
+    "description": "MR code suggestion preview Range",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "mrSuggestionRangeUnknown": "Original line range unavailable",
+  "@mrSuggestionRangeUnknown": {
+    "description": "MR code suggestion preview RangeUnknown"
+  },
+  "mrSuggestionApplied": "Applied",
+  "@mrSuggestionApplied": {
+    "description": "MR code suggestion preview Applied"
+  },
+  "mrSuggestionNotApplied": "Not applied",
+  "@mrSuggestionNotApplied": {
+    "description": "MR code suggestion preview NotApplied"
+  },
+  "mrSuggestionAppliedUnknown": "Application status unknown",
+  "@mrSuggestionAppliedUnknown": {
+    "description": "MR code suggestion preview AppliedUnknown"
+  },
+  "mrSuggestionApplicable": "Patch applicable",
+  "@mrSuggestionApplicable": {
+    "description": "MR code suggestion preview Applicable"
+  },
+  "mrSuggestionNotApplicable": "Patch not applicable",
+  "@mrSuggestionNotApplicable": {
+    "description": "MR code suggestion preview NotApplicable"
+  },
+  "mrSuggestionApplicableUnknown": "Patch applicability unknown",
+  "@mrSuggestionApplicableUnknown": {
+    "description": "MR code suggestion preview ApplicableUnknown"
+  },
+  "mrSuggestionOriginal": "Original code",
+  "@mrSuggestionOriginal": {
+    "description": "MR code suggestion preview Original"
+  },
+  "mrSuggestionReplacement": "Suggested code",
+  "@mrSuggestionReplacement": {
+    "description": "MR code suggestion preview Replacement"
+  },
+  "mrSuggestionContentUnknown": "Content unavailable",
+  "@mrSuggestionContentUnknown": {
+    "description": "MR code suggestion preview ContentUnknown"
+  },
+  "mrSuggestionContentEmpty": "Empty content",
+  "@mrSuggestionContentEmpty": {
+    "description": "MR code suggestion preview ContentEmpty"
+  },
+  "mrSuggestionViewButton": "View suggestion",
+  "@mrSuggestionViewButton": {
+    "description": "MR code suggestion preview ViewButton"
+  },
+  "mrSuggestionHideButton": "Hide suggestion",
+  "@mrSuggestionHideButton": {
+    "description": "MR code suggestion preview HideButton"
+  }
 }

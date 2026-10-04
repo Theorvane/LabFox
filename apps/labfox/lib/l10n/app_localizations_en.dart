@@ -4761,4 +4761,53 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrDiffDiscussionNoMatches =>
       'No discussions at this line in the loaded pages.';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return 'Suggestion $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return 'Original lines $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => 'Original line range unavailable';
+
+  @override
+  String get mrSuggestionApplied => 'Applied';
+
+  @override
+  String get mrSuggestionNotApplied => 'Not applied';
+
+  @override
+  String get mrSuggestionAppliedUnknown => 'Application status unknown';
+
+  @override
+  String get mrSuggestionApplicable => 'Patch applicable';
+
+  @override
+  String get mrSuggestionNotApplicable => 'Patch not applicable';
+
+  @override
+  String get mrSuggestionApplicableUnknown => 'Patch applicability unknown';
+
+  @override
+  String get mrSuggestionOriginal => 'Original code';
+
+  @override
+  String get mrSuggestionReplacement => 'Suggested code';
+
+  @override
+  String get mrSuggestionContentUnknown => 'Content unavailable';
+
+  @override
+  String get mrSuggestionContentEmpty => 'Empty content';
+
+  @override
+  String get mrSuggestionViewButton => 'View suggestion';
+
+  @override
+  String get mrSuggestionHideButton => 'Hide suggestion';
 }

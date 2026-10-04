@@ -1303,5 +1303,20 @@
   "mrDiffDiscussionPending": "चर्चा बनाई जा रही है…",
   "mrDiffDiscussionReloading": "चर्चाएँ रीफ़्रेश की जा रही हैं…",
   "mrDiffDiscussionInspect": "फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।",
-  "mrDiffDiscussionNoMatches": "लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।"
+  "mrDiffDiscussionNoMatches": "लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।",
+  "mrSuggestionTitle": "सुझाव {number}",
+  "mrSuggestionRange": "मूल पंक्तियाँ {from}–{to}",
+  "mrSuggestionRangeUnknown": "मूल पंक्ति सीमा उपलब्ध नहीं है",
+  "mrSuggestionApplied": "लागू किया गया",
+  "mrSuggestionNotApplied": "लागू नहीं किया गया",
+  "mrSuggestionAppliedUnknown": "लागू होने की स्थिति अज्ञात",
+  "mrSuggestionApplicable": "पैच लागू किया जा सकता है",
+  "mrSuggestionNotApplicable": "पैच लागू नहीं किया जा सकता",
+  "mrSuggestionApplicableUnknown": "पैच लागू होने की क्षमता अज्ञात",
+  "mrSuggestionOriginal": "मूल कोड",
+  "mrSuggestionReplacement": "सुझाया गया कोड",
+  "mrSuggestionContentUnknown": "सामग्री उपलब्ध नहीं है",
+  "mrSuggestionContentEmpty": "खाली सामग्री",
+  "mrSuggestionViewButton": "सुझाव देखें",
+  "mrSuggestionHideButton": "सुझाव छिपाएँ"
 }

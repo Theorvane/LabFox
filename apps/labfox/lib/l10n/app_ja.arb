@@ -1303,5 +1303,20 @@
   "mrDiffDiscussionPending": "ディスカッションを作成中…",
   "mrDiffDiscussionReloading": "ディスカッションを更新中…",
   "mrDiffDiscussionInspect": "再送信する前にこの行のディスカッションを確認してください。",
-  "mrDiffDiscussionNoMatches": "読み込んだページにはこの行のディスカッションがありません。"
+  "mrDiffDiscussionNoMatches": "読み込んだページにはこの行のディスカッションがありません。",
+  "mrSuggestionTitle": "提案 {number}",
+  "mrSuggestionRange": "元の行 {from}–{to}",
+  "mrSuggestionRangeUnknown": "元の行範囲を確認できません",
+  "mrSuggestionApplied": "適用済み",
+  "mrSuggestionNotApplied": "未適用",
+  "mrSuggestionAppliedUnknown": "適用状況不明",
+  "mrSuggestionApplicable": "パッチ適用可能",
+  "mrSuggestionNotApplicable": "パッチ適用不可",
+  "mrSuggestionApplicableUnknown": "パッチ適用可否不明",
+  "mrSuggestionOriginal": "元のコード",
+  "mrSuggestionReplacement": "提案コード",
+  "mrSuggestionContentUnknown": "内容を確認できません",
+  "mrSuggestionContentEmpty": "空の内容",
+  "mrSuggestionViewButton": "提案を表示",
+  "mrSuggestionHideButton": "提案を非表示"
 }

@@ -1303,5 +1303,20 @@
   "mrDiffDiscussionPending": "토론 생성 중…",
   "mrDiffDiscussionReloading": "토론 새로고침 중…",
   "mrDiffDiscussionInspect": "다시 제출하기 전에 이 줄의 토론을 확인하세요.",
-  "mrDiffDiscussionNoMatches": "불러온 페이지에는 이 줄의 토론이 없습니다."
+  "mrDiffDiscussionNoMatches": "불러온 페이지에는 이 줄의 토론이 없습니다.",
+  "mrSuggestionTitle": "제안 {number}",
+  "mrSuggestionRange": "원본 줄 {from}–{to}",
+  "mrSuggestionRangeUnknown": "원본 줄 범위를 확인할 수 없음",
+  "mrSuggestionApplied": "적용됨",
+  "mrSuggestionNotApplied": "적용되지 않음",
+  "mrSuggestionAppliedUnknown": "적용 상태 알 수 없음",
+  "mrSuggestionApplicable": "패치 적용 가능",
+  "mrSuggestionNotApplicable": "패치 적용 불가",
+  "mrSuggestionApplicableUnknown": "패치 적용 가능 여부 알 수 없음",
+  "mrSuggestionOriginal": "원본 코드",
+  "mrSuggestionReplacement": "제안 코드",
+  "mrSuggestionContentUnknown": "내용을 확인할 수 없음",
+  "mrSuggestionContentEmpty": "빈 내용",
+  "mrSuggestionViewButton": "제안 보기",
+  "mrSuggestionHideButton": "제안 숨기기"
 }

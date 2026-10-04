@@ -4600,4 +4600,53 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiffDiscussionNoMatches => '読み込んだページにはこの行のディスカッションがありません。';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return '提案 $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return '元の行 $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => '元の行範囲を確認できません';
+
+  @override
+  String get mrSuggestionApplied => '適用済み';
+
+  @override
+  String get mrSuggestionNotApplied => '未適用';
+
+  @override
+  String get mrSuggestionAppliedUnknown => '適用状況不明';
+
+  @override
+  String get mrSuggestionApplicable => 'パッチ適用可能';
+
+  @override
+  String get mrSuggestionNotApplicable => 'パッチ適用不可';
+
+  @override
+  String get mrSuggestionApplicableUnknown => 'パッチ適用可否不明';
+
+  @override
+  String get mrSuggestionOriginal => '元のコード';
+
+  @override
+  String get mrSuggestionReplacement => '提案コード';
+
+  @override
+  String get mrSuggestionContentUnknown => '内容を確認できません';
+
+  @override
+  String get mrSuggestionContentEmpty => '空の内容';
+
+  @override
+  String get mrSuggestionViewButton => '提案を表示';
+
+  @override
+  String get mrSuggestionHideButton => '提案を非表示';
 }

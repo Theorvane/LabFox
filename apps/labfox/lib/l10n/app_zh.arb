@@ -1303,5 +1303,20 @@
   "mrDiffDiscussionPending": "正在创建讨论…",
   "mrDiffDiscussionReloading": "正在刷新讨论…",
   "mrDiffDiscussionInspect": "再次提交前请检查此行的讨论。",
-  "mrDiffDiscussionNoMatches": "已加载的页面中没有此行的讨论。"
+  "mrDiffDiscussionNoMatches": "已加载的页面中没有此行的讨论。",
+  "mrSuggestionTitle": "建议 {number}",
+  "mrSuggestionRange": "原始行 {from}–{to}",
+  "mrSuggestionRangeUnknown": "原始行范围不可用",
+  "mrSuggestionApplied": "已应用",
+  "mrSuggestionNotApplied": "未应用",
+  "mrSuggestionAppliedUnknown": "应用状态未知",
+  "mrSuggestionApplicable": "补丁可应用",
+  "mrSuggestionNotApplicable": "补丁不可应用",
+  "mrSuggestionApplicableUnknown": "补丁可应用状态未知",
+  "mrSuggestionOriginal": "原始代码",
+  "mrSuggestionReplacement": "建议代码",
+  "mrSuggestionContentUnknown": "内容不可用",
+  "mrSuggestionContentEmpty": "空内容",
+  "mrSuggestionViewButton": "查看建议",
+  "mrSuggestionHideButton": "隐藏建议"
 }
