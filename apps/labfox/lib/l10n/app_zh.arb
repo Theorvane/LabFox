@@ -1278,5 +1278,13 @@
   "mrDiscussionResolveButton": "解决讨论",
   "mrDiscussionReopenButton": "重新打开讨论",
   "mrDiscussionResolveForbidden": "无法更改此讨论。请检查账户权限。",
-  "mrDiscussionResolveError": "无法更新此讨论。请重试。"
+  "mrDiscussionResolveError": "无法更新此讨论。请重试。",
+  "mrDiscussionContextViewButton": "查看原始差异",
+  "mrDiscussionContextHideButton": "隐藏原始差异",
+  "mrDiscussionContextTitle": "原始差异 · 版本 {version}",
+  "mrDiscussionContextUnavailable": "此评论的原始差异上下文不可用。",
+  "mrDiscussionContextError": "无法加载原始差异。请重试。",
+  "mrDiscussionContextOlderButton": "查找较早版本",
+  "mrDiscussionContextLineLabel": "评论所在行",
+  "mrDiscussionContextLoading": "正在加载原始差异"
 }

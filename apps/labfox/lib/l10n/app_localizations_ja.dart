@@ -4518,4 +4518,30 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiscussionResolveError => 'ディスカッションを更新できませんでした。もう一度お試しください。';
+
+  @override
+  String get mrDiscussionContextViewButton => '元の差分を表示';
+
+  @override
+  String get mrDiscussionContextHideButton => '元の差分を非表示';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return '元の差分 · バージョン $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable => 'このコメントの元の差分を確認できません。';
+
+  @override
+  String get mrDiscussionContextError => '元の差分を読み込めませんでした。もう一度お試しください。';
+
+  @override
+  String get mrDiscussionContextOlderButton => '以前のバージョンを探す';
+
+  @override
+  String get mrDiscussionContextLineLabel => 'コメント対象の行';
+
+  @override
+  String get mrDiscussionContextLoading => '元の差分を読み込み中';
 }

@@ -1278,5 +1278,13 @@
   "mrDiscussionResolveButton": "चर्चा हल करें",
   "mrDiscussionReopenButton": "चर्चा फिर से खोलें",
   "mrDiscussionResolveForbidden": "आप इस चर्चा को बदल नहीं सकते। अपने खाते की अनुमतियाँ जाँचें।",
-  "mrDiscussionResolveError": "चर्चा अपडेट नहीं हो सकी। फिर से प्रयास करें।"
+  "mrDiscussionResolveError": "चर्चा अपडेट नहीं हो सकी। फिर से प्रयास करें।",
+  "mrDiscussionContextViewButton": "मूल अंतर देखें",
+  "mrDiscussionContextHideButton": "मूल अंतर छिपाएँ",
+  "mrDiscussionContextTitle": "मूल अंतर · संस्करण {version}",
+  "mrDiscussionContextUnavailable": "इस टिप्पणी का मूल अंतर संदर्भ उपलब्ध नहीं है।",
+  "mrDiscussionContextError": "मूल अंतर लोड नहीं हो सका। फिर से कोशिश करें।",
+  "mrDiscussionContextOlderButton": "पुराने संस्करण खोजें",
+  "mrDiscussionContextLineLabel": "टिप्पणी वाली पंक्ति",
+  "mrDiscussionContextLoading": "मूल अंतर लोड हो रहा है"
 }

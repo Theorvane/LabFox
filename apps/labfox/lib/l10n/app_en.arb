@@ -2525,5 +2525,14 @@
   "mrDiscussionResolveButton": "Resolve discussion",
   "mrDiscussionReopenButton": "Reopen discussion",
   "mrDiscussionResolveForbidden": "You cannot change this discussion. Check your account permissions.",
-  "mrDiscussionResolveError": "Could not update this discussion. Try again."
+  "mrDiscussionResolveError": "Could not update this discussion. Try again.",
+  "mrDiscussionContextViewButton": "View original diff",
+  "mrDiscussionContextHideButton": "Hide original diff",
+  "mrDiscussionContextTitle": "Original diff · version {version}",
+  "mrDiscussionContextUnavailable": "Original diff context is unavailable for this comment.",
+  "mrDiscussionContextError": "Could not load the original diff. Try again.",
+  "mrDiscussionContextOlderButton": "Look for older versions",
+  "mrDiscussionContextLineLabel": "Commented line",
+  "mrDiscussionContextLoading": "Loading original diff",
+  "@mrDiscussionContextTitle": {"placeholders": {"version": {"type": "String"}}}
 }
