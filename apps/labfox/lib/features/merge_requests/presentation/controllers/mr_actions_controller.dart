@@ -33,6 +33,7 @@ final mrApprovalsProvider =
 /// Runs approve / unapprove / merge, then refreshes the MR and its approvals so
 /// the screen shows the server's state — never a locally fabricated one.
 class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
+  bool _running = false;
   @override
   Future<void> build(MergeRequestRef arg) async {}
 
@@ -112,18 +113,23 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
   Future<void> _run(
     Future<void> Function(MrActionsRepository repo) action,
   ) async {
-    final repo = await ref.read(mrActionsRepositoryProvider.future);
-    if (repo == null) {
-      throw StateError('No authenticated account');
-    }
+    if (_running) return;
+    // Reserve before awaiting the repository: the UI may not have rebuilt yet.
+    _running = true;
     state = const AsyncLoading();
     try {
+      final repo = await ref.read(mrActionsRepositoryProvider.future);
+      if (repo == null) {
+        throw StateError('No authenticated account');
+      }
       await action(repo);
       await _refresh();
       state = const AsyncData(null);
     } catch (error, stack) {
       state = AsyncError(error, stack);
       rethrow;
+    } finally {
+      _running = false;
     }
   }
 }
