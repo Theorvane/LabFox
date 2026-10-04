@@ -7,6 +7,12 @@ import 'package:labfox/features/pipelines/data/pipelines_repository.dart';
 import 'package:labfox/features/pipelines/presentation/controllers/pipelines_controllers.dart';
 
 class _Repository extends PipelinesRepository {
+  @override
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async => null;
+
   _Repository()
     : super(
         GitLabClient(

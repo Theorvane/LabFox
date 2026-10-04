@@ -1251,5 +1251,10 @@
   "pipelineDownstreamError": "연결된 하위 파이프라인을 불러오지 못했습니다.",
   "pipelineDownstreamLoadMoreError": "연결된 하위 파이프라인을 더 불러오지 못했습니다.",
   "pipelineDownstreamUnavailable": "연결된 하위 파이프라인을 열 수 없습니다.",
-  "pipelineDownstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}"
+  "pipelineDownstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}",
+  "pipelineUpstreamTitle": "상위 파이프라인",
+  "pipelineUpstreamEmpty": "조회 가능한 상위 파이프라인이 없습니다.",
+  "pipelineUpstreamError": "상위 파이프라인을 불러오지 못했습니다.",
+  "pipelineUpstreamUnavailable": "상위 파이프라인을 열 수 없습니다.",
+  "pipelineUpstreamTarget": "프로젝트 {projectId} · 파이프라인 #{pipelineId}"
 }

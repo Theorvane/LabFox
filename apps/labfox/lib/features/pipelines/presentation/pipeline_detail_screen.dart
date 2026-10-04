@@ -14,6 +14,7 @@ import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/pipelines_controllers.dart';
 import 'downstream_pipelines_section.dart';
+import 'upstream_pipeline_section.dart';
 
 /// One pipeline: its status header and jobs grouped by stage.
 class PipelineDetailScreen extends ConsumerWidget {
@@ -46,6 +47,7 @@ class PipelineDetailScreen extends ConsumerWidget {
           ref.invalidate(pipelineDetailProvider(pipelineRef));
           ref.invalidate(pipelineJobsControllerProvider(pipelineRef));
           ref.invalidate(pipelineTriggerJobsControllerProvider(pipelineRef));
+          ref.invalidate(pipelineUpstreamProvider(pipelineRef));
         },
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: LabFoxSpacing.md),
@@ -88,6 +90,8 @@ class PipelineDetailScreen extends ConsumerWidget {
             ),
             const Divider(height: LabFoxSpacing.xl),
             DownstreamPipelinesSection(pipelineRef: pipelineRef),
+            const Divider(height: LabFoxSpacing.xl),
+            UpstreamPipelineSection(pipelineRef: pipelineRef),
           ],
         ),
       ),

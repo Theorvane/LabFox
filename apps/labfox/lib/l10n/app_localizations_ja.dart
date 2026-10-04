@@ -4420,4 +4420,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
     return 'プロジェクト $projectIdString · パイプライン #$pipelineIdString';
   }
+
+  @override
+  String get pipelineUpstreamTitle => 'アップストリームパイプライン';
+
+  @override
+  String get pipelineUpstreamEmpty => '表示できるアップストリームパイプラインはありません。';
+
+  @override
+  String get pipelineUpstreamError => 'アップストリームパイプラインを読み込めませんでした。';
+
+  @override
+  String get pipelineUpstreamUnavailable => 'アップストリームパイプラインを開けません。';
+
+  @override
+  String pipelineUpstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return 'プロジェクト $projectIdString · パイプライン #$pipelineIdString';
+  }
 }

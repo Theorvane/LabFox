@@ -31,6 +31,7 @@ export 'src/oauth/oauth_api.dart';
 export 'src/oauth/pkce.dart';
 export 'src/packages/packages_api.dart';
 export 'src/pipeline_schedules/pipeline_schedules_api.dart';
+export 'src/pipelines/pipeline_relations_api.dart';
 export 'src/pipelines/pipelines_api.dart';
 export 'src/projects/projects_api.dart';
 export 'src/releases/releases_api.dart';

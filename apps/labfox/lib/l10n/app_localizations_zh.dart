@@ -4285,4 +4285,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
     return '项目 $projectIdString · 流水线 #$pipelineIdString';
   }
+
+  @override
+  String get pipelineUpstreamTitle => '上游流水线';
+
+  @override
+  String get pipelineUpstreamEmpty => '没有可显示的上游流水线。';
+
+  @override
+  String get pipelineUpstreamError => '无法加载上游流水线。';
+
+  @override
+  String get pipelineUpstreamUnavailable => '无法打开上游流水线。';
+
+  @override
+  String pipelineUpstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '项目 $projectIdString · 流水线 #$pipelineIdString';
+  }
 }

@@ -1251,5 +1251,10 @@
   "pipelineDownstreamError": "ダウンストリームパイプラインを読み込めませんでした。",
   "pipelineDownstreamLoadMoreError": "ダウンストリームパイプラインをさらに読み込めませんでした。",
   "pipelineDownstreamUnavailable": "ダウンストリームパイプラインを開けません。",
-  "pipelineDownstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}"
+  "pipelineDownstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}",
+  "pipelineUpstreamTitle": "アップストリームパイプライン",
+  "pipelineUpstreamEmpty": "表示できるアップストリームパイプラインはありません。",
+  "pipelineUpstreamError": "アップストリームパイプラインを読み込めませんでした。",
+  "pipelineUpstreamUnavailable": "アップストリームパイプラインを開けません。",
+  "pipelineUpstreamTarget": "プロジェクト {projectId} · パイプライン #{pipelineId}"
 }

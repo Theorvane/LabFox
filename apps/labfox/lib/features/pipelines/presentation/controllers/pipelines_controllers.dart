@@ -195,6 +195,7 @@ class PipelineActionsController extends FamilyAsyncNotifier<void, PipelineRef> {
       ref.invalidate(pipelineDetailProvider(arg));
       ref.invalidate(pipelineJobsControllerProvider(arg));
       ref.invalidate(pipelineTriggerJobsControllerProvider(arg));
+      ref.invalidate(pipelineUpstreamProvider(arg));
       unawaited(ref.read(analyticsProvider).track(event));
       state = const AsyncData(null);
     } catch (error, stack) {
@@ -266,3 +267,14 @@ final pipelineTriggerJobsControllerProvider =
       Paginated<PipelineTriggerJob>,
       PipelineRef
     >(PipelineTriggerJobsController.new);
+
+/// The immediate visible upstream is isolated by account, project and pipeline.
+final pipelineUpstreamProvider =
+    FutureProvider.family<PipelineUpstream?, PipelineRef>((ref, arg) async {
+      final repo = await ref.watch(pipelinesRepositoryProvider.future);
+      if (repo == null) throw StateError('No authenticated account');
+      return repo.upstream(
+        projectId: arg.projectId,
+        pipelineId: arg.pipelineId,
+      );
+    });

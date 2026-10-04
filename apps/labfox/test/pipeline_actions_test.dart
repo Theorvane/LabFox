@@ -29,6 +29,7 @@ Future<_StubActions> _pump(
     ProviderScope(
       overrides: [
         pipelineTriggerJobsControllerProvider.overrideWith(_NoTriggers.new),
+        pipelineUpstreamProvider.overrideWith((ref, arg) async => null),
         pipelineDetailProvider.overrideWith(
           (ref, arg) async => Pipeline(id: 944, status: status, ref: 'main'),
         ),

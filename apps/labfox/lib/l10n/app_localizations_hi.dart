@@ -4572,4 +4572,29 @@ class AppLocalizationsHi extends AppLocalizations {
 
     return 'प्रोजेक्ट $projectIdString · पाइपलाइन #$pipelineIdString';
   }
+
+  @override
+  String get pipelineUpstreamTitle => 'अपस्ट्रीम पाइपलाइन';
+
+  @override
+  String get pipelineUpstreamEmpty => 'कोई अपस्ट्रीम पाइपलाइन उपलब्ध नहीं है।';
+
+  @override
+  String get pipelineUpstreamError => 'अपस्ट्रीम पाइपलाइन लोड नहीं हो सकी।';
+
+  @override
+  String get pipelineUpstreamUnavailable =>
+      'अपस्ट्रीम पाइपलाइन खोलना उपलब्ध नहीं है।';
+
+  @override
+  String pipelineUpstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return 'प्रोजेक्ट $projectIdString · पाइपलाइन #$pipelineIdString';
+  }
 }

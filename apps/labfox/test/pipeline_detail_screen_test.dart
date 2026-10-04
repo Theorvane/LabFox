@@ -24,6 +24,7 @@ Future<void> _pump(
     ProviderScope(
       overrides: [
         pipelineTriggerJobsControllerProvider.overrideWith(_NoTriggers.new),
+        pipelineUpstreamProvider.overrideWith((ref, arg) async => null),
         pipelineDetailProvider.overrideWith((ref, arg) async => pipeline),
         pipelineJobsControllerProvider.overrideWith(() => _StubJobs(jobs)),
       ],

@@ -2437,5 +2437,35 @@
         "format": "decimalPattern"
       }
     }
+  },
+  "pipelineUpstreamTitle": "Upstream pipeline",
+  "@pipelineUpstreamTitle": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamTitle"
+  },
+  "pipelineUpstreamEmpty": "No upstream pipeline available.",
+  "@pipelineUpstreamEmpty": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamEmpty"
+  },
+  "pipelineUpstreamError": "Could not load the upstream pipeline.",
+  "@pipelineUpstreamError": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamError"
+  },
+  "pipelineUpstreamUnavailable": "Upstream pipeline unavailable to open.",
+  "@pipelineUpstreamUnavailable": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamUnavailable"
+  },
+  "pipelineUpstreamTarget": "Project {projectId} · Pipeline #{pipelineId}",
+  "@pipelineUpstreamTarget": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamTarget",
+    "placeholders": {
+      "projectId": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "pipelineId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
   }
 }

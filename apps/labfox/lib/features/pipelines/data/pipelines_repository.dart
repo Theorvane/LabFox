@@ -31,6 +31,30 @@ class PipelinesRepository {
     page: page,
   );
 
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async {
+    if (projectId <= 0 || pipelineId <= 0) {
+      throw ArgumentError('Positive source IDs are required');
+    }
+    try {
+      final project = await _client.projects.get(projectId);
+      if (project.id != projectId || project.pathWithNamespace.trim().isEmpty) {
+        throw const GitLabServerException('Invalid source project identity');
+      }
+      return _client.pipelineRelations.upstream(
+        project.pathWithNamespace,
+        projectId: projectId,
+        pipelineId: pipelineId,
+      );
+    } on TypeError {
+      throw const GitLabServerException('Invalid source project response');
+    } on FormatException {
+      throw const GitLabServerException('Invalid source project response');
+    }
+  }
+
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
   }

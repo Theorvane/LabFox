@@ -8077,6 +8077,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Project {projectId} · Pipeline #{pipelineId}'**
   String pipelineDownstreamTarget(int projectId, int pipelineId);
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Upstream pipeline'**
+  String get pipelineUpstreamTitle;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No upstream pipeline available.'**
+  String get pipelineUpstreamEmpty;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the upstream pipeline.'**
+  String get pipelineUpstreamError;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamUnavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Upstream pipeline unavailable to open.'**
+  String get pipelineUpstreamUnavailable;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamTarget
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} · Pipeline #{pipelineId}'**
+  String pipelineUpstreamTarget(int projectId, int pipelineId);
 }
 
 class _AppLocalizationsDelegate
