@@ -4671,4 +4671,32 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrDiscussionResolveError =>
       'Could not update this discussion. Try again.';
+
+  @override
+  String get mrDiscussionContextViewButton => 'View original diff';
+
+  @override
+  String get mrDiscussionContextHideButton => 'Hide original diff';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return 'Original diff · version $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable =>
+      'Original diff context is unavailable for this comment.';
+
+  @override
+  String get mrDiscussionContextError =>
+      'Could not load the original diff. Try again.';
+
+  @override
+  String get mrDiscussionContextOlderButton => 'Look for older versions';
+
+  @override
+  String get mrDiscussionContextLineLabel => 'Commented line';
+
+  @override
+  String get mrDiscussionContextLoading => 'Loading original diff';
 }

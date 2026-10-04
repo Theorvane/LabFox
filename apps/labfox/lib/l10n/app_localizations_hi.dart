@@ -4673,4 +4673,32 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrDiscussionResolveError =>
       'चर्चा अपडेट नहीं हो सकी। फिर से प्रयास करें।';
+
+  @override
+  String get mrDiscussionContextViewButton => 'मूल अंतर देखें';
+
+  @override
+  String get mrDiscussionContextHideButton => 'मूल अंतर छिपाएँ';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return 'मूल अंतर · संस्करण $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable =>
+      'इस टिप्पणी का मूल अंतर संदर्भ उपलब्ध नहीं है।';
+
+  @override
+  String get mrDiscussionContextError =>
+      'मूल अंतर लोड नहीं हो सका। फिर से कोशिश करें।';
+
+  @override
+  String get mrDiscussionContextOlderButton => 'पुराने संस्करण खोजें';
+
+  @override
+  String get mrDiscussionContextLineLabel => 'टिप्पणी वाली पंक्ति';
+
+  @override
+  String get mrDiscussionContextLoading => 'मूल अंतर लोड हो रहा है';
 }

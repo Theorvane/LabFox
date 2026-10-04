@@ -8239,6 +8239,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not update this discussion. Try again.'**
   String get mrDiscussionResolveError;
+
+  /// No description provided for @mrDiscussionContextViewButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View original diff'**
+  String get mrDiscussionContextViewButton;
+
+  /// No description provided for @mrDiscussionContextHideButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide original diff'**
+  String get mrDiscussionContextHideButton;
+
+  /// No description provided for @mrDiscussionContextTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Original diff · version {version}'**
+  String mrDiscussionContextTitle(String version);
+
+  /// No description provided for @mrDiscussionContextUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Original diff context is unavailable for this comment.'**
+  String get mrDiscussionContextUnavailable;
+
+  /// No description provided for @mrDiscussionContextError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the original diff. Try again.'**
+  String get mrDiscussionContextError;
+
+  /// No description provided for @mrDiscussionContextOlderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Look for older versions'**
+  String get mrDiscussionContextOlderButton;
+
+  /// No description provided for @mrDiscussionContextLineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Commented line'**
+  String get mrDiscussionContextLineLabel;
+
+  /// No description provided for @mrDiscussionContextLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading original diff'**
+  String get mrDiscussionContextLoading;
 }
 
 class _AppLocalizationsDelegate

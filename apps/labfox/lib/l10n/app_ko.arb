@@ -1278,5 +1278,13 @@
   "mrDiscussionResolveButton": "토론 해결",
   "mrDiscussionReopenButton": "토론 다시 열기",
   "mrDiscussionResolveForbidden": "이 토론을 변경할 수 없습니다. 계정 권한을 확인하세요.",
-  "mrDiscussionResolveError": "토론을 변경하지 못했습니다. 다시 시도하세요."
+  "mrDiscussionResolveError": "토론을 변경하지 못했습니다. 다시 시도하세요.",
+  "mrDiscussionContextViewButton": "원본 diff 보기",
+  "mrDiscussionContextHideButton": "원본 diff 숨기기",
+  "mrDiscussionContextTitle": "원본 diff · 버전 {version}",
+  "mrDiscussionContextUnavailable": "이 댓글의 원본 diff 문맥을 확인할 수 없습니다.",
+  "mrDiscussionContextError": "원본 diff를 불러오지 못했습니다. 다시 시도하세요.",
+  "mrDiscussionContextOlderButton": "이전 버전 찾기",
+  "mrDiscussionContextLineLabel": "댓글이 달린 줄",
+  "mrDiscussionContextLoading": "원본 diff 불러오는 중"
 }
