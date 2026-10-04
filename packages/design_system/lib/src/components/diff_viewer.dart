@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../tokens/icon_size.dart';
+import '../tokens/icons.dart';
 import '../tokens/spacing.dart';
 
 /// Renders one file's unified diff.
@@ -14,6 +16,9 @@ class DiffViewer extends StatelessWidget {
     required this.file,
     this.binaryLabel = 'Binary file',
     this.omittedLabel = 'Diff not shown',
+    this.highlightedLine,
+    this.highlightedLineLabel,
+    this.focusOnHighlightedLine = false,
     super.key,
   });
 
@@ -27,6 +32,13 @@ class DiffViewer extends StatelessWidget {
   /// mislabelled as binary.
   final String omittedLabel;
 
+  /// A line from this file to mark with a non-color, accessible indicator.
+  final DiffLine? highlightedLine;
+  final String? highlightedLineLabel;
+
+  /// Show only the containing hunk when the supplied line belongs to this file.
+  final bool focusOnHighlightedLine;
+
   @override
   Widget build(BuildContext context) {
     if (file.isBinary || file.isOmitted) {
@@ -39,12 +51,24 @@ class DiffViewer extends StatelessWidget {
       );
     }
 
+    final matching = file.hunks.where(
+      (hunk) => hunk.lines.any((line) => identical(line, highlightedLine)),
+    );
+    final hunks = focusOnHighlightedLine && matching.isNotEmpty
+        ? matching
+        : file.hunks;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final hunk in file.hunks) ...[
+        for (final hunk in hunks) ...[
           _HunkHeader(header: hunk.header),
-          for (final line in hunk.lines) _DiffLineRow(line: line),
+          for (final line in hunk.lines)
+            _DiffLineRow(
+              line: line,
+              showHighlightGutter: highlightedLine != null,
+              highlighted: identical(line, highlightedLine),
+              highlightedLabel: highlightedLineLabel,
+            ),
         ],
       ],
     );
@@ -79,9 +103,17 @@ class _HunkHeader extends StatelessWidget {
 }
 
 class _DiffLineRow extends StatelessWidget {
-  const _DiffLineRow({required this.line});
+  const _DiffLineRow({
+    required this.line,
+    this.showHighlightGutter = false,
+    this.highlighted = false,
+    this.highlightedLabel,
+  });
 
   final DiffLine line;
+  final bool showHighlightGutter;
+  final bool highlighted;
+  final String? highlightedLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +130,36 @@ class _DiffLineRow extends StatelessWidget {
       DiffLineType.context => (Colors.transparent, ' '),
     };
 
-    return Container(
-      color: background,
+    final row = Container(
+      decoration: BoxDecoration(
+        color: background,
+        border: showHighlightGutter
+            ? Border(
+                left: BorderSide(
+                  color: highlighted
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
+                  width: LabFoxSpacing.xs,
+                ),
+              )
+            : null,
+      ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (showHighlightGutter)
+              SizedBox(
+                width: LabFoxIconSize.md,
+                child: highlighted
+                    ? Icon(
+                        LabFoxIcons.comment,
+                        size: LabFoxIconSize.sm,
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    : null,
+              ),
             _gutter(line.oldLine),
             _gutter(line.newLine),
             SizedBox(
@@ -120,6 +175,9 @@ class _DiffLineRow extends StatelessWidget {
         ),
       ),
     );
+    return highlighted
+        ? Semantics(label: highlightedLabel, selected: true, child: row)
+        : row;
   }
 
   Widget _gutter(int? number) => Container(
