@@ -528,11 +528,72 @@ class MergeRequestsApi {
         final userId = user['id'];
         if (userId is! int || userId <= 0) throw const FormatException();
       }
+      _validateDiffPosition(payload['position']);
       return Note.fromJson(payload);
     } on FormatException {
       throw const GitLabServerException('Invalid discussion reply response.');
     } on TypeError {
       throw const GitLabServerException('Invalid discussion reply response.');
+    }
+  }
+
+  // Generated integer parsing accepts fractional numbers via toInt(). Validate
+  // coordinates first so a malformed response can never point to another line.
+  static void _validateDiffPosition(Object? value) {
+    if (value == null) return;
+    if (value is! Map<String, dynamic>) throw const FormatException();
+    _validatePositionStrings(value, [
+      'base_sha',
+      'start_sha',
+      'head_sha',
+      'old_path',
+      'new_path',
+      'position_type',
+    ]);
+    _validatePositionIntegers(value, [
+      'old_line',
+      'new_line',
+      'width',
+      'height',
+    ]);
+    for (final key in ['x', 'y']) {
+      final coordinate = value[key];
+      if (coordinate != null &&
+          (coordinate is! num || !coordinate.isFinite || coordinate < 0)) {
+        throw const FormatException();
+      }
+    }
+    final range = value['line_range'];
+    if (range == null) return;
+    if (range is! Map<String, dynamic>) throw const FormatException();
+    for (final key in ['start', 'end']) {
+      final endpoint = range[key];
+      if (endpoint == null) continue;
+      if (endpoint is! Map<String, dynamic>) throw const FormatException();
+      _validatePositionStrings(endpoint, ['line_code', 'type']);
+      _validatePositionIntegers(endpoint, ['old_line', 'new_line']);
+    }
+  }
+
+  static void _validatePositionStrings(
+    Map<String, dynamic> fields,
+    List<String> keys,
+  ) {
+    for (final key in keys) {
+      final value = fields[key];
+      if (value != null && value is! String) throw const FormatException();
+    }
+  }
+
+  static void _validatePositionIntegers(
+    Map<String, dynamic> fields,
+    List<String> keys,
+  ) {
+    for (final key in keys) {
+      final value = fields[key];
+      if (value != null && (value is! int || value < 1)) {
+        throw const FormatException();
+      }
     }
   }
 
@@ -548,6 +609,7 @@ class MergeRequestsApi {
             if (notes is! List) throw const FormatException();
             for (final note in notes) {
               if (note is! Map<String, dynamic>) throw const FormatException();
+              _validateDiffPosition(note['position']);
               final noteId = note['id'];
               if (noteId is! int || noteId <= 0) throw const FormatException();
               for (final key in ['author', 'resolved_by']) {
