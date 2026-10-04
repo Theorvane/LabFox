@@ -26,73 +26,176 @@ class MrDiscussionThread extends ConsumerWidget {
     final arg = MergeRequestRef(projectId: projectId, iid: iid);
     final session = ref.watch(commentsRepositoryProvider);
     final discussions = ref.watch(mrDiscussionsControllerProvider(arg));
-    final l10n = AppLocalizations.of(context);
     return Align(
       alignment: Alignment.topLeft,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: LabFoxBreakpoints.desktop),
-        child: CommentThread(
-          // Replacement disposes the old composer and pending pagination UI. Mere
-          // page reads and window resizing preserve the current draft and errors.
+        child: _Conversation(
           key: ValueKey((arg, session)),
-          type: NoteableType.mergeRequest,
-          projectId: projectId,
-          iid: iid,
-          postingAllowed:
-              discussions.hasValue &&
-              !discussions.isLoading &&
-              !discussions.hasError,
-          onPost: (body) => ref
-              .read(mrDiscussionsControllerProvider(arg).notifier)
-              .post(body),
-          conversation: discussions.when(
-            skipLoadingOnRefresh: false,
-            skipLoadingOnReload: false,
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (_, _) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.commentsError),
-                TextButton(
-                  key: const ValueKey('mr-discussions-retry'),
-                  onPressed: () =>
-                      ref.invalidate(mrDiscussionsControllerProvider(arg)),
-                  child: Text(l10n.retry),
-                ),
-              ],
-            ),
-            data: (page) {
-              final groups = page.items
-                  .where((group) => group.notes.any((note) => !note.isSystem))
-                  .toList();
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (groups.isEmpty)
-                    Text(
-                      page.hasMore
-                          ? l10n.mrDiscussionsPartial
-                          : l10n.commentsEmpty,
-                    ),
-                  for (final group in groups)
-                    _DiscussionView(
-                      key: ValueKey('mr-discussion-${group.id}'),
-                      discussion: group,
-                    ),
-                  if (page.hasMore)
-                    _MoreDiscussions(key: ValueKey((arg, session)), arg: arg),
-                ],
-              );
-            },
-          ),
+          arg: arg,
+          discussions: discussions,
         ),
       ),
     );
   }
 }
 
+class _Conversation extends ConsumerStatefulWidget {
+  const _Conversation({
+    required this.arg,
+    required this.discussions,
+    super.key,
+  });
+  final MergeRequestRef arg;
+  final AsyncValue<Paginated<Discussion>> discussions;
+  @override
+  ConsumerState<_Conversation> createState() => _ConversationState();
+}
+
+class _ConversationState extends ConsumerState<_Conversation> {
+  String? _replyId;
+  bool _replyPosting = false;
+  bool _topPosting = false;
+
+  @override
+  void didUpdateWidget(covariant _Conversation oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final value = widget.discussions;
+    if (!value.isLoading &&
+        !value.hasError &&
+        !value.value!.items.any(
+          (group) =>
+              group.id == _replyId && group.notes.any((note) => !note.isSystem),
+        )) {
+      _replyId = null;
+    }
+  }
+
+  Future<bool> _post(String body) async {
+    if (_topPosting || _replyId != null) return false;
+    setState(() => _topPosting = true);
+    try {
+      return await ref
+          .read(mrDiscussionsControllerProvider(widget.arg).notifier)
+          .post(body);
+    } finally {
+      if (mounted) setState(() => _topPosting = false);
+    }
+  }
+
+  Future<bool> _reply(String body) async {
+    final id = _replyId;
+    if (id == null || _replyPosting || _topPosting) return false;
+    setState(() => _replyPosting = true);
+    try {
+      final posted = await ref
+          .read(mrDiscussionsControllerProvider(widget.arg).notifier)
+          .reply(discussionId: id, body: body);
+      if (mounted && posted) setState(() => _replyId = null);
+      return posted;
+    } finally {
+      if (mounted) setState(() => _replyPosting = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    final discussions = widget.discussions;
+    final canPost =
+        discussions.hasValue && !discussions.isLoading && !discussions.hasError;
+    return CommentThread(
+      type: NoteableType.mergeRequest,
+      projectId: widget.arg.projectId,
+      iid: widget.arg.iid,
+      postingAllowed: canPost && _replyId == null && !_replyPosting,
+      onPost: _post,
+      conversation: discussions.when(
+        skipLoadingOnRefresh: false,
+        skipLoadingOnReload: false,
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (_, _) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.commentsError),
+            TextButton(
+              key: const ValueKey('mr-discussions-retry'),
+              onPressed: () =>
+                  ref.invalidate(mrDiscussionsControllerProvider(widget.arg)),
+              child: Text(l10n.retry),
+            ),
+          ],
+        ),
+        data: (page) {
+          final groups = page.items
+              .where((group) => group.notes.any((note) => !note.isSystem))
+              .toList();
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (groups.isEmpty)
+                Text(
+                  page.hasMore ? l10n.mrDiscussionsPartial : l10n.commentsEmpty,
+                ),
+              for (final group in groups)
+                _DiscussionView(
+                  key: ValueKey('mr-discussion-${group.id}'),
+                  discussion: group,
+                  replyControl: _replyId == group.id
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CommentThread(
+                              key: const ValueKey('mr-reply-composer'),
+                              type: NoteableType.mergeRequest,
+                              projectId: widget.arg.projectId,
+                              iid: widget.arg.iid,
+                              heading: l10n.mrDiscussionReplyTitle,
+                              composerHint: l10n.mrDiscussionReplyHint,
+                              composerSubmit: l10n.mrDiscussionReplyButton,
+                              conversation: const SizedBox.shrink(),
+                              onPost: _reply,
+                              postingAllowed: canPost,
+                              preserveWhitespace: true,
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                key: const ValueKey('mr-reply-cancel'),
+                                onPressed: _replyPosting
+                                    ? null
+                                    : () => setState(() => _replyId = null),
+                                child: Text(l10n.cancel),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            key: ValueKey('mr-discussion-reply-${group.id}'),
+                            onPressed:
+                                canPost &&
+                                    _replyId == null &&
+                                    !_topPosting &&
+                                    !_replyPosting
+                                ? () => setState(() => _replyId = group.id)
+                                : null,
+                            child: Text(l10n.mrDiscussionReplyButton),
+                          ),
+                        ),
+                ),
+              if (page.hasMore) _MoreDiscussions(arg: widget.arg),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
 class _MoreDiscussions extends ConsumerStatefulWidget {
-  const _MoreDiscussions({required this.arg, super.key});
+  const _MoreDiscussions({required this.arg});
   final MergeRequestRef arg;
   @override
   ConsumerState<_MoreDiscussions> createState() => _MoreDiscussionsState();
@@ -137,8 +240,13 @@ class _MoreDiscussionsState extends ConsumerState<_MoreDiscussions> {
 }
 
 class _DiscussionView extends StatelessWidget {
-  const _DiscussionView({required this.discussion, super.key});
+  const _DiscussionView({
+    required this.discussion,
+    required this.replyControl,
+    super.key,
+  });
   final Discussion discussion;
+  final Widget replyControl;
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -197,6 +305,7 @@ class _DiscussionView extends StatelessWidget {
                   ],
                 ),
               ),
+            replyControl,
           ],
         ),
       ),

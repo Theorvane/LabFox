@@ -1271,5 +1271,8 @@
   "mrDiscussionUnresolved": "अनसुलझा",
   "mrDiscussionsLoadMore": "और चर्चाएँ लोड करें",
   "mrDiscussionsMoreError": "और चर्चाएँ लोड नहीं हो सकीं।",
-  "mrDiscussionsPartial": "और चर्चाएँ उपलब्ध हैं।"
+  "mrDiscussionsPartial": "और चर्चाएँ उपलब्ध हैं।",
+  "mrDiscussionReplyButton": "जवाब दें",
+  "mrDiscussionReplyTitle": "चर्चा का जवाब दें",
+  "mrDiscussionReplyHint": "जवाब लिखें…"
 }

@@ -4648,4 +4648,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiscussionsPartial => 'More discussions are available.';
+
+  @override
+  String get mrDiscussionReplyButton => 'Reply';
+
+  @override
+  String get mrDiscussionReplyTitle => 'Reply to discussion';
+
+  @override
+  String get mrDiscussionReplyHint => 'Write a reply…';
 }

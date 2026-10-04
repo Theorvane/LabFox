@@ -21,6 +21,10 @@ class CommentThread extends ConsumerStatefulWidget {
     this.conversation,
     this.onPost,
     this.postingAllowed = true,
+    this.heading,
+    this.composerHint,
+    this.composerSubmit,
+    this.preserveWhitespace = false,
     super.key,
   });
 
@@ -32,6 +36,10 @@ class CommentThread extends ConsumerStatefulWidget {
   final Widget? conversation;
   final Future<bool> Function(String body)? onPost;
   final bool postingAllowed;
+  final String? heading;
+  final String? composerHint;
+  final String? composerSubmit;
+  final bool preserveWhitespace;
 
   @override
   ConsumerState<CommentThread> createState() => _CommentThreadState();
@@ -55,8 +63,10 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
   );
 
   Future<void> _post() async {
-    final body = _controller.text.trim();
-    if (body.isEmpty || _posting || !widget.postingAllowed) {
+    final body = widget.preserveWhitespace
+        ? _controller.text
+        : _controller.text.trim();
+    if (body.trim().isEmpty || _posting || !widget.postingAllowed) {
       return;
     }
     setState(() {
@@ -98,7 +108,7 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          l10n.commentsHeading,
+          widget.heading ?? l10n.commentsHeading,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: LabFoxSpacing.sm),
@@ -136,6 +146,8 @@ class _CommentThreadState extends ConsumerState<CommentThread> {
           error: _error,
           onSubmit: _post,
           canSubmit: widget.postingAllowed,
+          hint: widget.composerHint,
+          submit: widget.composerSubmit,
         ),
       ],
     );
@@ -194,6 +206,8 @@ class _Composer extends StatelessWidget {
     required this.error,
     required this.onSubmit,
     required this.canSubmit,
+    this.hint,
+    this.submit,
   });
 
   final TextEditingController controller;
@@ -201,6 +215,8 @@ class _Composer extends StatelessWidget {
   final String? error;
   final VoidCallback onSubmit;
   final bool canSubmit;
+  final String? hint;
+  final String? submit;
 
   @override
   Widget build(BuildContext context) {
@@ -214,7 +230,7 @@ class _Composer extends StatelessWidget {
           minLines: 2,
           maxLines: 6,
           decoration: InputDecoration(
-            hintText: l10n.commentComposerHint,
+            hintText: hint ?? l10n.commentComposerHint,
             border: const OutlineInputBorder(),
           ),
         ),
@@ -236,7 +252,7 @@ class _Composer extends StatelessWidget {
                     width: 20,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : Text(l10n.commentComposerSubmit),
+                : Text(submit ?? l10n.commentComposerSubmit),
           ),
         ),
       ],

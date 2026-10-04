@@ -9,7 +9,7 @@ import '../../../comments/data/comments_repository.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import 'merge_requests_controllers.dart';
 
-/// Reads grouped conversations and posts top-level notes, bound to one session.
+/// Reads grouped conversations and writes notes and replies in one session.
 class MrDiscussionsController
     extends FamilyAsyncNotifier<Paginated<Discussion>, MergeRequestRef> {
   int _generation = 0;
@@ -84,7 +84,22 @@ class MrDiscussionsController
   }
 
   /// Returns false when cancelled or already posting; drafts remain untouched.
-  Future<bool> post(String body) async {
+  Future<bool> post(String body) => _post(body);
+
+  Future<bool> reply({required String discussionId, required String body}) {
+    final groups = state.valueOrNull?.items;
+    if (groups == null ||
+        !groups.any(
+          (group) =>
+              group.id == discussionId &&
+              group.notes.any((note) => !note.isSystem),
+        )) {
+      return Future.value(false);
+    }
+    return _post(body, discussionId: discussionId);
+  }
+
+  Future<bool> _post(String body, {String? discussionId}) async {
     if (_posting || state.isLoading || state.hasError || body.trim().isEmpty) {
       return false;
     }
@@ -97,12 +112,21 @@ class MrDiscussionsController
       if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
       }
-      await repo.post(
-        type: NoteableType.mergeRequest,
-        projectId: arg.projectId,
-        iid: arg.iid,
-        body: body.trim(),
-      );
+      if (discussionId == null) {
+        await repo.post(
+          type: NoteableType.mergeRequest,
+          projectId: arg.projectId,
+          iid: arg.iid,
+          body: body.trim(),
+        );
+      } else {
+        await repo.replyToDiscussion(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          discussionId: discussionId,
+          body: body,
+        );
+      }
       if (generation != _generation) return false;
       unawaited(
         ref.read(analyticsProvider).track('comment_posted', {

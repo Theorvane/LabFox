@@ -1271,5 +1271,8 @@
   "mrDiscussionUnresolved": "未解决",
   "mrDiscussionsLoadMore": "加载更多讨论",
   "mrDiscussionsMoreError": "无法加载更多讨论。",
-  "mrDiscussionsPartial": "还有更多讨论。"
+  "mrDiscussionsPartial": "还有更多讨论。",
+  "mrDiscussionReplyButton": "回复",
+  "mrDiscussionReplyTitle": "回复讨论",
+  "mrDiscussionReplyHint": "撰写回复…"
 }

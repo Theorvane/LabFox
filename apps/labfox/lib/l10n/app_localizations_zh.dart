@@ -4360,4 +4360,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiscussionsPartial => '还有更多讨论。';
+
+  @override
+  String get mrDiscussionReplyButton => '回复';
+
+  @override
+  String get mrDiscussionReplyTitle => '回复讨论';
+
+  @override
+  String get mrDiscussionReplyHint => '撰写回复…';
 }

@@ -4504,4 +4504,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiscussionsPartial => '더 많은 토론이 있습니다.';
+
+  @override
+  String get mrDiscussionReplyButton => '답글';
+
+  @override
+  String get mrDiscussionReplyTitle => '토론에 답글 작성';
+
+  @override
+  String get mrDiscussionReplyHint => '답글을 작성하세요…';
 }
