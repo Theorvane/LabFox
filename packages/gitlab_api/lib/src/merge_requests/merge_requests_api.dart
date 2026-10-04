@@ -360,6 +360,155 @@ class MergeRequestsApi {
     }
   }
 
+  /// Reads one page of diff versions in the server's order, without fetching
+  /// ahead or assuming total counts. Version IDs are distinct from the MR IID.
+  Future<Paginated<MergeRequestDiffVersion>> diffVersions(
+    Object projectId, {
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/versions',
+        queryParameters: {'page': page, 'per_page': perPage},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading merge request diff versions',
+        );
+      }
+      final List<MergeRequestDiffVersion> versions;
+      try {
+        final payload = response.data;
+        if (payload is! List) throw const FormatException();
+        versions = payload.map(_decodeDiffVersion).toList(growable: false);
+        if (versions.map((version) => version.id).toSet().length !=
+            versions.length) {
+          throw const FormatException();
+        }
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid merge request diff versions response.',
+        );
+      } on TypeError {
+        throw const GitLabServerException(
+          'Invalid merge request diff versions response.',
+        );
+      }
+      final cursor = response.headers.value('x-next-page');
+      if (cursor != null && cursor.isNotEmpty) {
+        final next = int.tryParse(cursor);
+        if (next == null || next <= page) {
+          throw const GitLabServerException(
+            'Invalid diff versions pagination.',
+          );
+        }
+      }
+      return Paginated.fromHeaders(
+        List<MergeRequestDiffVersion>.unmodifiable(versions),
+        response.headers.map,
+      );
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading merge request diff versions');
+    }
+  }
+
+  /// Reads one explicitly selected version, requesting raw unified diff text.
+  /// A different returned version is an error, never a current-diff fallback.
+  Future<MergeRequestDiffVersion> diffVersion(
+    Object projectId, {
+    required int iid,
+    required int versionId,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (versionId < 1) throw ArgumentError.value(versionId, 'versionId');
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/versions/$versionId',
+        queryParameters: {'unidiff': true},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading a merge request diff version',
+        );
+      }
+      try {
+        final version = _decodeDiffVersion(response.data);
+        if (version.id != versionId) throw const FormatException();
+        return version;
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid merge request diff version response.',
+        );
+      } on TypeError {
+        throw const GitLabServerException(
+          'Invalid merge request diff version response.',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading a merge request diff version');
+    }
+  }
+
+  static MergeRequestDiffVersion _decodeDiffVersion(Object? payload) {
+    if (payload is! Map<String, dynamic>) throw const FormatException();
+    final id = payload['id'];
+    if (id is! int || id < 1) throw const FormatException();
+    final mergeRequestId = payload['merge_request_id'];
+    if (mergeRequestId != null &&
+        (mergeRequestId is! int || mergeRequestId < 1)) {
+      throw const FormatException();
+    }
+    for (final key in [
+      'base_commit_sha',
+      'start_commit_sha',
+      'head_commit_sha',
+      'state',
+      'real_size',
+      'patch_id_sha',
+    ]) {
+      final value = payload[key];
+      if (value != null && value is! String) throw const FormatException();
+    }
+    final files = payload['diffs'];
+    if (files != null) {
+      if (files is! List) throw const FormatException();
+      for (final file in files) {
+        if (file is! Map<String, dynamic>) throw const FormatException();
+        for (final key in ['old_path', 'new_path']) {
+          final value = file[key];
+          if (value is! String || value.isEmpty) throw const FormatException();
+        }
+        for (final key in ['diff', 'a_mode', 'b_mode']) {
+          final value = file[key];
+          if (value != null && value is! String) throw const FormatException();
+        }
+        for (final key in [
+          'new_file',
+          'deleted_file',
+          'renamed_file',
+          'collapsed',
+          'too_large',
+          'generated_file',
+        ]) {
+          final value = file[key];
+          if (value != null && value is! bool) throw const FormatException();
+        }
+      }
+    }
+    return MergeRequestDiffVersion.fromJson(payload);
+  }
+
   /// Approves a merge request.
   Future<void> approve(Object projectId, {required int iid}) =>
       _postAction(projectId, iid: iid, action: 'approve');
