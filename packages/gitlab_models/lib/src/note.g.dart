@@ -20,6 +20,9 @@ _Note _$NoteFromJson(Map<String, dynamic> json) => _Note(
       ? null
       : DateTime.parse(json['updated_at'] as String),
   type: json['type'] as String?,
+  position: json['position'] == null
+      ? null
+      : DiffNotePosition.fromJson(json['position'] as Map<String, dynamic>),
   resolvable: json['resolvable'] as bool?,
   resolved: json['resolved'] as bool?,
   resolvedBy: json['resolved_by'] == null
@@ -38,6 +41,7 @@ Map<String, dynamic> _$NoteToJson(_Note instance) => <String, dynamic>{
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),
   'type': instance.type,
+  'position': instance.position?.toJson(),
   'resolvable': instance.resolvable,
   'resolved': instance.resolved,
   'resolved_by': instance.resolvedBy?.toJson(),
