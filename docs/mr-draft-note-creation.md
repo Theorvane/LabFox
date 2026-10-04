@@ -1,6 +1,7 @@
 # Unpublished MR review draft creation
 
-Issue [#600](https://github.com/Theorvane/labfox/issues/600) adds the mutation
+Issue [#600](https://github.com/Theorvane/labfox/issues/600) /
+[PR #601](https://github.com/Theorvane/labfox/pull/601) adds the mutation
 prerequisite for pending MR review in MW-07. It extends the
 [private draft reader](mr-draft-notes.md) with creation of new regular and
 original text-positioned drafts, including multiline ranges. No creation UI,
