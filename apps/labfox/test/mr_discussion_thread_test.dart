@@ -504,6 +504,42 @@ void main() {
       expect(repo.reads.where((r) => r.$2 == 143).length, 1);
     },
   );
+  for (final replyResolved in [false, null]) {
+    testWidgets(
+      'resolved root does not hide an unresolved or unknown reply: $replyResolved',
+      (tester) async {
+        final repo = _Repository()
+          ..pages[1] = Paginated(
+            items: [
+              Discussion(
+                id: 'a',
+                individualNote: false,
+                notes: [
+                  const Note(
+                    id: 1,
+                    body: 'Root',
+                    resolvable: true,
+                    resolved: true,
+                  ),
+                  Note(
+                    id: 2,
+                    body: 'Reply',
+                    resolvable: true,
+                    resolved: replyResolved,
+                  ),
+                ],
+              ),
+            ],
+          );
+        final l10n = await _pump(tester, repo);
+        expect(find.text(l10n.mrDiscussionResolved), findsNothing);
+        expect(
+          find.text(l10n.mrDiscussionUnresolved),
+          replyResolved == false ? findsOneWidget : findsNothing,
+        );
+      },
+    );
+  }
   for (final locale in ['en', 'ko', 'ja', 'hi', 'zh']) {
     for (final width in [320.0, 800.0, 1200.0]) {
       for (final dark in [false, true]) {

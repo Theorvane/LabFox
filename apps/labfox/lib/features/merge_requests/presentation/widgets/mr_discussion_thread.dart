@@ -144,16 +144,24 @@ class _DiscussionView extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final notes = discussion.notes.where((note) => !note.isSystem).toList();
-    final root = notes.first;
+    final resolvable = discussion.notes
+        .where((note) => note.resolvable == true)
+        .toList();
+    final bool? resolved = resolvable.any((note) => note.resolved == false)
+        ? false
+        : resolvable.isNotEmpty &&
+              resolvable.every((note) => note.resolved == true)
+        ? true
+        : null;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(LabFoxSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (root.resolvable == true && root.resolved != null)
+            if (resolved != null)
               Text(
-                root.resolved!
+                resolved
                     ? l10n.mrDiscussionResolved
                     : l10n.mrDiscussionUnresolved,
                 style: theme.textTheme.labelLarge,
