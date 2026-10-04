@@ -4450,4 +4450,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String mrReviewVersionTitle(String version) {
     return '正在审查差异版本 $version';
   }
+
+  @override
+  String get mrDiffDiscussionPending => '正在创建讨论…';
+
+  @override
+  String get mrDiffDiscussionReloading => '正在刷新讨论…';
+
+  @override
+  String get mrDiffDiscussionInspect => '再次提交前请检查此行的讨论。';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '已加载的页面中没有此行的讨论。';
 }

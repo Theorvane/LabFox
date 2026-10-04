@@ -54,10 +54,12 @@ class _Repo extends DiffRepository {
     int page = 1,
   }) async {
     reads.add((projectId, iid, page));
-    if (list is Paginated<MergeRequestDiffVersion>)
+    if (list is Paginated<MergeRequestDiffVersion>) {
       return list as Paginated<MergeRequestDiffVersion>;
-    if (list is Future<Paginated<MergeRequestDiffVersion>>)
+    }
+    if (list is Future<Paginated<MergeRequestDiffVersion>>) {
       return list as Future<Paginated<MergeRequestDiffVersion>>;
+    }
     throw list;
   }
 
@@ -68,10 +70,12 @@ class _Repo extends DiffRepository {
     required int versionId,
   }) async {
     snapshots.add((projectId, iid, versionId));
-    if (detail is MergeRequestDiffVersion)
+    if (detail is MergeRequestDiffVersion) {
       return detail as MergeRequestDiffVersion;
-    if (detail is Future<MergeRequestDiffVersion>)
+    }
+    if (detail is Future<MergeRequestDiffVersion>) {
       return detail as Future<MergeRequestDiffVersion>;
+    }
     throw detail;
   }
 
@@ -261,7 +265,7 @@ void main() {
       final repo2 = _Repo()
         ..detail = _version(
           files: [
-            MergeRequestVersionFile(
+            const MergeRequestVersionFile(
               oldPath: 'old.dart',
               newPath: 'new.dart',
               diff: _raw + _raw,

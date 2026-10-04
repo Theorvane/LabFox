@@ -2564,5 +2564,9 @@
         "type": "String"
       }
     }
-  }
+  },
+  "mrDiffDiscussionPending": "Creating discussion…",
+  "mrDiffDiscussionReloading": "Refreshing discussions…",
+  "mrDiffDiscussionInspect": "Inspect discussions at this line before submitting again.",
+  "mrDiffDiscussionNoMatches": "No discussions at this line in the loaded pages."
 }

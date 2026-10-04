@@ -4747,4 +4747,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String mrReviewVersionTitle(String version) {
     return 'Reviewing diff version $version';
   }
+
+  @override
+  String get mrDiffDiscussionPending => 'Creating discussion…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'Refreshing discussions…';
+
+  @override
+  String get mrDiffDiscussionInspect =>
+      'Inspect discussions at this line before submitting again.';
+
+  @override
+  String get mrDiffDiscussionNoMatches =>
+      'No discussions at this line in the loaded pages.';
 }

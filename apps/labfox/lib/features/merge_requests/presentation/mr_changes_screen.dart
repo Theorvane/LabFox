@@ -43,6 +43,7 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
   DiffNotePosition? _selected;
   bool _posting = false, _reloading = false, _needsReload = false;
   String? _error;
+  bool _inspection = false;
   @override
   void dispose() {
     _draft.dispose();
@@ -55,8 +56,9 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
         _reloading ||
         _needsReload ||
         position == null ||
-        _draft.text.trim().isEmpty)
+        _draft.text.trim().isEmpty) {
       return;
+    }
     setState(() {
       _posting = true;
       _error = null;
@@ -69,19 +71,21 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
       if (!mounted || !created) return;
       setState(() {
         _selected = null;
+        _inspection = false;
         _draft.clear();
       });
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(l10n.mrDiffDiscussionCreated)));
     } catch (error) {
-      if (mounted)
+      if (mounted) {
         setState(() {
           _needsReload = true;
           _error = error is GitLabForbiddenException
               ? l10n.mrDiffDiscussionPermissionError
               : l10n.mrDiffDiscussionError;
         });
+      }
     } finally {
       if (mounted) setState(() => _posting = false);
     }
@@ -98,9 +102,47 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
     try {
       ref.invalidate(provider);
       await ref.read(provider.future);
-      if (mounted) setState(() => _needsReload = false);
+      if (mounted) {
+        setState(() {
+          _needsReload = false;
+          _inspection = true;
+        });
+      }
     } catch (_) {
       if (mounted) setState(() => _error = l10n.mrDiffDiscussionReloadFailed);
+    } finally {
+      if (mounted) setState(() => _reloading = false);
+    }
+  }
+
+  bool _samePosition(DiffNotePosition? p) {
+    final selected = _selected;
+    return p != null &&
+        selected != null &&
+        p.positionType == 'text' &&
+        p.lineRange == null &&
+        p.baseSha == selected.baseSha &&
+        p.startSha == selected.startSha &&
+        p.headSha == selected.headSha &&
+        p.oldPath == selected.oldPath &&
+        p.newPath == selected.newPath &&
+        p.oldLine == selected.oldLine &&
+        p.newLine == selected.newLine;
+  }
+
+  Future<void> _loadMore() async {
+    if (_posting || _reloading) return;
+    setState(() {
+      _reloading = true;
+      _error = null;
+    });
+    final l10n = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(mrDiscussionsControllerProvider(widget.arg).notifier)
+          .loadMore();
+    } catch (_) {
+      if (mounted) setState(() => _error = l10n.mrDiscussionsMoreError);
     } finally {
       if (mounted) setState(() => _reloading = false);
     }
@@ -119,6 +161,12 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
         !discussions.isLoading &&
         !discussions.hasError &&
         discussions.hasValue;
+    final matching = ready && _inspection && !_needsReload
+        ? discussions.value!.items
+              .expand((group) => group.notes)
+              .where((note) => !note.isSystem && _samePosition(note.position))
+              .toList()
+        : <Note>[];
     return PopScope(
       canPop: !_posting && !_reloading,
       child: Scaffold(
@@ -140,164 +188,228 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
             ),
           ),
           data: (value) {
-            if (value.unavailable)
+            if (value.unavailable) {
               return Center(child: Text(l10n.mrReviewUnavailable));
-            if (value.files.isEmpty)
+            }
+            if (value.files.isEmpty) {
               return Center(child: Text(l10n.changesEmpty));
+            }
             final version = NumberFormat.decimalPattern(
               l10n.localeName,
             ).format(value.version!.id);
             final positionValid =
                 _selected != null && value.containsPosition(_selected!);
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(LabFoxSpacing.sm),
-                  child: Text(l10n.mrReviewVersionTitle(version)),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: ListView.builder(
-                    itemCount: value.files.length,
-                    itemBuilder: (context, index) {
-                      final file = value.files[index];
-                      final selected = _selected == null
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final files = ListView.builder(
+                  itemCount: value.files.length,
+                  itemBuilder: (context, index) {
+                    final file = value.files[index];
+                    final selected = _selected == null
+                        ? null
+                        : file.hunks
+                              .expand((h) => h.lines)
+                              .where(
+                                (line) =>
+                                    value.positionFor(file, line) == _selected,
+                              );
+                    return DiffFileCard(
+                      file: file,
+                      highlightedLine: selected != null && selected.length == 1
+                          ? selected.single
+                          : null,
+                      lineActionLabel: l10n.mrDiffDiscussLineButton,
+                      canSelectLine: (line) =>
+                          value.positionFor(file, line) != null,
+                      onLineSelected:
+                          _posting || _reloading || _selected != null
                           ? null
-                          : file.hunks
-                                .expand((h) => h.lines)
-                                .where(
-                                  (line) =>
-                                      value.positionFor(file, line) ==
-                                      _selected,
-                                );
-                      return DiffFileCard(
-                        file: file,
-                        highlightedLine:
-                            selected != null && selected.length == 1
-                            ? selected.single
-                            : null,
-                        lineActionLabel: l10n.mrDiffDiscussLineButton,
-                        canSelectLine: (line) =>
-                            value.positionFor(file, line) != null,
-                        onLineSelected:
-                            _posting || _reloading || _selected != null
-                            ? null
-                            : (line) {
-                                final position = value.positionFor(file, line);
-                                if (position != null)
-                                  setState(() {
-                                    _selected = position;
-                                    _error = null;
-                                    _needsReload = false;
-                                  });
-                              },
-                      );
-                    },
-                  ),
-                ),
-                if (_selected != null)
-                  Flexible(
-                    child: SafeArea(
-                      top: false,
-                      child: Center(
-                        heightFactor: 1,
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxWidth: LabFoxBreakpoints.desktop,
-                          ),
-                          child: SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.all(LabFoxSpacing.md),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    l10n.mrDiffDiscussionTitle(
-                                      _selected!.newPath!,
-                                      version,
+                          : (line) {
+                              final position = value.positionFor(file, line);
+                              if (position != null) {
+                                setState(() {
+                                  _selected = position;
+                                  _inspection = false;
+                                  _error = null;
+                                  _needsReload = false;
+                                });
+                              }
+                            },
+                    );
+                  },
+                );
+                final composer = _selected == null
+                    ? null
+                    : SafeArea(
+                        top: false,
+                        child: Center(
+                          heightFactor: 1,
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: LabFoxBreakpoints.desktop,
+                            ),
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(LabFoxSpacing.md),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      l10n.mrDiffDiscussionTitle(
+                                        _selected!.newPath!,
+                                        version,
+                                      ),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleSmall,
                                     ),
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.titleSmall,
-                                  ),
-                                  const SizedBox(height: LabFoxSpacing.sm),
-                                  TextField(
-                                    key: const ValueKey(
-                                      'mr-diff-discussion-draft',
-                                    ),
-                                    controller: _draft,
-                                    enabled: !_posting && !_reloading,
-                                    minLines: 2,
-                                    maxLines: 4,
-                                    onChanged: (_) => setState(() {}),
-                                    decoration: InputDecoration(
-                                      hintText: l10n.mrDiffDiscussionHint,
-                                    ),
-                                  ),
-                                  if (_error != null) Text(_error!),
-                                  if (!positionValid)
-                                    Text(l10n.mrReviewUnavailable),
-                                  if (_needsReload)
-                                    Text(l10n.mrDiffDiscussionReloadRequired),
-                                  if (discussions?.hasError == true &&
-                                      _error == null)
-                                    Text(l10n.mrDiffDiscussionReloadFailed),
-                                  if (_needsReload ||
-                                      discussions?.hasError == true)
-                                    TextButton(
-                                      onPressed: _posting || _reloading
-                                          ? null
-                                          : _reloadDiscussions,
-                                      child: Text(
-                                        l10n.mrDiffDiscussionReloadButton,
+                                    const SizedBox(height: LabFoxSpacing.sm),
+                                    TextField(
+                                      key: const ValueKey(
+                                        'mr-diff-discussion-draft',
+                                      ),
+                                      controller: _draft,
+                                      enabled: !_posting && !_reloading,
+                                      minLines: 2,
+                                      maxLines: 4,
+                                      onChanged: (_) => setState(() {}),
+                                      decoration: InputDecoration(
+                                        hintText: l10n.mrDiffDiscussionHint,
                                       ),
                                     ),
-                                  Wrap(
-                                    alignment: WrapAlignment.end,
-                                    spacing: LabFoxSpacing.sm,
-                                    children: [
+                                    if (_posting ||
+                                        _reloading ||
+                                        discussions?.isLoading == true) ...[
+                                      const SizedBox(height: LabFoxSpacing.sm),
+                                      Text(
+                                        _posting
+                                            ? l10n.mrDiffDiscussionPending
+                                            : l10n.mrDiffDiscussionReloading,
+                                      ),
+                                      const LinearProgressIndicator(),
+                                    ],
+                                    if (_error != null) Text(_error!),
+                                    if (!positionValid)
+                                      Text(l10n.mrReviewUnavailable),
+                                    if (_needsReload)
+                                      Text(l10n.mrDiffDiscussionReloadRequired),
+                                    if (discussions?.hasError == true &&
+                                        _error == null)
+                                      Text(l10n.mrDiffDiscussionReloadFailed),
+                                    if (_needsReload ||
+                                        discussions?.hasError == true)
                                       TextButton(
                                         onPressed: _posting || _reloading
                                             ? null
-                                            : () => setState(() {
-                                                _selected = null;
-                                                _draft.clear();
-                                                _error = null;
-                                                _needsReload = false;
-                                              }),
+                                            : _reloadDiscussions,
                                         child: Text(
-                                          l10n.mrDiffDiscussionCancel,
+                                          l10n.mrDiffDiscussionReloadButton,
                                         ),
                                       ),
-                                      FilledButton(
-                                        key: const ValueKey(
-                                          'mr-diff-discussion-submit',
+                                    if (_inspection &&
+                                        ready &&
+                                        !_needsReload) ...[
+                                      Text(l10n.mrDiffDiscussionInspect),
+                                      if (matching.isEmpty)
+                                        Text(l10n.mrDiffDiscussionNoMatches),
+                                      for (final note in matching)
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: LabFoxSpacing.sm,
+                                          ),
+                                          child: MarkdownViewer(
+                                            data: note.body,
+                                          ),
                                         ),
-                                        onPressed:
-                                            _posting ||
-                                                _reloading ||
-                                                _needsReload ||
-                                                !ready ||
-                                                !positionValid ||
-                                                _draft.text.trim().isEmpty
-                                            ? null
-                                            : _submit,
-                                        child: Text(
-                                          l10n.mrDiffDiscussionSubmit,
+                                      if (discussions.value!.hasMore)
+                                        TextButton(
+                                          onPressed: _posting || _reloading
+                                              ? null
+                                              : _loadMore,
+                                          child: Text(
+                                            l10n.mrDiscussionsLoadMore,
+                                          ),
                                         ),
-                                      ),
                                     ],
-                                  ),
-                                ],
+                                    Wrap(
+                                      alignment: WrapAlignment.end,
+                                      spacing: LabFoxSpacing.sm,
+                                      children: [
+                                        TextButton(
+                                          onPressed: _posting || _reloading
+                                              ? null
+                                              : () => setState(() {
+                                                  _selected = null;
+                                                  _inspection = false;
+                                                  _draft.clear();
+                                                  _error = null;
+                                                  _needsReload = false;
+                                                }),
+                                          child: Text(
+                                            l10n.mrDiffDiscussionCancel,
+                                          ),
+                                        ),
+                                        FilledButton(
+                                          key: const ValueKey(
+                                            'mr-diff-discussion-submit',
+                                          ),
+                                          onPressed:
+                                              _posting ||
+                                                  _reloading ||
+                                                  _needsReload ||
+                                                  !ready ||
+                                                  !positionValid ||
+                                                  _draft.text.trim().isEmpty
+                                              ? null
+                                              : _submit,
+                                          child: Text(
+                                            l10n.mrDiffDiscussionSubmit,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      );
+                final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(LabFoxSpacing.sm),
+                      child: Text(l10n.mrReviewVersionTitle(version)),
                     ),
-                  ),
-              ],
+                    Expanded(
+                      child: wide && composer != null
+                          ? Row(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(child: files),
+                                const VerticalDivider(width: LabFoxSpacing.md),
+                                SizedBox(
+                                  width: constraints.maxWidth * 0.4,
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: composer,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                Expanded(flex: 2, child: files),
+                                if (composer != null) Flexible(child: composer),
+                              ],
+                            ),
+                    ),
+                  ],
+                );
+              },
             );
           },
         ),

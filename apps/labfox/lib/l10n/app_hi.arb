@@ -1299,5 +1299,9 @@
   "mrDiffDiscussionReloadRequired": "फिर से भेजने से पहले चर्चाएँ रीफ़्रेश करें। पिछला अनुरोध स्वीकार हो चुका हो सकता है।",
   "mrDiffDiscussionReloadFailed": "चर्चाएँ रीफ़्रेश नहीं हो सकीं। फिर से प्रयास करें।",
   "mrReviewUnavailable": "इस डिफ़ संस्करण पर इनलाइन समीक्षा उपलब्ध नहीं है।",
-  "mrReviewVersionTitle": "डिफ़ संस्करण {version} की समीक्षा"
+  "mrReviewVersionTitle": "डिफ़ संस्करण {version} की समीक्षा",
+  "mrDiffDiscussionPending": "चर्चा बनाई जा रही है…",
+  "mrDiffDiscussionReloading": "चर्चाएँ रीफ़्रेश की जा रही हैं…",
+  "mrDiffDiscussionInspect": "फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।",
+  "mrDiffDiscussionNoMatches": "लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।"
 }

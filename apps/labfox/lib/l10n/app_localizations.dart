@@ -8365,6 +8365,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reviewing diff version {version}'**
   String mrReviewVersionTitle(String version);
+
+  /// No description provided for @mrDiffDiscussionPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating discussion…'**
+  String get mrDiffDiscussionPending;
+
+  /// No description provided for @mrDiffDiscussionReloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing discussions…'**
+  String get mrDiffDiscussionReloading;
+
+  /// No description provided for @mrDiffDiscussionInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect discussions at this line before submitting again.'**
+  String get mrDiffDiscussionInspect;
+
+  /// No description provided for @mrDiffDiscussionNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No discussions at this line in the loaded pages.'**
+  String get mrDiffDiscussionNoMatches;
 }
 
 class _AppLocalizationsDelegate

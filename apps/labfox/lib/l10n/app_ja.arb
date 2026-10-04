@@ -1299,5 +1299,9 @@
   "mrDiffDiscussionReloadRequired": "再送信する前にディスカッションを更新してください。前のリクエストが処理済みの可能性があります。",
   "mrDiffDiscussionReloadFailed": "ディスカッションを更新できませんでした。再試行してください。",
   "mrReviewUnavailable": "この差分バージョンではインラインレビューを利用できません。",
-  "mrReviewVersionTitle": "差分バージョン {version} をレビュー中"
+  "mrReviewVersionTitle": "差分バージョン {version} をレビュー中",
+  "mrDiffDiscussionPending": "ディスカッションを作成中…",
+  "mrDiffDiscussionReloading": "ディスカッションを更新中…",
+  "mrDiffDiscussionInspect": "再送信する前にこの行のディスカッションを確認してください。",
+  "mrDiffDiscussionNoMatches": "読み込んだページにはこの行のディスカッションがありません。"
 }

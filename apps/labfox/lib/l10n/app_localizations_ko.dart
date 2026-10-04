@@ -4595,4 +4595,16 @@ class AppLocalizationsKo extends AppLocalizations {
   String mrReviewVersionTitle(String version) {
     return 'diff 버전 $version 리뷰 중';
   }
+
+  @override
+  String get mrDiffDiscussionPending => '토론 생성 중…';
+
+  @override
+  String get mrDiffDiscussionReloading => '토론 새로고침 중…';
+
+  @override
+  String get mrDiffDiscussionInspect => '다시 제출하기 전에 이 줄의 토론을 확인하세요.';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '불러온 페이지에는 이 줄의 토론이 없습니다.';
 }

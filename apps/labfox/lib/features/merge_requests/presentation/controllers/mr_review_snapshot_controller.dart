@@ -37,8 +37,9 @@ class MrReviewSnapshot {
           file.isCollapsed ||
           file.isBinary ||
           file.isOmitted ||
-          paths[(file.oldPath, file.newPath)] != 1)
+          paths[(file.oldPath, file.newPath)] != 1) {
         continue;
+      }
       final lines = file.hunks.expand((h) => h.lines).toList();
       final coordinates = <(DiffLineType, int?, int?), int>{};
       for (final line in lines) {
@@ -85,8 +86,9 @@ class MrReviewSnapshotController
     try {
       final repo = await ref.watch(diffRepositoryProvider.future);
       if (generation != _generation) return MrReviewSnapshot(unavailable: true);
-      if (repo == null)
+      if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
+      }
       final versions = await repo.mergeRequestDiffVersions(
         projectId: arg.projectId,
         iid: arg.iid,
@@ -98,8 +100,9 @@ class MrReviewSnapshotController
         latest.baseCommitSha,
         latest.startCommitSha,
         latest.headCommitSha,
-      ].any((s) => s == null || s.trim().isEmpty))
+      ].any((s) => s == null || s.trim().isEmpty)) {
         return MrReviewSnapshot(unavailable: true);
+      }
       final selected = await repo.mergeRequestDiffVersion(
         projectId: arg.projectId,
         iid: arg.iid,
@@ -113,8 +116,9 @@ class MrReviewSnapshotController
         throw const GitLabServerException('Diff version changed during read.');
       }
       if (selected.files == null ||
-          (selected.state != null && selected.state != 'collected'))
+          (selected.state != null && selected.state != 'collected')) {
         return MrReviewSnapshot(unavailable: true);
+      }
       return MrReviewSnapshot(
         version: selected,
         files: List.unmodifiable([

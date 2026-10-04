@@ -4588,4 +4588,16 @@ class AppLocalizationsJa extends AppLocalizations {
   String mrReviewVersionTitle(String version) {
     return '差分バージョン $version をレビュー中';
   }
+
+  @override
+  String get mrDiffDiscussionPending => 'ディスカッションを作成中…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'ディスカッションを更新中…';
+
+  @override
+  String get mrDiffDiscussionInspect => '再送信する前にこの行のディスカッションを確認してください。';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '読み込んだページにはこの行のディスカッションがありません。';
 }

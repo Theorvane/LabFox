@@ -1299,5 +1299,9 @@
   "mrDiffDiscussionReloadRequired": "다시 제출하기 전에 토론을 새로고침하세요. 이전 요청이 처리되었을 수 있습니다.",
   "mrDiffDiscussionReloadFailed": "토론을 새로고침할 수 없습니다. 다시 시도하세요.",
   "mrReviewUnavailable": "이 diff 버전에서는 인라인 리뷰를 사용할 수 없습니다.",
-  "mrReviewVersionTitle": "diff 버전 {version} 리뷰 중"
+  "mrReviewVersionTitle": "diff 버전 {version} 리뷰 중",
+  "mrDiffDiscussionPending": "토론 생성 중…",
+  "mrDiffDiscussionReloading": "토론 새로고침 중…",
+  "mrDiffDiscussionInspect": "다시 제출하기 전에 이 줄의 토론을 확인하세요.",
+  "mrDiffDiscussionNoMatches": "불러온 페이지에는 이 줄의 토론이 없습니다."
 }

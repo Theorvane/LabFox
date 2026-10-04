@@ -1299,5 +1299,9 @@
   "mrDiffDiscussionReloadRequired": "再次提交前请刷新讨论。之前的请求可能已被接受。",
   "mrDiffDiscussionReloadFailed": "无法刷新讨论。请重试。",
   "mrReviewUnavailable": "此差异版本无法用于行内审查。",
-  "mrReviewVersionTitle": "正在审查差异版本 {version}"
+  "mrReviewVersionTitle": "正在审查差异版本 {version}",
+  "mrDiffDiscussionPending": "正在创建讨论…",
+  "mrDiffDiscussionReloading": "正在刷新讨论…",
+  "mrDiffDiscussionInspect": "再次提交前请检查此行的讨论。",
+  "mrDiffDiscussionNoMatches": "已加载的页面中没有此行的讨论。"
 }

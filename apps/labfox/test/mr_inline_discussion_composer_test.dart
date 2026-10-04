@@ -1,19 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:design_system/design_system.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/material.dart';
-import 'package:design_system/design_system.dart';
-import 'package:labfox/features/comments/data/comments_repository.dart';
-import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
-import 'package:labfox/features/merge_requests/presentation/controllers/mr_discussions_controller.dart';
-import 'package:labfox/features/merge_requests/presentation/mr_changes_screen.dart';
-import 'package:labfox/l10n/app_localizations.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
+import 'package:labfox/features/comments/data/comments_repository.dart';
+import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
 import 'package:labfox/features/diff/data/diff_repository.dart';
 import 'package:labfox/features/diff/presentation/controllers/diff_controllers.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_discussions_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/mr_review_snapshot_controller.dart';
+import 'package:labfox/features/merge_requests/presentation/mr_changes_screen.dart';
+import 'package:labfox/l10n/app_localizations.dart';
 
 const _arg = MergeRequestRef(projectId: 8, iid: 142);
 const _raw =
@@ -61,10 +65,12 @@ class _Repo extends DiffRepository {
     int page = 1,
   }) async {
     reads.add((projectId, iid, page));
-    if (list is Paginated<MergeRequestDiffVersion>)
+    if (list is Paginated<MergeRequestDiffVersion>) {
       return list as Paginated<MergeRequestDiffVersion>;
-    if (list is Future<Paginated<MergeRequestDiffVersion>>)
+    }
+    if (list is Future<Paginated<MergeRequestDiffVersion>>) {
       return list as Future<Paginated<MergeRequestDiffVersion>>;
+    }
     throw list;
   }
 
@@ -75,10 +81,12 @@ class _Repo extends DiffRepository {
     required int versionId,
   }) async {
     snapshots.add((projectId, iid, versionId));
-    if (detail is MergeRequestDiffVersion)
+    if (detail is MergeRequestDiffVersion) {
       return detail as MergeRequestDiffVersion;
-    if (detail is Future<MergeRequestDiffVersion>)
+    }
+    if (detail is Future<MergeRequestDiffVersion>) {
       return detail as Future<MergeRequestDiffVersion>;
+    }
     throw detail;
   }
 
@@ -106,6 +114,7 @@ class _Comments extends CommentsRepository {
   int reads = 0;
   Future<Discussion>? result;
   Object? readError;
+  final pages = <int, Paginated<Discussion>>{};
   @override
   Future<Paginated<Discussion>> discussions({
     required int projectId,
@@ -114,7 +123,7 @@ class _Comments extends CommentsRepository {
   }) async {
     reads++;
     if (readError != null) throw readError!;
-    return const Paginated(items: []);
+    return pages[page] ?? const Paginated(items: []);
   }
 
   @override
@@ -169,12 +178,14 @@ Future<AppLocalizations> _pump(
   WidgetTester tester,
   ProviderContainer c, {
   double width = 390,
+  double height = 1400,
+  ThemeData? theme,
   bool dark = false,
   Locale locale = const Locale('en'),
   int iid = 142,
   bool settle = true,
 }) async {
-  tester.view.physicalSize = Size(width, 1400);
+  tester.view.physicalSize = Size(width, height);
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.resetPhysicalSize);
   addTearDown(tester.view.resetDevicePixelRatio);
@@ -182,7 +193,7 @@ Future<AppLocalizations> _pump(
     UncontrolledProviderScope(
       container: c,
       child: MaterialApp(
-        theme: dark ? LabFoxTheme.dark : LabFoxTheme.light,
+        theme: theme ?? (dark ? LabFoxTheme.dark : LabFoxTheme.light),
         locale: locale,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -217,6 +228,7 @@ Future<void> _select(
 }
 
 Future<void> _send(WidgetTester tester, {bool settle = true}) async {
+  await tester.pump();
   await tester.ensureVisible(_submit);
   await tester.tap(_submit);
   if (settle) {
@@ -247,6 +259,12 @@ void main() {
           await tester.tap(action);
           await tester.pumpAndSettle();
           expect(find.byType(DiffViewer), findsOneWidget);
+          if (width >= 600) {
+            expect(
+              tester.getTopLeft(_draft).dx,
+              greaterThan(tester.getRect(find.byType(DiffViewer)).right),
+            );
+          }
           await tester.enterText(
             _draft,
             '  **Inline review**\n\nKeep formatting.  ',
@@ -304,6 +322,27 @@ void main() {
     );
     expect(comments.creates, isEmpty);
   });
+  testWidgets(
+    'keyboard-constrained viewport retains editable draft without overflow',
+    (tester) async {
+      final comments = _Comments();
+      final c = _container(_Repo(), comments);
+      await _pump(tester, c, width: 320, height: 600);
+      await _select(tester, 0);
+      await tester.enterText(_draft, 'Keyboard draft');
+      tester.view.viewInsets = const FakeViewPadding(bottom: 280);
+      addTearDown(tester.view.resetViewInsets);
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(_draft);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(_draft).controller!.text,
+        'Keyboard draft',
+      );
+      expect(tester.takeException(), isNull);
+      expect(comments.creates, isEmpty);
+    },
+  );
   testWidgets('cancel is explicit and empty drafts cannot submit', (
     tester,
   ) async {
@@ -331,6 +370,7 @@ void main() {
     await tester.enterText(_draft, 'Draft');
     await _send(tester, settle: false);
     expect(tester.widget<TextField>(_draft).enabled, false);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
     expect(
       tester
           .widget<TextButton>(
@@ -342,7 +382,9 @@ void main() {
     expect(find.byTooltip(l.mrDiffDiscussLineButton), findsNothing);
     await _send(tester, settle: false);
     expect(comments.creates, hasLength(1));
-    pending.complete(Discussion(id: 'new', individualNote: false, notes: []));
+    pending.complete(
+      const Discussion(id: 'new', individualNote: false, notes: []),
+    );
     await tester.pumpAndSettle();
     expect(_draft, findsNothing);
   });
@@ -379,6 +421,8 @@ void main() {
         await tester.pumpAndSettle();
         await _send(tester);
         expect(comments.creates, hasLength(2));
+        await _select(tester, 0);
+        expect(find.text(l.mrDiffDiscussionInspect), findsNothing);
       },
     );
   }
@@ -407,7 +451,7 @@ void main() {
           pending.completeError(const GitLabServerException('Old failure'));
         } else {
           pending.complete(
-            Discussion(id: 'old', individualNote: false, notes: []),
+            const Discussion(id: 'old', individualNote: false, notes: []),
           );
         }
         await tester.pumpAndSettle();
@@ -438,9 +482,74 @@ void main() {
     expect(find.byTooltip(l.mrDiffDiscussLineButton), findsNWidgets(3));
     expect(comments.creates, isEmpty);
   });
+  testWidgets(
+    'retry reveals accepted server discussion and pages before resubmission',
+    (tester) async {
+      final pending = Completer<Discussion>();
+      final comments = _Comments()..result = pending.future;
+      final c = _container(_Repo(), comments);
+      final l = await _pump(tester, c);
+      await _select(tester, 0);
+      await tester.enterText(_draft, 'Uncertain draft');
+      await _send(tester, settle: false);
+      final p = comments.creates.single.$4;
+      pending.completeError(
+        const GitLabServerException('Unconfirmed response'),
+      );
+      await tester.pumpAndSettle();
+      comments.pages[1] = Paginated(
+        items: [
+          Discussion(
+            id: 'accepted',
+            individualNote: false,
+            notes: [
+              Note(id: 301, body: 'Already accepted discussion', position: p),
+            ],
+          ),
+        ],
+        nextPage: 2,
+      );
+      comments.pages[2] = Paginated(
+        items: [
+          Discussion(
+            id: 'older',
+            individualNote: false,
+            notes: [Note(id: 302, body: 'Earlier discussion', position: p)],
+          ),
+        ],
+      );
+      await tester.tap(find.text(l.mrDiffDiscussionReloadButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is MarkdownViewer && w.data == 'Already accepted discussion',
+        ),
+        findsOneWidget,
+      );
+      expect(
+        tester.widget<TextField>(_draft).controller!.text,
+        'Uncertain draft',
+      );
+      await tester.ensureVisible(find.text(l.mrDiscussionsLoadMore));
+      await tester.tap(find.text(l.mrDiscussionsLoadMore));
+      await tester.pumpAndSettle();
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is MarkdownViewer && w.data == 'Earlier discussion',
+        ),
+        findsOneWidget,
+      );
+      expect(comments.creates, hasLength(1));
+    },
+  );
   test('positioned writes share root comment reservation', () async {
     final comments = _Comments();
     final c = _container(_Repo(), comments);
+    final subscription = c.listen(
+      mrReviewSnapshotControllerProvider(_arg),
+      (_, _) {},
+    );
+    addTearDown(subscription.close);
     final snapshot = await c.read(
       mrReviewSnapshotControllerProvider(_arg).future,
     );
@@ -456,12 +565,106 @@ void main() {
     expect(await ctrl.createPositioned(body: 'Other', position: p), false);
     expect(comments.creates, hasLength(1));
     expect(comments.posts, isEmpty);
-    pending.complete(Discussion(id: 'new', individualNote: false, notes: []));
+    pending.complete(
+      const Discussion(id: 'new', individualNote: false, notes: []),
+    );
     expect(await first, true);
   });
+  test('root note reserves before positioned submission', () async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    final sub = c.listen(mrReviewSnapshotControllerProvider(_arg), (_, _) {});
+    addTearDown(sub.close);
+    final snapshot = await c.read(
+      mrReviewSnapshotControllerProvider(_arg).future,
+    );
+    final f = snapshot.files.single,
+        p = snapshot.positionFor(
+          snapshot.files.single,
+          snapshot.files.single.hunks.single.lines.first,
+        )!;
+    expect(f.oldPath, 'old.dart');
+    await c.read(mrDiscussionsControllerProvider(_arg).future);
+    final ctrl = c.read(mrDiscussionsControllerProvider(_arg).notifier);
+    final first = ctrl.post('Root note');
+    expect(await ctrl.createPositioned(body: 'Inline', position: p), false);
+    expect(await first, true);
+    expect(comments.creates, isEmpty);
+    expect(comments.posts, ['Root note']);
+  });
+  test(
+    'account replacement before dispatch cancels positioned creation',
+    () async {
+      final comments = _Comments(), repo = _Repo();
+      final c = _container(repo, comments);
+      final sub = c.listen(mrReviewSnapshotControllerProvider(_arg), (_, _) {});
+      addTearDown(sub.close);
+      final snapshot = await c.read(
+        mrReviewSnapshotControllerProvider(_arg).future,
+      );
+      final f = snapshot.files.single;
+      final p = snapshot.positionFor(f, f.hunks.single.lines.first)!;
+      await c.read(mrDiscussionsControllerProvider(_arg).future);
+      final future = c
+          .read(mrDiscussionsControllerProvider(_arg).notifier)
+          .createPositioned(body: 'Old draft', position: p);
+      final next = _Comments(), nextRepo = _Repo();
+      addTearDown(next.client.close);
+      addTearDown(nextRepo.client.close);
+      c.read(_commentsSession.notifier).state = Future.value(next);
+      c.read(_session.notifier).state = Future.value(nextRepo);
+      expect(await future, false);
+      expect(comments.creates, isEmpty);
+      expect(next.creates, isEmpty);
+    },
+  );
+  test(
+    'real comments repository forwards positioned creation to the API',
+    () async {
+      late RequestOptions request;
+      const position = DiffNotePosition(
+        baseSha: 'base',
+        startSha: 'start',
+        headSha: 'head',
+        oldPath: 'old.dart',
+        newPath: 'new.dart',
+        positionType: 'text',
+        newLine: 30,
+      );
+      final dio = Dio()
+        ..httpClientAdapter = _CreatedAdapter((o) {
+          request = o;
+        });
+      final client = GitLabClient(
+        baseUrl: 'https://gitlab.example.com',
+        token: 'glpat-xxxxxxxxxxxx',
+        dio: dio,
+      );
+      addTearDown(client.close);
+      final result = await CommentsRepository(client)
+          .createPositionedDiscussion(
+            projectId: 8,
+            iid: 142,
+            body: '  Markdown draft  ',
+            position: position,
+          );
+      expect(request.path, '/projects/8/merge_requests/142/discussions');
+      expect(request.method, 'POST');
+      expect(request.data, {
+        'body': '  Markdown draft  ',
+        'position': position.toJson()..removeWhere((_, value) => value == null),
+      });
+      expect(result.notes.single.position, position);
+    },
+  );
   test('forged positions are rejected without dispatch', () async {
     final comments = _Comments();
     final c = _container(_Repo(), comments);
+    final subscription = c.listen(
+      mrReviewSnapshotControllerProvider(_arg),
+      (_, _) {},
+    );
+    addTearDown(subscription.close);
     final snapshot = await c.read(
       mrReviewSnapshotControllerProvider(_arg).future,
     );
@@ -479,4 +682,39 @@ void main() {
     );
     expect(comments.creates, isEmpty);
   });
+}
+
+class _CreatedAdapter implements HttpClientAdapter {
+  _CreatedAdapter(this.capture);
+  final void Function(RequestOptions) capture;
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    capture(options);
+    return ResponseBody.fromString(
+      jsonEncode({
+        'id': 'created',
+        'individual_note': false,
+        'notes': [
+          {
+            'id': 301,
+            'body': 'Created',
+            'type': 'DiffNote',
+            'system': false,
+            'position': (options.data as Map)['position'],
+          },
+        ],
+      }),
+      201,
+      headers: {
+        Headers.contentTypeHeader: [Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
 }

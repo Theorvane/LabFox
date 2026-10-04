@@ -4748,4 +4748,18 @@ class AppLocalizationsHi extends AppLocalizations {
   String mrReviewVersionTitle(String version) {
     return 'डिफ़ संस्करण $version की समीक्षा';
   }
+
+  @override
+  String get mrDiffDiscussionPending => 'चर्चा बनाई जा रही है…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'चर्चाएँ रीफ़्रेश की जा रही हैं…';
+
+  @override
+  String get mrDiffDiscussionInspect =>
+      'फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।';
+
+  @override
+  String get mrDiffDiscussionNoMatches =>
+      'लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।';
 }
