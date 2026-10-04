@@ -4551,4 +4551,48 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiscussionContextLoading => '원본 diff 불러오는 중';
+
+  @override
+  String get mrDiffDiscussLineButton => '이 줄에 토론 추가';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return '$path 토론 · 버전 $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => '리뷰 댓글 작성…';
+
+  @override
+  String get mrDiffDiscussionSubmit => '토론 시작';
+
+  @override
+  String get mrDiffDiscussionCancel => '취소';
+
+  @override
+  String get mrDiffDiscussionCreated => '토론이 생성되었습니다.';
+
+  @override
+  String get mrDiffDiscussionError => '토론 생성 여부를 확인할 수 없습니다.';
+
+  @override
+  String get mrDiffDiscussionPermissionError => '이 토론을 생성할 권한이 없습니다.';
+
+  @override
+  String get mrDiffDiscussionReloadButton => '토론 새로고침';
+
+  @override
+  String get mrDiffDiscussionReloadRequired =>
+      '다시 제출하기 전에 토론을 새로고침하세요. 이전 요청이 처리되었을 수 있습니다.';
+
+  @override
+  String get mrDiffDiscussionReloadFailed => '토론을 새로고침할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get mrReviewUnavailable => '이 diff 버전에서는 인라인 리뷰를 사용할 수 없습니다.';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return 'diff 버전 $version 리뷰 중';
+  }
 }

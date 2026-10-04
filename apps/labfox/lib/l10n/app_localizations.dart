@@ -8287,6 +8287,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading original diff'**
   String get mrDiscussionContextLoading;
+
+  /// No description provided for @mrDiffDiscussLineButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add discussion on this line'**
+  String get mrDiffDiscussLineButton;
+
+  /// No description provided for @mrDiffDiscussionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discuss {path} · version {version}'**
+  String mrDiffDiscussionTitle(String path, String version);
+
+  /// No description provided for @mrDiffDiscussionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a review comment…'**
+  String get mrDiffDiscussionHint;
+
+  /// No description provided for @mrDiffDiscussionSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Start discussion'**
+  String get mrDiffDiscussionSubmit;
+
+  /// No description provided for @mrDiffDiscussionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get mrDiffDiscussionCancel;
+
+  /// No description provided for @mrDiffDiscussionCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion created.'**
+  String get mrDiffDiscussionCreated;
+
+  /// No description provided for @mrDiffDiscussionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the discussion was created.'**
+  String get mrDiffDiscussionError;
+
+  /// No description provided for @mrDiffDiscussionPermissionError.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this discussion.'**
+  String get mrDiffDiscussionPermissionError;
+
+  /// No description provided for @mrDiffDiscussionReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh discussions'**
+  String get mrDiffDiscussionReloadButton;
+
+  /// No description provided for @mrDiffDiscussionReloadRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh discussions before submitting again. The previous request may have been accepted.'**
+  String get mrDiffDiscussionReloadRequired;
+
+  /// No description provided for @mrDiffDiscussionReloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not refresh discussions. Try again.'**
+  String get mrDiffDiscussionReloadFailed;
+
+  /// No description provided for @mrReviewUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This diff version is unavailable for inline review.'**
+  String get mrReviewUnavailable;
+
+  /// No description provided for @mrReviewVersionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing diff version {version}'**
+  String mrReviewVersionTitle(String version);
 }
 
 class _AppLocalizationsDelegate

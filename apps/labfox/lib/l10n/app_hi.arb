@@ -1286,5 +1286,18 @@
   "mrDiscussionContextError": "मूल अंतर लोड नहीं हो सका। फिर से कोशिश करें।",
   "mrDiscussionContextOlderButton": "पुराने संस्करण खोजें",
   "mrDiscussionContextLineLabel": "टिप्पणी वाली पंक्ति",
-  "mrDiscussionContextLoading": "मूल अंतर लोड हो रहा है"
+  "mrDiscussionContextLoading": "मूल अंतर लोड हो रहा है",
+  "mrDiffDiscussLineButton": "इस पंक्ति पर चर्चा जोड़ें",
+  "mrDiffDiscussionTitle": "{path} पर चर्चा · संस्करण {version}",
+  "mrDiffDiscussionHint": "समीक्षा टिप्पणी लिखें…",
+  "mrDiffDiscussionSubmit": "चर्चा शुरू करें",
+  "mrDiffDiscussionCancel": "रद्द करें",
+  "mrDiffDiscussionCreated": "चर्चा बनाई गई।",
+  "mrDiffDiscussionError": "चर्चा बनाए जाने की पुष्टि नहीं हो सकी।",
+  "mrDiffDiscussionPermissionError": "आपको यह चर्चा बनाने की अनुमति नहीं है।",
+  "mrDiffDiscussionReloadButton": "चर्चाएँ रीफ़्रेश करें",
+  "mrDiffDiscussionReloadRequired": "फिर से भेजने से पहले चर्चाएँ रीफ़्रेश करें। पिछला अनुरोध स्वीकार हो चुका हो सकता है।",
+  "mrDiffDiscussionReloadFailed": "चर्चाएँ रीफ़्रेश नहीं हो सकीं। फिर से प्रयास करें।",
+  "mrReviewUnavailable": "इस डिफ़ संस्करण पर इनलाइन समीक्षा उपलब्ध नहीं है।",
+  "mrReviewVersionTitle": "डिफ़ संस्करण {version} की समीक्षा"
 }
