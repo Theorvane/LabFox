@@ -9,6 +9,7 @@ import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import 'merge_requests_controllers.dart';
+import 'mr_review_snapshot_controller.dart';
 
 /// Reads grouped conversations and writes notes and replies in one session.
 class MrDiscussionsController
@@ -100,6 +101,21 @@ class MrDiscussionsController
     return _post(body, discussionId: discussionId);
   }
 
+  bool _currentPosition(DiffNotePosition position) {
+    final snapshot = ref.read(mrReviewSnapshotControllerProvider(arg));
+    return !snapshot.isLoading &&
+        !snapshot.hasError &&
+        (snapshot.valueOrNull?.containsPosition(position) ?? false);
+  }
+
+  Future<bool> createPositioned({
+    required String body,
+    required DiffNotePosition position,
+  }) {
+    if (!_currentPosition(position)) return Future.value(false);
+    return _post(body, position: position);
+  }
+
   Future<bool> setResolved({
     required String discussionId,
     required bool resolved,
@@ -121,6 +137,7 @@ class MrDiscussionsController
     String body, {
     String? discussionId,
     bool? resolved,
+    DiffNotePosition? position,
   }) async {
     if (_posting ||
         state.isLoading ||
@@ -137,7 +154,15 @@ class MrDiscussionsController
       if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
       }
-      if (resolved != null) {
+      if (position != null && !_currentPosition(position)) return false;
+      if (position != null) {
+        await repo.createPositionedDiscussion(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          body: body,
+          position: position,
+        );
+      } else if (resolved != null) {
         await repo.setDiscussionResolved(
           projectId: arg.projectId,
           iid: arg.iid,

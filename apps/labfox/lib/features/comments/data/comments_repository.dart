@@ -33,6 +33,18 @@ class CommentsRepository {
     body: body,
   );
 
+  Future<Discussion> createPositionedDiscussion({
+    required int projectId,
+    required int iid,
+    required String body,
+    required DiffNotePosition position,
+  }) => _client.mergeRequests.createPositionedDiscussion(
+    projectId,
+    iid: iid,
+    body: body,
+    position: position,
+  );
+
   Future<Discussion> setDiscussionResolved({
     required int projectId,
     required int iid,

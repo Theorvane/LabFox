@@ -4699,4 +4699,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiscussionContextLoading => 'Loading original diff';
+
+  @override
+  String get mrDiffDiscussLineButton => 'Add discussion on this line';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return 'Discuss $path · version $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => 'Write a review comment…';
+
+  @override
+  String get mrDiffDiscussionSubmit => 'Start discussion';
+
+  @override
+  String get mrDiffDiscussionCancel => 'Cancel';
+
+  @override
+  String get mrDiffDiscussionCreated => 'Discussion created.';
+
+  @override
+  String get mrDiffDiscussionError =>
+      'Could not confirm the discussion was created.';
+
+  @override
+  String get mrDiffDiscussionPermissionError =>
+      'You do not have permission to create this discussion.';
+
+  @override
+  String get mrDiffDiscussionReloadButton => 'Refresh discussions';
+
+  @override
+  String get mrDiffDiscussionReloadRequired =>
+      'Refresh discussions before submitting again. The previous request may have been accepted.';
+
+  @override
+  String get mrDiffDiscussionReloadFailed =>
+      'Could not refresh discussions. Try again.';
+
+  @override
+  String get mrReviewUnavailable =>
+      'This diff version is unavailable for inline review.';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return 'Reviewing diff version $version';
+  }
+
+  @override
+  String get mrDiffDiscussionPending => 'Creating discussion…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'Refreshing discussions…';
+
+  @override
+  String get mrDiffDiscussionInspect =>
+      'Inspect discussions at this line before submitting again.';
+
+  @override
+  String get mrDiffDiscussionNoMatches =>
+      'No discussions at this line in the loaded pages.';
 }

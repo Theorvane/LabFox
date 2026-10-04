@@ -2534,5 +2534,39 @@
   "mrDiscussionContextOlderButton": "Look for older versions",
   "mrDiscussionContextLineLabel": "Commented line",
   "mrDiscussionContextLoading": "Loading original diff",
-  "@mrDiscussionContextTitle": {"placeholders": {"version": {"type": "String"}}}
+  "@mrDiscussionContextTitle": {"placeholders": {"version": {"type": "String"}}},
+  "mrDiffDiscussLineButton": "Add discussion on this line",
+  "mrDiffDiscussionTitle": "Discuss {path} · version {version}",
+  "mrDiffDiscussionHint": "Write a review comment…",
+  "mrDiffDiscussionSubmit": "Start discussion",
+  "mrDiffDiscussionCancel": "Cancel",
+  "mrDiffDiscussionCreated": "Discussion created.",
+  "mrDiffDiscussionError": "Could not confirm the discussion was created.",
+  "mrDiffDiscussionPermissionError": "You do not have permission to create this discussion.",
+  "mrDiffDiscussionReloadButton": "Refresh discussions",
+  "mrDiffDiscussionReloadRequired": "Refresh discussions before submitting again. The previous request may have been accepted.",
+  "mrDiffDiscussionReloadFailed": "Could not refresh discussions. Try again.",
+  "mrReviewUnavailable": "This diff version is unavailable for inline review.",
+  "mrReviewVersionTitle": "Reviewing diff version {version}",
+  "@mrDiffDiscussionTitle": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrReviewVersionTitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "mrDiffDiscussionPending": "Creating discussion…",
+  "mrDiffDiscussionReloading": "Refreshing discussions…",
+  "mrDiffDiscussionInspect": "Inspect discussions at this line before submitting again.",
+  "mrDiffDiscussionNoMatches": "No discussions at this line in the loaded pages."
 }

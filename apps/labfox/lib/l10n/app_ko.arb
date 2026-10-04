@@ -1286,5 +1286,22 @@
   "mrDiscussionContextError": "원본 diff를 불러오지 못했습니다. 다시 시도하세요.",
   "mrDiscussionContextOlderButton": "이전 버전 찾기",
   "mrDiscussionContextLineLabel": "댓글이 달린 줄",
-  "mrDiscussionContextLoading": "원본 diff 불러오는 중"
+  "mrDiscussionContextLoading": "원본 diff 불러오는 중",
+  "mrDiffDiscussLineButton": "이 줄에 토론 추가",
+  "mrDiffDiscussionTitle": "{path} 토론 · 버전 {version}",
+  "mrDiffDiscussionHint": "리뷰 댓글 작성…",
+  "mrDiffDiscussionSubmit": "토론 시작",
+  "mrDiffDiscussionCancel": "취소",
+  "mrDiffDiscussionCreated": "토론이 생성되었습니다.",
+  "mrDiffDiscussionError": "토론 생성 여부를 확인할 수 없습니다.",
+  "mrDiffDiscussionPermissionError": "이 토론을 생성할 권한이 없습니다.",
+  "mrDiffDiscussionReloadButton": "토론 새로고침",
+  "mrDiffDiscussionReloadRequired": "다시 제출하기 전에 토론을 새로고침하세요. 이전 요청이 처리되었을 수 있습니다.",
+  "mrDiffDiscussionReloadFailed": "토론을 새로고침할 수 없습니다. 다시 시도하세요.",
+  "mrReviewUnavailable": "이 diff 버전에서는 인라인 리뷰를 사용할 수 없습니다.",
+  "mrReviewVersionTitle": "diff 버전 {version} 리뷰 중",
+  "mrDiffDiscussionPending": "토론 생성 중…",
+  "mrDiffDiscussionReloading": "토론 새로고침 중…",
+  "mrDiffDiscussionInspect": "다시 제출하기 전에 이 줄의 토론을 확인하세요.",
+  "mrDiffDiscussionNoMatches": "불러온 페이지에는 이 줄의 토론이 없습니다."
 }

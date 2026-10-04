@@ -4544,4 +4544,60 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiscussionContextLoading => '元の差分を読み込み中';
+
+  @override
+  String get mrDiffDiscussLineButton => 'この行にディスカッションを追加';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return '$path のディスカッション · バージョン $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => 'レビューコメントを入力…';
+
+  @override
+  String get mrDiffDiscussionSubmit => 'ディスカッションを開始';
+
+  @override
+  String get mrDiffDiscussionCancel => 'キャンセル';
+
+  @override
+  String get mrDiffDiscussionCreated => 'ディスカッションを作成しました。';
+
+  @override
+  String get mrDiffDiscussionError => 'ディスカッションの作成を確認できませんでした。';
+
+  @override
+  String get mrDiffDiscussionPermissionError => 'このディスカッションを作成する権限がありません。';
+
+  @override
+  String get mrDiffDiscussionReloadButton => 'ディスカッションを更新';
+
+  @override
+  String get mrDiffDiscussionReloadRequired =>
+      '再送信する前にディスカッションを更新してください。前のリクエストが処理済みの可能性があります。';
+
+  @override
+  String get mrDiffDiscussionReloadFailed => 'ディスカッションを更新できませんでした。再試行してください。';
+
+  @override
+  String get mrReviewUnavailable => 'この差分バージョンではインラインレビューを利用できません。';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return '差分バージョン $version をレビュー中';
+  }
+
+  @override
+  String get mrDiffDiscussionPending => 'ディスカッションを作成中…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'ディスカッションを更新中…';
+
+  @override
+  String get mrDiffDiscussionInspect => '再送信する前にこの行のディスカッションを確認してください。';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '読み込んだページにはこの行のディスカッションがありません。';
 }
