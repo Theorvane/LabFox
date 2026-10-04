@@ -617,6 +617,102 @@ class MergeRequestsApi {
     }
   }
 
+  /// Creates a text discussion on one explicitly supplied original diff line.
+  ///
+  /// Callers obtain the SHA triplet and coordinates from the selected version.
+  /// Markdown and paths are preserved; unsupported anchors are never guessed.
+  /// An unconfirmed response may follow a successful write, so retry is explicit.
+  Future<Discussion> createPositionedDiscussion(
+    Object projectId, {
+    required int iid,
+    required String body,
+    required DiffNotePosition position,
+  }) async {
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (body.trim().isEmpty) {
+      throw ArgumentError('A discussion body is required.', 'body');
+    }
+    if (position.positionType != 'text' ||
+        [
+          position.baseSha,
+          position.startSha,
+          position.headSha,
+        ].any((value) => value == null || value.trim().isEmpty) ||
+        [
+          position.oldPath,
+          position.newPath,
+        ].any((value) => value == null || value.isEmpty) ||
+        (position.oldLine == null && position.newLine == null) ||
+        (position.oldLine != null && position.oldLine! < 1) ||
+        (position.newLine != null && position.newLine! < 1) ||
+        position.lineRange != null ||
+        position.width != null ||
+        position.height != null ||
+        position.x != null ||
+        position.y != null) {
+      throw ArgumentError(
+        'A complete single-line text position is required.',
+        'position',
+      );
+    }
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/discussions',
+        data: {
+          'body': body,
+          'position': position.toJson()
+            ..removeWhere((_, value) => value == null),
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a positioned discussion',
+        );
+      }
+      try {
+        final discussion = _parseDiscussions([response.data]).single;
+        if (discussion.id.trim().isEmpty ||
+            discussion.individualNote ||
+            discussion.notes.isEmpty) {
+          throw const GitLabServerException(
+            'Unconfirmed positioned discussion.',
+          );
+        }
+        final root = discussion.notes.first;
+        final returned = root.position;
+        if (root.isSystem != false ||
+            root.type != 'DiffNote' ||
+            returned == null ||
+            returned.positionType != position.positionType ||
+            returned.baseSha != position.baseSha ||
+            returned.startSha != position.startSha ||
+            returned.headSha != position.headSha ||
+            returned.oldPath != position.oldPath ||
+            returned.newPath != position.newPath ||
+            returned.oldLine != position.oldLine ||
+            returned.newLine != position.newLine ||
+            returned.lineRange != null) {
+          throw const GitLabServerException(
+            'Unconfirmed positioned discussion.',
+          );
+        }
+        return discussion;
+      } on GitLabServerException {
+        throw const GitLabServerException(
+          'Invalid positioned discussion response.',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a positioned discussion');
+    }
+  }
+
   /// Resolves or reopens a discussion and confirms its updated server state.
   /// The mutation is never redirected or replayed after authentication failure.
   Future<Discussion> setDiscussionResolved(
