@@ -4496,4 +4496,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiscussionsPartial => 'ほかのディスカッションがあります。';
+
+  @override
+  String get mrDiscussionReplyButton => '返信';
+
+  @override
+  String get mrDiscussionReplyTitle => 'ディスカッションに返信';
+
+  @override
+  String get mrDiscussionReplyHint => '返信を入力…';
 }

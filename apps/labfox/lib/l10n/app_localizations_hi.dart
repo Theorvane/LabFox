@@ -4650,4 +4650,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiscussionsPartial => 'और चर्चाएँ उपलब्ध हैं।';
+
+  @override
+  String get mrDiscussionReplyButton => 'जवाब दें';
+
+  @override
+  String get mrDiscussionReplyTitle => 'चर्चा का जवाब दें';
+
+  @override
+  String get mrDiscussionReplyHint => 'जवाब लिखें…';
 }

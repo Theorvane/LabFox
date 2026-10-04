@@ -8197,6 +8197,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More discussions are available.'**
   String get mrDiscussionsPartial;
+
+  /// No description provided for @mrDiscussionReplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get mrDiscussionReplyButton;
+
+  /// No description provided for @mrDiscussionReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply to discussion'**
+  String get mrDiscussionReplyTitle;
+
+  /// No description provided for @mrDiscussionReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a reply…'**
+  String get mrDiscussionReplyHint;
 }
 
 class _AppLocalizationsDelegate

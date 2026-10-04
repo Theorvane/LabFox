@@ -21,6 +21,18 @@ class CommentsRepository {
     int page = 1,
   }) => _client.mergeRequests.discussions(projectId, iid: iid, page: page);
 
+  Future<Note> replyToDiscussion({
+    required int projectId,
+    required int iid,
+    required String discussionId,
+    required String body,
+  }) => _client.mergeRequests.replyToDiscussion(
+    projectId,
+    iid: iid,
+    discussionId: discussionId,
+    body: body,
+  );
+
   Future<Note> post({
     required NoteableType type,
     required int projectId,

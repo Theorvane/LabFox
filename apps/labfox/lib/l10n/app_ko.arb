@@ -1271,5 +1271,8 @@
   "mrDiscussionUnresolved": "미해결",
   "mrDiscussionsLoadMore": "토론 더 불러오기",
   "mrDiscussionsMoreError": "토론을 더 불러오지 못했습니다.",
-  "mrDiscussionsPartial": "더 많은 토론이 있습니다."
+  "mrDiscussionsPartial": "더 많은 토론이 있습니다.",
+  "mrDiscussionReplyButton": "답글",
+  "mrDiscussionReplyTitle": "토론에 답글 작성",
+  "mrDiscussionReplyHint": "답글을 작성하세요…"
 }

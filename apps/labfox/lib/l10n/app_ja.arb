@@ -1271,5 +1271,8 @@
   "mrDiscussionUnresolved": "未解決",
   "mrDiscussionsLoadMore": "ディスカッションをさらに読み込む",
   "mrDiscussionsMoreError": "ディスカッションをさらに読み込めませんでした。",
-  "mrDiscussionsPartial": "ほかのディスカッションがあります。"
+  "mrDiscussionsPartial": "ほかのディスカッションがあります。",
+  "mrDiscussionReplyButton": "返信",
+  "mrDiscussionReplyTitle": "ディスカッションに返信",
+  "mrDiscussionReplyHint": "返信を入力…"
 }
