@@ -1302,8 +1302,8 @@
   "mrReviewVersionTitle": "正在审查差异版本 {version}",
   "mrDiffDiscussionPending": "正在创建讨论…",
   "mrDiffDiscussionReloading": "正在刷新讨论…",
-  "mrDiffDiscussionInspect": "再次提交前请检查此行的讨论。",
-  "mrDiffDiscussionNoMatches": "已加载的页面中没有此行的讨论。",
+  "mrDiffDiscussionInspect": "再次提交前，请检查所选位置的讨论。",
+  "mrDiffDiscussionNoMatches": "已加载的页面中没有所选位置的讨论。",
   "mrSuggestionTitle": "建议 {number}",
   "mrSuggestionRange": "原始行 {from}–{to}",
   "mrSuggestionRangeUnknown": "原始行范围不可用",
@@ -1351,5 +1351,11 @@
   "mrSuggestionsApplyForbidden": "GitLab 拒绝了此操作。请检查访问权限，并在重试前重新加载所有选中的讨论。",
   "mrSuggestionsBackButton": "返回选择",
   "mrDiscussionContextRangeLabel": "评论行 {start}–{end}",
-  "mrDiscussionContextRangeLineLabel": "评论范围内的行"
+  "mrDiscussionContextRangeLineLabel": "评论范围内的行",
+  "mrDiffSelectRangeButton": "选择范围",
+  "mrDiffRangeEndButton": "在此行结束范围",
+  "mrDiffRangeChooseEnd": "请选择此文件中的最后一行。只能选择起始行之后的完整范围。",
+  "mrDiffSingleLineButton": "使用单行",
+  "mrDiffSelectedRangeLabel": "已选范围：{start} 至 {end}",
+  "mrDiffSelectedLineLabel": "已选讨论行"
 }

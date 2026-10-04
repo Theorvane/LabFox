@@ -8381,13 +8381,13 @@ abstract class AppLocalizations {
   /// No description provided for @mrDiffDiscussionInspect.
   ///
   /// In en, this message translates to:
-  /// **'Inspect discussions at this line before submitting again.'**
+  /// **'Inspect discussions at this selection before submitting again.'**
   String get mrDiffDiscussionInspect;
 
   /// No description provided for @mrDiffDiscussionNoMatches.
   ///
   /// In en, this message translates to:
-  /// **'No discussions at this line in the loaded pages.'**
+  /// **'No discussions at this selection in the loaded pages.'**
   String get mrDiffDiscussionNoMatches;
 
   /// MR code suggestion preview Title
@@ -8677,6 +8677,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Line in commented range'**
   String get mrDiscussionContextRangeLineLabel;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a range'**
+  String get mrDiffSelectRangeButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'End range on this line'**
+  String get mrDiffRangeEndButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the last line in this file. Only complete ranges after the first line are available.'**
+  String get mrDiffRangeChooseEnd;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Use single line'**
+  String get mrDiffSingleLineButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected range: {start} to {end}'**
+  String mrDiffSelectedRangeLabel(String start, String end);
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected discussion line'**
+  String get mrDiffSelectedLineLabel;
 }
 
 class _AppLocalizationsDelegate

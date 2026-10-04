@@ -1302,8 +1302,8 @@
   "mrReviewVersionTitle": "diff 버전 {version} 리뷰 중",
   "mrDiffDiscussionPending": "토론 생성 중…",
   "mrDiffDiscussionReloading": "토론 새로고침 중…",
-  "mrDiffDiscussionInspect": "다시 제출하기 전에 이 줄의 토론을 확인하세요.",
-  "mrDiffDiscussionNoMatches": "불러온 페이지에는 이 줄의 토론이 없습니다.",
+  "mrDiffDiscussionInspect": "다시 제출하기 전에 선택한 위치의 토론을 확인하세요.",
+  "mrDiffDiscussionNoMatches": "불러온 페이지에 선택한 위치의 토론이 없습니다.",
   "mrSuggestionTitle": "제안 {number}",
   "mrSuggestionRange": "원본 줄 {from}–{to}",
   "mrSuggestionRangeUnknown": "원본 줄 범위를 확인할 수 없음",
@@ -1351,5 +1351,11 @@
   "mrSuggestionsApplyForbidden": "GitLab에서 이 작업을 거부했습니다. 접근 권한을 확인하고 선택한 모든 토론을 새로 불러온 후 다시 시도하세요.",
   "mrSuggestionsBackButton": "선택으로 돌아가기",
   "mrDiscussionContextRangeLabel": "댓글이 달린 줄 {start}–{end}",
-  "mrDiscussionContextRangeLineLabel": "댓글 범위에 포함된 줄"
+  "mrDiscussionContextRangeLineLabel": "댓글 범위에 포함된 줄",
+  "mrDiffSelectRangeButton": "범위 선택",
+  "mrDiffRangeEndButton": "이 줄에서 범위 끝내기",
+  "mrDiffRangeChooseEnd": "이 파일에서 마지막 줄을 선택하세요. 첫 줄 뒤의 완전한 범위만 선택할 수 있습니다.",
+  "mrDiffSingleLineButton": "한 줄 사용",
+  "mrDiffSelectedRangeLabel": "선택한 범위: {start}~{end}",
+  "mrDiffSelectedLineLabel": "선택한 토론 줄"
 }

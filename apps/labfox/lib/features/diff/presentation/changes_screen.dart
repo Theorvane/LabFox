@@ -54,6 +54,8 @@ class DiffFileCard extends StatelessWidget {
     this.canSelectLine,
     this.lineActionLabel,
     this.highlightedLine,
+    this.highlightedLines = const [],
+    this.highlightedLineLabel,
     super.key,
   });
 
@@ -62,6 +64,8 @@ class DiffFileCard extends StatelessWidget {
   final bool Function(DiffLine)? canSelectLine;
   final String? lineActionLabel;
   final DiffLine? highlightedLine;
+  final List<DiffLine> highlightedLines;
+  final String? highlightedLineLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +103,8 @@ class DiffFileCard extends StatelessWidget {
           canSelectLine: canSelectLine,
           lineActionLabel: lineActionLabel,
           highlightedLine: highlightedLine,
-          highlightedLineLabel: highlightedLine == null
-              ? null
-              : lineActionLabel,
+          highlightedLines: highlightedLines,
+          highlightedLineLabel: highlightedLineLabel ?? lineActionLabel,
           binaryLabel: l10n.changesBinary,
           omittedLabel: l10n.changesOmitted,
         ),

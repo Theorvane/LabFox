@@ -13,7 +13,7 @@ import 'controllers/merge_requests_controllers.dart';
 import 'controllers/mr_discussions_controller.dart';
 import 'controllers/mr_review_snapshot_controller.dart';
 
-/// Reviews one authoritative diff version and starts single-line discussions.
+/// Reviews one authoritative diff version and starts positioned discussions.
 class MrChangesScreen extends ConsumerWidget {
   const MrChangesScreen({
     required this.projectId,
@@ -41,6 +41,8 @@ class _ReviewContent extends ConsumerStatefulWidget {
 class _ReviewState extends ConsumerState<_ReviewContent> {
   final _draft = TextEditingController();
   DiffNotePosition? _selected;
+  DiffNotePosition? _startAnchor;
+  bool _choosingEnd = false;
   bool _posting = false, _reloading = false, _needsReload = false;
   String? _error;
   bool _inspection = false;
@@ -55,6 +57,7 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
     if (_posting ||
         _reloading ||
         _needsReload ||
+        _choosingEnd ||
         position == null ||
         _draft.text.trim().isEmpty) {
       return;
@@ -71,6 +74,8 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
       if (!mounted || !created) return;
       setState(() {
         _selected = null;
+        _startAnchor = null;
+        _choosingEnd = false;
         _inspection = false;
         _draft.clear();
       });
@@ -120,7 +125,7 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
     return p != null &&
         selected != null &&
         p.positionType == 'text' &&
-        p.lineRange == null &&
+        _sameRange(selected.lineRange, p.lineRange) &&
         p.baseSha == selected.baseSha &&
         p.startSha == selected.startSha &&
         p.headSha == selected.headSha &&
@@ -128,6 +133,26 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
         p.newPath == selected.newPath &&
         p.oldLine == selected.oldLine &&
         p.newLine == selected.newLine;
+  }
+
+  bool _sameRange(DiffNoteLineRange? a, DiffNoteLineRange? b) {
+    if (a == null || b == null) return a == b;
+    bool same(DiffNoteRangeEndpoint? start, DiffNoteRangeEndpoint? end) =>
+        start != null &&
+        end != null &&
+        start.lineCode == end.lineCode &&
+        start.type == end.type &&
+        (end.oldLine == null || end.oldLine == start.oldLine) &&
+        (end.newLine == null || end.newLine == start.newLine);
+    return same(a.start, b.start) && same(a.end, b.end);
+  }
+
+  String _endpointLabel(DiffNoteRangeEndpoint endpoint, AppLocalizations l10n) {
+    final old = endpoint.type == 'old';
+    return (old ? '-' : '+') +
+        NumberFormat.decimalPattern(
+          l10n.localeName,
+        ).format(old ? endpoint.oldLine : endpoint.newLine);
   }
 
   Future<void> _loadMore() async {
@@ -199,6 +224,13 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
             ).format(value.version!.id);
             final positionValid =
                 _selected != null && value.containsPosition(_selected!);
+            (FileDiff, DiffLine)? rangeStart;
+            if (_startAnchor != null) {
+              for (final file in value.files) {
+                final lines = value.linesForPosition(file, _startAnchor!);
+                if (lines.length == 1) rangeStart = (file, lines.single);
+              }
+            }
             return LayoutBuilder(
               builder: (context, constraints) {
                 final files = ListView.builder(
@@ -206,29 +238,50 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
                   itemBuilder: (context, index) {
                     final file = value.files[index];
                     final selected = _selected == null
-                        ? null
-                        : file.hunks
-                              .expand((h) => h.lines)
-                              .where(
-                                (line) =>
-                                    value.positionFor(file, line) == _selected,
-                              );
+                        ? <DiffLine>[]
+                        : value.linesForPosition(file, _selected!);
+                    final rangeMode =
+                        _choosingEnd && identical(file, rangeStart?.$1);
                     return DiffFileCard(
                       file: file,
-                      highlightedLine: selected != null && selected.length == 1
+                      highlightedLine:
+                          _selected?.lineRange == null && selected.length == 1
                           ? selected.single
                           : null,
-                      lineActionLabel: l10n.mrDiffDiscussLineButton,
-                      canSelectLine: (line) =>
-                          value.positionFor(file, line) != null,
+                      highlightedLines: _selected?.lineRange == null
+                          ? const []
+                          : selected,
+                      highlightedLineLabel: l10n.mrDiffSelectedLineLabel,
+                      lineActionLabel: rangeMode
+                          ? l10n.mrDiffRangeEndButton
+                          : l10n.mrDiffDiscussLineButton,
+                      canSelectLine: (line) => rangeMode
+                          ? rangeStart != null &&
+                                value.rangePositionFor(
+                                      file,
+                                      rangeStart.$2,
+                                      line,
+                                    ) !=
+                                    null
+                          : value.positionFor(file, line) != null,
                       onLineSelected:
-                          _posting || _reloading || _selected != null
+                          _posting ||
+                              _reloading ||
+                              (_selected != null && !rangeMode)
                           ? null
                           : (line) {
-                              final position = value.positionFor(file, line);
+                              final position = rangeMode
+                                  ? value.rangePositionFor(
+                                      file,
+                                      rangeStart!.$2,
+                                      line,
+                                    )
+                                  : value.positionFor(file, line);
                               if (position != null) {
                                 setState(() {
                                   _selected = position;
+                                  if (!rangeMode) _startAnchor = position;
+                                  _choosingEnd = false;
                                   _inspection = false;
                                   _error = null;
                                   _needsReload = false;
@@ -264,6 +317,65 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
                                       style: Theme.of(
                                         context,
                                       ).textTheme.titleSmall,
+                                    ),
+                                    if (_selected!.lineRange != null)
+                                      Text(
+                                        l10n.mrDiffSelectedRangeLabel(
+                                          _endpointLabel(
+                                            _selected!.lineRange!.start!,
+                                            l10n,
+                                          ),
+                                          _endpointLabel(
+                                            _selected!.lineRange!.end!,
+                                            l10n,
+                                          ),
+                                        ),
+                                      ),
+                                    if (_choosingEnd)
+                                      Text(l10n.mrDiffRangeChooseEnd),
+                                    Wrap(
+                                      spacing: LabFoxSpacing.sm,
+                                      children: [
+                                        if (!_choosingEnd)
+                                          TextButton(
+                                            onPressed:
+                                                _posting ||
+                                                    _reloading ||
+                                                    _needsReload ||
+                                                    !positionValid ||
+                                                    rangeStart == null
+                                                ? null
+                                                : () => setState(() {
+                                                    _selected = _startAnchor;
+                                                    _choosingEnd = true;
+                                                    _inspection = false;
+                                                    _error = null;
+                                                  }),
+                                            child: Text(
+                                              l10n.mrDiffSelectRangeButton,
+                                            ),
+                                          ),
+                                        if (_choosingEnd ||
+                                            _selected!.lineRange != null)
+                                          TextButton(
+                                            onPressed:
+                                                _posting ||
+                                                    _reloading ||
+                                                    _needsReload ||
+                                                    !positionValid ||
+                                                    rangeStart == null
+                                                ? null
+                                                : () => setState(() {
+                                                    _selected = _startAnchor;
+                                                    _choosingEnd = false;
+                                                    _inspection = false;
+                                                    _error = null;
+                                                  }),
+                                            child: Text(
+                                              l10n.mrDiffSingleLineButton,
+                                            ),
+                                          ),
+                                      ],
                                     ),
                                     const SizedBox(height: LabFoxSpacing.sm),
                                     TextField(
@@ -342,6 +454,8 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
                                               ? null
                                               : () => setState(() {
                                                   _selected = null;
+                                                  _startAnchor = null;
+                                                  _choosingEnd = false;
                                                   _inspection = false;
                                                   _draft.clear();
                                                   _error = null;
@@ -359,6 +473,7 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
                                               _posting ||
                                                   _reloading ||
                                                   _needsReload ||
+                                                  _choosingEnd ||
                                                   !ready ||
                                                   !positionValid ||
                                                   _draft.text.trim().isEmpty

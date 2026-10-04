@@ -13,6 +13,30 @@ FileDiff _file() => FileDiff(
 );
 void main() {
   for (final dark in [false, true]) {
+    testWidgets('line actions retain a minimum 44 dp touch target dark=$dark', (
+      tester,
+    ) async {
+      final file = _file();
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: dark ? LabFoxTheme.dark : LabFoxTheme.light,
+          home: Scaffold(
+            body: DiffViewer(
+              file: file,
+              onLineSelected: (_) {},
+              lineActionLabel: 'End range on this line',
+            ),
+          ),
+        ),
+      );
+      for (final button in find.byType(IconButton).evaluate()) {
+        final size = tester.getSize(find.byWidget(button.widget));
+        expect(size.width, greaterThanOrEqualTo(44));
+        expect(size.height, greaterThanOrEqualTo(44));
+      }
+    });
+  }
+  for (final dark in [false, true]) {
     for (final type in DiffLineType.values) {
       testWidgets('selects exact $type line dark=$dark', (tester) async {
         final file = _file();

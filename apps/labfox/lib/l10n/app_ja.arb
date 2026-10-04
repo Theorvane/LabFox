@@ -1302,8 +1302,8 @@
   "mrReviewVersionTitle": "差分バージョン {version} をレビュー中",
   "mrDiffDiscussionPending": "ディスカッションを作成中…",
   "mrDiffDiscussionReloading": "ディスカッションを更新中…",
-  "mrDiffDiscussionInspect": "再送信する前にこの行のディスカッションを確認してください。",
-  "mrDiffDiscussionNoMatches": "読み込んだページにはこの行のディスカッションがありません。",
+  "mrDiffDiscussionInspect": "再送信する前に、選択した位置のディスカッションを確認してください。",
+  "mrDiffDiscussionNoMatches": "読み込んだページに選択した位置のディスカッションはありません。",
   "mrSuggestionTitle": "提案 {number}",
   "mrSuggestionRange": "元の行 {from}–{to}",
   "mrSuggestionRangeUnknown": "元の行範囲を確認できません",
@@ -1351,5 +1351,11 @@
   "mrSuggestionsApplyForbidden": "GitLabがこの操作を拒否しました。アクセス権を確認し、選択したすべてのディスカッションを再読み込みしてから再試行してください。",
   "mrSuggestionsBackButton": "選択に戻る",
   "mrDiscussionContextRangeLabel": "コメント対象の行 {start}–{end}",
-  "mrDiscussionContextRangeLineLabel": "コメント範囲内の行"
+  "mrDiscussionContextRangeLineLabel": "コメント範囲内の行",
+  "mrDiffSelectRangeButton": "範囲を選択",
+  "mrDiffRangeEndButton": "この行で範囲を終了",
+  "mrDiffRangeChooseEnd": "このファイルの最後の行を選択してください。開始行より後の完全な範囲のみ選択できます。",
+  "mrDiffSingleLineButton": "1行を使用",
+  "mrDiffSelectedRangeLabel": "選択範囲: {start}～{end}",
+  "mrDiffSelectedLineLabel": "選択したディスカッションの行"
 }
