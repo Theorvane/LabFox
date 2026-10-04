@@ -30,6 +30,12 @@ class _Subscribed extends EntitlementController {
 
 class _Repository extends PipelinesRepository {
   @override
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async => null;
+
+  @override
   Future<Paginated<PipelineTriggerJob>> triggerJobs({
     required int projectId,
     required int pipelineId,

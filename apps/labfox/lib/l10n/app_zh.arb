@@ -1251,5 +1251,10 @@
   "pipelineDownstreamError": "无法加载下游流水线。",
   "pipelineDownstreamLoadMoreError": "无法加载更多下游流水线。",
   "pipelineDownstreamUnavailable": "无法打开下游流水线。",
-  "pipelineDownstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}"
+  "pipelineDownstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}",
+  "pipelineUpstreamTitle": "上游流水线",
+  "pipelineUpstreamEmpty": "没有可显示的上游流水线。",
+  "pipelineUpstreamError": "无法加载上游流水线。",
+  "pipelineUpstreamUnavailable": "无法打开上游流水线。",
+  "pipelineUpstreamTarget": "项目 {projectId} · 流水线 #{pipelineId}"
 }

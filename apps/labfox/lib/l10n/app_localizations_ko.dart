@@ -4429,4 +4429,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
     return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
   }
+
+  @override
+  String get pipelineUpstreamTitle => '상위 파이프라인';
+
+  @override
+  String get pipelineUpstreamEmpty => '조회 가능한 상위 파이프라인이 없습니다.';
+
+  @override
+  String get pipelineUpstreamError => '상위 파이프라인을 불러오지 못했습니다.';
+
+  @override
+  String get pipelineUpstreamUnavailable => '상위 파이프라인을 열 수 없습니다.';
+
+  @override
+  String pipelineUpstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
+  }
 }

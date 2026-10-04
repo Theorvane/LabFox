@@ -96,6 +96,12 @@ const _pipeline = Pipeline(id: 4, status: 'success');
 
 class _FakePipelines extends PipelinesRepository {
   @override
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async => null;
+
+  @override
   Future<Paginated<PipelineTriggerJob>> triggerJobs({
     required int projectId,
     required int pipelineId,
