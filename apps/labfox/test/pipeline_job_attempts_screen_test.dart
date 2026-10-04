@@ -278,7 +278,11 @@ void main() {
       find.byKey(const ValueKey('pipeline-job-attempts-filter')),
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('All attempts').last);
+    final option = find.ancestor(
+      of: find.text('All attempts').last,
+      matching: find.byWidgetPredicate((w) => w is CheckedPopupMenuItem),
+    );
+    await tester.tap(option);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('verify-job'), findsNothing);
