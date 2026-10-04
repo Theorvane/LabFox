@@ -176,7 +176,7 @@ void main() {
         final duplicate = _command(notifier, command);
         await Future<void>.delayed(Duration.zero);
         expect(repo.calls, [(command, 4, 7)]);
-        expect(await duplicate, command == 'todo' ? false : null);
+        expect(await duplicate, isNull);
         repo.pending!.complete();
         expect(await first, command == 'todo' ? true : null);
         expect(container.read(_provider).hasError, isFalse);
@@ -241,6 +241,7 @@ void main() {
         analyticsProvider.overrideWithValue(analytics),
       ]);
       container.invalidate(mrActionsRepositoryProvider);
+      await container.read(mrActionsRepositoryProvider.future);
       final n = container.read(_provider.notifier);
       await expectLater(n.approve(), throwsA(isA<StateError>()));
       expect(container.read(_provider).hasError, isTrue);
@@ -249,6 +250,7 @@ void main() {
         analyticsProvider.overrideWithValue(analytics),
       ]);
       container.invalidate(mrActionsRepositoryProvider);
+      await container.read(mrActionsRepositoryProvider.future);
       await n.approve();
       expect(repo.calls, [('approve', 4, 7)]);
     },

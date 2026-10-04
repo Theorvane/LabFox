@@ -178,6 +178,7 @@ class _MrMenu extends ConsumerWidget {
           await notifier.setSubscription(false);
         case _MrAction.addTodo:
           final created = await notifier.createTodo();
+          if (created == null) return;
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
