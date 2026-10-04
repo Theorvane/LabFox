@@ -32,6 +32,7 @@ import 'repository/protected_tags_api.dart';
 import 'repository/repository_api.dart';
 import 'search/search_api.dart';
 import 'snippets/snippets_api.dart';
+import 'suggestions/suggestions_api.dart';
 import 'todos/todos_api.dart';
 import 'users/users_api.dart';
 import 'wikis/wikis_api.dart';
@@ -116,6 +117,7 @@ class GitLabClient {
     todos = TodosApi(_dio);
     search = SearchApi(_dio);
     snippets = SnippetsApi(_dio);
+    suggestions = SuggestionsApi(_dio);
     wikis = WikisApi(_dio);
   }
 
@@ -207,6 +209,7 @@ class GitLabClient {
   late final TodosApi todos;
   late final SearchApi search;
   late final SnippetsApi snippets;
+  late final SuggestionsApi suggestions;
   late final WikisApi wikis;
 
   /// Derives the REST endpoint from an instance URL.

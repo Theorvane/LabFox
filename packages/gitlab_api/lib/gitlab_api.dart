@@ -41,6 +41,7 @@ export 'src/repository/repository_api.dart';
 export 'src/repository/repository_file.dart';
 export 'src/search/search_api.dart';
 export 'src/snippets/snippets_api.dart';
+export 'src/suggestions/suggestions_api.dart';
 export 'src/todos/todos_api.dart';
 export 'src/users/users_api.dart';
 export 'src/wikis/wikis_api.dart';
