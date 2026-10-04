@@ -391,25 +391,53 @@ class MergeRequestsApi {
   }
 
   /// The approval state of a merge request.
+  ///
+  /// Incomplete successful responses are failures, never an empty approval
+  /// state. Every wrapper must contain a valid user so ownership is reliable.
   Future<MergeRequestApprovals> approvals(
     Object projectId, {
     required int iid,
   }) async {
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
+      final response = await _dio.get<dynamic>(
         '/projects/${_enc(projectId)}/merge_requests/$iid/approvals',
       );
-      final data = response.data;
-      if (response.statusCode != 200 || data == null) {
+      if (response.statusCode != 200) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
           context: 'loading approvals',
         );
       }
-      return MergeRequestApprovals.fromJson(data);
+      return _parseApprovals(response.data);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading approvals');
+    }
+  }
+
+  static MergeRequestApprovals _parseApprovals(Object? payload) {
+    try {
+      if (payload is! Map<String, dynamic>) throw const FormatException();
+      final approvedBy = payload['approved_by'];
+      if (approvedBy is! List) throw const FormatException();
+      if (payload.containsKey('approvals_required')) {
+        final required = payload['approvals_required'];
+        if (required is! int || required < 0) throw const FormatException();
+      }
+      for (final entry in approvedBy) {
+        if (entry is! Map<String, dynamic>) throw const FormatException();
+        final user = entry['user'];
+        if (user is! Map<String, dynamic>) throw const FormatException();
+        // Generated numeric deserialization can truncate fractional IDs.
+        final userId = user['id'];
+        if (userId is! int || userId <= 0) throw const FormatException();
+      }
+      return MergeRequestApprovals.fromJson(payload);
+    } on FormatException {
+      throw const GitLabServerException('Invalid approvals response.');
+    } on TypeError {
+      // Never expose server values, user records or raw parsing errors.
+      throw const GitLabServerException('Invalid approvals response.');
     }
   }
 
