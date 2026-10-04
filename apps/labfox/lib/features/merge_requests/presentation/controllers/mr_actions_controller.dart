@@ -23,7 +23,7 @@ final mrApprovalsProvider =
       ref,
       arg,
     ) async {
-      final repo = await ref.watch(mrActionsRepositoryProvider.future);
+      final repo = await ref.read(mrActionsRepositoryProvider.future);
       if (repo == null) {
         return null;
       }
@@ -34,35 +34,68 @@ final mrApprovalsProvider =
 /// the screen shows the server's state — never a locally fabricated one.
 class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
   bool _running = false;
+  int _generation = 0;
+  Completer<void>? _sessionEnded;
+
+  MrActionsRepository? _repository;
+  bool _hasRepository = false;
+
   @override
-  Future<void> build(MergeRequestRef arg) async {}
+  Future<void> build(MergeRequestRef arg) async {
+    _endSession();
+    _running = false;
+    _sessionEnded = Completer<void>();
+    _repository = null;
+    _hasRepository = false;
+    ref.onDispose(_endSession);
+    ref.listen(mrActionsRepositoryProvider, (previous, next) {
+      final changed =
+          next.hasValue &&
+          _hasRepository &&
+          !identical(_repository, next.valueOrNull);
+      final reloading =
+          next.isLoading && previous != null && !previous.isLoading;
+      if (changed || reloading) {
+        _endSession();
+        _sessionEnded = Completer<void>();
+        _running = false;
+        state = const AsyncData(null);
+      }
+      if (next.hasValue) {
+        _repository = next.valueOrNull;
+        _hasRepository = true;
+      }
+    }, fireImmediately: true);
+  }
+
+  void _endSession() {
+    _generation++;
+    final ended = _sessionEnded;
+    if (ended != null && !ended.isCompleted) ended.complete();
+  }
 
   Future<void> _refresh() async {
     ref.invalidate(mergeRequestControllerProvider(arg));
     ref.invalidate(mrApprovalsProvider(arg));
   }
 
-  Future<void> approve() => _run((repo) async {
-    await repo.approve(projectId: arg.projectId, iid: arg.iid);
-    _track('mr_approved');
-  });
+  Future<void> approve() => _run(
+    (repo) => repo.approve(projectId: arg.projectId, iid: arg.iid),
+    onSuccess: () => _track('mr_approved'),
+  );
 
-  Future<void> unapprove() => _run((repo) async {
-    await repo.unapprove(projectId: arg.projectId, iid: arg.iid);
-    _track('mr_unapproved');
-  });
+  Future<void> unapprove() => _run(
+    (repo) => repo.unapprove(projectId: arg.projectId, iid: arg.iid),
+    onSuccess: () => _track('mr_unapproved'),
+  );
 
   Future<void> merge({bool squash = false}) => _run((repo) async {
     await repo.merge(projectId: arg.projectId, iid: arg.iid, squash: squash);
-    // Which merge method gets used decides whether the squash option is worth
-    // keeping in the sheet.
-    _track('mr_merged', {'squash': squash});
-  });
+  }, onSuccess: () => _track('mr_merged', {'squash': squash}));
 
   Future<void> setOpen(bool open) => _run((repo) async {
     await repo.setOpen(projectId: arg.projectId, iid: arg.iid, open: open);
-    _track(open ? 'mr_reopened' : 'mr_closed');
-  });
+  }, onSuccess: () => _track(open ? 'mr_reopened' : 'mr_closed'));
 
   Future<void> setDraft({required bool draft, required String title}) =>
       _run((repo) async {
@@ -72,13 +105,12 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
           draft: draft,
           title: title,
         );
-        _track('mr_draft_changed', {'draft': draft});
-      });
+      }, onSuccess: () => _track('mr_draft_changed', {'draft': draft}));
 
-  Future<void> rebase() => _run((repo) async {
-    await repo.rebase(projectId: arg.projectId, iid: arg.iid);
-    _track('mr_rebased');
-  });
+  Future<void> rebase() => _run(
+    (repo) => repo.rebase(projectId: arg.projectId, iid: arg.iid),
+    onSuccess: () => _track('mr_rebased'),
+  );
 
   Future<void> setSubscription(bool subscribed) => _run((repo) async {
     await repo.setSubscription(
@@ -88,18 +120,20 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
     );
   });
 
-  /// Returns false when GitLab reports that a to-do already exists (304).
-  Future<bool> createTodo() async {
+  /// Returns false for an existing to-do, or null for a cancelled command.
+  Future<bool?> createTodo() async {
     var created = false;
-    await _run((repo) async {
-      final todo = await repo.createTodo(
-        projectId: arg.projectId,
-        iid: arg.iid,
-      );
-      created = todo != null;
-      if (created) ref.invalidate(inboxControllerProvider);
-    });
-    return created;
+    final completed = await _run(
+      (repo) async {
+        created =
+            await repo.createTodo(projectId: arg.projectId, iid: arg.iid) !=
+            null;
+      },
+      onSuccess: () {
+        if (created) ref.invalidate(inboxControllerProvider);
+      },
+    );
+    return completed ? created : null;
   }
 
   /// Names the action only. No project, iid, title, or branch ever leaves the
@@ -110,26 +144,37 @@ class MrActionsController extends FamilyAsyncNotifier<void, MergeRequestRef> {
 
   /// Sets a loading state around the action so the UI can disable buttons, runs
   /// it, refreshes, and rethrows a domain exception for the caller to surface.
-  Future<void> _run(
-    Future<void> Function(MrActionsRepository repo) action,
-  ) async {
-    if (_running) return;
-    // Reserve before awaiting the repository: the UI may not have rebuilt yet.
+  Future<bool> _run(
+    Future<void> Function(MrActionsRepository repo) action, {
+    void Function()? onSuccess,
+  }) async {
+    if (_running) return false;
+    final generation = _generation;
+    final ended = _sessionEnded!.future;
     _running = true;
     state = const AsyncLoading();
     try {
-      final repo = await ref.read(mrActionsRepositoryProvider.future);
-      if (repo == null) {
-        throw StateError('No authenticated account');
-      }
+      // A replaced provider future may never complete. End its waiting command
+      // when the session changes without dispatching or replaying a write.
+      final repo = await Future.any<MrActionsRepository?>([
+        ref.read(mrActionsRepositoryProvider.future),
+        ended.then((_) => null),
+      ]);
+      if (generation != _generation) return false;
+      if (repo == null) throw StateError('No authenticated account');
       await action(repo);
+      if (generation != _generation) return false;
       await _refresh();
+      if (generation != _generation) return false;
+      onSuccess?.call();
       state = const AsyncData(null);
+      return true;
     } catch (error, stack) {
+      if (generation != _generation) return false;
       state = AsyncError(error, stack);
       rethrow;
     } finally {
-      _running = false;
+      if (generation == _generation) _running = false;
     }
   }
 }
