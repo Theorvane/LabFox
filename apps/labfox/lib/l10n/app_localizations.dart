@@ -8155,6 +8155,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not load more jobs.'**
   String get pipelineJobsLoadMoreError;
+
+  /// Shown while the merge request approval state is being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading approval status…'**
+  String get mrApprovalStatusLoading;
+
+  /// Sanitized merge request approval-state read failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load approval status.'**
+  String get mrApprovalStatusError;
 }
 
 class _AppLocalizationsDelegate

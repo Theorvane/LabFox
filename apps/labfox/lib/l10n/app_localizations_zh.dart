@@ -4339,4 +4339,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pipelineJobsLoadMoreError => '无法加载更多作业。';
+
+  @override
+  String get mrApprovalStatusLoading => '正在加载批准状态…';
+
+  @override
+  String get mrApprovalStatusError => '无法加载批准状态。';
 }

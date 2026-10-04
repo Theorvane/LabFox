@@ -4475,4 +4475,10 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pipelineJobsLoadMoreError => '追加のジョブを読み込めませんでした。';
+
+  @override
+  String get mrApprovalStatusLoading => '承認状況を読み込み中…';
+
+  @override
+  String get mrApprovalStatusError => '承認状況を読み込めませんでした。';
 }

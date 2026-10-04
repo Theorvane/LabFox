@@ -2505,5 +2505,13 @@
   },
   "@pipelineJobsLoadMoreError": {
     "description": "Sanitized inline error when loading the next pipeline jobs page fails."
+  },
+  "mrApprovalStatusLoading": "Loading approval status…",
+  "mrApprovalStatusError": "Could not load approval status.",
+  "@mrApprovalStatusLoading": {
+    "description": "Shown while the merge request approval state is being loaded."
+  },
+  "@mrApprovalStatusError": {
+    "description": "Sanitized merge request approval-state read failure."
   }
 }
