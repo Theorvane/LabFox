@@ -160,17 +160,20 @@ class MrDiscussionsController
     bool Function()? isCurrent,
   }) async {
     if (_posting ||
+        _loadingMore ||
         !_currentSuggestion(discussionId, note, suggestion) ||
-        isCurrent?.call() == false)
+        isCurrent?.call() == false) {
       return false;
+    }
     final generation = _generation;
     _posting = true;
     bool current() => generation == _generation && isCurrent?.call() != false;
     try {
       final repo = await _repository();
       if (!current()) return false;
-      if (repo == null)
+      if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
+      }
       if (!_currentSuggestion(discussionId, note, suggestion)) return false;
       final fresh = await repo.discussion(
         projectId: arg.projectId,
@@ -194,10 +197,11 @@ class MrDiscussionsController
         commitMessage: commitMessage,
       );
       if (!current()) return false;
-      if (!confirmsAppliedSuggestion(returned, suggestion))
+      if (!confirmsAppliedSuggestion(returned, suggestion)) {
         throw const GitLabServerException(
           'Unconfirmed suggestion application.',
         );
+      }
       ref.invalidate(mergeRequestControllerProvider(arg));
       ref.invalidate(mrReviewSnapshotControllerProvider(arg));
       ref.invalidateSelf();
@@ -215,23 +219,25 @@ class MrDiscussionsController
     String discussionId, {
     bool Function()? isCurrent,
   }) async {
-    if (_posting || isCurrent?.call() == false) return null;
+    if (_posting || _loadingMore || isCurrent?.call() == false) return null;
     final generation = _generation;
     _posting = true;
     bool current() => generation == _generation && isCurrent?.call() != false;
     try {
       final repo = await _repository();
       if (!current()) return null;
-      if (repo == null)
+      if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
+      }
       final fresh = await repo.discussion(
         projectId: arg.projectId,
         iid: arg.iid,
         discussionId: discussionId,
       );
       if (!current()) return null;
-      if (fresh.id != discussionId)
+      if (fresh.id != discussionId) {
         throw const GitLabServerException('Invalid discussion response.');
+      }
       final page = state.valueOrNull;
       if (page != null && !state.isLoading && !state.hasError) {
         state = AsyncData(

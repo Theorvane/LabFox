@@ -607,8 +607,9 @@ class MergeRequestsApi {
       }
       try {
         final result = _parseDiscussions([response.data]).single;
-        if (result.id != discussionId)
+        if (result.id != discussionId) {
           throw const GitLabServerException('Unconfirmed discussion.');
+        }
         return result;
       } on GitLabServerException {
         throw const GitLabServerException('Invalid discussion response.');

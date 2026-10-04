@@ -15,6 +15,7 @@ import 'package:labfox/features/comments/data/comments_repository.dart';
 import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/mr_discussions_controller.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_review_snapshot_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/widgets/mr_discussion_thread.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 
@@ -104,6 +105,33 @@ class _Analytics implements Analytics {
   @override
   Future<void> track(String name, [Map<String, Object?>? properties]) async =>
       events.add(name);
+}
+
+class _Detail extends MergeRequestController {
+  _Detail(this.reads);
+  final void Function() reads;
+  @override
+  Future<MergeRequest> build(MergeRequestRef arg) async {
+    reads();
+    return const MergeRequest(
+      id: 99,
+      iid: 142,
+      title: 'Review',
+      state: 'opened',
+      sourceBranch: 'feature',
+      targetBranch: 'dev',
+    );
+  }
+}
+
+class _Snapshot extends MrReviewSnapshotController {
+  _Snapshot(this.reads);
+  final void Function() reads;
+  @override
+  Future<MrReviewSnapshot> build(MergeRequestRef arg) async {
+    reads();
+    return MrReviewSnapshot();
+  }
 }
 
 final _session = StateProvider<Future<CommentsRepository?>>(
@@ -213,7 +241,489 @@ Map<String, Object?> _suggestion({
   'applied': applied,
   'applicable': applicable,
 };
+Future<void> _openApplication(WidgetTester tester) async {
+  final open = find.byKey(const ValueKey('mr-suggestion-open-301-7'));
+  await tester.ensureVisible(open);
+  await tester.tap(open);
+  await tester.pumpAndSettle();
+  final apply = find.byKey(const ValueKey('mr-suggestion-apply-301-7'));
+  expect(apply, findsOneWidget);
+  await tester.ensureVisible(apply);
+  await tester.tap(apply);
+  await tester.pumpAndSettle();
+}
+
 void main() {
+  testWidgets(
+    'application requires explicit confirmation and cancellation never writes',
+    (tester) async {
+      final repo = _Repository()
+        ..pages[1] = Paginated(
+          items: [
+            _suggestions([_suggestion()]),
+          ],
+        );
+      await _pump(tester, repo);
+      await _openApplication(tester);
+      expect(find.byType(AlertDialog), findsOneWidget);
+      expect(repo.inspections, isEmpty);
+      expect(repo.applications, isEmpty);
+      await tester.tap(
+        find.byKey(const ValueKey('mr-suggestion-apply-cancel')),
+      );
+      await tester.pumpAndSettle();
+      expect(find.byType(AlertDialog), findsNothing);
+      expect(repo.applications, isEmpty);
+    },
+  );
+
+  testWidgets('confirmation forwards exact draft and only then applies once', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      );
+    await _pump(tester, repo);
+    await _openApplication(tester);
+    await tester.enterText(
+      find.byKey(const ValueKey('mr-suggestion-commit-message')),
+      '  Custom\nMessage  ',
+    );
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pumpAndSettle();
+    expect(repo.applications, [(7, '  Custom\nMessage  ')]);
+    expect(repo.inspections.length, 1);
+    expect(find.byType(AlertDialog), findsNothing);
+    expect(repo.reads.length, 2);
+  });
+  for (final error in [
+    const GitLabServerException('Uncertain'),
+    const GitLabForbiddenException('Denied'),
+    const GitLabConflictException('Changed'),
+  ]) {
+    testWidgets(
+      'failed application retains draft and requires explicit reload $error',
+      (tester) async {
+        final repo = _Repository()
+          ..pages[1] = Paginated(
+            items: [
+              _suggestions([_suggestion()]),
+            ],
+          )
+          ..applicationResult = error;
+        await _pump(tester, repo);
+        await _openApplication(tester);
+        await tester.enterText(
+          find.byKey(const ValueKey('mr-suggestion-commit-message')),
+          'Keep draft',
+        );
+        await tester.tap(
+          find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+        );
+        await tester.pumpAndSettle();
+        expect(
+          tester
+              .widget<TextButton>(
+                find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+              )
+              .onPressed,
+          isNull,
+        );
+        expect(
+          tester
+              .widget<TextField>(
+                find.byKey(const ValueKey('mr-suggestion-commit-message')),
+              )
+              .controller!
+              .text,
+          'Keep draft',
+        );
+        repo.inspectionResult = _suggestions([_suggestion(applied: true)]);
+        await tester.tap(
+          find.byKey(const ValueKey('mr-suggestion-apply-reload')),
+        );
+        await tester.pumpAndSettle();
+        expect(repo.applications.length, 1);
+        expect(repo.inspections.length, 2);
+        expect(
+          tester
+              .widget<TextButton>(
+                find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+              )
+              .onPressed,
+          isNull,
+        );
+      },
+    );
+  }
+  testWidgets('changed patch requires reload and a new confirmation', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      )
+      ..inspectionResult = _suggestions([
+        _suggestion(replacement: 'Changed code'),
+      ]);
+    await _pump(tester, repo);
+    await _openApplication(tester);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pumpAndSettle();
+    expect(repo.applications, isEmpty);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-reload')));
+    await tester.pumpAndSettle();
+    expect(find.text('Changed code'), findsWidgets);
+    expect(repo.applications, isEmpty);
+    repo.applicationResult = Suggestion.fromJson(
+      _suggestion(replacement: 'Changed code', applied: true),
+    );
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pumpAndSettle();
+    expect(repo.applications, [(7, null)]);
+  });
+  testWidgets('reload failure retains draft and never retries a write', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      )
+      ..applicationResult = const GitLabServerException('Uncertain');
+    await _pump(tester, repo);
+    await _openApplication(tester);
+    await tester.enterText(
+      find.byKey(const ValueKey('mr-suggestion-commit-message')),
+      'Keep',
+    );
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pumpAndSettle();
+    repo.inspectionResult = const GitLabServerException('Read failed');
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-reload')));
+    await tester.pumpAndSettle();
+    expect(repo.applications.length, 1);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(
+      tester
+          .widget<TextField>(
+            find.byKey(const ValueKey('mr-suggestion-commit-message')),
+          )
+          .controller!
+          .text,
+      'Keep',
+    );
+    repo.inspectionResult = _suggestions([]);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-reload')));
+    await tester.pumpAndSettle();
+    expect(repo.applications.length, 1);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNull,
+    );
+  });
+  testWidgets('pending preflight blocks dismissal and duplicate confirmation', (
+    tester,
+  ) async {
+    final pending = Completer<Discussion>();
+    final group = _suggestions([_suggestion()]);
+    final repo = _Repository()
+      ..pages[1] = Paginated(items: [group])
+      ..inspectionResult = pending.future;
+    await _pump(tester, repo);
+    await _openApplication(tester);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pump();
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-cancel')),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(
+      tester
+          .widget<TextField>(
+            find.byKey(const ValueKey('mr-suggestion-commit-message')),
+          )
+          .enabled,
+      false,
+    );
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(repo.applications, isEmpty);
+    pending.complete(group);
+    await tester.pumpAndSettle();
+    expect(repo.applications.length, 1);
+  });
+  testWidgets('account switch hides old patch and cancels pending preflight', (
+    tester,
+  ) async {
+    final pending = Completer<Discussion>();
+    final group = _suggestions([_suggestion()]);
+    final repo = _Repository()
+      ..pages[1] = Paginated(items: [group])
+      ..inspectionResult = pending.future;
+    final next = _Repository();
+    addTearDown(next.client.close);
+    final c = _container(repo, _Analytics());
+    await _pump(tester, repo, container: c);
+    await _openApplication(tester);
+    await tester.tap(find.byKey(const ValueKey('mr-suggestion-apply-confirm')));
+    await tester.pump();
+    c.read(_session.notifier).state = Future.value(next);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(find.text('  old();\n'), findsNothing);
+    pending.complete(group);
+    await tester.pumpAndSettle();
+    expect(repo.applications, isEmpty);
+    expect(next.applications, isEmpty);
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNull,
+    );
+  });
+  for (final locale in AppLocalizations.supportedLocales) {
+    for (final width in [390.0, 800.0, 1200.0]) {
+      for (final dark in [false, true]) {
+        testWidgets(
+          'confirmation layout ${locale.languageCode} $width dark=$dark',
+          (tester) async {
+            final repo = _Repository()
+              ..pages[1] = Paginated(
+                items: [
+                  _suggestions([_suggestion()]),
+                ],
+              );
+            await _pump(
+              tester,
+              repo,
+              width: width,
+              height: 900,
+              locale: locale,
+              dark: dark,
+            );
+            await _openApplication(tester);
+            expect(find.byType(AlertDialog), findsOneWidget);
+            expect(tester.takeException(), isNull);
+            expect(repo.applications, isEmpty);
+          },
+        );
+      }
+    }
+  }
+  testWidgets('compact confirmation scrolls with keyboard and large text', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      );
+    await _pump(tester, repo, width: 320, height: 600, textScale: 2);
+    await _openApplication(tester);
+    tester.view.viewInsets = const FakeViewPadding(bottom: 280);
+    addTearDown(tester.view.resetViewInsets);
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNotNull,
+    );
+  });
+  testWidgets('resource replacement hides old patch and blocks confirmation', (
+    tester,
+  ) async {
+    final repo = _Repository()
+      ..pages[1] = Paginated(
+        items: [
+          _suggestions([_suggestion()]),
+        ],
+      );
+    final c = _container(repo, _Analytics());
+    await _pump(tester, repo, container: c);
+    await _openApplication(tester);
+    await _pump(tester, repo, container: c, iid: 143);
+    expect(find.text('  old();\n'), findsNothing);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.byKey(const ValueKey('mr-suggestion-apply-confirm')),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(repo.applications, isEmpty);
+  });
+  test(
+    'pending pagination blocks application and recovery inspection',
+    () async {
+      final group = _suggestions([_suggestion()]);
+      final repo = _Repository()
+        ..pages[1] = Paginated(items: [group], nextPage: 2);
+      final pending = Completer<Paginated<Discussion>>();
+      repo.pages[2] = pending.future;
+      final c = _container(repo, _Analytics());
+      await c.read(mrDiscussionsControllerProvider(_key).future);
+      final ctrl = c.read(mrDiscussionsControllerProvider(_key).notifier);
+      final loading = ctrl.loadMore();
+      await Future<void>.delayed(Duration.zero);
+      expect(
+        await ctrl.applySuggestion(
+          discussionId: group.id,
+          note: group.notes.single,
+          suggestion: group.notes.single.suggestions!.single,
+        ),
+        false,
+      );
+      expect(await ctrl.inspectDiscussion(group.id), isNull);
+      expect(repo.inspections, isEmpty);
+      expect(repo.applications, isEmpty);
+      pending.complete(const Paginated(items: []));
+      await loading;
+    },
+  );
+  for (final returned in [
+    Suggestion.fromJson(_suggestion(applied: false)),
+    Suggestion.fromJson(_suggestion(applied: null)),
+    Suggestion.fromJson(_suggestion(applied: true, id: 8)),
+    Suggestion.fromJson(_suggestion(applied: true, original: 'Other')),
+    Suggestion.fromJson(_suggestion(applied: true, replacement: 'Other')),
+    Suggestion.fromJson(_suggestion(applied: true)).copyWith(fromLine: 11),
+    Suggestion.fromJson(_suggestion(applied: true)).copyWith(toLine: 13),
+  ]) {
+    test(
+      'unconfirmed returned state fails without reload or analytics $returned',
+      () async {
+        final group = _suggestions([_suggestion()]);
+        final repo = _Repository()
+          ..pages[1] = Paginated(items: [group])
+          ..applicationResult = returned;
+        final analytics = _Analytics();
+        final c = _container(repo, analytics);
+        await c.read(mrDiscussionsControllerProvider(_key).future);
+        await expectLater(
+          c
+              .read(mrDiscussionsControllerProvider(_key).notifier)
+              .applySuggestion(
+                discussionId: group.id,
+                note: group.notes.single,
+                suggestion: group.notes.single.suggestions!.single,
+              ),
+          throwsA(isA<GitLabServerException>()),
+        );
+        expect(repo.applications.length, 1);
+        expect(repo.reads.length, 1);
+        expect(analytics.events, isEmpty);
+      },
+    );
+  }
+  test('matching sparse applied response confirms application', () async {
+    final group = _suggestions([_suggestion()]);
+    final repo = _Repository()
+      ..pages[1] = Paginated(items: [group])
+      ..applicationResult = const Suggestion(id: 7, applied: true);
+    final c = _container(repo, _Analytics());
+    await c.read(mrDiscussionsControllerProvider(_key).future);
+    expect(
+      await c
+          .read(mrDiscussionsControllerProvider(_key).notifier)
+          .applySuggestion(
+            discussionId: group.id,
+            note: group.notes.single,
+            suggestion: group.notes.single.suggestions!.single,
+          ),
+      true,
+    );
+  });
+  for (final confirmed in [true, false]) {
+    test(
+      'only confirmed application refreshes detail and latest review snapshot $confirmed',
+      () async {
+        var detailReads = 0, snapshotReads = 0;
+        final group = _suggestions([_suggestion()]);
+        final repo = _Repository()
+          ..pages[1] = Paginated(items: [group])
+          ..applicationResult = Suggestion(id: 7, applied: confirmed);
+        final c = ProviderContainer(
+          overrides: [
+            commentsRepositoryProvider.overrideWith((ref) async => repo),
+            analyticsProvider.overrideWithValue(_Analytics()),
+            mergeRequestControllerProvider.overrideWith(
+              () => _Detail(() => detailReads++),
+            ),
+            mrReviewSnapshotControllerProvider.overrideWith(
+              () => _Snapshot(() => snapshotReads++),
+            ),
+          ],
+        );
+        addTearDown(c.dispose);
+        addTearDown(repo.client.close);
+        final sub = c.listen(
+          mrReviewSnapshotControllerProvider(_key),
+          (_, _) {},
+        );
+        addTearDown(sub.close);
+        await c.read(mergeRequestControllerProvider(_key).future);
+        await c.read(mrReviewSnapshotControllerProvider(_key).future);
+        await c.read(mrDiscussionsControllerProvider(_key).future);
+        final future = c
+            .read(mrDiscussionsControllerProvider(_key).notifier)
+            .applySuggestion(
+              discussionId: group.id,
+              note: group.notes.single,
+              suggestion: group.notes.single.suggestions!.single,
+            );
+        if (confirmed) {
+          expect(await future, true);
+        } else {
+          await expectLater(future, throwsA(isA<GitLabServerException>()));
+        }
+        await c.read(mergeRequestControllerProvider(_key).future);
+        await c.read(mrReviewSnapshotControllerProvider(_key).future);
+        expect(detailReads, confirmed ? 2 : 1);
+        expect(snapshotReads, confirmed ? 2 : 1);
+      },
+    );
+  }
   test(
     'fresh matching target applies exactly once without comment analytics',
     () async {
@@ -549,4 +1059,97 @@ void main() {
       expect(repo.applications, isEmpty);
     },
   );
+  if (Platform.environment['LABFOX_SUGGESTION_APPLY_CAPTURE']
+      case final String directory) {
+    for (final width in [390.0, 1200.0]) {
+      for (final dark in [false, true]) {
+        testWidgets('synthetic application confirmation capture $width $dark', (
+          tester,
+        ) async {
+          final sdk = Platform.environment['FLUTTER_ROOT']!;
+          await tester.runAsync(() async {
+            for (final (family, name) in [
+              ('Roboto', 'Roboto-Regular.ttf'),
+              ('monospace', 'Roboto-Regular.ttf'),
+              ('MaterialIcons', 'MaterialIcons-Regular.otf'),
+            ]) {
+              final loader = FontLoader(family)
+                ..addFont(
+                  Future.value(
+                    ByteData.sublistView(
+                      File(
+                        '$sdk/bin/cache/artifacts/material_fonts/$name',
+                      ).readAsBytesSync(),
+                    ),
+                  ),
+                );
+              if (family == 'Roboto') {
+                for (final weight in ['Medium', 'Bold']) {
+                  loader.addFont(
+                    Future.value(
+                      ByteData.sublistView(
+                        File(
+                          '$sdk/bin/cache/artifacts/material_fonts/Roboto-$weight.ttf',
+                        ).readAsBytesSync(),
+                      ),
+                    ),
+                  );
+                }
+              }
+              await loader.load();
+            }
+          });
+          final baseTheme = dark ? LabFoxTheme.dark : LabFoxTheme.light;
+          final buttonStyle = baseTheme.filledButtonTheme.style!;
+          final captureTheme = baseTheme.copyWith(
+            filledButtonTheme: FilledButtonThemeData(
+              style: buttonStyle.copyWith(
+                textStyle: WidgetStatePropertyAll(
+                  buttonStyle.textStyle!
+                      .resolve({})!
+                      .copyWith(fontFamily: 'Roboto'),
+                ),
+              ),
+            ),
+          );
+          final repo = _Repository()
+            ..pages[1] = Paginated(
+              items: [
+                _suggestions([
+                  _suggestion(
+                    original: '  return oldValue;\n',
+                    replacement: '  return reviewedValue;\n',
+                  ),
+                ]),
+              ],
+            );
+          await _pump(
+            tester,
+            repo,
+            width: width,
+            height: width < 600 ? 844 : 900,
+            dark: dark,
+            theme: captureTheme,
+          );
+          await _openApplication(tester);
+          expect(tester.takeException(), isNull);
+          final boundary = tester.renderObject<RenderRepaintBoundary>(
+            find.byKey(_captureKey),
+          );
+          final image = (await tester.runAsync(boundary.toImage))!;
+          final data = await tester.runAsync(
+            () => image.toByteData(format: ui.ImageByteFormat.png),
+          );
+          await tester.runAsync(() async {
+            final file = File(
+              '$directory/apply-${width.toInt()}-${dark ? 'dark' : 'light'}.png',
+            );
+            await file.parent.create(recursive: true);
+            await file.writeAsBytes(data!.buffer.asUint8List());
+          });
+          image.dispose();
+        });
+      }
+    }
+  }
 }

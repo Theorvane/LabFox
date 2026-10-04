@@ -5,21 +5,31 @@ import 'package:intl/intl.dart';
 
 import '../../../../l10n/app_localizations.dart';
 
-/// A read-only preview of the server's original and replacement code.
+/// Literal server code with an optional caller-owned action after the preview.
 class MrSuggestionPreview extends StatefulWidget {
   const MrSuggestionPreview({
     required this.noteId,
     required this.suggestion,
+    this.action,
+    this.initiallyExpanded = false,
     super.key,
   });
   final int noteId;
   final Suggestion suggestion;
+  final Widget? action;
+  final bool initiallyExpanded;
   @override
   State<MrSuggestionPreview> createState() => _SuggestionPreviewState();
 }
 
 class _SuggestionPreviewState extends State<MrSuggestionPreview> {
-  bool _expanded = false;
+  late bool _expanded;
+  @override
+  void initState() {
+    super.initState();
+    _expanded = widget.initiallyExpanded;
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -77,6 +87,7 @@ class _SuggestionPreviewState extends State<MrSuggestionPreview> {
               label: l10n.mrSuggestionReplacement,
               content: suggestion.toContent,
             ),
+            ?widget.action,
           ],
         ],
       ),

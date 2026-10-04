@@ -4656,4 +4656,56 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrSuggestionHideButton => '제안 숨기기';
+
+  @override
+  String get mrSuggestionApplyButton => '제안 적용';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return '제안 $suggestionId을(를) 적용할까요?';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact =>
+      '병합 요청의 소스 브랜치에 커밋이 생성됩니다. 적용 전에 교체 코드를 확인하세요.';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => '커밋 메시지 (선택 사항)';
+
+  @override
+  String get mrSuggestionCommitMessageHint => '비워 두면 GitLab 기본 메시지가 사용됩니다.';
+
+  @override
+  String get mrSuggestionApplyProgress => '제안을 확인하고 적용하는 중…';
+
+  @override
+  String get mrSuggestionApplySuccess => '제안이 적용되었습니다.';
+
+  @override
+  String get mrSuggestionApplyError =>
+      '적용 결과를 확인하지 못했습니다. 다시 시도하기 전에 토론을 새로고침하여 현재 상태를 확인하세요.';
+
+  @override
+  String get mrSuggestionApplyForbidden =>
+      'GitLab이 이 작업을 거부했습니다. 접근 권한을 확인한 후 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get mrSuggestionApplyChanged =>
+      '제안이 변경되었습니다. 새로고침한 후 현재 코드를 검토하고 적용하세요.';
+
+  @override
+  String get mrSuggestionReloadButton => '토론 새로고침';
+
+  @override
+  String get mrSuggestionReloadProgress => '토론을 새로고침하는 중…';
+
+  @override
+  String get mrSuggestionReloadError => '토론을 새로고침하지 못했습니다. 다시 새로고침하세요.';
+
+  @override
+  String get mrSuggestionUnavailable => '이 제안은 적용할 수 없습니다.';
+
+  @override
+  String get mrSuggestionSessionChanged =>
+      '계정 또는 병합 요청이 변경되었습니다. 이 창을 닫고 제안을 다시 여세요.';
 }

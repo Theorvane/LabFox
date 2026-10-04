@@ -36,8 +36,9 @@ bool containsApplicableSuggestion(
             current.fromLine == suggestion.fromLine &&
             current.toLine == suggestion.toLine &&
             current.fromContent == suggestion.fromContent &&
-            current.toContent == suggestion.toContent)
+            current.toContent == suggestion.toContent) {
           matching = true;
+        }
       }
     }
   }

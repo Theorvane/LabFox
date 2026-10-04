@@ -1318,5 +1318,20 @@
   "mrSuggestionContentUnknown": "सामग्री उपलब्ध नहीं है",
   "mrSuggestionContentEmpty": "खाली सामग्री",
   "mrSuggestionViewButton": "सुझाव देखें",
-  "mrSuggestionHideButton": "सुझाव छिपाएँ"
+  "mrSuggestionHideButton": "सुझाव छिपाएँ",
+  "mrSuggestionApplyButton": "सुझाव लागू करें",
+  "mrSuggestionApplyTitle": "सुझाव {suggestionId} लागू करें?",
+  "mrSuggestionApplyImpact": "यह मर्ज अनुरोध की स्रोत शाखा पर एक कमिट बनाता है। लागू करने से पहले प्रतिस्थापन कोड की समीक्षा करें।",
+  "mrSuggestionCommitMessageLabel": "कमिट संदेश (वैकल्पिक)",
+  "mrSuggestionCommitMessageHint": "GitLab का डिफ़ॉल्ट संदेश उपयोग करने के लिए खाली छोड़ें।",
+  "mrSuggestionApplyProgress": "सुझाव की जाँच और लागू किया जा रहा है…",
+  "mrSuggestionApplySuccess": "सुझाव लागू हुआ।",
+  "mrSuggestionApplyError": "लागू होने की पुष्टि नहीं हो सकी। फिर कोशिश करने से पहले चर्चा दोबारा लोड करके वर्तमान स्थिति जाँचें।",
+  "mrSuggestionApplyForbidden": "GitLab ने यह कार्रवाई अस्वीकार कर दी। अपना एक्सेस जाँचें और फिर कोशिश करने से पहले दोबारा लोड करें।",
+  "mrSuggestionApplyChanged": "सुझाव बदल गया है। दोबारा लोड करें और लागू करने से पहले वर्तमान कोड की समीक्षा करें।",
+  "mrSuggestionReloadButton": "चर्चा दोबारा लोड करें",
+  "mrSuggestionReloadProgress": "चर्चा दोबारा लोड हो रही है…",
+  "mrSuggestionReloadError": "चर्चा दोबारा लोड नहीं हो सकी। दोबारा लोड करने की कोशिश करें।",
+  "mrSuggestionUnavailable": "यह सुझाव लागू करने के लिए उपलब्ध नहीं है।",
+  "mrSuggestionSessionChanged": "खाता या मर्ज अनुरोध बदल गया है। यह संवाद बंद करके सुझाव दोबारा खोलें।"
 }

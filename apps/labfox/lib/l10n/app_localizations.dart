@@ -8479,6 +8479,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hide suggestion'**
   String get mrSuggestionHideButton;
+
+  /// No description provided for @mrSuggestionApplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply suggestion'**
+  String get mrSuggestionApplyButton;
+
+  /// No description provided for @mrSuggestionApplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply suggestion {suggestionId}?'**
+  String mrSuggestionApplyTitle(String suggestionId);
+
+  /// No description provided for @mrSuggestionApplyImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'This creates a commit on the merge request source branch. Review the replacement code before applying.'**
+  String get mrSuggestionApplyImpact;
+
+  /// No description provided for @mrSuggestionCommitMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit message (optional)'**
+  String get mrSuggestionCommitMessageLabel;
+
+  /// No description provided for @mrSuggestionCommitMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to use GitLab’s default message.'**
+  String get mrSuggestionCommitMessageHint;
+
+  /// No description provided for @mrSuggestionApplyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking and applying suggestion…'**
+  String get mrSuggestionApplyProgress;
+
+  /// No description provided for @mrSuggestionApplySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion applied.'**
+  String get mrSuggestionApplySuccess;
+
+  /// No description provided for @mrSuggestionApplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'The application could not be confirmed. Reload the discussion to check its current state before trying again.'**
+  String get mrSuggestionApplyError;
+
+  /// No description provided for @mrSuggestionApplyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied this operation. Check your access, then reload before trying again.'**
+  String get mrSuggestionApplyForbidden;
+
+  /// No description provided for @mrSuggestionApplyChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The suggestion changed. Reload and review its current code before applying.'**
+  String get mrSuggestionApplyChanged;
+
+  /// No description provided for @mrSuggestionReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload discussion'**
+  String get mrSuggestionReloadButton;
+
+  /// No description provided for @mrSuggestionReloadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Reloading discussion…'**
+  String get mrSuggestionReloadProgress;
+
+  /// No description provided for @mrSuggestionReloadError.
+  ///
+  /// In en, this message translates to:
+  /// **'The discussion could not be reloaded. Try reloading again.'**
+  String get mrSuggestionReloadError;
+
+  /// No description provided for @mrSuggestionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This suggestion is unavailable for application.'**
+  String get mrSuggestionUnavailable;
+
+  /// No description provided for @mrSuggestionSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account or merge request changed. Close this dialog and reopen the suggestion.'**
+  String get mrSuggestionSessionChanged;
 }
 
 class _AppLocalizationsDelegate

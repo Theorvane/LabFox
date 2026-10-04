@@ -4511,4 +4511,51 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrSuggestionHideButton => '隐藏建议';
+
+  @override
+  String get mrSuggestionApplyButton => '应用建议';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return '应用建议 $suggestionId？';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact => '这将在合并请求的源分支上创建提交。应用前请检查替换代码。';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => '提交信息（可选）';
+
+  @override
+  String get mrSuggestionCommitMessageHint => '留空以使用 GitLab 的默认信息。';
+
+  @override
+  String get mrSuggestionApplyProgress => '正在检查并应用建议…';
+
+  @override
+  String get mrSuggestionApplySuccess => '建议已应用。';
+
+  @override
+  String get mrSuggestionApplyError => '无法确认应用结果。再次尝试前，请重新加载讨论以检查当前状态。';
+
+  @override
+  String get mrSuggestionApplyForbidden => 'GitLab 拒绝了此操作。请检查访问权限，并在再次尝试前重新加载。';
+
+  @override
+  String get mrSuggestionApplyChanged => '建议已更改。请重新加载并检查当前代码，然后再应用。';
+
+  @override
+  String get mrSuggestionReloadButton => '重新加载讨论';
+
+  @override
+  String get mrSuggestionReloadProgress => '正在重新加载讨论…';
+
+  @override
+  String get mrSuggestionReloadError => '无法重新加载讨论。请再次尝试重新加载。';
+
+  @override
+  String get mrSuggestionUnavailable => '此建议无法应用。';
+
+  @override
+  String get mrSuggestionSessionChanged => '账号或合并请求已更改。请关闭此对话框并重新打开建议。';
 }

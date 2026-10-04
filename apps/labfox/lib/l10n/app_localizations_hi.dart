@@ -4811,4 +4811,60 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrSuggestionHideButton => 'सुझाव छिपाएँ';
+
+  @override
+  String get mrSuggestionApplyButton => 'सुझाव लागू करें';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return 'सुझाव $suggestionId लागू करें?';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact =>
+      'यह मर्ज अनुरोध की स्रोत शाखा पर एक कमिट बनाता है। लागू करने से पहले प्रतिस्थापन कोड की समीक्षा करें।';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => 'कमिट संदेश (वैकल्पिक)';
+
+  @override
+  String get mrSuggestionCommitMessageHint =>
+      'GitLab का डिफ़ॉल्ट संदेश उपयोग करने के लिए खाली छोड़ें।';
+
+  @override
+  String get mrSuggestionApplyProgress =>
+      'सुझाव की जाँच और लागू किया जा रहा है…';
+
+  @override
+  String get mrSuggestionApplySuccess => 'सुझाव लागू हुआ।';
+
+  @override
+  String get mrSuggestionApplyError =>
+      'लागू होने की पुष्टि नहीं हो सकी। फिर कोशिश करने से पहले चर्चा दोबारा लोड करके वर्तमान स्थिति जाँचें।';
+
+  @override
+  String get mrSuggestionApplyForbidden =>
+      'GitLab ने यह कार्रवाई अस्वीकार कर दी। अपना एक्सेस जाँचें और फिर कोशिश करने से पहले दोबारा लोड करें।';
+
+  @override
+  String get mrSuggestionApplyChanged =>
+      'सुझाव बदल गया है। दोबारा लोड करें और लागू करने से पहले वर्तमान कोड की समीक्षा करें।';
+
+  @override
+  String get mrSuggestionReloadButton => 'चर्चा दोबारा लोड करें';
+
+  @override
+  String get mrSuggestionReloadProgress => 'चर्चा दोबारा लोड हो रही है…';
+
+  @override
+  String get mrSuggestionReloadError =>
+      'चर्चा दोबारा लोड नहीं हो सकी। दोबारा लोड करने की कोशिश करें।';
+
+  @override
+  String get mrSuggestionUnavailable =>
+      'यह सुझाव लागू करने के लिए उपलब्ध नहीं है।';
+
+  @override
+  String get mrSuggestionSessionChanged =>
+      'खाता या मर्ज अनुरोध बदल गया है। यह संवाद बंद करके सुझाव दोबारा खोलें।';
 }
