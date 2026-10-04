@@ -5,6 +5,7 @@ import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 import '../suggestions/suggestion_payload.dart';
+import 'positioned_discussion.dart';
 
 /// Which merge requests to list.
 enum MergeRequestState {
@@ -656,7 +657,7 @@ class MergeRequestsApi {
     }
   }
 
-  /// Creates a text discussion on one explicitly supplied original diff line.
+  /// Creates a text discussion on an explicitly supplied original diff line or range.
   ///
   /// Callers obtain the SHA triplet and coordinates from the selected version.
   /// Markdown and paths are preserved; unsupported anchors are never guessed.
@@ -684,24 +685,20 @@ class MergeRequestsApi {
         (position.oldLine == null && position.newLine == null) ||
         (position.oldLine != null && position.oldLine! < 1) ||
         (position.newLine != null && position.newLine! < 1) ||
-        position.lineRange != null ||
+        !validMultilinePosition(position) ||
         position.width != null ||
         position.height != null ||
         position.x != null ||
         position.y != null) {
       throw ArgumentError(
-        'A complete single-line text position is required.',
+        'A complete original text position is required.',
         'position',
       );
     }
     try {
       final response = await _dio.post<dynamic>(
         '/projects/${_enc(projectId)}/merge_requests/$iid/discussions',
-        data: {
-          'body': body,
-          'position': position.toJson()
-            ..removeWhere((_, value) => value == null),
-        },
+        data: {'body': body, 'position': positionedDiscussionPayload(position)},
         options: Options(
           followRedirects: false,
           extra: {'labfox_no_auth_retry': true},
@@ -736,7 +733,8 @@ class MergeRequestsApi {
             returned.newPath != position.newPath ||
             returned.oldLine != position.oldLine ||
             returned.newLine != position.newLine ||
-            returned.lineRange != null) {
+            !validMultilinePosition(returned) ||
+            !sameDiscussionRange(position.lineRange, returned.lineRange)) {
           throw const GitLabServerException(
             'Unconfirmed positioned discussion.',
           );

@@ -4757,11 +4757,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiffDiscussionInspect =>
-      'फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।';
+      'दोबारा भेजने से पहले इस चयन की चर्चाएँ देखें।';
 
   @override
   String get mrDiffDiscussionNoMatches =>
-      'लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।';
+      'लोड किए गए पृष्ठों में इस चयन की कोई चर्चा नहीं है।';
 
   @override
   String mrSuggestionTitle(String number) {
@@ -4932,4 +4932,25 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiscussionContextRangeLineLabel => 'टिप्पणी की सीमा में पंक्ति';
+
+  @override
+  String get mrDiffSelectRangeButton => 'सीमा चुनें';
+
+  @override
+  String get mrDiffRangeEndButton => 'इस पंक्ति पर सीमा समाप्त करें';
+
+  @override
+  String get mrDiffRangeChooseEnd =>
+      'इस फ़ाइल में अंतिम पंक्ति चुनें। पहली पंक्ति के बाद केवल पूरी सीमाएँ उपलब्ध हैं।';
+
+  @override
+  String get mrDiffSingleLineButton => 'एक पंक्ति का उपयोग करें';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return 'चुनी गई सीमा: $start से $end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => 'चर्चा के लिए चुनी गई पंक्ति';
 }

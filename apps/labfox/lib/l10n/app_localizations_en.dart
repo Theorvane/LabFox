@@ -4756,11 +4756,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiffDiscussionInspect =>
-      'Inspect discussions at this line before submitting again.';
+      'Inspect discussions at this selection before submitting again.';
 
   @override
   String get mrDiffDiscussionNoMatches =>
-      'No discussions at this line in the loaded pages.';
+      'No discussions at this selection in the loaded pages.';
 
   @override
   String mrSuggestionTitle(String number) {
@@ -4929,4 +4929,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiscussionContextRangeLineLabel => 'Line in commented range';
+
+  @override
+  String get mrDiffSelectRangeButton => 'Select a range';
+
+  @override
+  String get mrDiffRangeEndButton => 'End range on this line';
+
+  @override
+  String get mrDiffRangeChooseEnd =>
+      'Choose the last line in this file. Only complete ranges after the first line are available.';
+
+  @override
+  String get mrDiffSingleLineButton => 'Use single line';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return 'Selected range: $start to $end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => 'Selected discussion line';
 }

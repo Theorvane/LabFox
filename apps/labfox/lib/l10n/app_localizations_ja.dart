@@ -4596,10 +4596,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get mrDiffDiscussionReloading => 'ディスカッションを更新中…';
 
   @override
-  String get mrDiffDiscussionInspect => '再送信する前にこの行のディスカッションを確認してください。';
+  String get mrDiffDiscussionInspect => '再送信する前に、選択した位置のディスカッションを確認してください。';
 
   @override
-  String get mrDiffDiscussionNoMatches => '読み込んだページにはこの行のディスカッションがありません。';
+  String get mrDiffDiscussionNoMatches => '読み込んだページに選択した位置のディスカッションはありません。';
 
   @override
   String mrSuggestionTitle(String number) {
@@ -4765,4 +4765,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiscussionContextRangeLineLabel => 'コメント範囲内の行';
+
+  @override
+  String get mrDiffSelectRangeButton => '範囲を選択';
+
+  @override
+  String get mrDiffRangeEndButton => 'この行で範囲を終了';
+
+  @override
+  String get mrDiffRangeChooseEnd =>
+      'このファイルの最後の行を選択してください。開始行より後の完全な範囲のみ選択できます。';
+
+  @override
+  String get mrDiffSingleLineButton => '1行を使用';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return '選択範囲: $start～$end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => '選択したディスカッションの行';
 }

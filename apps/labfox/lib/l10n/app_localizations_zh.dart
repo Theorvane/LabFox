@@ -4458,10 +4458,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mrDiffDiscussionReloading => '正在刷新讨论…';
 
   @override
-  String get mrDiffDiscussionInspect => '再次提交前请检查此行的讨论。';
+  String get mrDiffDiscussionInspect => '再次提交前，请检查所选位置的讨论。';
 
   @override
-  String get mrDiffDiscussionNoMatches => '已加载的页面中没有此行的讨论。';
+  String get mrDiffDiscussionNoMatches => '已加载的页面中没有所选位置的讨论。';
 
   @override
   String mrSuggestionTitle(String number) {
@@ -4617,4 +4617,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiscussionContextRangeLineLabel => '评论范围内的行';
+
+  @override
+  String get mrDiffSelectRangeButton => '选择范围';
+
+  @override
+  String get mrDiffRangeEndButton => '在此行结束范围';
+
+  @override
+  String get mrDiffRangeChooseEnd => '请选择此文件中的最后一行。只能选择起始行之后的完整范围。';
+
+  @override
+  String get mrDiffSingleLineButton => '使用单行';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return '已选范围：$start 至 $end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => '已选讨论行';
 }

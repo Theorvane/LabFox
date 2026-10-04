@@ -4603,10 +4603,10 @@ class AppLocalizationsKo extends AppLocalizations {
   String get mrDiffDiscussionReloading => '토론 새로고침 중…';
 
   @override
-  String get mrDiffDiscussionInspect => '다시 제출하기 전에 이 줄의 토론을 확인하세요.';
+  String get mrDiffDiscussionInspect => '다시 제출하기 전에 선택한 위치의 토론을 확인하세요.';
 
   @override
-  String get mrDiffDiscussionNoMatches => '불러온 페이지에는 이 줄의 토론이 없습니다.';
+  String get mrDiffDiscussionNoMatches => '불러온 페이지에 선택한 위치의 토론이 없습니다.';
 
   @override
   String mrSuggestionTitle(String number) {
@@ -4770,4 +4770,25 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiscussionContextRangeLineLabel => '댓글 범위에 포함된 줄';
+
+  @override
+  String get mrDiffSelectRangeButton => '범위 선택';
+
+  @override
+  String get mrDiffRangeEndButton => '이 줄에서 범위 끝내기';
+
+  @override
+  String get mrDiffRangeChooseEnd =>
+      '이 파일에서 마지막 줄을 선택하세요. 첫 줄 뒤의 완전한 범위만 선택할 수 있습니다.';
+
+  @override
+  String get mrDiffSingleLineButton => '한 줄 사용';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return '선택한 범위: $start~$end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => '선택한 토론 줄';
 }

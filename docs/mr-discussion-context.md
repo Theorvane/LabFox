@@ -12,7 +12,7 @@ Version search reads one page at a time. **Look for older versions** explicitly 
 
 ## Supported and unavailable contexts
 
-Single-line text positions and complete multiline text ranges require a matching available original snapshot. Missing, collapsed, too-large, uncollected, ambiguous or unmatched data is unavailable. Image, file and unfamiliar position types retain model metadata but have no text preview. Ranges crossing omitted context and reverse mixed-side endpoints are deliberately unavailable; this slice does not fetch full file blobs or reinterpret their ordering. Multiline positioned thread creation remains separate. Existing single-line creation and single/batch suggestion application remain unchanged.
+Single-line text positions and complete multiline text ranges require a matching available original snapshot. Missing, collapsed, too-large, uncollected, ambiguous or unmatched data is unavailable. Image, file and unfamiliar position types retain model metadata but have no text preview. Ranges crossing omitted context and reverse mixed-side endpoints are deliberately unavailable; this slice does not fetch full file blobs or reinterpret their ordering. [Multiline positioned thread creation](mr-multiline-discussions.md) uses an explicit selection in the latest review snapshot; this context panel stays read-only. Single/batch suggestion application retains its separate flow.
 
 ## Verification and captures
 

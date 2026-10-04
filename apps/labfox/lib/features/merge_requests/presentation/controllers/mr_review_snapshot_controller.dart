@@ -3,9 +3,10 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../diff/presentation/controllers/diff_controllers.dart';
+import '../../data/review_diff_range.dart';
 import 'merge_requests_controllers.dart';
 
-/// The authoritative latest version displayed for single-line review.
+/// The authoritative latest version displayed for positioned review.
 class MrReviewSnapshot {
   MrReviewSnapshot({
     this.version,
@@ -20,8 +21,54 @@ class MrReviewSnapshot {
       _buildPositions();
   DiffNotePosition? positionFor(FileDiff file, DiffLine line) =>
       _positions[file]?[line];
-  bool containsPosition(DiffNotePosition position) =>
-      _positions.values.any((lines) => lines.values.contains(position));
+  late final _ranges = Map<FileDiff, ReviewDiffRange>.identity()
+    ..addEntries(
+      _positions.keys.map((file) => MapEntry(file, ReviewDiffRange(file))),
+    );
+
+  DiffNotePosition? rangePositionFor(
+    FileDiff file,
+    DiffLine start,
+    DiffLine end,
+  ) {
+    if (positionFor(file, start) == null) return null;
+    final anchor = positionFor(file, end);
+    final range = _ranges[file]?.between(start, end);
+    return anchor == null || range == null
+        ? null
+        : anchor.copyWith(lineRange: range);
+  }
+
+  List<DiffLine> linesForPosition(FileDiff file, DiffNotePosition position) {
+    if (position.oldPath != file.oldPath ||
+        position.newPath != file.newPath ||
+        position.baseSha != version?.baseCommitSha ||
+        position.startSha != version?.startCommitSha ||
+        position.headSha != version?.headCommitSha) {
+      return const [];
+    }
+    if (position.lineRange != null) {
+      return _ranges[file]?.matching(position.lineRange!) ?? const [];
+    }
+    return [
+      for (final entry in (_positions[file] ?? {}).entries)
+        if (entry.value == position) entry.key,
+    ];
+  }
+
+  bool containsPosition(DiffNotePosition position) {
+    if (position.lineRange == null) {
+      return _positions.values.any((lines) => lines.values.contains(position));
+    }
+    for (final file in _positions.keys) {
+      final lines = linesForPosition(file, position);
+      if (lines.length > 1 &&
+          rangePositionFor(file, lines.first, lines.last) == position) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   Map<FileDiff, Map<DiffLine, DiffNotePosition>> _buildPositions() {
     final result = Map<FileDiff, Map<DiffLine, DiffNotePosition>>.identity();

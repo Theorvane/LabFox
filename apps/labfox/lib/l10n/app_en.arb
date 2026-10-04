@@ -2567,8 +2567,8 @@
   },
   "mrDiffDiscussionPending": "Creating discussion…",
   "mrDiffDiscussionReloading": "Refreshing discussions…",
-  "mrDiffDiscussionInspect": "Inspect discussions at this line before submitting again.",
-  "mrDiffDiscussionNoMatches": "No discussions at this line in the loaded pages.",
+  "mrDiffDiscussionInspect": "Inspect discussions at this selection before submitting again.",
+  "mrDiffDiscussionNoMatches": "No discussions at this selection in the loaded pages.",
   "mrSuggestionTitle": "Suggestion {number}",
   "@mrSuggestionTitle": {
     "description": "MR code suggestion preview Title",
@@ -2700,5 +2700,17 @@
         "type": "String"
       }
     }
-  }
+  },
+  "mrDiffSelectRangeButton": "Select a range",
+  "@mrDiffSelectRangeButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffRangeEndButton": "End range on this line",
+  "@mrDiffRangeEndButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffRangeChooseEnd": "Choose the last line in this file. Only complete ranges after the first line are available.",
+  "@mrDiffRangeChooseEnd": {"description": "Multiline diff discussion selection."},
+  "mrDiffSingleLineButton": "Use single line",
+  "@mrDiffSingleLineButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffSelectedRangeLabel": "Selected range: {start} to {end}",
+  "@mrDiffSelectedRangeLabel": {"description": "Multiline diff discussion selection.", "placeholders": {"start": {"type": "String"}, "end": {"type": "String"}}},
+  "mrDiffSelectedLineLabel": "Selected discussion line",
+  "@mrDiffSelectedLineLabel": {"description": "Multiline diff discussion selection."}
 }

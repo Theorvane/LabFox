@@ -374,10 +374,17 @@ class MrDiscussionsController
     }
     final generation = _generation;
     _posting = true;
+    final repositorySession = ref.read(commentsRepositoryProvider.future);
     // A successful write reloads page one, superseding any in-flight pagination.
     try {
       final repo = await _repository();
-      if (generation != _generation) return false;
+      final session = ref.read(commentsRepositoryProvider);
+      if (generation != _generation ||
+          session.isLoading ||
+          session.hasError ||
+          !identical(session.valueOrNull, repo)) {
+        return false;
+      }
       if (repo == null) {
         throw const GitLabAuthException('No authenticated account.');
       }
@@ -411,7 +418,13 @@ class MrDiscussionsController
           body: body,
         );
       }
-      if (generation != _generation) return false;
+      final completedSession = ref.read(commentsRepositoryProvider);
+      if (generation != _generation ||
+          completedSession.isLoading ||
+          completedSession.hasError ||
+          !identical(completedSession.valueOrNull, repo)) {
+        return false;
+      }
       if (resolved == null) {
         unawaited(
           ref.read(analyticsProvider).track('comment_posted', {
@@ -424,7 +437,13 @@ class MrDiscussionsController
       ref.invalidateSelf();
       return true;
     } catch (_) {
-      if (generation != _generation) return false;
+      if (generation != _generation ||
+          !identical(
+            ref.read(commentsRepositoryProvider.future),
+            repositorySession,
+          )) {
+        return false;
+      }
       rethrow;
     } finally {
       if (generation == _generation) _posting = false;

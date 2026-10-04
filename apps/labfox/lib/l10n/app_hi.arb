@@ -1302,8 +1302,8 @@
   "mrReviewVersionTitle": "डिफ़ संस्करण {version} की समीक्षा",
   "mrDiffDiscussionPending": "चर्चा बनाई जा रही है…",
   "mrDiffDiscussionReloading": "चर्चाएँ रीफ़्रेश की जा रही हैं…",
-  "mrDiffDiscussionInspect": "फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।",
-  "mrDiffDiscussionNoMatches": "लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।",
+  "mrDiffDiscussionInspect": "दोबारा भेजने से पहले इस चयन की चर्चाएँ देखें।",
+  "mrDiffDiscussionNoMatches": "लोड किए गए पृष्ठों में इस चयन की कोई चर्चा नहीं है।",
   "mrSuggestionTitle": "सुझाव {number}",
   "mrSuggestionRange": "मूल पंक्तियाँ {from}–{to}",
   "mrSuggestionRangeUnknown": "मूल पंक्ति सीमा उपलब्ध नहीं है",
@@ -1351,5 +1351,11 @@
   "mrSuggestionsApplyForbidden": "GitLab ने इस कार्रवाई को अस्वीकार किया। अपनी पहुँच जाँचें और फिर कोशिश करने से पहले सभी चुनी हुई चर्चाएँ फिर से लोड करें।",
   "mrSuggestionsBackButton": "चयन पर वापस जाएँ",
   "mrDiscussionContextRangeLabel": "टिप्पणी वाली पंक्तियाँ {start}–{end}",
-  "mrDiscussionContextRangeLineLabel": "टिप्पणी की सीमा में पंक्ति"
+  "mrDiscussionContextRangeLineLabel": "टिप्पणी की सीमा में पंक्ति",
+  "mrDiffSelectRangeButton": "सीमा चुनें",
+  "mrDiffRangeEndButton": "इस पंक्ति पर सीमा समाप्त करें",
+  "mrDiffRangeChooseEnd": "इस फ़ाइल में अंतिम पंक्ति चुनें। पहली पंक्ति के बाद केवल पूरी सीमाएँ उपलब्ध हैं।",
+  "mrDiffSingleLineButton": "एक पंक्ति का उपयोग करें",
+  "mrDiffSelectedRangeLabel": "चुनी गई सीमा: {start} से {end}",
+  "mrDiffSelectedLineLabel": "चर्चा के लिए चुनी गई पंक्ति"
 }
