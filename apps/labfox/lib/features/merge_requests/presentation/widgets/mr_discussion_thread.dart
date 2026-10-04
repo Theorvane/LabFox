@@ -14,6 +14,7 @@ import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import 'mr_discussion_position_context.dart';
 import 'mr_suggestion_apply_dialog.dart';
+import 'mr_suggestion_batch_apply_dialog.dart';
 import 'mr_suggestion_preview.dart';
 
 /// Grouped MR replies with explicit pagination and the shared note composer.
@@ -202,6 +203,49 @@ class _ConversationState extends ConsumerState<_Conversation> {
     }
   }
 
+  Future<void> _applyBatch(List<SuggestionTarget> targets) async {
+    if (_applicationId != null ||
+        _topPosting ||
+        _replyId != null ||
+        _resolutionId != null ||
+        widget.discussions.isLoading ||
+        widget.discussions.hasError) {
+      return;
+    }
+    final session = ref.read(commentsRepositoryProvider);
+    final view = ValueNotifier(true);
+    _applicationView = view;
+    setState(() => _applicationId = 0);
+    try {
+      final applied = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => MrSuggestionBatchApplyDialog(
+          resource: widget.arg,
+          targets: targets,
+          session: session,
+          isCurrent: () => mounted,
+          viewActive: view,
+        ),
+      );
+      if (mounted &&
+          applied == true &&
+          ref.read(commentsRepositoryProvider) == session) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocalizations.of(context).mrSuggestionsApplySuccess,
+            ),
+          ),
+        );
+      }
+    } finally {
+      _applicationView = null;
+      view.dispose();
+      if (mounted) setState(() => _applicationId = null);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -248,12 +292,29 @@ class _ConversationState extends ConsumerState<_Conversation> {
               }
             }
           }
+          final targets = applicableSuggestionTargets(page.items);
           final groups = page.items
               .where((group) => group.notes.any((note) => !note.isSystem))
               .toList();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              if (targets.length >= 2)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: TextButton(
+                    key: const ValueKey('mr-suggestions-batch-open'),
+                    onPressed:
+                        canPost &&
+                            _applicationId == null &&
+                            !_topPosting &&
+                            _replyId == null &&
+                            _resolutionId == null
+                        ? () => _applyBatch(targets)
+                        : null,
+                    child: Text(l10n.mrSuggestionsBatchButton),
+                  ),
+                ),
               if (groups.isEmpty)
                 Text(
                   page.hasMore ? l10n.mrDiscussionsPartial : l10n.commentsEmpty,

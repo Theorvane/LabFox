@@ -2663,5 +2663,29 @@
         "type": "String"
       }
     }
+  },
+  "mrSuggestionsBatchButton": "Apply multiple suggestions",
+  "mrSuggestionsSelectTitle": "Select suggestions",
+  "mrSuggestionsSelectHint": "Select at least two suggestions from the loaded discussions.",
+  "mrSuggestionsReviewButton": "Review selected",
+  "mrSuggestionsReviewTitle": "Apply {count} suggestions?",
+  "mrSuggestionsApplyButton": "Apply selected",
+  "mrSuggestionsApplyImpact": "These changes will be sent together to the merge request source branch. Review every replacement before applying.",
+  "mrSuggestionsApplyProgress": "Checking and applying suggestions…",
+  "mrSuggestionsApplySuccess": "Selected suggestions applied.",
+  "mrSuggestionsApplyError": "The batch could not be confirmed. Reload every selected discussion before trying again.",
+  "mrSuggestionsApplyChanged": "One or more suggestions changed. Reload and review every selected patch.",
+  "mrSuggestionsReloadButton": "Reload selected discussions",
+  "mrSuggestionsReloadProgress": "Reloading selected discussions…",
+  "mrSuggestionsReloadError": "Not all discussions could be reloaded. Reload again before applying.",
+  "mrSuggestionsApplyForbidden": "GitLab denied this operation. Check your access and reload every selected discussion before trying again.",
+  "mrSuggestionsBackButton": "Back to selection",
+  "@mrSuggestionsReviewTitle": {
+    "description": "Confirmation title for the selected suggestion batch.",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
   }
 }

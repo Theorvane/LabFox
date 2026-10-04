@@ -1333,5 +1333,21 @@
   "mrSuggestionReloadProgress": "正在重新加载讨论…",
   "mrSuggestionReloadError": "无法重新加载讨论。请再次尝试重新加载。",
   "mrSuggestionUnavailable": "此建议无法应用。",
-  "mrSuggestionSessionChanged": "账号或合并请求已更改。请关闭此对话框并重新打开建议。"
+  "mrSuggestionSessionChanged": "账号或合并请求已更改。请关闭此对话框并重新打开建议。",
+  "mrSuggestionsBatchButton": "应用多个建议",
+  "mrSuggestionsSelectTitle": "选择建议",
+  "mrSuggestionsSelectHint": "从已加载的讨论中选择至少两个建议。",
+  "mrSuggestionsReviewButton": "检查所选建议",
+  "mrSuggestionsReviewTitle": "应用 {count} 个建议？",
+  "mrSuggestionsApplyButton": "应用所选建议",
+  "mrSuggestionsApplyImpact": "这些更改将一起发送到合并请求的源分支。应用前请检查每项替换内容。",
+  "mrSuggestionsApplyProgress": "正在检查并应用建议…",
+  "mrSuggestionsApplySuccess": "已应用所选建议。",
+  "mrSuggestionsApplyError": "无法确认批量应用结果。重试前请重新加载所有选中的讨论。",
+  "mrSuggestionsApplyChanged": "一个或多个建议已更改。请重新加载并检查每个选中的补丁。",
+  "mrSuggestionsReloadButton": "重新加载所选讨论",
+  "mrSuggestionsReloadProgress": "正在重新加载所选讨论…",
+  "mrSuggestionsReloadError": "未能加载所有讨论。应用前请重新加载。",
+  "mrSuggestionsApplyForbidden": "GitLab 拒绝了此操作。请检查访问权限，并在重试前重新加载所有选中的讨论。",
+  "mrSuggestionsBackButton": "返回选择"
 }

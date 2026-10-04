@@ -35,6 +35,14 @@ class CommentsRepository {
     String? commitMessage,
   }) => _client.suggestions.apply(suggestionId, commitMessage: commitMessage);
 
+  Future<List<Suggestion>> applySuggestions({
+    required List<int> suggestionIds,
+    String? commitMessage,
+  }) => _client.suggestions.applyBatch(
+    suggestionIds,
+    commitMessage: commitMessage,
+  );
+
   Future<Note> replyToDiscussion({
     required int projectId,
     required int iid,

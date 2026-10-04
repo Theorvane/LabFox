@@ -4702,4 +4702,59 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get mrSuggestionSessionChanged =>
       'アカウントまたはマージリクエストが変更されました。このダイアログを閉じて提案を開き直してください。';
+
+  @override
+  String get mrSuggestionsBatchButton => '複数の提案を適用';
+
+  @override
+  String get mrSuggestionsSelectTitle => '提案を選択';
+
+  @override
+  String get mrSuggestionsSelectHint => '読み込まれたディスカッションから提案を2つ以上選択してください。';
+
+  @override
+  String get mrSuggestionsReviewButton => '選択した提案を確認';
+
+  @override
+  String mrSuggestionsReviewTitle(String count) {
+    return '$count件の提案を適用しますか？';
+  }
+
+  @override
+  String get mrSuggestionsApplyButton => '選択した提案を適用';
+
+  @override
+  String get mrSuggestionsApplyImpact =>
+      'これらの変更はマージリクエストのソースブランチにまとめて送信されます。適用前にすべての置換内容を確認してください。';
+
+  @override
+  String get mrSuggestionsApplyProgress => '提案を確認して適用中…';
+
+  @override
+  String get mrSuggestionsApplySuccess => '選択した提案を適用しました。';
+
+  @override
+  String get mrSuggestionsApplyError =>
+      '一括適用を確認できませんでした。再試行する前に選択したすべてのディスカッションを再読み込みしてください。';
+
+  @override
+  String get mrSuggestionsApplyChanged =>
+      '一部の提案が変更されました。選択したすべてのパッチを再読み込みして確認してください。';
+
+  @override
+  String get mrSuggestionsReloadButton => '選択したディスカッションを再読み込み';
+
+  @override
+  String get mrSuggestionsReloadProgress => '選択したディスカッションを読み込み中…';
+
+  @override
+  String get mrSuggestionsReloadError =>
+      '一部のディスカッションを読み込めませんでした。適用前に再読み込みしてください。';
+
+  @override
+  String get mrSuggestionsApplyForbidden =>
+      'GitLabがこの操作を拒否しました。アクセス権を確認し、選択したすべてのディスカッションを再読み込みしてから再試行してください。';
+
+  @override
+  String get mrSuggestionsBackButton => '選択に戻る';
 }
