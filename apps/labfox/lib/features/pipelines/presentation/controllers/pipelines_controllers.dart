@@ -127,28 +127,72 @@ final pipelineJobIncludeRetriedProvider =
 
 /// The jobs of a pipeline, grouped by stage in first-seen order.
 class PipelineJobsController
-    extends FamilyAsyncNotifier<List<Job>, PipelineRef> {
+    extends FamilyAsyncNotifier<Paginated<Job>, PipelineRef> {
+  bool _loadingMore = false;
+  int _generation = 0;
+
   @override
-  Future<List<Job>> build(PipelineRef arg) async {
+  Future<Paginated<Job>> build(PipelineRef arg) async {
+    _generation++;
+    _loadingMore = false;
+    ref.onDispose(() => _generation++);
     final status = ref.watch(pipelineJobStatusFilterProvider(arg));
     final includeRetried = ref.watch(pipelineJobIncludeRetriedProvider(arg));
     final repo = await ref.watch(pipelinesRepositoryProvider.future);
-    if (repo == null) {
-      throw StateError('No authenticated account');
-    }
-    return repo.jobs(
+    if (repo == null) throw StateError('No authenticated account');
+    return repo.jobsPage(
       projectId: arg.projectId,
       pipelineId: arg.pipelineId,
       status: status,
       includeRetried: includeRetried,
     );
   }
+
+  Future<void> loadMore() async {
+    if (_loadingMore || state.isLoading) return;
+    final current = state.valueOrNull;
+    final page = current?.nextPage;
+    if (current == null || page == null) return;
+    final generation = _generation;
+    final status = ref.read(pipelineJobStatusFilterProvider(arg));
+    final includeRetried = ref.read(pipelineJobIncludeRetriedProvider(arg));
+    _loadingMore = true;
+    try {
+      final repo = await ref.read(pipelinesRepositoryProvider.future);
+      if (generation != _generation) return;
+      if (repo == null) throw StateError('No authenticated account');
+      final next = await repo.jobsPage(
+        projectId: arg.projectId,
+        pipelineId: arg.pipelineId,
+        page: page,
+        status: status,
+        includeRetried: includeRetried,
+      );
+      if (generation != _generation) return;
+      final items = {for (final job in current.items) job.id: job};
+      for (final job in next.items) {
+        items[job.id] = job;
+      }
+      state = AsyncData(
+        Paginated(
+          items: List<Job>.unmodifiable(items.values),
+          nextPage: next.nextPage,
+          total: next.total,
+          totalPages: next.totalPages,
+        ),
+      );
+    } catch (_) {
+      if (generation == _generation) rethrow;
+    } finally {
+      if (generation == _generation) _loadingMore = false;
+    }
+  }
 }
 
 final pipelineJobsControllerProvider =
     AsyncNotifierProvider.family<
       PipelineJobsController,
-      List<Job>,
+      Paginated<Job>,
       PipelineRef
     >(PipelineJobsController.new);
 

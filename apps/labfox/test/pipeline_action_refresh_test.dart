@@ -84,6 +84,21 @@ class _Repository extends PipelinesRepository {
   }
 
   @override
+  Future<Paginated<Job>> jobsPage({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) async => Paginated(
+    items: await jobs(
+      projectId: projectId,
+      pipelineId: pipelineId,
+      status: status,
+      includeRetried: includeRetried,
+    ),
+  );
+  @override
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,

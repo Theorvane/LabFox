@@ -1262,5 +1262,7 @@
   "pipelineJobsFilteredEmpty": "이 상태에 해당하는 작업이 없습니다.",
   "pipelineJobsAttemptsLatest": "최신 작업",
   "pipelineJobsAttemptsAll": "모든 실행 이력",
-  "pipelineJobIdentifier": "작업 #{jobId}"
+  "pipelineJobIdentifier": "작업 #{jobId}",
+  "pipelineJobsPartialList": "불러온 작업만 표시됩니다. 나머지 작업을 보려면 더 불러오세요.",
+  "pipelineJobsLoadMoreError": "추가 작업을 불러오지 못했습니다."
 }

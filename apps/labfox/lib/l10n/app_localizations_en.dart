@@ -4620,4 +4620,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
     return 'Job #$jobIdString';
   }
+
+  @override
+  String get pipelineJobsPartialList =>
+      'Only loaded jobs are shown. Load more to see the rest.';
+
+  @override
+  String get pipelineJobsLoadMoreError => 'Could not load more jobs.';
 }

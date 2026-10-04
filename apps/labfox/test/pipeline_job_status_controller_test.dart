@@ -19,6 +19,21 @@ class Repository extends PipelinesRepository {
   bool fail = false;
   bool failAction = false;
   @override
+  Future<Paginated<Job>> jobsPage({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) async => Paginated(
+    items: await jobs(
+      projectId: projectId,
+      pipelineId: pipelineId,
+      status: status,
+      includeRetried: includeRetried,
+    ),
+  );
+  @override
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,
@@ -71,12 +86,15 @@ void main() {
     'all status mappings, clear, refresh and error retry retain the selected scope',
     () async {
       expect(
-        (await c.read(provider.future)).single.status,
+        (await c.read(provider.future)).items.single.status,
         'waiting_for_callback',
       );
       for (final status in PipelineJobStatusFilter.values) {
         c.read(filter.notifier).state = status;
-        expect((await c.read(provider.future)).single.status, status.name);
+        expect(
+          (await c.read(provider.future)).items.single.status,
+          status.name,
+        );
         expect(repo.calls.last.status, status);
       }
       repo.fail = true;
@@ -85,10 +103,10 @@ void main() {
         throwsA(isA<GitLabForbiddenException>()),
       );
       repo.fail = false;
-      expect((await c.refresh(provider.future)).single.status, 'manual');
+      expect((await c.refresh(provider.future)).items.single.status, 'manual');
       c.read(filter.notifier).state = null;
       expect(
-        (await c.read(provider.future)).single.status,
+        (await c.read(provider.future)).items.single.status,
         'waiting_for_callback',
       );
     },
@@ -104,7 +122,7 @@ void main() {
       expect(
         (await c.read(
           pipelineJobsControllerProvider(other).future,
-        )).single.status,
+        )).items.single.status,
         'waiting_for_callback',
       );
     }
@@ -118,10 +136,10 @@ void main() {
       await Future<void>.delayed(Duration.zero);
       final old = repo.pending[null]!;
       c.read(filter.notifier).state = PipelineJobStatusFilter.failed;
-      expect((await c.read(provider.future)).single.status, 'failed');
+      expect((await c.read(provider.future)).items.single.status, 'failed');
       old.complete([const Job(id: 999, name: 'old', status: 'success')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(provider).requireValue.single.status, 'failed');
+      expect(c.read(provider).requireValue.items.single.status, 'failed');
       repo.pending[PipelineJobStatusFilter.failed] = Completer();
       c.invalidate(provider);
       await Future<void>.delayed(Duration.zero);
@@ -129,7 +147,7 @@ void main() {
       await c.refresh(provider.future);
       stale.complete([const Job(id: 998, name: 'stale', status: 'success')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(provider).requireValue.single.status, 'failed');
+      expect(c.read(provider).requireValue.items.single.status, 'failed');
     },
   );
   test(
@@ -145,10 +163,10 @@ void main() {
         pipelinesRepositoryProvider.overrideWith((_) async => replacement),
       ]);
       c.invalidate(pipelinesRepositoryProvider);
-      expect((await c.read(provider.future)).single.status, 'failed');
+      expect((await c.read(provider.future)).items.single.status, 'failed');
       old.complete([const Job(id: 999, name: 'private', status: 'success')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(provider).requireValue.single.status, 'failed');
+      expect(c.read(provider).requireValue.items.single.status, 'failed');
       replacement.pending[PipelineJobStatusFilter.failed] = Completer();
       c.invalidate(provider);
       await Future<void>.delayed(Duration.zero);

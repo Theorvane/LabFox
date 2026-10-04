@@ -19,6 +19,21 @@ class Repository extends PipelinesRepository {
   bool fail = false;
   bool failAction = false;
   @override
+  Future<Paginated<Job>> jobsPage({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) async => Paginated(
+    items: await jobs(
+      projectId: projectId,
+      pipelineId: pipelineId,
+      status: status,
+      includeRetried: includeRetried,
+    ),
+  );
+  @override
   Future<List<Job>> jobs({
     required int projectId,
     required int pipelineId,
@@ -66,9 +81,9 @@ void main() {
     'attempts default, combined status, clear, refresh and recovery',
     () async {
       expect(c.read(attempts), false);
-      expect((await c.read(jobs.future)).map((j) => j.id), [902]);
+      expect((await c.read(jobs.future)).items.map((j) => j.id), [902]);
       c.read(attempts.notifier).state = true;
-      expect((await c.read(jobs.future)).map((j) => j.id), [902, 901]);
+      expect((await c.read(jobs.future)).items.map((j) => j.id), [902, 901]);
       for (final value in PipelineJobStatusFilter.values) {
         c.read(status.notifier).state = value;
         await c.read(jobs.future);
@@ -86,7 +101,7 @@ void main() {
       await c.refresh(jobs.future);
       expect(repo.calls.last, (attempts: true, status: null));
       c.read(attempts.notifier).state = false;
-      expect((await c.read(jobs.future)).length, 1);
+      expect((await c.read(jobs.future)).items.length, 1);
     },
   );
   test(
@@ -100,7 +115,9 @@ void main() {
       ]) {
         expect(c.read(pipelineJobIncludeRetriedProvider(other)), false);
         expect(
-          (await c.read(pipelineJobsControllerProvider(other).future)).length,
+          (await c.read(
+            pipelineJobsControllerProvider(other).future,
+          )).items.length,
           1,
         );
       }
@@ -115,10 +132,10 @@ void main() {
       await Future<void>.delayed(Duration.zero);
       final old = repo.pending[false]!;
       c.read(attempts.notifier).state = true;
-      expect((await c.read(jobs.future)).length, 2);
+      expect((await c.read(jobs.future)).items.length, 2);
       old.complete([const Job(id: 999, name: 'old', status: 'success')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(jobs).requireValue.map((j) => j.id), [902, 901]);
+      expect(c.read(jobs).requireValue.items.map((j) => j.id), [902, 901]);
       repo.pending[true] = Completer();
       c.invalidate(jobs);
       await Future<void>.delayed(Duration.zero);
@@ -126,7 +143,7 @@ void main() {
       await c.refresh(jobs.future);
       stale.complete([const Job(id: 999, name: 'stale', status: 'success')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(jobs).requireValue.length, 2);
+      expect(c.read(jobs).requireValue.items.length, 2);
     },
   );
   test(
@@ -142,10 +159,10 @@ void main() {
         pipelinesRepositoryProvider.overrideWith((_) async => replacement),
       ]);
       c.invalidate(pipelinesRepositoryProvider);
-      expect((await c.read(jobs.future)).length, 2);
+      expect((await c.read(jobs.future)).items.length, 2);
       old.complete([const Job(id: 999, name: 'private', status: 'failed')]);
       await Future<void>.delayed(Duration.zero);
-      expect(c.read(jobs).requireValue.length, 2);
+      expect(c.read(jobs).requireValue.items.length, 2);
       replacement.pending[true] = Completer();
       c.invalidate(jobs);
       await Future<void>.delayed(Duration.zero);

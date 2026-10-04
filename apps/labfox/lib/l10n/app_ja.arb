@@ -1262,5 +1262,7 @@
   "pipelineJobsFilteredEmpty": "この状態のジョブはありません。",
   "pipelineJobsAttemptsLatest": "最新のジョブ",
   "pipelineJobsAttemptsAll": "すべての実行履歴",
-  "pipelineJobIdentifier": "ジョブ #{jobId}"
+  "pipelineJobIdentifier": "ジョブ #{jobId}",
+  "pipelineJobsPartialList": "読み込んだジョブのみ表示しています。残りを表示するにはさらに読み込んでください。",
+  "pipelineJobsLoadMoreError": "追加のジョブを読み込めませんでした。"
 }

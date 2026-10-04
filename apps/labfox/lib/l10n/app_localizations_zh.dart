@@ -4333,4 +4333,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
     return '作业 #$jobIdString';
   }
+
+  @override
+  String get pipelineJobsPartialList => '仅显示已加载的作业。加载更多以查看其余作业。';
+
+  @override
+  String get pipelineJobsLoadMoreError => '无法加载更多作业。';
 }

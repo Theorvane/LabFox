@@ -4622,4 +4622,11 @@ class AppLocalizationsHi extends AppLocalizations {
 
     return 'जॉब #$jobIdString';
   }
+
+  @override
+  String get pipelineJobsPartialList =>
+      'केवल लोड किए गए जॉब दिखाए गए हैं। बाकी देखने के लिए और लोड करें।';
+
+  @override
+  String get pipelineJobsLoadMoreError => 'और जॉब लोड नहीं हो सके।';
 }

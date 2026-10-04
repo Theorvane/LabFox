@@ -1262,5 +1262,7 @@
   "pipelineJobsFilteredEmpty": "इस स्थिति से मेल खाने वाला कोई जॉब नहीं है।",
   "pipelineJobsAttemptsLatest": "नवीनतम जॉब",
   "pipelineJobsAttemptsAll": "सभी प्रयास",
-  "pipelineJobIdentifier": "जॉब #{jobId}"
+  "pipelineJobIdentifier": "जॉब #{jobId}",
+  "pipelineJobsPartialList": "केवल लोड किए गए जॉब दिखाए गए हैं। बाकी देखने के लिए और लोड करें।",
+  "pipelineJobsLoadMoreError": "और जॉब लोड नहीं हो सके।"
 }

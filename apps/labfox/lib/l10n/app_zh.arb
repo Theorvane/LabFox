@@ -1262,5 +1262,7 @@
   "pipelineJobsFilteredEmpty": "没有符合此状态的作业。",
   "pipelineJobsAttemptsLatest": "最新作业",
   "pipelineJobsAttemptsAll": "所有尝试",
-  "pipelineJobIdentifier": "作业 #{jobId}"
+  "pipelineJobIdentifier": "作业 #{jobId}",
+  "pipelineJobsPartialList": "仅显示已加载的作业。加载更多以查看其余作业。",
+  "pipelineJobsLoadMoreError": "无法加载更多作业。"
 }
