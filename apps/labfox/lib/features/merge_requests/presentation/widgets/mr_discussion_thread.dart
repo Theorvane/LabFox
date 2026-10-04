@@ -12,6 +12,7 @@ import '../../../comments/presentation/widgets/comment_thread.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import 'mr_discussion_position_context.dart';
+import 'mr_suggestion_preview.dart';
 
 /// Grouped MR replies with explicit pagination and the shared note composer.
 class MrDiscussionThread extends ConsumerWidget {
@@ -376,6 +377,12 @@ class _DiscussionView extends StatelessWidget {
                     ),
                     const SizedBox(height: LabFoxSpacing.xs),
                     MarkdownViewer(data: note.body),
+                    for (final suggestion in note.suggestions ?? <Suggestion>[])
+                      MrSuggestionPreview(
+                        key: ValueKey((resource, note.id, suggestion)),
+                        noteId: note.id,
+                        suggestion: suggestion,
+                      ),
                     if (note.position != null)
                       MrDiscussionPositionContext(
                         key: ValueKey((resource, note.id, note.position)),
