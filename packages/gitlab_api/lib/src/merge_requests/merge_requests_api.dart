@@ -390,6 +390,83 @@ class MergeRequestsApi {
     }
   }
 
+  /// Reads one page of discussion groups, including replies absent from notes.
+  /// No total count is assumed; callers follow the returned next-page cursor.
+  Future<Paginated<Discussion>> discussions(
+    Object projectId, {
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/merge_requests/$iid/discussions',
+        queryParameters: {'page': page, 'per_page': perPage},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading discussions',
+        );
+      }
+      final discussions = _parseDiscussions(response.data);
+      final cursor = response.headers.value('x-next-page');
+      if (cursor != null && cursor.isNotEmpty) {
+        final next = int.tryParse(cursor);
+        if (next == null || next <= page) {
+          throw const GitLabServerException('Invalid discussions pagination.');
+        }
+      }
+      return Paginated.fromHeaders(
+        List<Discussion>.unmodifiable(discussions),
+        response.headers.map,
+      );
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading discussions');
+    }
+  }
+
+  static List<Discussion> _parseDiscussions(Object? payload) {
+    try {
+      if (payload is! List) throw const FormatException();
+      return payload
+          .map((entry) {
+            if (entry is! Map<String, dynamic>) throw const FormatException();
+            final id = entry['id'];
+            if (id is! String || id.isEmpty) throw const FormatException();
+            final notes = entry['notes'];
+            if (notes is! List) throw const FormatException();
+            for (final note in notes) {
+              if (note is! Map<String, dynamic>) throw const FormatException();
+              final noteId = note['id'];
+              if (noteId is! int || noteId <= 0) throw const FormatException();
+              for (final key in ['author', 'resolved_by']) {
+                final user = note[key];
+                if (user == null) continue;
+                if (user is! Map<String, dynamic>) {
+                  throw const FormatException();
+                }
+                final userId = user['id'];
+                if (userId is! int || userId <= 0) {
+                  throw const FormatException();
+                }
+              }
+            }
+            return Discussion.fromJson(entry);
+          })
+          .toList(growable: false);
+    } on FormatException {
+      throw const GitLabServerException('Invalid discussions response.');
+    } on TypeError {
+      throw const GitLabServerException('Invalid discussions response.');
+    }
+  }
+
   /// The approval state of a merge request.
   ///
   /// Incomplete successful responses are failures, never an empty approval

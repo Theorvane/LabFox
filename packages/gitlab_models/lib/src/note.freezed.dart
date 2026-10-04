@@ -20,6 +20,15 @@ mixin _$Note {
   User? get author;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt;
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt;
+  String? get type;
+  bool? get resolvable;
+  bool? get resolved;
+  @JsonKey(name: 'resolved_by')
+  User? get resolvedBy;
+  @JsonKey(name: 'resolved_at')
+  DateTime? get resolvedAt;
 
   /// Create a copy of Note
   /// with the given fields replaced by the non-null parameter values.
@@ -42,17 +51,40 @@ mixin _$Note {
                 other.isSystem == isSystem) &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.resolvable, resolvable) ||
+                other.resolvable == resolvable) &&
+            (identical(other.resolved, resolved) ||
+                other.resolved == resolved) &&
+            (identical(other.resolvedBy, resolvedBy) ||
+                other.resolvedBy == resolvedBy) &&
+            (identical(other.resolvedAt, resolvedAt) ||
+                other.resolvedAt == resolvedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, body, isSystem, author, createdAt);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    body,
+    isSystem,
+    author,
+    createdAt,
+    updatedAt,
+    type,
+    resolvable,
+    resolved,
+    resolvedBy,
+    resolvedAt,
+  );
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -67,9 +99,16 @@ abstract mixin class $NoteCopyWith<$Res> {
     @JsonKey(name: 'system') bool isSystem,
     User? author,
     @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    String? type,
+    bool? resolvable,
+    bool? resolved,
+    @JsonKey(name: 'resolved_by') User? resolvedBy,
+    @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
   });
 
   $UserCopyWith<$Res>? get author;
+  $UserCopyWith<$Res>? get resolvedBy;
 }
 
 /// @nodoc
@@ -89,6 +128,12 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
     Object? isSystem = null,
     Object? author = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? type = freezed,
+    Object? resolvable = freezed,
+    Object? resolved = freezed,
+    Object? resolvedBy = freezed,
+    Object? resolvedAt = freezed,
   }) {
     return _then(
       _self.copyWith(
@@ -112,6 +157,30 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
             ? _self.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _self.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        type: freezed == type
+            ? _self.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        resolvable: freezed == resolvable
+            ? _self.resolvable
+            : resolvable // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        resolved: freezed == resolved
+            ? _self.resolved
+            : resolved // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        resolvedBy: freezed == resolvedBy
+            ? _self.resolvedBy
+            : resolvedBy // ignore: cast_nullable_to_non_nullable
+                  as User?,
+        resolvedAt: freezed == resolvedAt
+            ? _self.resolvedAt
+            : resolvedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
       ),
     );
   }
@@ -127,6 +196,20 @@ class _$NoteCopyWithImpl<$Res> implements $NoteCopyWith<$Res> {
 
     return $UserCopyWith<$Res>(_self.author!, (value) {
       return _then(_self.copyWith(author: value));
+    });
+  }
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get resolvedBy {
+    if (_self.resolvedBy == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_self.resolvedBy!, (value) {
+      return _then(_self.copyWith(resolvedBy: value));
     });
   }
 }
@@ -228,6 +311,12 @@ extension NotePatterns on Note {
       @JsonKey(name: 'system') bool isSystem,
       User? author,
       @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      String? type,
+      bool? resolvable,
+      bool? resolved,
+      @JsonKey(name: 'resolved_by') User? resolvedBy,
+      @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
     )?
     $default, {
     required TResult orElse(),
@@ -241,6 +330,12 @@ extension NotePatterns on Note {
           _that.isSystem,
           _that.author,
           _that.createdAt,
+          _that.updatedAt,
+          _that.type,
+          _that.resolvable,
+          _that.resolved,
+          _that.resolvedBy,
+          _that.resolvedAt,
         );
       case _:
         return orElse();
@@ -268,6 +363,12 @@ extension NotePatterns on Note {
       @JsonKey(name: 'system') bool isSystem,
       User? author,
       @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      String? type,
+      bool? resolvable,
+      bool? resolved,
+      @JsonKey(name: 'resolved_by') User? resolvedBy,
+      @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
     )
     $default,
   ) {
@@ -280,6 +381,12 @@ extension NotePatterns on Note {
           _that.isSystem,
           _that.author,
           _that.createdAt,
+          _that.updatedAt,
+          _that.type,
+          _that.resolvable,
+          _that.resolved,
+          _that.resolvedBy,
+          _that.resolvedAt,
         );
       case _:
         throw StateError('Unexpected subclass');
@@ -306,6 +413,12 @@ extension NotePatterns on Note {
       @JsonKey(name: 'system') bool isSystem,
       User? author,
       @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      String? type,
+      bool? resolvable,
+      bool? resolved,
+      @JsonKey(name: 'resolved_by') User? resolvedBy,
+      @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
     )?
     $default,
   ) {
@@ -318,6 +431,12 @@ extension NotePatterns on Note {
           _that.isSystem,
           _that.author,
           _that.createdAt,
+          _that.updatedAt,
+          _that.type,
+          _that.resolvable,
+          _that.resolved,
+          _that.resolvedBy,
+          _that.resolvedAt,
         );
       case _:
         return null;
@@ -334,6 +453,12 @@ class _Note implements Note {
     @JsonKey(name: 'system') this.isSystem = false,
     this.author,
     @JsonKey(name: 'created_at') this.createdAt,
+    @JsonKey(name: 'updated_at') this.updatedAt,
+    this.type,
+    this.resolvable,
+    this.resolved,
+    @JsonKey(name: 'resolved_by') this.resolvedBy,
+    @JsonKey(name: 'resolved_at') this.resolvedAt,
   });
   factory _Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
@@ -349,6 +474,21 @@ class _Note implements Note {
   @override
   @JsonKey(name: 'created_at')
   final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+  @override
+  final String? type;
+  @override
+  final bool? resolvable;
+  @override
+  final bool? resolved;
+  @override
+  @JsonKey(name: 'resolved_by')
+  final User? resolvedBy;
+  @override
+  @JsonKey(name: 'resolved_at')
+  final DateTime? resolvedAt;
 
   /// Create a copy of Note
   /// with the given fields replaced by the non-null parameter values.
@@ -374,17 +514,40 @@ class _Note implements Note {
                 other.isSystem == isSystem) &&
             (identical(other.author, author) || other.author == author) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.resolvable, resolvable) ||
+                other.resolvable == resolvable) &&
+            (identical(other.resolved, resolved) ||
+                other.resolved == resolved) &&
+            (identical(other.resolvedBy, resolvedBy) ||
+                other.resolvedBy == resolvedBy) &&
+            (identical(other.resolvedAt, resolvedAt) ||
+                other.resolvedAt == resolvedAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, body, isSystem, author, createdAt);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    body,
+    isSystem,
+    author,
+    createdAt,
+    updatedAt,
+    type,
+    resolvable,
+    resolved,
+    resolvedBy,
+    resolvedAt,
+  );
 
   @override
   String toString() {
-    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt)';
+    return 'Note(id: $id, body: $body, isSystem: $isSystem, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, type: $type, resolvable: $resolvable, resolved: $resolved, resolvedBy: $resolvedBy, resolvedAt: $resolvedAt)';
   }
 }
 
@@ -400,10 +563,18 @@ abstract mixin class _$NoteCopyWith<$Res> implements $NoteCopyWith<$Res> {
     @JsonKey(name: 'system') bool isSystem,
     User? author,
     @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    String? type,
+    bool? resolvable,
+    bool? resolved,
+    @JsonKey(name: 'resolved_by') User? resolvedBy,
+    @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
   });
 
   @override
   $UserCopyWith<$Res>? get author;
+  @override
+  $UserCopyWith<$Res>? get resolvedBy;
 }
 
 /// @nodoc
@@ -423,6 +594,12 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
     Object? isSystem = null,
     Object? author = freezed,
     Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+    Object? type = freezed,
+    Object? resolvable = freezed,
+    Object? resolved = freezed,
+    Object? resolvedBy = freezed,
+    Object? resolvedAt = freezed,
   }) {
     return _then(
       _Note(
@@ -446,6 +623,30 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
             ? _self.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
+        updatedAt: freezed == updatedAt
+            ? _self.updatedAt
+            : updatedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
+        type: freezed == type
+            ? _self.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        resolvable: freezed == resolvable
+            ? _self.resolvable
+            : resolvable // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        resolved: freezed == resolved
+            ? _self.resolved
+            : resolved // ignore: cast_nullable_to_non_nullable
+                  as bool?,
+        resolvedBy: freezed == resolvedBy
+            ? _self.resolvedBy
+            : resolvedBy // ignore: cast_nullable_to_non_nullable
+                  as User?,
+        resolvedAt: freezed == resolvedAt
+            ? _self.resolvedAt
+            : resolvedAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime?,
       ),
     );
   }
@@ -461,6 +662,20 @@ class __$NoteCopyWithImpl<$Res> implements _$NoteCopyWith<$Res> {
 
     return $UserCopyWith<$Res>(_self.author!, (value) {
       return _then(_self.copyWith(author: value));
+    });
+  }
+
+  /// Create a copy of Note
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get resolvedBy {
+    if (_self.resolvedBy == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_self.resolvedBy!, (value) {
+      return _then(_self.copyWith(resolvedBy: value));
     });
   }
 }
