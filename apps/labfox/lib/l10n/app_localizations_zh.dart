@@ -4407,4 +4407,59 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiscussionContextLoading => '正在加载原始差异';
+
+  @override
+  String get mrDiffDiscussLineButton => '在此行添加讨论';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return '讨论 $path · 版本 $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => '撰写审查评论…';
+
+  @override
+  String get mrDiffDiscussionSubmit => '开始讨论';
+
+  @override
+  String get mrDiffDiscussionCancel => '取消';
+
+  @override
+  String get mrDiffDiscussionCreated => '讨论已创建。';
+
+  @override
+  String get mrDiffDiscussionError => '无法确认讨论是否已创建。';
+
+  @override
+  String get mrDiffDiscussionPermissionError => '您没有创建此讨论的权限。';
+
+  @override
+  String get mrDiffDiscussionReloadButton => '刷新讨论';
+
+  @override
+  String get mrDiffDiscussionReloadRequired => '再次提交前请刷新讨论。之前的请求可能已被接受。';
+
+  @override
+  String get mrDiffDiscussionReloadFailed => '无法刷新讨论。请重试。';
+
+  @override
+  String get mrReviewUnavailable => '此差异版本无法用于行内审查。';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return '正在审查差异版本 $version';
+  }
+
+  @override
+  String get mrDiffDiscussionPending => '正在创建讨论…';
+
+  @override
+  String get mrDiffDiscussionReloading => '正在刷新讨论…';
+
+  @override
+  String get mrDiffDiscussionInspect => '再次提交前请检查此行的讨论。';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '已加载的页面中没有此行的讨论。';
 }

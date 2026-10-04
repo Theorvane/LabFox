@@ -36,6 +36,7 @@ import '../features/jobs/presentation/job_detail_screen.dart';
 import '../features/members/presentation/project_members_screen.dart';
 import '../features/merge_requests/presentation/merge_request_detail_screen.dart';
 import '../features/merge_requests/presentation/merge_requests_screen.dart';
+import '../features/merge_requests/presentation/mr_changes_screen.dart';
 import '../features/merge_requests/presentation/my_merge_requests_screen.dart';
 import '../features/merge_requests/presentation/new_merge_request_screen.dart';
 import '../features/milestones/presentation/milestone_detail_screen.dart';
@@ -767,12 +768,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                     builder: (context, state) {
                       final id = int.parse(state.pathParameters['id']!);
                       final iid = int.parse(state.pathParameters['iid']!);
-                      return ChangesScreen(
-                        title: '!$iid',
-                        provider: mergeRequestDiffControllerProvider(
-                          MergeRequestDiffRef(projectId: id, iid: iid),
-                        ),
-                      );
+                      return MrChangesScreen(projectId: id, iid: iid);
                     },
                   ),
                 ],

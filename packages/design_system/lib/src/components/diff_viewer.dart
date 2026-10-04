@@ -19,6 +19,9 @@ class DiffViewer extends StatelessWidget {
     this.highlightedLine,
     this.highlightedLineLabel,
     this.focusOnHighlightedLine = false,
+    this.onLineSelected,
+    this.canSelectLine,
+    this.lineActionLabel,
     super.key,
   });
 
@@ -38,6 +41,11 @@ class DiffViewer extends StatelessWidget {
 
   /// Show only the containing hunk when the supplied line belongs to this file.
   final bool focusOnHighlightedLine;
+
+  /// Optional caller-localized action on eligible original lines.
+  final ValueChanged<DiffLine>? onLineSelected;
+  final bool Function(DiffLine)? canSelectLine;
+  final String? lineActionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +73,13 @@ class DiffViewer extends StatelessWidget {
           for (final line in hunk.lines)
             _DiffLineRow(
               line: line,
+              onSelected:
+                  onLineSelected != null &&
+                      lineActionLabel != null &&
+                      (canSelectLine?.call(line) ?? true)
+                  ? () => onLineSelected!(line)
+                  : null,
+              actionLabel: lineActionLabel,
               showHighlightGutter: highlightedLine != null,
               highlighted: identical(line, highlightedLine),
               highlightedLabel: highlightedLineLabel,
@@ -108,12 +123,16 @@ class _DiffLineRow extends StatelessWidget {
     this.showHighlightGutter = false,
     this.highlighted = false,
     this.highlightedLabel,
+    this.onSelected,
+    this.actionLabel,
   });
 
   final DiffLine line;
   final bool showHighlightGutter;
   final bool highlighted;
   final String? highlightedLabel;
+  final VoidCallback? onSelected;
+  final String? actionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -159,6 +178,13 @@ class _DiffLineRow extends StatelessWidget {
                         color: Theme.of(context).colorScheme.primary,
                       )
                     : null,
+              ),
+            if (onSelected != null)
+              IconButton(
+                onPressed: onSelected,
+                tooltip: actionLabel,
+                icon: const Icon(LabFoxIcons.comment, size: LabFoxIconSize.sm),
+                visualDensity: VisualDensity.compact,
               ),
             _gutter(line.oldLine),
             _gutter(line.newLine),

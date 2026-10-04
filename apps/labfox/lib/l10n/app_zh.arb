@@ -1286,5 +1286,22 @@
   "mrDiscussionContextError": "无法加载原始差异。请重试。",
   "mrDiscussionContextOlderButton": "查找较早版本",
   "mrDiscussionContextLineLabel": "评论所在行",
-  "mrDiscussionContextLoading": "正在加载原始差异"
+  "mrDiscussionContextLoading": "正在加载原始差异",
+  "mrDiffDiscussLineButton": "在此行添加讨论",
+  "mrDiffDiscussionTitle": "讨论 {path} · 版本 {version}",
+  "mrDiffDiscussionHint": "撰写审查评论…",
+  "mrDiffDiscussionSubmit": "开始讨论",
+  "mrDiffDiscussionCancel": "取消",
+  "mrDiffDiscussionCreated": "讨论已创建。",
+  "mrDiffDiscussionError": "无法确认讨论是否已创建。",
+  "mrDiffDiscussionPermissionError": "您没有创建此讨论的权限。",
+  "mrDiffDiscussionReloadButton": "刷新讨论",
+  "mrDiffDiscussionReloadRequired": "再次提交前请刷新讨论。之前的请求可能已被接受。",
+  "mrDiffDiscussionReloadFailed": "无法刷新讨论。请重试。",
+  "mrReviewUnavailable": "此差异版本无法用于行内审查。",
+  "mrReviewVersionTitle": "正在审查差异版本 {version}",
+  "mrDiffDiscussionPending": "正在创建讨论…",
+  "mrDiffDiscussionReloading": "正在刷新讨论…",
+  "mrDiffDiscussionInspect": "再次提交前请检查此行的讨论。",
+  "mrDiffDiscussionNoMatches": "已加载的页面中没有此行的讨论。"
 }

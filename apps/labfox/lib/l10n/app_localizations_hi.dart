@@ -4701,4 +4701,65 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiscussionContextLoading => 'मूल अंतर लोड हो रहा है';
+
+  @override
+  String get mrDiffDiscussLineButton => 'इस पंक्ति पर चर्चा जोड़ें';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return '$path पर चर्चा · संस्करण $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => 'समीक्षा टिप्पणी लिखें…';
+
+  @override
+  String get mrDiffDiscussionSubmit => 'चर्चा शुरू करें';
+
+  @override
+  String get mrDiffDiscussionCancel => 'रद्द करें';
+
+  @override
+  String get mrDiffDiscussionCreated => 'चर्चा बनाई गई।';
+
+  @override
+  String get mrDiffDiscussionError => 'चर्चा बनाए जाने की पुष्टि नहीं हो सकी।';
+
+  @override
+  String get mrDiffDiscussionPermissionError =>
+      'आपको यह चर्चा बनाने की अनुमति नहीं है।';
+
+  @override
+  String get mrDiffDiscussionReloadButton => 'चर्चाएँ रीफ़्रेश करें';
+
+  @override
+  String get mrDiffDiscussionReloadRequired =>
+      'फिर से भेजने से पहले चर्चाएँ रीफ़्रेश करें। पिछला अनुरोध स्वीकार हो चुका हो सकता है।';
+
+  @override
+  String get mrDiffDiscussionReloadFailed =>
+      'चर्चाएँ रीफ़्रेश नहीं हो सकीं। फिर से प्रयास करें।';
+
+  @override
+  String get mrReviewUnavailable =>
+      'इस डिफ़ संस्करण पर इनलाइन समीक्षा उपलब्ध नहीं है।';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return 'डिफ़ संस्करण $version की समीक्षा';
+  }
+
+  @override
+  String get mrDiffDiscussionPending => 'चर्चा बनाई जा रही है…';
+
+  @override
+  String get mrDiffDiscussionReloading => 'चर्चाएँ रीफ़्रेश की जा रही हैं…';
+
+  @override
+  String get mrDiffDiscussionInspect =>
+      'फिर से भेजने से पहले इस पंक्ति की चर्चाएँ देखें।';
+
+  @override
+  String get mrDiffDiscussionNoMatches =>
+      'लोड किए गए पृष्ठों में इस पंक्ति की कोई चर्चा नहीं है।';
 }

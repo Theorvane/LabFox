@@ -1286,5 +1286,22 @@
   "mrDiscussionContextError": "元の差分を読み込めませんでした。もう一度お試しください。",
   "mrDiscussionContextOlderButton": "以前のバージョンを探す",
   "mrDiscussionContextLineLabel": "コメント対象の行",
-  "mrDiscussionContextLoading": "元の差分を読み込み中"
+  "mrDiscussionContextLoading": "元の差分を読み込み中",
+  "mrDiffDiscussLineButton": "この行にディスカッションを追加",
+  "mrDiffDiscussionTitle": "{path} のディスカッション · バージョン {version}",
+  "mrDiffDiscussionHint": "レビューコメントを入力…",
+  "mrDiffDiscussionSubmit": "ディスカッションを開始",
+  "mrDiffDiscussionCancel": "キャンセル",
+  "mrDiffDiscussionCreated": "ディスカッションを作成しました。",
+  "mrDiffDiscussionError": "ディスカッションの作成を確認できませんでした。",
+  "mrDiffDiscussionPermissionError": "このディスカッションを作成する権限がありません。",
+  "mrDiffDiscussionReloadButton": "ディスカッションを更新",
+  "mrDiffDiscussionReloadRequired": "再送信する前にディスカッションを更新してください。前のリクエストが処理済みの可能性があります。",
+  "mrDiffDiscussionReloadFailed": "ディスカッションを更新できませんでした。再試行してください。",
+  "mrReviewUnavailable": "この差分バージョンではインラインレビューを利用できません。",
+  "mrReviewVersionTitle": "差分バージョン {version} をレビュー中",
+  "mrDiffDiscussionPending": "ディスカッションを作成中…",
+  "mrDiffDiscussionReloading": "ディスカッションを更新中…",
+  "mrDiffDiscussionInspect": "再送信する前にこの行のディスカッションを確認してください。",
+  "mrDiffDiscussionNoMatches": "読み込んだページにはこの行のディスカッションがありません。"
 }
