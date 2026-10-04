@@ -28,11 +28,25 @@ Future<Note> _read(GitLabClient client, String operation) async {
       body: 'Reply',
     );
   }
+  if (operation == 'resolution') {
+    return (await client.mergeRequests.setDiscussionResolved(
+      'group/project',
+      iid: 142,
+      discussionId: 'thread',
+      resolved: true,
+    )).notes.single;
+  }
   return (await client.mergeRequests.discussions(
     'group/project',
     iid: 142,
   )).items.single.notes.single;
 }
+
+Object _responseBody(String operation, Object? position) => switch (operation) {
+  'reply' => _note(position),
+  'resolution' => _thread(position),
+  _ => [_thread(position)],
+};
 
 void main() {
   final positions = <String, Map<String, Object?>>{
@@ -117,7 +131,7 @@ void main() {
       },
     },
   };
-  for (final operation in ['read', 'reply']) {
+  for (final operation in ['read', 'reply', 'resolution']) {
     for (final entry in positions.entries) {
       test('$operation preserves ${entry.key} positions', () async {
         var requests = 0;
@@ -125,9 +139,7 @@ void main() {
           requests++;
           return (
             status: operation == 'reply' ? 201 : 200,
-            body: operation == 'reply'
-                ? _note(entry.value)
-                : [_thread(entry.value)],
+            body: _responseBody(operation, entry.value),
           );
         });
         addTearDown(client.close);
@@ -147,7 +159,7 @@ void main() {
       final client = _client(
         (_) => (
           status: operation == 'reply' ? 201 : 200,
-          body: operation == 'reply' ? _note(null) : [_thread(null)],
+          body: _responseBody(operation, null),
         ),
       );
       addTearDown(client.close);
@@ -158,9 +170,7 @@ void main() {
         final client = _client(
           (_) => (
             status: operation == 'reply' ? 201 : 200,
-            body: operation == 'reply'
-                ? _note(entry.value)
-                : [_thread(entry.value)],
+            body: _responseBody(operation, entry.value),
           ),
         );
         addTearDown(client.close);
@@ -170,9 +180,11 @@ void main() {
             isA<GitLabServerException>().having(
               (e) => e.message,
               'sanitized message',
-              operation == 'reply'
-                  ? 'Invalid discussion reply response.'
-                  : 'Invalid discussions response.',
+              switch (operation) {
+                'reply' => 'Invalid discussion reply response.',
+                'resolution' => 'Invalid discussion resolution response.',
+                _ => 'Invalid discussions response.',
+              },
             ),
           ),
         );
@@ -185,9 +197,7 @@ void main() {
           final client = _client(
             (_) => (
               status: status,
-              body: operation == 'reply'
-                  ? _note('private-content-marker')
-                  : [_thread('private-content-marker')],
+              body: _responseBody(operation, 'private-content-marker'),
             ),
           );
           addTearDown(client.close);
