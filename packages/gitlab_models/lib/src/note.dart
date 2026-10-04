@@ -18,6 +18,12 @@ abstract class Note with _$Note {
     @JsonKey(name: 'system') @Default(false) bool isSystem,
     User? author,
     @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    String? type,
+    bool? resolvable,
+    bool? resolved,
+    @JsonKey(name: 'resolved_by') User? resolvedBy,
+    @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
   }) = _Note;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
