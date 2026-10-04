@@ -23,4 +23,4 @@ These are synthetic Flutter widget-test captures with dummy metadata and SDK fon
 | Mobile, 390 × 844 | [Capture](images/mr-suggestion-apply/apply-390-light.png) | [Capture](images/mr-suggestion-apply/apply-390-dark.png) |
 | Desktop, 1200 × 900 | [Capture](images/mr-suggestion-apply/apply-1200-light.png) | [Capture](images/mr-suggestion-apply/apply-1200-dark.png) |
 
-Batch suggestion application and multiline discussion context/creation remain separate parity slices.
+The [batch application API](mr-suggestion-batch-api.md) is available as a separate foundation. Batch selection/confirmation UI and multiline discussion context/creation remain separate parity slices.
