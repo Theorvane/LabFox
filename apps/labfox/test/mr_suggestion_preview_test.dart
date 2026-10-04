@@ -1,10 +1,10 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:ui' as ui;
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -114,6 +114,7 @@ Future<AppLocalizations> _pump(
       child: RepaintBoundary(
         key: _captureKey,
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(
               context,
@@ -220,7 +221,7 @@ void main() {
         testWidgets(
           'preview keeps long literal code bounded $locale $width $dark',
           (tester) async {
-            final content = '    ' + List.filled(300, 'x').join() + '\n';
+            final content = '    ${List.filled(300, 'x').join()}\n';
             final repo = _Repository()
               ..pages[1] = Paginated(
                 items: [
@@ -518,23 +519,51 @@ void main() {
       for (final dark in [false, true]) {
         testWidgets('synthetic preview capture $width $dark', (tester) async {
           final sdk = Platform.environment['FLUTTER_ROOT']!;
-          for (final (family, name) in [
-            ('Roboto', 'Roboto-Regular.ttf'),
-            ('monospace', 'Roboto-Regular.ttf'),
-            ('MaterialIcons', 'MaterialIcons-Regular.otf'),
-          ]) {
-            final loader = FontLoader(family)
-              ..addFont(
-                Future.value(
-                  ByteData.sublistView(
-                    File(
-                      '$sdk/bin/cache/artifacts/material_fonts/$name',
-                    ).readAsBytesSync(),
+          await tester.runAsync(() async {
+            for (final (family, name) in [
+              ('Roboto', 'Roboto-Regular.ttf'),
+              ('monospace', 'Roboto-Regular.ttf'),
+              ('MaterialIcons', 'MaterialIcons-Regular.otf'),
+            ]) {
+              final loader = FontLoader(family)
+                ..addFont(
+                  Future.value(
+                    ByteData.sublistView(
+                      File(
+                        '$sdk/bin/cache/artifacts/material_fonts/$name',
+                      ).readAsBytesSync(),
+                    ),
                   ),
+                );
+              if (family == 'Roboto') {
+                for (final weight in ['Medium', 'Bold']) {
+                  loader.addFont(
+                    Future.value(
+                      ByteData.sublistView(
+                        File(
+                          '$sdk/bin/cache/artifacts/material_fonts/Roboto-$weight.ttf',
+                        ).readAsBytesSync(),
+                      ),
+                    ),
+                  );
+                }
+              }
+              await loader.load();
+            }
+          });
+          final baseTheme = dark ? LabFoxTheme.dark : LabFoxTheme.light;
+          final buttonStyle = baseTheme.filledButtonTheme.style!;
+          final captureTheme = baseTheme.copyWith(
+            filledButtonTheme: FilledButtonThemeData(
+              style: buttonStyle.copyWith(
+                textStyle: WidgetStatePropertyAll(
+                  buttonStyle.textStyle!
+                      .resolve({})!
+                      .copyWith(fontFamily: 'Roboto'),
                 ),
-              );
-            await loader.load();
-          }
+              ),
+            ),
+          );
           final repo = _Repository()
             ..pages[1] = Paginated(
               items: [
@@ -552,6 +581,7 @@ void main() {
             width: width,
             height: width < 600 ? 844 : 900,
             dark: dark,
+            theme: captureTheme,
           );
           await tester.tap(
             find.byKey(const ValueKey('mr-suggestion-open-301-7')),
@@ -561,8 +591,10 @@ void main() {
           final boundary = tester.renderObject<RenderRepaintBoundary>(
             find.byKey(_captureKey),
           );
-          final image = await boundary.toImage();
-          final data = await image.toByteData(format: ui.ImageByteFormat.png);
+          final image = (await tester.runAsync(boundary.toImage))!;
+          final data = await tester.runAsync(
+            () => image.toByteData(format: ui.ImageByteFormat.png),
+          );
           await tester.runAsync(() async {
             final file = File(
               '$directory/preview-${width.toInt()}-${dark ? 'dark' : 'light'}.png',
