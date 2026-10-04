@@ -4609,4 +4609,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrSuggestionsBackButton => '返回选择';
+
+  @override
+  String mrDiscussionContextRangeLabel(String start, String end) {
+    return '评论行 $start–$end';
+  }
+
+  @override
+  String get mrDiscussionContextRangeLineLabel => '评论范围内的行';
 }

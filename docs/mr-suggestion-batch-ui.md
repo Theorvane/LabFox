@@ -23,4 +23,4 @@ Layout tests cover five locales at 390, 800 and 1200 logical pixels in both them
 | Mobile, 390 × 844 | [Capture](images/mr-suggestion-batch/batch-390-light.png) | [Capture](images/mr-suggestion-batch/batch-390-dark.png) |
 | Desktop, 1200 × 900 | [Capture](images/mr-suggestion-batch/batch-1200-light.png) | [Capture](images/mr-suggestion-batch/batch-1200-dark.png) |
 
-References: [GitLab batch suggestion application](https://docs.gitlab.com/api/suggestions/#apply-multiple-suggestions), [MR discussion inspection](https://docs.gitlab.com/api/discussions/#retrieve-a-merge-request-discussion-item). Multiline original context and positioned thread creation remain separate parity slices.
+References: [GitLab batch suggestion application](https://docs.gitlab.com/api/suggestions/#apply-multiple-suggestions), [MR discussion inspection](https://docs.gitlab.com/api/discussions/#retrieve-a-merge-request-discussion-item). [Multiline original context](mr-discussion-context.md) is available. Multiline positioned thread creation remains a separate parity slice.

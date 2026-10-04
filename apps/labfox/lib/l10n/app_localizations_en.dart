@@ -4921,4 +4921,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrSuggestionsBackButton => 'Back to selection';
+
+  @override
+  String mrDiscussionContextRangeLabel(String start, String end) {
+    return 'Commented lines $start–$end';
+  }
+
+  @override
+  String get mrDiscussionContextRangeLineLabel => 'Line in commented range';
 }

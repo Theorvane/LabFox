@@ -1349,5 +1349,7 @@
   "mrSuggestionsReloadProgress": "正在重新加载所选讨论…",
   "mrSuggestionsReloadError": "未能加载所有讨论。应用前请重新加载。",
   "mrSuggestionsApplyForbidden": "GitLab 拒绝了此操作。请检查访问权限，并在重试前重新加载所有选中的讨论。",
-  "mrSuggestionsBackButton": "返回选择"
+  "mrSuggestionsBackButton": "返回选择",
+  "mrDiscussionContextRangeLabel": "评论行 {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "评论范围内的行"
 }

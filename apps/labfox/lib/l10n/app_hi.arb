@@ -1349,5 +1349,7 @@
   "mrSuggestionsReloadProgress": "चुनी हुई चर्चाएँ लोड हो रही हैं…",
   "mrSuggestionsReloadError": "सभी चर्चाएँ लोड नहीं हो सकीं। लागू करने से पहले फिर से लोड करें।",
   "mrSuggestionsApplyForbidden": "GitLab ने इस कार्रवाई को अस्वीकार किया। अपनी पहुँच जाँचें और फिर कोशिश करने से पहले सभी चुनी हुई चर्चाएँ फिर से लोड करें।",
-  "mrSuggestionsBackButton": "चयन पर वापस जाएँ"
+  "mrSuggestionsBackButton": "चयन पर वापस जाएँ",
+  "mrDiscussionContextRangeLabel": "टिप्पणी वाली पंक्तियाँ {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "टिप्पणी की सीमा में पंक्ति"
 }

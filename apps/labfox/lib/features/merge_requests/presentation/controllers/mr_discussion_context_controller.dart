@@ -6,6 +6,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../diff/data/diff_repository.dart';
 import '../../../diff/presentation/controllers/diff_controllers.dart';
+import '../../data/original_diff_range.dart';
 
 /// Identifies the original position being read inside an MR conversation.
 class MrDiscussionContextRef {
@@ -32,6 +33,7 @@ class MrDiscussionContext {
   const MrDiscussionContext({
     this.file,
     this.line,
+    this.lines = const [],
     this.versionId,
     this.nextPage,
     this.loadingMore = false,
@@ -39,6 +41,7 @@ class MrDiscussionContext {
   });
   final FileDiff? file;
   final DiffLine? line;
+  final List<DiffLine> lines;
   final int? versionId;
   final int? nextPage;
   final bool loadingMore;
@@ -160,14 +163,19 @@ class MrDiscussionContextController
         isRenamed: source.isRenamed == true || source.oldPath != source.newPath,
         diff: source.diff!,
       );
-      final lines = file.hunks
-          .expand((hunk) => hunk.lines)
-          .where(_sameLine)
-          .toList();
-      if (lines.length != 1) return const MrDiscussionContext();
+      final range = arg.position.lineRange;
+      final lines = range == null
+          ? file.hunks.expand((hunk) => hunk.lines).where(_sameLine).toList()
+          : originalDiffRange(file, range);
+      if (lines == null ||
+          lines.isEmpty ||
+          range == null && lines.length != 1) {
+        return const MrDiscussionContext();
+      }
       return MrDiscussionContext(
         file: file,
-        line: lines.single,
+        line: lines.last,
+        lines: List.unmodifiable(lines),
         versionId: selected.id,
       );
     } catch (_) {
@@ -196,7 +204,6 @@ class MrDiscussionContextController
 
   static bool _supported(DiffNotePosition p) =>
       p.positionType == 'text' &&
-      p.lineRange == null &&
       [
         p.baseSha,
         p.startSha,
@@ -204,7 +211,9 @@ class MrDiscussionContextController
         p.oldPath,
         p.newPath,
       ].every((value) => value != null && value.trim().isNotEmpty) &&
-      (p.oldLine != null || p.newLine != null) &&
+      (p.lineRange != null
+          ? supportsOriginalDiffRange(p.lineRange!)
+          : p.oldLine != null || p.newLine != null) &&
       (p.oldLine == null || p.oldLine! > 0) &&
       (p.newLine == null || p.newLine! > 0);
 }

@@ -8665,6 +8665,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to selection'**
   String get mrSuggestionsBackButton;
+
+  /// Inclusive original commented range. Minus denotes old-side coordinates; plus denotes new-side coordinates.
+  ///
+  /// In en, this message translates to:
+  /// **'Commented lines {start}–{end}'**
+  String mrDiscussionContextRangeLabel(String start, String end);
+
+  /// No description provided for @mrDiscussionContextRangeLineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Line in commented range'**
+  String get mrDiscussionContextRangeLineLabel;
 }
 
 class _AppLocalizationsDelegate

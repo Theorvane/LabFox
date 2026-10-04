@@ -1349,5 +1349,7 @@
   "mrSuggestionsReloadProgress": "選択したディスカッションを読み込み中…",
   "mrSuggestionsReloadError": "一部のディスカッションを読み込めませんでした。適用前に再読み込みしてください。",
   "mrSuggestionsApplyForbidden": "GitLabがこの操作を拒否しました。アクセス権を確認し、選択したすべてのディスカッションを再読み込みしてから再試行してください。",
-  "mrSuggestionsBackButton": "選択に戻る"
+  "mrSuggestionsBackButton": "選択に戻る",
+  "mrDiscussionContextRangeLabel": "コメント対象の行 {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "コメント範囲内の行"
 }

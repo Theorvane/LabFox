@@ -79,7 +79,7 @@ LicenseRegistry.addLicense(() async* {
 | intl | any | BSD-3-Clause | https://github.com/dart-lang/i18n |
 | markdown | ^7.3.1 | BSD-3-Clause | https://github.com/dart-lang/markdown |
 | html | ^0.15.4 | BSD-3-Clause | https://github.com/dart-lang/tools |
-| crypto | ^3.0.0 | BSD-3-Clause | https://github.com/dart-lang/crypto |
+| crypto (GitLab API and app) | ^3.0.0 | BSD-3-Clause | https://github.com/dart-lang/crypto |
 | flutter_web_auth_2 | ^4.0.0 | MIT | https://github.com/ThexXTURBOXx/flutter_web_auth_2 |
 | share_plus | ^12.0.2 | BSD-3-Clause | https://github.com/fluttercommunity/plus_plugins |
 | package_info_plus | ^8.1.0 | BSD-3-Clause | https://github.com/fluttercommunity/plus_plugins |
@@ -94,7 +94,7 @@ LicenseRegistry.addLicense(() async* {
 | in_app_purchase_storekit | ^0.4.11 | BSD-3-Clause | https://github.com/flutter/packages |
 | in_app_purchase_platform_interface | ^1.4.1 | BSD-3-Clause | https://github.com/flutter/packages |
 
-*(To be filled in with the actual dependencies after scaffolding)*
+The app also uses the existing `crypto` package to verify GitLab diff endpoint filename hashes. Its BSD-3-Clause license permits commercial distribution; copyright and full license text are collected from the package LICENSE by Flutter's in-app license registry. No new package version is introduced.
 
 ---
 

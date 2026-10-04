@@ -17,6 +17,7 @@ class DiffViewer extends StatelessWidget {
     this.binaryLabel = 'Binary file',
     this.omittedLabel = 'Diff not shown',
     this.highlightedLine,
+    this.highlightedLines = const [],
     this.highlightedLineLabel,
     this.focusOnHighlightedLine = false,
     this.onLineSelected,
@@ -37,9 +38,12 @@ class DiffViewer extends StatelessWidget {
 
   /// A line from this file to mark with a non-color, accessible indicator.
   final DiffLine? highlightedLine;
+
+  /// Additional literal members from this file; foreign/duplicate lines are ignored.
+  final List<DiffLine> highlightedLines;
   final String? highlightedLineLabel;
 
-  /// Show only the containing hunk when the supplied line belongs to this file.
+  /// Show only containing hunks when supplied highlighted lines belong to this file.
   final bool focusOnHighlightedLine;
 
   /// Optional caller-localized action on eligible original lines.
@@ -59,8 +63,10 @@ class DiffViewer extends StatelessWidget {
       );
     }
 
+    final marked = Set<DiffLine>.identity()..addAll(highlightedLines);
+    if (highlightedLine != null) marked.add(highlightedLine!);
     final matching = file.hunks.where(
-      (hunk) => hunk.lines.any((line) => identical(line, highlightedLine)),
+      (hunk) => hunk.lines.any(marked.contains),
     );
     final hunks = focusOnHighlightedLine && matching.isNotEmpty
         ? matching
@@ -80,8 +86,8 @@ class DiffViewer extends StatelessWidget {
                   ? () => onLineSelected!(line)
                   : null,
               actionLabel: lineActionLabel,
-              showHighlightGutter: highlightedLine != null,
-              highlighted: identical(line, highlightedLine),
+              showHighlightGutter: marked.isNotEmpty,
+              highlighted: marked.contains(line),
               highlightedLabel: highlightedLineLabel,
             ),
         ],
