@@ -1429,5 +1429,11 @@
   "mrPendingPublishRecoveryRequired": "非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。",
   "mrPendingInlineOpen": "非公開のインラインメモを保存",
   "mrPendingInlineTitle": "非公開のインラインレビューメモ",
-  "mrPendingInlineHint": "選択した行または範囲に非公開のメモを保存します。保留中のレビューを公開するまでは、自分だけが閲覧できます。保存前に最新の差分を再確認します。"
+  "mrPendingInlineHint": "選択した行または範囲に非公開のメモを保存します。保留中のレビューを公開するまでは、自分だけが閲覧できます。保存前に最新の差分を再確認します。",
+  "mrPendingPublishNoteButton": "この下書きを公開",
+  "mrPendingPublishNoteTitle": "この非公開の下書きを公開しますか？",
+  "mrPendingPublishNoteHint": "この保存済みの下書きがマージリクエストの他のユーザーに表示されます。他の下書きは非公開のままです。",
+  "mrPendingPublishNoteRaceHint": "公開前に選択した下書きを再確認します。確認後に別のクライアントで変更された内容が含まれる場合があります。",
+  "mrPendingPublishNoteConsent": "この保存済みの下書きを公開します。",
+  "mrPendingNotePublished": "レビューの下書きを公開しました。"
 }

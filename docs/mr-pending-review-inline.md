@@ -42,7 +42,8 @@ or exactly-once guarantee is implied.
 The fresh diff check is a preflight check: another client can change the MR
 between the final read and server-side creation. GitLab's position validation
 remains authoritative; this flow does not claim an atomic conditional write.
-Image/file positions, commit-associated/reply drafts, single-note publication
+Saved drafts can now use [individual publication](mr-pending-review-single-publication.md).
+Image/file positions, commit-associated/reply draft creation, summary
 and reviewer-state controls remain separate slices. MW-07 remains in progress.
 
 ## Validation

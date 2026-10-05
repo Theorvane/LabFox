@@ -9145,6 +9145,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.'**
   String get mrPendingInlineHint;
+
+  /// No description provided for @mrPendingPublishNoteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish this note'**
+  String get mrPendingPublishNoteButton;
+
+  /// No description provided for @mrPendingPublishNoteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish this private note?'**
+  String get mrPendingPublishNoteTitle;
+
+  /// No description provided for @mrPendingPublishNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This saved note will become visible to others in this merge request. Your other pending notes stay private.'**
+  String get mrPendingPublishNoteHint;
+
+  /// No description provided for @mrPendingPublishNoteRaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected note is checked again before publishing. Changes from another client after that check may be included.'**
+  String get mrPendingPublishNoteRaceHint;
+
+  /// No description provided for @mrPendingPublishNoteConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to make this saved note public.'**
+  String get mrPendingPublishNoteConsent;
+
+  /// No description provided for @mrPendingNotePublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note published.'**
+  String get mrPendingNotePublished;
 }
 
 class _AppLocalizationsDelegate

@@ -770,6 +770,42 @@ class MergeRequestsApi {
     }
   }
 
+  /// Publishes one owned saved draft by identity; acknowledges only HTTP 204.
+  /// Sends no body or reviewer-state update request.
+  Future<void> publishDraftNote(
+    Object projectId, {
+    required int iid,
+    required int draftNoteId,
+  }) async {
+    final path = '${_draftNotePath(projectId, iid, draftNoteId)}/publish';
+    try {
+      final response = await _dio.put<dynamic>(
+        path,
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'publishing a review draft',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'publishing a review draft',
+        );
+      }
+      throw mapError(error, context: 'publishing a review draft');
+    }
+  }
+
   /// Publishes all saved notes owned by the authenticated user, once.
   /// GitLab does not accept a conditional list of selected draft IDs here.
   Future<void> publishDraftNotes(Object projectId, {required int iid}) async {

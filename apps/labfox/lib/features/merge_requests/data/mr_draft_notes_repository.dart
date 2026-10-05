@@ -80,6 +80,22 @@ class MrDraftNotesRepository {
     );
   }
 
+  /// Publishes one captured owned target without reconstructing its position.
+  /// Fresh target confirmation belongs to the shared discussion controller.
+  Future<void> publishNote({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required MergeRequestDraftNote draft,
+  }) async {
+    _validateTarget(draft, mergeRequestId);
+    await _client.mergeRequests.publishDraftNote(
+      projectId,
+      iid: iid,
+      draftNoteId: draft.id,
+    );
+  }
+
   /// Publishes the captured account's entire pending review in one request.
   /// The controller confirms a complete fresh snapshot before dispatch.
   Future<void> publish({

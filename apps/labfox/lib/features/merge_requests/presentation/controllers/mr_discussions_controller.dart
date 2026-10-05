@@ -321,9 +321,11 @@ class MrDiscussionsController
   MrPendingReviewPublication _publicationSnapshot(
     MrDraftNotesRepository repository,
     MergeRequest detail,
-    List<MergeRequestDraftNote> items,
-  ) => MrPendingReviewPublication._(
+    List<MergeRequestDraftNote> items, {
+    int? draftNoteId,
+  }) => MrPendingReviewPublication._(
     items: items,
+    draftNoteId: draftNoteId,
     account: ref.read(currentAccountProvider)!,
     client: ref.read(gitLabClientProvider).value!,
     drafts: repository,
@@ -362,6 +364,81 @@ class MrDiscussionsController
     }, isCurrent: isCurrent);
   }
 
+  /// Confirms the selected saved DTO against every current private page.
+  Future<MrPendingReviewPublication?> preparePendingNotePublication(
+    MergeRequestDraftNote draft, {
+    bool Function()? isCurrent,
+  }) {
+    if (pendingSaveNeedsInspection) return Future.value(null);
+    return _pendingReview((repository, detail, current, wait) async {
+      await _confirmPendingTarget(repository, detail, draft, current, wait);
+      return _publicationSnapshot(repository, detail, [
+        draft,
+      ], draftNoteId: draft.id);
+    }, isCurrent: isCurrent);
+  }
+
+  /// Publishes only the bound saved identity after a fresh exact comparison.
+  /// Another client can still change that identity after the preflight read.
+  Future<bool> publishPendingNote(
+    MrPendingReviewPublication snapshot, {
+    bool Function()? isCurrent,
+  }) async {
+    if (pendingSaveNeedsInspection ||
+        snapshot._draftNoteId == null ||
+        snapshot.items.length != 1 ||
+        snapshot.items.single.id != snapshot._draftNoteId ||
+        !_currentPublication(snapshot)) {
+      return false;
+    }
+    final published =
+        await _pendingReview((repository, detail, current, wait) async {
+          if (detail.id != snapshot._mergeRequestId ||
+              !_currentPublication(snapshot)) {
+            throw const GitLabConflictException(
+              'The selected private review target changed.',
+            );
+          }
+          await _confirmPendingTarget(
+            repository,
+            detail,
+            snapshot.items.single,
+            current,
+            wait,
+          );
+          _pendingPublicationNeedsInspection = true;
+          _pendingNeedsInspection = true;
+          final write = repository.publishNote(
+            projectId: arg.projectId,
+            iid: arg.iid,
+            mergeRequestId: detail.id,
+            draft: snapshot.items.single,
+          );
+          _pendingWriteSettled = write.then<void>(
+            (_) {},
+            onError: (Object _, StackTrace _) {},
+          );
+          await wait(write);
+          if (!current()) throw const _PendingReviewCancelled();
+          _pendingPublicationNeedsInspection = false;
+          _pendingNeedsInspection = false;
+          _pendingWriteSettled = null;
+          ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+          return true;
+        }, isCurrent: isCurrent) ??
+        false;
+    await Future<void>.value();
+    if (published &&
+        (!_currentPublication(snapshot) || isCurrent?.call() == false)) {
+      return false;
+    }
+    if (published) {
+      ref.invalidate(mergeRequestControllerProvider(arg));
+      ref.invalidateSelf();
+    }
+    return published;
+  }
+
   /// An unchanged complete snapshot authorizes one account-scoped bulk POST.
   /// This is a preflight comparison, not a conditional server-side transaction.
   Future<bool> publishPendingReview(
@@ -369,6 +446,7 @@ class MrDiscussionsController
     bool Function()? isCurrent,
   }) async {
     if (pendingSaveNeedsInspection ||
+        snapshot._draftNoteId != null ||
         snapshot.items.isEmpty ||
         !_currentPublication(snapshot)) {
       return false;
@@ -1094,6 +1172,7 @@ typedef _PendingReviewWait = Future<T> Function<T>(Future<T> future);
 class MrPendingReviewPublication {
   MrPendingReviewPublication._({
     required List<MergeRequestDraftNote> items,
+    int? draftNoteId,
     required Account account,
     required GitLabClient client,
     required MrDraftNotesRepository drafts,
@@ -1102,6 +1181,7 @@ class MrPendingReviewPublication {
     required MergeRequestRef resource,
     required int mergeRequestId,
   }) : items = List.unmodifiable(items),
+       _draftNoteId = draftNoteId,
        _account = account,
        _client = client,
        _drafts = drafts,
@@ -1109,6 +1189,26 @@ class MrPendingReviewPublication {
        _comments = comments,
        _resource = resource,
        _mergeRequestId = mergeRequestId;
+
+  /// Derives a selected confirmation from a complete recovery inspection.
+  /// Callers must show it again and obtain fresh consent before publication.
+  MrPendingReviewPublication? forNote(int draftNoteId) {
+    final matches = items.where((item) => item.id == draftNoteId);
+    if (draftNoteId < 1 || matches.length != 1) return null;
+    return MrPendingReviewPublication._(
+      items: [matches.single],
+      draftNoteId: draftNoteId,
+      account: _account,
+      client: _client,
+      drafts: _drafts,
+      details: _details,
+      comments: _comments,
+      resource: _resource,
+      mergeRequestId: _mergeRequestId,
+    );
+  }
+
+  final int? _draftNoteId;
   final List<MergeRequestDraftNote> items;
   final Account _account;
   final GitLabClient _client;

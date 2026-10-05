@@ -647,6 +647,12 @@ void main() {
       await open(t);
       await enter(t);
       await tap(t, saveKey);
+      await t.scrollUntilVisible(
+        find.byType(TextField),
+        300,
+        scrollable: find.byType(Scrollable).first,
+      );
+      await t.pumpAndSettle();
       expect(find.text('Existing public draft'), findsOneWidget);
       expect(f.comments.posts, isEmpty);
       expect(f.drafts.writes.length, 1);
