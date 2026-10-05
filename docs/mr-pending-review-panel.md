@@ -1,6 +1,7 @@
 # Your private pending MR review
 
-Issue [#604](https://github.com/Theorvane/labfox/issues/604) connects the
+Issue [#604](https://github.com/Theorvane/labfox/issues/604) /
+[PR #605](https://github.com/Theorvane/labfox/pull/605) connects the
 [private pagination controller](mr-pending-review-reader.md) to MR detail.
 **Your pending review** displays saved, unpublished server notes that belong to
 the authenticated author. The panel is read-only; creation orchestration,
