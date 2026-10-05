@@ -4988,4 +4988,44 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrPendingDeleting => '리뷰 메모 삭제 중…';
+
+  @override
+  String get mrPendingPublishOpen => '대기 중인 리뷰 게시';
+
+  @override
+  String get mrPendingPublishTitle => '대기 중인 리뷰 게시';
+
+  @override
+  String get mrPendingPublishHint =>
+      '이 머지 리퀘스트에 저장한 내 메모 전체가 다른 사용자에게 공개됩니다. 게시해도 머지 리퀘스트가 승인되거나 머지되지 않습니다.';
+
+  @override
+  String get mrPendingPublishRaceHint => '게시 전에 다른 클라이언트에서 저장한 메모도 포함될 수 있습니다.';
+
+  @override
+  String get mrPendingPublishConsent => '모든 메모를 확인했으며 대기 중인 내 리뷰 전체를 게시하겠습니다.';
+
+  @override
+  String get mrPendingPublishButton => '모든 메모 게시';
+
+  @override
+  String get mrPendingPublished => '대기 중인 리뷰가 게시되었습니다';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      '리뷰가 변경되었거나 게시 결과를 확인하지 못했습니다. 재시도를 결정하기 전에 저장된 메모와 공개 토론을 확인하세요.';
+
+  @override
+  String get mrPendingPublishInspect => '메모와 토론 확인';
+
+  @override
+  String get mrPendingPublishPublicTitle => '현재 공개 토론';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      '현재 저장된 메모와 공개 토론입니다. 내용이나 부재만으로 이전 시도의 성공 여부를 판단할 수 없습니다. 다시 게시하기 전에 두 목록을 확인하세요.';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      '비공개 메모를 변경하기 전에 대기 중인 리뷰 게시를 열어 저장된 메모와 공개 토론을 모두 확인하세요.';
 }

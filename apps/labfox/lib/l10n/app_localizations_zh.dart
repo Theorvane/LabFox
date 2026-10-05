@@ -4826,4 +4826,43 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrPendingDeleting => '正在删除审查笔记…';
+
+  @override
+  String get mrPendingPublishOpen => '发布待处理评审';
+
+  @override
+  String get mrPendingPublishTitle => '发布待处理评审';
+
+  @override
+  String get mrPendingPublishHint => '你在此合并请求中保存的所有备注都将对他人可见。发布不会批准或合并该合并请求。';
+
+  @override
+  String get mrPendingPublishRaceHint => '发布前从其他客户端保存的备注也可能包含在内。';
+
+  @override
+  String get mrPendingPublishConsent => '我已检查所有备注，并希望发布我的整个待处理评审。';
+
+  @override
+  String get mrPendingPublishButton => '发布所有备注';
+
+  @override
+  String get mrPendingPublished => '待处理评审已发布';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      '评审已更改或无法确认发布结果。决定是否重试之前，请检查已保存的备注和公开讨论。';
+
+  @override
+  String get mrPendingPublishInspect => '检查备注和讨论';
+
+  @override
+  String get mrPendingPublishPublicTitle => '当前公开讨论';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      '这些是当前保存的备注和公开讨论。其内容或缺失不能证明之前哪次尝试成功。再次发布前请检查两个列表。';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      '更改私密备注之前，请打开“发布待处理评审”，检查已保存的备注和公开讨论。';
 }

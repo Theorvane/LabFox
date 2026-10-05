@@ -12,6 +12,7 @@ import '../controllers/mr_draft_notes_provider.dart';
 import '../controllers/mr_pending_review_controller.dart';
 import 'mr_pending_review_composer.dart';
 import 'mr_pending_review_note.dart';
+import 'mr_pending_review_publisher.dart';
 
 /// Private saved notes and a regular composer using current MR detail.
 class MrPendingReviewPanel extends ConsumerStatefulWidget {
@@ -181,6 +182,11 @@ class _PanelState extends ConsumerState<MrPendingReviewPanel> {
                 const SizedBox(height: LabFoxSpacing.sm),
                 MrPendingReviewComposer(
                   key: ValueKey((mergeRequest, account)),
+                  mergeRequest: mergeRequest,
+                ),
+                const SizedBox(height: LabFoxSpacing.sm),
+                MrPendingReviewPublisher(
+                  key: ValueKey(('publication', mergeRequest, account)),
                   mergeRequest: mergeRequest,
                 ),
                 const SizedBox(height: LabFoxSpacing.md),

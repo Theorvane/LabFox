@@ -7,7 +7,7 @@ Issue [#604](https://github.com/Theorvane/labfox/issues/604) /
 the authenticated author. The saved-note reader remains read-only. The subsequent
 [regular private composer](mr-pending-review-composer.md) adds an explicit
 **Add review note** entry using [guarded save orchestration](mr-pending-review-save.md).
-Positioned-save orchestration, editing/deletion and publication remain follow-ups.
+Saved notes also support [editing and deletion](mr-pending-review-maintenance.md) and [whole-review publication](mr-pending-review-publication.md). Positioned-save orchestration remains separate.
 
 ## Reading and recovery
 

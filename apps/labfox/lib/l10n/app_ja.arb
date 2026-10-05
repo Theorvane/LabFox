@@ -1414,5 +1414,17 @@
   "mrPendingMaintenanceInspectionHint": "現在読み取れる保存済みノートの一覧です。再度変更する前に、上の選択したノートを確認してください。",
   "mrPendingMaintenanceAcknowledge": "現在選択されているノートを確認し、この変更を適用します。",
   "mrPendingTargetMissing": "選択したノートは利用できなくなりました。この画面を閉じて、保留中のレビューを更新してください。",
-  "mrPendingDeleting": "レビューノートを削除中…"
+  "mrPendingDeleting": "レビューノートを削除中…",
+  "mrPendingPublishOpen": "保留中のレビューを公開",
+  "mrPendingPublishTitle": "保留中のレビューを公開",
+  "mrPendingPublishHint": "このマージリクエストに保存した自分のメモがすべて公開されます。公開してもマージリクエストは承認またはマージされません。",
+  "mrPendingPublishRaceHint": "公開前に別のクライアントで保存したメモも含まれる場合があります。",
+  "mrPendingPublishConsent": "すべてのメモを確認し、保留中の自分のレビュー全体を公開します。",
+  "mrPendingPublishButton": "すべてのメモを公開",
+  "mrPendingPublished": "保留中のレビューを公開しました",
+  "mrPendingPublishUncertain": "レビューが変更されたか、公開結果を確認できませんでした。再試行するか決める前に、保存済みメモと公開ディスカッションを確認してください。",
+  "mrPendingPublishInspect": "メモとディスカッションを確認",
+  "mrPendingPublishPublicTitle": "現在の公開ディスカッション",
+  "mrPendingPublishRecoveryHint": "現在の保存済みメモと公開ディスカッションです。内容や不在だけでは以前の試行の成功を判断できません。再度公開する前に両方の一覧を確認してください。",
+  "mrPendingPublishRecoveryRequired": "非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。"
 }

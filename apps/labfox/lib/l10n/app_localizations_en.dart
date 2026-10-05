@@ -5164,4 +5164,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrPendingDeleting => 'Deleting review note…';
+
+  @override
+  String get mrPendingPublishOpen => 'Publish pending review';
+
+  @override
+  String get mrPendingPublishTitle => 'Publish pending review';
+
+  @override
+  String get mrPendingPublishHint =>
+      'All your saved notes on this merge request will become visible to others. Publishing does not approve or merge the merge request.';
+
+  @override
+  String get mrPendingPublishRaceHint =>
+      'Notes saved from another client before publication may also be included.';
+
+  @override
+  String get mrPendingPublishConsent =>
+      'I have checked all the notes and want to publish my entire pending review.';
+
+  @override
+  String get mrPendingPublishButton => 'Publish all notes';
+
+  @override
+  String get mrPendingPublished => 'Pending review published';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      'The review changed or publication could not be confirmed. Check saved notes and public discussions before deciding whether to try again.';
+
+  @override
+  String get mrPendingPublishInspect => 'Check notes and discussions';
+
+  @override
+  String get mrPendingPublishPublicTitle => 'Current public discussions';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      'These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      'Open Publish pending review to check both saved notes and public discussions before changing private notes.';
 }

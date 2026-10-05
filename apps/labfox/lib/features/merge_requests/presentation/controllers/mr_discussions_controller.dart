@@ -11,6 +11,7 @@ import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../data/merge_requests_repository.dart';
 import '../../data/mr_draft_notes_repository.dart';
 import 'merge_requests_controllers.dart';
 import 'mr_draft_notes_provider.dart';
@@ -290,6 +291,7 @@ class MrDiscussionsController
 
   Account? _pendingAccount;
   bool _pendingNeedsInspection = false;
+  bool _pendingPublicationNeedsInspection = false;
   Future<void>? _pendingWriteSettled;
 
   void _syncPendingSession() {
@@ -298,6 +300,7 @@ class MrDiscussionsController
     // dispatched write failed. Preserve its inspection gate and settled future.
     if (account != _pendingAccount) {
       _pendingNeedsInspection = false;
+      _pendingPublicationNeedsInspection = false;
       _pendingWriteSettled = null;
       _pendingAccount = account;
     }
@@ -306,8 +309,170 @@ class MrDiscussionsController
   /// A refresh or repository wrapper replacement cannot authorize replay.
   bool get pendingSaveNeedsInspection {
     _syncPendingSession();
-    return _pendingNeedsInspection;
+    return _pendingNeedsInspection || _pendingPublicationNeedsInspection;
   }
+
+  bool get pendingPublicationNeedsInspection {
+    _syncPendingSession();
+    return _pendingPublicationNeedsInspection;
+  }
+
+  MrPendingReviewPublication _publicationSnapshot(
+    MrDraftNotesRepository repository,
+    MergeRequest detail,
+    List<MergeRequestDraftNote> items,
+  ) => MrPendingReviewPublication._(
+    items: items,
+    account: ref.read(currentAccountProvider)!,
+    client: ref.read(gitLabClientProvider).value!,
+    drafts: repository,
+    details: ref.read(mergeRequestsRepositoryProvider).value!,
+    comments: ref.read(commentsRepositoryProvider).value!,
+    resource: arg,
+    mergeRequestId: detail.id,
+  );
+
+  bool _currentPublication(MrPendingReviewPublication snapshot) =>
+      snapshot._resource == arg &&
+      snapshot._account == ref.read(currentAccountProvider) &&
+      identical(snapshot._client, ref.read(gitLabClientProvider).valueOrNull) &&
+      identical(
+        snapshot._drafts,
+        ref.read(mrDraftNotesRepositoryProvider).valueOrNull,
+      ) &&
+      identical(
+        snapshot._details,
+        ref.read(mergeRequestsRepositoryProvider).valueOrNull,
+      ) &&
+      identical(
+        snapshot._comments,
+        ref.read(commentsRepositoryProvider).valueOrNull,
+      );
+
+  /// Preparation reads every private page and never clears uncertainty.
+  Future<MrPendingReviewPublication?> preparePendingReviewPublication({
+    bool Function()? isCurrent,
+  }) {
+    if (pendingSaveNeedsInspection) return Future.value(null);
+    return _pendingReview((repository, detail, current, wait) async {
+      final items = await _readPendingNotes(repository, detail, current, wait);
+      if (!current()) throw const _PendingReviewCancelled();
+      return _publicationSnapshot(repository, detail, items);
+    }, isCurrent: isCurrent);
+  }
+
+  /// An unchanged complete snapshot authorizes one account-scoped bulk POST.
+  /// This is a preflight comparison, not a conditional server-side transaction.
+  Future<bool> publishPendingReview(
+    MrPendingReviewPublication snapshot, {
+    bool Function()? isCurrent,
+  }) async {
+    if (pendingSaveNeedsInspection ||
+        snapshot.items.isEmpty ||
+        !_currentPublication(snapshot)) {
+      return false;
+    }
+    final published =
+        await _pendingReview((repository, detail, current, wait) async {
+          final items = await _readPendingNotes(
+            repository,
+            detail,
+            current,
+            wait,
+          );
+          final byId = {for (final item in items) item.id: item};
+          if (detail.id != snapshot._mergeRequestId ||
+              !_currentPublication(snapshot) ||
+              items.length != snapshot.items.length ||
+              !snapshot.items.every((item) => byId[item.id] == item)) {
+            throw const GitLabConflictException(
+              'The pending review changed. Inspect it before publishing.',
+            );
+          }
+          await wait(Future<void>.value());
+          if (!current()) throw const _PendingReviewCancelled();
+          _pendingPublicationNeedsInspection = true;
+          _pendingNeedsInspection = true;
+          final write = repository.publish(
+            projectId: arg.projectId,
+            iid: arg.iid,
+            mergeRequestId: detail.id,
+          );
+          _pendingWriteSettled = write.then<void>(
+            (_) {},
+            onError: (Object _, StackTrace _) {},
+          );
+          await wait(write);
+          if (!current()) throw const _PendingReviewCancelled();
+          _pendingPublicationNeedsInspection = false;
+          _pendingNeedsInspection = false;
+          _pendingWriteSettled = null;
+          ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+          return true;
+        }, isCurrent: isCurrent) ??
+        false;
+    await Future<void>.value();
+    // A queued account/repository change can occur after the action returns.
+    if (published &&
+        (!_currentPublication(snapshot) || isCurrent?.call() == false)) {
+      return false;
+    }
+    if (published) {
+      ref.invalidate(mergeRequestControllerProvider(arg));
+      ref.invalidateSelf();
+    }
+    return published;
+  }
+
+  /// Recovery stages both private notes and all current public discussions.
+  /// Their text or absence cannot identify which uncertain attempt succeeded.
+  Future<MrPendingReviewPublicationInspection?>
+  inspectPendingReviewPublication({
+    bool Function()? isCurrent,
+  }) => _pendingReview((repository, detail, current, wait) async {
+    final unsettled = _pendingWriteSettled;
+    if (unsettled != null) await wait(unsettled);
+    final items = await _readPendingNotes(repository, detail, current, wait);
+    final comments = ref.read(commentsRepositoryProvider).value!;
+    final groups = <Discussion>[];
+    final ids = <String>{};
+    final noteIds = <int>{};
+    int? page = 1;
+    while (page != null) {
+      if (!current()) throw const _PendingReviewCancelled();
+      final result = await wait(
+        comments.discussions(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          page: page,
+        ),
+      );
+      if (!current()) throw const _PendingReviewCancelled();
+      if ((result.nextPage != null && result.nextPage! <= page) ||
+          result.items.any(
+            (group) =>
+                group.id.trim().isEmpty ||
+                !ids.add(group.id) ||
+                group.notes.any((note) => note.id < 1 || !noteIds.add(note.id)),
+          )) {
+        throw const GitLabServerException('Invalid public review inspection.');
+      }
+      groups.addAll(result.items);
+      page = result.nextPage;
+    }
+    await wait(Future<void>.value());
+    if (!current()) throw const _PendingReviewCancelled();
+    final inspection = MrPendingReviewPublicationInspection._(
+      _publicationSnapshot(repository, detail, items),
+      groups,
+    );
+    _pendingNeedsInspection = false;
+    _pendingPublicationNeedsInspection = false;
+    _pendingWriteSettled = null;
+    ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+    state = AsyncData(Paginated(items: inspection.publicDiscussions));
+    return inspection;
+  }, isCurrent: isCurrent);
 
   /// Saves one regular unpublished note; null means no current-view success.
   Future<MergeRequestDraftNote?> savePendingNote(
@@ -354,8 +519,10 @@ class MrDiscussionsController
     final unsettled = _pendingWriteSettled;
     if (unsettled != null) await wait(unsettled);
     final notes = await _readPendingNotes(repository, detail, current, wait);
-    _pendingNeedsInspection = false;
-    _pendingWriteSettled = null;
+    if (!_pendingPublicationNeedsInspection) {
+      _pendingNeedsInspection = false;
+      _pendingWriteSettled = null;
+    }
     return List<MergeRequestDraftNote>.unmodifiable(notes);
   }, isCurrent: isCurrent);
 
@@ -811,3 +978,39 @@ class _PendingReviewCancelled implements Exception {
 }
 
 typedef _PendingReviewWait = Future<T> Function<T>(Future<T> future);
+
+/// Immutable confirmation data bound to the account, repositories and MR.
+class MrPendingReviewPublication {
+  MrPendingReviewPublication._({
+    required List<MergeRequestDraftNote> items,
+    required Account account,
+    required GitLabClient client,
+    required MrDraftNotesRepository drafts,
+    required MergeRequestsRepository details,
+    required CommentsRepository comments,
+    required MergeRequestRef resource,
+    required int mergeRequestId,
+  }) : items = List.unmodifiable(items),
+       _account = account,
+       _client = client,
+       _drafts = drafts,
+       _details = details,
+       _comments = comments,
+       _resource = resource,
+       _mergeRequestId = mergeRequestId;
+  final List<MergeRequestDraftNote> items;
+  final Account _account;
+  final GitLabClient _client;
+  final MrDraftNotesRepository _drafts;
+  final MergeRequestsRepository _details;
+  final CommentsRepository _comments;
+  final MergeRequestRef _resource;
+  final int _mergeRequestId;
+}
+
+class MrPendingReviewPublicationInspection {
+  MrPendingReviewPublicationInspection._(this.pending, List<Discussion> groups)
+    : publicDiscussions = List.unmodifiable(groups);
+  final MrPendingReviewPublication pending;
+  final List<Discussion> publicDiscussions;
+}

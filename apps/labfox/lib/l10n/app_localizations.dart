@@ -9055,6 +9055,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Deleting review note…'**
   String get mrPendingDeleting;
+
+  /// No description provided for @mrPendingPublishOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish pending review'**
+  String get mrPendingPublishOpen;
+
+  /// No description provided for @mrPendingPublishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish pending review'**
+  String get mrPendingPublishTitle;
+
+  /// No description provided for @mrPendingPublishHint.
+  ///
+  /// In en, this message translates to:
+  /// **'All your saved notes on this merge request will become visible to others. Publishing does not approve or merge the merge request.'**
+  String get mrPendingPublishHint;
+
+  /// No description provided for @mrPendingPublishRaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes saved from another client before publication may also be included.'**
+  String get mrPendingPublishRaceHint;
+
+  /// No description provided for @mrPendingPublishConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I have checked all the notes and want to publish my entire pending review.'**
+  String get mrPendingPublishConsent;
+
+  /// No description provided for @mrPendingPublishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish all notes'**
+  String get mrPendingPublishButton;
+
+  /// No description provided for @mrPendingPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending review published'**
+  String get mrPendingPublished;
+
+  /// No description provided for @mrPendingPublishUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The review changed or publication could not be confirmed. Check saved notes and public discussions before deciding whether to try again.'**
+  String get mrPendingPublishUncertain;
+
+  /// No description provided for @mrPendingPublishInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check notes and discussions'**
+  String get mrPendingPublishInspect;
+
+  /// No description provided for @mrPendingPublishPublicTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current public discussions'**
+  String get mrPendingPublishPublicTitle;
+
+  /// No description provided for @mrPendingPublishRecoveryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.'**
+  String get mrPendingPublishRecoveryHint;
+
+  /// No description provided for @mrPendingPublishRecoveryRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Publish pending review to check both saved notes and public discussions before changing private notes.'**
+  String get mrPendingPublishRecoveryRequired;
 }
 
 class _AppLocalizationsDelegate

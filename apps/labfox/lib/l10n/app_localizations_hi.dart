@@ -5161,4 +5161,46 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrPendingDeleting => 'समीक्षा नोट हटाया जा रहा है…';
+
+  @override
+  String get mrPendingPublishOpen => 'लंबित समीक्षा प्रकाशित करें';
+
+  @override
+  String get mrPendingPublishTitle => 'लंबित समीक्षा प्रकाशित करें';
+
+  @override
+  String get mrPendingPublishHint =>
+      'इस मर्ज अनुरोध पर आपके सभी सहेजे गए नोट दूसरों को दिखाई देंगे। प्रकाशित करने से मर्ज अनुरोध स्वीकृत या मर्ज नहीं होता।';
+
+  @override
+  String get mrPendingPublishRaceHint =>
+      'प्रकाशन से पहले किसी अन्य क्लाइंट से सहेजे गए नोट भी शामिल हो सकते हैं।';
+
+  @override
+  String get mrPendingPublishConsent =>
+      'मैंने सभी नोट जाँच लिए हैं और अपनी पूरी लंबित समीक्षा प्रकाशित करना चाहता हूँ।';
+
+  @override
+  String get mrPendingPublishButton => 'सभी नोट प्रकाशित करें';
+
+  @override
+  String get mrPendingPublished => 'लंबित समीक्षा प्रकाशित हुई';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      'समीक्षा बदल गई या प्रकाशन की पुष्टि नहीं हो सकी। फिर से प्रयास करने का निर्णय लेने से पहले सहेजे गए नोट और सार्वजनिक चर्चाएँ जाँचें।';
+
+  @override
+  String get mrPendingPublishInspect => 'नोट और चर्चाएँ जाँचें';
+
+  @override
+  String get mrPendingPublishPublicTitle => 'वर्तमान सार्वजनिक चर्चाएँ';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      'ये वर्तमान सहेजे गए नोट और सार्वजनिक चर्चाएँ हैं। उनका पाठ या अनुपस्थिति यह साबित नहीं करती कि पहले का कौन सा प्रयास सफल हुआ। नए प्रकाशन से पहले दोनों सूचियाँ जाँचें।';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      'निजी नोट बदलने से पहले लंबित समीक्षा प्रकाशित करें खोलकर सहेजे गए नोट और सार्वजनिक चर्चाएँ दोनों जाँचें।';
 }
