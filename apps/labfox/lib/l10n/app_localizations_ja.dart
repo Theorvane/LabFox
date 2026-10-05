@@ -5032,4 +5032,24 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get mrPendingInlineHint =>
       '選択した行または範囲に非公開のメモを保存します。保留中のレビューを公開するまでは、自分だけが閲覧できます。保存前に最新の差分を再確認します。';
+
+  @override
+  String get mrPendingPublishNoteButton => 'この下書きを公開';
+
+  @override
+  String get mrPendingPublishNoteTitle => 'この非公開の下書きを公開しますか？';
+
+  @override
+  String get mrPendingPublishNoteHint =>
+      'この保存済みの下書きがマージリクエストの他のユーザーに表示されます。他の下書きは非公開のままです。';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      '公開前に選択した下書きを再確認します。確認後に別のクライアントで変更された内容が含まれる場合があります。';
+
+  @override
+  String get mrPendingPublishNoteConsent => 'この保存済みの下書きを公開します。';
+
+  @override
+  String get mrPendingNotePublished => 'レビューの下書きを公開しました。';
 }

@@ -2986,5 +2986,11 @@
   "mrPendingPublishRecoveryRequired": "Open Publish pending review to check both saved notes and public discussions before changing private notes.",
   "mrPendingInlineOpen": "Save private inline note",
   "mrPendingInlineTitle": "Private inline review note",
-  "mrPendingInlineHint": "Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving."
+  "mrPendingInlineHint": "Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.",
+  "mrPendingPublishNoteButton": "Publish this note",
+  "mrPendingPublishNoteTitle": "Publish this private note?",
+  "mrPendingPublishNoteHint": "This saved note will become visible to others in this merge request. Your other pending notes stay private.",
+  "mrPendingPublishNoteRaceHint": "The selected note is checked again before publishing. Changes from another client after that check may be included.",
+  "mrPendingPublishNoteConsent": "I want to make this saved note public.",
+  "mrPendingNotePublished": "Review note published."
 }

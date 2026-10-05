@@ -97,3 +97,7 @@ They show the isolated read-only panel with synthetic bodies and file paths.
 The subsequent [maintenance UI](mr-pending-review-maintenance.md) connects
 guarded private editing and confirmed deletion, with fresh selected-target
 comparison and visible inspection before an explicit retry.
+
+Each saved note also offers [individual publication](mr-pending-review-single-publication.md)
+with explicit consent and the shared two-sided uncertainty recovery flow. Other
+saved notes stay private.

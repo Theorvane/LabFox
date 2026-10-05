@@ -321,6 +321,7 @@ Future<void> open(WidgetTester t) async {
 
 Future<void> tap(WidgetTester t, Key key, {bool settle = true}) async {
   await t.ensureVisible(find.byKey(key));
+  await t.pump();
   await t.tap(find.byKey(key));
   if (settle) {
     await t.pumpAndSettle();

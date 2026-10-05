@@ -5216,4 +5216,25 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrPendingInlineHint =>
       'Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.';
+
+  @override
+  String get mrPendingPublishNoteButton => 'Publish this note';
+
+  @override
+  String get mrPendingPublishNoteTitle => 'Publish this private note?';
+
+  @override
+  String get mrPendingPublishNoteHint =>
+      'This saved note will become visible to others in this merge request. Your other pending notes stay private.';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      'The selected note is checked again before publishing. Changes from another client after that check may be included.';
+
+  @override
+  String get mrPendingPublishNoteConsent =>
+      'I want to make this saved note public.';
+
+  @override
+  String get mrPendingNotePublished => 'Review note published.';
 }

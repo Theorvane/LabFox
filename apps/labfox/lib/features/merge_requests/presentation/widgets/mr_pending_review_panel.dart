@@ -39,7 +39,11 @@ class _PanelState extends ConsumerState<MrPendingReviewPanel> {
     if (oldWidget.mergeRequest != mergeRequest) _view?.value = false;
   }
 
-  Future<void> _openDraft(MergeRequestDraftNote draft, bool deleting) async {
+  Future<void> _openDraft(
+    MergeRequestDraftNote draft,
+    bool deleting, {
+    bool publishing = false,
+  }) async {
     if (_opening) return;
     final account = ref.read(currentAccountProvider);
     final drafts = ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious();
@@ -54,17 +58,29 @@ class _PanelState extends ConsumerState<MrPendingReviewPanel> {
     _view = active;
     setState(() => _opening = true);
     try {
-      final saved = await showMrPendingReviewMaintenanceDialog(
-        context: context,
-        resource: resource,
-        account: account,
-        draftSession: drafts.value!,
-        detailSession: source.value!,
-        viewActive: active,
-        isCurrent: () => mounted && mergeRequest == resource,
-        draft: draft,
-        deleting: deleting,
-      );
+      final dialog = publishing
+          ? showMrPendingReviewPublicationDialog(
+              context: context,
+              resource: resource,
+              account: account,
+              draftSession: drafts.value!,
+              detailSession: source.value!,
+              viewActive: active,
+              isCurrent: () => mounted && mergeRequest == resource,
+              draft: draft,
+            )
+          : showMrPendingReviewMaintenanceDialog(
+              context: context,
+              resource: resource,
+              account: account,
+              draftSession: drafts.value!,
+              detailSession: source.value!,
+              viewActive: active,
+              isCurrent: () => mounted && mergeRequest == resource,
+              draft: draft,
+              deleting: deleting,
+            );
+      final saved = await dialog;
       if (mounted &&
           active.value &&
           saved == true &&
@@ -87,7 +103,13 @@ class _PanelState extends ConsumerState<MrPendingReviewPanel> {
         final l = AppLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(deleting ? l.mrPendingDeleted : l.mrPendingUpdated),
+            content: Text(
+              publishing
+                  ? l.mrPendingNotePublished
+                  : deleting
+                  ? l.mrPendingDeleted
+                  : l.mrPendingUpdated,
+            ),
           ),
         );
       }
@@ -145,6 +167,9 @@ class _PanelState extends ConsumerState<MrPendingReviewPanel> {
           value: value,
           onEdit: _opening ? null : (draft) => _openDraft(draft, false),
           onDelete: _opening ? null : (draft) => _openDraft(draft, true),
+          onPublish: _opening
+              ? null
+              : (draft) => _openDraft(draft, false, publishing: true),
           onRefresh: refresh,
           onLoadMore: () async {
             try {
@@ -238,12 +263,13 @@ class _Loaded extends StatelessWidget {
     required this.onLoadMore,
     required this.onEdit,
     required this.onDelete,
+    required this.onPublish,
     super.key,
   });
   final MrPendingReviewDrafts value;
   final VoidCallback onRefresh;
   final VoidCallback onLoadMore;
-  final void Function(MergeRequestDraftNote)? onEdit, onDelete;
+  final void Function(MergeRequestDraftNote)? onEdit, onDelete, onPublish;
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -289,6 +315,13 @@ class _Loaded extends StatelessWidget {
                     Wrap(
                       spacing: LabFoxSpacing.sm,
                       children: [
+                        TextButton(
+                          key: ValueKey('mr-pending-publish-note-${draft.id}'),
+                          onPressed: onPublish == null
+                              ? null
+                              : () => onPublish!(draft),
+                          child: Text(l10n.mrPendingPublishNoteButton),
+                        ),
                         if (MrDraftNotesRepository.canUpdate(draft))
                           TextButton(
                             key: ValueKey('mr-pending-edit-${draft.id}'),

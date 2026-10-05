@@ -5213,4 +5213,25 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrPendingInlineHint =>
       'चुनी गई पंक्ति या सीमा पर निजी नोट सहेजें। लंबित समीक्षा प्रकाशित करने तक इसे केवल आप देख सकते हैं। सहेजने से पहले नवीनतम अंतर फिर जाँचा जाता है।';
+
+  @override
+  String get mrPendingPublishNoteButton => 'यह नोट प्रकाशित करें';
+
+  @override
+  String get mrPendingPublishNoteTitle => 'यह निजी नोट प्रकाशित करें?';
+
+  @override
+  String get mrPendingPublishNoteHint =>
+      'यह सहेजा गया नोट इस मर्ज अनुरोध में दूसरों को दिखाई देगा। आपके अन्य लंबित नोट निजी रहेंगे।';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      'प्रकाशित करने से पहले चयनित नोट फिर से जाँचा जाता है। उस जाँच के बाद किसी अन्य क्लाइंट द्वारा किए गए बदलाव शामिल हो सकते हैं।';
+
+  @override
+  String get mrPendingPublishNoteConsent =>
+      'मैं इस सहेजे गए नोट को सार्वजनिक करना चाहता हूँ।';
+
+  @override
+  String get mrPendingNotePublished => 'समीक्षा नोट प्रकाशित हुआ।';
 }

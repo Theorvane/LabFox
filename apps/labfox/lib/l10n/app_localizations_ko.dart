@@ -5038,4 +5038,24 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get mrPendingInlineHint =>
       '선택한 줄이나 범위에 비공개 메모를 저장합니다. 대기 중인 리뷰를 게시하기 전까지는 본인만 볼 수 있습니다. 저장 전에 최신 diff를 다시 확인합니다.';
+
+  @override
+  String get mrPendingPublishNoteButton => '이 초안 게시';
+
+  @override
+  String get mrPendingPublishNoteTitle => '이 비공개 초안을 게시할까요?';
+
+  @override
+  String get mrPendingPublishNoteHint =>
+      '저장된 이 초안이 머지 리퀘스트의 다른 사람에게 공개됩니다. 다른 초안은 비공개로 유지됩니다.';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      '게시 전에 선택한 초안을 다시 확인합니다. 확인 이후 다른 클라이언트에서 변경한 내용이 포함될 수 있습니다.';
+
+  @override
+  String get mrPendingPublishNoteConsent => '저장된 이 초안을 공개하겠습니다.';
+
+  @override
+  String get mrPendingNotePublished => '리뷰 초안을 게시했습니다.';
 }

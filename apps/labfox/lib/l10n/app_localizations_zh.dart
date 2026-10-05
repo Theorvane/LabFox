@@ -4875,4 +4875,23 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get mrPendingInlineHint =>
       '在所选行或范围上保存私密备注。发布待处理审查前，只有您可以查看。保存前会再次检查最新差异。';
+
+  @override
+  String get mrPendingPublishNoteButton => '发布此草稿';
+
+  @override
+  String get mrPendingPublishNoteTitle => '发布此私密草稿？';
+
+  @override
+  String get mrPendingPublishNoteHint => '此已保存的草稿将对合并请求中的其他人可见。其他待发布草稿仍保持私密。';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      '发布前会再次检查所选草稿。检查之后其他客户端所做的更改可能会包含在内。';
+
+  @override
+  String get mrPendingPublishNoteConsent => '我要公开此已保存的草稿。';
+
+  @override
+  String get mrPendingNotePublished => '评审草稿已发布。';
 }

@@ -129,6 +129,30 @@ class _EntryState extends ConsumerState<MrPendingReviewPublisher> {
   }
 }
 
+/// Uses the same consent and two-sided recovery flow for a selected saved note.
+Future<bool?> showMrPendingReviewPublicationDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+  required MergeRequestDraftNote draft,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _PublicationDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+    draft: draft,
+  ),
+);
+
 class _PublicationDialog extends ConsumerStatefulWidget {
   const _PublicationDialog({
     required this.resource,
@@ -137,7 +161,9 @@ class _PublicationDialog extends ConsumerStatefulWidget {
     required this.detailSession,
     required this.viewActive,
     required this.isCurrent,
+    this.draft,
   });
+  final MergeRequestDraftNote? draft;
   final MergeRequestRef resource;
   final Account account;
   final Object draftSession, detailSession;
@@ -231,12 +257,19 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
         }
         setState(() {
           _inspection = inspection;
-          _snapshot = inspection.pending;
+          _snapshot = widget.draft == null
+              ? inspection.pending
+              : inspection.pending.forNote(widget.draft!.id);
         });
       } else {
-        final snapshot = await _controller.preparePendingReviewPublication(
-          isCurrent: _current,
-        );
+        final snapshot = widget.draft == null
+            ? await _controller.preparePendingReviewPublication(
+                isCurrent: _current,
+              )
+            : await _controller.preparePendingNotePublication(
+                widget.draft!,
+                isCurrent: _current,
+              );
         if (!_current()) return;
         setState(() {
           _snapshot = snapshot;
@@ -268,10 +301,12 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       _inspection = null;
     });
     try {
-      final published = await _controller.publishPendingReview(
-        snapshot,
-        isCurrent: _current,
-      );
+      final published = widget.draft == null
+          ? await _controller.publishPendingReview(
+              snapshot,
+              isCurrent: _current,
+            )
+          : await _controller.publishPendingNote(snapshot, isCurrent: _current);
       if (!mounted || !_current()) return;
       if (published) {
         Navigator.of(context).pop(true);
@@ -344,7 +379,11 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       child: AlertDialog(
         scrollable: true,
         insetPadding: const EdgeInsets.all(LabFoxSpacing.md),
-        title: Text(l.mrPendingPublishTitle),
+        title: Text(
+          widget.draft == null
+              ? l.mrPendingPublishTitle
+              : l.mrPendingPublishNoteTitle,
+        ),
         content: SizedBox(
           width: LabFoxBreakpoints.tablet,
           child: Column(
@@ -353,9 +392,17 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
               if (!current)
                 Text(l.mrPendingComposeChanged)
               else ...[
-                Text(l.mrPendingPublishHint),
+                Text(
+                  widget.draft == null
+                      ? l.mrPendingPublishHint
+                      : l.mrPendingPublishNoteHint,
+                ),
                 const SizedBox(height: LabFoxSpacing.sm),
-                Text(l.mrPendingPublishRaceHint),
+                Text(
+                  widget.draft == null
+                      ? l.mrPendingPublishRaceHint
+                      : l.mrPendingPublishNoteRaceHint,
+                ),
                 if (_needsInspection) ...[
                   const SizedBox(height: LabFoxSpacing.md),
                   Text(l.mrPendingPublishUncertain),
@@ -383,6 +430,15 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                   ],
                 ],
                 if (_inspection != null) ...[
+                  if (widget.draft != null && _snapshot == null)
+                    Text(l.mrPendingTargetMissing),
+                  if (widget.draft != null)
+                    for (final note in _inspection!.pending.items.where(
+                      (note) => note.id != widget.draft!.id,
+                    )) ...[
+                      const Divider(height: LabFoxSpacing.xl),
+                      MrPendingReviewNote(draft: note),
+                    ],
                   const SizedBox(height: LabFoxSpacing.md),
                   Text(l.mrPendingPublishRecoveryHint),
                   const SizedBox(height: LabFoxSpacing.sm),
@@ -405,7 +461,11 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                         ? null
                         : (value) =>
                               setState(() => _acknowledged = value == true),
-                    title: Text(l.mrPendingPublishConsent),
+                    title: Text(
+                      widget.draft == null
+                          ? l.mrPendingPublishConsent
+                          : l.mrPendingPublishNoteConsent,
+                    ),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
               ],
@@ -433,7 +493,11 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
               FilledButton(
                 key: const ValueKey('mr-pending-publish-submit'),
                 onPressed: canPublish ? _publish : null,
-                child: Text(l.mrPendingPublishButton),
+                child: Text(
+                  widget.draft == null
+                      ? l.mrPendingPublishButton
+                      : l.mrPendingPublishNoteButton,
+                ),
               ),
             ],
           ),
