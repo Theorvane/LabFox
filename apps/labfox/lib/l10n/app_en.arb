@@ -2907,5 +2907,69 @@
   "mrPendingComposeChanged": "The review session changed. Close this dialog and start again.",
   "@mrPendingComposeChanged": {
     "description": "Private regular MR review composer changed."
+  },
+  "mrPendingEdit": "Edit note",
+  "@mrPendingEdit": {
+    "description": "Private pending review note maintenance: Edit."
+  },
+  "mrPendingDelete": "Delete note",
+  "@mrPendingDelete": {
+    "description": "Private pending review note maintenance: Delete."
+  },
+  "mrPendingUpdate": "Save changes",
+  "@mrPendingUpdate": {
+    "description": "Private pending review note maintenance: Update."
+  },
+  "mrPendingEditTitle": "Edit pending review note",
+  "@mrPendingEditTitle": {
+    "description": "Private pending review note maintenance: EditTitle."
+  },
+  "mrPendingDeleteTitle": "Delete pending review note",
+  "@mrPendingDeleteTitle": {
+    "description": "Private pending review note maintenance: DeleteTitle."
+  },
+  "mrPendingEditHint": "Your changes stay private. The original note location is preserved.",
+  "@mrPendingEditHint": {
+    "description": "Private pending review note maintenance: EditHint."
+  },
+  "mrPendingDeleteHint": "This removes only this private saved note from your pending review.",
+  "@mrPendingDeleteHint": {
+    "description": "Private pending review note maintenance: DeleteHint."
+  },
+  "mrPendingDeleteConfirm": "I want to delete the note shown above.",
+  "@mrPendingDeleteConfirm": {
+    "description": "Private pending review note maintenance: DeleteConfirm."
+  },
+  "mrPendingUpdated": "Your private review note was updated.",
+  "@mrPendingUpdated": {
+    "description": "Private pending review note maintenance: Updated."
+  },
+  "mrPendingDeleted": "Your private review note was deleted.",
+  "@mrPendingDeleted": {
+    "description": "Private pending review note maintenance: Deleted."
+  },
+  "mrPendingMaintenanceError": "We couldn't confirm this change. Check the current pending review before trying again.",
+  "@mrPendingMaintenanceError": {
+    "description": "Private pending review note maintenance: MaintenanceError."
+  },
+  "mrPendingMaintenanceUncertain": "A change may already have been applied. Check your saved notes before making another change.",
+  "@mrPendingMaintenanceUncertain": {
+    "description": "Private pending review note maintenance: MaintenanceUncertain."
+  },
+  "mrPendingMaintenanceInspectionHint": "These are all currently readable saved notes. Check the selected note above before changing it again.",
+  "@mrPendingMaintenanceInspectionHint": {
+    "description": "Private pending review note maintenance: MaintenanceInspectionHint."
+  },
+  "mrPendingMaintenanceAcknowledge": "I checked the current selected note and want to apply this change.",
+  "@mrPendingMaintenanceAcknowledge": {
+    "description": "Private pending review note maintenance: MaintenanceAcknowledge."
+  },
+  "mrPendingTargetMissing": "The selected note is no longer available. Close this dialog and refresh your pending review.",
+  "@mrPendingTargetMissing": {
+    "description": "Private pending review note maintenance: TargetMissing."
+  },
+  "mrPendingDeleting": "Deleting review note…",
+  "@mrPendingDeleting": {
+    "description": "Progress while deleting one private pending review note."
   }
 }

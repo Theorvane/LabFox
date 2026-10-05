@@ -7,6 +7,7 @@ import 'package:gitlab_models/gitlab_models.dart';
 import '../../../../core/auth/auth_controller.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../data/mr_draft_notes_repository.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import '../controllers/mr_draft_notes_provider.dart';
@@ -120,6 +121,32 @@ class _EntryState extends ConsumerState<MrPendingReviewComposer> {
   }
 }
 
+/// Shares private input and recovery guards with regular draft creation.
+Future<bool?> showMrPendingReviewMaintenanceDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+  required MergeRequestDraftNote draft,
+  required bool deleting,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+    draft: draft,
+    deleting: deleting,
+  ),
+);
+
 class _ComposeDialog extends ConsumerStatefulWidget {
   const _ComposeDialog({
     required this.resource,
@@ -128,6 +155,8 @@ class _ComposeDialog extends ConsumerStatefulWidget {
     required this.detailSession,
     required this.viewActive,
     required this.isCurrent,
+    this.draft,
+    this.deleting = false,
   });
   final MergeRequestRef resource;
   final Account account;
@@ -135,12 +164,16 @@ class _ComposeDialog extends ConsumerStatefulWidget {
   final Object detailSession;
   final ValueNotifier<bool> viewActive;
   final bool Function() isCurrent;
+  final MergeRequestDraftNote? draft;
+  final bool deleting;
   @override
   ConsumerState<_ComposeDialog> createState() => _ComposeState();
 }
 
 class _ComposeState extends ConsumerState<_ComposeDialog> {
   final _text = TextEditingController();
+  MergeRequestDraftNote? _target;
+  bool get _maintenance => widget.draft != null;
   Object? _commentsSession;
   bool _obsolete = false, _busy = false, _inspecting = false;
   bool _needsInspection = false,
@@ -151,6 +184,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
   @override
   void initState() {
     super.initState();
+    _target = widget.draft;
+    if (_maintenance && !widget.deleting) _text.text = _target!.note;
     widget.viewActive.addListener(_observe);
     _text.addListener(_edited);
   }
@@ -191,6 +226,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       _text.clear();
       setState(() {
         _inspection = null;
+        _target = null;
         _acknowledged = false;
       });
     });
@@ -201,7 +237,13 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
   }
 
   Future<void> _save() async {
-    if (_busy || !_current() || _text.text.trim().isEmpty) return;
+    if (_busy ||
+        !_current() ||
+        (!widget.deleting && _text.text.trim().isEmpty) ||
+        (_maintenance && _target == null) ||
+        (widget.deleting && !_acknowledged)) {
+      return;
+    }
     final controller = ref.read(
       mrDiscussionsControllerProvider(widget.resource).notifier,
     );
@@ -217,24 +259,36 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       _inspectionError = false;
     });
     try {
-      final saved = await controller.savePendingNote(
-        _text.text,
-        isCurrent: _current,
-      );
+      final saved = _maintenance
+          ? widget.deleting
+                ? (await controller.deletePendingNote(
+                        _target!,
+                        isCurrent: _current,
+                      )
+                      ? true
+                      : null)
+                : await controller.updatePendingNote(
+                    _target!,
+                    _text.text,
+                    isCurrent: _current,
+                  )
+          : await controller.savePendingNote(_text.text, isCurrent: _current);
       if (!mounted || !_current()) return;
       if (saved != null) {
         Navigator.of(context).pop(true);
       } else {
         setState(() {
           _saveError = true;
-          _needsInspection = controller.pendingSaveNeedsInspection;
+          _needsInspection =
+              _maintenance || controller.pendingSaveNeedsInspection;
         });
       }
     } catch (_) {
       if (_current()) {
         setState(() {
           _saveError = true;
-          _needsInspection = controller.pendingSaveNeedsInspection;
+          _needsInspection =
+              _maintenance || controller.pendingSaveNeedsInspection;
         });
       }
     } finally {
@@ -259,6 +313,10 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       setState(() {
         _inspection = notes;
         _inspectionError = notes == null;
+        if (_maintenance && notes != null) {
+          final matches = notes.where((note) => note.id == widget.draft!.id);
+          _target = matches.length == 1 ? matches.single : null;
+        }
       });
     } catch (_) {
       if (_current()) setState(() => _inspectionError = true);
@@ -336,7 +394,14 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
     final canSave =
         ready &&
         !_busy &&
-        _text.text.trim().isNotEmpty &&
+        (widget.deleting
+            ? _acknowledged
+            : _text.text.trim().isNotEmpty &&
+                  (!_maintenance ||
+                      (_target != null &&
+                          MrDraftNotesRepository.canUpdate(_target!) &&
+                          _text.text != _target!.note))) &&
+        (!_maintenance || _target != null) &&
         !gated &&
         (!_needsInspection || (_inspection != null && _acknowledged));
     return PopScope(
@@ -344,7 +409,13 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       child: AlertDialog(
         scrollable: true,
         insetPadding: const EdgeInsets.all(LabFoxSpacing.md),
-        title: Text(l.mrPendingComposeTitle),
+        title: Text(
+          _maintenance
+              ? (widget.deleting
+                    ? l.mrPendingDeleteTitle
+                    : l.mrPendingEditTitle)
+              : l.mrPendingComposeTitle,
+        ),
         content: SizedBox(
           width: LabFoxBreakpoints.tablet,
           child: Column(
@@ -353,18 +424,31 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
               if (!current)
                 Text(l.mrPendingComposeChanged)
               else ...[
-                Text(l.mrPendingComposeHint),
-                const SizedBox(height: LabFoxSpacing.md),
-                TextField(
-                  key: const ValueKey('mr-pending-compose-input'),
-                  controller: _text,
-                  enabled: !_busy,
-                  minLines: 3,
-                  maxLines: 6,
-                  decoration: InputDecoration(
-                    labelText: l.mrPendingComposeLabel,
-                  ),
+                Text(
+                  _maintenance
+                      ? (widget.deleting
+                            ? l.mrPendingDeleteHint
+                            : l.mrPendingEditHint)
+                      : l.mrPendingComposeHint,
                 ),
+                if (_maintenance && _target != null) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  MrPendingReviewNote(draft: _target!),
+                ],
+                if (_maintenance && _target == null && _inspection != null)
+                  Text(l.mrPendingTargetMissing),
+                const SizedBox(height: LabFoxSpacing.md),
+                if (!widget.deleting)
+                  TextField(
+                    key: const ValueKey('mr-pending-compose-input'),
+                    controller: _text,
+                    enabled: !_busy,
+                    minLines: 3,
+                    maxLines: 6,
+                    decoration: InputDecoration(
+                      labelText: l.mrPendingComposeLabel,
+                    ),
+                  ),
                 if (preparing && !_busy) ...[
                   const SizedBox(height: LabFoxSpacing.sm),
                   LinearProgressIndicator(
@@ -383,10 +467,31 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                     ),
                   ),
                 ],
-                if (_saveError) Text(l.mrPendingComposeSaveError),
+                if (_saveError)
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceError
+                        : l.mrPendingComposeSaveError,
+                  ),
+                if (widget.deleting && !_needsInspection)
+                  CheckboxListTile(
+                    key: const ValueKey('mr-pending-compose-acknowledge'),
+                    contentPadding: EdgeInsets.zero,
+                    value: _acknowledged,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(l.mrPendingDeleteConfirm),
+                    onChanged: _busy
+                        ? null
+                        : (value) =>
+                              setState(() => _acknowledged = value ?? false),
+                  ),
                 if (_needsInspection) ...[
                   const SizedBox(height: LabFoxSpacing.md),
-                  Text(l.mrPendingComposeUncertain),
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceUncertain
+                        : l.mrPendingComposeUncertain,
+                  ),
                 ],
                 if (_inspectionError) Text(l.mrPendingComposeInspectError),
                 if (_inspection case final notes?) ...[
@@ -395,7 +500,11 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                     l.mrPendingComposeInspectionTitle,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
-                  Text(l.mrPendingComposeInspectionHint),
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceInspectionHint
+                        : l.mrPendingComposeInspectionHint,
+                  ),
                   Text(l.mrPendingReviewCount(notes.length)),
                   if (notes.isEmpty)
                     Text(l.mrPendingReviewEmpty)
@@ -415,28 +524,40 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                         ),
                       ),
                     ),
-                  CheckboxListTile(
-                    key: const ValueKey('mr-pending-compose-acknowledge'),
-                    contentPadding: EdgeInsets.zero,
-                    value: _acknowledged,
-                    controlAffinity: ListTileControlAffinity.leading,
-                    title: Text(l.mrPendingComposeAcknowledge),
-                    onChanged: _busy
-                        ? null
-                        : (value) =>
-                              setState(() => _acknowledged = value ?? false),
-                  ),
+                  if (!_maintenance ||
+                      (_target != null &&
+                          (widget.deleting ||
+                              MrDraftNotesRepository.canUpdate(_target!))))
+                    CheckboxListTile(
+                      key: const ValueKey('mr-pending-compose-acknowledge'),
+                      contentPadding: EdgeInsets.zero,
+                      value: _acknowledged,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      title: Text(
+                        _maintenance
+                            ? l.mrPendingMaintenanceAcknowledge
+                            : l.mrPendingComposeAcknowledge,
+                      ),
+                      onChanged: _busy
+                          ? null
+                          : (value) =>
+                                setState(() => _acknowledged = value ?? false),
+                    ),
                 ],
                 if (_busy) ...[
                   const SizedBox(height: LabFoxSpacing.md),
                   LinearProgressIndicator(
                     semanticsLabel: _inspecting
                         ? l.mrPendingComposeInspecting
+                        : widget.deleting
+                        ? l.mrPendingDeleting
                         : l.mrPendingComposeSaving,
                   ),
                   Text(
                     _inspecting
                         ? l.mrPendingComposeInspecting
+                        : widget.deleting
+                        ? l.mrPendingDeleting
                         : l.mrPendingComposeSaving,
                   ),
                 ],
@@ -464,7 +585,13 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                   TextButton(
                     key: const ValueKey('mr-pending-compose-save'),
                     onPressed: canSave ? _save : null,
-                    child: Text(l.mrPendingComposeSave),
+                    child: Text(
+                      _maintenance
+                          ? (widget.deleting
+                                ? l.mrPendingDelete
+                                : l.mrPendingUpdate)
+                          : l.mrPendingComposeSave,
+                    ),
                   ),
                 ],
               ),

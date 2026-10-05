@@ -2,9 +2,11 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_api/gitlab_api.dart';
+import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/auth/auth_controller.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../data/mr_draft_notes_repository.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_draft_notes_provider.dart';
 import '../controllers/mr_pending_review_controller.dart';
@@ -12,12 +14,91 @@ import 'mr_pending_review_composer.dart';
 import 'mr_pending_review_note.dart';
 
 /// Private saved notes and a regular composer using current MR detail.
-class MrPendingReviewPanel extends ConsumerWidget {
+class MrPendingReviewPanel extends ConsumerStatefulWidget {
   const MrPendingReviewPanel({required this.mergeRequest, super.key});
   final MergeRequestRef mergeRequest;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MrPendingReviewPanel> createState() => _PanelState();
+}
+
+class _PanelState extends ConsumerState<MrPendingReviewPanel> {
+  bool _opening = false;
+  ValueNotifier<bool>? _view;
+  MergeRequestRef get mergeRequest => widget.mergeRequest;
+  @override
+  void dispose() {
+    _view?.value = false;
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(MrPendingReviewPanel oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.mergeRequest != mergeRequest) _view?.value = false;
+  }
+
+  Future<void> _openDraft(MergeRequestDraftNote draft, bool deleting) async {
+    if (_opening) return;
+    final account = ref.read(currentAccountProvider);
+    final drafts = ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious();
+    final source = ref.read(mergeRequestsRepositoryProvider).unwrapPrevious();
+    if (account == null ||
+        drafts.valueOrNull == null ||
+        source.valueOrNull == null) {
+      return;
+    }
+    final resource = mergeRequest;
+    final active = ValueNotifier(true);
+    _view = active;
+    setState(() => _opening = true);
+    try {
+      final saved = await showMrPendingReviewMaintenanceDialog(
+        context: context,
+        resource: resource,
+        account: account,
+        draftSession: drafts.value!,
+        detailSession: source.value!,
+        viewActive: active,
+        isCurrent: () => mounted && mergeRequest == resource,
+        draft: draft,
+        deleting: deleting,
+      );
+      if (mounted &&
+          active.value &&
+          saved == true &&
+          mergeRequest == resource &&
+          ref.read(currentAccountProvider) == account &&
+          identical(
+            ref
+                .read(mrDraftNotesRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            drafts.value,
+          ) &&
+          identical(
+            ref
+                .read(mergeRequestsRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            source.value,
+          )) {
+        final l = AppLocalizations.of(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(deleting ? l.mrPendingDeleted : l.mrPendingUpdated),
+          ),
+        );
+      }
+    } finally {
+      _view = null;
+      active.dispose();
+      if (mounted) setState(() => _opening = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final account = ref.watch(currentAccountProvider);
     if (account == null) return const SizedBox.shrink();
     final l10n = AppLocalizations.of(context);
@@ -61,6 +142,8 @@ class MrPendingReviewPanel extends ConsumerWidget {
             ref.watch(mrDraftNotesRepositoryProvider).valueOrNull,
           )),
           value: value,
+          onEdit: _opening ? null : (draft) => _openDraft(draft, false),
+          onDelete: _opening ? null : (draft) => _openDraft(draft, true),
           onRefresh: refresh,
           onLoadMore: () async {
             try {
@@ -147,11 +230,14 @@ class _Loaded extends StatelessWidget {
     required this.value,
     required this.onRefresh,
     required this.onLoadMore,
+    required this.onEdit,
+    required this.onDelete,
     super.key,
   });
   final MrPendingReviewDrafts value;
   final VoidCallback onRefresh;
   final VoidCallback onLoadMore;
+  final void Function(MergeRequestDraftNote)? onEdit, onDelete;
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
@@ -187,10 +273,36 @@ class _Loaded extends StatelessWidget {
               itemCount: value.items.length,
               separatorBuilder: (_, _) =>
                   const Divider(height: LabFoxSpacing.xl),
-              itemBuilder: (context, index) => MrPendingReviewNote(
-                key: ValueKey(value.items[index].id),
-                draft: value.items[index],
-              ),
+              itemBuilder: (context, index) {
+                final draft = value.items[index];
+                return Column(
+                  key: ValueKey(draft.id),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MrPendingReviewNote(draft: draft),
+                    Wrap(
+                      spacing: LabFoxSpacing.sm,
+                      children: [
+                        if (MrDraftNotesRepository.canUpdate(draft))
+                          TextButton(
+                            key: ValueKey('mr-pending-edit-${draft.id}'),
+                            onPressed: onEdit == null
+                                ? null
+                                : () => onEdit!(draft),
+                            child: Text(l10n.mrPendingEdit),
+                          ),
+                        TextButton(
+                          key: ValueKey('mr-pending-delete-${draft.id}'),
+                          onPressed: onDelete == null
+                              ? null
+                              : () => onDelete!(draft),
+                          child: Text(l10n.mrPendingDelete),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         if (!value.isComplete) ...[

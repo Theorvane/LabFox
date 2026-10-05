@@ -353,6 +353,113 @@ class MrDiscussionsController
   }) => _pendingReview((repository, detail, current, wait) async {
     final unsettled = _pendingWriteSettled;
     if (unsettled != null) await wait(unsettled);
+    final notes = await _readPendingNotes(repository, detail, current, wait);
+    _pendingNeedsInspection = false;
+    _pendingWriteSettled = null;
+    return List<MergeRequestDraftNote>.unmodifiable(notes);
+  }, isCurrent: isCurrent);
+
+  /// Selected body and original metadata must still match fresh private state.
+  Future<MergeRequestDraftNote?> updatePendingNote(
+    MergeRequestDraftNote draft,
+    String note, {
+    bool Function()? isCurrent,
+  }) {
+    if (note.trim().isEmpty ||
+        !MrDraftNotesRepository.canUpdate(draft) ||
+        pendingSaveNeedsInspection) {
+      return Future.value(null);
+    }
+    return _pendingReview((repository, detail, current, wait) async {
+      await _confirmPendingTarget(repository, detail, draft, current, wait);
+      if (!current()) throw const _PendingReviewCancelled();
+      _pendingNeedsInspection = true;
+      final write = repository.update(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        mergeRequestId: detail.id,
+        draft: draft,
+        note: note,
+      );
+      _pendingWriteSettled = write.then<void>(
+        (_) {},
+        onError: (Object _, StackTrace _) {},
+      );
+      final saved = await wait(write);
+      if (!current()) throw const _PendingReviewCancelled();
+      if (saved.id != draft.id ||
+          saved.authorId != repository.authorId ||
+          saved.mergeRequestId != detail.id ||
+          saved.note != note) {
+        throw const GitLabServerException('Unconfirmed private review update.');
+      }
+      _pendingNeedsInspection = false;
+      _pendingWriteSettled = null;
+      ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+      return saved;
+    }, isCurrent: isCurrent);
+  }
+
+  /// Deletion is explicit and never treats a missing draft as success.
+  Future<bool> deletePendingNote(
+    MergeRequestDraftNote draft, {
+    bool Function()? isCurrent,
+  }) async {
+    if (pendingSaveNeedsInspection) return false;
+    return await _pendingReview((repository, detail, current, wait) async {
+          await _confirmPendingTarget(repository, detail, draft, current, wait);
+          if (!current()) throw const _PendingReviewCancelled();
+          _pendingNeedsInspection = true;
+          final write = repository.delete(
+            projectId: arg.projectId,
+            iid: arg.iid,
+            mergeRequestId: detail.id,
+            draft: draft,
+          );
+          _pendingWriteSettled = write.then<void>(
+            (_) {},
+            onError: (Object _, StackTrace _) {},
+          );
+          await wait(write);
+          if (!current()) throw const _PendingReviewCancelled();
+          _pendingNeedsInspection = false;
+          _pendingWriteSettled = null;
+          ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+          return true;
+        }, isCurrent: isCurrent) ??
+        false;
+  }
+
+  Future<void> _confirmPendingTarget(
+    MrDraftNotesRepository repository,
+    MergeRequest detail,
+    MergeRequestDraftNote selected,
+    bool Function() current,
+    _PendingReviewWait wait,
+  ) async {
+    if (selected.id < 1 ||
+        selected.authorId != repository.authorId ||
+        selected.mergeRequestId != detail.id) {
+      throw ArgumentError('A current owned private review target is required.');
+    }
+    final notes = await _readPendingNotes(repository, detail, current, wait);
+    final matches = notes.where((draft) => draft.id == selected.id);
+    if (matches.length != 1 || matches.single != selected) {
+      throw const GitLabConflictException(
+        'The selected private review note changed.',
+      );
+    }
+    // Let session cancellation queued during comparison settle before dispatch.
+    await wait(Future<void>.value());
+    if (!current()) throw const _PendingReviewCancelled();
+  }
+
+  Future<List<MergeRequestDraftNote>> _readPendingNotes(
+    MrDraftNotesRepository repository,
+    MergeRequest detail,
+    bool Function() current,
+    _PendingReviewWait wait,
+  ) async {
     final notes = <MergeRequestDraftNote>[];
     final ids = <int>{};
     int? page = 1;
@@ -375,10 +482,8 @@ class MrDiscussionsController
       notes.addAll(result.items);
       page = result.nextPage;
     }
-    _pendingNeedsInspection = false;
-    _pendingWriteSettled = null;
     return List<MergeRequestDraftNote>.unmodifiable(notes);
-  }, isCurrent: isCurrent);
+  }
 
   /// Shares the existing discussion write/pagination reservation during fresh
   /// identity reads, private saves and complete read-only recovery.

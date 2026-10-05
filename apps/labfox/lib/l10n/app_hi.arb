@@ -1398,5 +1398,21 @@
   "mrPendingComposeInspectionTitle": "वर्तमान अप्रकाशित समीक्षा",
   "mrPendingComposeInspectionHint": "ये आपके वर्तमान सहेजे गए नोट हैं। समान पाठ से यह पता नहीं चलता कि किस अनुरोध ने नोट बनाया।",
   "mrPendingComposeAcknowledge": "मैंने ये नोट जाँच लिए हैं और एक और नोट सहेजना चाहता हूँ।",
-  "mrPendingComposeChanged": "समीक्षा सत्र बदल गया है। यह संवाद बंद करके फिर से शुरू करें।"
+  "mrPendingComposeChanged": "समीक्षा सत्र बदल गया है। यह संवाद बंद करके फिर से शुरू करें।",
+  "mrPendingEdit": "नोट संपादित करें",
+  "mrPendingDelete": "नोट हटाएं",
+  "mrPendingUpdate": "बदलाव सहेजें",
+  "mrPendingEditTitle": "लंबित समीक्षा नोट संपादित करें",
+  "mrPendingDeleteTitle": "लंबित समीक्षा नोट हटाएं",
+  "mrPendingEditHint": "आपके बदलाव निजी रहते हैं। नोट का मूल स्थान सुरक्षित रहता है।",
+  "mrPendingDeleteHint": "इससे आपकी लंबित समीक्षा से केवल यह निजी सहेजा गया नोट हटता है।",
+  "mrPendingDeleteConfirm": "मैं ऊपर दिखाया गया नोट हटाना चाहता/चाहती हूं।",
+  "mrPendingUpdated": "आपका निजी समीक्षा नोट अपडेट हो गया।",
+  "mrPendingDeleted": "आपका निजी समीक्षा नोट हटा दिया गया।",
+  "mrPendingMaintenanceError": "हम इस बदलाव की पुष्टि नहीं कर सके। दोबारा कोशिश करने से पहले मौजूदा लंबित समीक्षा जांचें।",
+  "mrPendingMaintenanceUncertain": "बदलाव पहले ही लागू हो सकता है। अगला बदलाव करने से पहले अपने सहेजे गए नोट जांचें।",
+  "mrPendingMaintenanceInspectionHint": "ये अभी पढ़े जा सकने वाले सभी सहेजे गए नोट हैं। दोबारा बदलने से पहले ऊपर चुना गया नोट जांचें।",
+  "mrPendingMaintenanceAcknowledge": "मैंने मौजूदा चुना हुआ नोट जांच लिया है और यह बदलाव लागू करना चाहता/चाहती हूं।",
+  "mrPendingTargetMissing": "चुना गया नोट अब उपलब्ध नहीं है। यह संवाद बंद करें और लंबित समीक्षा रीफ़्रेश करें।",
+  "mrPendingDeleting": "समीक्षा नोट हटाया जा रहा है…"
 }

@@ -4777,4 +4777,53 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrPendingComposeChanged => '审阅会话已更改。请关闭此对话框并重新开始。';
+
+  @override
+  String get mrPendingEdit => '编辑笔记';
+
+  @override
+  String get mrPendingDelete => '删除笔记';
+
+  @override
+  String get mrPendingUpdate => '保存更改';
+
+  @override
+  String get mrPendingEditTitle => '编辑待发布的审查笔记';
+
+  @override
+  String get mrPendingDeleteTitle => '删除待发布的审查笔记';
+
+  @override
+  String get mrPendingEditHint => '更改保持私密，笔记的原始位置会保留。';
+
+  @override
+  String get mrPendingDeleteHint => '这只会从待发布的审查中移除此私密笔记。';
+
+  @override
+  String get mrPendingDeleteConfirm => '我确认删除上方显示的笔记。';
+
+  @override
+  String get mrPendingUpdated => '已更新私密审查笔记。';
+
+  @override
+  String get mrPendingDeleted => '已删除私密审查笔记。';
+
+  @override
+  String get mrPendingMaintenanceError => '无法确认此更改。请检查当前待发布的审查后再试。';
+
+  @override
+  String get mrPendingMaintenanceUncertain => '更改可能已经生效。再次更改前，请检查已保存的笔记。';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      '以下是当前可读取的全部已保存笔记。再次更改前，请检查上方选中的笔记。';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge => '我已检查当前选中的笔记，并确认应用此更改。';
+
+  @override
+  String get mrPendingTargetMissing => '选中的笔记已不可用。请关闭此对话框并刷新待发布的审查。';
+
+  @override
+  String get mrPendingDeleting => '正在删除审查笔记…';
 }

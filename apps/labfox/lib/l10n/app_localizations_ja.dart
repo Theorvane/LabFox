@@ -4930,4 +4930,56 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get mrPendingComposeChanged =>
       'レビューのセッションが変更されました。この画面を閉じて、やり直してください。';
+
+  @override
+  String get mrPendingEdit => 'ノートを編集';
+
+  @override
+  String get mrPendingDelete => 'ノートを削除';
+
+  @override
+  String get mrPendingUpdate => '変更を保存';
+
+  @override
+  String get mrPendingEditTitle => '保留中のレビューノートを編集';
+
+  @override
+  String get mrPendingDeleteTitle => '保留中のレビューノートを削除';
+
+  @override
+  String get mrPendingEditHint => '変更は非公開のままです。元のノートの位置は保持されます。';
+
+  @override
+  String get mrPendingDeleteHint => '保留中のレビューから、この非公開の保存済みノートだけを削除します。';
+
+  @override
+  String get mrPendingDeleteConfirm => '上に表示されたノートを削除します。';
+
+  @override
+  String get mrPendingUpdated => '非公開のレビューノートを更新しました。';
+
+  @override
+  String get mrPendingDeleted => '非公開のレビューノートを削除しました。';
+
+  @override
+  String get mrPendingMaintenanceError =>
+      'この変更を確認できませんでした。再試行する前に、現在の保留中のレビューを確認してください。';
+
+  @override
+  String get mrPendingMaintenanceUncertain =>
+      '変更はすでに適用されている可能性があります。次の変更を行う前に、保存済みノートを確認してください。';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      '現在読み取れる保存済みノートの一覧です。再度変更する前に、上の選択したノートを確認してください。';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge => '現在選択されているノートを確認し、この変更を適用します。';
+
+  @override
+  String get mrPendingTargetMissing =>
+      '選択したノートは利用できなくなりました。この画面を閉じて、保留中のレビューを更新してください。';
+
+  @override
+  String get mrPendingDeleting => 'レビューノートを削除中…';
 }

@@ -24,6 +24,8 @@ export 'src/labels/project_labels_api.dart';
 export 'src/members/group_members_api.dart';
 export 'src/members/project_members_api.dart';
 export 'src/merge_requests/merge_requests_api.dart';
+export 'src/merge_requests/positioned_discussion.dart'
+    show validTextDiscussionPosition;
 export 'src/milestones/group_milestones_api.dart';
 export 'src/milestones/milestones_api.dart';
 export 'src/notes/notes_api.dart';

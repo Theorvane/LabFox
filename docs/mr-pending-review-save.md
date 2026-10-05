@@ -91,3 +91,7 @@ visible layout, remote asset, telemetry or disk cache. Tests use synthetic users
 no live GitLab, physical-device or store validation is claimed. Existing widget
 and review-controller suites remain part of regression verification. MW-07 stays
 in progress until the remaining review flows are completed and validated.
+
+The subsequent [maintenance UI](mr-pending-review-maintenance.md) connects
+guarded private editing and confirmed deletion, with fresh selected-target
+comparison and visible inspection before an explicit retry.

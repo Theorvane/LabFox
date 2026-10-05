@@ -80,6 +80,16 @@ class MrDraftNotesRepository {
     );
   }
 
+  /// Only regular drafts and complete original text anchors can be edited.
+  static bool canUpdate(MergeRequestDraftNote draft) {
+    try {
+      final position = _positionForUpdate(draft);
+      return position == null || validTextDiscussionPosition(position);
+    } on ArgumentError {
+      return false;
+    }
+  }
+
   void _validateTarget(MergeRequestDraftNote draft, int mergeRequestId) {
     if (mergeRequestId < 1 ||
         draft.id < 1 ||
@@ -92,7 +102,7 @@ class MrDraftNotesRepository {
     }
   }
 
-  DiffNotePosition? _positionForUpdate(MergeRequestDraftNote draft) {
+  static DiffNotePosition? _positionForUpdate(MergeRequestDraftNote draft) {
     final p = draft.position;
     final regular =
         p == null ||
