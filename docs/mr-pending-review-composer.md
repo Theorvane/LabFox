@@ -101,3 +101,7 @@ inspected synthetic widget captures, not live GitLab/device/store validation.
 
 Positioned/reply/commit draft-save orchestration, editing/deletion and publication
 remain separate slices. MW-07 stays in progress.
+
+The subsequent [private draft maintenance foundation](mr-draft-note-maintenance.md)
+adds guarded update/delete API and repository methods; editing/deletion controller
+and UI orchestration remain separate.

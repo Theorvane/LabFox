@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
@@ -658,6 +660,137 @@ class MergeRequestsApi {
       throw mapError(error, context: 'saving a review draft');
     }
   }
+
+  /// Updates exact private Markdown, preserving a supplied original text anchor.
+  /// Positioned callers must resend the original position: omission can clear it.
+  /// A failed/unconfirmed response requires inspection, never automatic replay.
+  Future<MergeRequestDraftNote> updateDraftNote(
+    Object projectId, {
+    required int iid,
+    required int draftNoteId,
+    required String note,
+    DiffNotePosition? position,
+  }) async {
+    final path = _draftNotePath(projectId, iid, draftNoteId);
+    if (note.trim().isEmpty) {
+      throw ArgumentError('A draft note is required.', 'note');
+    }
+    if (position != null && !validTextDiscussionPosition(position)) {
+      throw ArgumentError(
+        'A complete original text position is required.',
+        'position',
+      );
+    }
+    try {
+      final response = await _dio.put<String>(
+        path,
+        data: {
+          'note': note,
+          if (position != null)
+            'position': positionedDiscussionPayload(position),
+        },
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'updating a review draft',
+        );
+      }
+      try {
+        final draft = _parseDraftNotes([
+          jsonDecode(response.data ?? ''),
+        ]).single;
+        if (draft.id != draftNoteId ||
+            draft.note != note ||
+            !_confirmsDraftPosition(position, draft.position) ||
+            (position == null && draft.lineCode != null)) {
+          throw const GitLabServerException('Unconfirmed draft note update.');
+        }
+        return draft;
+      } on GitLabServerException {
+        throw const GitLabServerException(
+          'Invalid draft note update response.',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid draft note update response.',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'updating a review draft',
+        );
+      }
+      throw mapError(error, context: 'updating a review draft');
+    }
+  }
+
+  /// Deletes only the addressed unpublished note; a 404 is not confirmation.
+  /// Callers still validate fresh ownership and inspect an uncertain outcome.
+  Future<void> deleteDraftNote(
+    Object projectId, {
+    required int iid,
+    required int draftNoteId,
+  }) async {
+    final path = _draftNotePath(projectId, iid, draftNoteId);
+    try {
+      final response = await _dio.delete<dynamic>(
+        path,
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'deleting a review draft',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'deleting a review draft',
+        );
+      }
+      throw mapError(error, context: 'deleting a review draft');
+    }
+  }
+
+  static String _draftNotePath(Object projectId, int iid, int draftNoteId) {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (draftNoteId < 1) throw ArgumentError.value(draftNoteId, 'draftNoteId');
+    return '/projects/${_enc(projectId)}/merge_requests/$iid/draft_notes/$draftNoteId';
+  }
+
+  static GitLabException _draftMutationStatus(
+    int? status,
+    Map<String, List<String>> headers,
+    String context,
+  ) => switch (status) {
+    409 || 412 || 422 => GitLabConflictException(
+      'The draft changed or could not be modified. Reload before retrying.',
+      statusCode: status,
+    ),
+    _ => mapStatus(status, headers, context: context),
+  };
 
   static bool _confirmsDraftPosition(
     DiffNotePosition? expected,

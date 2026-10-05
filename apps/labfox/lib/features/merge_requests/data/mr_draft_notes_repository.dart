@@ -1,7 +1,7 @@
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-/// Reads and saves private review notes using one account-bound client.
+/// Reads and modifies private review notes using one account-bound client.
 class MrDraftNotesRepository {
   MrDraftNotesRepository(this._client, {required this.authorId}) {
     if (authorId < 1) throw ArgumentError.value(authorId, 'authorId');
@@ -34,6 +34,94 @@ class MrDraftNotesRepository {
       );
     }
     return draft;
+  }
+
+  /// The selected draft and authoritative global MR ID must still be current.
+  /// Preserves original text anchors and confirms unchanged non-body metadata.
+  Future<MergeRequestDraftNote> update({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required MergeRequestDraftNote draft,
+    required String note,
+  }) async {
+    _validateTarget(draft, mergeRequestId);
+    final position = _positionForUpdate(draft);
+    final updated = await _client.mergeRequests.updateDraftNote(
+      projectId,
+      iid: iid,
+      draftNoteId: draft.id,
+      note: note,
+      position: position,
+    );
+    // The API confirms the exact body/target and semantic original position.
+    // Other modeled metadata, including unknown values, must not change unexpectedly.
+    if (updated.copyWith(note: draft.note, position: draft.position) != draft) {
+      throw const GitLabServerException(
+        'Invalid draft note update identity or metadata.',
+      );
+    }
+    return updated;
+  }
+
+  /// Validates captured ownership/global identity before one private delete.
+  /// A 204 acknowledges the route; it is not a durable or atomic review snapshot.
+  Future<void> delete({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required MergeRequestDraftNote draft,
+  }) async {
+    _validateTarget(draft, mergeRequestId);
+    await _client.mergeRequests.deleteDraftNote(
+      projectId,
+      iid: iid,
+      draftNoteId: draft.id,
+    );
+  }
+
+  void _validateTarget(MergeRequestDraftNote draft, int mergeRequestId) {
+    if (mergeRequestId < 1 ||
+        draft.id < 1 ||
+        draft.authorId != authorId ||
+        draft.mergeRequestId != mergeRequestId) {
+      throw ArgumentError(
+        'A current owned draft and global MR identity are required.',
+        'draft',
+      );
+    }
+  }
+
+  DiffNotePosition? _positionForUpdate(MergeRequestDraftNote draft) {
+    final p = draft.position;
+    final regular =
+        p == null ||
+        ((p.positionType == null || p.positionType == 'text') &&
+            [
+              p.baseSha,
+              p.startSha,
+              p.headSha,
+              p.oldPath,
+              p.newPath,
+              p.oldLine,
+              p.newLine,
+              p.lineRange,
+              p.width,
+              p.height,
+              p.x,
+              p.y,
+            ].every((field) => field == null));
+    if (regular) {
+      if (draft.lineCode != null) {
+        throw ArgumentError(
+          'The original draft position is unavailable.',
+          'draft',
+        );
+      }
+      return null;
+    }
+    // The API rejects incomplete, image/file/future anchors before dispatch.
+    return p;
   }
 
   Future<Paginated<MergeRequestDraftNote>> list({
