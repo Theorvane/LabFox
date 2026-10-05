@@ -702,6 +702,7 @@ class MrDiscussionsController
     }
     return _pendingReview((repository, detail, current, wait) async {
       final comments = await wait(ref.read(commentsRepositoryProvider.future));
+      if (!current()) throw const _PendingReviewCancelled();
       final fresh = await wait(
         comments!.discussion(
           projectId: arg.projectId,
@@ -766,6 +767,7 @@ class MrDiscussionsController
       if (unsettled != null) await wait(unsettled);
       final notes = await _readPendingNotes(repository, detail, current, wait);
       final comments = await wait(ref.read(commentsRepositoryProvider.future));
+      if (!current()) throw const _PendingReviewCancelled();
       Discussion? target;
       try {
         final fresh = await wait(

@@ -91,7 +91,43 @@ class Fixture extends b.Fixture {
       controller.inspectPendingReply(thread, isCurrent: current);
 }
 
+// Invalidates the captured view as the authoritative detail is validated.
+class BoundaryDetail implements MergeRequest {
+  BoundaryDetail(this.cancel);
+  final void Function() cancel;
+  @override
+  int get id {
+    scheduleMicrotask(cancel);
+    return 1100;
+  }
+
+  @override
+  int get iid => 142;
+  @override
+  int? get projectId => 8;
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw UnimplementedError();
+}
+
 void main() {
+  for (final inspecting in [false, true]) {
+    test(
+      'cancelled detail boundary cannot dispatch a fresh public target read inspecting=$inspecting',
+      () async {
+        final f = Fixture();
+        await f.init();
+        var active = true;
+        f.details.result = BoundaryDetail(() => active = false);
+        final result = inspecting
+            ? await f.inspectReply(current: () => active)
+            : await f.saveReply(current: () => active);
+        expect(result, isNull);
+        expect(f.publicComments.targets, isEmpty);
+        expect(f.privateDrafts.replies, isEmpty);
+      },
+    );
+  }
+
   test(
     'same-account repository replacement recovery waits for dispatched write',
     () async {

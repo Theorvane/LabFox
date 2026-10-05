@@ -60,6 +60,8 @@ an explicit retry. Editing the input resets consent. Even a pre-dispatch stale
 context requires visible inspection before another attempt. Closing or changing
 the account/client/repository/resource/origin discards private input and context;
 obsolete results cannot toast, expose private rows or dispatch further requests.
+A regression reproduces origin cancellation at the final authoritative-detail
+validation boundary; the captured origin is checked again before the target GET.
 The stable conversation parent owns the dialog, so removal of the original
 thread during recovery does not prematurely dispose the missing-target message.
 
