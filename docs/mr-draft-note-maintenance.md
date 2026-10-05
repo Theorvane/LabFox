@@ -1,6 +1,6 @@
 # Private draft-note update and delete foundations
 
-Issue [#610](https://github.com/Theorvane/LabFox/issues/610) adds update/delete
+Issue [#610](https://github.com/Theorvane/LabFox/issues/610) / [PR #611](https://github.com/Theorvane/LabFox/pull/611) adds update/delete
 methods to `MergeRequestsApi` and the account-bound `MrDraftNotesRepository`.
 They build on [private reads](mr-draft-notes.md) and
 [creation](mr-draft-note-creation.md). The existing
