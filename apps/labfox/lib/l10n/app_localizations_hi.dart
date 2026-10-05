@@ -5234,4 +5234,66 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrPendingNotePublished => 'समीक्षा नोट प्रकाशित हुआ।';
+
+  @override
+  String get mrReviewSummaryLabel => 'सार्वजनिक समीक्षा सारांश (वैकल्पिक)';
+
+  @override
+  String get mrReviewOutcomeLabel => 'समीक्षा परिणाम';
+
+  @override
+  String get mrReviewKeepState => 'वर्तमान स्थिति बनाए रखें';
+
+  @override
+  String get mrReviewReviewed => 'समीक्षा की गई';
+
+  @override
+  String get mrReviewRequestChanges => 'बदलाव का अनुरोध करें';
+
+  @override
+  String get mrReviewCurrentState => 'आपकी वर्तमान समीक्षक स्थिति';
+
+  @override
+  String get mrReviewUnassigned => 'समीक्षक के रूप में नियुक्त नहीं';
+
+  @override
+  String get mrReviewUnreviewed => 'समीक्षा नहीं की गई';
+
+  @override
+  String get mrReviewStarted => 'समीक्षा शुरू हुई';
+
+  @override
+  String get mrReviewApproved => 'औपचारिक रूप से स्वीकृत';
+
+  @override
+  String get mrReviewUnknownState => 'अपरिचित समीक्षक स्थिति';
+
+  @override
+  String get mrReviewStateUnavailable =>
+      'समीक्षक स्थिति पढ़ी नहीं जा सकी। आप नोट और सार्वजनिक सारांश प्रकाशित कर सकते हैं।';
+
+  @override
+  String get mrReviewReviewedHint =>
+      'समीक्षा की गई चुनने से मर्ज अनुरोध स्वीकृत नहीं होता। आपका पिछला बदलाव अनुरोध हट सकता है।';
+
+  @override
+  String get mrReviewChangesHint =>
+      'बदलाव का अनुरोध मर्ज रोक सकता है और आपकी मौजूदा स्वीकृति हटा सकता है।';
+
+  @override
+  String get mrReviewPartialHint =>
+      'नोट, सारांश और समीक्षक स्थिति अलग-अलग लागू हुए हो सकते हैं। दोबारा भेजने से पहले तीनों की जाँच करें।';
+
+  @override
+  String get mrReviewSubmissionConsent =>
+      'दिखाए गए लंबित नोट और सार्वजनिक सारांश प्रकाशित करें और चुना गया समीक्षा परिणाम लागू करें।';
+
+  @override
+  String get mrReviewUnapproved => 'स्वीकृति वापस ली गई';
+
+  @override
+  String get mrReviewSubmitButton => 'समीक्षा भेजें';
+
+  @override
+  String get mrReviewInspectButton => 'समीक्षा की जाँच करें';
 }

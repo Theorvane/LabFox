@@ -5058,4 +5058,65 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrPendingNotePublished => '리뷰 초안을 게시했습니다.';
+
+  @override
+  String get mrReviewSummaryLabel => '공개 리뷰 요약(선택 사항)';
+
+  @override
+  String get mrReviewOutcomeLabel => '리뷰 결과';
+
+  @override
+  String get mrReviewKeepState => '현재 상태 유지';
+
+  @override
+  String get mrReviewReviewed => '검토 완료';
+
+  @override
+  String get mrReviewRequestChanges => '변경 요청';
+
+  @override
+  String get mrReviewCurrentState => '내 현재 리뷰어 상태';
+
+  @override
+  String get mrReviewUnassigned => '리뷰어로 지정되지 않음';
+
+  @override
+  String get mrReviewUnreviewed => '아직 검토하지 않음';
+
+  @override
+  String get mrReviewStarted => '검토 시작됨';
+
+  @override
+  String get mrReviewApproved => '정식 승인됨';
+
+  @override
+  String get mrReviewUnknownState => '알 수 없는 리뷰어 상태';
+
+  @override
+  String get mrReviewStateUnavailable =>
+      '리뷰어 상태를 읽을 수 없습니다. 초안과 공개 요약은 게시할 수 있습니다.';
+
+  @override
+  String get mrReviewReviewedHint =>
+      '검토 완료는 이 머지 리퀘스트의 승인이 아닙니다. 이전 변경 요청을 해제할 수 있습니다.';
+
+  @override
+  String get mrReviewChangesHint => '변경 요청은 머지를 막고 기존 승인을 취소할 수 있습니다.';
+
+  @override
+  String get mrReviewPartialHint =>
+      '초안, 요약, 리뷰어 상태가 각각 적용되었을 수 있습니다. 다시 제출할지 결정하기 전에 세 항목을 모두 확인하세요.';
+
+  @override
+  String get mrReviewSubmissionConsent =>
+      '표시된 초안과 공개 요약을 게시하고 선택한 리뷰 결과를 적용합니다.';
+
+  @override
+  String get mrReviewUnapproved => '승인 취소됨';
+
+  @override
+  String get mrReviewSubmitButton => '리뷰 제출';
+
+  @override
+  String get mrReviewInspectButton => '리뷰 확인';
 }

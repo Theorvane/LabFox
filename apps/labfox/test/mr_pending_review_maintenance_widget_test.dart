@@ -77,6 +77,13 @@ GitLabClient client() => GitLabClient(
 class Drafts extends MrDraftNotesRepository {
   Drafts(this.api) : super(api, authorId: 23);
   final GitLabClient api;
+  @override
+  Future<Paginated<MergeRequestReviewer>> reviewers({
+    required int projectId,
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) async => const Paginated(items: []);
   Object result = draft(7);
   final writes = <(int, int, int, String, DiffNotePosition?)>[];
   final reads = <int>[];

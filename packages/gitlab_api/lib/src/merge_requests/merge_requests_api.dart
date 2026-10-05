@@ -31,6 +31,15 @@ enum MergeRequestScope {
   final String value;
 }
 
+/// Review submission outcomes, separate from formal approval.
+enum ReviewerSubmissionState {
+  reviewed('reviewed'),
+  requestedChanges('requested_changes');
+
+  const ReviewerSubmissionState(this.value);
+  final String value;
+}
+
 /// Merge request endpoints.
 class MergeRequestsApi {
   const MergeRequestsApi(this._dio);
@@ -587,6 +596,84 @@ class MergeRequestsApi {
     }
   }
 
+  /// Reads review state rather than the nested user's account state.
+  Future<Paginated<MergeRequestReviewer>> reviewers(
+    Object projectId, {
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    final path = _draftNotesPath(
+      projectId,
+      iid,
+    ).replaceFirst('/draft_notes', '/reviewers');
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        path,
+        queryParameters: {'page': page, 'per_page': perPage},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading reviewers',
+        );
+      }
+      try {
+        final payload = response.data is String
+            ? jsonDecode(response.data as String)
+            : response.data;
+        if (payload is! List) throw const FormatException();
+        final ids = <int>{};
+        final items = payload
+            .map((entry) {
+              if (entry is! Map<String, dynamic> ||
+                  entry['user'] is! Map<String, dynamic>) {
+                throw const FormatException();
+              }
+              final user = entry['user'] as Map<String, dynamic>;
+              final id = user['id'];
+              if (id is! int || id < 1) throw const FormatException();
+              final reviewer = MergeRequestReviewer.fromJson(entry);
+              if (reviewer.user.id < 1 ||
+                  reviewer.state.trim().isEmpty ||
+                  !ids.add(reviewer.user.id)) {
+                throw const FormatException();
+              }
+              return reviewer;
+            })
+            .toList(growable: false);
+        final cursors = response.headers['x-next-page'];
+        if (cursors != null && cursors.length != 1) {
+          throw const FormatException();
+        }
+        final cursor = cursors?.single;
+        if (cursor != null && cursor.isNotEmpty) {
+          final next = int.tryParse(cursor);
+          if (next == null || next <= page) throw const FormatException();
+        }
+        return Paginated.fromHeaders(
+          List<MergeRequestReviewer>.unmodifiable(items),
+          response.headers.map,
+        );
+      } on FormatException {
+        throw const GitLabServerException('Invalid reviewers response.');
+      } on TypeError {
+        throw const GitLabServerException('Invalid reviewers response.');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading reviewers');
+    }
+  }
+
   /// Saves a new unpublished regular or original text-positioned review note.
   /// A failed/unconfirmed response can follow a successful server write. Callers
   /// must inspect pending drafts before an explicit retry; this never replays.
@@ -808,11 +895,30 @@ class MergeRequestsApi {
 
   /// Publishes all saved notes owned by the authenticated user, once.
   /// GitLab does not accept a conditional list of selected draft IDs here.
-  Future<void> publishDraftNotes(Object projectId, {required int iid}) async {
+  Future<void> publishDraftNotes(
+    Object projectId, {
+    required int iid,
+    String? summaryNote,
+    ReviewerSubmissionState? reviewerState,
+  }) async {
     final path = '${_draftNotesPath(projectId, iid)}/bulk_publish';
+    if (summaryNote != null && summaryNote.trim().isEmpty) {
+      throw ArgumentError(
+        'A supplied public summary must not be blank.',
+        'summaryNote',
+      );
+    }
     try {
       final response = await _dio.post<dynamic>(
         path,
+        data: summaryNote == null && reviewerState == null
+            ? null
+            : {
+                'note': ?summaryNote,
+                if (summaryNote != null) 'internal': false,
+                if (reviewerState != null)
+                  'reviewer_state': reviewerState.value,
+              },
         options: Options(
           responseType: ResponseType.plain,
           followRedirects: false,

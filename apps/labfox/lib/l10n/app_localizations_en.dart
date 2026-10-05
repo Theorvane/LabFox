@@ -5237,4 +5237,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrPendingNotePublished => 'Review note published.';
+
+  @override
+  String get mrReviewSummaryLabel => 'Public review summary (optional)';
+
+  @override
+  String get mrReviewOutcomeLabel => 'Review outcome';
+
+  @override
+  String get mrReviewKeepState => 'Keep current state';
+
+  @override
+  String get mrReviewReviewed => 'Reviewed';
+
+  @override
+  String get mrReviewRequestChanges => 'Request changes';
+
+  @override
+  String get mrReviewCurrentState => 'Your current reviewer state';
+
+  @override
+  String get mrReviewUnassigned => 'Not assigned as a reviewer';
+
+  @override
+  String get mrReviewUnreviewed => 'Not reviewed';
+
+  @override
+  String get mrReviewStarted => 'Review started';
+
+  @override
+  String get mrReviewApproved => 'Formally approved';
+
+  @override
+  String get mrReviewUnknownState => 'Unrecognized reviewer state';
+
+  @override
+  String get mrReviewStateUnavailable =>
+      'Reviewer state could not be read. You can still publish notes and a public summary.';
+
+  @override
+  String get mrReviewReviewedHint =>
+      'Reviewed does not approve this merge request. It may clear your previous change request.';
+
+  @override
+  String get mrReviewChangesHint =>
+      'Requesting changes may block merging and remove your existing approval.';
+
+  @override
+  String get mrReviewPartialHint =>
+      'Notes, the summary, and reviewer state may have been applied separately. Inspect all three before deciding whether to submit again.';
+
+  @override
+  String get mrReviewSubmissionConsent =>
+      'Publish the displayed pending notes and public summary, and apply the selected review outcome.';
+
+  @override
+  String get mrReviewUnapproved => 'Approval withdrawn';
+
+  @override
+  String get mrReviewSubmitButton => 'Submit review';
+
+  @override
+  String get mrReviewInspectButton => 'Inspect review';
 }

@@ -6,6 +6,27 @@ import '../../../packages/gitlab_api/test/mr_draft_note_maintenance_api_test.dar
     show makeClient;
 
 void main() {
+  test('public review options stay on the captured client', () async {
+    final requests = <RequestOptions>[];
+    final c = makeClient((o) {
+      requests.add(o);
+      return (status: 204, body: null);
+    });
+    addTearDown(c.close);
+    await MrDraftNotesRepository(c, authorId: 23).publish(
+      projectId: 8,
+      iid: 142,
+      mergeRequestId: 1100,
+      summaryNote: '  Summary\n ',
+      reviewerState: ReviewerSubmissionState.requestedChanges,
+    );
+    expect(requests.single.data, {
+      'note': '  Summary\n ',
+      'internal': false,
+      'reviewer_state': 'requested_changes',
+    });
+  });
+
   test(
     'captured client publishes the route IID with separate global MR identity',
     () async {

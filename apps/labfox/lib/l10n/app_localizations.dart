@@ -9181,6 +9181,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Review note published.'**
   String get mrPendingNotePublished;
+
+  /// No description provided for @mrReviewSummaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Public review summary (optional)'**
+  String get mrReviewSummaryLabel;
+
+  /// No description provided for @mrReviewOutcomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Review outcome'**
+  String get mrReviewOutcomeLabel;
+
+  /// No description provided for @mrReviewKeepState.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current state'**
+  String get mrReviewKeepState;
+
+  /// No description provided for @mrReviewReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed'**
+  String get mrReviewReviewed;
+
+  /// No description provided for @mrReviewRequestChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Request changes'**
+  String get mrReviewRequestChanges;
+
+  /// No description provided for @mrReviewCurrentState.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current reviewer state'**
+  String get mrReviewCurrentState;
+
+  /// No description provided for @mrReviewUnassigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assigned as a reviewer'**
+  String get mrReviewUnassigned;
+
+  /// No description provided for @mrReviewUnreviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reviewed'**
+  String get mrReviewUnreviewed;
+
+  /// No description provided for @mrReviewStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Review started'**
+  String get mrReviewStarted;
+
+  /// No description provided for @mrReviewApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Formally approved'**
+  String get mrReviewApproved;
+
+  /// No description provided for @mrReviewUnknownState.
+  ///
+  /// In en, this message translates to:
+  /// **'Unrecognized reviewer state'**
+  String get mrReviewUnknownState;
+
+  /// No description provided for @mrReviewStateUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewer state could not be read. You can still publish notes and a public summary.'**
+  String get mrReviewStateUnavailable;
+
+  /// No description provided for @mrReviewReviewedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed does not approve this merge request. It may clear your previous change request.'**
+  String get mrReviewReviewedHint;
+
+  /// No description provided for @mrReviewChangesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Requesting changes may block merging and remove your existing approval.'**
+  String get mrReviewChangesHint;
+
+  /// No description provided for @mrReviewPartialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes, the summary, and reviewer state may have been applied separately. Inspect all three before deciding whether to submit again.'**
+  String get mrReviewPartialHint;
+
+  /// No description provided for @mrReviewSubmissionConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish the displayed pending notes and public summary, and apply the selected review outcome.'**
+  String get mrReviewSubmissionConsent;
+
+  /// No description provided for @mrReviewUnapproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval withdrawn'**
+  String get mrReviewUnapproved;
+
+  /// No description provided for @mrReviewSubmitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit review'**
+  String get mrReviewSubmitButton;
+
+  /// No description provided for @mrReviewInspectButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect review'**
+  String get mrReviewInspectButton;
 }
 
 class _AppLocalizationsDelegate

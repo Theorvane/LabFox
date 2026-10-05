@@ -18,6 +18,8 @@ class Drafts extends b.Drafts {
     required int projectId,
     required int iid,
     required int mergeRequestId,
+    String? summaryNote,
+    ReviewerSubmissionState? reviewerState,
   }) async {
     publications.add((projectId, iid, mergeRequestId));
     if (publication is Future<void>) return publication as Future<void>;
