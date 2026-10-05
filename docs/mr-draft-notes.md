@@ -75,7 +75,8 @@ before the scheduled rebuild pump. Consumers maintain a subscription while
 waiting for a future; unused page and repository providers dispose automatically.
 
 There is no disk cache, new analytics event, localization/UI change, dependency
-or licence change. Paging/aggregation, publication confirmation, shared write
+or licence change. The later [pagination controller](mr-pending-review-reader.md)
+adds explicit aggregation and global MR identity checks. Publication confirmation, shared write
 reservations, diff-anchor eligibility and pending-review presentation remain
 separate follow-up work. Already dispatched reads may finish on the old client;
 those results cannot replace a current page.
