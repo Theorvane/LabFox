@@ -748,6 +748,69 @@ class MergeRequestsApi {
     }
   }
 
+  /// Saves an unpublished reply on one existing discussion without resolving it.
+  /// This does not reconstruct an anchor or replay an uncertain private write.
+  Future<MergeRequestDraftNote> createDraftReply(
+    Object projectId, {
+    required int iid,
+    required String discussionId,
+    required String note,
+  }) async {
+    final path = _draftNotesPath(projectId, iid);
+    if (discussionId.trim().isEmpty || note.trim().isEmpty) {
+      throw ArgumentError('A discussion and private reply are required.');
+    }
+    try {
+      final response = await _dio.post<String>(
+        path,
+        data: {
+          'note': note,
+          'in_reply_to_discussion_id': discussionId,
+          'resolve_discussion': false,
+        },
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 201) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'saving a private reply',
+        );
+      }
+      try {
+        final draft = _parseDraftNotes([
+          jsonDecode(response.data ?? ''),
+        ]).single;
+        if (draft.note != note ||
+            draft.discussionId != discussionId ||
+            draft.resolveDiscussion != false ||
+            draft.commitId != null ||
+            draft.lineCode != null ||
+            !_confirmsDraftPosition(null, draft.position)) {
+          throw const GitLabServerException('Unconfirmed private reply.');
+        }
+        return draft;
+      } on GitLabServerException {
+        throw const GitLabServerException('Invalid private reply response.');
+      } on FormatException {
+        throw const GitLabServerException('Invalid private reply response.');
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'saving a private reply',
+        );
+      }
+      throw mapError(error, context: 'saving a private reply');
+    }
+  }
+
   /// Updates exact private Markdown, preserving a supplied original text anchor.
   /// Positioned callers must resend the original position: omission can clear it.
   /// A failed/unconfirmed response requires inspection, never automatic replay.

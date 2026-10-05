@@ -36,6 +36,29 @@ class MrDraftNotesRepository {
     return draft;
   }
 
+  /// Saves a reply through the same captured author and authoritative MR.
+  Future<MergeRequestDraftNote> createReply({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required String discussionId,
+    required String note,
+  }) async {
+    if (mergeRequestId < 1) {
+      throw ArgumentError.value(mergeRequestId, 'mergeRequestId');
+    }
+    final draft = await _client.mergeRequests.createDraftReply(
+      projectId,
+      iid: iid,
+      discussionId: discussionId,
+      note: note,
+    );
+    if (draft.authorId != authorId || draft.mergeRequestId != mergeRequestId) {
+      throw const GitLabServerException('Invalid private reply identity.');
+    }
+    return draft;
+  }
+
   /// The selected draft and authoritative global MR ID must still be current.
   /// Preserves original text anchors and confirms unchanged non-body metadata.
   Future<MergeRequestDraftNote> update({

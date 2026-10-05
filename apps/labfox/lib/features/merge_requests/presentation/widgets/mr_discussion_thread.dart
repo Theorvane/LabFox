@@ -5,6 +5,8 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/data/suggestion_application.dart';
@@ -12,7 +14,9 @@ import '../../../comments/presentation/controllers/comments_controller.dart';
 import '../../../comments/presentation/widgets/comment_thread.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
+import '../controllers/mr_draft_notes_provider.dart';
 import 'mr_discussion_position_context.dart';
+import 'mr_pending_review_composer.dart';
 import 'mr_suggestion_apply_dialog.dart';
 import 'mr_suggestion_batch_apply_dialog.dart';
 import 'mr_suggestion_preview.dart';
@@ -59,6 +63,8 @@ class _Conversation extends ConsumerStatefulWidget {
 }
 
 class _ConversationState extends ConsumerState<_Conversation> {
+  String? _pendingReplyId;
+  ValueNotifier<bool>? _pendingReplyView;
   int? _applicationId;
   ValueNotifier<bool>? _applicationView;
   String? _replyId;
@@ -70,12 +76,14 @@ class _ConversationState extends ConsumerState<_Conversation> {
 
   @override
   void dispose() {
+    _pendingReplyView?.value = false;
     _applicationView?.value = false;
     super.dispose();
   }
 
   Future<void> _setResolved(String id, bool resolved) async {
-    if (_applicationId != null ||
+    if (_pendingReplyId != null ||
+        _applicationId != null ||
         _resolutionId != null ||
         _topPosting ||
         _replyId != null) {
@@ -117,7 +125,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
   }
 
   Future<bool> _post(String body) async {
-    if (_applicationId != null ||
+    if (_pendingReplyId != null ||
+        _applicationId != null ||
         _topPosting ||
         _replyId != null ||
         _resolutionId != null) {
@@ -136,6 +145,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
   Future<bool> _reply(String body) async {
     final id = _replyId;
     if (id == null ||
+        _pendingReplyId != null ||
         _applicationId != null ||
         _replyPosting ||
         _topPosting ||
@@ -159,7 +169,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
     Note note,
     Suggestion suggestion,
   ) async {
-    if (_applicationId != null ||
+    if (_pendingReplyId != null ||
+        _applicationId != null ||
         _topPosting ||
         _replyId != null ||
         _resolutionId != null ||
@@ -204,7 +215,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
   }
 
   Future<void> _applyBatch(List<SuggestionTarget> targets) async {
-    if (_applicationId != null ||
+    if (_pendingReplyId != null ||
+        _applicationId != null ||
         _topPosting ||
         _replyId != null ||
         _resolutionId != null ||
@@ -246,10 +258,104 @@ class _ConversationState extends ConsumerState<_Conversation> {
     }
   }
 
+  Future<void> _savePrivateReply(Discussion target) async {
+    if (_pendingReplyId != null ||
+        _applicationId != null ||
+        _topPosting ||
+        _replyPosting ||
+        _resolutionId != null) {
+      return;
+    }
+    final resource = widget.arg;
+    final account = ref.read(currentAccountProvider);
+    final drafts = ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious();
+    final source = ref.read(mergeRequestsRepositoryProvider).unwrapPrevious();
+    final client = ref.read(gitLabClientProvider).unwrapPrevious();
+    final comments = ref.read(commentsRepositoryProvider).unwrapPrevious();
+    if (account == null ||
+        drafts.valueOrNull == null ||
+        source.valueOrNull == null ||
+        client.valueOrNull == null ||
+        comments.valueOrNull == null) {
+      return;
+    }
+    final view = ValueNotifier(true);
+    _pendingReplyView = view;
+    setState(() => _pendingReplyId = target.id);
+    try {
+      final saved = await showMrPendingReviewReplyDialog(
+        context: context,
+        resource: resource,
+        account: account,
+        draftSession: drafts.value!,
+        detailSession: source.value!,
+        clientSession: client.value!,
+        discussion: target,
+        viewActive: view,
+        isCurrent: () => mounted && widget.arg == resource,
+      );
+      if (mounted &&
+          view.value &&
+          saved == true &&
+          ref.read(currentAccountProvider) == account &&
+          identical(
+            ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+            client.valueOrNull,
+          ) &&
+          identical(
+            ref
+                .read(mrDraftNotesRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            drafts.valueOrNull,
+          ) &&
+          identical(
+            ref
+                .read(mergeRequestsRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            source.valueOrNull,
+          ) &&
+          identical(
+            ref.read(commentsRepositoryProvider).unwrapPrevious().valueOrNull,
+            comments.valueOrNull,
+          )) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).mrPendingComposeSaved),
+          ),
+        );
+      }
+    } finally {
+      _pendingReplyView = null;
+      view.dispose();
+      if (mounted) setState(() => _pendingReplyId = null);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final discussions = widget.discussions;
+    final account = ref.watch(currentAccountProvider);
+    bool privateReady = false;
+    if (account != null) {
+      final drafts = ref.watch(mrDraftNotesRepositoryProvider).unwrapPrevious();
+      final source = ref
+          .watch(mergeRequestsRepositoryProvider)
+          .unwrapPrevious();
+      final client = ref.watch(gitLabClientProvider).unwrapPrevious();
+      privateReady =
+          !drafts.isLoading &&
+          !drafts.hasError &&
+          drafts.valueOrNull != null &&
+          !source.isLoading &&
+          !source.hasError &&
+          source.valueOrNull != null &&
+          !client.isLoading &&
+          !client.hasError &&
+          client.valueOrNull != null;
+    }
     final canPost =
         discussions.hasValue && !discussions.isLoading && !discussions.hasError;
     return CommentThread(
@@ -261,7 +367,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
           _replyId == null &&
           !_replyPosting &&
           _resolutionId == null &&
-          _applicationId == null,
+          _applicationId == null &&
+          _pendingReplyId == null,
       onPost: _post,
       conversation: discussions.when(
         skipLoadingOnRefresh: false,
@@ -307,6 +414,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
                     onPressed:
                         canPost &&
                             _applicationId == null &&
+                            _pendingReplyId == null &&
                             !_topPosting &&
                             _replyId == null &&
                             _resolutionId == null
@@ -328,6 +436,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
                   onApply:
                       canPost &&
                           _applicationId == null &&
+                          _pendingReplyId == null &&
                           !_topPosting &&
                           _replyId == null &&
                           _resolutionId == null
@@ -354,7 +463,8 @@ class _ConversationState extends ConsumerState<_Conversation> {
                                       !_topPosting &&
                                       !_replyPosting &&
                                       _resolutionId == null &&
-                                      _applicationId == null
+                                      _applicationId == null &&
+                                      _pendingReplyId == null
                                   ? () => _setResolved(
                                       group.id,
                                       !discussionResolution(group)!,
@@ -376,51 +486,80 @@ class _ConversationState extends ConsumerState<_Conversation> {
                             ),
                           ],
                         ),
-                  replyControl: _replyId == group.id
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            CommentThread(
-                              key: const ValueKey('mr-reply-composer'),
-                              type: NoteableType.mergeRequest,
-                              projectId: widget.arg.projectId,
-                              iid: widget.arg.iid,
-                              heading: l10n.mrDiscussionReplyTitle,
-                              composerHint: l10n.mrDiscussionReplyHint,
-                              composerSubmit: l10n.mrDiscussionReplyButton,
-                              conversation: const SizedBox.shrink(),
-                              onPost: _reply,
-                              postingAllowed: canPost && _applicationId == null,
-                              preserveWhitespace: true,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                key: const ValueKey('mr-reply-cancel'),
-                                onPressed: _replyPosting
-                                    ? null
-                                    : () => setState(() => _replyId = null),
-                                child: Text(l10n.cancel),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Align(
-                          alignment: Alignment.centerRight,
+                  replyControl: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (MrDiscussionsController.canSavePendingReply(group))
+                        Align(
+                          alignment: AlignmentDirectional.centerEnd,
                           child: TextButton(
-                            key: ValueKey('mr-discussion-reply-${group.id}'),
+                            key: ValueKey('mr-pending-reply-${group.id}'),
                             onPressed:
                                 canPost &&
-                                    _replyId == null &&
+                                    privateReady &&
+                                    _pendingReplyId == null &&
+                                    _applicationId == null &&
                                     !_topPosting &&
                                     !_replyPosting &&
-                                    _resolutionId == null &&
-                                    _applicationId == null
-                                ? () => setState(() => _replyId = group.id)
+                                    _resolutionId == null
+                                ? () => _savePrivateReply(group)
                                 : null,
-                            child: Text(l10n.mrDiscussionReplyButton),
+                            child: Text(l10n.mrPendingReplyButton),
                           ),
                         ),
+                      _replyId == group.id
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                CommentThread(
+                                  key: const ValueKey('mr-reply-composer'),
+                                  type: NoteableType.mergeRequest,
+                                  projectId: widget.arg.projectId,
+                                  iid: widget.arg.iid,
+                                  heading: l10n.mrDiscussionReplyTitle,
+                                  composerHint: l10n.mrDiscussionReplyHint,
+                                  composerSubmit: l10n.mrDiscussionReplyButton,
+                                  conversation: const SizedBox.shrink(),
+                                  onPost: _reply,
+                                  postingAllowed:
+                                      canPost &&
+                                      _applicationId == null &&
+                                      _pendingReplyId == null,
+                                  preserveWhitespace: true,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: TextButton(
+                                    key: const ValueKey('mr-reply-cancel'),
+                                    onPressed: _replyPosting
+                                        ? null
+                                        : () => setState(() => _replyId = null),
+                                    child: Text(l10n.cancel),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                key: ValueKey(
+                                  'mr-discussion-reply-${group.id}',
+                                ),
+                                onPressed:
+                                    canPost &&
+                                        _replyId == null &&
+                                        !_topPosting &&
+                                        !_replyPosting &&
+                                        _resolutionId == null &&
+                                        _applicationId == null &&
+                                        _pendingReplyId == null
+                                    ? () => setState(() => _replyId = group.id)
+                                    : null,
+                                child: Text(l10n.mrDiscussionReplyButton),
+                              ),
+                            ),
+                    ],
+                  ),
                 ),
               if (page.hasMore) _MoreDiscussions(arg: widget.arg),
             ],

@@ -5296,4 +5296,29 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrReviewInspectButton => 'समीक्षा की जाँच करें';
+
+  @override
+  String get mrPendingReplyButton => 'निजी जवाब सहेजें';
+
+  @override
+  String get mrPendingReplyTitle => 'निजी जवाब का ड्राफ़्ट';
+
+  @override
+  String get mrPendingReplyHint =>
+      'प्रकाशित करने तक यह जवाब निजी रहेगा। सहेजने से चर्चा हल नहीं होती।';
+
+  @override
+  String get mrPendingReplyTargetTitle => 'चर्चा का संदर्भ';
+
+  @override
+  String get mrPendingReplyTargetUnavailable =>
+      'यह चर्चा मौजूद नहीं है या अब निजी जवाब स्वीकार नहीं करती।';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      'वर्तमान चर्चा और सभी लंबित नोट जाँचें कि जवाब पहले ही सहेजा तो नहीं गया। दोबारा सहेजने से डुप्लिकेट बन सकता है।';
+
+  @override
+  String get mrPendingReplyAcknowledge =>
+      'मैंने चर्चा और लंबित नोट जाँचे हैं और यह जवाब सहेजना चाहता हूँ।';
 }

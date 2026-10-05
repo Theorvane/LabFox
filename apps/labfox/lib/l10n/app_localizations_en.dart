@@ -5299,4 +5299,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrReviewInspectButton => 'Inspect review';
+
+  @override
+  String get mrPendingReplyButton => 'Save private reply';
+
+  @override
+  String get mrPendingReplyTitle => 'Private reply draft';
+
+  @override
+  String get mrPendingReplyHint =>
+      'This reply stays private until you publish it. Saving does not resolve the discussion.';
+
+  @override
+  String get mrPendingReplyTargetTitle => 'Discussion context';
+
+  @override
+  String get mrPendingReplyTargetUnavailable =>
+      'This discussion is missing or no longer accepts a private reply.';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      'Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.';
+
+  @override
+  String get mrPendingReplyAcknowledge =>
+      'I checked the discussion and pending notes and want to save this reply.';
 }

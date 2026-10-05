@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/auth/auth_controller.dart';
 import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
 import '../../../diff/presentation/controllers/diff_controllers.dart';
 import '../../data/mr_draft_notes_repository.dart';
@@ -180,6 +181,32 @@ Future<bool?> showMrPendingReviewPositionDialog({
   ),
 );
 
+/// Keeps private reply input bound to the original public discussion and client.
+Future<bool?> showMrPendingReviewReplyDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object clientSession,
+  required Discussion discussion,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    clientSession: clientSession,
+    discussion: discussion,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
 class _ComposeDialog extends ConsumerStatefulWidget {
   const _ComposeDialog({
     required this.resource,
@@ -188,6 +215,7 @@ class _ComposeDialog extends ConsumerStatefulWidget {
     required this.detailSession,
     required this.viewActive,
     required this.isCurrent,
+    this.discussion,
     this.selection,
     this.diffSession,
     this.clientSession,
@@ -200,6 +228,7 @@ class _ComposeDialog extends ConsumerStatefulWidget {
   final Object detailSession;
   final ValueNotifier<bool> viewActive;
   final bool Function() isCurrent;
+  final Discussion? discussion;
   final MrReviewSelection? selection;
   final Object? diffSession, clientSession;
   final MergeRequestDraftNote? draft;
@@ -210,6 +239,8 @@ class _ComposeDialog extends ConsumerStatefulWidget {
 
 class _ComposeState extends ConsumerState<_ComposeDialog> {
   final _text = TextEditingController();
+  Discussion? _replyTarget;
+  bool get _reply => widget.discussion != null;
   MergeRequestDraftNote? _target;
   bool get _maintenance => widget.draft != null;
   Object? _commentsSession;
@@ -223,6 +254,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
   void initState() {
     super.initState();
     _target = widget.draft;
+    _replyTarget = widget.discussion;
     if (_maintenance && !widget.deleting) _text.text = _target!.note;
     widget.viewActive.addListener(_observe);
     _text.addListener(_edited);
@@ -237,7 +269,13 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
 
   bool _selectionCurrent() {
     final selection = widget.selection;
-    if (selection == null) return true;
+    if (selection == null) {
+      return !_reply ||
+          identical(
+            ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+            widget.clientSession,
+          );
+    }
     final snapshot = ref.read(
       mrReviewSnapshotControllerProvider(widget.resource),
     );
@@ -286,6 +324,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       setState(() {
         _inspection = null;
         _target = null;
+        _replyTarget = null;
         _acknowledged = false;
       });
     });
@@ -300,6 +339,9 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         !_current() ||
         (!widget.deleting && _text.text.trim().isEmpty) ||
         (_maintenance && _target == null) ||
+        (_reply &&
+            (_replyTarget == null ||
+                !MrDiscussionsController.canSavePendingReply(_replyTarget!))) ||
         (widget.deleting && !_acknowledged)) {
       return;
     }
@@ -331,6 +373,12 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                     _text.text,
                     isCurrent: _current,
                   )
+          : _reply
+          ? await controller.savePendingReply(
+              _replyTarget!,
+              _text.text,
+              isCurrent: _current,
+            )
           : await controller.savePendingNote(
               _text.text,
               position: widget.selection?.position,
@@ -343,7 +391,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         setState(() {
           _saveError = true;
           _needsInspection =
-              _maintenance || controller.pendingSaveNeedsInspection;
+              _maintenance || _reply || controller.pendingSaveNeedsInspection;
         });
       }
     } catch (_) {
@@ -351,7 +399,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         setState(() {
           _saveError = true;
           _needsInspection =
-              _maintenance || controller.pendingSaveNeedsInspection;
+              _maintenance || _reply || controller.pendingSaveNeedsInspection;
         });
       }
     } finally {
@@ -369,12 +417,24 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       _inspectionError = false;
     });
     try {
-      final notes = await ref
-          .read(mrDiscussionsControllerProvider(widget.resource).notifier)
-          .inspectPendingNotes(isCurrent: _current);
+      final controller = ref.read(
+        mrDiscussionsControllerProvider(widget.resource).notifier,
+      );
+      final replyInspection = _reply
+          ? await controller.inspectPendingReply(
+              widget.discussion!,
+              isCurrent: _current,
+            )
+          : null;
+      final notes = _reply
+          ? replyInspection?.notes
+          : await controller.inspectPendingNotes(isCurrent: _current);
       if (!mounted || !_current()) return;
       setState(() {
         _inspection = notes;
+        if (_reply && replyInspection != null) {
+          _replyTarget = replyInspection.target;
+        }
         _inspectionError = notes == null;
         if (_maintenance && notes != null) {
           final matches = notes.where((note) => note.id == widget.draft!.id);
@@ -418,6 +478,10 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         : ref
               .watch(mrReviewSnapshotControllerProvider(widget.resource))
               .unwrapPrevious();
+    if (_reply) {
+      ref.watch(gitLabClientProvider);
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+    }
     if (widget.selection != null) {
       ref.watch(diffRepositoryProvider);
       ref.watch(gitLabClientProvider);
@@ -491,6 +555,9 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                           MrDraftNotesRepository.canUpdate(_target!) &&
                           _text.text != _target!.note))) &&
         (!_maintenance || _target != null) &&
+        (!_reply ||
+            (_replyTarget != null &&
+                MrDiscussionsController.canSavePendingReply(_replyTarget!))) &&
         !gated &&
         (!_needsInspection || (_inspection != null && _acknowledged));
     return PopScope(
@@ -503,6 +570,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
               ? (widget.deleting
                     ? l.mrPendingDeleteTitle
                     : l.mrPendingEditTitle)
+              : _reply
+              ? l.mrPendingReplyTitle
               : widget.selection != null
               ? l.mrPendingInlineTitle
               : l.mrPendingComposeTitle,
@@ -520,10 +589,55 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                       ? (widget.deleting
                             ? l.mrPendingDeleteHint
                             : l.mrPendingEditHint)
+                      : _reply
+                      ? l.mrPendingReplyHint
                       : widget.selection != null
                       ? l.mrPendingInlineHint
                       : l.mrPendingComposeHint,
                 ),
+                if (_reply) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(
+                    l.mrPendingReplyTargetTitle,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  if (_replyTarget == null ||
+                      !MrDiscussionsController.canSavePendingReply(
+                        _replyTarget!,
+                      ))
+                    Text(l.mrPendingReplyTargetUnavailable)
+                  else ...[
+                    if (discussionResolution(_replyTarget!)
+                        case final resolved?)
+                      Text(
+                        resolved
+                            ? l.mrDiscussionResolved
+                            : l.mrDiscussionUnresolved,
+                      ),
+                    SizedBox(
+                      height: LabFoxSpacing.minTouchTarget * 3,
+                      child: ListView.separated(
+                        primary: false,
+                        itemCount: _replyTarget!.notes.length,
+                        separatorBuilder: (_, _) => const Divider(),
+                        itemBuilder: (_, index) {
+                          final note = _replyTarget!.notes[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (note.author != null)
+                                Text(
+                                  note.author!.username,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              SelectableText(note.body),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ],
                 if (widget.selection case final selection?) ...[
                   const SizedBox(height: LabFoxSpacing.sm),
                   Text(
@@ -641,6 +755,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                   Text(
                     _maintenance
                         ? l.mrPendingMaintenanceInspectionHint
+                        : _reply
+                        ? l.mrPendingReplyInspectionHint
                         : l.mrPendingComposeInspectionHint,
                   ),
                   Text(l.mrPendingReviewCount(notes.length)),
@@ -662,10 +778,15 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                         ),
                       ),
                     ),
-                  if (!_maintenance ||
-                      (_target != null &&
-                          (widget.deleting ||
-                              MrDraftNotesRepository.canUpdate(_target!))))
+                  if ((!_reply ||
+                          (_replyTarget != null &&
+                              MrDiscussionsController.canSavePendingReply(
+                                _replyTarget!,
+                              ))) &&
+                      (!_maintenance ||
+                          (_target != null &&
+                              (widget.deleting ||
+                                  MrDraftNotesRepository.canUpdate(_target!)))))
                     CheckboxListTile(
                       key: const ValueKey('mr-pending-compose-acknowledge'),
                       contentPadding: EdgeInsets.zero,
@@ -674,6 +795,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                       title: Text(
                         _maintenance
                             ? l.mrPendingMaintenanceAcknowledge
+                            : _reply
+                            ? l.mrPendingReplyAcknowledge
                             : l.mrPendingComposeAcknowledge,
                       ),
                       onChanged: _busy

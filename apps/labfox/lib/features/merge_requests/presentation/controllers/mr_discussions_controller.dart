@@ -668,6 +668,145 @@ class MrDiscussionsController
     return inspection;
   }, isCurrent: isCurrent);
 
+  /// Only existing public discussion groups accept this private reply flow.
+  static bool canSavePendingReply(Discussion target) =>
+      _validReplyContext(target) &&
+      !target.individualNote &&
+      !target.notes.first.isSystem;
+
+  static bool _validReplyContext(Discussion target) {
+    final ids = <int>{};
+    return target.id.trim().isNotEmpty &&
+        target.notes.isNotEmpty &&
+        target.notes.every((note) => note.id > 0 && ids.add(note.id));
+  }
+
+  bool _currentReplyTarget(Discussion target) =>
+      !state.isLoading &&
+      !state.hasError &&
+      state.valueOrNull?.items.where((group) => group.id == target.id).length ==
+          1 &&
+      state.valueOrNull!.items.any((group) => group == target);
+
+  /// Re-reads the captured public context before one private non-resolving save.
+  Future<MergeRequestDraftNote?> savePendingReply(
+    Discussion target,
+    String note, {
+    bool Function()? isCurrent,
+  }) {
+    if (note.trim().isEmpty ||
+        pendingSaveNeedsInspection ||
+        !canSavePendingReply(target) ||
+        !_currentReplyTarget(target)) {
+      return Future.value(null);
+    }
+    return _pendingReview((repository, detail, current, wait) async {
+      final comments = await wait(ref.read(commentsRepositoryProvider.future));
+      final fresh = await wait(
+        comments!.discussion(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          discussionId: target.id,
+        ),
+      );
+      if (!current()) throw const _PendingReviewCancelled();
+      if (fresh != target ||
+          !canSavePendingReply(fresh) ||
+          !_currentReplyTarget(target)) {
+        throw const GitLabConflictException('The selected discussion changed.');
+      }
+      await wait(Future<void>.value());
+      if (!current()) throw const _PendingReviewCancelled();
+      if (!_currentReplyTarget(target)) {
+        throw const GitLabConflictException('The selected discussion changed.');
+      }
+      _pendingNeedsInspection = true;
+      final write = repository.createReply(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        mergeRequestId: detail.id,
+        discussionId: target.id,
+        note: note,
+      );
+      _pendingWriteSettled = write.then<void>(
+        (_) {},
+        onError: (Object _, StackTrace _) {},
+      );
+      final saved = await wait(write);
+      if (!current()) throw const _PendingReviewCancelled();
+      if (saved.id < 1 ||
+          saved.authorId != repository.authorId ||
+          saved.mergeRequestId != detail.id ||
+          saved.note != note ||
+          saved.discussionId != target.id ||
+          saved.resolveDiscussion != false ||
+          saved.commitId != null ||
+          saved.lineCode != null ||
+          !_confirmedPosition(null, saved.position)) {
+        throw const GitLabServerException('Unconfirmed private reply save.');
+      }
+      await wait(Future<void>.value());
+      if (!current()) throw const _PendingReviewCancelled();
+      _pendingNeedsInspection = false;
+      _pendingWriteSettled = null;
+      ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+      return saved;
+    }, isCurrent: isCurrent);
+  }
+
+  /// Stages complete private notes and the original public target together.
+  /// A missing target stays missing; scoped reads cannot recover publication.
+  Future<MrPendingReplyInspection?> inspectPendingReply(
+    Discussion original, {
+    bool Function()? isCurrent,
+  }) {
+    if (original.id.trim().isEmpty) return Future.value(null);
+    return _pendingReview((repository, detail, current, wait) async {
+      final unsettled = _pendingWriteSettled;
+      if (unsettled != null) await wait(unsettled);
+      final notes = await _readPendingNotes(repository, detail, current, wait);
+      final comments = await wait(ref.read(commentsRepositoryProvider.future));
+      Discussion? target;
+      try {
+        final fresh = await wait(
+          comments!.discussion(
+            projectId: arg.projectId,
+            iid: arg.iid,
+            discussionId: original.id,
+          ),
+        );
+        if (fresh.id != original.id || !_validReplyContext(fresh)) {
+          throw const GitLabServerException('Invalid private reply context.');
+        }
+        target = fresh;
+      } on GitLabNotFoundException {
+        target = null;
+      }
+      await wait(Future<void>.value());
+      if (!current()) throw const _PendingReviewCancelled();
+      final inspection = MrPendingReplyInspection(notes, target);
+      if (!_pendingPublicationNeedsInspection) {
+        final page = state.valueOrNull!;
+        // Preserve other groups and pagination while replacing only this target.
+        state = AsyncData(
+          Paginated(
+            items: List<Discussion>.unmodifiable([
+              for (final group in page.items)
+                if (group.id != original.id) group else ?target,
+            ]),
+            nextPage: page.nextPage,
+            total: page.total,
+            totalPages: page.totalPages,
+          ),
+        );
+        _pendingNeedsInspection = false;
+        _pendingWriteSettled = null;
+        ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+      }
+      return inspection;
+    }, isCurrent: isCurrent);
+  }
+
   /// Saves one unpublished note; a text position requires a fresh diff check.
   Future<MergeRequestDraftNote?> savePendingNote(
     String note, {
@@ -1345,4 +1484,11 @@ class MrPendingReviewPublicationInspection {
     : publicDiscussions = List.unmodifiable(groups);
   final MrPendingReviewPublication pending;
   final List<Discussion> publicDiscussions;
+}
+
+class MrPendingReplyInspection {
+  MrPendingReplyInspection(List<MergeRequestDraftNote> notes, this.target)
+    : notes = List.unmodifiable(notes);
+  final List<MergeRequestDraftNote> notes;
+  final Discussion? target;
 }

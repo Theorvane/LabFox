@@ -5112,4 +5112,27 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrReviewInspectButton => 'レビューを確認';
+
+  @override
+  String get mrPendingReplyButton => '非公開の返信を保存';
+
+  @override
+  String get mrPendingReplyTitle => '非公開の返信下書き';
+
+  @override
+  String get mrPendingReplyHint => '公開するまでこの返信は非公開です。保存してもディスカッションは解決されません。';
+
+  @override
+  String get mrPendingReplyTargetTitle => 'ディスカッションの内容';
+
+  @override
+  String get mrPendingReplyTargetUnavailable =>
+      'このディスカッションは見つからないか、非公開の返信を受け付けなくなりました。';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      '返信がすでに保存されていないか、現在のディスカッションとすべての下書きを確認してください。再保存すると重複する場合があります。';
+
+  @override
+  String get mrPendingReplyAcknowledge => 'ディスカッションと下書きを確認し、この返信を保存します。';
 }

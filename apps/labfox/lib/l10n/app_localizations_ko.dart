@@ -5119,4 +5119,27 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrReviewInspectButton => '리뷰 확인';
+
+  @override
+  String get mrPendingReplyButton => '비공개 답글 저장';
+
+  @override
+  String get mrPendingReplyTitle => '비공개 답글 초안';
+
+  @override
+  String get mrPendingReplyHint => '게시하기 전까지 이 답글은 비공개입니다. 저장해도 토론이 해결되지 않습니다.';
+
+  @override
+  String get mrPendingReplyTargetTitle => '토론 내용';
+
+  @override
+  String get mrPendingReplyTargetUnavailable =>
+      '이 토론이 없거나 더 이상 비공개 답글을 받을 수 없습니다.';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      '이미 저장된 답글이 있는지 현재 토론과 모든 초안을 확인하세요. 다시 저장하면 중복될 수 있습니다.';
+
+  @override
+  String get mrPendingReplyAcknowledge => '토론과 초안을 확인했으며 이 답글을 저장하겠습니다.';
 }

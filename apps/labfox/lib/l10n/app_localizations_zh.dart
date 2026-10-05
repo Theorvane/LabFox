@@ -4951,4 +4951,26 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrReviewInspectButton => '检查评审';
+
+  @override
+  String get mrPendingReplyButton => '保存私密回复';
+
+  @override
+  String get mrPendingReplyTitle => '私密回复草稿';
+
+  @override
+  String get mrPendingReplyHint => '发布前此回复保持私密。保存不会解决讨论。';
+
+  @override
+  String get mrPendingReplyTargetTitle => '讨论内容';
+
+  @override
+  String get mrPendingReplyTargetUnavailable => '此讨论已不存在或不再接受私密回复。';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      '请检查当前讨论和所有待发布笔记，确认回复是否已保存。再次保存可能产生重复内容。';
+
+  @override
+  String get mrPendingReplyAcknowledge => '我已检查讨论和待发布笔记，并希望保存此回复。';
 }
