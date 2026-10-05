@@ -5109,4 +5109,59 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrPendingComposeChanged =>
       'The review session changed. Close this dialog and start again.';
+
+  @override
+  String get mrPendingEdit => 'Edit note';
+
+  @override
+  String get mrPendingDelete => 'Delete note';
+
+  @override
+  String get mrPendingUpdate => 'Save changes';
+
+  @override
+  String get mrPendingEditTitle => 'Edit pending review note';
+
+  @override
+  String get mrPendingDeleteTitle => 'Delete pending review note';
+
+  @override
+  String get mrPendingEditHint =>
+      'Your changes stay private. The original note location is preserved.';
+
+  @override
+  String get mrPendingDeleteHint =>
+      'This removes only this private saved note from your pending review.';
+
+  @override
+  String get mrPendingDeleteConfirm => 'I want to delete the note shown above.';
+
+  @override
+  String get mrPendingUpdated => 'Your private review note was updated.';
+
+  @override
+  String get mrPendingDeleted => 'Your private review note was deleted.';
+
+  @override
+  String get mrPendingMaintenanceError =>
+      'We couldn\'t confirm this change. Check the current pending review before trying again.';
+
+  @override
+  String get mrPendingMaintenanceUncertain =>
+      'A change may already have been applied. Check your saved notes before making another change.';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      'These are all currently readable saved notes. Check the selected note above before changing it again.';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge =>
+      'I checked the current selected note and want to apply this change.';
+
+  @override
+  String get mrPendingTargetMissing =>
+      'The selected note is no longer available. Close this dialog and refresh your pending review.';
+
+  @override
+  String get mrPendingDeleting => 'Deleting review note…';
 }

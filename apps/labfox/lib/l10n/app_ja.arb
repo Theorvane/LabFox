@@ -1398,5 +1398,21 @@
   "mrPendingComposeInspectionTitle": "現在の未公開レビュー",
   "mrPendingComposeInspectionHint": "現在保存されているノートです。同じ内容でも、どの保存リクエストで作成されたかは特定できません。",
   "mrPendingComposeAcknowledge": "これらのノートを確認し、別のノートを保存します。",
-  "mrPendingComposeChanged": "レビューのセッションが変更されました。この画面を閉じて、やり直してください。"
+  "mrPendingComposeChanged": "レビューのセッションが変更されました。この画面を閉じて、やり直してください。",
+  "mrPendingEdit": "ノートを編集",
+  "mrPendingDelete": "ノートを削除",
+  "mrPendingUpdate": "変更を保存",
+  "mrPendingEditTitle": "保留中のレビューノートを編集",
+  "mrPendingDeleteTitle": "保留中のレビューノートを削除",
+  "mrPendingEditHint": "変更は非公開のままです。元のノートの位置は保持されます。",
+  "mrPendingDeleteHint": "保留中のレビューから、この非公開の保存済みノートだけを削除します。",
+  "mrPendingDeleteConfirm": "上に表示されたノートを削除します。",
+  "mrPendingUpdated": "非公開のレビューノートを更新しました。",
+  "mrPendingDeleted": "非公開のレビューノートを削除しました。",
+  "mrPendingMaintenanceError": "この変更を確認できませんでした。再試行する前に、現在の保留中のレビューを確認してください。",
+  "mrPendingMaintenanceUncertain": "変更はすでに適用されている可能性があります。次の変更を行う前に、保存済みノートを確認してください。",
+  "mrPendingMaintenanceInspectionHint": "現在読み取れる保存済みノートの一覧です。再度変更する前に、上の選択したノートを確認してください。",
+  "mrPendingMaintenanceAcknowledge": "現在選択されているノートを確認し、この変更を適用します。",
+  "mrPendingTargetMissing": "選択したノートは利用できなくなりました。この画面を閉じて、保留中のレビューを更新してください。",
+  "mrPendingDeleting": "レビューノートを削除中…"
 }

@@ -93,3 +93,7 @@ They show the isolated read-only panel with synthetic bodies and file paths.
 | Mobile, 390 | ![Mobile light](images/mr-pending-review/pending-390-light.png) | ![Mobile dark](images/mr-pending-review/pending-390-dark.png) |
 | Tablet, 800 | ![Tablet light](images/mr-pending-review/pending-800-light.png) | ![Tablet dark](images/mr-pending-review/pending-800-dark.png) |
 | Desktop, 1200 | ![Desktop light](images/mr-pending-review/pending-1200-light.png) | ![Desktop dark](images/mr-pending-review/pending-1200-dark.png) |
+
+The subsequent [maintenance UI](mr-pending-review-maintenance.md) connects
+guarded private editing and confirmed deletion, with fresh selected-target
+comparison and visible inspection before an explicit retry.

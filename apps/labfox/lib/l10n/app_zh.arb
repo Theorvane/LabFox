@@ -1398,5 +1398,21 @@
   "mrPendingComposeInspectionTitle": "当前待发布审阅",
   "mrPendingComposeInspectionHint": "这些是当前已保存的备注。内容相同并不能确定备注由哪次保存请求创建。",
   "mrPendingComposeAcknowledge": "我已检查这些备注，并希望再保存一条备注。",
-  "mrPendingComposeChanged": "审阅会话已更改。请关闭此对话框并重新开始。"
+  "mrPendingComposeChanged": "审阅会话已更改。请关闭此对话框并重新开始。",
+  "mrPendingEdit": "编辑笔记",
+  "mrPendingDelete": "删除笔记",
+  "mrPendingUpdate": "保存更改",
+  "mrPendingEditTitle": "编辑待发布的审查笔记",
+  "mrPendingDeleteTitle": "删除待发布的审查笔记",
+  "mrPendingEditHint": "更改保持私密，笔记的原始位置会保留。",
+  "mrPendingDeleteHint": "这只会从待发布的审查中移除此私密笔记。",
+  "mrPendingDeleteConfirm": "我确认删除上方显示的笔记。",
+  "mrPendingUpdated": "已更新私密审查笔记。",
+  "mrPendingDeleted": "已删除私密审查笔记。",
+  "mrPendingMaintenanceError": "无法确认此更改。请检查当前待发布的审查后再试。",
+  "mrPendingMaintenanceUncertain": "更改可能已经生效。再次更改前，请检查已保存的笔记。",
+  "mrPendingMaintenanceInspectionHint": "以下是当前可读取的全部已保存笔记。再次更改前，请检查上方选中的笔记。",
+  "mrPendingMaintenanceAcknowledge": "我已检查当前选中的笔记，并确认应用此更改。",
+  "mrPendingTargetMissing": "选中的笔记已不可用。请关闭此对话框并刷新待发布的审查。",
+  "mrPendingDeleting": "正在删除审查笔记…"
 }

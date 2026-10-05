@@ -88,3 +88,7 @@ No model, generated file, dependency, license, localization, visible layout,
 cache or analytics changes are introduced. Tests use synthetic identities and
 dummy credentials; no live GitLab, physical-device or store validation is claimed.
 Publication and editing/deletion UI remain separate. MW-07 stays in progress.
+
+The subsequent [maintenance UI](mr-pending-review-maintenance.md) connects
+guarded private editing and confirmed deletion, with fresh selected-target
+comparison and visible inspection before an explicit retry.

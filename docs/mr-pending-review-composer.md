@@ -105,3 +105,7 @@ remain separate slices. MW-07 stays in progress.
 The subsequent [private draft maintenance foundation](mr-draft-note-maintenance.md)
 adds guarded update/delete API and repository methods; editing/deletion controller
 and UI orchestration remain separate.
+
+The subsequent [maintenance UI](mr-pending-review-maintenance.md) connects
+guarded private editing and confirmed deletion, with fresh selected-target
+comparison and visible inspection before an explicit retry.

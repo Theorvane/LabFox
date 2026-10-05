@@ -4935,4 +4935,57 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrPendingComposeChanged => '리뷰 세션이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get mrPendingEdit => '메모 수정';
+
+  @override
+  String get mrPendingDelete => '메모 삭제';
+
+  @override
+  String get mrPendingUpdate => '변경 사항 저장';
+
+  @override
+  String get mrPendingEditTitle => '대기 중인 리뷰 메모 수정';
+
+  @override
+  String get mrPendingDeleteTitle => '대기 중인 리뷰 메모 삭제';
+
+  @override
+  String get mrPendingEditHint => '변경 사항은 비공개로 유지됩니다. 원래 메모 위치는 그대로 유지됩니다.';
+
+  @override
+  String get mrPendingDeleteHint => '대기 중인 리뷰에서 이 비공개 저장 메모만 삭제합니다.';
+
+  @override
+  String get mrPendingDeleteConfirm => '위에 표시된 메모를 삭제하겠습니다.';
+
+  @override
+  String get mrPendingUpdated => '비공개 리뷰 메모를 수정했습니다.';
+
+  @override
+  String get mrPendingDeleted => '비공개 리뷰 메모를 삭제했습니다.';
+
+  @override
+  String get mrPendingMaintenanceError =>
+      '변경 결과를 확인하지 못했습니다. 다시 시도하기 전에 현재 대기 중인 리뷰를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceUncertain =>
+      '변경 사항이 이미 적용되었을 수 있습니다. 다른 변경 전에 저장된 메모를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      '현재 읽을 수 있는 저장 메모 전체입니다. 다시 변경하기 전에 위에서 선택한 메모를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge =>
+      '현재 선택된 메모를 확인했으며 이 변경을 적용하겠습니다.';
+
+  @override
+  String get mrPendingTargetMissing =>
+      '선택한 메모를 더 이상 사용할 수 없습니다. 창을 닫고 대기 중인 리뷰를 새로고침하세요.';
+
+  @override
+  String get mrPendingDeleting => '리뷰 메모 삭제 중…';
 }

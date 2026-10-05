@@ -5105,4 +5105,60 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrPendingComposeChanged =>
       'समीक्षा सत्र बदल गया है। यह संवाद बंद करके फिर से शुरू करें।';
+
+  @override
+  String get mrPendingEdit => 'नोट संपादित करें';
+
+  @override
+  String get mrPendingDelete => 'नोट हटाएं';
+
+  @override
+  String get mrPendingUpdate => 'बदलाव सहेजें';
+
+  @override
+  String get mrPendingEditTitle => 'लंबित समीक्षा नोट संपादित करें';
+
+  @override
+  String get mrPendingDeleteTitle => 'लंबित समीक्षा नोट हटाएं';
+
+  @override
+  String get mrPendingEditHint =>
+      'आपके बदलाव निजी रहते हैं। नोट का मूल स्थान सुरक्षित रहता है।';
+
+  @override
+  String get mrPendingDeleteHint =>
+      'इससे आपकी लंबित समीक्षा से केवल यह निजी सहेजा गया नोट हटता है।';
+
+  @override
+  String get mrPendingDeleteConfirm =>
+      'मैं ऊपर दिखाया गया नोट हटाना चाहता/चाहती हूं।';
+
+  @override
+  String get mrPendingUpdated => 'आपका निजी समीक्षा नोट अपडेट हो गया।';
+
+  @override
+  String get mrPendingDeleted => 'आपका निजी समीक्षा नोट हटा दिया गया।';
+
+  @override
+  String get mrPendingMaintenanceError =>
+      'हम इस बदलाव की पुष्टि नहीं कर सके। दोबारा कोशिश करने से पहले मौजूदा लंबित समीक्षा जांचें।';
+
+  @override
+  String get mrPendingMaintenanceUncertain =>
+      'बदलाव पहले ही लागू हो सकता है। अगला बदलाव करने से पहले अपने सहेजे गए नोट जांचें।';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      'ये अभी पढ़े जा सकने वाले सभी सहेजे गए नोट हैं। दोबारा बदलने से पहले ऊपर चुना गया नोट जांचें।';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge =>
+      'मैंने मौजूदा चुना हुआ नोट जांच लिया है और यह बदलाव लागू करना चाहता/चाहती हूं।';
+
+  @override
+  String get mrPendingTargetMissing =>
+      'चुना गया नोट अब उपलब्ध नहीं है। यह संवाद बंद करें और लंबित समीक्षा रीफ़्रेश करें।';
+
+  @override
+  String get mrPendingDeleting => 'समीक्षा नोट हटाया जा रहा है…';
 }

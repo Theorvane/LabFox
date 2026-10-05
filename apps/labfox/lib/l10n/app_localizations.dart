@@ -8959,6 +8959,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The review session changed. Close this dialog and start again.'**
   String get mrPendingComposeChanged;
+
+  /// Private pending review note maintenance: Edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit note'**
+  String get mrPendingEdit;
+
+  /// Private pending review note maintenance: Delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete note'**
+  String get mrPendingDelete;
+
+  /// Private pending review note maintenance: Update.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get mrPendingUpdate;
+
+  /// Private pending review note maintenance: EditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit pending review note'**
+  String get mrPendingEditTitle;
+
+  /// Private pending review note maintenance: DeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pending review note'**
+  String get mrPendingDeleteTitle;
+
+  /// Private pending review note maintenance: EditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your changes stay private. The original note location is preserved.'**
+  String get mrPendingEditHint;
+
+  /// Private pending review note maintenance: DeleteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes only this private saved note from your pending review.'**
+  String get mrPendingDeleteHint;
+
+  /// Private pending review note maintenance: DeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to delete the note shown above.'**
+  String get mrPendingDeleteConfirm;
+
+  /// Private pending review note maintenance: Updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your private review note was updated.'**
+  String get mrPendingUpdated;
+
+  /// Private pending review note maintenance: Deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your private review note was deleted.'**
+  String get mrPendingDeleted;
+
+  /// Private pending review note maintenance: MaintenanceError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm this change. Check the current pending review before trying again.'**
+  String get mrPendingMaintenanceError;
+
+  /// Private pending review note maintenance: MaintenanceUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'A change may already have been applied. Check your saved notes before making another change.'**
+  String get mrPendingMaintenanceUncertain;
+
+  /// Private pending review note maintenance: MaintenanceInspectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are all currently readable saved notes. Check the selected note above before changing it again.'**
+  String get mrPendingMaintenanceInspectionHint;
+
+  /// Private pending review note maintenance: MaintenanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked the current selected note and want to apply this change.'**
+  String get mrPendingMaintenanceAcknowledge;
+
+  /// Private pending review note maintenance: TargetMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected note is no longer available. Close this dialog and refresh your pending review.'**
+  String get mrPendingTargetMissing;
+
+  /// Progress while deleting one private pending review note.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting review note…'**
+  String get mrPendingDeleting;
 }
 
 class _AppLocalizationsDelegate
