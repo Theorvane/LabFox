@@ -1,6 +1,6 @@
 # Regular private pending review composer
 
-Issue [#608](https://github.com/Theorvane/LabFox/issues/608) adds **Add review note**
+Issue [#608](https://github.com/Theorvane/LabFox/issues/608) / [PR #609](https://github.com/Theorvane/LabFox/pull/609) adds **Add review note**
 to [Your pending review](mr-pending-review-panel.md) on MR detail. The modal saves
 regular unpublished notes through the existing [guarded save controller](mr-pending-review-save.md).
 Saved Markdown preserves its exact whitespace. The public comment draft stays
