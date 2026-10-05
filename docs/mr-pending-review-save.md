@@ -1,6 +1,7 @@
 # Guarded regular private review saves
 
-Issue [#606](https://github.com/Theorvane/labfox/issues/606) adds regular private
+Issue [#606](https://github.com/Theorvane/labfox/issues/606) /
+[PR #607](https://github.com/Theorvane/LabFox/pull/607) adds regular private
 note save orchestration to `MrDiscussionsController`. It builds on the
 [creation API](mr-draft-note-creation.md) and [private readers](mr-draft-notes.md).
 The [pending review panel](mr-pending-review-panel.md) remains read-only: no
