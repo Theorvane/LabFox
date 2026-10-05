@@ -121,10 +121,52 @@ class MrReviewSnapshot {
   }
 }
 
+/// An immutable selected-text fingerprint, captured before any fresh reads.
+class MrReviewSelection {
+  MrReviewSelection._(this.position, this.versionId, this.lines);
+  final DiffNotePosition position;
+  final int versionId;
+  final List<(DiffLineType, int?, int?, String)> lines;
+
+  static MrReviewSelection? capture(
+    MrReviewSnapshot snapshot,
+    DiffNotePosition position,
+  ) {
+    if (!snapshot.containsPosition(position)) return null;
+    final selected = [
+      for (final file in snapshot.files)
+        for (final line in snapshot.linesForPosition(file, position))
+          (line.type, line.oldLine, line.newLine, line.text),
+    ];
+    if (selected.isEmpty) return null;
+    return MrReviewSelection._(
+      position,
+      snapshot.version!.id,
+      List.unmodifiable(selected),
+    );
+  }
+
+  bool matches(MrReviewSnapshot snapshot) {
+    final fresh = capture(snapshot, position);
+    return fresh != null &&
+        fresh.versionId == versionId &&
+        fresh.lines.length == lines.length &&
+        Iterable<int>.generate(
+          lines.length,
+        ).every((index) => fresh.lines[index] == lines[index]);
+  }
+}
+
 class MrReviewSnapshotController
     extends AutoDisposeFamilyAsyncNotifier<MrReviewSnapshot, MergeRequestRef> {
   int _generation = 0;
-  void _end() => _generation++;
+  Object _session = Object();
+  Object get session => _session;
+  void _end() {
+    _generation++;
+    _session = Object();
+  }
+
   @override
   Future<MrReviewSnapshot> build(MergeRequestRef arg) async {
     _end();

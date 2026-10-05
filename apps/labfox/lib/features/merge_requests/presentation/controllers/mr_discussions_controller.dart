@@ -11,6 +11,7 @@ import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../../diff/presentation/controllers/diff_controllers.dart';
 import '../../data/merge_requests_repository.dart';
 import '../../data/mr_draft_notes_repository.dart';
 import 'merge_requests_controllers.dart';
@@ -474,41 +475,103 @@ class MrDiscussionsController
     return inspection;
   }, isCurrent: isCurrent);
 
-  /// Saves one regular unpublished note; null means no current-view success.
+  /// Saves one unpublished note; a text position requires a fresh diff check.
   Future<MergeRequestDraftNote?> savePendingNote(
     String note, {
+    DiffNotePosition? position,
     bool Function()? isCurrent,
   }) {
     if (note.trim().isEmpty || pendingSaveNeedsInspection) {
       return Future.value(null);
     }
-    return _pendingReview((repository, detail, current, wait) async {
-      _pendingNeedsInspection = true;
-      final write = repository.create(
-        projectId: arg.projectId,
-        iid: arg.iid,
-        mergeRequestId: detail.id,
-        note: note,
-      );
-      // A cancelled view does not cancel a dispatched server request. Recovery
-      // waits for this actual write to settle before inspecting server notes.
-      _pendingWriteSettled = write.then<void>(
-        (_) {},
-        onError: (Object _, StackTrace _) {},
-      );
-      final saved = await wait(write);
-      if (!current()) throw const _PendingReviewCancelled();
-      if (saved.id < 1 ||
-          saved.authorId != repository.authorId ||
-          saved.mergeRequestId != detail.id ||
-          saved.note != note) {
-        throw const GitLabServerException('Unconfirmed private review save.');
+    MrReviewSelection? selection;
+    if (position != null) {
+      final displayed = ref.read(mrReviewSnapshotControllerProvider(arg));
+      if (displayed.isLoading || displayed.hasError || !displayed.hasValue) {
+        return Future.value(null);
       }
-      _pendingNeedsInspection = false;
-      _pendingWriteSettled = null;
-      ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
-      return saved;
-    }, isCurrent: isCurrent);
+      if (!validTextDiscussionPosition(position)) return Future.value(null);
+      selection = MrReviewSelection.capture(displayed.value!, position);
+      if (selection == null) return Future.value(null);
+    }
+    return _pendingReview(
+      (repository, detail, current, wait) async {
+        await wait(Future<void>.value());
+        if (!current()) throw const _PendingReviewCancelled();
+        _pendingNeedsInspection = true;
+        final write = repository.create(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          mergeRequestId: detail.id,
+          note: note,
+          position: position,
+        );
+        // A cancelled view does not cancel a dispatched server request. Recovery
+        // waits for this actual write to settle before inspecting server notes.
+        _pendingWriteSettled = write.then<void>(
+          (_) {},
+          onError: (Object _, StackTrace _) {},
+        );
+        final saved = await wait(write);
+        if (!current()) throw const _PendingReviewCancelled();
+        if (saved.id < 1 ||
+            saved.authorId != repository.authorId ||
+            saved.mergeRequestId != detail.id ||
+            saved.note != note ||
+            saved.resolveDiscussion == true ||
+            saved.discussionId != null ||
+            saved.commitId != null ||
+            !_confirmedPosition(position, saved.position)) {
+          throw const GitLabServerException('Unconfirmed private review save.');
+        }
+        await wait(Future<void>.value());
+        if (!current()) throw const _PendingReviewCancelled();
+        _pendingNeedsInspection = false;
+        _pendingWriteSettled = null;
+        ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+        return saved;
+      },
+      isCurrent: isCurrent,
+      selection: selection,
+    );
+  }
+
+  bool _confirmedPosition(DiffNotePosition? sent, DiffNotePosition? saved) {
+    if (sent == null) {
+      return saved == null ||
+          ((saved.positionType == null || saved.positionType == 'text') &&
+              [
+                saved.baseSha,
+                saved.startSha,
+                saved.headSha,
+                saved.oldPath,
+                saved.newPath,
+                saved.oldLine,
+                saved.newLine,
+                saved.lineRange,
+                saved.width,
+                saved.height,
+                saved.x,
+                saved.y,
+              ].every((field) => field == null));
+    }
+    if (saved == null) return false;
+    bool endpoint(DiffNoteRangeEndpoint? a, DiffNoteRangeEndpoint? b) =>
+        a != null &&
+        b != null &&
+        a.lineCode == b.lineCode &&
+        a.type == b.type &&
+        (b.oldLine == null || b.oldLine == a.oldLine) &&
+        (b.newLine == null || b.newLine == a.newLine);
+    final range = sent.lineRange;
+    final returned = saved.lineRange;
+    return validTextDiscussionPosition(saved) &&
+        sent.copyWith(lineRange: null) == saved.copyWith(lineRange: null) &&
+        (range == null
+            ? returned == null
+            : returned != null &&
+                  endpoint(range.start, returned.start) &&
+                  endpoint(range.end, returned.end));
   }
 
   /// Returns a complete staged list for explicit user inspection, never a replay.
@@ -519,6 +582,8 @@ class MrDiscussionsController
     final unsettled = _pendingWriteSettled;
     if (unsettled != null) await wait(unsettled);
     final notes = await _readPendingNotes(repository, detail, current, wait);
+    await wait(Future<void>.value());
+    if (!current()) throw const _PendingReviewCancelled();
     if (!_pendingPublicationNeedsInspection) {
       _pendingNeedsInspection = false;
       _pendingWriteSettled = null;
@@ -663,6 +728,7 @@ class MrDiscussionsController
     )
     action, {
     bool Function()? isCurrent,
+    MrReviewSelection? selection,
   }) async {
     if (_posting ||
         _loadingMore ||
@@ -684,11 +750,22 @@ class MrDiscussionsController
     _posting = true;
     final ended = Completer<void>();
     final subscriptions = <ProviderSubscription<Object?>>[];
+    bool Function()? sessionCurrent;
     try {
       final clientFuture = ref.read(gitLabClientProvider.future);
       final draftFuture = ref.read(mrDraftNotesRepositoryProvider.future);
       final commentsFuture = ref.read(commentsRepositoryProvider.future);
       final sourceFuture = ref.read(mergeRequestsRepositoryProvider.future);
+      final diffFuture = selection == null
+          ? null
+          : ref.read(diffRepositoryProvider.future);
+      final reviewProvider = mrReviewSnapshotControllerProvider(arg);
+      Future<MrReviewSnapshot>? reviewFuture = selection == null
+          ? null
+          : ref.read(reviewProvider.future);
+      Object? reviewSession = selection == null
+          ? null
+          : ref.read(reviewProvider.notifier).session;
       Future<MergeRequest>? detailFuture;
       bool current() =>
           generation == _generation &&
@@ -707,11 +784,21 @@ class MrDiscussionsController
             ref.read(mergeRequestsRepositoryProvider.future),
             sourceFuture,
           ) &&
+          (diffFuture == null ||
+              identical(ref.read(diffRepositoryProvider.future), diffFuture)) &&
+          (reviewSession == null ||
+              identical(
+                ref.read(reviewProvider.notifier).session,
+                reviewSession,
+              )) &&
+          (reviewFuture == null ||
+              identical(ref.read(reviewProvider.future), reviewFuture)) &&
           (detailFuture == null ||
               identical(
                 ref.read(mergeRequestControllerProvider(arg).future),
                 detailFuture,
               ));
+      sessionCurrent = current;
       void check() {
         if (!current() && !ended.isCompleted) ended.complete();
       }
@@ -727,6 +814,13 @@ class MrDiscussionsController
       subscriptions.add(
         ref.listen(mergeRequestsRepositoryProvider, (_, _) => check()),
       );
+
+      if (selection != null) {
+        subscriptions.add(
+          ref.listen(diffRepositoryProvider, (_, _) => check()),
+        );
+        subscriptions.add(ref.listen(reviewProvider, (_, _) => check()));
+      }
 
       // Bridge session cancellation once per command. Individual reads use the
       // local signal, which is completed in finally to release their handlers.
@@ -747,6 +841,7 @@ class MrDiscussionsController
           draftFuture,
           sourceFuture,
           commentsFuture,
+          ?diffFuture,
         ], eagerError: true),
       );
       final client = values[0] as GitLabClient?;
@@ -758,6 +853,7 @@ class MrDiscussionsController
       if (client == null ||
           source == null ||
           comments == null ||
+          (selection != null && values[4] == null) ||
           repository == null ||
           repository.authorId != account.user.id) {
         throw const GitLabAuthException('Invalid private review session.');
@@ -779,6 +875,21 @@ class MrDiscussionsController
           'Invalid private review detail identity.',
         );
       }
+      if (selection != null) {
+        // Suspend only our snapshot identity guard while starting this explicit
+        // fresh read; subsequent external refreshes still cancel the command.
+        reviewFuture = null;
+        reviewSession = null;
+        ref.invalidate(reviewProvider);
+        final freshReview = ref.read(reviewProvider.future);
+        reviewFuture = freshReview;
+        reviewSession = ref.read(reviewProvider.notifier).session;
+        final snapshot = await wait(freshReview);
+        if (!current()) return null;
+        if (!selection.matches(snapshot)) {
+          throw const GitLabConflictException('The selected diff changed.');
+        }
+      }
       _syncPendingSession();
       return await action(repository, detail, current, wait);
     } on _PendingReviewCancelled {
@@ -787,7 +898,7 @@ class MrDiscussionsController
       if (generation != _generation || isCurrent?.call() == false) return null;
       // Repository/account replacements are also observed by the cancellation
       // subscriptions. Ignore their failures rather than showing old-session UI.
-      if (ended.isCompleted) return null;
+      if (ended.isCompleted || sessionCurrent?.call() == false) return null;
       rethrow;
     } finally {
       if (!ended.isCompleted) ended.complete();

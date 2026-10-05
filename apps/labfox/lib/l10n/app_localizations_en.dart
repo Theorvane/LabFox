@@ -5206,4 +5206,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrPendingPublishRecoveryRequired =>
       'Open Publish pending review to check both saved notes and public discussions before changing private notes.';
+
+  @override
+  String get mrPendingInlineOpen => 'Save private inline note';
+
+  @override
+  String get mrPendingInlineTitle => 'Private inline review note';
+
+  @override
+  String get mrPendingInlineHint =>
+      'Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.';
 }

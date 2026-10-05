@@ -2983,5 +2983,8 @@
   "mrPendingPublishInspect": "Check notes and discussions",
   "mrPendingPublishPublicTitle": "Current public discussions",
   "mrPendingPublishRecoveryHint": "These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.",
-  "mrPendingPublishRecoveryRequired": "Open Publish pending review to check both saved notes and public discussions before changing private notes."
+  "mrPendingPublishRecoveryRequired": "Open Publish pending review to check both saved notes and public discussions before changing private notes.",
+  "mrPendingInlineOpen": "Save private inline note",
+  "mrPendingInlineTitle": "Private inline review note",
+  "mrPendingInlineHint": "Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving."
 }

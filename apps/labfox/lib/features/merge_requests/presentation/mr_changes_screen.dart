@@ -5,13 +5,17 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/auth/auth_controller.dart';
+import '../../../core/auth/gitlab_client_provider.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../comments/presentation/controllers/comments_controller.dart';
 import '../../diff/presentation/changes_screen.dart';
 import '../../diff/presentation/controllers/diff_controllers.dart';
 import 'controllers/merge_requests_controllers.dart';
 import 'controllers/mr_discussions_controller.dart';
+import 'controllers/mr_draft_notes_provider.dart';
 import 'controllers/mr_review_snapshot_controller.dart';
+import 'widgets/mr_pending_review_composer.dart';
 
 /// Reviews one authoritative diff version and starts positioned discussions.
 class MrChangesScreen extends ConsumerWidget {
@@ -46,10 +50,102 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
   bool _posting = false, _reloading = false, _needsReload = false;
   String? _error;
   bool _inspection = false;
+  bool _openingPrivate = false;
+  ValueNotifier<bool>? _privateView;
   @override
   void dispose() {
+    _privateView?.value = false;
     _draft.dispose();
     super.dispose();
+  }
+
+  Future<void> _openPrivate() async {
+    if (_openingPrivate || _posting || _reloading || _choosingEnd) return;
+    final position = _selected;
+    final displayed = ref.read(mrReviewSnapshotControllerProvider(widget.arg));
+    if (position == null ||
+        displayed.isLoading ||
+        displayed.hasError ||
+        !displayed.hasValue) {
+      return;
+    }
+    final selection = MrReviewSelection.capture(displayed.value!, position);
+    final account = ref.read(currentAccountProvider);
+    final drafts = ref
+        .read(mrDraftNotesRepositoryProvider)
+        .unwrapPrevious()
+        .valueOrNull;
+    final details = ref
+        .read(mergeRequestsRepositoryProvider)
+        .unwrapPrevious()
+        .valueOrNull;
+    final diffs = ref.read(diffRepositoryProvider).unwrapPrevious().valueOrNull;
+    final client = ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull;
+    if (selection == null ||
+        account == null ||
+        drafts == null ||
+        details == null ||
+        diffs == null ||
+        client == null) {
+      return;
+    }
+    final active = ValueNotifier(true);
+    _privateView = active;
+    setState(() => _openingPrivate = true);
+    bool current() =>
+        mounted &&
+        active.value &&
+        ref.read(currentAccountProvider) == account &&
+        identical(
+          ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious().valueOrNull,
+          drafts,
+        ) &&
+        identical(
+          ref
+              .read(mergeRequestsRepositoryProvider)
+              .unwrapPrevious()
+              .valueOrNull,
+          details,
+        ) &&
+        identical(
+          ref.read(diffRepositoryProvider).unwrapPrevious().valueOrNull,
+          diffs,
+        ) &&
+        identical(
+          ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+          client,
+        );
+    try {
+      final saved = await showMrPendingReviewPositionDialog(
+        context: context,
+        resource: widget.arg,
+        account: account,
+        draftSession: drafts,
+        detailSession: details,
+        diffSession: diffs,
+        clientSession: client,
+        selection: selection,
+        viewActive: active,
+        isCurrent: current,
+      );
+      if (!mounted || !current()) return;
+      final latest = ref.read(mrReviewSnapshotControllerProvider(widget.arg));
+      if (saved == true &&
+          !latest.isLoading &&
+          !latest.hasError &&
+          latest.hasValue &&
+          selection.matches(latest.value!)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).mrPendingComposeSaved),
+          ),
+        );
+      }
+    } finally {
+      _privateView = null;
+      active.dispose();
+      if (mounted) setState(() => _openingPrivate = false);
+    }
   }
 
   Future<void> _submit() async {
@@ -186,6 +282,32 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
         !discussions.isLoading &&
         !discussions.hasError &&
         discussions.hasValue;
+    final account = _selected == null
+        ? null
+        : ref.watch(currentAccountProvider);
+    final drafts = account == null
+        ? null
+        : ref.watch(mrDraftNotesRepositoryProvider).unwrapPrevious();
+    final details = account == null
+        ? null
+        : ref.watch(mergeRequestsRepositoryProvider).unwrapPrevious();
+    final client = account == null
+        ? null
+        : ref.watch(gitLabClientProvider).unwrapPrevious();
+    final privateReady =
+        account != null &&
+        drafts != null &&
+        !drafts.isLoading &&
+        !drafts.hasError &&
+        drafts.valueOrNull != null &&
+        details != null &&
+        !details.isLoading &&
+        !details.hasError &&
+        details.valueOrNull != null &&
+        client != null &&
+        !client.isLoading &&
+        !client.hasError &&
+        client.valueOrNull != null;
     final matching = ready && _inspection && !_needsReload
         ? discussions.value!.items
               .expand((group) => group.notes)
@@ -464,6 +586,22 @@ class _ReviewState extends ConsumerState<_ReviewContent> {
                                           child: Text(
                                             l10n.mrDiffDiscussionCancel,
                                           ),
+                                        ),
+                                        OutlinedButton(
+                                          key: const ValueKey(
+                                            'mr-pending-inline-open',
+                                          ),
+                                          onPressed:
+                                              privateReady &&
+                                                  ready &&
+                                                  positionValid &&
+                                                  !_posting &&
+                                                  !_reloading &&
+                                                  !_openingPrivate &&
+                                                  !_choosingEnd
+                                              ? _openPrivate
+                                              : null,
+                                          child: Text(l10n.mrPendingInlineOpen),
                                         ),
                                         FilledButton(
                                           key: const ValueKey(

@@ -1426,5 +1426,8 @@
   "mrPendingPublishInspect": "メモとディスカッションを確認",
   "mrPendingPublishPublicTitle": "現在の公開ディスカッション",
   "mrPendingPublishRecoveryHint": "現在の保存済みメモと公開ディスカッションです。内容や不在だけでは以前の試行の成功を判断できません。再度公開する前に両方の一覧を確認してください。",
-  "mrPendingPublishRecoveryRequired": "非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。"
+  "mrPendingPublishRecoveryRequired": "非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。",
+  "mrPendingInlineOpen": "非公開のインラインメモを保存",
+  "mrPendingInlineTitle": "非公開のインラインレビューメモ",
+  "mrPendingInlineHint": "選択した行または範囲に非公開のメモを保存します。保留中のレビューを公開するまでは、自分だけが閲覧できます。保存前に最新の差分を再確認します。"
 }

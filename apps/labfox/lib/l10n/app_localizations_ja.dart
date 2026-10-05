@@ -5022,4 +5022,14 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get mrPendingPublishRecoveryRequired =>
       '非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。';
+
+  @override
+  String get mrPendingInlineOpen => '非公開のインラインメモを保存';
+
+  @override
+  String get mrPendingInlineTitle => '非公開のインラインレビューメモ';
+
+  @override
+  String get mrPendingInlineHint =>
+      '選択した行または範囲に非公開のメモを保存します。保留中のレビューを公開するまでは、自分だけが閲覧できます。保存前に最新の差分を再確認します。';
 }
