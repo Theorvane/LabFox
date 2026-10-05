@@ -4722,4 +4722,59 @@ class AppLocalizationsZh extends AppLocalizations {
   String mrPendingReviewCommit(String sha) {
     return '提交：$sha';
   }
+
+  @override
+  String get mrPendingComposeOpen => '添加审阅备注';
+
+  @override
+  String get mrPendingComposeTitle => '新建审阅备注';
+
+  @override
+  String get mrPendingComposeLabel => '审阅备注';
+
+  @override
+  String get mrPendingComposeHint => '在发布审阅之前，此备注仅对你可见。';
+
+  @override
+  String get mrPendingComposeSave => '保存待发布备注';
+
+  @override
+  String get mrPendingComposeSaved => '备注已保存到你的待发布审阅。';
+
+  @override
+  String get mrPendingComposeSaving => '正在保存审阅备注…';
+
+  @override
+  String get mrPendingComposePrepare => '正在准备审阅备注…';
+
+  @override
+  String get mrPendingComposePrepareError => '审阅备注不可用。输入的内容仍然保留。';
+
+  @override
+  String get mrPendingComposeSaveError => '未能确认此次保存。输入的内容仍然保留。';
+
+  @override
+  String get mrPendingComposeUncertain => '备注可能已经保存。再次保存前，请检查待发布审阅。';
+
+  @override
+  String get mrPendingComposeInspect => '检查待发布审阅';
+
+  @override
+  String get mrPendingComposeInspecting => '正在检查所有待发布审阅备注…';
+
+  @override
+  String get mrPendingComposeInspectError => '未能检查待发布审阅。输入的内容仍然保留。';
+
+  @override
+  String get mrPendingComposeInspectionTitle => '当前待发布审阅';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      '这些是当前已保存的备注。内容相同并不能确定备注由哪次保存请求创建。';
+
+  @override
+  String get mrPendingComposeAcknowledge => '我已检查这些备注，并希望再保存一条备注。';
+
+  @override
+  String get mrPendingComposeChanged => '审阅会话已更改。请关闭此对话框并重新开始。';
 }

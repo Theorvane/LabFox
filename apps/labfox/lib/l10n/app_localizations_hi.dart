@@ -5041,4 +5041,68 @@ class AppLocalizationsHi extends AppLocalizations {
   String mrPendingReviewCommit(String sha) {
     return 'कमिट: $sha';
   }
+
+  @override
+  String get mrPendingComposeOpen => 'समीक्षा नोट जोड़ें';
+
+  @override
+  String get mrPendingComposeTitle => 'नया समीक्षा नोट';
+
+  @override
+  String get mrPendingComposeLabel => 'समीक्षा नोट';
+
+  @override
+  String get mrPendingComposeHint =>
+      'समीक्षा प्रकाशित करने तक यह नोट केवल आपको दिखाई देगा।';
+
+  @override
+  String get mrPendingComposeSave => 'अप्रकाशित नोट सहेजें';
+
+  @override
+  String get mrPendingComposeSaved =>
+      'नोट आपकी अप्रकाशित समीक्षा में सहेज दिया गया।';
+
+  @override
+  String get mrPendingComposeSaving => 'समीक्षा नोट सहेजा जा रहा है…';
+
+  @override
+  String get mrPendingComposePrepare => 'समीक्षा नोट तैयार किए जा रहे हैं…';
+
+  @override
+  String get mrPendingComposePrepareError =>
+      'समीक्षा नोट उपलब्ध नहीं हैं। आपका लिखा पाठ सुरक्षित है।';
+
+  @override
+  String get mrPendingComposeSaveError =>
+      'इस बार सहेजे जाने की पुष्टि नहीं हुई। आपका लिखा पाठ सुरक्षित है।';
+
+  @override
+  String get mrPendingComposeUncertain =>
+      'आपका नोट पहले ही सहेजा गया हो सकता है। दोबारा सहेजने से पहले अपनी अप्रकाशित समीक्षा जाँचें।';
+
+  @override
+  String get mrPendingComposeInspect => 'अप्रकाशित समीक्षा जाँचें';
+
+  @override
+  String get mrPendingComposeInspecting =>
+      'सभी अप्रकाशित समीक्षा नोट जाँचे जा रहे हैं…';
+
+  @override
+  String get mrPendingComposeInspectError =>
+      'अप्रकाशित समीक्षा नहीं जाँची जा सकी। आपका लिखा पाठ सुरक्षित है।';
+
+  @override
+  String get mrPendingComposeInspectionTitle => 'वर्तमान अप्रकाशित समीक्षा';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      'ये आपके वर्तमान सहेजे गए नोट हैं। समान पाठ से यह पता नहीं चलता कि किस अनुरोध ने नोट बनाया।';
+
+  @override
+  String get mrPendingComposeAcknowledge =>
+      'मैंने ये नोट जाँच लिए हैं और एक और नोट सहेजना चाहता हूँ।';
+
+  @override
+  String get mrPendingComposeChanged =>
+      'समीक्षा सत्र बदल गया है। यह संवाद बंद करके फिर से शुरू करें।';
 }

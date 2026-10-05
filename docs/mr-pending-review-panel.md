@@ -4,9 +4,10 @@ Issue [#604](https://github.com/Theorvane/labfox/issues/604) /
 [PR #605](https://github.com/Theorvane/labfox/pull/605) connects the
 [private pagination controller](mr-pending-review-reader.md) to MR detail.
 **Your pending review** displays saved, unpublished server notes that belong to
-the authenticated author. The panel is read-only. [Regular save orchestration](mr-pending-review-save.md)
-now exists as a controller prerequisite; composer UI, positioned-save
-orchestration, editing/deletion and publication remain separate follow-ups.
+the authenticated author. The saved-note reader remains read-only. The subsequent
+[regular private composer](mr-pending-review-composer.md) adds an explicit
+**Add review note** entry using [guarded save orchestration](mr-pending-review-save.md).
+Positioned-save orchestration, editing/deletion and publication remain follow-ups.
 
 ## Reading and recovery
 
@@ -53,13 +54,16 @@ obtained from that instance's fresh detail; no old global identity is reused.
 
 Already dispatched reads may finish on their original session. Obsolete
 pagination data/errors are suppressed; superseded initial builds are discarded
-by Riverpod. No disk cache, new analytics event, write, publication or approval
-is introduced. The original API's normal read-only OAuth refresh is unchanged.
+by Riverpod. The reader introduces no disk cache, analytics event, write, publication or
+approval; the separate regular composer sends an explicit guarded private save. The original API's normal read-only OAuth refresh is unchanged.
 Offset pagination remains a best-effort read: cursor exhaustion is not an atomic
-review snapshot or a publication authorization. Future writes still need fresh
-inspection, current-view guards and shared write reservations.
+review snapshot or a publication authorization. The regular composer uses fresh inspection, current-view guards and shared
+write reservations; these checks do not authorize publication.
 
 ## Verification and synthetic captures
+
+The captures below show the original reader from PR #605. Current composer and
+recovery captures are in [the composer documentation](mr-pending-review-composer.md).
 
 The widget tests were written before the panel, integration and messages, and
 failed for their missing implementation. Account/instance/client replacement

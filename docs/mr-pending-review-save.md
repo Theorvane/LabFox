@@ -4,9 +4,10 @@ Issue [#606](https://github.com/Theorvane/labfox/issues/606) /
 [PR #607](https://github.com/Theorvane/LabFox/pull/607) adds regular private
 note save orchestration to `MrDiscussionsController`. It builds on the
 [creation API](mr-draft-note-creation.md) and [private readers](mr-draft-notes.md).
-The [pending review panel](mr-pending-review-panel.md) remains read-only: no
-composer, positioned-save orchestration, editing/deletion or publication UI is
-introduced by this controller prerequisite.
+This controller prerequisite introduced no visible UI. The subsequent
+[regular private composer](mr-pending-review-composer.md) connects these methods
+to the [pending review panel](mr-pending-review-panel.md). Positioned-save
+orchestration, editing/deletion and publication remain separate.
 
 ## Save and identity
 
@@ -49,8 +50,8 @@ unchanged; there is no automatic conversion from a failed private save.
 Ordinary controller refreshes and same-account repository/client replacement
 cannot clear this requirement. An actual account/instance change or sign-out
 separates the old private scope. The state is in memory only and is not durable
-across a process/container restart; future UI must discard session-bound input
-and must not promise durable uncertain-write recovery.
+across a process/container restart; the composer discards session-bound input
+and does not promise durable uncertain-write recovery.
 
 `inspectPendingNotes` is explicit read-only recovery. If a dispatched write is
 still unsettled, it waits for that actual request to finish before reading. This
@@ -66,8 +67,8 @@ partial private list and keeps the same-account requirement. No next-page read
 can dispatch after session/view replacement.
 
 Only a complete successful traversal returns an immutable snapshot and permits
-a subsequent explicit save; inspection itself never retries a create. A future
-composer must display this snapshot before offering retry. An identical saved
+a subsequent explicit save; inspection itself never retries a create. The regular
+composer displays this snapshot and requires acknowledgement before manual retry. An identical saved
 body does not establish whether it is the uncertain attempt. Offset pagination
 and a settled client request do not establish an atomic server snapshot; a server
 may continue processing after a client timeout. User inspection cannot promise
@@ -85,8 +86,8 @@ complete/empty/invalid/duplicate private pages, explicit retry, cancelled writes
 settlement barriers, account/instance/client/repository/view replacement,
 obsolete inspection data/errors and route-scoped reader refreshes.
 
-No new endpoint, model, dependency, localization, visible layout, remote asset,
-telemetry or disk cache is added. Tests use synthetic users and dummy credentials;
+This controller prerequisite added no endpoint, model, dependency, localization,
+visible layout, remote asset, telemetry or disk cache. Tests use synthetic users and dummy credentials;
 no live GitLab, physical-device or store validation is claimed. Existing widget
 and review-controller suites remain part of regression verification. MW-07 stays
 in progress until the remaining review flows are completed and validated.
