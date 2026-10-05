@@ -3011,5 +3011,12 @@
   "mrReviewSubmissionConsent": "Publish the displayed pending notes and public summary, and apply the selected review outcome.",
   "mrReviewUnapproved": "Approval withdrawn",
   "mrReviewSubmitButton": "Submit review",
-  "mrReviewInspectButton": "Inspect review"
+  "mrReviewInspectButton": "Inspect review",
+  "mrPendingReplyButton": "Save private reply",
+  "mrPendingReplyTitle": "Private reply draft",
+  "mrPendingReplyHint": "This reply stays private until you publish it. Saving does not resolve the discussion.",
+  "mrPendingReplyTargetTitle": "Discussion context",
+  "mrPendingReplyTargetUnavailable": "This discussion is missing or no longer accepts a private reply.",
+  "mrPendingReplyInspectionHint": "Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.",
+  "mrPendingReplyAcknowledge": "I checked the discussion and pending notes and want to save this reply."
 }

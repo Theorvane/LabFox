@@ -1454,5 +1454,12 @@
   "mrReviewSubmissionConsent": "表示された保留ノートと公開概要を投稿し、選択したレビュー結果を適用します。",
   "mrReviewUnapproved": "承認取り消し済み",
   "mrReviewSubmitButton": "レビューを送信",
-  "mrReviewInspectButton": "レビューを確認"
+  "mrReviewInspectButton": "レビューを確認",
+  "mrPendingReplyButton": "非公開の返信を保存",
+  "mrPendingReplyTitle": "非公開の返信下書き",
+  "mrPendingReplyHint": "公開するまでこの返信は非公開です。保存してもディスカッションは解決されません。",
+  "mrPendingReplyTargetTitle": "ディスカッションの内容",
+  "mrPendingReplyTargetUnavailable": "このディスカッションは見つからないか、非公開の返信を受け付けなくなりました。",
+  "mrPendingReplyInspectionHint": "返信がすでに保存されていないか、現在のディスカッションとすべての下書きを確認してください。再保存すると重複する場合があります。",
+  "mrPendingReplyAcknowledge": "ディスカッションと下書きを確認し、この返信を保存します。"
 }

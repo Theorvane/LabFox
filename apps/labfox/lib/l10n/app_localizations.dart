@@ -9295,6 +9295,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Inspect review'**
   String get mrReviewInspectButton;
+
+  /// No description provided for @mrPendingReplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save private reply'**
+  String get mrPendingReplyButton;
+
+  /// No description provided for @mrPendingReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private reply draft'**
+  String get mrPendingReplyTitle;
+
+  /// No description provided for @mrPendingReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This reply stays private until you publish it. Saving does not resolve the discussion.'**
+  String get mrPendingReplyHint;
+
+  /// No description provided for @mrPendingReplyTargetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion context'**
+  String get mrPendingReplyTargetTitle;
+
+  /// No description provided for @mrPendingReplyTargetUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This discussion is missing or no longer accepts a private reply.'**
+  String get mrPendingReplyTargetUnavailable;
+
+  /// No description provided for @mrPendingReplyInspectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.'**
+  String get mrPendingReplyInspectionHint;
+
+  /// No description provided for @mrPendingReplyAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked the discussion and pending notes and want to save this reply.'**
+  String get mrPendingReplyAcknowledge;
 }
 
 class _AppLocalizationsDelegate
