@@ -4,8 +4,9 @@ Issue [#604](https://github.com/Theorvane/labfox/issues/604) /
 [PR #605](https://github.com/Theorvane/labfox/pull/605) connects the
 [private pagination controller](mr-pending-review-reader.md) to MR detail.
 **Your pending review** displays saved, unpublished server notes that belong to
-the authenticated author. The panel is read-only; creation orchestration,
-editing/deletion and publication are separate follow-ups.
+the authenticated author. The panel is read-only. [Regular save orchestration](mr-pending-review-save.md)
+now exists as a controller prerequisite; composer UI, positioned-save
+orchestration, editing/deletion and publication remain separate follow-ups.
 
 ## Reading and recovery
 

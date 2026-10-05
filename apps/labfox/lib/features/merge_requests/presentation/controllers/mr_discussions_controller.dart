@@ -5,11 +5,15 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/analytics/analytics.dart';
+import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../data/mr_draft_notes_repository.dart';
 import 'merge_requests_controllers.dart';
+import 'mr_draft_notes_provider.dart';
 import 'mr_review_snapshot_controller.dart';
 
 /// Reads grouped conversations and writes notes and replies in one session.
@@ -284,6 +288,244 @@ class MrDiscussionsController
     }
   }
 
+  Account? _pendingAccount;
+  bool _pendingNeedsInspection = false;
+  Future<void>? _pendingWriteSettled;
+
+  void _syncPendingSession() {
+    final account = ref.read(currentAccountProvider);
+    // Replacing a client/wrapper for the same account cannot prove that a
+    // dispatched write failed. Preserve its inspection gate and settled future.
+    if (account != _pendingAccount) {
+      _pendingNeedsInspection = false;
+      _pendingWriteSettled = null;
+      _pendingAccount = account;
+    }
+  }
+
+  /// A refresh or repository wrapper replacement cannot authorize replay.
+  bool get pendingSaveNeedsInspection {
+    _syncPendingSession();
+    return _pendingNeedsInspection;
+  }
+
+  /// Saves one regular unpublished note; null means no current-view success.
+  Future<MergeRequestDraftNote?> savePendingNote(
+    String note, {
+    bool Function()? isCurrent,
+  }) {
+    if (note.trim().isEmpty || pendingSaveNeedsInspection) {
+      return Future.value(null);
+    }
+    return _pendingReview((repository, detail, current, wait) async {
+      _pendingNeedsInspection = true;
+      final write = repository.create(
+        projectId: arg.projectId,
+        iid: arg.iid,
+        mergeRequestId: detail.id,
+        note: note,
+      );
+      // A cancelled view does not cancel a dispatched server request. Recovery
+      // waits for this actual write to settle before inspecting server notes.
+      _pendingWriteSettled = write.then<void>(
+        (_) {},
+        onError: (Object _, StackTrace _) {},
+      );
+      final saved = await wait(write);
+      if (!current()) throw const _PendingReviewCancelled();
+      if (saved.id < 1 ||
+          saved.authorId != repository.authorId ||
+          saved.mergeRequestId != detail.id ||
+          saved.note != note) {
+        throw const GitLabServerException('Unconfirmed private review save.');
+      }
+      _pendingNeedsInspection = false;
+      _pendingWriteSettled = null;
+      ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+      return saved;
+    }, isCurrent: isCurrent);
+  }
+
+  /// Returns a complete staged list for explicit user inspection, never a replay.
+  /// Identical text does not identify an uncertain create attempt.
+  Future<List<MergeRequestDraftNote>?> inspectPendingNotes({
+    bool Function()? isCurrent,
+  }) => _pendingReview((repository, detail, current, wait) async {
+    final unsettled = _pendingWriteSettled;
+    if (unsettled != null) await wait(unsettled);
+    final notes = <MergeRequestDraftNote>[];
+    final ids = <int>{};
+    int? page = 1;
+    while (page != null) {
+      if (!current()) throw const _PendingReviewCancelled();
+      final result = await wait(
+        repository.list(projectId: arg.projectId, iid: arg.iid, page: page),
+      );
+      if (!current()) throw const _PendingReviewCancelled();
+      if ((result.nextPage != null && result.nextPage! <= page) ||
+          result.items.any(
+            (draft) =>
+                draft.id < 1 ||
+                draft.authorId != repository.authorId ||
+                draft.mergeRequestId != detail.id ||
+                !ids.add(draft.id),
+          )) {
+        throw const GitLabServerException('Invalid private review inspection.');
+      }
+      notes.addAll(result.items);
+      page = result.nextPage;
+    }
+    _pendingNeedsInspection = false;
+    _pendingWriteSettled = null;
+    return List<MergeRequestDraftNote>.unmodifiable(notes);
+  }, isCurrent: isCurrent);
+
+  /// Shares the existing discussion write/pagination reservation during fresh
+  /// identity reads, private saves and complete read-only recovery.
+  Future<T?> _pendingReview<T>(
+    Future<T> Function(
+      MrDraftNotesRepository,
+      MergeRequest,
+      bool Function(),
+      _PendingReviewWait,
+    )
+    action, {
+    bool Function()? isCurrent,
+  }) async {
+    if (_posting ||
+        _loadingMore ||
+        state.isLoading ||
+        state.hasError ||
+        isCurrent?.call() == false) {
+      return null;
+    }
+    if (arg.projectId < 1 || arg.iid < 1) {
+      throw ArgumentError('Invalid MR route.');
+    }
+    final account = ref.read(currentAccountProvider);
+    if (account == null || account.user.id < 1) {
+      throw const GitLabAuthException(
+        'No authenticated private review session.',
+      );
+    }
+    final generation = _generation;
+    _posting = true;
+    final ended = Completer<void>();
+    final subscriptions = <ProviderSubscription<Object?>>[];
+    try {
+      final clientFuture = ref.read(gitLabClientProvider.future);
+      final draftFuture = ref.read(mrDraftNotesRepositoryProvider.future);
+      final commentsFuture = ref.read(commentsRepositoryProvider.future);
+      final sourceFuture = ref.read(mergeRequestsRepositoryProvider.future);
+      Future<MergeRequest>? detailFuture;
+      bool current() =>
+          generation == _generation &&
+          isCurrent?.call() != false &&
+          ref.read(currentAccountProvider) == account &&
+          identical(ref.read(gitLabClientProvider.future), clientFuture) &&
+          identical(
+            ref.read(mrDraftNotesRepositoryProvider.future),
+            draftFuture,
+          ) &&
+          identical(
+            ref.read(commentsRepositoryProvider.future),
+            commentsFuture,
+          ) &&
+          identical(
+            ref.read(mergeRequestsRepositoryProvider.future),
+            sourceFuture,
+          ) &&
+          (detailFuture == null ||
+              identical(
+                ref.read(mergeRequestControllerProvider(arg).future),
+                detailFuture,
+              ));
+      void check() {
+        if (!current() && !ended.isCompleted) ended.complete();
+      }
+
+      subscriptions.add(ref.listen(currentAccountProvider, (_, _) => check()));
+      subscriptions.add(ref.listen(gitLabClientProvider, (_, _) => check()));
+      subscriptions.add(
+        ref.listen(mrDraftNotesRepositoryProvider, (_, _) => check()),
+      );
+      subscriptions.add(
+        ref.listen(commentsRepositoryProvider, (_, _) => check()),
+      );
+      subscriptions.add(
+        ref.listen(mergeRequestsRepositoryProvider, (_, _) => check()),
+      );
+
+      // Bridge session cancellation once per command. Individual reads use the
+      // local signal, which is completed in finally to release their handlers.
+      unawaited(
+        _ended!.future.then((_) {
+          if (!ended.isCompleted) ended.complete();
+        }),
+      );
+      Future<R> wait<R>(Future<R> future) => Future.any([
+        future,
+        ended.future.then<R>((_) => throw const _PendingReviewCancelled()),
+      ]);
+      // Attach error handlers to every started read immediately, including
+      // reads that fail while another repository remains unresolved.
+      final values = await wait(
+        Future.wait<Object?>([
+          clientFuture,
+          draftFuture,
+          sourceFuture,
+          commentsFuture,
+        ], eagerError: true),
+      );
+      final client = values[0] as GitLabClient?;
+      final repository = values[1] as MrDraftNotesRepository?;
+      final source = values[2];
+      final comments = values[3];
+
+      if (!current()) return null;
+      if (client == null ||
+          source == null ||
+          comments == null ||
+          repository == null ||
+          repository.authorId != account.user.id) {
+        throw const GitLabAuthException('Invalid private review session.');
+      }
+      if (ref.exists(mergeRequestControllerProvider(arg))) {
+        ref.invalidate(mergeRequestControllerProvider(arg));
+      }
+      final freshDetail = ref.read(mergeRequestControllerProvider(arg).future);
+      detailFuture = freshDetail;
+      subscriptions.add(
+        ref.listen(mergeRequestControllerProvider(arg), (_, _) => check()),
+      );
+      final detail = await wait(freshDetail);
+      if (!current()) return null;
+      if (detail.id < 1 ||
+          detail.iid != arg.iid ||
+          (detail.projectId != null && detail.projectId != arg.projectId)) {
+        throw const GitLabServerException(
+          'Invalid private review detail identity.',
+        );
+      }
+      _syncPendingSession();
+      return await action(repository, detail, current, wait);
+    } on _PendingReviewCancelled {
+      return null;
+    } catch (_) {
+      if (generation != _generation || isCurrent?.call() == false) return null;
+      // Repository/account replacements are also observed by the cancellation
+      // subscriptions. Ignore their failures rather than showing old-session UI.
+      if (ended.isCompleted) return null;
+      rethrow;
+    } finally {
+      if (!ended.isCompleted) ended.complete();
+      for (final subscription in subscriptions) {
+        subscription.close();
+      }
+      if (generation == _generation) _posting = false;
+    }
+  }
+
   /// Explicit read-only recovery never retries an application automatically.
   Future<Discussion?> inspectDiscussion(
     String discussionId, {
@@ -457,3 +699,10 @@ final mrDiscussionsControllerProvider =
       Paginated<Discussion>,
       MergeRequestRef
     >(MrDiscussionsController.new);
+
+/// Private cancellation does not expose a server payload or trigger retry.
+class _PendingReviewCancelled implements Exception {
+  const _PendingReviewCancelled();
+}
+
+typedef _PendingReviewWait = Future<T> Function<T>(Future<T> future);

@@ -19,6 +19,10 @@ final mrDraftNotesRepositoryProvider =
       return MrDraftNotesRepository(client, authorId: account.user.id);
     });
 
+/// A confirmed private save refreshes every reader variant for this route only.
+final mrDraftNotesRevisionProvider = StateProvider.autoDispose
+    .family<int, MergeRequestRef>((ref, resource) => 0);
+
 /// An explicit page for a project/IID; the DTO's global MR ID is never routed.
 class MrDraftNotesQuery {
   const MrDraftNotesQuery({
@@ -50,6 +54,7 @@ final mrDraftNotesReadProvider = FutureProvider.autoDispose
       ref,
       query,
     ) async {
+      ref.watch(mrDraftNotesRevisionProvider(query.mergeRequest));
       var active = true;
       ref.onDispose(() => active = false);
       final repo = await ref.watch(mrDraftNotesRepositoryProvider.future);

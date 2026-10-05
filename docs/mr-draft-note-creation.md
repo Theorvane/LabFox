@@ -95,3 +95,10 @@ followed by exact-head review and CI. No model, dependency, localization or
 visual UI changes are introduced. No live GitLab/device/store validation is
 claimed. Upstream API/entity/model sources were inspected only to verify the
 response contract; no upstream implementation was copied.
+
+## Later regular-save orchestration
+
+[Guarded regular saves](mr-pending-review-save.md) now connect this API to the
+existing discussion reservation, fresh authenticated detail/global identity and
+explicit complete private-note inspection after uncertain outcomes. The panel
+remains read-only; a composer and positioned-save orchestration remain separate.
