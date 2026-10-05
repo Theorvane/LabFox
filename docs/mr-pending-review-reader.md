@@ -10,7 +10,10 @@ mutation, publication, approval, disk cache or analytics event.
 
 `MrPendingReviewQuery` contains a project/IID route, the authoritative positive
 global MR identity from the current detail, and page size (1–100). These fields
-all participate in provider equality. The global identity is checked against
+all participate in provider equality. The later [detail panel](mr-pending-review-panel.md)
+adds `requireCurrentDetail` (also part of equality); guarded UI queries await and
+recheck the current MR detail/repository before each draft read. Standalone
+reader queries keep their original explicit-identity behavior. The global identity is checked against
 returned drafts; it never replaces the route IID. Future presentation must
 obtain that identity from the current authenticated MR detail, not infer it from
 an IID or a saved private page.
@@ -79,5 +82,7 @@ obsolete pagination errors.
 Workspace format, analysis and all five package test suites are required before
 push; exact-head review and CI precede merge. No endpoint, generated model,
 dependency, localization or visible layout changes are made. No live GitLab,
-device, theme or store validation is claimed. The pending-review list UI, composer,
-uncertain-write recovery, editing/deletion and publication remain follow-up work.
+device, theme or store validation is claimed for this controller slice. The later
+[detail panel](mr-pending-review-panel.md) adds localized read-only presentation.
+Creation orchestration, uncertain-write recovery, editing/deletion and publication
+remain follow-up work.

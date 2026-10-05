@@ -4637,4 +4637,89 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrDiffSelectedLineLabel => '已选讨论行';
+
+  @override
+  String get mrPendingReviewTitle => '你的待发布审查';
+
+  @override
+  String get mrPendingReviewPrivate => '发布前，只有你能看到这些笔记。';
+
+  @override
+  String get mrPendingReviewLoading => '正在加载待发布的审查笔记…';
+
+  @override
+  String get mrPendingReviewEmpty => '你没有待发布的审查笔记。';
+
+  @override
+  String get mrPendingReviewError => '无法加载待发布的审查笔记。请重试以重新加载列表。';
+
+  @override
+  String get mrPendingReviewRefresh => '刷新待发布的审查笔记';
+
+  @override
+  String get mrPendingReviewLoadMore => '加载更多笔记';
+
+  @override
+  String get mrPendingReviewMore => '还有更多笔记。加载下一页以继续查看。';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '已加载 $countString 条笔记';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => '普通笔记';
+
+  @override
+  String get mrPendingReviewReplyNote => '讨论回复';
+
+  @override
+  String get mrPendingReviewCommitNote => '提交笔记';
+
+  @override
+  String get mrPendingReviewTextNote => '差异笔记';
+
+  @override
+  String get mrPendingReviewMultilineNote => '多行差异笔记';
+
+  @override
+  String get mrPendingReviewImageNote => '图片笔记';
+
+  @override
+  String get mrPendingReviewFileNote => '文件笔记';
+
+  @override
+  String get mrPendingReviewPositionedNote => '带位置的笔记';
+
+  @override
+  String get mrPendingReviewResolve => '发布时将解决讨论';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return '变更前：$path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return '变更后：$path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return '旧行 $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return '新行 $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return '提交：$sha';
+  }
 }

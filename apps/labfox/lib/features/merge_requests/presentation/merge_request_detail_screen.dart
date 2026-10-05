@@ -13,6 +13,7 @@ import 'controllers/merge_requests_controllers.dart';
 import 'controllers/mr_actions_controller.dart';
 import 'widgets/mr_actions.dart';
 import 'widgets/mr_discussion_thread.dart';
+import 'widgets/mr_pending_review_panel.dart';
 
 /// One merge request: an identity header, the description and discussion, with
 /// the approve / merge actions pinned to a sticky bar so they never scroll away.
@@ -95,6 +96,8 @@ class MergeRequestDetailScreen extends ConsumerWidget {
                 l10n.mergeRequestNoDescription,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
+            const SizedBox(height: LabFoxSpacing.xl),
+            MrPendingReviewPanel(mergeRequest: mrRef),
             const SizedBox(height: LabFoxSpacing.xl),
             MrDiscussionThread(projectId: projectId, iid: iid),
           ],

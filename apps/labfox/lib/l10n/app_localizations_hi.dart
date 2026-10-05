@@ -4953,4 +4953,92 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mrDiffSelectedLineLabel => 'चर्चा के लिए चुनी गई पंक्ति';
+
+  @override
+  String get mrPendingReviewTitle => 'आपकी अप्रकाशित समीक्षा';
+
+  @override
+  String get mrPendingReviewPrivate =>
+      'प्रकाशित करने से पहले ये नोट केवल आप देख सकते हैं।';
+
+  @override
+  String get mrPendingReviewLoading => 'अप्रकाशित समीक्षा नोट लोड हो रहे हैं…';
+
+  @override
+  String get mrPendingReviewEmpty => 'आपके कोई अप्रकाशित समीक्षा नोट नहीं हैं।';
+
+  @override
+  String get mrPendingReviewError =>
+      'अप्रकाशित समीक्षा नोट लोड नहीं हो सके। सूची फिर से लोड करने के लिए पुनः प्रयास करें।';
+
+  @override
+  String get mrPendingReviewRefresh => 'अप्रकाशित समीक्षा नोट रीफ़्रेश करें';
+
+  @override
+  String get mrPendingReviewLoadMore => 'और नोट लोड करें';
+
+  @override
+  String get mrPendingReviewMore =>
+      'और नोट उपलब्ध हैं। जारी रखने के लिए अगला पृष्ठ लोड करें।';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString नोट लोड हुए';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => 'सामान्य नोट';
+
+  @override
+  String get mrPendingReviewReplyNote => 'चर्चा का उत्तर';
+
+  @override
+  String get mrPendingReviewCommitNote => 'कमिट नोट';
+
+  @override
+  String get mrPendingReviewTextNote => 'डिफ़ नोट';
+
+  @override
+  String get mrPendingReviewMultilineNote => 'कई पंक्तियों का डिफ़ नोट';
+
+  @override
+  String get mrPendingReviewImageNote => 'चित्र नोट';
+
+  @override
+  String get mrPendingReviewFileNote => 'फ़ाइल नोट';
+
+  @override
+  String get mrPendingReviewPositionedNote => 'स्थान वाला नोट';
+
+  @override
+  String get mrPendingReviewResolve => 'प्रकाशित होने पर चर्चा हल होगी';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return 'पहले: $path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return 'बाद में: $path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return 'पुरानी पंक्ति $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return 'नई पंक्ति $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return 'कमिट: $sha';
+  }
 }

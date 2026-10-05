@@ -132,6 +132,12 @@ void main() {
           mergeRequest: MergeRequestRef(projectId: 8, iid: 142),
           mergeRequestId: 1100,
         ),
+        const MrPendingReviewQuery(
+          mergeRequest: MergeRequestRef(projectId: 8, iid: 142),
+          mergeRequestId: 1100,
+          perPage: 10,
+          requireCurrentDetail: true,
+        ),
       ]) {
         expect(q, isNot(query));
       }

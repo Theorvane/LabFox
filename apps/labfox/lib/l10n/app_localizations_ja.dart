@@ -4786,4 +4786,90 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrDiffSelectedLineLabel => '選択したディスカッションの行';
+
+  @override
+  String get mrPendingReviewTitle => '未公開のレビュー';
+
+  @override
+  String get mrPendingReviewPrivate => 'これらのノートは公開するまで自分だけが閲覧できます。';
+
+  @override
+  String get mrPendingReviewLoading => '未公開のレビューノートを読み込み中…';
+
+  @override
+  String get mrPendingReviewEmpty => '未公開のレビューノートはありません。';
+
+  @override
+  String get mrPendingReviewError =>
+      '未公開のレビューノートを読み込めませんでした。再試行して一覧を読み込み直してください。';
+
+  @override
+  String get mrPendingReviewRefresh => '未公開のレビューノートを更新';
+
+  @override
+  String get mrPendingReviewLoadMore => 'ノートをさらに読み込む';
+
+  @override
+  String get mrPendingReviewMore => 'さらにノートがあります。次のページを読み込んで確認してください。';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString件のノートを読み込み済み';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => '一般ノート';
+
+  @override
+  String get mrPendingReviewReplyNote => 'ディスカッションへの返信';
+
+  @override
+  String get mrPendingReviewCommitNote => 'コミットノート';
+
+  @override
+  String get mrPendingReviewTextNote => '差分ノート';
+
+  @override
+  String get mrPendingReviewMultilineNote => '複数行の差分ノート';
+
+  @override
+  String get mrPendingReviewImageNote => '画像ノート';
+
+  @override
+  String get mrPendingReviewFileNote => 'ファイルノート';
+
+  @override
+  String get mrPendingReviewPositionedNote => '位置指定ノート';
+
+  @override
+  String get mrPendingReviewResolve => '公開時にディスカッションを解決';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return '変更前: $path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return '変更後: $path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return '旧行 $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return '新行 $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return 'コミット: $sha';
+  }
 }

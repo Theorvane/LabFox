@@ -2712,5 +2712,128 @@
   "mrDiffSelectedRangeLabel": "Selected range: {start} to {end}",
   "@mrDiffSelectedRangeLabel": {"description": "Multiline diff discussion selection.", "placeholders": {"start": {"type": "String"}, "end": {"type": "String"}}},
   "mrDiffSelectedLineLabel": "Selected discussion line",
-  "@mrDiffSelectedLineLabel": {"description": "Multiline diff discussion selection."}
+  "@mrDiffSelectedLineLabel": {"description": "Multiline diff discussion selection."},
+  "mrPendingReviewTitle": "Your pending review",
+  "mrPendingReviewPrivate": "Only you can see these notes until you publish them.",
+  "mrPendingReviewLoading": "Loading pending review notes…",
+  "mrPendingReviewEmpty": "You have no pending review notes.",
+  "mrPendingReviewError": "Could not load pending review notes. Retry to reload the list.",
+  "mrPendingReviewRefresh": "Refresh pending review notes",
+  "mrPendingReviewLoadMore": "Load more notes",
+  "mrPendingReviewMore": "More notes are available. Load the next page to continue.",
+  "mrPendingReviewCount": "{count, plural, =0{No notes loaded} =1{1 note loaded} other{{count} notes loaded}}",
+  "mrPendingReviewGeneralNote": "General note",
+  "mrPendingReviewReplyNote": "Discussion reply",
+  "mrPendingReviewCommitNote": "Commit note",
+  "mrPendingReviewTextNote": "Diff note",
+  "mrPendingReviewMultilineNote": "Multiline diff note",
+  "mrPendingReviewImageNote": "Image note",
+  "mrPendingReviewFileNote": "File note",
+  "mrPendingReviewPositionedNote": "Positioned note",
+  "mrPendingReviewResolve": "Will resolve the discussion when published",
+  "mrPendingReviewOldPath": "Before: {path}",
+  "mrPendingReviewNewPath": "After: {path}",
+  "mrPendingReviewOldLine": "Old line {line}",
+  "mrPendingReviewNewLine": "New line {line}",
+  "mrPendingReviewCommit": "Commit: {sha}",
+  "@mrPendingReviewTitle": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewPrivate": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewLoading": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewEmpty": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewError": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewRefresh": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewLoadMore": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewMore": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewCount": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@mrPendingReviewGeneralNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewReplyNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewCommitNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewTextNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewMultilineNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewImageNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewFileNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewPositionedNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewResolve": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewOldPath": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewNewPath": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewOldLine": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "line": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewNewLine": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "line": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewCommit": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "sha": {
+        "type": "String"
+      }
+    }
+  }
 }
