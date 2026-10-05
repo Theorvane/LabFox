@@ -122,6 +122,7 @@ class MrPendingReviewController
     _end();
     ref.onDispose(_end);
     final generation = _generation;
+    ref.watch(mrDraftNotesRevisionProvider(arg.mergeRequest));
     if (arg.mergeRequest.projectId < 1 ||
         arg.mergeRequest.iid < 1 ||
         arg.mergeRequestId < 1 ||
