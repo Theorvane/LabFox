@@ -4872,4 +4872,62 @@ class AppLocalizationsJa extends AppLocalizations {
   String mrPendingReviewCommit(String sha) {
     return 'コミット: $sha';
   }
+
+  @override
+  String get mrPendingComposeOpen => 'レビューノートを追加';
+
+  @override
+  String get mrPendingComposeTitle => '新しいレビューノート';
+
+  @override
+  String get mrPendingComposeLabel => 'レビューノート';
+
+  @override
+  String get mrPendingComposeHint => 'レビューを公開するまで、このノートは自分だけが閲覧できます。';
+
+  @override
+  String get mrPendingComposeSave => '未公開ノートを保存';
+
+  @override
+  String get mrPendingComposeSaved => 'ノートを未公開レビューに保存しました。';
+
+  @override
+  String get mrPendingComposeSaving => 'レビューノートを保存中…';
+
+  @override
+  String get mrPendingComposePrepare => 'レビューノートを準備中…';
+
+  @override
+  String get mrPendingComposePrepareError => 'レビューノートを利用できません。入力内容は保持されています。';
+
+  @override
+  String get mrPendingComposeSaveError => '保存を確認できませんでした。入力内容は保持されています。';
+
+  @override
+  String get mrPendingComposeUncertain =>
+      'ノートはすでに保存されている可能性があります。再保存する前に未公開レビューを確認してください。';
+
+  @override
+  String get mrPendingComposeInspect => '未公開レビューを確認';
+
+  @override
+  String get mrPendingComposeInspecting => 'すべての未公開レビューノートを確認中…';
+
+  @override
+  String get mrPendingComposeInspectError =>
+      '未公開レビューを確認できませんでした。入力内容は保持されています。';
+
+  @override
+  String get mrPendingComposeInspectionTitle => '現在の未公開レビュー';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      '現在保存されているノートです。同じ内容でも、どの保存リクエストで作成されたかは特定できません。';
+
+  @override
+  String get mrPendingComposeAcknowledge => 'これらのノートを確認し、別のノートを保存します。';
+
+  @override
+  String get mrPendingComposeChanged =>
+      'レビューのセッションが変更されました。この画面を閉じて、やり直してください。';
 }

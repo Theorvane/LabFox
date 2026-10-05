@@ -8851,6 +8851,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Commit: {sha}'**
   String mrPendingReviewCommit(String sha);
+
+  /// Private regular MR review composer open.
+  ///
+  /// In en, this message translates to:
+  /// **'Add review note'**
+  String get mrPendingComposeOpen;
+
+  /// Private regular MR review composer title.
+  ///
+  /// In en, this message translates to:
+  /// **'New review note'**
+  String get mrPendingComposeTitle;
+
+  /// Private regular MR review composer label.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note'**
+  String get mrPendingComposeLabel;
+
+  /// Private regular MR review composer hint.
+  ///
+  /// In en, this message translates to:
+  /// **'This note stays private until you publish your review.'**
+  String get mrPendingComposeHint;
+
+  /// Private regular MR review composer save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pending note'**
+  String get mrPendingComposeSave;
+
+  /// Private regular MR review composer saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note saved to your pending review.'**
+  String get mrPendingComposeSaved;
+
+  /// Private regular MR review composer saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving review note…'**
+  String get mrPendingComposeSaving;
+
+  /// Private regular MR review composer prepare.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing review notes…'**
+  String get mrPendingComposePrepare;
+
+  /// Private regular MR review composer prepareerror.
+  ///
+  /// In en, this message translates to:
+  /// **'Review notes are unavailable. Your text is still here.'**
+  String get mrPendingComposePrepareError;
+
+  /// Private regular MR review composer saveerror.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm this save. Your text is still here.'**
+  String get mrPendingComposeSaveError;
+
+  /// Private regular MR review composer uncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Your note may already be saved. Check your pending review before saving again.'**
+  String get mrPendingComposeUncertain;
+
+  /// Private regular MR review composer inspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check pending review'**
+  String get mrPendingComposeInspect;
+
+  /// Private regular MR review composer inspecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking all pending review notes…'**
+  String get mrPendingComposeInspecting;
+
+  /// Private regular MR review composer inspecterror.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t check your pending review. Your text is still here.'**
+  String get mrPendingComposeInspectError;
+
+  /// Private regular MR review composer inspectiontitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current pending review'**
+  String get mrPendingComposeInspectionTitle;
+
+  /// Private regular MR review composer inspectionhint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are your current saved notes. An identical note does not prove which save created it.'**
+  String get mrPendingComposeInspectionHint;
+
+  /// Private regular MR review composer acknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked these notes and want to save another note.'**
+  String get mrPendingComposeAcknowledge;
+
+  /// Private regular MR review composer changed.
+  ///
+  /// In en, this message translates to:
+  /// **'The review session changed. Close this dialog and start again.'**
+  String get mrPendingComposeChanged;
 }
 
 class _AppLocalizationsDelegate

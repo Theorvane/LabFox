@@ -5046,4 +5046,67 @@ class AppLocalizationsEn extends AppLocalizations {
   String mrPendingReviewCommit(String sha) {
     return 'Commit: $sha';
   }
+
+  @override
+  String get mrPendingComposeOpen => 'Add review note';
+
+  @override
+  String get mrPendingComposeTitle => 'New review note';
+
+  @override
+  String get mrPendingComposeLabel => 'Review note';
+
+  @override
+  String get mrPendingComposeHint =>
+      'This note stays private until you publish your review.';
+
+  @override
+  String get mrPendingComposeSave => 'Save pending note';
+
+  @override
+  String get mrPendingComposeSaved =>
+      'Review note saved to your pending review.';
+
+  @override
+  String get mrPendingComposeSaving => 'Saving review note…';
+
+  @override
+  String get mrPendingComposePrepare => 'Preparing review notes…';
+
+  @override
+  String get mrPendingComposePrepareError =>
+      'Review notes are unavailable. Your text is still here.';
+
+  @override
+  String get mrPendingComposeSaveError =>
+      'We couldn\'t confirm this save. Your text is still here.';
+
+  @override
+  String get mrPendingComposeUncertain =>
+      'Your note may already be saved. Check your pending review before saving again.';
+
+  @override
+  String get mrPendingComposeInspect => 'Check pending review';
+
+  @override
+  String get mrPendingComposeInspecting => 'Checking all pending review notes…';
+
+  @override
+  String get mrPendingComposeInspectError =>
+      'Couldn\'t check your pending review. Your text is still here.';
+
+  @override
+  String get mrPendingComposeInspectionTitle => 'Current pending review';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      'These are your current saved notes. An identical note does not prove which save created it.';
+
+  @override
+  String get mrPendingComposeAcknowledge =>
+      'I checked these notes and want to save another note.';
+
+  @override
+  String get mrPendingComposeChanged =>
+      'The review session changed. Close this dialog and start again.';
 }

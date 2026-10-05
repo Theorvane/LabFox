@@ -2835,5 +2835,77 @@
         "type": "String"
       }
     }
+  },
+  "mrPendingComposeOpen": "Add review note",
+  "@mrPendingComposeOpen": {
+    "description": "Private regular MR review composer open."
+  },
+  "mrPendingComposeTitle": "New review note",
+  "@mrPendingComposeTitle": {
+    "description": "Private regular MR review composer title."
+  },
+  "mrPendingComposeLabel": "Review note",
+  "@mrPendingComposeLabel": {
+    "description": "Private regular MR review composer label."
+  },
+  "mrPendingComposeHint": "This note stays private until you publish your review.",
+  "@mrPendingComposeHint": {
+    "description": "Private regular MR review composer hint."
+  },
+  "mrPendingComposeSave": "Save pending note",
+  "@mrPendingComposeSave": {
+    "description": "Private regular MR review composer save."
+  },
+  "mrPendingComposeSaved": "Review note saved to your pending review.",
+  "@mrPendingComposeSaved": {
+    "description": "Private regular MR review composer saved."
+  },
+  "mrPendingComposeSaving": "Saving review note…",
+  "@mrPendingComposeSaving": {
+    "description": "Private regular MR review composer saving."
+  },
+  "mrPendingComposePrepare": "Preparing review notes…",
+  "@mrPendingComposePrepare": {
+    "description": "Private regular MR review composer prepare."
+  },
+  "mrPendingComposePrepareError": "Review notes are unavailable. Your text is still here.",
+  "@mrPendingComposePrepareError": {
+    "description": "Private regular MR review composer prepareerror."
+  },
+  "mrPendingComposeSaveError": "We couldn't confirm this save. Your text is still here.",
+  "@mrPendingComposeSaveError": {
+    "description": "Private regular MR review composer saveerror."
+  },
+  "mrPendingComposeUncertain": "Your note may already be saved. Check your pending review before saving again.",
+  "@mrPendingComposeUncertain": {
+    "description": "Private regular MR review composer uncertain."
+  },
+  "mrPendingComposeInspect": "Check pending review",
+  "@mrPendingComposeInspect": {
+    "description": "Private regular MR review composer inspect."
+  },
+  "mrPendingComposeInspecting": "Checking all pending review notes…",
+  "@mrPendingComposeInspecting": {
+    "description": "Private regular MR review composer inspecting."
+  },
+  "mrPendingComposeInspectError": "Couldn't check your pending review. Your text is still here.",
+  "@mrPendingComposeInspectError": {
+    "description": "Private regular MR review composer inspecterror."
+  },
+  "mrPendingComposeInspectionTitle": "Current pending review",
+  "@mrPendingComposeInspectionTitle": {
+    "description": "Private regular MR review composer inspectiontitle."
+  },
+  "mrPendingComposeInspectionHint": "These are your current saved notes. An identical note does not prove which save created it.",
+  "@mrPendingComposeInspectionHint": {
+    "description": "Private regular MR review composer inspectionhint."
+  },
+  "mrPendingComposeAcknowledge": "I checked these notes and want to save another note.",
+  "@mrPendingComposeAcknowledge": {
+    "description": "Private regular MR review composer acknowledge."
+  },
+  "mrPendingComposeChanged": "The review session changed. Close this dialog and start again.",
+  "@mrPendingComposeChanged": {
+    "description": "Private regular MR review composer changed."
   }
 }

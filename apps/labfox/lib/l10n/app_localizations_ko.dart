@@ -4877,4 +4877,62 @@ class AppLocalizationsKo extends AppLocalizations {
   String mrPendingReviewCommit(String sha) {
     return '커밋: $sha';
   }
+
+  @override
+  String get mrPendingComposeOpen => '리뷰 노트 추가';
+
+  @override
+  String get mrPendingComposeTitle => '새 리뷰 노트';
+
+  @override
+  String get mrPendingComposeLabel => '리뷰 노트';
+
+  @override
+  String get mrPendingComposeHint => '리뷰를 게시하기 전까지 이 노트는 본인만 볼 수 있습니다.';
+
+  @override
+  String get mrPendingComposeSave => '미게시 노트 저장';
+
+  @override
+  String get mrPendingComposeSaved => '노트를 미게시 리뷰에 저장했습니다.';
+
+  @override
+  String get mrPendingComposeSaving => '리뷰 노트 저장 중…';
+
+  @override
+  String get mrPendingComposePrepare => '리뷰 노트 준비 중…';
+
+  @override
+  String get mrPendingComposePrepareError =>
+      '리뷰 노트를 사용할 수 없습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeSaveError => '저장을 확인하지 못했습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeUncertain =>
+      '노트가 이미 저장되었을 수 있습니다. 다시 저장하기 전에 미게시 리뷰를 확인하세요.';
+
+  @override
+  String get mrPendingComposeInspect => '미게시 리뷰 확인';
+
+  @override
+  String get mrPendingComposeInspecting => '모든 미게시 리뷰 노트 확인 중…';
+
+  @override
+  String get mrPendingComposeInspectError =>
+      '미게시 리뷰를 확인하지 못했습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeInspectionTitle => '현재 미게시 리뷰';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      '현재 저장된 노트입니다. 내용이 같아도 어느 저장 요청으로 생성되었는지는 알 수 없습니다.';
+
+  @override
+  String get mrPendingComposeAcknowledge => '이 노트들을 확인했으며 다른 노트를 저장하겠습니다.';
+
+  @override
+  String get mrPendingComposeChanged => '리뷰 세션이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
 }
