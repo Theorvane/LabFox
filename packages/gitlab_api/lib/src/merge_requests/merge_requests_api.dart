@@ -770,14 +770,51 @@ class MergeRequestsApi {
     }
   }
 
+  /// Publishes all saved notes owned by the authenticated user, once.
+  /// GitLab does not accept a conditional list of selected draft IDs here.
+  Future<void> publishDraftNotes(Object projectId, {required int iid}) async {
+    final path = '${_draftNotesPath(projectId, iid)}/bulk_publish';
+    try {
+      final response = await _dio.post<dynamic>(
+        path,
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'publishing a pending review',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'publishing a pending review',
+        );
+      }
+      throw mapError(error, context: 'publishing a pending review');
+    }
+  }
+
   static String _draftNotePath(Object projectId, int iid, int draftNoteId) {
+    final path = _draftNotesPath(projectId, iid);
+    if (draftNoteId < 1) throw ArgumentError.value(draftNoteId, 'draftNoteId');
+    return '$path/$draftNoteId';
+  }
+
+  static String _draftNotesPath(Object projectId, int iid) {
     if (!((projectId is int && projectId > 0) ||
         (projectId is String && projectId.trim().isNotEmpty))) {
       throw ArgumentError.value(projectId, 'projectId');
     }
     if (iid < 1) throw ArgumentError.value(iid, 'iid');
-    if (draftNoteId < 1) throw ArgumentError.value(draftNoteId, 'draftNoteId');
-    return '/projects/${_enc(projectId)}/merge_requests/$iid/draft_notes/$draftNoteId';
+    return '/projects/${_enc(projectId)}/merge_requests/$iid/draft_notes';
   }
 
   static GitLabException _draftMutationStatus(

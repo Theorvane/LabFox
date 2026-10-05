@@ -80,6 +80,19 @@ class MrDraftNotesRepository {
     );
   }
 
+  /// Publishes the captured account's entire pending review in one request.
+  /// The controller confirms a complete fresh snapshot before dispatch.
+  Future<void> publish({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+  }) async {
+    if (mergeRequestId < 1) {
+      throw ArgumentError.value(mergeRequestId, 'mergeRequestId');
+    }
+    await _client.mergeRequests.publishDraftNotes(projectId, iid: iid);
+  }
+
   /// Only regular drafts and complete original text anchors can be edited.
   static bool canUpdate(MergeRequestDraftNote draft) {
     try {

@@ -4982,4 +4982,44 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrPendingDeleting => 'レビューノートを削除中…';
+
+  @override
+  String get mrPendingPublishOpen => '保留中のレビューを公開';
+
+  @override
+  String get mrPendingPublishTitle => '保留中のレビューを公開';
+
+  @override
+  String get mrPendingPublishHint =>
+      'このマージリクエストに保存した自分のメモがすべて公開されます。公開してもマージリクエストは承認またはマージされません。';
+
+  @override
+  String get mrPendingPublishRaceHint => '公開前に別のクライアントで保存したメモも含まれる場合があります。';
+
+  @override
+  String get mrPendingPublishConsent => 'すべてのメモを確認し、保留中の自分のレビュー全体を公開します。';
+
+  @override
+  String get mrPendingPublishButton => 'すべてのメモを公開';
+
+  @override
+  String get mrPendingPublished => '保留中のレビューを公開しました';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      'レビューが変更されたか、公開結果を確認できませんでした。再試行するか決める前に、保存済みメモと公開ディスカッションを確認してください。';
+
+  @override
+  String get mrPendingPublishInspect => 'メモとディスカッションを確認';
+
+  @override
+  String get mrPendingPublishPublicTitle => '現在の公開ディスカッション';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      '現在の保存済みメモと公開ディスカッションです。内容や不在だけでは以前の試行の成功を判断できません。再度公開する前に両方の一覧を確認してください。';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      '非公開メモを変更する前に「保留中のレビューを公開」を開き、保存済みメモと公開ディスカッションの両方を確認してください。';
 }

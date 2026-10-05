@@ -431,6 +431,10 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                             : l.mrPendingEditHint)
                       : l.mrPendingComposeHint,
                 ),
+                if (controller?.pendingPublicationNeedsInspection ?? false) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(l.mrPendingPublishRecoveryRequired),
+                ],
                 if (_maintenance && _target != null) ...[
                   const SizedBox(height: LabFoxSpacing.sm),
                   MrPendingReviewNote(draft: _target!),

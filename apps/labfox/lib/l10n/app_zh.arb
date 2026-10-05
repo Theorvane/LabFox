@@ -1414,5 +1414,17 @@
   "mrPendingMaintenanceInspectionHint": "以下是当前可读取的全部已保存笔记。再次更改前，请检查上方选中的笔记。",
   "mrPendingMaintenanceAcknowledge": "我已检查当前选中的笔记，并确认应用此更改。",
   "mrPendingTargetMissing": "选中的笔记已不可用。请关闭此对话框并刷新待发布的审查。",
-  "mrPendingDeleting": "正在删除审查笔记…"
+  "mrPendingDeleting": "正在删除审查笔记…",
+  "mrPendingPublishOpen": "发布待处理评审",
+  "mrPendingPublishTitle": "发布待处理评审",
+  "mrPendingPublishHint": "你在此合并请求中保存的所有备注都将对他人可见。发布不会批准或合并该合并请求。",
+  "mrPendingPublishRaceHint": "发布前从其他客户端保存的备注也可能包含在内。",
+  "mrPendingPublishConsent": "我已检查所有备注，并希望发布我的整个待处理评审。",
+  "mrPendingPublishButton": "发布所有备注",
+  "mrPendingPublished": "待处理评审已发布",
+  "mrPendingPublishUncertain": "评审已更改或无法确认发布结果。决定是否重试之前，请检查已保存的备注和公开讨论。",
+  "mrPendingPublishInspect": "检查备注和讨论",
+  "mrPendingPublishPublicTitle": "当前公开讨论",
+  "mrPendingPublishRecoveryHint": "这些是当前保存的备注和公开讨论。其内容或缺失不能证明之前哪次尝试成功。再次发布前请检查两个列表。",
+  "mrPendingPublishRecoveryRequired": "更改私密备注之前，请打开“发布待处理评审”，检查已保存的备注和公开讨论。"
 }

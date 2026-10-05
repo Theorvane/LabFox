@@ -2971,5 +2971,17 @@
   "mrPendingDeleting": "Deleting review note…",
   "@mrPendingDeleting": {
     "description": "Progress while deleting one private pending review note."
-  }
+  },
+  "mrPendingPublishOpen": "Publish pending review",
+  "mrPendingPublishTitle": "Publish pending review",
+  "mrPendingPublishHint": "All your saved notes on this merge request will become visible to others. Publishing does not approve or merge the merge request.",
+  "mrPendingPublishRaceHint": "Notes saved from another client before publication may also be included.",
+  "mrPendingPublishConsent": "I have checked all the notes and want to publish my entire pending review.",
+  "mrPendingPublishButton": "Publish all notes",
+  "mrPendingPublished": "Pending review published",
+  "mrPendingPublishUncertain": "The review changed or publication could not be confirmed. Check saved notes and public discussions before deciding whether to try again.",
+  "mrPendingPublishInspect": "Check notes and discussions",
+  "mrPendingPublishPublicTitle": "Current public discussions",
+  "mrPendingPublishRecoveryHint": "These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.",
+  "mrPendingPublishRecoveryRequired": "Open Publish pending review to check both saved notes and public discussions before changing private notes."
 }
