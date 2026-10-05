@@ -102,3 +102,7 @@ response contract; no upstream implementation was copied.
 existing discussion reservation, fresh authenticated detail/global identity and
 explicit complete private-note inspection after uncertain outcomes. The panel
 remains read-only; a composer and positioned-save orchestration remain separate.
+
+The subsequent [private draft maintenance foundation](mr-draft-note-maintenance.md)
+adds guarded update/delete API and repository methods; editing/deletion controller
+and UI orchestration remain separate.
