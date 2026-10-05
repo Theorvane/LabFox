@@ -4950,4 +4950,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mrDiffSelectedLineLabel => 'Selected discussion line';
+
+  @override
+  String get mrPendingReviewTitle => 'Your pending review';
+
+  @override
+  String get mrPendingReviewPrivate =>
+      'Only you can see these notes until you publish them.';
+
+  @override
+  String get mrPendingReviewLoading => 'Loading pending review notes…';
+
+  @override
+  String get mrPendingReviewEmpty => 'You have no pending review notes.';
+
+  @override
+  String get mrPendingReviewError =>
+      'Could not load pending review notes. Retry to reload the list.';
+
+  @override
+  String get mrPendingReviewRefresh => 'Refresh pending review notes';
+
+  @override
+  String get mrPendingReviewLoadMore => 'Load more notes';
+
+  @override
+  String get mrPendingReviewMore =>
+      'More notes are available. Load the next page to continue.';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString notes loaded',
+      one: '1 note loaded',
+      zero: 'No notes loaded',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => 'General note';
+
+  @override
+  String get mrPendingReviewReplyNote => 'Discussion reply';
+
+  @override
+  String get mrPendingReviewCommitNote => 'Commit note';
+
+  @override
+  String get mrPendingReviewTextNote => 'Diff note';
+
+  @override
+  String get mrPendingReviewMultilineNote => 'Multiline diff note';
+
+  @override
+  String get mrPendingReviewImageNote => 'Image note';
+
+  @override
+  String get mrPendingReviewFileNote => 'File note';
+
+  @override
+  String get mrPendingReviewPositionedNote => 'Positioned note';
+
+  @override
+  String get mrPendingReviewResolve =>
+      'Will resolve the discussion when published';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return 'Before: $path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return 'After: $path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return 'Old line $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return 'New line $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return 'Commit: $sha';
+  }
 }

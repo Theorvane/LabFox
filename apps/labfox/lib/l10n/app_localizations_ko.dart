@@ -4791,4 +4791,90 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrDiffSelectedLineLabel => '선택한 토론 줄';
+
+  @override
+  String get mrPendingReviewTitle => '내 미게시 리뷰';
+
+  @override
+  String get mrPendingReviewPrivate => '이 노트는 게시하기 전까지 나만 볼 수 있습니다.';
+
+  @override
+  String get mrPendingReviewLoading => '미게시 리뷰 노트 불러오는 중…';
+
+  @override
+  String get mrPendingReviewEmpty => '미게시 리뷰 노트가 없습니다.';
+
+  @override
+  String get mrPendingReviewError =>
+      '미게시 리뷰 노트를 불러오지 못했습니다. 다시 시도하여 목록을 새로 불러오세요.';
+
+  @override
+  String get mrPendingReviewRefresh => '미게시 리뷰 노트 새로고침';
+
+  @override
+  String get mrPendingReviewLoadMore => '노트 더 불러오기';
+
+  @override
+  String get mrPendingReviewMore => '노트가 더 있습니다. 다음 페이지를 불러와 계속 확인하세요.';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '노트 $countString개 불러옴';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => '일반 노트';
+
+  @override
+  String get mrPendingReviewReplyNote => '토론 답글';
+
+  @override
+  String get mrPendingReviewCommitNote => '커밋 노트';
+
+  @override
+  String get mrPendingReviewTextNote => 'diff 노트';
+
+  @override
+  String get mrPendingReviewMultilineNote => '여러 줄 diff 노트';
+
+  @override
+  String get mrPendingReviewImageNote => '이미지 노트';
+
+  @override
+  String get mrPendingReviewFileNote => '파일 노트';
+
+  @override
+  String get mrPendingReviewPositionedNote => '위치가 지정된 노트';
+
+  @override
+  String get mrPendingReviewResolve => '게시하면 토론이 해결됨';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return '변경 전: $path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return '변경 후: $path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return '이전 줄 $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return '새 줄 $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return '커밋: $sha';
+  }
 }

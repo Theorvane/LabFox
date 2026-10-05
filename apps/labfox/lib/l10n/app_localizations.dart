@@ -8713,6 +8713,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Selected discussion line'**
   String get mrDiffSelectedLineLabel;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pending review'**
+  String get mrPendingReviewTitle;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Only you can see these notes until you publish them.'**
+  String get mrPendingReviewPrivate;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading pending review notes…'**
+  String get mrPendingReviewLoading;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no pending review notes.'**
+  String get mrPendingReviewEmpty;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load pending review notes. Retry to reload the list.'**
+  String get mrPendingReviewError;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh pending review notes'**
+  String get mrPendingReviewRefresh;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more notes'**
+  String get mrPendingReviewLoadMore;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'More notes are available. Load the next page to continue.'**
+  String get mrPendingReviewMore;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No notes loaded} =1{1 note loaded} other{{count} notes loaded}}'**
+  String mrPendingReviewCount(int count);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'General note'**
+  String get mrPendingReviewGeneralNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion reply'**
+  String get mrPendingReviewReplyNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit note'**
+  String get mrPendingReviewCommitNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Diff note'**
+  String get mrPendingReviewTextNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiline diff note'**
+  String get mrPendingReviewMultilineNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Image note'**
+  String get mrPendingReviewImageNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'File note'**
+  String get mrPendingReviewFileNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Positioned note'**
+  String get mrPendingReviewPositionedNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Will resolve the discussion when published'**
+  String get mrPendingReviewResolve;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Before: {path}'**
+  String mrPendingReviewOldPath(String path);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'After: {path}'**
+  String mrPendingReviewNewPath(String path);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Old line {line}'**
+  String mrPendingReviewOldLine(String line);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'New line {line}'**
+  String mrPendingReviewNewLine(String line);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit: {sha}'**
+  String mrPendingReviewCommit(String sha);
 }
 
 class _AppLocalizationsDelegate

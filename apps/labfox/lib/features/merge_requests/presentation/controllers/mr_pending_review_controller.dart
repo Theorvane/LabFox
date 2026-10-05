@@ -13,21 +13,27 @@ class MrPendingReviewQuery {
     required this.mergeRequest,
     required this.mergeRequestId,
     this.perPage = 20,
+    this.requireCurrentDetail = false,
   });
 
   final MergeRequestRef mergeRequest;
   final int mergeRequestId;
   final int perPage;
 
+  /// UI consumers recheck authoritative detail before every draft read.
+  final bool requireCurrentDetail;
+
   @override
   bool operator ==(Object other) =>
       other is MrPendingReviewQuery &&
       other.mergeRequest == mergeRequest &&
       other.mergeRequestId == mergeRequestId &&
-      other.perPage == perPage;
+      other.perPage == perPage &&
+      other.requireCurrentDetail == requireCurrentDetail;
 
   @override
-  int get hashCode => Object.hash(mergeRequest, mergeRequestId, perPage);
+  int get hashCode =>
+      Object.hash(mergeRequest, mergeRequestId, perPage, requireCurrentDetail);
 }
 
 /// Loaded private rows are a partial list until the server cursor ends.
@@ -83,11 +89,33 @@ class MrPendingReviewController
   ) {
     if (generation != _generation) return false;
     if (ref.read(currentAccountProvider) != account) return false;
+    if (arg.requireCurrentDetail) {
+      final detail = ref
+          .read(mergeRequestControllerProvider(arg.mergeRequest))
+          .unwrapPrevious();
+      final source = ref.read(mergeRequestsRepositoryProvider);
+      if (detail.isLoading ||
+          detail.hasError ||
+          !detail.hasValue ||
+          source.isLoading ||
+          source.hasError ||
+          source.valueOrNull == null ||
+          !_matchesDetail(detail.value!)) {
+        return false;
+      }
+    }
     final session = ref.read(mrDraftNotesRepositoryProvider);
     return !session.isLoading &&
         !session.hasError &&
         identical(session.valueOrNull, repository);
   }
+
+  bool _matchesDetail(MergeRequest detail) =>
+      detail.id == arg.mergeRequestId &&
+      detail.id > 0 &&
+      detail.iid == arg.mergeRequest.iid &&
+      (detail.projectId == null ||
+          detail.projectId == arg.mergeRequest.projectId);
 
   @override
   Future<MrPendingReviewDrafts> build(MrPendingReviewQuery arg) async {
@@ -104,6 +132,25 @@ class MrPendingReviewController
     final account = ref.watch(currentAccountProvider);
     if (account == null) {
       throw const GitLabAuthException('No authenticated draft note session.');
+    }
+    if (arg.requireCurrentDetail) {
+      final source = ref.watch(mergeRequestsRepositoryProvider.future);
+      final fresh = await ref.watch(
+        mergeRequestControllerProvider(arg.mergeRequest).future,
+      );
+      final detailRepository = await source;
+      if (generation != _generation) {
+        return MrPendingReviewDrafts._(
+          items: [],
+          account: null,
+          repository: null,
+        );
+      }
+      if (detailRepository == null || !_matchesDetail(fresh)) {
+        throw const GitLabServerException(
+          'Invalid pending review detail identity.',
+        );
+      }
     }
     final repositorySession = ref.watch(mrDraftNotesRepositoryProvider.future);
     final repository = await repositorySession;
