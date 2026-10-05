@@ -5028,4 +5028,14 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get mrPendingPublishRecoveryRequired =>
       '비공개 메모를 변경하기 전에 대기 중인 리뷰 게시를 열어 저장된 메모와 공개 토론을 모두 확인하세요.';
+
+  @override
+  String get mrPendingInlineOpen => '비공개 인라인 메모 저장';
+
+  @override
+  String get mrPendingInlineTitle => '비공개 인라인 리뷰 메모';
+
+  @override
+  String get mrPendingInlineHint =>
+      '선택한 줄이나 범위에 비공개 메모를 저장합니다. 대기 중인 리뷰를 게시하기 전까지는 본인만 볼 수 있습니다. 저장 전에 최신 diff를 다시 확인합니다.';
 }

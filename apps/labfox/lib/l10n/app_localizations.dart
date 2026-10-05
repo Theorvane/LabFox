@@ -9127,6 +9127,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open Publish pending review to check both saved notes and public discussions before changing private notes.'**
   String get mrPendingPublishRecoveryRequired;
+
+  /// No description provided for @mrPendingInlineOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Save private inline note'**
+  String get mrPendingInlineOpen;
+
+  /// No description provided for @mrPendingInlineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private inline review note'**
+  String get mrPendingInlineTitle;
+
+  /// No description provided for @mrPendingInlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.'**
+  String get mrPendingInlineHint;
 }
 
 class _AppLocalizationsDelegate

@@ -5203,4 +5203,14 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrPendingPublishRecoveryRequired =>
       'निजी नोट बदलने से पहले लंबित समीक्षा प्रकाशित करें खोलकर सहेजे गए नोट और सार्वजनिक चर्चाएँ दोनों जाँचें।';
+
+  @override
+  String get mrPendingInlineOpen => 'निजी इनलाइन नोट सहेजें';
+
+  @override
+  String get mrPendingInlineTitle => 'निजी इनलाइन समीक्षा नोट';
+
+  @override
+  String get mrPendingInlineHint =>
+      'चुनी गई पंक्ति या सीमा पर निजी नोट सहेजें। लंबित समीक्षा प्रकाशित करने तक इसे केवल आप देख सकते हैं। सहेजने से पहले नवीनतम अंतर फिर जाँचा जाता है।';
 }

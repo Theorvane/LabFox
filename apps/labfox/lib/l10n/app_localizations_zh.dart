@@ -4865,4 +4865,14 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get mrPendingPublishRecoveryRequired =>
       '更改私密备注之前，请打开“发布待处理评审”，检查已保存的备注和公开讨论。';
+
+  @override
+  String get mrPendingInlineOpen => '保存私密行内备注';
+
+  @override
+  String get mrPendingInlineTitle => '私密行内审查备注';
+
+  @override
+  String get mrPendingInlineHint =>
+      '在所选行或范围上保存私密备注。发布待处理审查前，只有您可以查看。保存前会再次检查最新差异。';
 }

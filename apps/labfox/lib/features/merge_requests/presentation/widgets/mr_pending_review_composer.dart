@@ -1,16 +1,21 @@
 import 'dart:async';
+
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_models/gitlab_models.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/auth/gitlab_client_provider.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../../diff/presentation/controllers/diff_controllers.dart';
 import '../../data/mr_draft_notes_repository.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import '../controllers/mr_draft_notes_provider.dart';
+import '../controllers/mr_review_snapshot_controller.dart';
 import 'mr_pending_review_note.dart';
 
 /// The originating view stays mounted during the controller's own detail refresh.
@@ -147,6 +152,34 @@ Future<bool?> showMrPendingReviewMaintenanceDialog({
   ),
 );
 
+/// Keeps private input separate from the public inline composer.
+Future<bool?> showMrPendingReviewPositionDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object diffSession,
+  required Object clientSession,
+  required MrReviewSelection selection,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    diffSession: diffSession,
+    clientSession: clientSession,
+    selection: selection,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
 class _ComposeDialog extends ConsumerStatefulWidget {
   const _ComposeDialog({
     required this.resource,
@@ -155,6 +188,9 @@ class _ComposeDialog extends ConsumerStatefulWidget {
     required this.detailSession,
     required this.viewActive,
     required this.isCurrent,
+    this.selection,
+    this.diffSession,
+    this.clientSession,
     this.draft,
     this.deleting = false,
   });
@@ -164,6 +200,8 @@ class _ComposeDialog extends ConsumerStatefulWidget {
   final Object detailSession;
   final ValueNotifier<bool> viewActive;
   final bool Function() isCurrent;
+  final MrReviewSelection? selection;
+  final Object? diffSession, clientSession;
   final MergeRequestDraftNote? draft;
   final bool deleting;
   @override
@@ -197,11 +235,32 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
     super.dispose();
   }
 
+  bool _selectionCurrent() {
+    final selection = widget.selection;
+    if (selection == null) return true;
+    final snapshot = ref.read(
+      mrReviewSnapshotControllerProvider(widget.resource),
+    );
+    return identical(
+          ref.read(diffRepositoryProvider).unwrapPrevious().valueOrNull,
+          widget.diffSession,
+        ) &&
+        identical(
+          ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+          widget.clientSession,
+        ) &&
+        (snapshot.isLoading ||
+            snapshot.hasError ||
+            !snapshot.hasValue ||
+            selection.matches(snapshot.value!));
+  }
+
   bool _current() =>
       mounted &&
       !_obsolete &&
       widget.viewActive.value &&
       widget.isCurrent() &&
+      _selectionCurrent() &&
       ref.read(currentAccountProvider) == widget.account &&
       identical(
         ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious().valueOrNull,
@@ -272,7 +331,11 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                     _text.text,
                     isCurrent: _current,
                   )
-          : await controller.savePendingNote(_text.text, isCurrent: _current);
+          : await controller.savePendingNote(
+              _text.text,
+              position: widget.selection?.position,
+              isCurrent: _current,
+            );
       if (!mounted || !_current()) return;
       if (saved != null) {
         Navigator.of(context).pop(true);
@@ -337,6 +400,9 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         (comments.hasError || comments.valueOrNull == null)) {
       ref.invalidate(commentsRepositoryProvider);
     }
+    if (widget.selection != null) {
+      ref.invalidate(mrReviewSnapshotControllerProvider(widget.resource));
+    }
     ref.invalidate(mrDiscussionsControllerProvider(widget.resource));
     ref.invalidate(mergeRequestControllerProvider(widget.resource));
   }
@@ -347,6 +413,21 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
     ref.watch(currentAccountProvider);
     ref.watch(mrDraftNotesRepositoryProvider);
     ref.watch(mergeRequestsRepositoryProvider);
+    final review = widget.selection == null
+        ? null
+        : ref
+              .watch(mrReviewSnapshotControllerProvider(widget.resource))
+              .unwrapPrevious();
+    if (widget.selection != null) {
+      ref.watch(diffRepositoryProvider);
+      ref.watch(gitLabClientProvider);
+      ref.listen(diffRepositoryProvider, (_, _) => _observe());
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+      ref.listen(
+        mrReviewSnapshotControllerProvider(widget.resource),
+        (_, _) => _observe(),
+      );
+    }
     final comments = ref.watch(commentsRepositoryProvider).unwrapPrevious();
     ref.listen(currentAccountProvider, (_, _) => _observe());
     ref.listen(mrDraftNotesRepositoryProvider, (_, _) => _observe());
@@ -378,10 +459,18 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
     final mr = detail?.valueOrNull;
     final preparing =
         current &&
-        (comments.isLoading || discussions!.isLoading || detail!.isLoading);
+        (comments.isLoading ||
+            discussions!.isLoading ||
+            detail!.isLoading ||
+            review?.isLoading == true);
     final ready =
         current &&
         !preparing &&
+        (widget.selection == null ||
+            (review != null &&
+                !review.hasError &&
+                review.hasValue &&
+                widget.selection!.matches(review.value!))) &&
         !comments.hasError &&
         comments.valueOrNull != null &&
         !discussions!.hasError &&
@@ -414,6 +503,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
               ? (widget.deleting
                     ? l.mrPendingDeleteTitle
                     : l.mrPendingEditTitle)
+              : widget.selection != null
+              ? l.mrPendingInlineTitle
               : l.mrPendingComposeTitle,
         ),
         content: SizedBox(
@@ -429,8 +520,51 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                       ? (widget.deleting
                             ? l.mrPendingDeleteHint
                             : l.mrPendingEditHint)
+                      : widget.selection != null
+                      ? l.mrPendingInlineHint
                       : l.mrPendingComposeHint,
                 ),
+                if (widget.selection case final selection?) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(
+                    l.mrReviewVersionTitle(
+                      NumberFormat.decimalPattern(
+                        l.localeName,
+                      ).format(selection.versionId),
+                    ),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewOldPath(selection.position.oldPath!),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewNewPath(selection.position.newPath!),
+                  ),
+                  if (selection.position.lineRange case final range?)
+                    Text(
+                      l.mrDiscussionContextRangeLabel(
+                        _rangeLabel(range.start!, l.localeName),
+                        _rangeLabel(range.end!, l.localeName),
+                      ),
+                    )
+                  else ...[
+                    if (selection.position.oldLine case final line?)
+                      Text(
+                        l.mrPendingReviewOldLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                    if (selection.position.newLine case final line?)
+                      Text(
+                        l.mrPendingReviewNewLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                  ],
+                ],
                 if (controller?.pendingPublicationNeedsInspection ?? false) ...[
                   const SizedBox(height: LabFoxSpacing.sm),
                   Text(l.mrPendingPublishRecoveryRequired),
@@ -605,4 +739,12 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
       ),
     );
   }
+}
+
+String _rangeLabel(DiffNoteRangeEndpoint endpoint, String locale) {
+  final old = endpoint.type == 'old';
+  return (old ? '-' : '+') +
+      NumberFormat.decimalPattern(
+        locale,
+      ).format(old ? endpoint.oldLine : endpoint.newLine);
 }

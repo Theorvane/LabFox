@@ -1426,5 +1426,8 @@
   "mrPendingPublishInspect": "检查备注和讨论",
   "mrPendingPublishPublicTitle": "当前公开讨论",
   "mrPendingPublishRecoveryHint": "这些是当前保存的备注和公开讨论。其内容或缺失不能证明之前哪次尝试成功。再次发布前请检查两个列表。",
-  "mrPendingPublishRecoveryRequired": "更改私密备注之前，请打开“发布待处理评审”，检查已保存的备注和公开讨论。"
+  "mrPendingPublishRecoveryRequired": "更改私密备注之前，请打开“发布待处理评审”，检查已保存的备注和公开讨论。",
+  "mrPendingInlineOpen": "保存私密行内备注",
+  "mrPendingInlineTitle": "私密行内审查备注",
+  "mrPendingInlineHint": "在所选行或范围上保存私密备注。发布待处理审查前，只有您可以查看。保存前会再次检查最新差异。"
 }
