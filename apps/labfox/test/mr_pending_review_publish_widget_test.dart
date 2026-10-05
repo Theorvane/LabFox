@@ -29,6 +29,8 @@ class Drafts extends b.Drafts {
     required int projectId,
     required int iid,
     required int mergeRequestId,
+    String? summaryNote,
+    ReviewerSubmissionState? reviewerState,
   }) async {
     expect((projectId, iid, mergeRequestId), (8, 142, 1100));
     publications++;
@@ -219,7 +221,7 @@ void main() {
     await open(t);
     expect(find.text('Second private note'), findsOneWidget);
     expect(find.text(l.mrPendingPublishHint), findsOneWidget);
-    expect(find.byType(TextField), findsNothing);
+    expect(find.byKey(const ValueKey('mr-review-summary')), findsOneWidget);
     expect(b.enabled(t, publishKey), false);
     expect(f.private.publications, 0);
     await b.tap(t, ackKey);

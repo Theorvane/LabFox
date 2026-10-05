@@ -5052,4 +5052,64 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrPendingNotePublished => 'レビューの下書きを公開しました。';
+
+  @override
+  String get mrReviewSummaryLabel => '公開レビューの概要（任意）';
+
+  @override
+  String get mrReviewOutcomeLabel => 'レビュー結果';
+
+  @override
+  String get mrReviewKeepState => '現在の状態を維持';
+
+  @override
+  String get mrReviewReviewed => 'レビュー済み';
+
+  @override
+  String get mrReviewRequestChanges => '変更を要求';
+
+  @override
+  String get mrReviewCurrentState => '現在のレビュー状態';
+
+  @override
+  String get mrReviewUnassigned => 'レビュアー未割り当て';
+
+  @override
+  String get mrReviewUnreviewed => '未レビュー';
+
+  @override
+  String get mrReviewStarted => 'レビュー開始済み';
+
+  @override
+  String get mrReviewApproved => '正式に承認済み';
+
+  @override
+  String get mrReviewUnknownState => '未対応のレビュー状態';
+
+  @override
+  String get mrReviewStateUnavailable => 'レビュー状態を取得できません。ノートと公開概要は投稿できます。';
+
+  @override
+  String get mrReviewReviewedHint =>
+      'レビュー済みはマージリクエストの承認ではありません。以前の変更要求が解除される場合があります。';
+
+  @override
+  String get mrReviewChangesHint => '変更要求によりマージがブロックされ、既存の承認が取り消される場合があります。';
+
+  @override
+  String get mrReviewPartialHint =>
+      'ノート、概要、レビュー状態が個別に反映された可能性があります。再送信の前にすべて確認してください。';
+
+  @override
+  String get mrReviewSubmissionConsent =>
+      '表示された保留ノートと公開概要を投稿し、選択したレビュー結果を適用します。';
+
+  @override
+  String get mrReviewUnapproved => '承認取り消し済み';
+
+  @override
+  String get mrReviewSubmitButton => 'レビューを送信';
+
+  @override
+  String get mrReviewInspectButton => 'レビューを確認';
 }

@@ -4894,4 +4894,61 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrPendingNotePublished => '评审草稿已发布。';
+
+  @override
+  String get mrReviewSummaryLabel => '公开评审摘要（可选）';
+
+  @override
+  String get mrReviewOutcomeLabel => '评审结果';
+
+  @override
+  String get mrReviewKeepState => '保持当前状态';
+
+  @override
+  String get mrReviewReviewed => '已评审';
+
+  @override
+  String get mrReviewRequestChanges => '请求更改';
+
+  @override
+  String get mrReviewCurrentState => '您当前的评审状态';
+
+  @override
+  String get mrReviewUnassigned => '未被指派为评审者';
+
+  @override
+  String get mrReviewUnreviewed => '尚未评审';
+
+  @override
+  String get mrReviewStarted => '已开始评审';
+
+  @override
+  String get mrReviewApproved => '已正式批准';
+
+  @override
+  String get mrReviewUnknownState => '无法识别的评审状态';
+
+  @override
+  String get mrReviewStateUnavailable => '无法读取评审状态。您仍可发布备注和公开摘要。';
+
+  @override
+  String get mrReviewReviewedHint => '已评审不会批准此合并请求，但可能清除您之前的更改请求。';
+
+  @override
+  String get mrReviewChangesHint => '请求更改可能阻止合并并撤销您已有的批准。';
+
+  @override
+  String get mrReviewPartialHint => '备注、摘要和评审状态可能已分别应用。决定是否再次提交前，请检查这三项。';
+
+  @override
+  String get mrReviewSubmissionConsent => '发布显示的待发备注和公开摘要，并应用所选的评审结果。';
+
+  @override
+  String get mrReviewUnapproved => '批准已撤回';
+
+  @override
+  String get mrReviewSubmitButton => '提交评审';
+
+  @override
+  String get mrReviewInspectButton => '检查评审';
 }

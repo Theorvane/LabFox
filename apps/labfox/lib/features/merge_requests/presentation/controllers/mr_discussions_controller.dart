@@ -293,6 +293,7 @@ class MrDiscussionsController
   Account? _pendingAccount;
   bool _pendingNeedsInspection = false;
   bool _pendingPublicationNeedsInspection = false;
+  bool _pendingReviewerStateNeedsInspection = false;
   Future<void>? _pendingWriteSettled;
 
   void _syncPendingSession() {
@@ -302,6 +303,7 @@ class MrDiscussionsController
     if (account != _pendingAccount) {
       _pendingNeedsInspection = false;
       _pendingPublicationNeedsInspection = false;
+      _pendingReviewerStateNeedsInspection = false;
       _pendingWriteSettled = null;
       _pendingAccount = account;
     }
@@ -323,7 +325,11 @@ class MrDiscussionsController
     MergeRequest detail,
     List<MergeRequestDraftNote> items, {
     int? draftNoteId,
+    bool reviewerStateAvailable = false,
+    MergeRequestReviewer? reviewer,
   }) => MrPendingReviewPublication._(
+    reviewerStateAvailable: reviewerStateAvailable,
+    reviewer: reviewer,
     items: items,
     draftNoteId: draftNoteId,
     account: ref.read(currentAccountProvider)!,
@@ -352,15 +358,69 @@ class MrDiscussionsController
         ref.read(commentsRepositoryProvider).valueOrNull,
       );
 
+  Future<MergeRequestReviewer?> _readCurrentReviewer(
+    MrDraftNotesRepository repository,
+    bool Function() current,
+    _PendingReviewWait wait,
+  ) async {
+    final ids = <int>{};
+    MergeRequestReviewer? own;
+    int? page = 1;
+    while (page != null) {
+      if (!current()) throw const _PendingReviewCancelled();
+      final result = await wait(
+        repository.reviewers(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          page: page,
+        ),
+      );
+      if (!current()) throw const _PendingReviewCancelled();
+      if (result.nextPage != null && result.nextPage! <= page) {
+        throw const GitLabServerException('Invalid reviewers pagination.');
+      }
+      for (final reviewer in result.items) {
+        if (reviewer.user.id < 1 ||
+            reviewer.state.trim().isEmpty ||
+            !ids.add(reviewer.user.id)) {
+          throw const GitLabServerException('Invalid reviewers identity.');
+        }
+        if (reviewer.user.id == repository.authorId) own = reviewer;
+      }
+      page = result.nextPage;
+    }
+    await wait(Future<void>.value());
+    if (!current()) throw const _PendingReviewCancelled();
+    return own;
+  }
+
   /// Preparation reads every private page and never clears uncertainty.
   Future<MrPendingReviewPublication?> preparePendingReviewPublication({
+    bool includeReviewerState = false,
     bool Function()? isCurrent,
   }) {
     if (pendingSaveNeedsInspection) return Future.value(null);
     return _pendingReview((repository, detail, current, wait) async {
       final items = await _readPendingNotes(repository, detail, current, wait);
+      MergeRequestReviewer? reviewer;
+      var available = false;
+      if (includeReviewerState) {
+        try {
+          reviewer = await _readCurrentReviewer(repository, current, wait);
+          available = true;
+        } on GitLabException {
+          // Older or restricted instances can still publish notes and a summary.
+        }
+      }
+      await wait(Future<void>.value());
       if (!current()) throw const _PendingReviewCancelled();
-      return _publicationSnapshot(repository, detail, items);
+      return _publicationSnapshot(
+        repository,
+        detail,
+        items,
+        reviewerStateAvailable: available,
+        reviewer: reviewer,
+      );
     }, isCurrent: isCurrent);
   }
 
@@ -443,11 +503,17 @@ class MrDiscussionsController
   /// This is a preflight comparison, not a conditional server-side transaction.
   Future<bool> publishPendingReview(
     MrPendingReviewPublication snapshot, {
+    String? summaryNote,
+    ReviewerSubmissionState? reviewerState,
     bool Function()? isCurrent,
   }) async {
+    if (summaryNote != null && summaryNote.trim().isEmpty) return false;
     if (pendingSaveNeedsInspection ||
         snapshot._draftNoteId != null ||
-        snapshot.items.isEmpty ||
+        (snapshot.items.isEmpty &&
+            summaryNote == null &&
+            reviewerState == null) ||
+        (reviewerState != null && !snapshot.reviewerStateAvailable) ||
         !_currentPublication(snapshot)) {
       return false;
     }
@@ -468,22 +534,53 @@ class MrDiscussionsController
               'The pending review changed. Inspect it before publishing.',
             );
           }
+          if (reviewerState != null) {
+            final reviewer = await _readCurrentReviewer(
+              repository,
+              current,
+              wait,
+            );
+            if (reviewer != snapshot.reviewer ||
+                (reviewerState == ReviewerSubmissionState.reviewed &&
+                    reviewer?.state == 'approved')) {
+              throw const GitLabConflictException(
+                'The reviewer state changed or cannot be replaced. Inspect before submitting.',
+              );
+            }
+          }
           await wait(Future<void>.value());
           if (!current()) throw const _PendingReviewCancelled();
           _pendingPublicationNeedsInspection = true;
           _pendingNeedsInspection = true;
+          _pendingReviewerStateNeedsInspection = reviewerState != null;
           final write = repository.publish(
             projectId: arg.projectId,
             iid: arg.iid,
             mergeRequestId: detail.id,
+            summaryNote: summaryNote,
+            reviewerState: reviewerState,
           );
           _pendingWriteSettled = write.then<void>(
             (_) {},
             onError: (Object _, StackTrace _) {},
           );
           await wait(write);
+          if (reviewerState != null) {
+            final reviewer = await _readCurrentReviewer(
+              repository,
+              current,
+              wait,
+            );
+            if (reviewer?.state != reviewerState.value) {
+              throw const GitLabServerException(
+                'Review submission state was not confirmed. Inspect before retrying.',
+              );
+            }
+          }
+          await wait(Future<void>.value());
           if (!current()) throw const _PendingReviewCancelled();
           _pendingPublicationNeedsInspection = false;
+          _pendingReviewerStateNeedsInspection = false;
           _pendingNeedsInspection = false;
           _pendingWriteSettled = null;
           ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
@@ -507,6 +604,7 @@ class MrDiscussionsController
   /// Their text or absence cannot identify which uncertain attempt succeeded.
   Future<MrPendingReviewPublicationInspection?>
   inspectPendingReviewPublication({
+    bool includeReviewerState = false,
     bool Function()? isCurrent,
   }) => _pendingReview((repository, detail, current, wait) async {
     final unsettled = _pendingWriteSettled;
@@ -539,14 +637,31 @@ class MrDiscussionsController
       groups.addAll(result.items);
       page = result.nextPage;
     }
+    MergeRequestReviewer? reviewer;
+    var available = false;
+    if (includeReviewerState || _pendingReviewerStateNeedsInspection) {
+      try {
+        reviewer = await _readCurrentReviewer(repository, current, wait);
+        available = true;
+      } on GitLabException {
+        if (_pendingReviewerStateNeedsInspection) rethrow;
+      }
+    }
     await wait(Future<void>.value());
     if (!current()) throw const _PendingReviewCancelled();
     final inspection = MrPendingReviewPublicationInspection._(
-      _publicationSnapshot(repository, detail, items),
+      _publicationSnapshot(
+        repository,
+        detail,
+        items,
+        reviewerStateAvailable: available,
+        reviewer: reviewer,
+      ),
       groups,
     );
     _pendingNeedsInspection = false;
     _pendingPublicationNeedsInspection = false;
+    _pendingReviewerStateNeedsInspection = false;
     _pendingWriteSettled = null;
     ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
     state = AsyncData(Paginated(items: inspection.publicDiscussions));
@@ -1171,6 +1286,8 @@ typedef _PendingReviewWait = Future<T> Function<T>(Future<T> future);
 /// Immutable confirmation data bound to the account, repositories and MR.
 class MrPendingReviewPublication {
   MrPendingReviewPublication._({
+    this.reviewerStateAvailable = false,
+    this.reviewer,
     required List<MergeRequestDraftNote> items,
     int? draftNoteId,
     required Account account,
@@ -1198,6 +1315,8 @@ class MrPendingReviewPublication {
     return MrPendingReviewPublication._(
       items: [matches.single],
       draftNoteId: draftNoteId,
+      reviewerStateAvailable: reviewerStateAvailable,
+      reviewer: reviewer,
       account: _account,
       client: _client,
       drafts: _drafts,
@@ -1208,6 +1327,8 @@ class MrPendingReviewPublication {
     );
   }
 
+  final bool reviewerStateAvailable;
+  final MergeRequestReviewer? reviewer;
   final int? _draftNoteId;
   final List<MergeRequestDraftNote> items;
   final Account _account;

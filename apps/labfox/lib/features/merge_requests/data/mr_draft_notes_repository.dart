@@ -102,12 +102,32 @@ class MrDraftNotesRepository {
     required int projectId,
     required int iid,
     required int mergeRequestId,
+    String? summaryNote,
+    ReviewerSubmissionState? reviewerState,
   }) async {
     if (mergeRequestId < 1) {
       throw ArgumentError.value(mergeRequestId, 'mergeRequestId');
     }
-    await _client.mergeRequests.publishDraftNotes(projectId, iid: iid);
+    await _client.mergeRequests.publishDraftNotes(
+      projectId,
+      iid: iid,
+      summaryNote: summaryNote,
+      reviewerState: reviewerState,
+    );
   }
+
+  /// Captures reviewer reads on the same authenticated client as publication.
+  Future<Paginated<MergeRequestReviewer>> reviewers({
+    required int projectId,
+    required int iid,
+    int page = 1,
+    int perPage = 20,
+  }) => _client.mergeRequests.reviewers(
+    projectId,
+    iid: iid,
+    page: page,
+    perPage: perPage,
+  );
 
   /// Only regular drafts and complete original text anchors can be edited.
   static bool canUpdate(MergeRequestDraftNote draft) {

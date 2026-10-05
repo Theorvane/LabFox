@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
 import '../../../../core/auth/auth_controller.dart';
@@ -177,6 +178,13 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
   Object? _clientSession, _commentsSession;
   bool _obsolete = false, _started = false, _busy = false, _writing = false;
   bool _needsInspection = false, _acknowledged = false, _readError = false;
+  final _summary = TextEditingController();
+  ReviewerSubmissionState? _reviewerState;
+  bool get _hasOptions =>
+      widget.draft == null &&
+      (_summary.text.trim().isNotEmpty || _reviewerState != null);
+  bool get _hasSubmission =>
+      _snapshot != null && (_snapshot!.items.isNotEmpty || _hasOptions);
   MrPendingReviewPublication? _snapshot;
   MrPendingReviewPublicationInspection? _inspection;
   @override
@@ -188,6 +196,7 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
   @override
   void dispose() {
     widget.viewActive.removeListener(_observe);
+    _summary.dispose();
     super.dispose();
   }
 
@@ -221,6 +230,8 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       if (!mounted || _obsolete) return;
       setState(() {
         _obsolete = true;
+        _summary.clear();
+        _reviewerState = null;
         _snapshot = null;
         _inspection = null;
         _acknowledged = false;
@@ -248,6 +259,7 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       }
       if (recovery) {
         final inspection = await _controller.inspectPendingReviewPublication(
+          includeReviewerState: widget.draft == null,
           isCurrent: _current,
         );
         if (!_current()) return;
@@ -260,10 +272,12 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
           _snapshot = widget.draft == null
               ? inspection.pending
               : inspection.pending.forNote(widget.draft!.id);
+          _reconcileOutcome();
         });
       } else {
         final snapshot = widget.draft == null
             ? await _controller.preparePendingReviewPublication(
+                includeReviewerState: true,
                 isCurrent: _current,
               )
             : await _controller.preparePendingNotePublication(
@@ -273,6 +287,7 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
         if (!_current()) return;
         setState(() {
           _snapshot = snapshot;
+          _reconcileOutcome();
           _readError = snapshot == null;
         });
       }
@@ -283,16 +298,31 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
     }
   }
 
+  void _reconcileOutcome() {
+    final snapshot = _snapshot;
+    if (snapshot != null &&
+        (!snapshot.reviewerStateAvailable ||
+            (_reviewerState == ReviewerSubmissionState.reviewed &&
+                snapshot.reviewer?.state == 'approved'))) {
+      // A newly inspected preview cannot keep an unavailable/disabled outcome.
+      _reviewerState = null;
+    }
+  }
+
   Future<void> _publish() async {
     final snapshot = _snapshot;
     if (_busy ||
         !_current() ||
         !_acknowledged ||
         snapshot == null ||
-        snapshot.items.isEmpty ||
+        !_hasSubmission ||
         _controller.pendingSaveNeedsInspection) {
       return;
     }
+    final summary = widget.draft == null && _summary.text.trim().isNotEmpty
+        ? _summary.text
+        : null;
+    final outcome = _reviewerState;
     setState(() {
       _busy = true;
       _writing = true;
@@ -304,6 +334,8 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       final published = widget.draft == null
           ? await _controller.publishPendingReview(
               snapshot,
+              summaryNote: summary,
+              reviewerState: outcome,
               isCurrent: _current,
             )
           : await _controller.publishPendingNote(snapshot, isCurrent: _current);
@@ -324,6 +356,18 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
       }
     }
   }
+
+  String _reviewLabel(AppLocalizations l, MergeRequestReviewer? reviewer) =>
+      switch (reviewer?.state) {
+        null => l.mrReviewUnassigned,
+        'unreviewed' => l.mrReviewUnreviewed,
+        'review_started' => l.mrReviewStarted,
+        'reviewed' => l.mrReviewReviewed,
+        'requested_changes' => l.mrReviewRequestChanges,
+        'approved' => l.mrReviewApproved,
+        'unapproved' => l.mrReviewUnapproved,
+        _ => l.mrReviewUnknownState,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -372,7 +416,10 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
         !_busy &&
         !gated &&
         _snapshot != null &&
-        _snapshot!.items.isNotEmpty &&
+        _hasSubmission &&
+        (_reviewerState == null || _snapshot!.reviewerStateAvailable) &&
+        !(_reviewerState == ReviewerSubmissionState.reviewed &&
+            _snapshot!.reviewer?.state == 'approved') &&
         _acknowledged;
     return PopScope(
       canPop: !_writing,
@@ -406,6 +453,7 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                 if (_needsInspection) ...[
                   const SizedBox(height: LabFoxSpacing.md),
                   Text(l.mrPendingPublishUncertain),
+                  if (widget.draft == null) Text(l.mrReviewPartialHint),
                 ],
                 if (_busy ||
                     (current &&
@@ -452,7 +500,71 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                       SelectableText(note.body),
                     ],
                 ],
-                if (_snapshot != null && _snapshot!.items.isNotEmpty)
+                if ((_snapshot ?? _inspection?.pending)
+                    case final preview?) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  if (preview.reviewerStateAvailable) ...[
+                    Text(
+                      l.mrReviewCurrentState,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Text(_reviewLabel(l, preview.reviewer)),
+                  ] else if (widget.draft == null)
+                    Text(l.mrReviewStateUnavailable),
+                ],
+                if (widget.draft == null) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  TextField(
+                    key: const ValueKey('mr-review-summary'),
+                    controller: _summary,
+                    minLines: 2,
+                    maxLines: 5,
+                    enabled: !_busy && !gated && _snapshot != null,
+                    decoration: InputDecoration(
+                      labelText: l.mrReviewSummaryLabel,
+                    ),
+                    onChanged: (_) => setState(() => _acknowledged = false),
+                  ),
+                  const SizedBox(height: LabFoxSpacing.md),
+                  DropdownButtonFormField<ReviewerSubmissionState?>(
+                    key: const ValueKey('mr-review-state'),
+                    initialValue: _reviewerState,
+                    isExpanded: true,
+                    decoration: InputDecoration(
+                      labelText: l.mrReviewOutcomeLabel,
+                    ),
+                    items: [
+                      DropdownMenuItem(
+                        value: null,
+                        child: Text(l.mrReviewKeepState),
+                      ),
+                      DropdownMenuItem(
+                        value: ReviewerSubmissionState.reviewed,
+                        enabled: _snapshot?.reviewer?.state != 'approved',
+                        child: Text(l.mrReviewReviewed),
+                      ),
+                      DropdownMenuItem(
+                        value: ReviewerSubmissionState.requestedChanges,
+                        child: Text(l.mrReviewRequestChanges),
+                      ),
+                    ],
+                    onChanged:
+                        _busy ||
+                            gated ||
+                            _snapshot?.reviewerStateAvailable != true
+                        ? null
+                        : (value) => setState(() {
+                            _reviewerState = value;
+                            _acknowledged = false;
+                          }),
+                  ),
+                  if (_reviewerState == ReviewerSubmissionState.reviewed)
+                    Text(l.mrReviewReviewedHint),
+                  if (_reviewerState ==
+                      ReviewerSubmissionState.requestedChanges)
+                    Text(l.mrReviewChangesHint),
+                ],
+                if (_hasSubmission)
                   CheckboxListTile(
                     key: const ValueKey('mr-pending-publish-acknowledge'),
                     contentPadding: EdgeInsets.zero,
@@ -463,7 +575,9 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                               setState(() => _acknowledged = value == true),
                     title: Text(
                       widget.draft == null
-                          ? l.mrPendingPublishConsent
+                          ? (_hasOptions
+                                ? l.mrReviewSubmissionConsent
+                                : l.mrPendingPublishConsent)
                           : l.mrPendingPublishNoteConsent,
                     ),
                     controlAffinity: ListTileControlAffinity.leading,
@@ -488,14 +602,20 @@ class _PublicationState extends ConsumerState<_PublicationDialog> {
                   onPressed: dependenciesReady && !_busy
                       ? () => _read(recovery: true)
                       : null,
-                  child: Text(l.mrPendingPublishInspect),
+                  child: Text(
+                    widget.draft == null
+                        ? l.mrReviewInspectButton
+                        : l.mrPendingPublishInspect,
+                  ),
                 ),
               FilledButton(
                 key: const ValueKey('mr-pending-publish-submit'),
                 onPressed: canPublish ? _publish : null,
                 child: Text(
                   widget.draft == null
-                      ? l.mrPendingPublishButton
+                      ? (_hasOptions
+                            ? l.mrReviewSubmitButton
+                            : l.mrPendingPublishButton)
                       : l.mrPendingPublishNoteButton,
                 ),
               ),
