@@ -1,6 +1,7 @@
 # Private pending MR review pagination
 
-Issue [#602](https://github.com/Theorvane/labfox/issues/602) adds the read-only
+Issue [#602](https://github.com/Theorvane/labfox/issues/602) /
+[PR #603](https://github.com/Theorvane/labfox/pull/603) adds the read-only
 controller prerequisite for pending review in MW-07. It builds on the
 [private draft API/repository](mr-draft-notes.md). It exposes no screen, composer,
 mutation, publication, approval, disk cache or analytics event.
