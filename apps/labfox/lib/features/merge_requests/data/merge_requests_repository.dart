@@ -44,6 +44,46 @@ class MergeRequestsRepository {
     return page.items;
   }
 
+  /// Reads every advertised MR commit page through this captured account client.
+  /// Null means the caller's origin/session guard expired; no partial list escapes.
+  /// Callers still recheck currency after awaiting and refresh authoritative MR
+  /// identity and original diff membership before any subsequent private write.
+  Future<List<Commit>?> commits({
+    required int projectId,
+    required int iid,
+    required bool Function() isCurrent,
+  }) async {
+    if (projectId < 1) throw ArgumentError.value(projectId, 'projectId');
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    final items = <Commit>[];
+    final ids = <String>{};
+    int? page = 1;
+    while (page != null) {
+      if (!isCurrent()) return null;
+      final Paginated<Commit> result;
+      try {
+        result = await _client.mergeRequests.commits(
+          projectId,
+          iid: iid,
+          page: page,
+          perPage: 100,
+        );
+      } on GitLabException {
+        if (!isCurrent()) return null;
+        rethrow;
+      }
+      if (!isCurrent()) return null;
+      if ((result.nextPage != null && result.nextPage! <= page) ||
+          result.items.any((commit) => !ids.add(commit.id))) {
+        throw const GitLabServerException('Invalid MR commit traversal.');
+      }
+      items.addAll(result.items);
+      page = result.nextPage;
+    }
+    if (!isCurrent()) return null;
+    return List<Commit>.unmodifiable(items);
+  }
+
   Future<MergeRequest> get({required int projectId, required int iid}) {
     return _client.mergeRequests.get(projectId, iid: iid);
   }
