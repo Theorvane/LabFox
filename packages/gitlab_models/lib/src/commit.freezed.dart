@@ -353,6 +353,10 @@ class __$CommitStatsCopyWithImpl<$Res> implements _$CommitStatsCopyWith<$Res> {
 /// @nodoc
 mixin _$Commit {
   String get id;
+
+  /// Null means unreported; an empty list explicitly identifies a root commit.
+  @JsonKey(name: 'parent_ids')
+  List<String>? get parentIds;
   @JsonKey(name: 'short_id')
   String? get rawShortId;
   String get title;
@@ -381,6 +385,7 @@ mixin _$Commit {
         (other.runtimeType == runtimeType &&
             other is Commit &&
             (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(other.parentIds, parentIds) &&
             (identical(other.rawShortId, rawShortId) ||
                 other.rawShortId == rawShortId) &&
             (identical(other.title, title) || other.title == title) &&
@@ -398,6 +403,7 @@ mixin _$Commit {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    const DeepCollectionEquality().hash(parentIds),
     rawShortId,
     title,
     message,
@@ -409,7 +415,7 @@ mixin _$Commit {
 
   @override
   String toString() {
-    return 'Commit(id: $id, rawShortId: $rawShortId, title: $title, message: $message, authorName: $authorName, webUrl: $webUrl, authoredDate: $authoredDate, stats: $stats)';
+    return 'Commit(id: $id, parentIds: $parentIds, rawShortId: $rawShortId, title: $title, message: $message, authorName: $authorName, webUrl: $webUrl, authoredDate: $authoredDate, stats: $stats)';
   }
 }
 
@@ -420,6 +426,7 @@ abstract mixin class $CommitCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
+    @JsonKey(name: 'parent_ids') List<String>? parentIds,
     @JsonKey(name: 'short_id') String? rawShortId,
     String title,
     String? message,
@@ -445,6 +452,7 @@ class _$CommitCopyWithImpl<$Res> implements $CommitCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? parentIds = freezed,
     Object? rawShortId = freezed,
     Object? title = null,
     Object? message = freezed,
@@ -459,6 +467,10 @@ class _$CommitCopyWithImpl<$Res> implements $CommitCopyWith<$Res> {
             ? _self.id
             : id // ignore: cast_nullable_to_non_nullable
                   as String,
+        parentIds: freezed == parentIds
+            ? _self.parentIds
+            : parentIds // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
         rawShortId: freezed == rawShortId
             ? _self.rawShortId
             : rawShortId // ignore: cast_nullable_to_non_nullable
@@ -601,6 +613,7 @@ extension CommitPatterns on Commit {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
       String id,
+      @JsonKey(name: 'parent_ids') List<String>? parentIds,
       @JsonKey(name: 'short_id') String? rawShortId,
       String title,
       String? message,
@@ -617,6 +630,7 @@ extension CommitPatterns on Commit {
       case _Commit() when $default != null:
         return $default(
           _that.id,
+          _that.parentIds,
           _that.rawShortId,
           _that.title,
           _that.message,
@@ -647,6 +661,7 @@ extension CommitPatterns on Commit {
   TResult when<TResult extends Object?>(
     TResult Function(
       String id,
+      @JsonKey(name: 'parent_ids') List<String>? parentIds,
       @JsonKey(name: 'short_id') String? rawShortId,
       String title,
       String? message,
@@ -662,6 +677,7 @@ extension CommitPatterns on Commit {
       case _Commit():
         return $default(
           _that.id,
+          _that.parentIds,
           _that.rawShortId,
           _that.title,
           _that.message,
@@ -691,6 +707,7 @@ extension CommitPatterns on Commit {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
       String id,
+      @JsonKey(name: 'parent_ids') List<String>? parentIds,
       @JsonKey(name: 'short_id') String? rawShortId,
       String title,
       String? message,
@@ -706,6 +723,7 @@ extension CommitPatterns on Commit {
       case _Commit() when $default != null:
         return $default(
           _that.id,
+          _that.parentIds,
           _that.rawShortId,
           _that.title,
           _that.message,
@@ -725,6 +743,7 @@ extension CommitPatterns on Commit {
 class _Commit extends Commit {
   const _Commit({
     required this.id,
+    @JsonKey(name: 'parent_ids') final List<String>? parentIds,
     @JsonKey(name: 'short_id') this.rawShortId,
     required this.title,
     this.message,
@@ -732,11 +751,27 @@ class _Commit extends Commit {
     @JsonKey(name: 'web_url') this.webUrl,
     @JsonKey(name: 'authored_date') this.authoredDate,
     this.stats,
-  }) : super._();
+  }) : _parentIds = parentIds,
+       super._();
   factory _Commit.fromJson(Map<String, dynamic> json) => _$CommitFromJson(json);
 
   @override
   final String id;
+
+  /// Null means unreported; an empty list explicitly identifies a root commit.
+  final List<String>? _parentIds;
+
+  /// Null means unreported; an empty list explicitly identifies a root commit.
+  @override
+  @JsonKey(name: 'parent_ids')
+  List<String>? get parentIds {
+    final value = _parentIds;
+    if (value == null) return null;
+    if (_parentIds is EqualUnmodifiableListView) return _parentIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey(name: 'short_id')
   final String? rawShortId;
@@ -775,6 +810,10 @@ class _Commit extends Commit {
         (other.runtimeType == runtimeType &&
             other is _Commit &&
             (identical(other.id, id) || other.id == id) &&
+            const DeepCollectionEquality().equals(
+              other._parentIds,
+              _parentIds,
+            ) &&
             (identical(other.rawShortId, rawShortId) ||
                 other.rawShortId == rawShortId) &&
             (identical(other.title, title) || other.title == title) &&
@@ -792,6 +831,7 @@ class _Commit extends Commit {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    const DeepCollectionEquality().hash(_parentIds),
     rawShortId,
     title,
     message,
@@ -803,7 +843,7 @@ class _Commit extends Commit {
 
   @override
   String toString() {
-    return 'Commit(id: $id, rawShortId: $rawShortId, title: $title, message: $message, authorName: $authorName, webUrl: $webUrl, authoredDate: $authoredDate, stats: $stats)';
+    return 'Commit(id: $id, parentIds: $parentIds, rawShortId: $rawShortId, title: $title, message: $message, authorName: $authorName, webUrl: $webUrl, authoredDate: $authoredDate, stats: $stats)';
   }
 }
 
@@ -815,6 +855,7 @@ abstract mixin class _$CommitCopyWith<$Res> implements $CommitCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
+    @JsonKey(name: 'parent_ids') List<String>? parentIds,
     @JsonKey(name: 'short_id') String? rawShortId,
     String title,
     String? message,
@@ -841,6 +882,7 @@ class __$CommitCopyWithImpl<$Res> implements _$CommitCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
+    Object? parentIds = freezed,
     Object? rawShortId = freezed,
     Object? title = null,
     Object? message = freezed,
@@ -855,6 +897,10 @@ class __$CommitCopyWithImpl<$Res> implements _$CommitCopyWith<$Res> {
             ? _self.id
             : id // ignore: cast_nullable_to_non_nullable
                   as String,
+        parentIds: freezed == parentIds
+            ? _self._parentIds
+            : parentIds // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
         rawShortId: freezed == rawShortId
             ? _self.rawShortId
             : rawShortId // ignore: cast_nullable_to_non_nullable

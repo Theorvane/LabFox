@@ -21,6 +21,9 @@ Map<String, dynamic> _$CommitStatsToJson(_CommitStats instance) =>
 
 _Commit _$CommitFromJson(Map<String, dynamic> json) => _Commit(
   id: json['id'] as String,
+  parentIds: (json['parent_ids'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
   rawShortId: json['short_id'] as String?,
   title: json['title'] as String,
   message: json['message'] as String?,
@@ -36,6 +39,7 @@ _Commit _$CommitFromJson(Map<String, dynamic> json) => _Commit(
 
 Map<String, dynamic> _$CommitToJson(_Commit instance) => <String, dynamic>{
   'id': instance.id,
+  'parent_ids': instance.parentIds,
   'short_id': instance.rawShortId,
   'title': instance.title,
   'message': instance.message,
