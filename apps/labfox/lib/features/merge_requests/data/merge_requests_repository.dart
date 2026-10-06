@@ -84,6 +84,38 @@ class MergeRequestsRepository {
     return List<Commit>.unmodifiable(items);
   }
 
+  /// Refreshes MR identity through this captured account before commit review.
+  /// Requires the known global MR ID and a reported target project; omitted
+  /// source metadata stays unknown. Null means the caller's origin expired.
+  /// Callers recheck currency after awaiting and separately validate membership,
+  /// commit availability and original references before any private write.
+  Future<MergeRequest?> commitReviewContext({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required bool Function() isCurrent,
+  }) async {
+    if (projectId < 1) throw ArgumentError.value(projectId, 'projectId');
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
+    if (mergeRequestId < 1) {
+      throw ArgumentError.value(mergeRequestId, 'mergeRequestId');
+    }
+    if (!isCurrent()) return null;
+    final MergeRequest result;
+    try {
+      result = await _client.mergeRequests.get(projectId, iid: iid);
+    } on GitLabException {
+      if (!isCurrent()) return null;
+      rethrow;
+    }
+    if (!isCurrent()) return null;
+    if (result.id != mergeRequestId || result.targetProjectId != projectId) {
+      throw const GitLabServerException('Invalid MR commit review context.');
+    }
+    if (!isCurrent()) return null;
+    return result;
+  }
+
   Future<MergeRequest> get({required int projectId, required int iid}) {
     return _client.mergeRequests.get(projectId, iid: iid);
   }

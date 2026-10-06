@@ -20,9 +20,12 @@ abstract class MergeRequest with _$MergeRequest {
     required String state,
     @JsonKey(name: 'source_branch') required String sourceBranch,
     @JsonKey(name: 'target_branch') required String targetBranch,
-    // Present in list and search responses; lets a search hit route to its
-    // project. Absent when a single MR is fetched under a known project.
+    // Routes list/search hits. Some detail responses omit this metadata.
     @JsonKey(name: 'project_id') int? projectId,
+    // Fork projects are distinct; missing/deleted source metadata stays unknown.
+    // Do not infer either identity from projectId or branch names.
+    @JsonKey(name: 'source_project_id') int? sourceProjectId,
+    @JsonKey(name: 'target_project_id') int? targetProjectId,
     String? description,
     User? author,
     @Default(<User>[]) List<User> assignees,

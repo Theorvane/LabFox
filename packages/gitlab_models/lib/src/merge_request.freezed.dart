@@ -20,10 +20,14 @@ mixin _$MergeRequest {
   @JsonKey(name: 'source_branch')
   String get sourceBranch;
   @JsonKey(name: 'target_branch')
-  String get targetBranch; // Present in list and search responses; lets a search hit route to its
-  // project. Absent when a single MR is fetched under a known project.
+  String get targetBranch; // Routes list/search hits. Some detail responses omit this metadata.
   @JsonKey(name: 'project_id')
-  int? get projectId;
+  int? get projectId; // Fork projects are distinct; missing/deleted source metadata stays unknown.
+  // Do not infer either identity from projectId or branch names.
+  @JsonKey(name: 'source_project_id')
+  int? get sourceProjectId;
+  @JsonKey(name: 'target_project_id')
+  int? get targetProjectId;
   String? get description;
   User? get author;
   List<User> get assignees;
@@ -72,6 +76,10 @@ mixin _$MergeRequest {
                 other.targetBranch == targetBranch) &&
             (identical(other.projectId, projectId) ||
                 other.projectId == projectId) &&
+            (identical(other.sourceProjectId, sourceProjectId) ||
+                other.sourceProjectId == sourceProjectId) &&
+            (identical(other.targetProjectId, targetProjectId) ||
+                other.targetProjectId == targetProjectId) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.author, author) || other.author == author) &&
@@ -104,6 +112,8 @@ mixin _$MergeRequest {
     sourceBranch,
     targetBranch,
     projectId,
+    sourceProjectId,
+    targetProjectId,
     description,
     author,
     const DeepCollectionEquality().hash(assignees),
@@ -120,7 +130,7 @@ mixin _$MergeRequest {
 
   @override
   String toString() {
-    return 'MergeRequest(id: $id, iid: $iid, title: $title, state: $state, sourceBranch: $sourceBranch, targetBranch: $targetBranch, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, draft: $draft, mergeStatus: $mergeStatus, detailedMergeStatus: $detailedMergeStatus, commentCount: $commentCount, subscribed: $subscribed, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MergeRequest(id: $id, iid: $iid, title: $title, state: $state, sourceBranch: $sourceBranch, targetBranch: $targetBranch, projectId: $projectId, sourceProjectId: $sourceProjectId, targetProjectId: $targetProjectId, description: $description, author: $author, assignees: $assignees, labels: $labels, draft: $draft, mergeStatus: $mergeStatus, detailedMergeStatus: $detailedMergeStatus, commentCount: $commentCount, subscribed: $subscribed, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -139,6 +149,8 @@ abstract mixin class $MergeRequestCopyWith<$Res> {
     @JsonKey(name: 'source_branch') String sourceBranch,
     @JsonKey(name: 'target_branch') String targetBranch,
     @JsonKey(name: 'project_id') int? projectId,
+    @JsonKey(name: 'source_project_id') int? sourceProjectId,
+    @JsonKey(name: 'target_project_id') int? targetProjectId,
     String? description,
     User? author,
     List<User> assignees,
@@ -175,6 +187,8 @@ class _$MergeRequestCopyWithImpl<$Res> implements $MergeRequestCopyWith<$Res> {
     Object? sourceBranch = null,
     Object? targetBranch = null,
     Object? projectId = freezed,
+    Object? sourceProjectId = freezed,
+    Object? targetProjectId = freezed,
     Object? description = freezed,
     Object? author = freezed,
     Object? assignees = null,
@@ -217,6 +231,14 @@ class _$MergeRequestCopyWithImpl<$Res> implements $MergeRequestCopyWith<$Res> {
         projectId: freezed == projectId
             ? _self.projectId
             : projectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        sourceProjectId: freezed == sourceProjectId
+            ? _self.sourceProjectId
+            : sourceProjectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        targetProjectId: freezed == targetProjectId
+            ? _self.targetProjectId
+            : targetProjectId // ignore: cast_nullable_to_non_nullable
                   as int?,
         description: freezed == description
             ? _self.description
@@ -386,6 +408,8 @@ extension MergeRequestPatterns on MergeRequest {
       @JsonKey(name: 'source_branch') String sourceBranch,
       @JsonKey(name: 'target_branch') String targetBranch,
       @JsonKey(name: 'project_id') int? projectId,
+      @JsonKey(name: 'source_project_id') int? sourceProjectId,
+      @JsonKey(name: 'target_project_id') int? targetProjectId,
       String? description,
       User? author,
       List<User> assignees,
@@ -413,6 +437,8 @@ extension MergeRequestPatterns on MergeRequest {
           _that.sourceBranch,
           _that.targetBranch,
           _that.projectId,
+          _that.sourceProjectId,
+          _that.targetProjectId,
           _that.description,
           _that.author,
           _that.assignees,
@@ -454,6 +480,8 @@ extension MergeRequestPatterns on MergeRequest {
       @JsonKey(name: 'source_branch') String sourceBranch,
       @JsonKey(name: 'target_branch') String targetBranch,
       @JsonKey(name: 'project_id') int? projectId,
+      @JsonKey(name: 'source_project_id') int? sourceProjectId,
+      @JsonKey(name: 'target_project_id') int? targetProjectId,
       String? description,
       User? author,
       List<User> assignees,
@@ -480,6 +508,8 @@ extension MergeRequestPatterns on MergeRequest {
           _that.sourceBranch,
           _that.targetBranch,
           _that.projectId,
+          _that.sourceProjectId,
+          _that.targetProjectId,
           _that.description,
           _that.author,
           _that.assignees,
@@ -520,6 +550,8 @@ extension MergeRequestPatterns on MergeRequest {
       @JsonKey(name: 'source_branch') String sourceBranch,
       @JsonKey(name: 'target_branch') String targetBranch,
       @JsonKey(name: 'project_id') int? projectId,
+      @JsonKey(name: 'source_project_id') int? sourceProjectId,
+      @JsonKey(name: 'target_project_id') int? targetProjectId,
       String? description,
       User? author,
       List<User> assignees,
@@ -546,6 +578,8 @@ extension MergeRequestPatterns on MergeRequest {
           _that.sourceBranch,
           _that.targetBranch,
           _that.projectId,
+          _that.sourceProjectId,
+          _that.targetProjectId,
           _that.description,
           _that.author,
           _that.assignees,
@@ -576,6 +610,8 @@ class _MergeRequest extends MergeRequest {
     @JsonKey(name: 'source_branch') required this.sourceBranch,
     @JsonKey(name: 'target_branch') required this.targetBranch,
     @JsonKey(name: 'project_id') this.projectId,
+    @JsonKey(name: 'source_project_id') this.sourceProjectId,
+    @JsonKey(name: 'target_project_id') this.targetProjectId,
     this.description,
     this.author,
     final List<User> assignees = const <User>[],
@@ -609,11 +645,18 @@ class _MergeRequest extends MergeRequest {
   @override
   @JsonKey(name: 'target_branch')
   final String targetBranch;
-  // Present in list and search responses; lets a search hit route to its
-  // project. Absent when a single MR is fetched under a known project.
+  // Routes list/search hits. Some detail responses omit this metadata.
   @override
   @JsonKey(name: 'project_id')
   final int? projectId;
+  // Fork projects are distinct; missing/deleted source metadata stays unknown.
+  // Do not infer either identity from projectId or branch names.
+  @override
+  @JsonKey(name: 'source_project_id')
+  final int? sourceProjectId;
+  @override
+  @JsonKey(name: 'target_project_id')
+  final int? targetProjectId;
   @override
   final String? description;
   @override
@@ -688,6 +731,10 @@ class _MergeRequest extends MergeRequest {
                 other.targetBranch == targetBranch) &&
             (identical(other.projectId, projectId) ||
                 other.projectId == projectId) &&
+            (identical(other.sourceProjectId, sourceProjectId) ||
+                other.sourceProjectId == sourceProjectId) &&
+            (identical(other.targetProjectId, targetProjectId) ||
+                other.targetProjectId == targetProjectId) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.author, author) || other.author == author) &&
@@ -723,6 +770,8 @@ class _MergeRequest extends MergeRequest {
     sourceBranch,
     targetBranch,
     projectId,
+    sourceProjectId,
+    targetProjectId,
     description,
     author,
     const DeepCollectionEquality().hash(_assignees),
@@ -739,7 +788,7 @@ class _MergeRequest extends MergeRequest {
 
   @override
   String toString() {
-    return 'MergeRequest(id: $id, iid: $iid, title: $title, state: $state, sourceBranch: $sourceBranch, targetBranch: $targetBranch, projectId: $projectId, description: $description, author: $author, assignees: $assignees, labels: $labels, draft: $draft, mergeStatus: $mergeStatus, detailedMergeStatus: $detailedMergeStatus, commentCount: $commentCount, subscribed: $subscribed, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MergeRequest(id: $id, iid: $iid, title: $title, state: $state, sourceBranch: $sourceBranch, targetBranch: $targetBranch, projectId: $projectId, sourceProjectId: $sourceProjectId, targetProjectId: $targetProjectId, description: $description, author: $author, assignees: $assignees, labels: $labels, draft: $draft, mergeStatus: $mergeStatus, detailedMergeStatus: $detailedMergeStatus, commentCount: $commentCount, subscribed: $subscribed, webUrl: $webUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -760,6 +809,8 @@ abstract mixin class _$MergeRequestCopyWith<$Res>
     @JsonKey(name: 'source_branch') String sourceBranch,
     @JsonKey(name: 'target_branch') String targetBranch,
     @JsonKey(name: 'project_id') int? projectId,
+    @JsonKey(name: 'source_project_id') int? sourceProjectId,
+    @JsonKey(name: 'target_project_id') int? targetProjectId,
     String? description,
     User? author,
     List<User> assignees,
@@ -798,6 +849,8 @@ class __$MergeRequestCopyWithImpl<$Res>
     Object? sourceBranch = null,
     Object? targetBranch = null,
     Object? projectId = freezed,
+    Object? sourceProjectId = freezed,
+    Object? targetProjectId = freezed,
     Object? description = freezed,
     Object? author = freezed,
     Object? assignees = null,
@@ -840,6 +893,14 @@ class __$MergeRequestCopyWithImpl<$Res>
         projectId: freezed == projectId
             ? _self.projectId
             : projectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        sourceProjectId: freezed == sourceProjectId
+            ? _self.sourceProjectId
+            : sourceProjectId // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        targetProjectId: freezed == targetProjectId
+            ? _self.targetProjectId
+            : targetProjectId // ignore: cast_nullable_to_non_nullable
                   as int?,
         description: freezed == description
             ? _self.description

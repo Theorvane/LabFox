@@ -412,22 +412,62 @@ class MergeRequestsApi {
     }
   }
 
-  /// A single merge request by its `iid`.
+  /// A single merge request by its `iid`, with verified reported identities.
+  /// Missing project metadata remains unknown; a slug is not a numeric identity.
   Future<MergeRequest> get(Object projectId, {required int iid}) async {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (iid < 1) throw ArgumentError.value(iid, 'iid');
     try {
-      final response = await _dio.get<Map<String, dynamic>>(
+      final response = await _dio.get<String>(
         '/projects/${_enc(projectId)}/merge_requests/$iid',
         queryParameters: {'with_labels_details': true},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
       );
-      final data = response.data;
-      if (response.statusCode != 200 || data == null) {
+      if (response.statusCode != 200) {
         throw mapStatus(
           response.statusCode,
           response.headers.map,
           context: 'loading the merge request',
         );
       }
-      return MergeRequest.fromJson(data);
+      try {
+        final data = jsonDecode(response.data ?? '');
+        if (data is! Map<String, dynamic>) throw const FormatException();
+        for (final field in ['id', 'iid']) {
+          final value = data[field];
+          if (value is! int || value < 1) throw const FormatException();
+        }
+        if (data['iid'] != iid) throw const FormatException();
+        for (final field in [
+          'project_id',
+          'source_project_id',
+          'target_project_id',
+        ]) {
+          final value = data[field];
+          if (value != null && (value is! int || value < 1)) {
+            throw const FormatException();
+          }
+        }
+        final project = data['project_id'];
+        final target = data['target_project_id'];
+        if ((project != null && target != null && project != target) ||
+            (projectId is int &&
+                ((project != null && project != projectId) ||
+                    (target != null && target != projectId)))) {
+          throw const FormatException();
+        }
+        return MergeRequest.fromJson(data);
+      } on FormatException {
+        throw const GitLabServerException('Invalid merge request response.');
+      } on TypeError {
+        throw const GitLabServerException('Invalid merge request response.');
+      }
     } on DioException catch (error) {
       throw mapError(error, context: 'loading the merge request');
     }
