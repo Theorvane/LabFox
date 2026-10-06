@@ -748,6 +748,92 @@ class MergeRequestsApi {
     }
   }
 
+  /// Saves an unpublished draft on an explicitly selected original commit diff.
+  /// Supports lowercase full SHA-1 IDs and complete text positions only. The
+  /// position's head must be the selected commit; no anchor is reconstructed.
+  /// Callers confirm commit membership/session freshness and inspect pending
+  /// drafts after any uncertain result before offering an explicit retry.
+  Future<MergeRequestDraftNote> createCommitDraftNote(
+    Object projectId, {
+    required int iid,
+    required String commitId,
+    required String note,
+    required DiffNotePosition position,
+  }) async {
+    final path = _draftNotesPath(projectId, iid);
+    if (commitId.length != 40 || RegExp(r'[^0-9a-f]').hasMatch(commitId)) {
+      throw ArgumentError(
+        'A full lowercase SHA-1 commit ID is required.',
+        'commitId',
+      );
+    }
+    if (note.trim().isEmpty) {
+      throw ArgumentError('A private review note is required.', 'note');
+    }
+    if (!validTextDiscussionPosition(position) ||
+        position.headSha != commitId) {
+      throw ArgumentError(
+        'A complete original text position on the selected commit is required.',
+        'position',
+      );
+    }
+    try {
+      final response = await _dio.post<String>(
+        path,
+        data: {
+          'note': note,
+          'commit_id': commitId,
+          'resolve_discussion': false,
+          'position': positionedDiscussionPayload(position),
+        },
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 201) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'saving a private commit draft',
+        );
+      }
+      try {
+        final draft = _parseDraftNotes([
+          jsonDecode(response.data ?? ''),
+        ]).single;
+        if (draft.note != note ||
+            draft.commitId != commitId ||
+            draft.discussionId != null ||
+            draft.resolveDiscussion != false ||
+            !_confirmsDraftPosition(position, draft.position)) {
+          throw const GitLabServerException(
+            'Unconfirmed private commit draft.',
+          );
+        }
+        return draft;
+      } on GitLabServerException {
+        throw const GitLabServerException(
+          'Invalid private commit draft response.',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid private commit draft response.',
+        );
+      }
+    } on DioException catch (error) {
+      if (error.response case final response?) {
+        throw _draftMutationStatus(
+          response.statusCode,
+          response.headers.map,
+          'saving a private commit draft',
+        );
+      }
+      throw mapError(error, context: 'saving a private commit draft');
+    }
+  }
+
   /// Saves an unpublished reply on one existing discussion without resolving it.
   /// This does not reconstruct an anchor or replay an uncertain private write.
   Future<MergeRequestDraftNote> createDraftReply(

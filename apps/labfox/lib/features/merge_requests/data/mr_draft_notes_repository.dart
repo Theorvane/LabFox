@@ -36,6 +36,35 @@ class MrDraftNotesRepository {
     return draft;
   }
 
+  /// Saves a text-positioned commit draft through the captured client/author.
+  /// Callers must verify commit membership and session/resource freshness;
+  /// this foundation neither reserves controller writes nor recovers failures.
+  Future<MergeRequestDraftNote> createCommit({
+    required int projectId,
+    required int iid,
+    required int mergeRequestId,
+    required String commitId,
+    required String note,
+    required DiffNotePosition position,
+  }) async {
+    if (mergeRequestId < 1) {
+      throw ArgumentError.value(mergeRequestId, 'mergeRequestId');
+    }
+    final draft = await _client.mergeRequests.createCommitDraftNote(
+      projectId,
+      iid: iid,
+      commitId: commitId,
+      note: note,
+      position: position,
+    );
+    if (draft.authorId != authorId || draft.mergeRequestId != mergeRequestId) {
+      throw const GitLabServerException(
+        'Invalid private commit draft identity.',
+      );
+    }
+    return draft;
+  }
+
   /// Saves a reply through the same captured author and authoritative MR.
   Future<MergeRequestDraftNote> createReply({
     required int projectId,
