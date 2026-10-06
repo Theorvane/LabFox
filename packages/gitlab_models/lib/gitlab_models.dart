@@ -9,6 +9,7 @@ export 'src/ansi.dart';
 export 'src/branch.dart';
 export 'src/ci_status.dart';
 export 'src/commit.dart';
+export 'src/commit_diff_file.dart';
 export 'src/container_cleanup_policy.dart';
 export 'src/container_cleanup_policy_snapshot.dart';
 export 'src/container_immutability_rule.dart';

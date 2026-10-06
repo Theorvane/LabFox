@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
+import '../common/offset_pagination.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 import 'repository_file.dart';
@@ -270,6 +273,88 @@ class RepositoryApi {
       return Commit.fromJson(data);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading the commit');
+    }
+  }
+
+  /// Reads one page of literal original diff files for a fixed commit identity.
+  /// Preserves unknown text/omission metadata without inferring file coverage.
+  /// GitLab diff limits can stop pagination before every changed file is exposed.
+  /// This read supplies neither original position references nor write eligibility.
+  Future<Paginated<CommitDiffFile>> commitDiffPage(
+    Object projectId, {
+    required String commitId,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (commitId.length != 40 || RegExp(r'[^0-9a-f]').hasMatch(commitId)) {
+      throw ArgumentError.value(commitId, 'commitId');
+    }
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<String>(
+        '/projects/${_enc(projectId)}/repository/commits/$commitId/diff',
+        queryParameters: {'unidiff': true, 'page': page, 'per_page': perPage},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'reading original commit diff',
+        );
+      }
+      try {
+        final payload = jsonDecode(response.data ?? '');
+        if (payload is! List) throw const FormatException();
+        final paths = <(String, String)>{};
+        final items = <CommitDiffFile>[];
+        for (final entry in payload) {
+          if (entry is! Map<String, dynamic>) throw const FormatException();
+          final file = CommitDiffFile.fromJson(entry);
+          if (file.oldPath.isEmpty ||
+              file.newPath.isEmpty ||
+              file.oldPath.contains('\u0000') ||
+              file.newPath.contains('\u0000') ||
+              !paths.add((file.oldPath, file.newPath))) {
+            throw const FormatException();
+          }
+          items.add(file);
+        }
+        final next = validatedOffsetNextPage(
+          response,
+          page: page,
+          perPage: perPage,
+          fixedQuery: {'unidiff': 'true'},
+          routeEchoes: {'id': '$projectId', 'sha': commitId},
+        );
+        final metadata = Paginated.fromHeaders(items, response.headers.map);
+        return Paginated(
+          items: List<CommitDiffFile>.unmodifiable(items),
+          nextPage: next,
+          total: metadata.total,
+          totalPages: metadata.totalPages,
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid original commit diff response.',
+        );
+      } on TypeError {
+        throw const GitLabServerException(
+          'Invalid original commit diff response.',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'reading original commit diff');
     }
   }
 
