@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import 'literal_original_diff.dart';
+
 final _lineCode = RegExp(r'^[0-9a-f]{40}_(0|[1-9][0-9]*)_(0|[1-9][0-9]*)$');
 final _header = RegExp(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@');
 
@@ -30,14 +32,21 @@ typedef _Row = ({DiffLine line, int hunk, String code});
 /// Matches literal line codes and visible side coordinates in an original file.
 /// Opposite counters in added/removed line codes are not visible coordinates.
 /// Only complete, contiguous available hunks can represent a selected span.
-List<DiffLine>? originalDiffRange(FileDiff file, DiffNoteLineRange range) {
+List<DiffLine>? originalDiffRange(FileDiff file, DiffNoteLineRange range) =>
+    _originalDiffRange(file.newPath, file.hunks, range);
+
+List<DiffLine>? _originalDiffRange(
+  String newPath,
+  List<DiffHunk> hunks,
+  DiffNoteLineRange range,
+) {
   if (!supportsOriginalDiffRange(range)) return null;
-  final hash = sha1.convert(utf8.encode(file.newPath)).toString();
+  final hash = sha1.convert(utf8.encode(newPath)).toString();
   final rows = <_Row>[];
   final complete = <bool>[];
   final ends = <(int, int)>[];
-  for (var h = 0; h < file.hunks.length; h++) {
-    final hunk = file.hunks[h];
+  for (var h = 0; h < hunks.length; h++) {
+    final hunk = hunks[h];
     var old = hunk.oldStart, newer = hunk.newStart;
     for (final line in hunk.lines) {
       rows.add((line: line, hunk: h, code: '${hash}_${old}_$newer'));
@@ -77,8 +86,7 @@ List<DiffLine>? originalDiffRange(FileDiff file, DiffNoteLineRange range) {
   final first = span.first.hunk, last = span.last.hunk;
   for (var h = first; h <= last; h++) {
     if (!complete[h]) return null;
-    if (h > first &&
-        ends[h - 1] != (file.hunks[h].oldStart, file.hunks[h].newStart)) {
+    if (h > first && ends[h - 1] != (hunks[h].oldStart, hunks[h].newStart)) {
       return null;
     }
   }
@@ -91,4 +99,14 @@ List<DiffLine>? originalDiffRange(FileDiff file, DiffNoteLineRange range) {
               : row.line.newLine != null))
         row.line,
   ]);
+}
+
+/// Matches review endpoints only after validating the complete literal file.
+List<DiffLine>? literalOriginalDiffRange(
+  CommitDiffFile file,
+  DiffNoteLineRange range,
+) {
+  final validated = validateLiteralOriginalDiff(file);
+  if (validated == null) return null;
+  return _originalDiffRange(file.newPath, validated.hunks, range);
 }

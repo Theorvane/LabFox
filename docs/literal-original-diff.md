@@ -1,0 +1,11 @@
+# Literal original diff selection
+
+`validateLiteralOriginalDiff` reads a `CommitDiffFile` without using the permissive display parser. It retains the original DTO and returns deeply immutable hunks and lines, or null when local selection cannot be validated. Unknown omission flags remain unknown.
+
+The validator requires nonempty relative paths without empty/traversal segments or NUL/CR/LF; consistent added/deleted/renamed flags and paths; no reported collapsed/too-large content; and nonempty literal hunk text. Headers use canonical nonnegative decimal coordinates with conservative signed 32-bit bounds. Nonempty sides start above zero; zero-count ranges preserve their literal insertion/deletion offsets. Hunk counts must match every context/removal/addition row. Hunks cannot overlap or run backwards, and omitted unchanged gaps must advance both sides equally. Added/deleted files require one hunk beginning at line one on their existing side.
+
+Unknown prefixes, preambles, trailers, malformed headers, blank body rows, extra/truncated rows and stray/repeated no-newline markers reject the whole file. Only the exact `\ No newline at end of file` marker is accepted after a content row, and no subsequent row may consume that ended side. A final LF is framing; content whitespace and CR bytes are preserved without normalization.
+
+`literalOriginalDiffRange` validates the whole raw file before matching original line codes and side coordinates. It shares the existing range matcher: endpoints must be unique and ordered, and multi-hunk selections require contiguous available coordinates. Returned selections are immutable. Existing `originalDiffRange` and permissive display parsing retain their behavior.
+
+This local contract is deliberately conservative; unsupported valid formats can remain readable through existing display flows. It does not prove complete server file coverage, choose original commit references or make a private write safe. Captured origin/account checks, fresh MR membership, authoritative original reference semantics and guarded controller/private-save reservation/recovery UI remain necessary follow-ups. No live instance/device validation or UI change is included.
