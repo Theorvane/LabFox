@@ -37,6 +37,8 @@ import '../features/members/presentation/project_members_screen.dart';
 import '../features/merge_requests/presentation/merge_request_detail_screen.dart';
 import '../features/merge_requests/presentation/merge_requests_screen.dart';
 import '../features/merge_requests/presentation/mr_changes_screen.dart';
+import '../features/merge_requests/presentation/mr_commits_screen.dart';
+import '../features/merge_requests/presentation/mr_original_changes_screen.dart';
 import '../features/merge_requests/presentation/my_merge_requests_screen.dart';
 import '../features/merge_requests/presentation/new_merge_request_screen.dart';
 import '../features/milestones/presentation/milestone_detail_screen.dart';
@@ -197,6 +199,10 @@ abstract final class Routes {
   static String job(int id, int jobId) => '/projects/$id/jobs/$jobId';
   static String commitChanges(int id, String sha) =>
       '/projects/$id/commit/$sha/changes';
+  static String mergeRequestCommits(int id, int iid) =>
+      '/projects/$id/merge_requests/$iid/commits';
+  static String mergeRequestCommitChanges(int id, int iid, String sha) =>
+      '/projects/$id/merge_requests/$iid/commits/$sha';
   static String mergeRequestChanges(int id, int iid) =>
       '/projects/$id/merge_requests/$iid/changes';
 }
@@ -770,6 +776,23 @@ final routerProvider = Provider<GoRouter>((ref) {
                       final iid = int.parse(state.pathParameters['iid']!);
                       return MrChangesScreen(projectId: id, iid: iid);
                     },
+                  ),
+                  GoRoute(
+                    path: 'commits',
+                    builder: (context, state) => MrCommitsScreen(
+                      projectId: int.parse(state.pathParameters['id']!),
+                      iid: int.parse(state.pathParameters['iid']!),
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: ':sha',
+                        builder: (context, state) => MrOriginalChangesScreen(
+                          projectId: int.parse(state.pathParameters['id']!),
+                          iid: int.parse(state.pathParameters['iid']!),
+                          commitId: state.pathParameters['sha']!,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

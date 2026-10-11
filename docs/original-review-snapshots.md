@@ -22,4 +22,14 @@ The [Draft Notes API](https://docs.gitlab.com/api/draft_notes/) documents commit
 
 The acknowledgement must retain the author, global MR ID, exact Markdown, selected commit, canonical position and unpublished/non-resolution metadata. An uncertain dispatched write blocks another save until explicit read-only inspection waits for the actual request to settle and traverses all advertised private-note pages. Cancellation cannot undo an already dispatched server write. There is no automatic replay, public fallback, publication or analytics emission.
 
-These sequential reads are not an atomic server snapshot or a live-version compatibility guarantee. Root, unknown-parent and multiple-parent commits remain unselectable. The original-commit list, literal-row renderer and localized private-save UI remain the next connection; this controller command does not expose a user action yet.
+## Original review screens
+
+MR detail links to the commit browser at `/projects/:projectId/merge_requests/:iid/commits`. The browser resolves authoritative global MR identity, checks the reported target/IID and reads all advertised commit membership pages through one captured repository. Loading, current typed errors, read-only retry, empty state and obsolete origin are distinct. No partial stale list is exposed. Selecting a canonical full SHA opens the identifier-only child route; original review resolves its MR identity independently for deep links.
+
+`DiffHunksViewer` shares the existing diff row renderer while accepting the already validated immutable original hunks. Highlighting, selection and range endpoints retain the actual captured row objects without permissive reparsing. Every literal file is listed; omitted, malformed or ambiguous diffs receive an unavailable message. Valid root, unknown-parent and multiple-parent diffs remain readable with selection disabled. Narrow screens stack the file list and selected-position controls; tablet/wide screens show them side by side. Resizing preserves selection.
+
+The selected original position opens the existing private-note dialog with exact commit/path/line or range metadata and Markdown input. It calls only `savePendingCommitNote`, retaining its fresh selection/parent checks and settled read-only inspection. Account or origin replacement/disposal discards obsolete private input and outcomes. Five locales, three widths, both themes, large text/keyboard, resize, single-line/range save, unavailable diffs, cancellation and uncertain-save inspection are covered by synthetic widget tests. Synthetic screen captures are local validation, not live-instance evidence.
+
+Commit route values, including invalid deep links, are replaced with `:sha` before route analytics; numeric project/IID values remain `:id`. No real commit identifier is recorded by this route flow.
+
+These sequential reads are not an atomic server snapshot or a live-version compatibility guarantee. Single explicitly reported canonical parent only; no public fallback, automatic replay or automatic publication. Live GitLab role/version validation remains separate.

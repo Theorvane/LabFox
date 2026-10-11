@@ -5321,4 +5321,22 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get mrPendingReplyAcknowledge =>
       'मैंने चर्चा और लंबित नोट जाँचे हैं और यह जवाब सहेजना चाहता हूँ।';
+
+  @override
+  String get mrCommitsEmpty => 'इस मर्ज रिक्वेस्ट में कोई कमिट नहीं है।';
+
+  @override
+  String get mrOriginalReviewTitle => 'मूल कमिट के बदलाव';
+
+  @override
+  String get mrOriginalReviewReadOnly =>
+      'इनलाइन समीक्षा के लिए एक रिपोर्ट किए गए पैरेंट वाला सत्यापित टेक्स्ट डिफ़ आवश्यक है।';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable =>
+      'इस फ़ाइल का मूल डिफ़ इनलाइन समीक्षा के लिए उपलब्ध नहीं है।';
+
+  @override
+  String get mrOriginalReviewPrivateHint =>
+      'यह नोट आपकी समीक्षा प्रकाशित होने तक निजी रहता है। सहेजने से पहले चुने गए कमिट का मूल डिफ़ दोबारा जाँचा जाता है।';
 }

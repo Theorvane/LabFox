@@ -5324,4 +5324,22 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get mrPendingReplyAcknowledge =>
       'I checked the discussion and pending notes and want to save this reply.';
+
+  @override
+  String get mrCommitsEmpty => 'No commits in this merge request.';
+
+  @override
+  String get mrOriginalReviewTitle => 'Original commit changes';
+
+  @override
+  String get mrOriginalReviewReadOnly =>
+      'Inline review requires a validated text diff with one reported parent.';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable =>
+      'This original file diff is unavailable for inline review.';
+
+  @override
+  String get mrOriginalReviewPrivateHint =>
+      'This note stays private until you publish your review. The selected commit\'s original diff is checked again before saving.';
 }

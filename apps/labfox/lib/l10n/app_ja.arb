@@ -1461,5 +1461,10 @@
   "mrPendingReplyTargetTitle": "ディスカッションの内容",
   "mrPendingReplyTargetUnavailable": "このディスカッションは見つからないか、非公開の返信を受け付けなくなりました。",
   "mrPendingReplyInspectionHint": "返信がすでに保存されていないか、現在のディスカッションとすべての下書きを確認してください。再保存すると重複する場合があります。",
-  "mrPendingReplyAcknowledge": "ディスカッションと下書きを確認し、この返信を保存します。"
+  "mrPendingReplyAcknowledge": "ディスカッションと下書きを確認し、この返信を保存します。",
+  "mrCommitsEmpty": "このマージリクエストにはコミットがありません。",
+  "mrOriginalReviewTitle": "元のコミットの変更",
+  "mrOriginalReviewReadOnly": "インラインレビューには、親が1つと報告された検証済みのテキスト差分が必要です。",
+  "mrOriginalReviewDiffUnavailable": "このファイルの元の差分はインラインレビューに使用できません。",
+  "mrOriginalReviewPrivateHint": "このノートはレビューを公開するまで非公開です。保存前に、選択したコミットの元の差分を再確認します。"
 }

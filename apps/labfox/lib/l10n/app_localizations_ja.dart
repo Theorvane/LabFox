@@ -5135,4 +5135,22 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get mrPendingReplyAcknowledge => 'ディスカッションと下書きを確認し、この返信を保存します。';
+
+  @override
+  String get mrCommitsEmpty => 'このマージリクエストにはコミットがありません。';
+
+  @override
+  String get mrOriginalReviewTitle => '元のコミットの変更';
+
+  @override
+  String get mrOriginalReviewReadOnly =>
+      'インラインレビューには、親が1つと報告された検証済みのテキスト差分が必要です。';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable =>
+      'このファイルの元の差分はインラインレビューに使用できません。';
+
+  @override
+  String get mrOriginalReviewPrivateHint =>
+      'このノートはレビューを公開するまで非公開です。保存前に、選択したコミットの元の差分を再確認します。';
 }
