@@ -27,6 +27,14 @@ bool _validEndpoint(DiffNoteRangeEndpoint? endpoint) {
       (newer == null || newer > 0 && newer == codeNew);
 }
 
+/// Captures a literal path hash once for original running side counters.
+String Function(int oldLine, int newLine) originalDiffLineCodes(
+  String newPath,
+) {
+  final hash = sha1.convert(utf8.encode(newPath)).toString();
+  return (oldLine, newLine) => '${hash}_${oldLine}_$newLine';
+}
+
 typedef _Row = ({DiffLine line, int hunk, String code});
 
 /// Matches literal line codes and visible side coordinates in an original file.
@@ -41,7 +49,7 @@ List<DiffLine>? _originalDiffRange(
   DiffNoteLineRange range,
 ) {
   if (!supportsOriginalDiffRange(range)) return null;
-  final hash = sha1.convert(utf8.encode(newPath)).toString();
+  final codeFor = originalDiffLineCodes(newPath);
   final rows = <_Row>[];
   final complete = <bool>[];
   final ends = <(int, int)>[];
@@ -49,7 +57,7 @@ List<DiffLine>? _originalDiffRange(
     final hunk = hunks[h];
     var old = hunk.oldStart, newer = hunk.newStart;
     for (final line in hunk.lines) {
-      rows.add((line: line, hunk: h, code: '${hash}_${old}_$newer'));
+      rows.add((line: line, hunk: h, code: codeFor(old, newer)));
       if (line.oldLine != null) old++;
       if (line.newLine != null) newer++;
     }
