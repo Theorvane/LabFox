@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
@@ -208,7 +209,11 @@ class MrOriginalReviewController
   int _generation = 0;
   Object _session = Object();
   Object get session => _session;
+  Completer<void> _ended = Completer<void>();
+  Future<void> get ended => _ended.future;
   void _end() {
+    if (!_ended.isCompleted) _ended.complete();
+    _ended = Completer<void>();
     _generation++;
     _session = Object();
   }
