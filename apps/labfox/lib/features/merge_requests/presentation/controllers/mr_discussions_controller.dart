@@ -11,11 +11,13 @@ import '../../../comments/data/comments_repository.dart';
 import '../../../comments/data/discussion_resolution.dart';
 import '../../../comments/data/suggestion_application.dart';
 import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../../commits/data/history_repository.dart';
 import '../../../diff/presentation/controllers/diff_controllers.dart';
 import '../../data/merge_requests_repository.dart';
 import '../../data/mr_draft_notes_repository.dart';
 import 'merge_requests_controllers.dart';
 import 'mr_draft_notes_provider.dart';
+import 'mr_original_review_controller.dart';
 import 'mr_review_snapshot_controller.dart';
 
 /// Reads grouped conversations and writes notes and replies in one session.
@@ -870,6 +872,92 @@ class MrDiscussionsController
     );
   }
 
+  /// Saves one original-commit selection after fresh context and parent reads.
+  Future<MergeRequestDraftNote?> savePendingCommitNote(
+    String note, {
+    required MrOriginalReviewRef original,
+    required DiffNotePosition position,
+    bool Function()? isCurrent,
+  }) {
+    if (note.trim().isEmpty ||
+        pendingSaveNeedsInspection ||
+        original.projectId != arg.projectId ||
+        original.iid != arg.iid) {
+      return Future.value(null);
+    }
+    final provider = mrOriginalReviewControllerProvider(original);
+    final displayed = ref.read(provider);
+    if (displayed.isLoading || displayed.hasError || !displayed.hasValue) {
+      return Future.value(null);
+    }
+    final selection = MrOriginalReviewSelection.capture(
+      displayed.value!,
+      position,
+    );
+    if (selection == null) return Future.value(null);
+    return _pendingReview(
+      (repository, detail, current, wait) async {
+        if (detail.id != original.mergeRequestId ||
+            detail.targetProjectId != original.projectId) {
+          throw const GitLabConflictException(
+            'The original MR identity changed.',
+          );
+        }
+        final client = await wait(ref.read(gitLabClientProvider.future));
+        if (!current() || client == null) throw const _PendingReviewCancelled();
+        final parent = await wait(
+          HistoryRepository(client).originalCommit(
+            projectId: original.projectId,
+            commitId: position.baseSha!,
+            isCurrent: current,
+          ),
+        );
+        if (!current()) throw const _PendingReviewCancelled();
+        if (parent == null || parent.id != position.baseSha) {
+          throw const GitLabServerException('Unconfirmed original parent.');
+        }
+        await wait(Future<void>.value());
+        if (!current()) throw const _PendingReviewCancelled();
+        _pendingNeedsInspection = true;
+        final write = repository.createCommit(
+          projectId: arg.projectId,
+          iid: arg.iid,
+          mergeRequestId: detail.id,
+          commitId: original.commitId,
+          note: note,
+          position: position,
+        );
+        _pendingWriteSettled = write.then<void>(
+          (_) {},
+          onError: (Object _, StackTrace _) {},
+        );
+        final saved = await wait(write);
+        if (!current()) throw const _PendingReviewCancelled();
+        if (saved.id < 1 ||
+            saved.authorId != repository.authorId ||
+            saved.mergeRequestId != detail.id ||
+            saved.note != note ||
+            saved.commitId != original.commitId ||
+            saved.resolveDiscussion != false ||
+            saved.discussionId != null ||
+            !_confirmedPosition(position, saved.position)) {
+          throw const GitLabServerException(
+            'Unconfirmed private commit review save.',
+          );
+        }
+        await wait(Future<void>.value());
+        if (!current()) throw const _PendingReviewCancelled();
+        _pendingNeedsInspection = false;
+        _pendingWriteSettled = null;
+        ref.read(mrDraftNotesRevisionProvider(arg).notifier).state++;
+        return saved;
+      },
+      isCurrent: isCurrent,
+      original: original,
+      originalSelection: selection,
+    );
+  }
+
   bool _confirmedPosition(DiffNotePosition? sent, DiffNotePosition? saved) {
     if (sent == null) {
       return saved == null ||
@@ -1063,6 +1151,8 @@ class MrDiscussionsController
     action, {
     bool Function()? isCurrent,
     MrReviewSelection? selection,
+    MrOriginalReviewRef? original,
+    MrOriginalReviewSelection? originalSelection,
   }) async {
     if (_posting ||
         _loadingMore ||
@@ -1100,6 +1190,14 @@ class MrDiscussionsController
       Object? reviewSession = selection == null
           ? null
           : ref.read(reviewProvider.notifier).session;
+      final originalProvider = original == null
+          ? null
+          : mrOriginalReviewControllerProvider(original);
+      Future<MrOriginalReviewSnapshot>? originalFuture =
+          originalProvider == null ? null : ref.read(originalProvider.future);
+      Object? originalSession = originalProvider == null
+          ? null
+          : ref.read(originalProvider.notifier).session;
       Future<MergeRequest>? detailFuture;
       bool current() =>
           generation == _generation &&
@@ -1127,6 +1225,13 @@ class MrDiscussionsController
               )) &&
           (reviewFuture == null ||
               identical(ref.read(reviewProvider.future), reviewFuture)) &&
+          (originalSession == null ||
+              identical(
+                ref.read(originalProvider!.notifier).session,
+                originalSession,
+              )) &&
+          (originalFuture == null ||
+              identical(ref.read(originalProvider!.future), originalFuture)) &&
           (detailFuture == null ||
               identical(
                 ref.read(mergeRequestControllerProvider(arg).future),
@@ -1154,6 +1259,23 @@ class MrDiscussionsController
           ref.listen(diffRepositoryProvider, (_, _) => check()),
         );
         subscriptions.add(ref.listen(reviewProvider, (_, _) => check()));
+      }
+
+      void observeOriginalEnd() {
+        if (originalProvider == null) return;
+        final sessionEnd = ref.read(originalProvider.notifier).ended;
+        // Reloading an already-loading provider may not emit a distinct state.
+        // Its explicit session end still releases unresolved preflight reads.
+        unawaited(
+          Future.any([sessionEnd, ended.future]).then((_) {
+            if (!ended.isCompleted) check();
+          }),
+        );
+      }
+
+      if (originalProvider != null) {
+        subscriptions.add(ref.listen(originalProvider, (_, _) => check()));
+        observeOriginalEnd();
       }
 
       // Bridge session cancellation once per command. Individual reads use the
@@ -1222,6 +1344,30 @@ class MrDiscussionsController
         if (!current()) return null;
         if (!selection.matches(snapshot)) {
           throw const GitLabConflictException('The selected diff changed.');
+        }
+      }
+      if (originalProvider != null && originalSelection != null) {
+        originalFuture = null;
+        originalSession = null;
+        ref.invalidate(originalProvider);
+        final freshOriginal = ref.read(originalProvider.future);
+        originalFuture = freshOriginal;
+        originalSession = ref.read(originalProvider.notifier).session;
+        observeOriginalEnd();
+        final snapshot = await wait(freshOriginal);
+        if (!current()) return null;
+        final origin = snapshot.context?.mergeRequest;
+        if (origin == null ||
+            origin.id != detail.id ||
+            origin.iid != detail.iid ||
+            origin.targetProjectId != detail.targetProjectId ||
+            origin.sourceProjectId != detail.sourceProjectId ||
+            origin.sourceBranch != detail.sourceBranch ||
+            origin.targetBranch != detail.targetBranch ||
+            !originalSelection.matches(snapshot)) {
+          throw const GitLabConflictException(
+            'The selected original diff changed.',
+          );
         }
       }
       _syncPendingSession();
