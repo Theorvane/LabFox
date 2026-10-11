@@ -75,6 +75,35 @@ class HistoryRepository {
     return List<CommitDiffFile>.unmodifiable(items);
   }
 
+  /// Reads fixed-head detail through this captured account and project.
+  /// The caller chooses the target from fresh authoritative MR context.
+  /// Null means the caller's origin expired; late results/errors are discarded.
+  /// Recheck currency after awaiting, then validate membership and original
+  /// references separately. This read does not make a private write safe.
+  Future<Commit?> originalCommit({
+    required int projectId,
+    required String commitId,
+    required bool Function() isCurrent,
+  }) async {
+    if (projectId < 1) throw ArgumentError.value(projectId, 'projectId');
+    if (commitId.length != 40 || RegExp(r'[^0-9a-f]').hasMatch(commitId)) {
+      throw ArgumentError.value(commitId, 'commitId');
+    }
+    if (!isCurrent()) return null;
+    final Commit result;
+    try {
+      result = await _client.repository.fixedCommit(
+        projectId,
+        commitId: commitId,
+      );
+    } on GitLabException {
+      if (!isCurrent()) return null;
+      rethrow;
+    }
+    if (!isCurrent()) return null;
+    return result;
+  }
+
   Future<Commit> commit({required int projectId, required String sha}) {
     return _client.repository.commit(projectId, sha: sha);
   }
