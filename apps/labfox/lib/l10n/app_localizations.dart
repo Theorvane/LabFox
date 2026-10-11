@@ -9337,6 +9337,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I checked the discussion and pending notes and want to save this reply.'**
   String get mrPendingReplyAcknowledge;
+
+  /// No description provided for @mrCommitsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No commits in this merge request.'**
+  String get mrCommitsEmpty;
+
+  /// No description provided for @mrOriginalReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Original commit changes'**
+  String get mrOriginalReviewTitle;
+
+  /// No description provided for @mrOriginalReviewReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Inline review requires a validated text diff with one reported parent.'**
+  String get mrOriginalReviewReadOnly;
+
+  /// No description provided for @mrOriginalReviewDiffUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This original file diff is unavailable for inline review.'**
+  String get mrOriginalReviewDiffUnavailable;
+
+  /// No description provided for @mrOriginalReviewPrivateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This note stays private until you publish your review. The selected commit\'s original diff is checked again before saving.'**
+  String get mrOriginalReviewPrivateHint;
 }
 
 class _AppLocalizationsDelegate

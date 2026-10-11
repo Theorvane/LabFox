@@ -63,35 +63,14 @@ class DiffViewer extends StatelessWidget {
       );
     }
 
-    final marked = Set<DiffLine>.identity()..addAll(highlightedLines);
-    if (highlightedLine != null) marked.add(highlightedLine!);
-    final matching = file.hunks.where(
-      (hunk) => hunk.lines.any(marked.contains),
-    );
-    final hunks = focusOnHighlightedLine && matching.isNotEmpty
-        ? matching
-        : file.hunks;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (final hunk in hunks) ...[
-          _HunkHeader(header: hunk.header),
-          for (final line in hunk.lines)
-            _DiffLineRow(
-              line: line,
-              onSelected:
-                  onLineSelected != null &&
-                      lineActionLabel != null &&
-                      (canSelectLine?.call(line) ?? true)
-                  ? () => onLineSelected!(line)
-                  : null,
-              actionLabel: lineActionLabel,
-              showHighlightGutter: marked.isNotEmpty,
-              highlighted: marked.contains(line),
-              highlightedLabel: highlightedLineLabel,
-            ),
-        ],
-      ],
+    return DiffHunksViewer(
+      hunks: file.hunks,
+      highlightedLines: [?highlightedLine, ...highlightedLines],
+      highlightedLineLabel: highlightedLineLabel,
+      focusOnHighlightedLine: focusOnHighlightedLine,
+      onLineSelected: onLineSelected,
+      canSelectLine: canSelectLine,
+      lineActionLabel: lineActionLabel,
     );
   }
 }
@@ -232,4 +211,54 @@ class _DiffLineRow extends StatelessWidget {
     height: 1.4,
     color: Theme.of(context).colorScheme.onSurface,
   );
+}
+
+/// Renders already validated diff hunks without reparsing their rows.
+class DiffHunksViewer extends StatelessWidget {
+  const DiffHunksViewer({
+    required this.hunks,
+    this.highlightedLines = const [],
+    this.highlightedLineLabel,
+    this.focusOnHighlightedLine = false,
+    this.onLineSelected,
+    this.canSelectLine,
+    this.lineActionLabel,
+    super.key,
+  });
+  final List<DiffHunk> hunks;
+  final List<DiffLine> highlightedLines;
+  final String? highlightedLineLabel, lineActionLabel;
+  final bool focusOnHighlightedLine;
+  final ValueChanged<DiffLine>? onLineSelected;
+  final bool Function(DiffLine)? canSelectLine;
+  @override
+  Widget build(BuildContext context) {
+    final marked = Set<DiffLine>.identity()..addAll(highlightedLines);
+    final matching = hunks.where((hunk) => hunk.lines.any(marked.contains));
+    final displayed = focusOnHighlightedLine && matching.isNotEmpty
+        ? matching
+        : hunks;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final hunk in displayed) ...[
+          _HunkHeader(header: hunk.header),
+          for (final line in hunk.lines)
+            _DiffLineRow(
+              line: line,
+              onSelected:
+                  onLineSelected != null &&
+                      lineActionLabel != null &&
+                      (canSelectLine?.call(line) ?? true)
+                  ? () => onLineSelected!(line)
+                  : null,
+              actionLabel: lineActionLabel,
+              showHighlightGutter: marked.isNotEmpty,
+              highlighted: marked.contains(line),
+              highlightedLabel: highlightedLineLabel,
+            ),
+        ],
+      ],
+    );
+  }
 }

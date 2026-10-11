@@ -5142,4 +5142,22 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get mrPendingReplyAcknowledge => '토론과 초안을 확인했으며 이 답글을 저장하겠습니다.';
+
+  @override
+  String get mrCommitsEmpty => '이 머지 리퀘스트에 커밋이 없습니다.';
+
+  @override
+  String get mrOriginalReviewTitle => '원본 커밋 변경 사항';
+
+  @override
+  String get mrOriginalReviewReadOnly =>
+      '인라인 리뷰에는 부모가 하나로 보고된 검증된 텍스트 diff가 필요합니다.';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable =>
+      '이 파일의 원본 diff는 인라인 리뷰에 사용할 수 없습니다.';
+
+  @override
+  String get mrOriginalReviewPrivateHint =>
+      '이 노트는 리뷰를 게시하기 전까지 비공개로 유지됩니다. 저장하기 전에 선택한 커밋의 원본 diff를 다시 확인합니다.';
 }

@@ -4973,4 +4973,19 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get mrPendingReplyAcknowledge => '我已检查讨论和待发布笔记，并希望保存此回复。';
+
+  @override
+  String get mrCommitsEmpty => '此合并请求中没有提交。';
+
+  @override
+  String get mrOriginalReviewTitle => '原始提交更改';
+
+  @override
+  String get mrOriginalReviewReadOnly => '行内审查需要已验证的文本差异，且报告的父提交只有一个。';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable => '此文件的原始差异无法用于行内审查。';
+
+  @override
+  String get mrOriginalReviewPrivateHint => '此笔记在您发布审查前保持私密。保存前会再次检查所选提交的原始差异。';
 }

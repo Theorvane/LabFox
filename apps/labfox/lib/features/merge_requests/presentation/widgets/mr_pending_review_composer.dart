@@ -16,6 +16,7 @@ import '../../data/mr_draft_notes_repository.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_discussions_controller.dart';
 import '../controllers/mr_draft_notes_provider.dart';
+import '../controllers/mr_original_review_controller.dart';
 import '../controllers/mr_review_snapshot_controller.dart';
 import 'mr_pending_review_note.dart';
 
@@ -181,6 +182,34 @@ Future<bool?> showMrPendingReviewPositionDialog({
   ),
 );
 
+/// Reuses private-note input and inspection for a captured original commit.
+Future<bool?> showMrPendingOriginalReviewDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required MrOriginalReviewRef original,
+  required MrOriginalReviewSelection selection,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object clientSession,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    original: original,
+    originalSelection: selection,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    clientSession: clientSession,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
 /// Keeps private reply input bound to the original public discussion and client.
 Future<bool?> showMrPendingReviewReplyDialog({
   required BuildContext context,
@@ -217,6 +246,8 @@ class _ComposeDialog extends ConsumerStatefulWidget {
     required this.isCurrent,
     this.discussion,
     this.selection,
+    this.original,
+    this.originalSelection,
     this.diffSession,
     this.clientSession,
     this.draft,
@@ -230,6 +261,8 @@ class _ComposeDialog extends ConsumerStatefulWidget {
   final bool Function() isCurrent;
   final Discussion? discussion;
   final MrReviewSelection? selection;
+  final MrOriginalReviewRef? original;
+  final MrOriginalReviewSelection? originalSelection;
   final Object? diffSession, clientSession;
   final MergeRequestDraftNote? draft;
   final bool deleting;
@@ -268,6 +301,19 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
   }
 
   bool _selectionCurrent() {
+    if (widget.originalSelection case final original?) {
+      final snapshot = ref.read(
+        mrOriginalReviewControllerProvider(widget.original!),
+      );
+      return identical(
+            ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+            widget.clientSession,
+          ) &&
+          (snapshot.isLoading ||
+              snapshot.hasError ||
+              !snapshot.hasValue ||
+              original.matches(snapshot.value!));
+    }
     final selection = widget.selection;
     if (selection == null) {
       return !_reply ||
@@ -379,6 +425,13 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
               _text.text,
               isCurrent: _current,
             )
+          : widget.originalSelection != null
+          ? await controller.savePendingCommitNote(
+              _text.text,
+              original: widget.original!,
+              position: widget.originalSelection!.position,
+              isCurrent: _current,
+            )
           : await controller.savePendingNote(
               _text.text,
               position: widget.selection?.position,
@@ -463,6 +516,9 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
     if (widget.selection != null) {
       ref.invalidate(mrReviewSnapshotControllerProvider(widget.resource));
     }
+    if (widget.original != null) {
+      ref.invalidate(mrOriginalReviewControllerProvider(widget.original!));
+    }
     ref.invalidate(mrDiscussionsControllerProvider(widget.resource));
     ref.invalidate(mergeRequestControllerProvider(widget.resource));
   }
@@ -478,6 +534,19 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         : ref
               .watch(mrReviewSnapshotControllerProvider(widget.resource))
               .unwrapPrevious();
+    final originalReview = widget.original == null
+        ? null
+        : ref
+              .watch(mrOriginalReviewControllerProvider(widget.original!))
+              .unwrapPrevious();
+    if (widget.original != null) {
+      ref.watch(gitLabClientProvider);
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+      ref.listen(
+        mrOriginalReviewControllerProvider(widget.original!),
+        (_, _) => _observe(),
+      );
+    }
     if (_reply) {
       ref.watch(gitLabClientProvider);
       ref.listen(gitLabClientProvider, (_, _) => _observe());
@@ -526,7 +595,8 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
         (comments.isLoading ||
             discussions!.isLoading ||
             detail!.isLoading ||
-            review?.isLoading == true);
+            review?.isLoading == true ||
+            originalReview?.isLoading == true);
     final ready =
         current &&
         !preparing &&
@@ -535,6 +605,11 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                 !review.hasError &&
                 review.hasValue &&
                 widget.selection!.matches(review.value!))) &&
+        (widget.originalSelection == null ||
+            (originalReview != null &&
+                !originalReview.hasError &&
+                originalReview.hasValue &&
+                widget.originalSelection!.matches(originalReview.value!))) &&
         !comments.hasError &&
         comments.valueOrNull != null &&
         !discussions!.hasError &&
@@ -572,7 +647,7 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                     : l.mrPendingEditTitle)
               : _reply
               ? l.mrPendingReplyTitle
-              : widget.selection != null
+              : widget.selection != null || widget.originalSelection != null
               ? l.mrPendingInlineTitle
               : l.mrPendingComposeTitle,
         ),
@@ -591,8 +666,11 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                             : l.mrPendingEditHint)
                       : _reply
                       ? l.mrPendingReplyHint
-                      : widget.selection != null
-                      ? l.mrPendingInlineHint
+                      : widget.selection != null ||
+                            widget.originalSelection != null
+                      ? (widget.originalSelection != null
+                            ? l.mrOriginalReviewPrivateHint
+                            : l.mrPendingInlineHint)
                       : l.mrPendingComposeHint,
                 ),
                 if (_reply) ...[
@@ -670,6 +748,42 @@ class _ComposeState extends ConsumerState<_ComposeDialog> {
                         ),
                       ),
                     if (selection.position.newLine case final line?)
+                      Text(
+                        l.mrPendingReviewNewLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                  ],
+                ],
+                if (widget.originalSelection case final original?) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(l.mrOriginalReviewTitle),
+                  SelectableText(widget.original!.commitId),
+                  SelectableText(
+                    l.mrPendingReviewOldPath(original.position.oldPath!),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewNewPath(original.position.newPath!),
+                  ),
+                  if (original.position.lineRange case final range?)
+                    Text(
+                      l.mrDiscussionContextRangeLabel(
+                        _rangeLabel(range.start!, l.localeName),
+                        _rangeLabel(range.end!, l.localeName),
+                      ),
+                    )
+                  else ...[
+                    if (original.position.oldLine case final line?)
+                      Text(
+                        l.mrPendingReviewOldLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                    if (original.position.newLine case final line?)
                       Text(
                         l.mrPendingReviewNewLine(
                           NumberFormat.decimalPattern(

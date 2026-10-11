@@ -73,11 +73,19 @@ class Analytics {
 
 /// Collapses numeric path segments (`/projects/42` → `/projects/:id`) so a
 /// screen-view route never carries an identifying or high-cardinality value.
+/// Commit route parameters are hidden even when an invalid deep link is visited.
 String sanitizeRoute(String path) {
-  return path
-      .split('/')
-      .map((segment) => int.tryParse(segment) == null ? segment : ':id')
-      .join('/');
+  final segments = path.split('/');
+  return [
+    for (var i = 0; i < segments.length; i++)
+      if (i > 0 &&
+          (segments[i - 1] == 'commit' || segments[i - 1] == 'commits'))
+        ':sha'
+      else if (int.tryParse(segments[i]) != null)
+        ':id'
+      else
+        segments[i],
+  ].join('/');
 }
 
 final analyticsProvider = Provider<Analytics>((ref) {

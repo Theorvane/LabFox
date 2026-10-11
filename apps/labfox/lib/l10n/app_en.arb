@@ -3018,5 +3018,10 @@
   "mrPendingReplyTargetTitle": "Discussion context",
   "mrPendingReplyTargetUnavailable": "This discussion is missing or no longer accepts a private reply.",
   "mrPendingReplyInspectionHint": "Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.",
-  "mrPendingReplyAcknowledge": "I checked the discussion and pending notes and want to save this reply."
+  "mrPendingReplyAcknowledge": "I checked the discussion and pending notes and want to save this reply.",
+  "mrCommitsEmpty": "No commits in this merge request.",
+  "mrOriginalReviewTitle": "Original commit changes",
+  "mrOriginalReviewReadOnly": "Inline review requires a validated text diff with one reported parent.",
+  "mrOriginalReviewDiffUnavailable": "This original file diff is unavailable for inline review.",
+  "mrOriginalReviewPrivateHint": "This note stays private until you publish your review. The selected commit's original diff is checked again before saving."
 }

@@ -77,6 +77,13 @@ class MergeRequestDetailScreen extends ConsumerWidget {
               icon: const Icon(LabFoxIcons.diff, size: 18),
               label: Text(l10n.mrViewChanges),
             ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            OutlinedButton.icon(
+              onPressed: () =>
+                  context.push(Routes.mergeRequestCommits(projectId, iid)),
+              icon: const Icon(LabFoxIcons.commit),
+              label: Text(l10n.commitsTitle),
+            ),
             if (data.labels.isNotEmpty) ...[
               const SizedBox(height: LabFoxSpacing.md),
               Wrap(
