@@ -276,6 +276,64 @@ class RepositoryApi {
     }
   }
 
+  /// Reads an exact commit identity and preserves ordered, nullable parents.
+  /// General branch/tag detail reads use [commit] instead. This method does not
+  /// choose original diff references or prove current MR membership.
+  Future<Commit> fixedCommit(
+    Object projectId, {
+    required String commitId,
+  }) async {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (!_validCommitId(commitId)) {
+      throw ArgumentError.value(commitId, 'commitId');
+    }
+    try {
+      final response = await _dio.get<String>(
+        '/projects/${_enc(projectId)}/repository/commits/$commitId',
+        queryParameters: {'stats': false},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'reading a fixed commit',
+        );
+      }
+      try {
+        final data = jsonDecode(response.data ?? '');
+        if (data is! Map<String, dynamic> || data['id'] != commitId) {
+          throw const FormatException();
+        }
+        final parents = data['parent_ids'];
+        if (parents != null &&
+            (parents is! List ||
+                parents.any((p) => !_validCommitId(p) || p == commitId) ||
+                parents.toSet().length != parents.length)) {
+          throw const FormatException();
+        }
+        return Commit.fromJson(data);
+      } on FormatException {
+        throw const GitLabServerException('Invalid fixed commit response.');
+      } on TypeError {
+        throw const GitLabServerException('Invalid fixed commit response.');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'reading a fixed commit');
+    }
+  }
+
+  static bool _validCommitId(Object? value) =>
+      value is String &&
+      value.length == 40 &&
+      !RegExp(r'[^0-9a-f]').hasMatch(value);
+
   /// Reads one page of literal original diff files for a fixed commit identity.
   /// Preserves unknown text/omission metadata without inferring file coverage.
   /// GitLab diff limits can stop pagination before every changed file is exposed.
