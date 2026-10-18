@@ -5721,6 +5721,59 @@ abstract class AppLocalizations {
   /// **'Approval group added.'**
   String get protectedEnvironmentApprovalGroupSuccess;
 
+  /// No description provided for @protectedEnvironmentApprovalGroupEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace approval group'**
+  String get protectedEnvironmentApprovalGroupEditTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected group will be replaced. The approval count and membership setting stay the same. The new group must be shared with this project. Too few eligible approvers can block deployments.'**
+  String get protectedEnvironmentApprovalGroupEditWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes which group can approve deployments.'**
+  String get protectedEnvironmentApprovalGroupEditAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval group replaced.'**
+  String get protectedEnvironmentApprovalGroupEditSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditRuleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{approver} (rule {ruleId}, group {groupId}, {count} required)'**
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  );
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentApprovalGroupEditDirect;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes inherited members'**
+  String get protectedEnvironmentApprovalGroupEditInherited;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditId.
+  ///
+  /// In en, this message translates to:
+  /// **'New group ID'**
+  String get protectedEnvironmentApprovalGroupEditId;
+
   /// No description provided for @protectedEnvironmentDeployRoleWarning.
   ///
   /// In en, this message translates to:

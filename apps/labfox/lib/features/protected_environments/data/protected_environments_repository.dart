@@ -154,6 +154,18 @@ class ProtectedEnvironmentsRepository {
     int page = 1,
   }) => client.groupProtectedEnvironments.list(groupId, page: page);
 
+  Future<ProtectedEnvironment> editApprovalGroup(
+    int projectId,
+    String name, {
+    required int ruleId,
+    required int groupId,
+  }) => client.protectedEnvironments.editApprovalGroup(
+    projectId,
+    name,
+    ruleId: ruleId,
+    groupId: groupId,
+  );
+
   Future<ProtectedEnvironment> getGroup(int groupId, String name) =>
       client.groupProtectedEnvironments.get(groupId, name);
 }

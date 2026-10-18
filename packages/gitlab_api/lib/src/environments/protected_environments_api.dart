@@ -646,6 +646,59 @@ class ProtectedEnvironmentsApi {
     }
   }
 
+  Future<ProtectedEnvironment> editApprovalGroup(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int groupId,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        groupId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and positive rule and group IDs required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'group_id': groupId},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'replacing an environment approval group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.id == ruleId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId != groupId ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null ||
+          !{0, 1}.contains(matches.single.groupInheritanceType)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval group replacement',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'replacing an environment approval group');
+    }
+  }
+
   Future<ProtectedEnvironment> get(Object projectId, String name) =>
       _get(projectId, name, requireComplete: false);
 

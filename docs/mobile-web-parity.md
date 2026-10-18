@@ -75,6 +75,15 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 
 ## Additional MW-02 evidence
 
+Project approval-group replacement [#656](https://github.com/Theorvane/LabFox/issues/656)
+and [PR #657](https://github.com/Theorvane/LabFox/pull/657) are in review. The slice
+replaces one group by exact ID while preserving approval count,
+membership, stable rule identity and all other grants. Complete preflight,
+description-aware response/read-back comparison, duplicate/unchanged guards,
+renewed confirmation and account isolation are covered by tests.
+See the [implementation and validation notes](protected-environment-approval-group-replacement.md).
+CI, review approval and merge into `dev` remain required.
+
 Protected-branch Code Owner approval editing [#650](https://github.com/Theorvane/LabFox/issues/650)
 and [PR #651](https://github.com/Theorvane/LabFox/pull/651) add a bounded
 project-rule setting with explicit boolean inspection, complete
@@ -111,9 +120,9 @@ See the [implementation and validation notes](protected-environment-approval-gro
 
 Project approval-group inherited membership editing
 [#654](https://github.com/Theorvane/LabFox/issues/654),
-[PR #655](https://github.com/Theorvane/LabFox/pull/655), is in review. It changes
+[PR #655](https://github.com/Theorvane/LabFox/pull/655), shipped after approval,
+passing CI and merge into `dev` on 2026-10-18. It changes
 only a known group rule's explicit direct/inherited membership value, with
 changed-value and exact-name confirmation, complete inventory/detail preflight,
 one-record PUT, strict response and read-back preservation, and session and
 uncertainty guards. See the [implementation and validation notes](protected-environment-approval-inheritance.md).
-CI, review approval, and merge into `dev` are required before marking it shipped.
