@@ -2959,6 +2959,31 @@ class AppLocalizationsKo extends AppLocalizations {
   String get protectedEnvironmentDeployInheritanceTitle => '배포 그룹 멤버십 편집';
 
   @override
+  String get protectedEnvironmentDeployGroupTitle => '배포 그룹 추가';
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      '그룹을 추가하면 해당 그룹의 직접 멤버가 이 환경에 배포할 수 있습니다. 계속하기 전에 기존 배포 권한과 승인 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      '이 작업이 그룹의 직접 멤버에게 배포 권한을 부여함을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess => '배포 그룹을 추가했습니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => '그룹 ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      '이 프로젝트와 공유된 그룹의 정확한 숫자 ID를 입력하세요. 직접 멤버만 포함됩니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate =>
+      '이 그룹에는 이미 배포 권한이 있습니다.';
+
+  @override
   String get protectedEnvironmentDeployInheritanceWarning =>
       '상속된 구성원을 포함하면 더 많은 사용자가 배포할 수 있습니다. 직접 가입한 구성원만 허용하면 배포 권한이 사라질 수 있습니다. 계속하기 전에 모든 권한을 검토하세요.';
 

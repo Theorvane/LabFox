@@ -5634,6 +5634,48 @@ abstract class AppLocalizations {
   /// **'Edit deploy group membership'**
   String get protectedEnvironmentDeployInheritanceTitle;
 
+  /// No description provided for @protectedEnvironmentDeployGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy group'**
+  String get protectedEnvironmentDeployGroupTitle;
+
+  /// No description provided for @protectedEnvironmentDeployGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding a group can let its direct members deploy to this environment. Review existing deploy access and approval rules before continuing.'**
+  String get protectedEnvironmentDeployGroupWarning;
+
+  /// No description provided for @protectedEnvironmentDeployGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this grants deployment access to the group\'s direct members.'**
+  String get protectedEnvironmentDeployGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group added.'**
+  String get protectedEnvironmentDeployGroupSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployGroupId.
+  ///
+  /// In en, this message translates to:
+  /// **'Group ID'**
+  String get protectedEnvironmentDeployGroupId;
+
+  /// No description provided for @protectedEnvironmentDeployGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the exact numeric ID of a group shared with this project. Only direct members are included.'**
+  String get protectedEnvironmentDeployGroupHint;
+
+  /// No description provided for @protectedEnvironmentDeployGroupDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This group already has deployment access.'**
+  String get protectedEnvironmentDeployGroupDuplicate;
+
   /// No description provided for @protectedEnvironmentDeployInheritanceWarning.
   ///
   /// In en, this message translates to:
