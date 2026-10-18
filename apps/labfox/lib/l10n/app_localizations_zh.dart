@@ -2897,6 +2897,29 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentDeployGroupTitle => '添加部署组';
 
   @override
+  String get protectedEnvironmentRemoveDeployGroupTitle => '移除部署组';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      '移除此权限可能会阻止该组成员部署。其他权限可能仍允许访问。移除最后一项部署权限可能会阻止向此受保护环境部署。';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      '我了解此操作会移除所选组的部署权限，并可能阻止部署。';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess => '已移除部署组。';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer（权限 $grantId，组 $groupId）';
+  }
+
+  @override
   String get protectedEnvironmentDeployGroupWarning =>
       '添加组后，该组的直接成员可能可以部署到此环境。继续前请检查现有部署权限和审批规则。';
 

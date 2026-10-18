@@ -3036,6 +3036,30 @@ class AppLocalizationsHi extends AppLocalizations {
   String get protectedEnvironmentDeployGroupTitle => 'डिप्लॉय समूह जोड़ें';
 
   @override
+  String get protectedEnvironmentRemoveDeployGroupTitle => 'डिप्लॉय समूह हटाएँ';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      'इस अनुमति को हटाने से समूह के सदस्यों के डिप्लॉय अवरुद्ध हो सकते हैं। अन्य अनुमतियों से पहुँच मिल सकती है। अंतिम डिप्लॉय अनुमति हटाने से इस सुरक्षित एनवायरनमेंट में डिप्लॉय अवरुद्ध हो सकता है।';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      'मैं समझता हूँ कि इससे चुने गए समूह की डिप्लॉय अनुमति हटती है और डिप्लॉय अवरुद्ध हो सकते हैं।';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess =>
+      'डिप्लॉय समूह हटा दिया गया।';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (अनुमति $grantId, समूह $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentDeployGroupWarning =>
       'समूह जोड़ने से उसके प्रत्यक्ष सदस्य इस एनवायरनमेंट में डिप्लॉय कर सकते हैं। आगे बढ़ने से पहले मौजूदा डिप्लॉय पहुँच और अनुमोदन नियमों की समीक्षा करें।';
 

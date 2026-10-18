@@ -10,6 +10,7 @@ import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environment_approval_group_edit_controller.dart';
 import 'controllers/protected_environment_approval_inheritance_controller.dart';
 import 'controllers/protected_environment_deploy_inheritance_controller.dart';
+import 'controllers/protected_environment_remove_deploy_group_controller.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
@@ -20,6 +21,7 @@ import 'widgets/protected_environment_deploy_inheritance_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_approval_dialog.dart';
+import 'widgets/protected_environment_remove_deploy_group_dialog.dart';
 import 'widgets/protected_environment_remove_role_dialog.dart';
 import 'widgets/protected_environment_unprotect_dialog.dart';
 
@@ -242,6 +244,51 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
               );
               final permissions = Column(
                 children: [
+                  if (projectKey != null &&
+                      data.deployAccessLevels.any(removableDeployGroup))
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-remove-deploy-group-open',
+                        ),
+                        icon: const Icon(Icons.group_remove_outlined),
+                        label: Text(
+                          l10n.protectedEnvironmentRemoveDeployGroupTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final removed = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>
+                                ProtectedEnvironmentRemoveDeployGroupDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (removed == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentRemoveDeployGroupSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   if (projectKey != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),

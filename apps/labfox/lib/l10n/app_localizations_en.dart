@@ -3036,6 +3036,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get protectedEnvironmentDeployGroupTitle => 'Add deploy group';
 
   @override
+  String get protectedEnvironmentRemoveDeployGroupTitle =>
+      'Remove deploy group';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      'Removing this grant can block deployments for this group\'s members. Other grants may still allow access. Removing the last deploy grant can block deployment to this protected environment.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      'I understand that this removes the selected group\'s deploy grant and can block deployments.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess =>
+      'Deploy group removed.';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (grant $grantId, group $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentDeployGroupWarning =>
       'Adding a group can let its direct members deploy to this environment. Review existing deploy access and approval rules before continuing.';
 

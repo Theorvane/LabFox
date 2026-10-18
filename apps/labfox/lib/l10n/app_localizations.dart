@@ -5640,6 +5640,40 @@ abstract class AppLocalizations {
   /// **'Add deploy group'**
   String get protectedEnvironmentDeployGroupTitle;
 
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy group'**
+  String get protectedEnvironmentRemoveDeployGroupTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant can block deployments for this group\'s members. Other grants may still allow access. Removing the last deploy grant can block deployment to this protected environment.'**
+  String get protectedEnvironmentRemoveDeployGroupWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this removes the selected group\'s deploy grant and can block deployments.'**
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group removed.'**
+  String get protectedEnvironmentRemoveDeployGroupSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{deployer} (grant {grantId}, group {groupId})'**
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  );
+
   /// No description provided for @protectedEnvironmentDeployGroupWarning.
   ///
   /// In en, this message translates to:
