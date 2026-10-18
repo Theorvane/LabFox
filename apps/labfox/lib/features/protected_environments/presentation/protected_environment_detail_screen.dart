@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
+import 'controllers/protected_environment_approval_group_edit_controller.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
+import 'widgets/protected_environment_approval_group_edit_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_approval_dialog.dart';
@@ -289,6 +291,51 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
                     entries: data.approvalRules,
                     showRequiredApprovals: true,
                   ),
+                  if (projectKey != null &&
+                      data.approvalRules.any(editableApprovalGroupTarget))
+                    Padding(
+                      padding: const EdgeInsets.only(top: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-approval-group-edit-open',
+                        ),
+                        icon: const Icon(Icons.swap_horiz_outlined),
+                        label: Text(
+                          l10n.protectedEnvironmentApprovalGroupEditTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final edited = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>
+                                ProtectedEnvironmentApprovalGroupEditDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (edited == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentApprovalGroupEditSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   if (projectKey != null &&
                       data.approvalRules.any(
                         (rule) =>

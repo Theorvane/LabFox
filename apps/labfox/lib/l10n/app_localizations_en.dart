@@ -3055,6 +3055,43 @@ class AppLocalizationsEn extends AppLocalizations {
       'Approval group added.';
 
   @override
+  String get protectedEnvironmentApprovalGroupEditTitle =>
+      'Replace approval group';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      'The selected group will be replaced. The approval count and membership setting stay the same. The new group must be shared with this project. Too few eligible approvers can block deployments.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      'I understand that this changes which group can approve deployments.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess =>
+      'Approval group replaced.';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver (rule $ruleId, group $groupId, $count required)';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect =>
+      'Direct members only';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited =>
+      'Includes inherited members';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => 'New group ID';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.';
 

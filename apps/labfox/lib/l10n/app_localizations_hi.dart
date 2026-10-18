@@ -3055,6 +3055,42 @@ class AppLocalizationsHi extends AppLocalizations {
       'अनुमोदन समूह जोड़ा गया।';
 
   @override
+  String get protectedEnvironmentApprovalGroupEditTitle => 'अनुमोदन समूह बदलें';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      'चुना गया समूह बदल दिया जाएगा। अनुमोदन संख्या और सदस्यता सेटिंग वही रहेंगी। नया समूह इस प्रोजेक्ट के साथ साझा होना चाहिए। पर्याप्त पात्र अनुमोदक न होने पर डिप्लॉयमेंट रुक सकते हैं।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      'मैं समझता हूँ कि इससे डिप्लॉयमेंट को अनुमोदित कर सकने वाला समूह बदलता है।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess =>
+      'अनुमोदन समूह बदल दिया गया।';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver (नियम $ruleId, समूह $groupId, $count अनुमोदन आवश्यक)';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect =>
+      'केवल प्रत्यक्ष सदस्य';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited =>
+      'विरासत में मिले सदस्य शामिल हैं';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => 'नए समूह की ID';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       'चुनी गई भूमिका को डिप्लॉय करने की अनुमति मिलेगी। मौजूदा डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे।';
 

@@ -2981,6 +2981,39 @@ class AppLocalizationsKo extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupSuccess => '승인 그룹이 추가되었습니다.';
 
   @override
+  String get protectedEnvironmentApprovalGroupEditTitle => '승인 그룹 교체';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      '선택한 그룹이 교체됩니다. 승인 수와 멤버십 설정은 유지됩니다. 새 그룹이 이 프로젝트와 공유되어 있어야 합니다. 승인 가능한 구성원이 부족하면 배포가 차단될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      '배포를 승인할 수 있는 그룹이 변경됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess => '승인 그룹이 교체되었습니다.';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver (규칙 $ruleId, 그룹 $groupId, $count명 승인 필요)';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect => '직접 가입한 구성원만';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited => '상속된 구성원 포함';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => '새 그룹 ID';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       '선택한 역할에 배포 권한이 부여됩니다. 기존 배포 권한과 승인 규칙은 유지됩니다.';
 

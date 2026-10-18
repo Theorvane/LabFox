@@ -2973,6 +2973,39 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupSuccess => '承認グループを追加しました。';
 
   @override
+  String get protectedEnvironmentApprovalGroupEditTitle => '承認グループを置き換え';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      '選択したグループを置き換えます。承認数とメンバーシップ設定は維持されます。新しいグループはこのプロジェクトと共有されている必要があります。承認可能なメンバーが不足すると、デプロイがブロックされることがあります。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      'デプロイを承認できるグループが変更されることを理解しています。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess => '承認グループを置き換えました。';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver（ルール $ruleId、グループ $groupId、$count 件の承認が必要）';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect => '直接のメンバーのみ';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited => '継承されたメンバーを含む';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => '新しいグループ ID';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       '選択したロールにデプロイ権限が付与されます。既存のデプロイ権限と承認ルールは維持されます。';
 

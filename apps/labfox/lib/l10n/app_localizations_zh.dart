@@ -2914,6 +2914,39 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupSuccess => '已添加审批组。';
 
   @override
+  String get protectedEnvironmentApprovalGroupEditTitle => '替换审批组';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      '将替换选定的群组。审批数量和成员范围设置保持不变。新群组必须与此项目共享。符合条件的审批者不足可能会阻止部署。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      '我了解这会更改能够审批部署的群组。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess => '已替换审批组。';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver（规则 $ruleId，群组 $groupId，需要 $count 个审批）';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect => '仅直接成员';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited => '包含继承的成员';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => '新群组 ID';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       '所选角色将获得部署权限。现有部署授权和审批规则保持不变。';
 

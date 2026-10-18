@@ -75,14 +75,22 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 
 ## Additional MW-02 evidence
 
+Project approval-group replacement [#656](https://github.com/Theorvane/LabFox/issues/656)
+is in review. It replaces one group by exact ID while preserving approval count,
+membership, stable rule identity and all other grants. Complete preflight,
+description-aware response/read-back comparison, duplicate/unchanged guards,
+renewed confirmation and account isolation are covered by tests.
+See the [implementation and validation notes](protected-environment-approval-group-replacement.md).
+CI, review approval and merge into `dev` remain required.
+
 Protected-branch Code Owner approval editing [#650](https://github.com/Theorvane/LabFox/issues/650)
 and [PR #651](https://github.com/Theorvane/LabFox/pull/651) add a bounded
 project-rule setting with explicit boolean inspection, complete
 paginated preflight, exact-name and changed-value confirmation, one-field PATCH,
 strict response and read-back comparison, account isolation, and localized
 responsive coverage. See the [implementation and validation notes](protected-branch-code-owner-approval.md).
-This slice is in review; CI, review approval, and merge into `dev` are still
-required. Other protection-rule management remains part of MW-02.
+This slice shipped after approval, passing CI, and merge into `dev` on
+2026-10-18. Other protection-rule management remains part of MW-02.
 
 ## Procedure for the next slice
 
@@ -100,9 +108,9 @@ required. Other protection-rule management remains part of MW-02.
 
 Project protected-environment approval-group addition
 [#652](https://github.com/Theorvane/LabFox/issues/652),
-[PR #653](https://github.com/Theorvane/LabFox/pull/653), is in review. This bounded
+[PR #653](https://github.com/Theorvane/LabFox/pull/653), shipped after approval,
+passing CI, and merge into `dev` on 2026-10-18. This bounded
 slice adds a shared group by exact ID with 1–5 approvals and direct membership,
 complete inventory/detail preflight, exact-name confirmation, one-record PUT,
 strict response and read-back preservation, and account/uncertainty guards.
 See the [implementation and validation notes](protected-environment-approval-groups.md).
-CI, review approval, and merge into `dev` are required before marking it shipped.
