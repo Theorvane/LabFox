@@ -2702,6 +2702,53 @@ class AppLocalizationsHi extends AppLocalizations {
   String get protectedBranchForcePushEditTitle => 'फ़ोर्स पुश संपादित करें';
 
   @override
+  String get protectedBranchCodeOwnerEditTitle => 'Code Owner स्वीकृति बदलें';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      'मौजूदा नियम: Code Owner स्वीकृति आवश्यक है।';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      'मौजूदा नियम: Code Owner स्वीकृति अनिवार्य नहीं है।';
+
+  @override
+  String get protectedBranchCodeOwnerRequire =>
+      'Code Owner स्वीकृति अनिवार्य करें';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      'इस नियम के तहत CODEOWNERS में शामिल फ़ाइलों के लिए Code Owner स्वीकृति आवश्यक होगी।';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      'इस नियम में अब Code Owner स्वीकृति आवश्यक नहीं होगी। अन्य स्वीकृति नियम फिर भी लागू हो सकते हैं।';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      'मैं समझता/समझती हूँ कि इससे इस ब्रांच नियम की Code Owner स्वीकृति आवश्यकताएँ बदलती हैं।';
+
+  @override
+  String get protectedBranchCodeOwnerError =>
+      'Code Owner सेटिंग की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले नियम जाँचें।';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      'इस नियम को प्रबंधित करने की अनुमति और GitLab Premium/Ultimate आवश्यक हैं।';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess =>
+      'Code Owner स्वीकृति आवश्यकता अपडेट की गई।';
+
+  @override
+  String get protectedBranchCodeOwnerInspect =>
+      'मौजूदा Code Owner सेटिंग पढ़ने के लिए नियम जाँचें।';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      'वाइल्डकार्ड कई ब्रांच पर लागू हो सकता है। किन फ़ाइलों पर स्वीकृति चाहिए, यह CODEOWNERS से तय होता है। सीधे पुश करने से मर्ज रिक्वेस्ट की स्वीकृति से बचा जा सकता है।';
+
+  @override
   String protectedBranchForcePushEditTarget(String project, String name) {
     return 'प्रोजेक्ट $project: $name';
   }

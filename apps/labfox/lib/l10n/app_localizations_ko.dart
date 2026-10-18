@@ -2646,6 +2646,51 @@ class AppLocalizationsKo extends AppLocalizations {
   String get protectedBranchForcePushEditTitle => '강제 푸시 수정';
 
   @override
+  String get protectedBranchCodeOwnerEditTitle => 'Code Owner 승인 설정 변경';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      '현재 규칙: Code Owner 승인이 필요합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      '현재 규칙: Code Owner 승인이 필수가 아닙니다.';
+
+  @override
+  String get protectedBranchCodeOwnerRequire => 'Code Owner 승인 필수';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      '이 규칙은 CODEOWNERS에 해당하는 파일에 Code Owner 승인을 요구합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      '이 규칙에서 Code Owner 승인을 더 이상 요구하지 않습니다. 다른 승인 규칙은 계속 적용될 수 있습니다.';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      '이 브랜치 규칙의 Code Owner 승인 요건이 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerError =>
+      'Code Owner 설정을 확인하지 못했습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      '이 규칙을 관리할 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess => 'Code Owner 승인 요건을 변경했습니다.';
+
+  @override
+  String get protectedBranchCodeOwnerInspect =>
+      '규칙을 확인하여 현재 Code Owner 설정을 읽으세요.';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      '와일드카드는 여러 브랜치에 적용될 수 있습니다. 승인 대상 파일은 CODEOWNERS 설정에 따라 결정됩니다. 직접 푸시하면 Merge Request 승인을 건너뛸 수 있습니다.';
+
+  @override
   String protectedBranchForcePushEditTarget(String project, String name) {
     return '프로젝트 $project: $name';
   }

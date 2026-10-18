@@ -14,6 +14,124 @@ class ProtectedBranchesApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_branches';
 
+  Future<ProtectedBranch> getForCodeOwnerEdit(
+    Object projectId,
+    String name,
+  ) async {
+    if (name.trim().isEmpty) throw ArgumentError('Exact rule name required');
+    try {
+      final response = await _dio.get<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(followRedirects: false),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'inspecting protected branch Code Owner approval',
+        );
+      }
+      return _parseCodeOwnerRule(response.data, name);
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'inspecting protected branch Code Owner approval',
+      );
+    }
+  }
+
+  Future<ProtectedBranch> updateCodeOwnerApproval(
+    Object projectId,
+    String name, {
+    required bool codeOwnerApprovalRequired,
+  }) async {
+    if (name.trim().isEmpty) throw ArgumentError('Exact rule name required');
+    try {
+      final response = await _dio.patch<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {'code_owner_approval_required': codeOwnerApprovalRequired},
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating protected branch Code Owner approval',
+        );
+      }
+      final changed = _parseCodeOwnerRule(response.data, name);
+      if (changed.codeOwnerApprovalRequired != codeOwnerApprovalRequired) {
+        throw const GitLabServerException(
+          'Unconfirmed Code Owner approval update',
+        );
+      }
+      return changed;
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'updating protected branch Code Owner approval',
+      );
+    }
+  }
+
+  ProtectedBranch _parseCodeOwnerRule(Object? raw, String name) {
+    if (!_validRule(raw) ||
+        raw is! Map<String, dynamic> ||
+        raw['name'] != name ||
+        raw['id'] is! int ||
+        (raw['id'] as int) <= 0 ||
+        raw['code_owner_approval_required'] is! bool ||
+        (raw['inherited'] != null && raw['inherited'] is! bool)) {
+      throw const GitLabServerException(
+        'Incomplete protected branch Code Owner rule',
+      );
+    }
+    for (final field in [
+      'push_access_levels',
+      'merge_access_levels',
+      'unprotect_access_levels',
+    ]) {
+      final ids = <int>{};
+      for (final entry in raw[field] as List? ?? []) {
+        if (entry is! Map<String, dynamic> ||
+            entry['id'] is! int ||
+            (entry['id'] as int) <= 0 ||
+            !ids.add(entry['id'] as int)) {
+          throw const GitLabServerException(
+            'Malformed Code Owner rule access records',
+          );
+        }
+        for (final key in [
+          'access_level',
+          'user_id',
+          'group_id',
+          'deploy_key_id',
+          'member_role_id',
+        ]) {
+          if (entry[key] != null && entry[key] is! int) {
+            throw const GitLabServerException(
+              'Malformed Code Owner rule access records',
+            );
+          }
+        }
+      }
+    }
+    try {
+      return ProtectedBranch.fromJson(raw);
+    } on TypeError {
+      throw const GitLabServerException(
+        'Malformed protected branch Code Owner rule',
+      );
+    } on FormatException {
+      throw const GitLabServerException(
+        'Malformed protected branch Code Owner rule',
+      );
+    }
+  }
+
   Future<Paginated<ProtectedBranch>> list(
     Object projectId, {
     int page = 1,

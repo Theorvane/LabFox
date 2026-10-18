@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_branches_controller.dart';
+import 'widgets/protected_branch_code_owner_dialog.dart';
 import 'widgets/protected_branch_force_push_dialog.dart';
 import 'widgets/protected_branch_merge_role_dialog.dart';
 import 'widgets/protected_branch_push_role_dialog.dart';
@@ -61,6 +62,37 @@ class ProtectedBranchDetailScreen extends ConsumerWidget {
               final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
               final settings = _Settings(
                 rule: data,
+                onEditCodeOwner: data.inherited == true
+                    ? null
+                    : () async {
+                        final session = ref.read(
+                          protectedBranchesRepositoryProvider.future,
+                        );
+                        final changed = await showDialog<bool>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => ProtectedBranchCodeOwnerDialog(
+                            target: key,
+                            rule: data,
+                          ),
+                        );
+                        if (changed == true &&
+                            context.mounted &&
+                            identical(
+                              session,
+                              ref.read(
+                                protectedBranchesRepositoryProvider.future,
+                              ),
+                            )) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                l10n.protectedBranchCodeOwnerSuccess,
+                              ),
+                            ),
+                          );
+                        }
+                      },
                 onEditPushRole: editableProtectedBranchPushAccess(data) == null
                     ? null
                     : () async {
@@ -203,6 +235,7 @@ class _Settings extends StatelessWidget {
   const _Settings({
     required this.rule,
     required this.onEditForcePush,
+    required this.onEditCodeOwner,
     required this.onEditMergeRole,
     required this.onUnprotect,
     required this.onEditPushRole,
@@ -210,6 +243,7 @@ class _Settings extends StatelessWidget {
 
   final ProtectedBranch rule;
   final VoidCallback? onEditForcePush;
+  final VoidCallback? onEditCodeOwner;
   final VoidCallback? onEditMergeRole;
   final VoidCallback? onUnprotect;
   final VoidCallback? onEditPushRole;
@@ -244,6 +278,14 @@ class _Settings extends StatelessWidget {
                 key: const ValueKey('protected-branch-force-push-edit'),
                 onPressed: onEditForcePush,
                 child: Text(l10n.protectedBranchForcePushEditTitle),
+              ),
+            ],
+            if (onEditCodeOwner != null) ...[
+              const SizedBox(height: LabFoxSpacing.md),
+              OutlinedButton(
+                key: const ValueKey('protected-branch-code-owner-edit'),
+                onPressed: onEditCodeOwner,
+                child: Text(l10n.protectedBranchCodeOwnerEditTitle),
               ),
             ],
             if (onEditMergeRole != null) ...[

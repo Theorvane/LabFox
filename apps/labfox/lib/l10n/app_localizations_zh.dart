@@ -2606,6 +2606,49 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedBranchForcePushEditTitle => '编辑强制推送';
 
   @override
+  String get protectedBranchCodeOwnerEditTitle => '更改 Code Owner 审批';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      '当前规则：需要 Code Owner 审批。';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      '当前规则：不强制要求 Code Owner 审批。';
+
+  @override
+  String get protectedBranchCodeOwnerRequire => '强制要求 Code Owner 审批';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      '此规则将要求 CODEOWNERS 覆盖的文件获得 Code Owner 审批。';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      '此规则将不再强制要求 Code Owner 审批。其他审批规则仍可能适用。';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      '我理解这会更改此分支规则的 Code Owner 审批要求。';
+
+  @override
+  String get protectedBranchCodeOwnerError => '无法确认 Code Owner 设置。重试前请检查规则。';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      '需要管理此规则的权限和 GitLab Premium/Ultimate。';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess => 'Code Owner 审批要求已更新。';
+
+  @override
+  String get protectedBranchCodeOwnerInspect => '请检查规则以读取当前的 Code Owner 设置。';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      '通配符可能影响多个分支。哪些文件需要审批取决于 CODEOWNERS 的覆盖范围。直接推送可以绕过合并请求审批。';
+
+  @override
   String protectedBranchForcePushEditTarget(String project, String name) {
     return '项目 $project：$name';
   }

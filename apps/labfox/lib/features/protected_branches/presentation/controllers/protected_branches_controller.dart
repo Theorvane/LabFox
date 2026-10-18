@@ -94,6 +94,133 @@ final protectedBranchDetailProvider =
       return repository.get(key.projectId, key.name);
     });
 
+class ProtectedBranchCodeOwnerController
+    extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedBranchRef arg) {
+    ref.watch(protectedBranchesRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedBranch> inspect() async {
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    final listed = await repository.findUnique(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getForCodeOwnerEdit(
+      arg.projectId,
+      arg.name,
+    );
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (detail.inherited == true) {
+      throw const GitLabForbiddenException('Inherited protection rule');
+    }
+    if (listed != detail) {
+      throw const GitLabConflictException('Protection rule changed');
+    }
+    return detail;
+  }
+
+  Future<void> setRequirement({
+    required ProtectedBranch expected,
+    required bool codeOwnerApprovalRequired,
+  }) async {
+    if (state.isLoading) throw StateError('Code Owner update already pending');
+    if (expected.name != arg.name || expected.name.trim().isEmpty) {
+      throw ArgumentError('Exact frozen rule identity required');
+    }
+    if (expected.codeOwnerApprovalRequired == codeOwnerApprovalRequired) {
+      throw ArgumentError('Code Owner approval requirement must change');
+    }
+    if (expected.inherited == true) {
+      throw const GitLabForbiddenException('Inherited protection rule');
+    }
+    final session = ref.read(protectedBranchesRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedBranchesRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedBranchesControllerProvider(arg.projectId));
+      ref.invalidate(protectedBranchDetailProvider(arg));
+      ref.invalidate(branchesControllerProvider(arg.projectId));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      final repository = await session;
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      final changed = await repository.updateCodeOwnerApproval(
+        arg.projectId,
+        arg.name,
+        codeOwnerApprovalRequired: codeOwnerApprovalRequired,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final intended = expected.copyWith(
+        codeOwnerApprovalRequired: codeOwnerApprovalRequired,
+      );
+      if (changed != intended) {
+        throw const GitLabConflictException('Unconfirmed Code Owner update');
+      }
+      final confirmed = await repository.getForCodeOwnerEdit(
+        arg.projectId,
+        arg.name,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      if (confirmed != intended) {
+        throw const GitLabConflictException('Unconfirmed Code Owner update');
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedBranchCodeOwnerControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedBranchCodeOwnerController,
+      void,
+      ProtectedBranchRef
+    >(ProtectedBranchCodeOwnerController.new);
+
 /// Session-bound, best-effort update of one frozen project rule.
 class ProtectedBranchForcePushController
     extends FamilyAsyncNotifier<void, ProtectedBranchRef> {
