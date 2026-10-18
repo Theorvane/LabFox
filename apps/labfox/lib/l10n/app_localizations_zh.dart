@@ -9,6 +9,28 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => '移除审批规则';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      '移除此规则会放宽部署审批条件。移除最后一条规则可能允许无需审批的部署。继续前请检查所有剩余规则。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      '我理解移除此规则可能允许审批更少或无需审批的部署。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess => '审批规则已移除。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      '移除审批规则需要 Maintainer 或 Owner 权限和 GitLab Premium/Ultimate。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      '无法确认规则移除。重试前请重新加载并检查当前规则。';
+
+  @override
   String get protectedEnvironmentApprovalCountTitle => '更改所需审批数';
 
   @override
