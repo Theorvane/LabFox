@@ -9,6 +9,31 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get protectedEnvironmentEditRoleTitle => 'Edit deploy role';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      'Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge =>
+      'I understand that this changes who can deploy to this environment.';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess => 'Deploy role updated.';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      'Maintainer permission and GitLab Premium/Ultimate are required to change deploy roles.';
+
+  @override
+  String get protectedEnvironmentEditRoleError =>
+      'The role change could not be confirmed. Reload and inspect the current rule before trying again.';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => 'New deploy role';
+
+  @override
   String get pipelineScheduleExecutionEdit => 'Edit execution settings';
 
   @override

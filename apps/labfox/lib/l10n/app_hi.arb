@@ -1,4 +1,11 @@
 {
+"protectedEnvironmentEditRoleTitle": "डिप्लॉय भूमिका बदलें",
+"protectedEnvironmentEditRoleWarning": "भूमिका पर आधारित एक डिप्लॉय अनुमति बदलें। Developers चुनने से प्रोजेक्ट के अधिक सदस्य डिप्लॉय कर सकते हैं। आगे बढ़ने से पहले सभी अनुमतियों और स्वीकृति नियमों की समीक्षा करें।",
+"protectedEnvironmentEditRoleAcknowledge": "मैं समझता/समझती हूँ कि इससे इस एनवायरनमेंट में डिप्लॉय करने की अनुमति बदलती है।",
+"protectedEnvironmentEditRoleSuccess": "डिप्लॉय भूमिका अपडेट की गई।",
+"protectedEnvironmentEditRoleForbidden": "डिप्लॉय भूमिका बदलने के लिए Maintainer अनुमति और GitLab Premium/Ultimate आवश्यक हैं।",
+"protectedEnvironmentEditRoleError": "भूमिका में बदलाव की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।",
+"protectedEnvironmentEditRoleLevel": "नई डिप्लॉय भूमिका",
   "pipelineScheduleExecutionEdit": "निष्पादन सेटिंग संपादित करें",
   "pipelineScheduleExecutionSave": "सहेजें",
   "pipelineScheduleExecutionActive": "सक्रिय",

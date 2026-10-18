@@ -9,6 +9,7 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
+import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_role_dialog.dart';
 import 'widgets/protected_environment_unprotect_dialog.dart';
 
@@ -46,6 +47,45 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(rule.valueOrNull?.name ?? l10n.protectedEnvironmentsTitle),
         actions: [
+          if (projectKey != null &&
+              rule.valueOrNull?.deployAccessLevels.any(
+                    (grant) =>
+                        grant.id != null &&
+                        grant.id! > 0 &&
+                        {30, 40}.contains(grant.accessLevel) &&
+                        grant.userId == null &&
+                        grant.groupId == null,
+                  ) ==
+                  true)
+            IconButton(
+              key: const ValueKey('protected-environment-edit-role-open'),
+              tooltip: l10n.protectedEnvironmentEditRoleTitle,
+              icon: const Icon(Icons.manage_accounts_outlined),
+              onPressed: () async {
+                final session = ref.read(
+                  protectedEnvironmentsRepositoryProvider.future,
+                );
+                final edited = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => ProtectedEnvironmentEditRoleDialog(
+                    target: projectKey,
+                    rule: rule.valueOrNull!,
+                  ),
+                );
+                if (edited == true &&
+                    context.mounted &&
+                    identical(
+                      session,
+                      ref.read(protectedEnvironmentsRepositoryProvider.future),
+                    )) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(l10n.protectedEnvironmentEditRoleSuccess),
+                    ),
+                  );
+                }
+              },
+            ),
           if (projectKey != null &&
               rule.valueOrNull?.deployAccessLevels.any(
                     (grant) =>

@@ -1,4 +1,11 @@
 {
+"protectedEnvironmentEditRoleTitle": "更改部署角色",
+"protectedEnvironmentEditRoleWarning": "更改一项基于角色的部署权限。切换为 Developers 将允许更多项目成员部署。继续前请检查所有权限和审批规则。",
+"protectedEnvironmentEditRoleAcknowledge": "我理解这会更改谁可以部署到此环境。",
+"protectedEnvironmentEditRoleSuccess": "部署角色已更新。",
+"protectedEnvironmentEditRoleForbidden": "更改部署角色需要 Maintainer 权限和 GitLab Premium/Ultimate。",
+"protectedEnvironmentEditRoleError": "无法确认角色更改。重试前请重新加载并检查当前规则。",
+"protectedEnvironmentEditRoleLevel": "新的部署角色",
   "pipelineScheduleExecutionEdit": "编辑执行设置",
   "pipelineScheduleExecutionSave": "保存",
   "pipelineScheduleExecutionActive": "启用",

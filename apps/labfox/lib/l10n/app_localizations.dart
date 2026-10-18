@@ -104,6 +104,48 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @protectedEnvironmentEditRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deploy role'**
+  String get protectedEnvironmentEditRoleTitle;
+
+  /// No description provided for @protectedEnvironmentEditRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.'**
+  String get protectedEnvironmentEditRoleWarning;
+
+  /// No description provided for @protectedEnvironmentEditRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can deploy to this environment.'**
+  String get protectedEnvironmentEditRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentEditRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role updated.'**
+  String get protectedEnvironmentEditRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentEditRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer permission and GitLab Premium/Ultimate are required to change deploy roles.'**
+  String get protectedEnvironmentEditRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentEditRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'The role change could not be confirmed. Reload and inspect the current rule before trying again.'**
+  String get protectedEnvironmentEditRoleError;
+
+  /// No description provided for @protectedEnvironmentEditRoleLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'New deploy role'**
+  String get protectedEnvironmentEditRoleLevel;
+
   /// No description provided for @pipelineScheduleExecutionEdit.
   ///
   /// In en, this message translates to:

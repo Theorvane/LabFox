@@ -78,11 +78,48 @@ class _UnprotectRepository extends ProtectedEnvironmentsRepository {
       _rule;
 }
 
+class _EditRepository extends _UnprotectRepository {
+  ProtectedEnvironment detail = _rule;
+  var writes = 0;
+  var reads = 0;
+  var uncertain = false;
+  int? changedId;
+  int? changedLevel;
+
+  @override
+  Future<ProtectedEnvironment> getComplete(int projectId, String name) async {
+    reads++;
+    return detail;
+  }
+
+  @override
+  Future<void> editDeployRole(
+    int projectId,
+    String name, {
+    required int grantId,
+    required int accessLevel,
+  }) async {
+    writes++;
+    changedId = grantId;
+    changedLevel = accessLevel;
+    detail = detail.copyWith(
+      deployAccessLevels: [
+        detail.deployAccessLevels.single.copyWith(
+          accessLevel: accessLevel,
+          description: 'Developers + Maintainers',
+        ),
+      ],
+    );
+    if (uncertain) throw const GitLabServerException('Unconfirmed write');
+  }
+}
+
 Future<void> _pump(
   WidgetTester tester,
   Size size, {
   String language = 'en',
   Brightness brightness = Brightness.light,
+  ProtectedEnvironmentsRepository? repository,
 }) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
@@ -112,7 +149,7 @@ Future<void> _pump(
     ProviderScope(
       overrides: [
         protectedEnvironmentsRepositoryProvider.overrideWith(
-          (ref) async => _UnprotectRepository(),
+          (ref) async => repository ?? _UnprotectRepository(),
         ),
         protectedEnvironmentsControllerProvider.overrideWith(_List.new),
         protectedEnvironmentDetailProvider.overrideWith(
@@ -132,6 +169,148 @@ Future<void> _pump(
 }
 
 void main() {
+  testWidgets('account replacement disables the open role editor', (
+    tester,
+  ) async {
+    await _pump(tester, const Size(1200, 800));
+    await tester.tap(find.text('review/production'));
+    await tester.pumpAndSettle();
+    await tester.tap(
+      find.byKey(const ValueKey('protected-environment-edit-role-open')),
+    );
+    await tester.pumpAndSettle();
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(AlertDialog)),
+      listen: false,
+    );
+    container.invalidate(protectedEnvironmentsRepositoryProvider);
+    await tester.pumpAndSettle();
+    expect(
+      tester
+          .widget<FilledButton>(
+            find.byKey(const ValueKey('protected-environment-edit-role-save')),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(
+      find.text(
+        'The account changed. Close this dialog and open the rule again.',
+      ),
+      findsOneWidget,
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  for (final uncertain in [false, true]) {
+    testWidgets('edit dispatch and recovery uncertain=$uncertain', (
+      tester,
+    ) async {
+      final repository = _EditRepository()..uncertain = uncertain;
+      await _pump(tester, const Size(1200, 800), repository: repository);
+      await tester.tap(find.text('review/production'));
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(const ValueKey('protected-environment-edit-role-open')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(const ValueKey('protected-environment-edit-role-12')),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.byKey(const ValueKey('protected-environment-edit-role-level-30')),
+      );
+      await tester.enterText(
+        find.byKey(const ValueKey('protected-environment-edit-role-name')),
+        'review/production',
+      );
+      await tester.ensureVisible(find.byType(CheckboxListTile));
+      await tester.tap(find.byType(CheckboxListTile));
+      await tester.pumpAndSettle();
+      final save = find.byKey(
+        const ValueKey('protected-environment-edit-role-save'),
+      );
+      await tester.tap(save);
+      await tester.pumpAndSettle();
+      expect(repository.writes, 1);
+      expect(repository.changedId, 12);
+      expect(repository.changedLevel, 30);
+      if (uncertain) {
+        expect(tester.widget<FilledButton>(save).onPressed, isNull);
+        expect(repository.reads, 2);
+        await tester.tap(
+          find.byKey(const ValueKey('protected-environment-edit-role-reload')),
+        );
+        await tester.pumpAndSettle();
+        expect(repository.reads, 3);
+        expect(repository.writes, 1);
+        expect(tester.widget<FilledButton>(save).onPressed, isNull);
+        expect(
+          tester.widget<CheckboxListTile>(find.byType(CheckboxListTile)).value,
+          isFalse,
+        );
+      } else {
+        expect(find.byType(AlertDialog), findsNothing);
+        expect(find.text('Deploy role updated.'), findsOneWidget);
+        expect(repository.reads, 3);
+      }
+      expect(tester.takeException(), isNull);
+    });
+  }
+
+  for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final size in [const Size(320, 720), const Size(1200, 800)]) {
+      for (final brightness in [Brightness.light, Brightness.dark]) {
+        testWidgets(
+          'edit role confirmation fits $language ${size.width} $brightness',
+          (tester) async {
+            await _pump(
+              tester,
+              size,
+              language: language,
+              brightness: brightness,
+            );
+            await tester.tap(find.text('review/production'));
+            await tester.pumpAndSettle();
+            await tester.tap(
+              find.byKey(
+                const ValueKey('protected-environment-edit-role-open'),
+              ),
+            );
+            await tester.pumpAndSettle();
+            final save = find.byKey(
+              const ValueKey('protected-environment-edit-role-save'),
+            );
+            expect(tester.widget<FilledButton>(save).onPressed, isNull);
+            final grant = find.byKey(
+              const ValueKey('protected-environment-edit-role-12'),
+            );
+            await tester.ensureVisible(grant);
+            await tester.tap(grant);
+            await tester.pumpAndSettle();
+            final role = find.byKey(
+              const ValueKey('protected-environment-edit-role-level-30'),
+            );
+            await tester.ensureVisible(role);
+            await tester.tap(role);
+            await tester.enterText(
+              find.byKey(
+                const ValueKey('protected-environment-edit-role-name'),
+              ),
+              'review/production',
+            );
+            await tester.ensureVisible(find.byType(CheckboxListTile));
+            await tester.tap(find.byType(CheckboxListTile));
+            await tester.pumpAndSettle();
+            expect(tester.widget<FilledButton>(save).onPressed, isNotNull);
+            expect(tester.takeException(), isNull);
+          },
+        );
+      }
+    }
+  }
+
   for (final language in ['en', 'ko', 'ja', 'hi', 'zh']) {
     for (final size in [const Size(320, 720), const Size(1200, 800)]) {
       for (final brightness in [Brightness.light, Brightness.dark]) {
@@ -489,6 +668,10 @@ void main() {
       expect(find.text('Allowed to deploy'), findsOneWidget);
       expect(find.text('Approval rules'), findsOneWidget);
       expect(find.text('Security team'), findsOneWidget);
+      expect(
+        find.byKey(const ValueKey('protected-environment-edit-role-open')),
+        findsNothing,
+      );
       expect(
         find.byKey(const ValueKey('protected-environment-deploy-role-open')),
         findsNothing,

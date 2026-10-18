@@ -60,6 +60,18 @@ class ProtectedEnvironmentsRepository {
     grantId: grantId,
   );
 
+  Future<void> editDeployRole(
+    int projectId,
+    String name, {
+    required int grantId,
+    required int accessLevel,
+  }) => client.protectedEnvironments.editDeployRole(
+    projectId,
+    name,
+    grantId: grantId,
+    accessLevel: accessLevel,
+  );
+
   Future<void> ensureNameAvailable(int projectId, String name) async {
     var page = 1;
     while (true) {

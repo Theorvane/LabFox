@@ -9,6 +9,32 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get protectedEnvironmentEditRoleTitle => 'डिप्लॉय भूमिका बदलें';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      'भूमिका पर आधारित एक डिप्लॉय अनुमति बदलें। Developers चुनने से प्रोजेक्ट के अधिक सदस्य डिप्लॉय कर सकते हैं। आगे बढ़ने से पहले सभी अनुमतियों और स्वीकृति नियमों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge =>
+      'मैं समझता/समझती हूँ कि इससे इस एनवायरनमेंट में डिप्लॉय करने की अनुमति बदलती है।';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess =>
+      'डिप्लॉय भूमिका अपडेट की गई।';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      'डिप्लॉय भूमिका बदलने के लिए Maintainer अनुमति और GitLab Premium/Ultimate आवश्यक हैं।';
+
+  @override
+  String get protectedEnvironmentEditRoleError =>
+      'भूमिका में बदलाव की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => 'नई डिप्लॉय भूमिका';
+
+  @override
   String get pipelineScheduleExecutionEdit => 'निष्पादन सेटिंग संपादित करें';
 
   @override

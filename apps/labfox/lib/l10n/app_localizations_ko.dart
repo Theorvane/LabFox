@@ -9,6 +9,31 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get protectedEnvironmentEditRoleTitle => '배포 역할 변경';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      '역할 기반 배포 권한 하나를 변경합니다. Developers로 바꾸면 더 많은 프로젝트 구성원이 배포할 수 있습니다. 계속하기 전에 모든 권한과 승인 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge =>
+      '이 환경에 배포할 수 있는 사용자가 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess => '배포 역할을 변경했습니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      '배포 역할을 변경하려면 Maintainer 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleError =>
+      '역할 변경을 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => '새 배포 역할';
+
+  @override
   String get pipelineScheduleExecutionEdit => '실행 설정 편집';
 
   @override

@@ -6,6 +6,166 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test(
+    'edits one deploy grant by ID with an encoded non-retrying PUT',
+    () async {
+      late RequestOptions request;
+      var calls = 0;
+      final client = _client((options) {
+        calls++;
+        request = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'name': 'review/production',
+            'deploy_access_levels': [
+              {'id': 12, 'access_level': 40},
+            ],
+          },
+        );
+      });
+      await client.protectedEnvironments.editDeployRole(
+        'team/app',
+        'review/production',
+        grantId: 12,
+        accessLevel: 40,
+      );
+      expect(calls, 1);
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+      );
+      expect(request.data, {
+        'deploy_access_levels': [
+          {'id': 12, 'access_level': 40},
+        ],
+      });
+      expect(request.followRedirects, isFalse);
+      expect(request.extra['labfox_no_auth_retry'], isTrue);
+    },
+  );
+
+  test('edit role validates arguments before dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: {});
+    });
+    for (final args in [
+      (name: '', id: 12, role: 40),
+      (name: ' production', id: 12, role: 40),
+      (name: 'production', id: 0, role: 40),
+      (name: 'production', id: 12, role: 50),
+    ]) {
+      await expectLater(
+        client.protectedEnvironments.editDeployRole(
+          7,
+          args.name,
+          grantId: args.id,
+          accessLevel: args.role,
+        ),
+        throwsArgumentError,
+      );
+    }
+    expect(calls, 0);
+  });
+
+  for (final status in [201, 301, 400, 401, 403, 404, 409, 422, 429, 500]) {
+    test('edit role maps HTTP $status before parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private payload'),
+      );
+      await expectLater(
+        client.protectedEnvironments.editDeployRole(
+          7,
+          'production',
+          grantId: 12,
+          accessLevel: 40,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  for (final grants in [
+    <Object?>[],
+    [
+      {'id': 12, 'access_level': 30},
+    ],
+    [
+      {'id': 13, 'access_level': 40},
+    ],
+    [
+      {'id': 12, 'access_level': 40, 'user_id': 3},
+    ],
+    [
+      {'id': 12, 'access_level': 40},
+      {'id': 12, 'access_level': 40},
+    ],
+    [
+      {'id': 12, 'access_level': 40},
+      null,
+    ],
+  ]) {
+    test('edit role rejects unconfirmed response $grants', () async {
+      final client = _client(
+        (_) => (
+          status: 200,
+          headers: const {},
+          body: {'name': 'production', 'deploy_access_levels': grants},
+        ),
+      );
+      await expectLater(
+        client.protectedEnvironments.editDeployRole(
+          7,
+          'production',
+          grantId: 12,
+          accessLevel: 40,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+
+  test('edit role does not refresh or replay OAuth 401', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.editDeployRole(
+        7,
+        'production',
+        grantId: 12,
+        accessLevel: 40,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('removes only one encoded project deploy grant with one PUT', () async {
     late RequestOptions request;
     var calls = 0;
