@@ -1,4 +1,13 @@
 {
+"protectedEnvironmentApprovalCountTitle": "Edit required approvals",
+"protectedEnvironmentApprovalCountWarning": "Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.",
+"protectedEnvironmentApprovalCountAcknowledge": "I understand that this changes the approvals required to deploy.",
+"protectedEnvironmentApprovalCountSuccess": "Required approvals updated.",
+"protectedEnvironmentApprovalCountForbidden": "Maintainer or Owner permission and GitLab Premium/Ultimate are required to change approval rules.",
+"protectedEnvironmentApprovalCountError": "The approval change could not be confirmed. Reload and inspect the current rule before trying again.",
+"protectedEnvironmentApprovalCountLevel": "New required approvals",
+"protectedEnvironmentApprovalCountRuleLabel": "{approver} (rule {ruleId}, {count} required)",
+"@protectedEnvironmentApprovalCountRuleLabel": {"placeholders": {"approver": {"type": "String"}, "ruleId": {"type": "String"}, "count": {"type": "String"}}},
 "protectedEnvironmentEditRoleTitle": "Edit deploy role",
 "protectedEnvironmentEditRoleWarning": "Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.",
 "protectedEnvironmentEditRoleAcknowledge": "I understand that this changes who can deploy to this environment.",

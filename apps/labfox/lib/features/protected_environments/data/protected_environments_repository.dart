@@ -88,6 +88,18 @@ class ProtectedEnvironmentsRepository {
     }
   }
 
+  Future<void> editApprovalCount(
+    int projectId,
+    String name, {
+    required int ruleId,
+    required int requiredApprovals,
+  }) => client.protectedEnvironments.editApprovalCount(
+    projectId,
+    name,
+    ruleId: ruleId,
+    requiredApprovals: requiredApprovals,
+  );
+
   Future<ProtectedEnvironment> createRoleOnly(
     int projectId,
     String name, {

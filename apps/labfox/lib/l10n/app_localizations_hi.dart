@@ -9,6 +9,42 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get protectedEnvironmentApprovalCountTitle =>
+      'आवश्यक स्वीकृतियाँ बदलें';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      'इस नियम के लिए आवश्यक स्वीकृतियों की संख्या बदलें। संख्या घटाने से डिप्लॉय की स्वीकृति शर्तें कमज़ोर होती हैं। उपलब्ध स्वीकर्ताओं से अधिक संख्या डिप्लॉय को रोक सकती है। आगे बढ़ने से पहले सभी नियमों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge =>
+      'मैं समझता/समझती हूँ कि इससे डिप्लॉय के लिए आवश्यक स्वीकृतियाँ बदलती हैं।';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess =>
+      'आवश्यक स्वीकृतियाँ अपडेट की गईं।';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      'स्वीकृति नियम बदलने के लिए Maintainer या Owner अनुमति और GitLab Premium/Ultimate आवश्यक हैं।';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      'स्वीकृति में बदलाव की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => 'नई आवश्यक स्वीकृतियाँ';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver (नियम $ruleId, $count आवश्यक)';
+  }
+
+  @override
   String get protectedEnvironmentEditRoleTitle => 'डिप्लॉय भूमिका बदलें';
 
   @override

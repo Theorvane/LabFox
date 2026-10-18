@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environments_controller.dart';
+import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_role_dialog.dart';
@@ -242,6 +243,57 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
                     entries: data.approvalRules,
                     showRequiredApprovals: true,
                   ),
+                  if (projectKey != null &&
+                      data.approvalRules.any(
+                        (rule) =>
+                            rule.id != null &&
+                            rule.id! > 0 &&
+                            rule.requiredApprovals != null &&
+                            rule.requiredApprovals! >= 1 &&
+                            rule.requiredApprovals! <= 5,
+                      ))
+                    Padding(
+                      padding: const EdgeInsets.only(top: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-approval-count-open',
+                        ),
+                        icon: const Icon(Icons.rule_outlined),
+                        label: Text(
+                          l10n.protectedEnvironmentApprovalCountTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final edited = await showDialog<bool>(
+                            context: context,
+                            builder: (_) =>
+                                ProtectedEnvironmentApprovalCountDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (edited == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentApprovalCountSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                 ],
               );
               return ListView(
