@@ -85,7 +85,8 @@ renewed confirmation and account isolation are covered by tests.
 See the [implementation and validation notes](protected-environment-approval-group-replacement.md).
 
 Project deploy-group membership editing [#658](https://github.com/Theorvane/LabFox/issues/658)
-is in review. It changes one existing group's explicit direct/inherited deploy
+and [PR #659](https://github.com/Theorvane/LabFox/pull/659) are in review.
+It changes one existing group's explicit direct/inherited deploy
 membership while preserving role metadata, other grants and all approval rules.
 Complete preflight, changed-value and exact-name confirmation, one-record PUT,
 strict response/read-back comparison and account/uncertainty guards are covered.
