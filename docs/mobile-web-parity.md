@@ -76,7 +76,8 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 ## Additional MW-02 evidence
 
 Project approval-group replacement [#656](https://github.com/Theorvane/LabFox/issues/656)
-is in review. It replaces one group by exact ID while preserving approval count,
+and [PR #657](https://github.com/Theorvane/LabFox/pull/657) are in review. The slice
+replaces one group by exact ID while preserving approval count,
 membership, stable rule identity and all other grants. Complete preflight,
 description-aware response/read-back comparison, duplicate/unchanged guards,
 renewed confirmation and account isolation are covered by tests.
