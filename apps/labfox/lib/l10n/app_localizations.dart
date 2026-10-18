@@ -5628,6 +5628,48 @@ abstract class AppLocalizations {
   /// **'Add deploy role'**
   String get protectedEnvironmentDeployRoleTitle;
 
+  /// No description provided for @protectedEnvironmentApprovalGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add approval group'**
+  String get protectedEnvironmentApprovalGroupTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupId.
+  ///
+  /// In en, this message translates to:
+  /// **'Group ID'**
+  String get protectedEnvironmentApprovalGroupId;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the exact positive group ID without spaces.'**
+  String get protectedEnvironmentApprovalGroupHint;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This group already has an approval rule.'**
+  String get protectedEnvironmentApprovalGroupDuplicate;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Only direct group members can approve under this rule. The group must be shared with this project. Too few eligible approvers can block deployments.'**
+  String get protectedEnvironmentApprovalGroupWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this adds a required approval rule for deployments.'**
+  String get protectedEnvironmentApprovalGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval group added.'**
+  String get protectedEnvironmentApprovalGroupSuccess;
+
   /// No description provided for @protectedEnvironmentDeployRoleWarning.
   ///
   /// In en, this message translates to:

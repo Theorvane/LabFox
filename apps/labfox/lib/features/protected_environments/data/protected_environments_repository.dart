@@ -120,6 +120,23 @@ class ProtectedEnvironmentsRepository {
     accessLevel: accessLevel,
   );
 
+  Future<ProtectedEnvironment> getForApprovalGroupEdit(
+    int projectId,
+    String name,
+  ) => client.protectedEnvironments.getForApprovalGroupEdit(projectId, name);
+
+  Future<ProtectedEnvironment> addApprovalGroup(
+    int projectId,
+    String name, {
+    required int groupId,
+    required int requiredApprovals,
+  }) => client.protectedEnvironments.addApprovalGroup(
+    projectId,
+    name,
+    groupId: groupId,
+    requiredApprovals: requiredApprovals,
+  );
+
   Future<Paginated<ProtectedEnvironment>> listGroup(
     int groupId, {
     int page = 1,

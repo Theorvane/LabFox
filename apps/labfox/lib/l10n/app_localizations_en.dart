@@ -3029,6 +3029,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'Add deploy role';
 
   @override
+  String get protectedEnvironmentApprovalGroupTitle => 'Add approval group';
+
+  @override
+  String get protectedEnvironmentApprovalGroupId => 'Group ID';
+
+  @override
+  String get protectedEnvironmentApprovalGroupHint =>
+      'Enter the exact positive group ID without spaces.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupDuplicate =>
+      'This group already has an approval rule.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupWarning =>
+      'Only direct group members can approve under this rule. The group must be shared with this project. Too few eligible approvers can block deployments.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupAcknowledge =>
+      'I understand that this adds a required approval rule for deployments.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupSuccess =>
+      'Approval group added.';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.';
 

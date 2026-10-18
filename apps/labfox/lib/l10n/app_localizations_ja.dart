@@ -2948,6 +2948,31 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'デプロイロールを追加';
 
   @override
+  String get protectedEnvironmentApprovalGroupTitle => '承認グループを追加';
+
+  @override
+  String get protectedEnvironmentApprovalGroupId => 'グループ ID';
+
+  @override
+  String get protectedEnvironmentApprovalGroupHint =>
+      '空白を含めず、正確な正の整数のグループ ID を入力してください。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupDuplicate =>
+      'このグループにはすでに承認ルールがあります。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupWarning =>
+      'このルールではグループの直接のメンバーのみが承認できます。グループはこのプロジェクトと共有されている必要があります。承認可能なメンバーが不足すると、デプロイがブロックされることがあります。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupAcknowledge =>
+      'デプロイに必要な承認ルールが追加されることを理解しています。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupSuccess => '承認グループを追加しました。';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       '選択したロールにデプロイ権限が付与されます。既存のデプロイ権限と承認ルールは維持されます。';
 

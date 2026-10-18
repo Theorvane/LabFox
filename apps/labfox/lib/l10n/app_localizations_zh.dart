@@ -2891,6 +2891,29 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
 
   @override
+  String get protectedEnvironmentApprovalGroupTitle => '添加审批组';
+
+  @override
+  String get protectedEnvironmentApprovalGroupId => '群组 ID';
+
+  @override
+  String get protectedEnvironmentApprovalGroupHint => '请输入准确的正整数群组 ID，不含空格。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupDuplicate => '此群组已有审批规则。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupWarning =>
+      '此规则仅允许群组的直接成员审批。群组必须与此项目共享。符合条件的审批者不足可能会阻止部署。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupAcknowledge =>
+      '我了解这会为部署添加必需的审批规则。';
+
+  @override
+  String get protectedEnvironmentApprovalGroupSuccess => '已添加审批组。';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       '所选角色将获得部署权限。现有部署授权和审批规则保持不变。';
 

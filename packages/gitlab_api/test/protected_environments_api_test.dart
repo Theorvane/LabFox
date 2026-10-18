@@ -6,6 +6,295 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  Map<String, dynamic> groupRule() => {
+    'name': 'review/production',
+    'required_approval_count': 0,
+    'deploy_access_levels': [
+      {'id': 12, 'access_level': 40},
+    ],
+    'approval_rules': [
+      {
+        'id': 38,
+        'group_id': 134,
+        'group_inheritance_type': 0,
+        'required_approvals': 1,
+      },
+      {
+        'id': 39,
+        'group_id': 135,
+        'group_inheritance_type': 0,
+        'required_approvals': 2,
+      },
+    ],
+  };
+
+  test(
+    'adds only one direct-membership approval group without retry',
+    () async {
+      late RequestOptions request;
+      var calls = 0;
+      final client = _client((options) {
+        request = options;
+        calls++;
+        return (status: 200, headers: const {}, body: groupRule());
+      });
+      final updated = await client.protectedEnvironments.addApprovalGroup(
+        'team/app',
+        'review/production',
+        groupId: 135,
+        requiredApprovals: 2,
+      );
+      expect(calls, 1);
+      expect(request.method, 'PUT');
+      expect(
+        request.path,
+        '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+      );
+      expect(request.data, {
+        'approval_rules': [
+          {
+            'group_id': 135,
+            'required_approvals': 2,
+            'group_inheritance_type': 0,
+          },
+        ],
+      });
+      expect(request.followRedirects, isFalse);
+      expect(request.extra['labfox_no_auth_retry'], isTrue);
+      expect(updated.approvalRules.length, 2);
+      expect(updated.deployAccessLevels.single.id, 12);
+    },
+  );
+
+  test('approval-group inspection requires complete exact state', () async {
+    final client = _client(
+      (_) => (status: 200, headers: const {}, body: groupRule()),
+    );
+    final detail = await client.protectedEnvironments.getForApprovalGroupEdit(
+      7,
+      'review/production',
+    );
+    expect(detail.approvalRules.last.groupId, 135);
+  });
+
+  for (final malformed in [
+    groupRule()..remove('approval_rules'),
+    groupRule()..remove('required_approval_count'),
+    groupRule()..['name'] = 'other',
+    groupRule()..['required_approval_count'] = 0.5,
+    groupRule()
+      ..['deploy_access_levels'] = [
+        {'id': 12.5, 'access_level': 40},
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {'id': 39, 'group_id': 135.5, 'required_approvals': 2},
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {'id': 39, 'group_id': 135, 'required_approvals': 2.5},
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {
+          'id': 39,
+          'group_id': 135,
+          'group_inheritance_type': 0.5,
+          'required_approvals': 2,
+        },
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        groupRule()['approval_rules'][1],
+        groupRule()['approval_rules'][1],
+      ],
+  ]) {
+    test(
+      'approval-group reads reject incomplete or lossy rule $malformed',
+      () async {
+        final client = _client(
+          (_) => (status: 200, headers: const {}, body: malformed),
+        );
+        await expectLater(
+          client.protectedEnvironments.getForApprovalGroupEdit(
+            7,
+            'review/production',
+          ),
+          throwsA(isA<GitLabServerException>()),
+        );
+        await expectLater(
+          client.protectedEnvironments.addApprovalGroup(
+            7,
+            'review/production',
+            groupId: 135,
+            requiredApprovals: 2,
+          ),
+          throwsA(isA<GitLabServerException>()),
+        );
+      },
+    );
+  }
+  for (final malformed in [
+    groupRule()
+      ..['approval_rules'] = [
+        {
+          'id': 39,
+          'group_id': 136,
+          'group_inheritance_type': 0,
+          'required_approvals': 2,
+        },
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {
+          'id': 39,
+          'group_id': 135,
+          'group_inheritance_type': 1,
+          'required_approvals': 2,
+        },
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {
+          'id': 39,
+          'group_id': 135,
+          'group_inheritance_type': 0,
+          'required_approvals': 1,
+        },
+      ],
+    groupRule()
+      ..['approval_rules'] = [
+        {
+          'id': 39,
+          'group_id': 135,
+          'access_level': 40,
+          'group_inheritance_type': 0,
+          'required_approvals': 2,
+        },
+      ],
+  ]) {
+    test(
+      'approval-group write rejects an unconfirmed target $malformed',
+      () async {
+        final client = _client(
+          (_) => (status: 200, headers: const {}, body: malformed),
+        );
+        await expectLater(
+          client.protectedEnvironments.addApprovalGroup(
+            7,
+            'review/production',
+            groupId: 135,
+            requiredApprovals: 2,
+          ),
+          throwsA(isA<GitLabServerException>()),
+        );
+      },
+    );
+  }
+  for (final status in [
+    201,
+    204,
+    301,
+    400,
+    401,
+    403,
+    404,
+    409,
+    422,
+    429,
+    500,
+  ]) {
+    test('approval-group maps HTTP $status before parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private response'),
+      );
+      await expectLater(
+        client.protectedEnvironments.addApprovalGroup(
+          7,
+          'review/production',
+          groupId: 135,
+          requiredApprovals: 2,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+      await expectLater(
+        client.protectedEnvironments.getForApprovalGroupEdit(
+          7,
+          'review/production',
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+  test('invalid group approval drafts never dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: groupRule());
+    });
+    for (final (name, group, count) in [
+      (' ', 135, 2),
+      (' production', 135, 2),
+      ('production', 0, 2),
+      ('production', -1, 2),
+      ('production', 135, 0),
+      ('production', 135, 6),
+    ]) {
+      await expectLater(
+        client.protectedEnvironments.addApprovalGroup(
+          7,
+          name,
+          groupId: group,
+          requiredApprovals: count,
+        ),
+        throwsArgumentError,
+      );
+    }
+    expect(calls, 0);
+  });
+  test('approval-group OAuth 401 never refreshes or replays', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.addApprovalGroup(
+        7,
+        'production',
+        groupId: 135,
+        requiredApprovals: 2,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('removes one approval rule with an encoded non-retrying PUT', () async {
     late RequestOptions request;
     var calls = 0;
