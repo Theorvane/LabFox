@@ -5634,6 +5634,57 @@ abstract class AppLocalizations {
   /// **'Add approval group'**
   String get protectedEnvironmentApprovalGroupTitle;
 
+  /// No description provided for @protectedEnvironmentApprovalInheritanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit approver group membership'**
+  String get protectedEnvironmentApprovalInheritanceTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Including inherited membership can let more users approve. Direct membership only can block deployments if too few approvers remain. Review all rules before continuing.'**
+  String get protectedEnvironmentApprovalInheritanceWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can approve deployments.'**
+  String get protectedEnvironmentApprovalInheritanceAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approver group membership updated.'**
+  String get protectedEnvironmentApprovalInheritanceSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group membership'**
+  String get protectedEnvironmentApprovalInheritanceLevel;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentApprovalInheritanceDirect;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Include inherited members'**
+  String get protectedEnvironmentApprovalInheritanceInherited;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceGroupLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group {groupId}: {membership}'**
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  );
+
   /// No description provided for @protectedEnvironmentApprovalGroupId.
   ///
   /// In en, this message translates to:

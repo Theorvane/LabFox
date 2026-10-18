@@ -2959,6 +2959,38 @@ class AppLocalizationsKo extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupTitle => '승인 그룹 추가';
 
   @override
+  String get protectedEnvironmentApprovalInheritanceTitle => '승인 그룹 멤버십 편집';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      '상속 멤버십을 포함하면 더 많은 사용자가 승인할 수 있습니다. 직접 가입한 구성원만 허용하면 승인자가 부족할 경우 배포가 차단될 수 있습니다. 계속하기 전에 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      '배포를 승인할 수 있는 사용자가 변경됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess =>
+      '승인 그룹 멤버십이 업데이트되었습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => '그룹 멤버십';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect => '직접 가입한 구성원만';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited => '상속된 구성원 포함';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return '그룹 $groupId: $membership';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupId => '그룹 ID';
 
   @override

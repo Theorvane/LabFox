@@ -74,10 +74,10 @@ and inherited membership; existing approval-group addition and count editing
 are included in the related regression suite. Full local quality-gate results
 are recorded in the pull request.
 
-Before `dev` integration, local quality gates pass with Flutter 3.38.9:
-formatting, analysis, the English language policy, 4,746 app tests, 3,283 API
-tests, and 344 other package tests (8,373 total). CI and review approval remain
-separate requirements.
+Local quality gates pass with Flutter 3.38.9: formatting, analysis, the English
+language policy, 4,790 app tests, 3,309 API tests, and 344 other package tests
+(8,443 total). App and API suites were rerun after integrating the approved
+membership-editing slice from `dev`. CI and review approval remain separate requirements.
 
 Reference: [protected-environment update](https://docs.gitlab.com/api/protected_environments/#update-a-protected-environment).
 

@@ -3032,6 +3032,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupTitle => 'Add approval group';
 
   @override
+  String get protectedEnvironmentApprovalInheritanceTitle =>
+      'Edit approver group membership';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      'Including inherited membership can let more users approve. Direct membership only can block deployments if too few approvers remain. Review all rules before continuing.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      'I understand that this changes who can approve deployments.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess =>
+      'Approver group membership updated.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => 'Group membership';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect =>
+      'Direct members only';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited =>
+      'Include inherited members';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return 'Group $groupId: $membership';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupId => 'Group ID';
 
   @override

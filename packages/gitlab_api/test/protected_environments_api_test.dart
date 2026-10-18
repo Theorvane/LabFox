@@ -6,6 +6,233 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  Map<String, dynamic> inheritanceRule(int membership) => {
+    'name': 'review/production',
+    'required_approval_count': 0,
+    'deploy_access_levels': [
+      {'id': 12, 'access_level': 40},
+    ],
+    'approval_rules': [
+      {
+        'id': 38,
+        'group_id': 134,
+        'required_approvals': 2,
+        'group_inheritance_type': membership,
+      },
+      {'id': 39, 'user_id': 5, 'required_approvals': 1},
+    ],
+  };
+  for (final membership in [0, 1]) {
+    test(
+      'edits only approval group inheritance=$membership without replay',
+      () async {
+        late RequestOptions request;
+        final client = _client((options) {
+          request = options;
+          return (
+            status: 200,
+            headers: const {},
+            body: inheritanceRule(membership),
+          );
+        });
+        final updated = await client.protectedEnvironments
+            .editApprovalGroupInheritance(
+              'team/app',
+              'review/production',
+              ruleId: 38,
+              groupInheritanceType: membership,
+            );
+        expect(
+          request.path,
+          '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+        );
+        expect(request.method, 'PUT');
+        expect(request.data, {
+          'approval_rules': [
+            {'id': 38, 'group_inheritance_type': membership},
+          ],
+        });
+        expect(request.followRedirects, isFalse);
+        expect(request.extra['labfox_no_auth_retry'], isTrue);
+        expect(updated.approvalRules.first.groupInheritanceType, membership);
+        expect(updated.approvalRules.first.groupId, 134);
+        expect(updated.approvalRules.first.requiredApprovals, 2);
+        expect(updated.approvalRules.last.userId, 5);
+        expect(updated.deployAccessLevels.single.id, 12);
+      },
+    );
+  }
+  for (final malformed in [
+    inheritanceRule(0),
+    inheritanceRule(1)..remove('deploy_access_levels'),
+    inheritanceRule(1)..remove('required_approval_count'),
+    inheritanceRule(1)..['name'] = 'other',
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {'id': 38, 'group_id': 134, 'required_approvals': 2},
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 38.5,
+          'group_id': 134,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 38,
+          'group_id': 134.5,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 38,
+          'group_id': 134,
+          'user_id': 5,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 38,
+          'group_id': 134,
+          'access_level': 40,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 38,
+          'group_id': 0,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+    inheritanceRule(1)
+      ..['approval_rules'] = [
+        {
+          'id': 40,
+          'group_id': 134,
+          'required_approvals': 2,
+          'group_inheritance_type': 1,
+        },
+      ],
+  ]) {
+    test('inheritance write rejects unconfirmed response $malformed', () async {
+      final client = _client(
+        (_) => (status: 200, headers: const {}, body: malformed),
+      );
+      await expectLater(
+        client.protectedEnvironments.editApprovalGroupInheritance(
+          7,
+          'review/production',
+          ruleId: 38,
+          groupInheritanceType: 1,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+  for (final status in [
+    201,
+    204,
+    301,
+    400,
+    401,
+    403,
+    404,
+    409,
+    422,
+    429,
+    500,
+  ]) {
+    test('inheritance write maps HTTP $status before parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private response'),
+      );
+      await expectLater(
+        client.protectedEnvironments.editApprovalGroupInheritance(
+          7,
+          'review/production',
+          ruleId: 38,
+          groupInheritanceType: 1,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+  test('invalid inheritance drafts never dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: {});
+    });
+    for (final (name, id, membership) in [
+      (' ', 38, 1),
+      (' production', 38, 1),
+      ('production', 0, 1),
+      ('production', 38, -1),
+      ('production', 38, 2),
+    ]) {
+      await expectLater(
+        client.protectedEnvironments.editApprovalGroupInheritance(
+          7,
+          name,
+          ruleId: id,
+          groupInheritanceType: membership,
+        ),
+        throwsArgumentError,
+      );
+    }
+    expect(calls, 0);
+  });
+  test('inheritance write never refreshes or replays OAuth 401', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.editApprovalGroupInheritance(
+        7,
+        'production',
+        ruleId: 38,
+        groupInheritanceType: 1,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   Map<String, dynamic> groupRule() => {
     'name': 'review/production',
     'required_approval_count': 0,

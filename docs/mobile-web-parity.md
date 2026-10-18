@@ -114,3 +114,14 @@ slice adds a shared group by exact ID with 1–5 approvals and direct membership
 complete inventory/detail preflight, exact-name confirmation, one-record PUT,
 strict response and read-back preservation, and account/uncertainty guards.
 See the [implementation and validation notes](protected-environment-approval-groups.md).
+
+## MW-02 approval-group membership evidence
+
+Project approval-group inherited membership editing
+[#654](https://github.com/Theorvane/LabFox/issues/654),
+[PR #655](https://github.com/Theorvane/LabFox/pull/655), shipped after approval,
+passing CI and merge into `dev` on 2026-10-18. It changes
+only a known group rule's explicit direct/inherited membership value, with
+changed-value and exact-name confirmation, complete inventory/detail preflight,
+one-record PUT, strict response and read-back preservation, and session and
+uncertainty guards. See the [implementation and validation notes](protected-environment-approval-inheritance.md).
