@@ -2948,6 +2948,40 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'デプロイロールを追加';
 
   @override
+  String get protectedEnvironmentDeployInheritanceTitle =>
+      'デプロイグループのメンバーシップを編集';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceWarning =>
+      '継承されたメンバーを含めると、より多くのユーザーがデプロイできるようになります。直接のメンバーのみにすると、デプロイ権限が失われることがあります。続行する前にすべての権限を確認してください。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceAcknowledge =>
+      'この環境にデプロイできるユーザーが変更されることを理解しています。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceSuccess =>
+      'デプロイグループのメンバーシップを更新しました。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceLevel => 'グループメンバーシップ';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceDirect => '直接のメンバーのみ';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceInherited => '継承されたメンバーを含める';
+
+  @override
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer（権限 $grantId、グループ $groupId）';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupTitle => '承認グループを追加';
 
   @override

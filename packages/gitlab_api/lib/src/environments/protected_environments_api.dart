@@ -699,6 +699,67 @@ class ProtectedEnvironmentsApi {
     }
   }
 
+  Future<ProtectedEnvironment> getForDeployGroupEdit(
+    Object projectId,
+    String name,
+  ) => getForApprovalGroupEdit(projectId, name);
+
+  Future<ProtectedEnvironment> editDeployGroupInheritance(
+    Object projectId,
+    String name, {
+    required int grantId,
+    required int groupInheritanceType,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        grantId <= 0 ||
+        !{0, 1}.contains(groupInheritanceType)) {
+      throw ArgumentError(
+        'Exact environment name, deploy grant ID and supported membership required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, 'group_inheritance_type': groupInheritanceType},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing environment deploy group membership',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.deployAccessLevels
+          .where((grant) => grant.id == grantId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId == null ||
+          matches.single.groupId! <= 0 ||
+          matches.single.userId != null ||
+          matches.single.groupInheritanceType != groupInheritanceType) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy membership',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'editing environment deploy group membership',
+      );
+    }
+  }
+
   Future<ProtectedEnvironment> get(Object projectId, String name) =>
       _get(projectId, name, requireComplete: false);
 

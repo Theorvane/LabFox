@@ -166,6 +166,23 @@ class ProtectedEnvironmentsRepository {
     groupId: groupId,
   );
 
+  Future<ProtectedEnvironment> getForDeployGroupEdit(
+    int projectId,
+    String name,
+  ) => client.protectedEnvironments.getForDeployGroupEdit(projectId, name);
+
+  Future<ProtectedEnvironment> editDeployGroupInheritance(
+    int projectId,
+    String name, {
+    required int grantId,
+    required int groupInheritanceType,
+  }) => client.protectedEnvironments.editDeployGroupInheritance(
+    projectId,
+    name,
+    grantId: grantId,
+    groupInheritanceType: groupInheritanceType,
+  );
+
   Future<ProtectedEnvironment> getGroup(int groupId, String name) =>
       client.groupProtectedEnvironments.get(groupId, name);
 }

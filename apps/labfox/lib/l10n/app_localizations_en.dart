@@ -3029,6 +3029,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'Add deploy role';
 
   @override
+  String get protectedEnvironmentDeployInheritanceTitle =>
+      'Edit deploy group membership';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceWarning =>
+      'Including inherited members can let more users deploy. Direct membership only can remove deployment access. Review all grants before continuing.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceAcknowledge =>
+      'I understand that this changes who can deploy to this environment.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceSuccess =>
+      'Deploy group membership updated.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceLevel => 'Group membership';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceDirect =>
+      'Direct members only';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceInherited =>
+      'Include inherited members';
+
+  @override
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (grant $grantId, group $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupTitle => 'Add approval group';
 
   @override

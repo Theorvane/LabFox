@@ -3029,6 +3029,42 @@ class AppLocalizationsHi extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'डिप्लॉय भूमिका जोड़ें';
 
   @override
+  String get protectedEnvironmentDeployInheritanceTitle =>
+      'डिप्लॉय समूह की सदस्यता संपादित करें';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceWarning =>
+      'विरासत में मिले सदस्य शामिल करने पर अधिक उपयोगकर्ता डिप्लॉय कर सकते हैं। केवल प्रत्यक्ष सदस्य रखने पर डिप्लॉयमेंट का अधिकार हट सकता है। आगे बढ़ने से पहले सभी अनुमतियों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceAcknowledge =>
+      'मैं समझता हूँ कि इससे इस परिवेश में डिप्लॉय कर सकने वाले उपयोगकर्ता बदलते हैं।';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceSuccess =>
+      'डिप्लॉय समूह की सदस्यता अपडेट की गई।';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceLevel => 'समूह सदस्यता';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceDirect =>
+      'केवल प्रत्यक्ष सदस्य';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceInherited =>
+      'विरासत में मिले सदस्य शामिल करें';
+
+  @override
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (अनुमति $grantId, समूह $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupTitle => 'अनुमोदन समूह जोड़ें';
 
   @override
