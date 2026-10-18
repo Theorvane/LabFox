@@ -14,6 +14,70 @@ class ProtectedEnvironmentsApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
 
+  Future<void> editDeployRole(
+    Object projectId,
+    String name, {
+    required int grantId,
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        grantId <= 0 ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError(
+        'Exact environment name, grant ID and supported role required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, 'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+      final grants = raw['deploy_access_levels'] as List;
+      if (grants.any((grant) => grant is! Map<String, dynamic>)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+      final matches = grants.where((grant) => grant['id'] == grantId).toList();
+      if (matches.length != 1 ||
+          matches.single['id'] is! int ||
+          matches.single['access_level'] is! int ||
+          matches.single['access_level'] != accessLevel ||
+          matches.single['user_id'] != null ||
+          matches.single['group_id'] != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'editing an environment deploy role');
+    }
+  }
+
   /// Removes one deploy grant by its server-assigned record ID.
   Future<void> removeDeployRole(
     Object projectId,

@@ -1,4 +1,11 @@
 {
+"protectedEnvironmentEditRoleTitle": "Edit deploy role",
+"protectedEnvironmentEditRoleWarning": "Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.",
+"protectedEnvironmentEditRoleAcknowledge": "I understand that this changes who can deploy to this environment.",
+"protectedEnvironmentEditRoleSuccess": "Deploy role updated.",
+"protectedEnvironmentEditRoleForbidden": "Maintainer permission and GitLab Premium/Ultimate are required to change deploy roles.",
+"protectedEnvironmentEditRoleError": "The role change could not be confirmed. Reload and inspect the current rule before trying again.",
+"protectedEnvironmentEditRoleLevel": "New deploy role",
   "pipelineScheduleExecutionEdit": "Edit execution settings",
   "pipelineScheduleExecutionSave": "Save",
   "pipelineScheduleExecutionActive": "Active",

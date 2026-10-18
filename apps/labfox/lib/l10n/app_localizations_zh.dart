@@ -9,6 +9,29 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get protectedEnvironmentEditRoleTitle => '更改部署角色';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      '更改一项基于角色的部署权限。切换为 Developers 将允许更多项目成员部署。继续前请检查所有权限和审批规则。';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge => '我理解这会更改谁可以部署到此环境。';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess => '部署角色已更新。';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      '更改部署角色需要 Maintainer 权限和 GitLab Premium/Ultimate。';
+
+  @override
+  String get protectedEnvironmentEditRoleError => '无法确认角色更改。重试前请重新加载并检查当前规则。';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => '新的部署角色';
+
+  @override
   String get pipelineScheduleExecutionEdit => '编辑执行设置';
 
   @override

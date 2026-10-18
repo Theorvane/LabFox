@@ -9,6 +9,31 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get protectedEnvironmentEditRoleTitle => 'デプロイロールを変更';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      'ロールに基づくデプロイ権限を1つ変更します。Developers に変更すると、より多くのプロジェクトメンバーがデプロイできます。続行する前にすべての権限と承認ルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge =>
+      'この環境にデプロイできるユーザーが変わることを理解しています。';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess => 'デプロイロールを更新しました。';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      'デプロイロールの変更には Maintainer 権限と GitLab Premium/Ultimate が必要です。';
+
+  @override
+  String get protectedEnvironmentEditRoleError =>
+      'ロールの変更を確認できませんでした。再試行する前に再読み込みして現在のルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => '新しいデプロイロール';
+
+  @override
   String get pipelineScheduleExecutionEdit => '実行設定を編集';
 
   @override
