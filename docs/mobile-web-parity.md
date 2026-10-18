@@ -103,7 +103,8 @@ strict response/read-back comparison and account/uncertainty guards are covered.
 See the [implementation and validation notes](protected-environment-deploy-groups.md).
 
 Project deploy-group removal [#662](https://github.com/Theorvane/LabFox/issues/662)
-is in review. It removes one existing group grant while keeping the environment
+and [PR #663](https://github.com/Theorvane/LabFox/pull/663) are in review.
+It removes one existing group grant while keeping the environment
 protected and preserving every remaining deploy and approval grant/count.
 Complete preflight, exact-name confirmation, one-record PUT, strict response and
 read-back comparison, last-grant impact and account/uncertainty guards are covered.
