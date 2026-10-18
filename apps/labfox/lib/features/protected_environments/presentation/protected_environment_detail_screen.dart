@@ -9,11 +9,13 @@ import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/protected_environment_approval_group_edit_controller.dart';
 import 'controllers/protected_environment_approval_inheritance_controller.dart';
+import 'controllers/protected_environment_deploy_inheritance_controller.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
 import 'widgets/protected_environment_approval_group_edit_dialog.dart';
 import 'widgets/protected_environment_approval_inheritance_dialog.dart';
+import 'widgets/protected_environment_deploy_inheritance_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_approval_dialog.dart';
@@ -239,6 +241,53 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
               );
               final permissions = Column(
                 children: [
+                  if (projectKey != null &&
+                      data.deployAccessLevels.any(
+                        editableDeployGroupMembership,
+                      ))
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-deploy-inheritance-open',
+                        ),
+                        icon: const Icon(Icons.account_tree_outlined),
+                        label: Text(
+                          l10n.protectedEnvironmentDeployInheritanceTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final edited = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>
+                                ProtectedEnvironmentDeployInheritanceDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (edited == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentDeployInheritanceSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   if (projectKey != null &&
                       data.approvalRules.any(editableApprovalGroupMembership))
                     Padding(

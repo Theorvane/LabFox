@@ -2891,6 +2891,38 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => '添加部署角色';
 
   @override
+  String get protectedEnvironmentDeployInheritanceTitle => '编辑部署组成员范围';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceWarning =>
+      '包含继承的成员可允许更多用户部署。仅允许直接成员时，部分用户可能会失去部署权限。继续前请检查所有授权。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceAcknowledge =>
+      '我了解这会更改能够部署到此环境的用户。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceSuccess => '已更新部署组成员范围。';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceLevel => '群组成员范围';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceDirect => '仅直接成员';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceInherited => '包含继承的成员';
+
+  @override
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer（授权 $grantId，群组 $groupId）';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupTitle => '添加审批组';
 
   @override

@@ -5628,6 +5628,58 @@ abstract class AppLocalizations {
   /// **'Add deploy role'**
   String get protectedEnvironmentDeployRoleTitle;
 
+  /// No description provided for @protectedEnvironmentDeployInheritanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deploy group membership'**
+  String get protectedEnvironmentDeployInheritanceTitle;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Including inherited members can let more users deploy. Direct membership only can remove deployment access. Review all grants before continuing.'**
+  String get protectedEnvironmentDeployInheritanceWarning;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can deploy to this environment.'**
+  String get protectedEnvironmentDeployInheritanceAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group membership updated.'**
+  String get protectedEnvironmentDeployInheritanceSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group membership'**
+  String get protectedEnvironmentDeployInheritanceLevel;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentDeployInheritanceDirect;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Include inherited members'**
+  String get protectedEnvironmentDeployInheritanceInherited;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{deployer} (grant {grantId}, group {groupId})'**
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  );
+
   /// No description provided for @protectedEnvironmentApprovalGroupTitle.
   ///
   /// In en, this message translates to:
