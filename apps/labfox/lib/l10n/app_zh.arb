@@ -1,4 +1,10 @@
 {
+"protectedEnvironmentRemoveApprovalTitle": "移除审批规则",
+"protectedEnvironmentRemoveApprovalWarning": "移除此规则会放宽部署审批条件。移除最后一条规则可能允许无需审批的部署。继续前请检查所有剩余规则。",
+"protectedEnvironmentRemoveApprovalAcknowledge": "我理解移除此规则可能允许审批更少或无需审批的部署。",
+"protectedEnvironmentRemoveApprovalSuccess": "审批规则已移除。",
+"protectedEnvironmentRemoveApprovalForbidden": "移除审批规则需要 Maintainer 或 Owner 权限和 GitLab Premium/Ultimate。",
+"protectedEnvironmentRemoveApprovalError": "无法确认规则移除。重试前请重新加载并检查当前规则。",
 "protectedEnvironmentApprovalCountTitle": "更改所需审批数",
 "protectedEnvironmentApprovalCountWarning": "更改此规则所需的审批数。减少数量会放宽部署审批条件。超过可用审批人数的数量可能阻止部署。继续前请检查所有规则。",
 "protectedEnvironmentApprovalCountAcknowledge": "我理解这会更改部署所需的审批数。",

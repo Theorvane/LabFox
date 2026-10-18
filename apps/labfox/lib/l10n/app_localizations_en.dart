@@ -9,6 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => 'Remove approval rule';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      'Removing this rule weakens the deployment approval gate. Removing the last rule can allow deployments without approval. Review all remaining rules before continuing.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      'I understand that removing this rule can allow deployments with fewer approvals or none.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess =>
+      'Approval rule removed.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      'Maintainer or Owner permission and GitLab Premium/Ultimate are required to remove approval rules.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      'The rule removal could not be confirmed. Reload and inspect the current rules before trying again.';
+
+  @override
   String get protectedEnvironmentApprovalCountTitle =>
       'Edit required approvals';
 

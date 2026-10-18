@@ -12,6 +12,7 @@ import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
+import 'widgets/protected_environment_remove_approval_dialog.dart';
 import 'widgets/protected_environment_remove_role_dialog.dart';
 import 'widgets/protected_environment_unprotect_dialog.dart';
 
@@ -332,6 +333,57 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
                               SnackBar(
                                 content: Text(
                                   l10n.protectedEnvironmentApprovalCountSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  if (projectKey != null &&
+                      data.approvalRules.any(
+                        (rule) =>
+                            rule.id != null &&
+                            rule.id! > 0 &&
+                            rule.requiredApprovals != null &&
+                            rule.requiredApprovals! >= 1 &&
+                            rule.requiredApprovals! <= 5,
+                      ))
+                    Padding(
+                      padding: const EdgeInsets.only(top: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-remove-approval-open',
+                        ),
+                        icon: const Icon(Icons.delete_outline),
+                        label: Text(
+                          l10n.protectedEnvironmentRemoveApprovalTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final removed = await showDialog<bool>(
+                            context: context,
+                            builder: (_) =>
+                                ProtectedEnvironmentRemoveApprovalDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (removed == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentRemoveApprovalSuccess,
                                 ),
                               ),
                             );

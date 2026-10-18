@@ -1,4 +1,10 @@
 {
+"protectedEnvironmentRemoveApprovalTitle": "स्वीकृति नियम हटाएँ",
+"protectedEnvironmentRemoveApprovalWarning": "इस नियम को हटाने से डिप्लॉय की स्वीकृति शर्तें कमज़ोर होती हैं। अंतिम नियम हटाने से बिना स्वीकृति डिप्लॉय हो सकता है। आगे बढ़ने से पहले बचे हुए सभी नियमों की समीक्षा करें।",
+"protectedEnvironmentRemoveApprovalAcknowledge": "मैं समझता/समझती हूँ कि यह नियम हटाने से कम स्वीकृतियों या बिना स्वीकृति डिप्लॉय हो सकता है।",
+"protectedEnvironmentRemoveApprovalSuccess": "स्वीकृति नियम हटाया गया।",
+"protectedEnvironmentRemoveApprovalForbidden": "स्वीकृति नियम हटाने के लिए Maintainer या Owner अनुमति और GitLab Premium/Ultimate आवश्यक हैं।",
+"protectedEnvironmentRemoveApprovalError": "नियम हटाने की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।",
 "protectedEnvironmentApprovalCountTitle": "आवश्यक स्वीकृतियाँ बदलें",
 "protectedEnvironmentApprovalCountWarning": "इस नियम के लिए आवश्यक स्वीकृतियों की संख्या बदलें। संख्या घटाने से डिप्लॉय की स्वीकृति शर्तें कमज़ोर होती हैं। उपलब्ध स्वीकर्ताओं से अधिक संख्या डिप्लॉय को रोक सकती है। आगे बढ़ने से पहले सभी नियमों की समीक्षा करें।",
 "protectedEnvironmentApprovalCountAcknowledge": "मैं समझता/समझती हूँ कि इससे डिप्लॉय के लिए आवश्यक स्वीकृतियाँ बदलती हैं।",

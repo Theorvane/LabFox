@@ -104,6 +104,42 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @protectedEnvironmentRemoveApprovalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove approval rule'**
+  String get protectedEnvironmentRemoveApprovalTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule weakens the deployment approval gate. Removing the last rule can allow deployments without approval. Review all remaining rules before continuing.'**
+  String get protectedEnvironmentRemoveApprovalWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that removing this rule can allow deployments with fewer approvals or none.'**
+  String get protectedEnvironmentRemoveApprovalAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval rule removed.'**
+  String get protectedEnvironmentRemoveApprovalSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer or Owner permission and GitLab Premium/Ultimate are required to remove approval rules.'**
+  String get protectedEnvironmentRemoveApprovalForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalError.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule removal could not be confirmed. Reload and inspect the current rules before trying again.'**
+  String get protectedEnvironmentRemoveApprovalError;
+
   /// No description provided for @protectedEnvironmentApprovalCountTitle.
   ///
   /// In en, this message translates to:

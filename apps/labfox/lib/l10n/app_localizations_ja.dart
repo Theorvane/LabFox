@@ -9,6 +9,28 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => '承認ルールを削除';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      'このルールを削除するとデプロイの承認条件が緩和されます。最後のルールを削除すると承認なしでデプロイできる場合があります。続行前に残りのすべてのルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      'このルールを削除すると必要な承認数が減るか、承認なしでデプロイできることを理解しています。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess => '承認ルールを削除しました。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      '承認ルールの削除には Maintainer または Owner 権限と GitLab Premium/Ultimate が必要です。';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      'ルールの削除を確認できませんでした。再試行前に再読み込みして現在のルールを確認してください。';
+
+  @override
   String get protectedEnvironmentApprovalCountTitle => '必要な承認数を変更';
 
   @override

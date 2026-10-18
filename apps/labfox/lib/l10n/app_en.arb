@@ -1,4 +1,10 @@
 {
+"protectedEnvironmentRemoveApprovalTitle": "Remove approval rule",
+"protectedEnvironmentRemoveApprovalWarning": "Removing this rule weakens the deployment approval gate. Removing the last rule can allow deployments without approval. Review all remaining rules before continuing.",
+"protectedEnvironmentRemoveApprovalAcknowledge": "I understand that removing this rule can allow deployments with fewer approvals or none.",
+"protectedEnvironmentRemoveApprovalSuccess": "Approval rule removed.",
+"protectedEnvironmentRemoveApprovalForbidden": "Maintainer or Owner permission and GitLab Premium/Ultimate are required to remove approval rules.",
+"protectedEnvironmentRemoveApprovalError": "The rule removal could not be confirmed. Reload and inspect the current rules before trying again.",
 "protectedEnvironmentApprovalCountTitle": "Edit required approvals",
 "protectedEnvironmentApprovalCountWarning": "Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.",
 "protectedEnvironmentApprovalCountAcknowledge": "I understand that this changes the approvals required to deploy.",

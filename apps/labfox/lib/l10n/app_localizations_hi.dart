@@ -9,6 +9,29 @@ class AppLocalizationsHi extends AppLocalizations {
   AppLocalizationsHi([String locale = 'hi']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => 'स्वीकृति नियम हटाएँ';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      'इस नियम को हटाने से डिप्लॉय की स्वीकृति शर्तें कमज़ोर होती हैं। अंतिम नियम हटाने से बिना स्वीकृति डिप्लॉय हो सकता है। आगे बढ़ने से पहले बचे हुए सभी नियमों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      'मैं समझता/समझती हूँ कि यह नियम हटाने से कम स्वीकृतियों या बिना स्वीकृति डिप्लॉय हो सकता है।';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess =>
+      'स्वीकृति नियम हटाया गया।';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      'स्वीकृति नियम हटाने के लिए Maintainer या Owner अनुमति और GitLab Premium/Ultimate आवश्यक हैं।';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      'नियम हटाने की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।';
+
+  @override
   String get protectedEnvironmentApprovalCountTitle =>
       'आवश्यक स्वीकृतियाँ बदलें';
 

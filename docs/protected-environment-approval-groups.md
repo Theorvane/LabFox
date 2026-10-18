@@ -78,8 +78,9 @@ locales across 320/800/1200 widths and both themes. Full local quality-gate
 results are recorded in the pull request.
 
 Local quality gates pass with Flutter 3.38.9: formatting, analysis, the English
-language policy, 4,629 app tests, 3,208 API tests, and 344 other package tests
-(8,181 total). CI and review approval remain separate requirements.
+language policy, 4,661 app tests, 3,230 API tests, and 344 other package tests
+(8,235 total). App and API suites were rerun after integrating the approved
+approval-removal slice from `dev`. CI and review approval remain separate requirements.
 
 References: [protected-environment update](https://docs.gitlab.com/api/protected_environments/#update-a-protected-environment),
 [deployment approvals](https://docs.gitlab.com/ci/environments/deployment_approvals/).

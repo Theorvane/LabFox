@@ -40,6 +40,16 @@ class ProtectedEnvironmentsRepository {
   Future<void> unprotect(int projectId, String name) =>
       client.protectedEnvironments.unprotect(projectId, name);
 
+  Future<void> removeApprovalRule(
+    int projectId,
+    String name, {
+    required int ruleId,
+  }) => client.protectedEnvironments.removeApprovalRule(
+    projectId,
+    name,
+    ruleId: ruleId,
+  );
+
   Future<void> addDeployRole(
     int projectId,
     String name, {
