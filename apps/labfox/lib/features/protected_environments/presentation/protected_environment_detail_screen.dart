@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
 import '../../../l10n/app_localizations.dart';
+import 'controllers/protected_environment_approval_inheritance_controller.dart';
 import 'controllers/protected_environments_controller.dart';
 import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
+import 'widgets/protected_environment_approval_inheritance_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
 import 'widgets/protected_environment_remove_approval_dialog.dart';
@@ -235,6 +237,51 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
               );
               final permissions = Column(
                 children: [
+                  if (projectKey != null &&
+                      data.approvalRules.any(editableApprovalGroupMembership))
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-approval-inheritance-open',
+                        ),
+                        icon: const Icon(Icons.account_tree_outlined),
+                        label: Text(
+                          l10n.protectedEnvironmentApprovalInheritanceTitle,
+                        ),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final edited = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>
+                                ProtectedEnvironmentApprovalInheritanceDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (edited == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentApprovalInheritanceSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   if (projectKey != null)
                     Padding(
                       padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),

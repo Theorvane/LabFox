@@ -2951,6 +2951,40 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupTitle => '承認グループを追加';
 
   @override
+  String get protectedEnvironmentApprovalInheritanceTitle =>
+      '承認グループのメンバーシップを編集';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      '継承されたメンバーを含めると、より多くのユーザーが承認できるようになります。直接のメンバーのみにすると、承認者が不足した場合にデプロイがブロックされることがあります。続行する前にすべてのルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      'デプロイを承認できるユーザーが変更されることを理解しています。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess =>
+      '承認グループのメンバーシップを更新しました。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => 'グループメンバーシップ';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect => '直接のメンバーのみ';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited =>
+      '継承されたメンバーを含める';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return 'グループ $groupId: $membership';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupId => 'グループ ID';
 
   @override

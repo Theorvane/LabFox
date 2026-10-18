@@ -3032,6 +3032,41 @@ class AppLocalizationsHi extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupTitle => 'अनुमोदन समूह जोड़ें';
 
   @override
+  String get protectedEnvironmentApprovalInheritanceTitle =>
+      'अनुमोदक समूह की सदस्यता संपादित करें';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      'विरासत में मिली सदस्यता शामिल करने पर अधिक उपयोगकर्ता अनुमोदन कर सकते हैं। केवल प्रत्यक्ष सदस्य रखने पर पर्याप्त अनुमोदक न होने से डिप्लॉयमेंट रुक सकते हैं। आगे बढ़ने से पहले सभी नियमों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      'मैं समझता हूँ कि इससे डिप्लॉयमेंट को अनुमोदित कर सकने वाले उपयोगकर्ता बदलते हैं।';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess =>
+      'अनुमोदक समूह की सदस्यता अपडेट की गई।';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => 'समूह सदस्यता';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect =>
+      'केवल प्रत्यक्ष सदस्य';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited =>
+      'विरासत में मिले सदस्य शामिल करें';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return 'समूह $groupId: $membership';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupId => 'समूह ID';
 
   @override
