@@ -81,8 +81,8 @@ project-rule setting with explicit boolean inspection, complete
 paginated preflight, exact-name and changed-value confirmation, one-field PATCH,
 strict response and read-back comparison, account isolation, and localized
 responsive coverage. See the [implementation and validation notes](protected-branch-code-owner-approval.md).
-This slice is in review; CI, review approval, and merge into `dev` are still
-required. Other protection-rule management remains part of MW-02.
+This slice shipped after approval, passing CI, and merge into `dev` on
+2026-10-18. Other protection-rule management remains part of MW-02.
 
 ## Procedure for the next slice
 
@@ -100,9 +100,20 @@ required. Other protection-rule management remains part of MW-02.
 
 Project protected-environment approval-group addition
 [#652](https://github.com/Theorvane/LabFox/issues/652),
-[PR #653](https://github.com/Theorvane/LabFox/pull/653), is in review. This bounded
+[PR #653](https://github.com/Theorvane/LabFox/pull/653), shipped after approval,
+passing CI, and merge into `dev` on 2026-10-18. This bounded
 slice adds a shared group by exact ID with 1–5 approvals and direct membership,
 complete inventory/detail preflight, exact-name confirmation, one-record PUT,
 strict response and read-back preservation, and account/uncertainty guards.
 See the [implementation and validation notes](protected-environment-approval-groups.md).
+
+## MW-02 approval-group membership evidence
+
+Project approval-group inherited membership editing
+[#654](https://github.com/Theorvane/LabFox/issues/654),
+[PR #655](https://github.com/Theorvane/LabFox/pull/655), is in review. It changes
+only a known group rule's explicit direct/inherited membership value, with
+changed-value and exact-name confirmation, complete inventory/detail preflight,
+one-record PUT, strict response and read-back preservation, and session and
+uncertainty guards. See the [implementation and validation notes](protected-environment-approval-inheritance.md).
 CI, review approval, and merge into `dev` are required before marking it shipped.

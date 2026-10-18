@@ -471,6 +471,63 @@ class ProtectedEnvironmentsApi {
     }
   }
 
+  Future<ProtectedEnvironment> editApprovalGroupInheritance(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int groupInheritanceType,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        !{0, 1}.contains(groupInheritanceType)) {
+      throw ArgumentError(
+        'Exact environment name, rule ID and supported membership required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'group_inheritance_type': groupInheritanceType},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing environment approval group membership',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.id == ruleId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId == null ||
+          matches.single.groupId! <= 0 ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null ||
+          matches.single.groupInheritanceType != groupInheritanceType) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval membership',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'editing environment approval group membership',
+      );
+    }
+  }
+
   Future<ProtectedEnvironment> addApprovalGroup(
     Object projectId,
     String name, {

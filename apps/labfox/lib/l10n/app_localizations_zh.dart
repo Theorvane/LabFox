@@ -2894,6 +2894,37 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentApprovalGroupTitle => '添加审批组';
 
   @override
+  String get protectedEnvironmentApprovalInheritanceTitle => '编辑审批组成员范围';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      '包含继承的成员可允许更多用户审批。仅允许直接成员时，审批者不足可能会阻止部署。继续前请检查所有规则。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      '我了解这会更改能够审批部署的用户。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess => '已更新审批组成员范围。';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => '群组成员范围';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect => '仅直接成员';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited => '包含继承的成员';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return '群组 $groupId：$membership';
+  }
+
+  @override
   String get protectedEnvironmentApprovalGroupId => '群组 ID';
 
   @override

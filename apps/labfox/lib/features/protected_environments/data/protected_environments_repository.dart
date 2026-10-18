@@ -125,6 +125,18 @@ class ProtectedEnvironmentsRepository {
     String name,
   ) => client.protectedEnvironments.getForApprovalGroupEdit(projectId, name);
 
+  Future<ProtectedEnvironment> editApprovalGroupInheritance(
+    int projectId,
+    String name, {
+    required int ruleId,
+    required int groupInheritanceType,
+  }) => client.protectedEnvironments.editApprovalGroupInheritance(
+    projectId,
+    name,
+    ruleId: ruleId,
+    groupInheritanceType: groupInheritanceType,
+  );
+
   Future<ProtectedEnvironment> addApprovalGroup(
     int projectId,
     String name, {
