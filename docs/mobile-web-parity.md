@@ -94,7 +94,8 @@ strict response/read-back comparison and account/uncertainty guards are covered.
 See the [implementation and validation notes](protected-environment-deploy-inheritance.md).
 
 Project deploy-group addition [#660](https://github.com/Theorvane/LabFox/issues/660)
-is in review. It adds one shared group by exact numeric ID with direct
+and [PR #661](https://github.com/Theorvane/LabFox/pull/661) are in review.
+It adds one shared group by exact numeric ID with direct
 membership while preserving existing deploy grants and all approval rules.
 Complete preflight, duplicate rejection, exact-name confirmation, one-record PUT,
 strict response/read-back comparison and account/uncertainty guards are covered.
