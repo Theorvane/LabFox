@@ -663,6 +663,134 @@ final protectedEnvironmentEditDeployRoleControllerProvider =
       ProtectedEnvironmentRef
     >(ProtectedEnvironmentEditDeployRoleController.new);
 
+class ProtectedEnvironmentApprovalCountController
+    extends FamilyAsyncNotifier<void, ProtectedEnvironmentRef> {
+  bool _disposed = false;
+
+  @override
+  void build(ProtectedEnvironmentRef arg) {
+    ref.watch(protectedEnvironmentsRepositoryProvider.future);
+    _disposed = false;
+    ref.onDispose(() => _disposed = true);
+  }
+
+  Future<ProtectedEnvironment> inspect() async {
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    final repository = await session;
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    if (repository == null) throw StateError('No authenticated account');
+    await repository.ensureUniqueName(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    final detail = await repository.getComplete(arg.projectId, arg.name);
+    if (!isCurrent()) {
+      throw const GitLabConflictException('Protection session changed');
+    }
+    return detail;
+  }
+
+  Future<void> edit({
+    required ProtectedEnvironment expected,
+    required int ruleId,
+    required int requiredApprovals,
+  }) async {
+    if (state.isLoading) {
+      throw StateError('Approval count edit already pending');
+    }
+    if (expected.name != arg.name ||
+        ruleId <= 0 ||
+        requiredApprovals < 1 ||
+        requiredApprovals > 5) {
+      throw ArgumentError(
+        'Exact environment rule, rule ID and supported approval count required',
+      );
+    }
+    final session = ref.read(protectedEnvironmentsRepositoryProvider.future);
+    bool isCurrent() =>
+        !_disposed &&
+        identical(
+          session,
+          ref.read(protectedEnvironmentsRepositoryProvider.future),
+        );
+    void invalidate() {
+      ref.invalidate(protectedEnvironmentsControllerProvider(arg.projectId));
+      ref.invalidate(protectedEnvironmentDetailProvider(arg));
+    }
+
+    var attempted = false;
+    state = const AsyncLoading();
+    try {
+      final current = await inspect();
+      if (!isCurrent() || current != expected) {
+        throw const GitLabConflictException('Protection rule changed');
+      }
+      final matches = current.approvalRules
+          .where((rule) => rule.id == ruleId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.requiredApprovals == null ||
+          matches.single.requiredApprovals! < 1 ||
+          matches.single.requiredApprovals! > 5 ||
+          matches.single.requiredApprovals == requiredApprovals) {
+        throw const GitLabConflictException('Approval rule is unavailable');
+      }
+      final repository = await session;
+      if (repository == null) throw StateError('No authenticated account');
+      attempted = true;
+      await repository.editApprovalCount(
+        arg.projectId,
+        arg.name,
+        ruleId: ruleId,
+        requiredApprovals: requiredApprovals,
+      );
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final updated = await repository.getComplete(arg.projectId, arg.name);
+      if (!isCurrent()) {
+        throw const GitLabConflictException('Protection session changed');
+      }
+      final intended = expected.copyWith(
+        approvalRules: [
+          for (final rule in expected.approvalRules)
+            rule.id == ruleId
+                ? rule.copyWith(requiredApprovals: requiredApprovals)
+                : rule,
+        ],
+      );
+      if (updated != intended) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+      state = const AsyncData(null);
+      invalidate();
+    } catch (error, stackTrace) {
+      if (isCurrent()) {
+        state = AsyncError(error, stackTrace);
+        if (attempted) invalidate();
+      }
+      rethrow;
+    }
+  }
+}
+
+final protectedEnvironmentApprovalCountControllerProvider =
+    AsyncNotifierProvider.family<
+      ProtectedEnvironmentApprovalCountController,
+      void,
+      ProtectedEnvironmentRef
+    >(ProtectedEnvironmentApprovalCountController.new);
+
 class GroupProtectedEnvironmentsController
     extends FamilyAsyncNotifier<Paginated<ProtectedEnvironment>, int> {
   bool _loadingMore = false;

@@ -1,4 +1,12 @@
 {
+"protectedEnvironmentApprovalCountTitle": "आवश्यक स्वीकृतियाँ बदलें",
+"protectedEnvironmentApprovalCountWarning": "इस नियम के लिए आवश्यक स्वीकृतियों की संख्या बदलें। संख्या घटाने से डिप्लॉय की स्वीकृति शर्तें कमज़ोर होती हैं। उपलब्ध स्वीकर्ताओं से अधिक संख्या डिप्लॉय को रोक सकती है। आगे बढ़ने से पहले सभी नियमों की समीक्षा करें।",
+"protectedEnvironmentApprovalCountAcknowledge": "मैं समझता/समझती हूँ कि इससे डिप्लॉय के लिए आवश्यक स्वीकृतियाँ बदलती हैं।",
+"protectedEnvironmentApprovalCountSuccess": "आवश्यक स्वीकृतियाँ अपडेट की गईं।",
+"protectedEnvironmentApprovalCountForbidden": "स्वीकृति नियम बदलने के लिए Maintainer या Owner अनुमति और GitLab Premium/Ultimate आवश्यक हैं।",
+"protectedEnvironmentApprovalCountError": "स्वीकृति में बदलाव की पुष्टि नहीं हो सकी। दोबारा कोशिश करने से पहले रीलोड करके मौजूदा नियम जाँचें।",
+"protectedEnvironmentApprovalCountLevel": "नई आवश्यक स्वीकृतियाँ",
+"protectedEnvironmentApprovalCountRuleLabel": "{approver} (नियम {ruleId}, {count} आवश्यक)",
 "protectedEnvironmentEditRoleTitle": "डिप्लॉय भूमिका बदलें",
 "protectedEnvironmentEditRoleWarning": "भूमिका पर आधारित एक डिप्लॉय अनुमति बदलें। Developers चुनने से प्रोजेक्ट के अधिक सदस्य डिप्लॉय कर सकते हैं। आगे बढ़ने से पहले सभी अनुमतियों और स्वीकृति नियमों की समीक्षा करें।",
 "protectedEnvironmentEditRoleAcknowledge": "मैं समझता/समझती हूँ कि इससे इस एनवायरनमेंट में डिप्लॉय करने की अनुमति बदलती है।",

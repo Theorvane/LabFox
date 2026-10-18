@@ -104,6 +104,58 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @protectedEnvironmentApprovalCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit required approvals'**
+  String get protectedEnvironmentApprovalCountTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalCountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.'**
+  String get protectedEnvironmentApprovalCountWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalCountAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes the approvals required to deploy.'**
+  String get protectedEnvironmentApprovalCountAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalCountSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Required approvals updated.'**
+  String get protectedEnvironmentApprovalCountSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalCountForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer or Owner permission and GitLab Premium/Ultimate are required to change approval rules.'**
+  String get protectedEnvironmentApprovalCountForbidden;
+
+  /// No description provided for @protectedEnvironmentApprovalCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'The approval change could not be confirmed. Reload and inspect the current rule before trying again.'**
+  String get protectedEnvironmentApprovalCountError;
+
+  /// No description provided for @protectedEnvironmentApprovalCountLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'New required approvals'**
+  String get protectedEnvironmentApprovalCountLevel;
+
+  /// No description provided for @protectedEnvironmentApprovalCountRuleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{approver} (rule {ruleId}, {count} required)'**
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  );
+
   /// No description provided for @protectedEnvironmentEditRoleTitle.
   ///
   /// In en, this message translates to:

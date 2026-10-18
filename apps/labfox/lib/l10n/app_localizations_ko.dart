@@ -9,6 +9,40 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get protectedEnvironmentApprovalCountTitle => '필수 승인 수 변경';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      '이 규칙에 필요한 승인 수를 변경합니다. 수를 줄이면 배포 승인 조건이 완화됩니다. 가능한 승인자보다 많은 수를 설정하면 배포가 차단될 수 있습니다. 계속하기 전에 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge =>
+      '배포에 필요한 승인 수가 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess => '필수 승인 수를 변경했습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      '승인 규칙을 변경하려면 Maintainer 또는 Owner 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      '승인 수 변경을 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => '새 필수 승인 수';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver (규칙 $ruleId, $count명 필요)';
+  }
+
+  @override
   String get protectedEnvironmentEditRoleTitle => '배포 역할 변경';
 
   @override

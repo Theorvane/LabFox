@@ -9,6 +9,42 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get protectedEnvironmentApprovalCountTitle =>
+      'Edit required approvals';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      'Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge =>
+      'I understand that this changes the approvals required to deploy.';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess =>
+      'Required approvals updated.';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      'Maintainer or Owner permission and GitLab Premium/Ultimate are required to change approval rules.';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      'The approval change could not be confirmed. Reload and inspect the current rule before trying again.';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => 'New required approvals';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver (rule $ruleId, $count required)';
+  }
+
+  @override
   String get protectedEnvironmentEditRoleTitle => 'Edit deploy role';
 
   @override

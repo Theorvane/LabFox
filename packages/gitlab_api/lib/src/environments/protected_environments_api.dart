@@ -14,6 +14,69 @@ class ProtectedEnvironmentsApi {
   String _path(Object projectId) =>
       '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
 
+  Future<void> editApprovalCount(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int requiredApprovals,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        requiredApprovals < 1 ||
+        requiredApprovals > 5) {
+      throw ArgumentError(
+        'Exact environment name, rule ID and supported approval count required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'required_approvals': requiredApprovals},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing an environment approval count',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['approval_rules'] is! List) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+      final rules = raw['approval_rules'] as List;
+      if (rules.any((rule) => rule is! Map<String, dynamic>)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+      final matches = rules.where((rule) => rule['id'] == ruleId).toList();
+      if (matches.length != 1 ||
+          matches.single['id'] is! int ||
+          matches.single['required_approvals'] is! int ||
+          matches.single['required_approvals'] != requiredApprovals) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'editing an environment approval count');
+    }
+  }
+
   Future<void> editDeployRole(
     Object projectId,
     String name, {

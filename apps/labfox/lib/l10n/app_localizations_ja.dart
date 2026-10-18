@@ -9,6 +9,40 @@ class AppLocalizationsJa extends AppLocalizations {
   AppLocalizationsJa([String locale = 'ja']) : super(locale);
 
   @override
+  String get protectedEnvironmentApprovalCountTitle => '必要な承認数を変更';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      'このルールに必要な承認数を変更します。数を減らすとデプロイの承認条件が緩和されます。承認可能な人数を超えるとデプロイがブロックされる場合があります。続行前にすべてのルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge =>
+      'デプロイに必要な承認数が変わることを理解しています。';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess => '必要な承認数を更新しました。';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      '承認ルールの変更には Maintainer または Owner 権限と GitLab Premium/Ultimate が必要です。';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      '承認数の変更を確認できませんでした。再試行前に再読み込みして現在のルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => '新しい承認数';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver (ルール $ruleId、$count 件必要)';
+  }
+
+  @override
   String get protectedEnvironmentEditRoleTitle => 'デプロイロールを変更';
 
   @override

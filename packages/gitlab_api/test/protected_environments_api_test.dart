@@ -6,6 +6,164 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('updates one approval count with an encoded non-retrying PUT', () async {
+    late RequestOptions request;
+    var calls = 0;
+    final client = _client((options) {
+      calls++;
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {
+          'name': 'review/production',
+          'approval_rules': [
+            {'id': 38, 'group_id': 134, 'required_approvals': 3},
+          ],
+        },
+      );
+    });
+    await client.protectedEnvironments.editApprovalCount(
+      'team/app',
+      'review/production',
+      ruleId: 38,
+      requiredApprovals: 3,
+    );
+    expect(calls, 1);
+    expect(request.method, 'PUT');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+    );
+    expect(request.data, {
+      'approval_rules': [
+        {'id': 38, 'required_approvals': 3},
+      ],
+    });
+    expect(request.followRedirects, isFalse);
+    expect(request.extra['labfox_no_auth_retry'], isTrue);
+  });
+
+  test('approval count rejects invalid arguments without dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: {});
+    });
+    for (final args in [
+      (name: '', id: 38, count: 2),
+      (name: ' production', id: 38, count: 2),
+      (name: 'production', id: 0, count: 2),
+      (name: 'production', id: 38, count: 0),
+      (name: 'production', id: 38, count: 6),
+    ]) {
+      await expectLater(
+        client.protectedEnvironments.editApprovalCount(
+          7,
+          args.name,
+          ruleId: args.id,
+          requiredApprovals: args.count,
+        ),
+        throwsArgumentError,
+      );
+    }
+    expect(calls, 0);
+  });
+
+  for (final status in [201, 301, 400, 401, 403, 404, 409, 422, 429, 500]) {
+    test('approval count maps HTTP $status before payload parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private response'),
+      );
+      await expectLater(
+        client.protectedEnvironments.editApprovalCount(
+          7,
+          'production',
+          ruleId: 38,
+          requiredApprovals: 2,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  for (final rules in [
+    <Object?>[],
+    [
+      {'id': 39, 'required_approvals': 2},
+    ],
+    [
+      {'id': 38, 'required_approvals': 1},
+    ],
+    [
+      {'id': 38, 'required_approvals': 2.0},
+    ],
+    [
+      {'id': 38, 'required_approvals': 2},
+      {'id': 38, 'required_approvals': 2},
+    ],
+    [
+      {'id': 38, 'required_approvals': 2},
+      null,
+    ],
+  ]) {
+    test('approval count rejects unconfirmed rules $rules', () async {
+      final client = _client(
+        (_) => (
+          status: 200,
+          headers: const {},
+          body: {'name': 'production', 'approval_rules': rules},
+        ),
+      );
+      await expectLater(
+        client.protectedEnvironments.editApprovalCount(
+          7,
+          'production',
+          ruleId: 38,
+          requiredApprovals: 2,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+
+  test('approval count never refreshes or replays OAuth writes', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.editApprovalCount(
+        7,
+        'production',
+        ruleId: 38,
+        requiredApprovals: 2,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test(
     'edits one deploy grant by ID with an encoded non-retrying PUT',
     () async {

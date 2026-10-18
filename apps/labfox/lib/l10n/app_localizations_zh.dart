@@ -9,6 +9,39 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get protectedEnvironmentApprovalCountTitle => '更改所需审批数';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      '更改此规则所需的审批数。减少数量会放宽部署审批条件。超过可用审批人数的数量可能阻止部署。继续前请检查所有规则。';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge => '我理解这会更改部署所需的审批数。';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess => '所需审批数已更新。';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      '更改审批规则需要 Maintainer 或 Owner 权限和 GitLab Premium/Ultimate。';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      '无法确认审批更改。重试前请重新加载并检查当前规则。';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => '新的所需审批数';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver（规则 $ruleId，需 $count 人审批）';
+  }
+
+  @override
   String get protectedEnvironmentEditRoleTitle => '更改部署角色';
 
   @override

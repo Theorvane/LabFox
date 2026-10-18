@@ -1,4 +1,12 @@
 {
+"protectedEnvironmentApprovalCountTitle": "更改所需审批数",
+"protectedEnvironmentApprovalCountWarning": "更改此规则所需的审批数。减少数量会放宽部署审批条件。超过可用审批人数的数量可能阻止部署。继续前请检查所有规则。",
+"protectedEnvironmentApprovalCountAcknowledge": "我理解这会更改部署所需的审批数。",
+"protectedEnvironmentApprovalCountSuccess": "所需审批数已更新。",
+"protectedEnvironmentApprovalCountForbidden": "更改审批规则需要 Maintainer 或 Owner 权限和 GitLab Premium/Ultimate。",
+"protectedEnvironmentApprovalCountError": "无法确认审批更改。重试前请重新加载并检查当前规则。",
+"protectedEnvironmentApprovalCountLevel": "新的所需审批数",
+"protectedEnvironmentApprovalCountRuleLabel": "{approver}（规则 {ruleId}，需 {count} 人审批）",
 "protectedEnvironmentEditRoleTitle": "更改部署角色",
 "protectedEnvironmentEditRoleWarning": "更改一项基于角色的部署权限。切换为 Developers 将允许更多项目成员部署。继续前请检查所有权限和审批规则。",
 "protectedEnvironmentEditRoleAcknowledge": "我理解这会更改谁可以部署到此环境。",
