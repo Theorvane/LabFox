@@ -2959,6 +2959,32 @@ class AppLocalizationsHi extends AppLocalizations {
   String get protectedEnvironmentDeployRoleTitle => 'डिप्लॉय भूमिका जोड़ें';
 
   @override
+  String get protectedEnvironmentApprovalGroupTitle => 'अनुमोदन समूह जोड़ें';
+
+  @override
+  String get protectedEnvironmentApprovalGroupId => 'समूह ID';
+
+  @override
+  String get protectedEnvironmentApprovalGroupHint =>
+      'बिना रिक्त स्थान के सटीक धनात्मक पूर्णांक समूह ID दर्ज करें।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupDuplicate =>
+      'इस समूह के लिए अनुमोदन नियम पहले से मौजूद है।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupWarning =>
+      'इस नियम के अंतर्गत केवल समूह के प्रत्यक्ष सदस्य अनुमोदन कर सकते हैं। समूह इस प्रोजेक्ट के साथ साझा होना चाहिए। पर्याप्त पात्र अनुमोदक न होने पर डिप्लॉयमेंट रुक सकते हैं।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupAcknowledge =>
+      'मैं समझता हूँ कि इससे डिप्लॉयमेंट के लिए आवश्यक अनुमोदन नियम जुड़ता है।';
+
+  @override
+  String get protectedEnvironmentApprovalGroupSuccess =>
+      'अनुमोदन समूह जोड़ा गया।';
+
+  @override
   String get protectedEnvironmentDeployRoleWarning =>
       'चुनी गई भूमिका को डिप्लॉय करने की अनुमति मिलेगी। मौजूदा डिप्लॉय अनुमतियाँ और अनुमोदन नियम बने रहेंगे।';
 

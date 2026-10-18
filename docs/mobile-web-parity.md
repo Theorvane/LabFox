@@ -84,3 +84,13 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 4. Link the PR and move the row to `In review`. Move it to `Shipped` only after
    approval, passing CI, and merge. Add discovered gaps as new rows rather than
    silently expanding the definition of done.
+
+## MW-02 approval-group addition evidence
+
+Project protected-environment approval-group addition
+[#652](https://github.com/Theorvane/LabFox/issues/652) is in review. This bounded
+slice adds a shared group by exact ID with 1–5 approvals and direct membership,
+complete inventory/detail preflight, exact-name confirmation, one-record PUT,
+strict response and read-back preservation, and account/uncertainty guards.
+See the [implementation and validation notes](protected-environment-approval-groups.md).
+CI, review approval, and merge into `dev` are required before marking it shipped.

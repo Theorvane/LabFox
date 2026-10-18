@@ -393,6 +393,149 @@ class ProtectedEnvironmentsApi {
     }
   }
 
+  Future<ProtectedEnvironment> getForApprovalGroupEdit(
+    Object projectId,
+    String name,
+  ) async {
+    if (name.trim().isEmpty || name != name.trim()) {
+      throw ArgumentError('Exact environment name required');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(followRedirects: false),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'inspecting environment approval groups',
+        );
+      }
+      return _parseApprovalGroupRule(response.data, name);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'inspecting environment approval groups');
+    }
+  }
+
+  Future<ProtectedEnvironment> addApprovalGroup(
+    Object projectId,
+    String name, {
+    required int groupId,
+    required int requiredApprovals,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        groupId <= 0 ||
+        requiredApprovals < 1 ||
+        requiredApprovals > 5) {
+      throw ArgumentError(
+        'Exact environment name, positive group ID and supported approval count required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {
+              'group_id': groupId,
+              'required_approvals': requiredApprovals,
+              'group_inheritance_type': 0,
+            },
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment approval group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.groupId == groupId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.requiredApprovals != requiredApprovals ||
+          matches.single.groupInheritanceType != 0 ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval group',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment approval group');
+    }
+  }
+
+  ProtectedEnvironment _parseApprovalGroupRule(Object? raw, String name) {
+    if (raw is! Map<String, dynamic> ||
+        raw['name'] != name ||
+        raw['required_approval_count'] is! int ||
+        (raw['required_approval_count'] as int) < 0) {
+      throw const GitLabServerException(
+        'Incomplete environment approval groups',
+      );
+    }
+    for (final field in ['deploy_access_levels', 'approval_rules']) {
+      final entries = raw[field];
+      if (entries is! List) {
+        throw const GitLabServerException(
+          'Incomplete environment approval groups',
+        );
+      }
+      final ids = <int>{};
+      for (final entry in entries) {
+        if (!_validAccess(entry) ||
+            entry is! Map<String, dynamic> ||
+            !ids.add(entry['id'] as int)) {
+          throw const GitLabServerException(
+            'Malformed environment approval records',
+          );
+        }
+        for (final key in [
+          'access_level',
+          'user_id',
+          'group_id',
+          'group_inheritance_type',
+          'required_approvals',
+        ]) {
+          if (entry[key] != null && entry[key] is! int) {
+            throw const GitLabServerException(
+              'Malformed environment approval records',
+            );
+          }
+        }
+        if (field == 'approval_rules' &&
+            (entry['required_approvals'] is! int ||
+                (entry['required_approvals'] as int) < 1)) {
+          throw const GitLabServerException(
+            'Incomplete environment approval counts',
+          );
+        }
+      }
+    }
+    try {
+      return ProtectedEnvironment.fromJson(raw);
+    } on TypeError {
+      throw const GitLabServerException(
+        'Malformed environment approval groups',
+      );
+    } on FormatException {
+      throw const GitLabServerException(
+        'Malformed environment approval groups',
+      );
+    }
+  }
+
   Future<ProtectedEnvironment> get(Object projectId, String name) =>
       _get(projectId, name, requireComplete: false);
 
