@@ -76,7 +76,8 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 ## Additional MW-02 evidence
 
 Protected-branch Code Owner approval editing [#650](https://github.com/Theorvane/LabFox/issues/650)
-adds a bounded project-rule setting with explicit boolean inspection, complete
+and [PR #651](https://github.com/Theorvane/LabFox/pull/651) add a bounded
+project-rule setting with explicit boolean inspection, complete
 paginated preflight, exact-name and changed-value confirmation, one-field PATCH,
 strict response and read-back comparison, account isolation, and localized
 responsive coverage. See the [implementation and validation notes](protected-branch-code-owner-approval.md).
