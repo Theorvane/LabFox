@@ -3033,6 +3033,31 @@ class AppLocalizationsEn extends AppLocalizations {
       'Edit deploy group membership';
 
   @override
+  String get protectedEnvironmentDeployGroupTitle => 'Add deploy group';
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      'Adding a group can let its direct members deploy to this environment. Review existing deploy access and approval rules before continuing.';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      'I understand that this grants deployment access to the group\'s direct members.';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess => 'Deploy group added.';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => 'Group ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      'Enter the exact numeric ID of a group shared with this project. Only direct members are included.';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate =>
+      'This group already has deployment access.';
+
+  @override
   String get protectedEnvironmentDeployInheritanceWarning =>
       'Including inherited members can let more users deploy. Direct membership only can remove deployment access. Review all grants before continuing.';
 

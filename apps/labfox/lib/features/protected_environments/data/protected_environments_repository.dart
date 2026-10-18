@@ -166,6 +166,16 @@ class ProtectedEnvironmentsRepository {
     groupId: groupId,
   );
 
+  Future<ProtectedEnvironment> addDeployGroup(
+    int projectId,
+    String name, {
+    required int groupId,
+  }) => client.protectedEnvironments.addDeployGroup(
+    projectId,
+    name,
+    groupId: groupId,
+  );
+
   Future<ProtectedEnvironment> getForDeployGroupEdit(
     int projectId,
     String name,

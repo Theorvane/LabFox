@@ -85,12 +85,21 @@ renewed confirmation and account isolation are covered by tests.
 See the [implementation and validation notes](protected-environment-approval-group-replacement.md).
 
 Project deploy-group membership editing [#658](https://github.com/Theorvane/LabFox/issues/658)
-and [PR #659](https://github.com/Theorvane/LabFox/pull/659) are in review.
+and [PR #659](https://github.com/Theorvane/LabFox/pull/659) shipped after approval,
+passing CI and squash merge into `dev` on 2026-10-18.
 It changes one existing group's explicit direct/inherited deploy
 membership while preserving role metadata, other grants and all approval rules.
 Complete preflight, changed-value and exact-name confirmation, one-record PUT,
 strict response/read-back comparison and account/uncertainty guards are covered.
 See the [implementation and validation notes](protected-environment-deploy-inheritance.md).
+
+Project deploy-group addition [#660](https://github.com/Theorvane/LabFox/issues/660)
+and [PR #661](https://github.com/Theorvane/LabFox/pull/661) are in review.
+It adds one shared group by exact numeric ID with direct
+membership while preserving existing deploy grants and all approval rules.
+Complete preflight, duplicate rejection, exact-name confirmation, one-record PUT,
+strict response/read-back comparison and account/uncertainty guards are covered.
+See the [implementation and validation notes](protected-environment-deploy-groups.md).
 CI, review approval and merge into `dev` remain required.
 
 Protected-branch Code Owner approval editing [#650](https://github.com/Theorvane/LabFox/issues/650)

@@ -15,6 +15,7 @@ import 'widgets/protected_environment_approval_count_dialog.dart';
 import 'widgets/protected_environment_approval_group_dialog.dart';
 import 'widgets/protected_environment_approval_group_edit_dialog.dart';
 import 'widgets/protected_environment_approval_inheritance_dialog.dart';
+import 'widgets/protected_environment_deploy_group_dialog.dart';
 import 'widgets/protected_environment_deploy_inheritance_dialog.dart';
 import 'widgets/protected_environment_deploy_role_dialog.dart';
 import 'widgets/protected_environment_edit_role_dialog.dart';
@@ -241,6 +242,48 @@ class ProtectedEnvironmentDetailScreen extends ConsumerWidget {
               );
               final permissions = Column(
                 children: [
+                  if (projectKey != null)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: LabFoxSpacing.sm),
+                      child: OutlinedButton.icon(
+                        key: const ValueKey(
+                          'protected-environment-deploy-group-open',
+                        ),
+                        icon: const Icon(Icons.group_add_outlined),
+                        label: Text(l10n.protectedEnvironmentDeployGroupTitle),
+                        onPressed: () async {
+                          final session = ref.read(
+                            protectedEnvironmentsRepositoryProvider.future,
+                          );
+                          final added = await showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) =>
+                                ProtectedEnvironmentDeployGroupDialog(
+                                  target: projectKey,
+                                  rule: data,
+                                ),
+                          );
+                          if (added == true &&
+                              context.mounted &&
+                              identical(
+                                session,
+                                ref.read(
+                                  protectedEnvironmentsRepositoryProvider
+                                      .future,
+                                ),
+                              )) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.protectedEnvironmentDeployGroupSuccess,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   if (projectKey != null &&
                       data.deployAccessLevels.any(
                         editableDeployGroupMembership,

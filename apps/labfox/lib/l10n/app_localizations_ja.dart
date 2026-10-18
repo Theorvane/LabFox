@@ -2952,6 +2952,31 @@ class AppLocalizationsJa extends AppLocalizations {
       'デプロイグループのメンバーシップを編集';
 
   @override
+  String get protectedEnvironmentDeployGroupTitle => 'デプロイグループを追加';
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      'グループを追加すると、そのグループの直接のメンバーがこの環境にデプロイできるようになる場合があります。続行する前に既存のデプロイ権限と承認ルールを確認してください。';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      'グループの直接のメンバーにデプロイ権限を付与することを理解しました。';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess => 'デプロイグループを追加しました。';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => 'グループ ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      'このプロジェクトと共有されているグループの正確な数値 ID を入力してください。直接のメンバーのみが含まれます。';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate =>
+      'このグループにはすでにデプロイ権限があります。';
+
+  @override
   String get protectedEnvironmentDeployInheritanceWarning =>
       '継承されたメンバーを含めると、より多くのユーザーがデプロイできるようになります。直接のメンバーのみにすると、デプロイ権限が失われることがあります。続行する前にすべての権限を確認してください。';
 

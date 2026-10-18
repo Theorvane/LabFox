@@ -699,6 +699,54 @@ class ProtectedEnvironmentsApi {
     }
   }
 
+  Future<ProtectedEnvironment> addDeployGroup(
+    Object projectId,
+    String name, {
+    required int groupId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || groupId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and positive group ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'group_id': groupId, 'group_inheritance_type': 0},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment deploy group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.deployAccessLevels
+          .where((grant) => grant.groupId == groupId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupInheritanceType != 0 ||
+          matches.single.userId != null ||
+          matches.single.requiredApprovals != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy group',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment deploy group');
+    }
+  }
+
   Future<ProtectedEnvironment> getForDeployGroupEdit(
     Object projectId,
     String name,

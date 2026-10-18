@@ -2894,6 +2894,30 @@ class AppLocalizationsZh extends AppLocalizations {
   String get protectedEnvironmentDeployInheritanceTitle => '编辑部署组成员范围';
 
   @override
+  String get protectedEnvironmentDeployGroupTitle => '添加部署组';
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      '添加组后，该组的直接成员可能可以部署到此环境。继续前请检查现有部署权限和审批规则。';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      '我了解此操作会向该组的直接成员授予部署权限。';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess => '已添加部署组。';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => '组 ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      '请输入与此项目共享的组的准确数字 ID。仅包含直接成员。';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate => '此组已拥有部署权限。';
+
+  @override
   String get protectedEnvironmentDeployInheritanceWarning =>
       '包含继承的成员可允许更多用户部署。仅允许直接成员时，部分用户可能会失去部署权限。继续前请检查所有授权。';
 

@@ -3033,6 +3033,32 @@ class AppLocalizationsHi extends AppLocalizations {
       'डिप्लॉय समूह की सदस्यता संपादित करें';
 
   @override
+  String get protectedEnvironmentDeployGroupTitle => 'डिप्लॉय समूह जोड़ें';
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      'समूह जोड़ने से उसके प्रत्यक्ष सदस्य इस एनवायरनमेंट में डिप्लॉय कर सकते हैं। आगे बढ़ने से पहले मौजूदा डिप्लॉय पहुँच और अनुमोदन नियमों की समीक्षा करें।';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      'मैं समझता हूँ कि इससे समूह के प्रत्यक्ष सदस्यों को डिप्लॉय पहुँच मिलती है।';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess =>
+      'डिप्लॉय समूह जोड़ा गया।';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => 'समूह ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      'इस प्रोजेक्ट के साथ साझा किए गए समूह की सटीक संख्यात्मक ID दर्ज करें। केवल प्रत्यक्ष सदस्य शामिल हैं।';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate =>
+      'इस समूह के पास पहले से डिप्लॉय पहुँच है।';
+
+  @override
   String get protectedEnvironmentDeployInheritanceWarning =>
       'विरासत में मिले सदस्य शामिल करने पर अधिक उपयोगकर्ता डिप्लॉय कर सकते हैं। केवल प्रत्यक्ष सदस्य रखने पर डिप्लॉयमेंट का अधिकार हट सकता है। आगे बढ़ने से पहले सभी अनुमतियों की समीक्षा करें।';
 
