@@ -88,7 +88,8 @@ issues and PRs. Keep it open until its full acceptance boundary is verified.
 ## MW-02 approval-group addition evidence
 
 Project protected-environment approval-group addition
-[#652](https://github.com/Theorvane/LabFox/issues/652) is in review. This bounded
+[#652](https://github.com/Theorvane/LabFox/issues/652),
+[PR #653](https://github.com/Theorvane/LabFox/pull/653), is in review. This bounded
 slice adds a shared group by exact ID with 1–5 approvals and direct membership,
 complete inventory/detail preflight, exact-name confirmation, one-record PUT,
 strict response and read-back preservation, and account/uncertainty guards.
