@@ -2682,6 +2682,52 @@ class AppLocalizationsEn extends AppLocalizations {
   String get protectedBranchForcePushEditTitle => 'Edit force push';
 
   @override
+  String get protectedBranchCodeOwnerEditTitle => 'Edit Code Owner approval';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      'Current rule: Code Owner approval is required.';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      'Current rule: Code Owner approval is not required.';
+
+  @override
+  String get protectedBranchCodeOwnerRequire => 'Require Code Owner approval';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      'This rule will require Code Owner approval for files covered by CODEOWNERS.';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      'This rule will no longer require Code Owner approval. Other approval rules may still apply.';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      'I understand this changes Code Owner approval requirements for this branch rule.';
+
+  @override
+  String get protectedBranchCodeOwnerError =>
+      'The Code Owner setting could not be confirmed. Check the rule before trying again.';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      'Permission to manage this rule and GitLab Premium/Ultimate are required.';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess =>
+      'Code Owner approval requirement updated.';
+
+  @override
+  String get protectedBranchCodeOwnerInspect =>
+      'Check the rule to read its current Code Owner setting.';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      'A wildcard can affect multiple branches. CODEOWNERS coverage controls which files need approval. Direct pushes can bypass merge request approvals.';
+
+  @override
   String protectedBranchForcePushEditTarget(String project, String name) {
     return 'Project $project: $name';
   }

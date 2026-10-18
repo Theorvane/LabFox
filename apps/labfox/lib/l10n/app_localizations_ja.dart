@@ -2619,6 +2619,51 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedBranchForcePushEditTitle => '強制プッシュを編集';
 
   @override
+  String get protectedBranchCodeOwnerEditTitle => 'Code Owner 承認を変更';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      '現在のルール: Code Owner 承認が必要です。';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      '現在のルール: Code Owner 承認は必須ではありません。';
+
+  @override
+  String get protectedBranchCodeOwnerRequire => 'Code Owner 承認を必須にする';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      'このルールでは CODEOWNERS の対象ファイルに Code Owner 承認が必要になります。';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      'このルールでは Code Owner 承認が必須でなくなります。他の承認ルールは引き続き適用される場合があります。';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      'このブランチルールの Code Owner 承認要件が変わることを理解しています。';
+
+  @override
+  String get protectedBranchCodeOwnerError =>
+      'Code Owner 設定を確認できませんでした。再試行前にルールを確認してください。';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      'このルールを管理する権限と GitLab Premium/Ultimate が必要です。';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess => 'Code Owner 承認要件を更新しました。';
+
+  @override
+  String get protectedBranchCodeOwnerInspect =>
+      'ルールを確認して現在の Code Owner 設定を読み込んでください。';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      'ワイルドカードは複数のブランチに適用される場合があります。承認が必要なファイルは CODEOWNERS の設定によって決まります。直接プッシュするとマージリクエストの承認を回避できます。';
+
+  @override
   String protectedBranchForcePushEditTarget(String project, String name) {
     return 'プロジェクト $project: $name';
   }

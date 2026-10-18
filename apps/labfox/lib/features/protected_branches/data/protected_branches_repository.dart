@@ -53,6 +53,19 @@ class ProtectedBranchesRepository {
   Future<ProtectedBranch> get(int projectId, String name) =>
       client.protectedBranches.get(projectId, name);
 
+  Future<ProtectedBranch> getForCodeOwnerEdit(int projectId, String name) =>
+      client.protectedBranches.getForCodeOwnerEdit(projectId, name);
+
+  Future<ProtectedBranch> updateCodeOwnerApproval(
+    int projectId,
+    String name, {
+    required bool codeOwnerApprovalRequired,
+  }) => client.protectedBranches.updateCodeOwnerApproval(
+    projectId,
+    name,
+    codeOwnerApprovalRequired: codeOwnerApprovalRequired,
+  );
+
   Future<ProtectedBranch> updateForcePush(
     int projectId,
     String name, {

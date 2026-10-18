@@ -5070,6 +5070,78 @@ abstract class AppLocalizations {
   /// **'Edit force push'**
   String get protectedBranchForcePushEditTitle;
 
+  /// No description provided for @protectedBranchCodeOwnerEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Code Owner approval'**
+  String get protectedBranchCodeOwnerEditTitle;
+
+  /// No description provided for @protectedBranchCodeOwnerCurrentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rule: Code Owner approval is required.'**
+  String get protectedBranchCodeOwnerCurrentRequired;
+
+  /// No description provided for @protectedBranchCodeOwnerCurrentOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rule: Code Owner approval is not required.'**
+  String get protectedBranchCodeOwnerCurrentOptional;
+
+  /// No description provided for @protectedBranchCodeOwnerRequire.
+  ///
+  /// In en, this message translates to:
+  /// **'Require Code Owner approval'**
+  String get protectedBranchCodeOwnerRequire;
+
+  /// No description provided for @protectedBranchCodeOwnerEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule will require Code Owner approval for files covered by CODEOWNERS.'**
+  String get protectedBranchCodeOwnerEnableWarning;
+
+  /// No description provided for @protectedBranchCodeOwnerDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule will no longer require Code Owner approval. Other approval rules may still apply.'**
+  String get protectedBranchCodeOwnerDisableWarning;
+
+  /// No description provided for @protectedBranchCodeOwnerAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this changes Code Owner approval requirements for this branch rule.'**
+  String get protectedBranchCodeOwnerAcknowledge;
+
+  /// No description provided for @protectedBranchCodeOwnerError.
+  ///
+  /// In en, this message translates to:
+  /// **'The Code Owner setting could not be confirmed. Check the rule before trying again.'**
+  String get protectedBranchCodeOwnerError;
+
+  /// No description provided for @protectedBranchCodeOwnerForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission to manage this rule and GitLab Premium/Ultimate are required.'**
+  String get protectedBranchCodeOwnerForbidden;
+
+  /// No description provided for @protectedBranchCodeOwnerSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Code Owner approval requirement updated.'**
+  String get protectedBranchCodeOwnerSuccess;
+
+  /// No description provided for @protectedBranchCodeOwnerInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the rule to read its current Code Owner setting.'**
+  String get protectedBranchCodeOwnerInspect;
+
+  /// No description provided for @protectedBranchCodeOwnerContext.
+  ///
+  /// In en, this message translates to:
+  /// **'A wildcard can affect multiple branches. CODEOWNERS coverage controls which files need approval. Direct pushes can bypass merge request approvals.'**
+  String get protectedBranchCodeOwnerContext;
+
   /// No description provided for @protectedBranchForcePushEditTarget.
   ///
   /// In en, this message translates to:

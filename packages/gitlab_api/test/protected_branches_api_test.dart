@@ -5,7 +5,213 @@ import 'package:dio/dio.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
+Map<String, dynamic> _codeOwnerRule(bool enabled) => {
+  'id': 101,
+  'name': 'release/*',
+  'allow_force_push': false,
+  'code_owner_approval_required': enabled,
+  'push_access_levels': [
+    {'id': 3, 'access_level': 40},
+  ],
+  'merge_access_levels': [
+    {'id': 4, 'group_id': 8},
+  ],
+  'unprotect_access_levels': [
+    {'id': 5, 'member_role_id': 7},
+  ],
+};
+
 void main() {
+  for (final enabled in [true, false]) {
+    test(
+      'updates only Code Owner approval=$enabled with a non-retrying PATCH',
+      () async {
+        late RequestOptions request;
+        var calls = 0;
+        final client = _client((options) {
+          calls++;
+          request = options;
+          return (
+            status: 200,
+            headers: const {},
+            body: _codeOwnerRule(enabled),
+          );
+        });
+        final changed = await client.protectedBranches.updateCodeOwnerApproval(
+          'team/app',
+          'release/*',
+          codeOwnerApprovalRequired: enabled,
+        );
+        expect(calls, 1);
+        expect(request.method, 'PATCH');
+        expect(
+          request.path,
+          '/projects/team%2Fapp/protected_branches/release%2F*',
+        );
+        expect(request.data, {'code_owner_approval_required': enabled});
+        expect(request.followRedirects, isFalse);
+        expect(request.extra['labfox_no_auth_retry'], isTrue);
+        expect(changed.codeOwnerApprovalRequired, enabled);
+        expect(changed.allowForcePush, isFalse);
+        expect(changed.unprotectAccessLevels.single.memberRoleId, 7);
+      },
+    );
+  }
+
+  test('strict Code Owner inspection requires an explicit flag', () async {
+    late RequestOptions request;
+    final client = _client((options) {
+      request = options;
+      return (status: 200, headers: const {}, body: _codeOwnerRule(false));
+    });
+    final rule = await client.protectedBranches.getForCodeOwnerEdit(
+      'team/app',
+      'release/*',
+    );
+    expect(request.method, 'GET');
+    expect(request.path, '/projects/team%2Fapp/protected_branches/release%2F*');
+    expect(rule.codeOwnerApprovalRequired, isFalse);
+  });
+
+  for (final body in [
+    _codeOwnerRule(false)..remove('code_owner_approval_required'),
+    _codeOwnerRule(false)..['code_owner_approval_required'] = null,
+    _codeOwnerRule(false)..['code_owner_approval_required'] = 'false',
+    _codeOwnerRule(false)..['id'] = 12.5,
+    _codeOwnerRule(false)..['inherited'] = 'false',
+    _codeOwnerRule(false)..['name'] = 'other',
+    _codeOwnerRule(false)
+      ..['push_access_levels'] = [
+        {'id': 3.5, 'access_level': 40},
+      ],
+    _codeOwnerRule(false)
+      ..['merge_access_levels'] = [
+        {'id': 4, 'user_id': 5.5},
+      ],
+  ]) {
+    test('strict Code Owner inspection rejects malformed rule $body', () async {
+      final client = _client(
+        (_) => (status: 200, headers: const {}, body: body),
+      );
+      await expectLater(
+        client.protectedBranches.getForCodeOwnerEdit(7, 'release/*'),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+
+  for (final status in [
+    201,
+    204,
+    301,
+    400,
+    401,
+    403,
+    404,
+    409,
+    422,
+    429,
+    500,
+  ]) {
+    test('Code Owner write maps HTTP $status before parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private response'),
+      );
+      await expectLater(
+        client.protectedBranches.updateCodeOwnerApproval(
+          7,
+          'release/*',
+          codeOwnerApprovalRequired: true,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+      await expectLater(
+        client.protectedBranches.getForCodeOwnerEdit(7, 'release/*'),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  for (final body in [
+    _codeOwnerRule(false),
+    _codeOwnerRule(true)..remove('code_owner_approval_required'),
+    _codeOwnerRule(true)..['code_owner_approval_required'] = 1,
+    _codeOwnerRule(true)..['name'] = 'other',
+  ]) {
+    test('Code Owner write rejects unconfirmed response $body', () async {
+      final client = _client(
+        (_) => (status: 200, headers: const {}, body: body),
+      );
+      await expectLater(
+        client.protectedBranches.updateCodeOwnerApproval(
+          7,
+          'release/*',
+          codeOwnerApprovalRequired: true,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+
+  test('Code Owner writes reject blank names before dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: {});
+    });
+    await expectLater(
+      client.protectedBranches.updateCodeOwnerApproval(
+        7,
+        ' ',
+        codeOwnerApprovalRequired: true,
+      ),
+      throwsArgumentError,
+    );
+    expect(calls, 0);
+  });
+
+  test('Code Owner write never refreshes or replays OAuth 401', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedBranches.updateCodeOwnerApproval(
+        7,
+        'release/*',
+        codeOwnerApprovalRequired: true,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('unprotects only the exact encoded rule without a payload', () async {
     late RequestOptions request;
     final client = _client((options) {
