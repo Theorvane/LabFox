@@ -9,6 +9,28 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => '승인 규칙 제거';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      '이 규칙을 제거하면 배포 승인 조건이 완화됩니다. 마지막 규칙을 제거하면 승인 없이 배포할 수 있습니다. 계속하기 전에 남은 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      '이 규칙을 제거하면 더 적은 승인 또는 승인 없이 배포할 수 있다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess => '승인 규칙을 제거했습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      '승인 규칙을 제거하려면 Maintainer 또는 Owner 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      '규칙 제거를 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
   String get protectedEnvironmentApprovalCountTitle => '필수 승인 수 변경';
 
   @override

@@ -6,6 +6,180 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('removes one approval rule with an encoded non-retrying PUT', () async {
+    late RequestOptions request;
+    var calls = 0;
+    final client = _client((options) {
+      calls++;
+      request = options;
+      return (
+        status: 200,
+        headers: const {},
+        body: {
+          'name': 'review/production',
+          'approval_rules': [
+            {'id': 39, 'required_approvals': 1},
+          ],
+        },
+      );
+    });
+    await client.protectedEnvironments.removeApprovalRule(
+      'team/app',
+      'review/production',
+      ruleId: 38,
+    );
+    expect(calls, 1);
+    expect(request.method, 'PUT');
+    expect(
+      request.path,
+      '/projects/team%2Fapp/protected_environments/review%2Fproduction',
+    );
+    expect(request.data, {
+      'approval_rules': [
+        {'id': 38, '_destroy': true},
+      ],
+    });
+    expect(request.followRedirects, isFalse);
+    expect(request.extra['labfox_no_auth_retry'], isTrue);
+  });
+
+  test('confirms removal of the last approval rule', () async {
+    final client = _client(
+      (_) => (
+        status: 200,
+        headers: const {},
+        body: {'name': 'production', 'approval_rules': []},
+      ),
+    );
+    await client.protectedEnvironments.removeApprovalRule(
+      7,
+      'production',
+      ruleId: 38,
+    );
+  });
+
+  test('approval removal rejects invalid arguments without dispatch', () async {
+    var calls = 0;
+    final client = _client((_) {
+      calls++;
+      return (status: 200, headers: const {}, body: {});
+    });
+    for (final args in [
+      (name: '', id: 38),
+      (name: ' production', id: 38),
+      (name: 'production', id: 0),
+    ]) {
+      await expectLater(
+        client.protectedEnvironments.removeApprovalRule(
+          7,
+          args.name,
+          ruleId: args.id,
+        ),
+        throwsArgumentError,
+      );
+    }
+    expect(calls, 0);
+  });
+
+  for (final status in [201, 301, 400, 401, 403, 404, 409, 422, 429, 500]) {
+    test('approval removal maps HTTP $status before parsing', () async {
+      final client = _client(
+        (_) => (status: status, headers: const {}, body: 'private response'),
+      );
+      await expectLater(
+        client.protectedEnvironments.removeApprovalRule(
+          7,
+          'production',
+          ruleId: 38,
+        ),
+        throwsA(
+          isA<GitLabException>().having(
+            (error) => error.statusCode,
+            'status',
+            status,
+          ),
+        ),
+      );
+    });
+  }
+
+  for (final body in [
+    null,
+    {'name': 'other', 'approval_rules': []},
+    {'name': 'production'},
+    {
+      'name': 'production',
+      'approval_rules': [
+        {'id': 38, 'required_approvals': 1},
+      ],
+    },
+    {
+      'name': 'production',
+      'approval_rules': [null],
+    },
+    {
+      'name': 'production',
+      'approval_rules': [{}],
+    },
+    {
+      'name': 'production',
+      'approval_rules': [
+        {'id': 39.0},
+      ],
+    },
+    {
+      'name': 'production',
+      'approval_rules': [
+        {'id': 39},
+        {'id': 39},
+      ],
+    },
+  ]) {
+    test('approval removal rejects unconfirmed response $body', () async {
+      final client = _client(
+        (_) => (status: 200, headers: const {}, body: body),
+      );
+      await expectLater(
+        client.protectedEnvironments.removeApprovalRule(
+          7,
+          'production',
+          ruleId: 38,
+        ),
+        throwsA(isA<GitLabServerException>()),
+      );
+    });
+  }
+
+  test('approval removal never refreshes or replays OAuth writes', () async {
+    var calls = 0;
+    var refreshes = 0;
+    final dio = Dio(BaseOptions(validateStatus: (_) => true));
+    dio.httpClientAdapter = _Adapter((_) {
+      calls++;
+      return (status: 401, headers: const {}, body: {});
+    });
+    final client = GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'dummy-oauth',
+      bearer: true,
+      dio: dio,
+      onUnauthorized: () async {
+        refreshes++;
+        return 'dummy-refreshed';
+      },
+    );
+    await expectLater(
+      client.protectedEnvironments.removeApprovalRule(
+        7,
+        'production',
+        ruleId: 38,
+      ),
+      throwsA(isA<GitLabAuthException>()),
+    );
+    expect(calls, 1);
+    expect(refreshes, 0);
+  });
+
   test('updates one approval count with an encoded non-retrying PUT', () async {
     late RequestOptions request;
     var calls = 0;
