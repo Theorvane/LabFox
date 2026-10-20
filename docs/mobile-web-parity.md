@@ -94,12 +94,21 @@ strict response/read-back comparison and account/uncertainty guards are covered.
 See the [implementation and validation notes](protected-environment-deploy-inheritance.md).
 
 Project deploy-group addition [#660](https://github.com/Theorvane/LabFox/issues/660)
-and [PR #661](https://github.com/Theorvane/LabFox/pull/661) are in review.
+and [PR #661](https://github.com/Theorvane/LabFox/pull/661) shipped after approval,
+passing CI and squash merge into `dev` on 2026-10-18.
 It adds one shared group by exact numeric ID with direct
 membership while preserving existing deploy grants and all approval rules.
 Complete preflight, duplicate rejection, exact-name confirmation, one-record PUT,
 strict response/read-back comparison and account/uncertainty guards are covered.
 See the [implementation and validation notes](protected-environment-deploy-groups.md).
+
+Project deploy-group removal [#662](https://github.com/Theorvane/LabFox/issues/662)
+and [PR #663](https://github.com/Theorvane/LabFox/pull/663) are in review.
+It removes one existing group grant while keeping the environment
+protected and preserving every remaining deploy and approval grant/count.
+Complete preflight, exact-name confirmation, one-record PUT, strict response and
+read-back comparison, last-grant impact and account/uncertainty guards are covered.
+See the [implementation and validation notes](protected-environment-deploy-group-removal.md).
 CI, review approval and merge into `dev` remain required.
 
 Protected-branch Code Owner approval editing [#650](https://github.com/Theorvane/LabFox/issues/650)

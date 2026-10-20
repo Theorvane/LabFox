@@ -2955,6 +2955,29 @@ class AppLocalizationsJa extends AppLocalizations {
   String get protectedEnvironmentDeployGroupTitle => 'デプロイグループを追加';
 
   @override
+  String get protectedEnvironmentRemoveDeployGroupTitle => 'デプロイグループを削除';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      'この権限を削除すると、グループのメンバーによるデプロイがブロックされる場合があります。他の権限ではアクセスできる場合があります。最後のデプロイ権限を削除すると、この保護環境へのデプロイがブロックされる場合があります。';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      '選択したグループのデプロイ権限が削除され、デプロイがブロックされる場合があることを理解しました。';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess => 'デプロイグループを削除しました。';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (権限 $grantId、グループ $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentDeployGroupWarning =>
       'グループを追加すると、そのグループの直接のメンバーがこの環境にデプロイできるようになる場合があります。続行する前に既存のデプロイ権限と承認ルールを確認してください。';
 

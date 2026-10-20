@@ -166,6 +166,16 @@ class ProtectedEnvironmentsRepository {
     groupId: groupId,
   );
 
+  Future<ProtectedEnvironment> removeDeployGroup(
+    int projectId,
+    String name, {
+    required int grantId,
+  }) => client.protectedEnvironments.removeDeployGroup(
+    projectId,
+    name,
+    grantId: grantId,
+  );
+
   Future<ProtectedEnvironment> addDeployGroup(
     int projectId,
     String name, {

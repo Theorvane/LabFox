@@ -195,6 +195,48 @@ class ProtectedEnvironmentsApi {
   }
 
   /// Removes one deploy grant by its server-assigned record ID.
+  Future<ProtectedEnvironment> removeDeployGroup(
+    Object projectId,
+    String name, {
+    required int grantId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || grantId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and deploy grant ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, '_destroy': true},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing an environment deploy group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      if (updated.deployAccessLevels.any((grant) => grant.id == grantId)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy group removal',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing an environment deploy group');
+    }
+  }
+
   Future<void> removeDeployRole(
     Object projectId,
     String name, {

@@ -2962,6 +2962,29 @@ class AppLocalizationsKo extends AppLocalizations {
   String get protectedEnvironmentDeployGroupTitle => '배포 그룹 추가';
 
   @override
+  String get protectedEnvironmentRemoveDeployGroupTitle => '배포 그룹 제거';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      '이 권한을 제거하면 해당 그룹 멤버의 배포가 차단될 수 있습니다. 다른 권한으로는 계속 접근할 수 있습니다. 마지막 배포 권한을 제거하면 이 보호 환경에 대한 배포가 차단될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      '선택한 그룹의 배포 권한이 제거되고 배포가 차단될 수 있음을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess => '배포 그룹을 제거했습니다.';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (권한 $grantId, 그룹 $groupId)';
+  }
+
+  @override
   String get protectedEnvironmentDeployGroupWarning =>
       '그룹을 추가하면 해당 그룹의 직접 멤버가 이 환경에 배포할 수 있습니다. 계속하기 전에 기존 배포 권한과 승인 규칙을 검토하세요.';
 
