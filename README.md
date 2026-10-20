@@ -110,7 +110,7 @@ labfox/
 | **M2** Collaboration | Issues, Merge Requests, Diff, Discussion, Approve, Merge | ✅ |
 | **M3** CI/CD | Pipeline, Jobs, Job Log, Retry, Cancel, Manual Job | ✅ |
 | **M4** Product | OAuth, Self-hosted, Multi Account, Inbox, Search, Deep Links | ✅ |
-| **1.0** Release | Store listings, subscription, push notifications, offline cache | in progress |
+| **1.0** Release | Store listings, background notifications, offline cache | in progress |
 
 Details: [`.agents/docs/roadmap.md`](.agents/docs/roadmap.md)
 
@@ -163,19 +163,15 @@ The source code is released under the **Apache License 2.0**. → [LICENSE](LICE
 Source code            Apache-2.0 open source — anyone may use, modify, redistribute
 Windows                Direct download, free, full features
 macOS                  Mac App Store, free, full features
-Android / iOS          Free download, subscription for the paid features
+Android / iOS          Free download, full features
 ```
 
-The app is a free download everywhere. A single subscription, sold through store
-in-app purchase, unlocks the paid features on mobile — there is no LabFox account
-and no LabFox server, so entitlement comes from the store you installed from.
+Every LabFox feature is free on desktop and mobile, with no ads or in-app
+purchases. There is no LabFox account or server. GitLab's own permissions and
+server-tier requirements still govern what each instance allows. The shared
+Flutter codebase lets a fix contributed on desktop improve mobile too.
 
-**Desktop keeps every feature for free**, and that is a deliberate constraint rather
-than generosity: LabFox shares one Flutter codebase, so **a fix contributed on
-desktop lands in the mobile apps too.** Charging the people who send those fixes
-would tax the loop the whole model runs on.
-
-What is free and what is not: [`.agents/docs/monetization.md`](.agents/docs/monetization.md)
+Distribution policy: [`.agents/docs/monetization.md`](.agents/docs/monetization.md)
 
 Third-party dependency licenses: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 

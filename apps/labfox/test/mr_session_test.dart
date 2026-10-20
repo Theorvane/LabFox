@@ -6,8 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/core/analytics/analytics.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
 import 'package:labfox/features/inbox/presentation/controllers/inbox_controllers.dart';
 import 'package:labfox/features/merge_requests/data/mr_actions_repository.dart';
@@ -117,11 +115,6 @@ class _Detail extends MergeRequestController {
     loaded();
     return _mr;
   }
-}
-
-class _Entitlement extends EntitlementController {
-  @override
-  Entitlement build() => Entitlement.subscribed;
 }
 
 class _Comments extends CommentsController {
@@ -428,7 +421,6 @@ void main() {
             mrApprovalsProvider.overrideWith((ref, arg) async => null),
             mergeRequestControllerProvider.overrideWith(() => _Detail(() {})),
             commentsControllerProvider.overrideWith(_Comments.new),
-            entitlementProvider.overrideWith(_Entitlement.new),
             analyticsProvider.overrideWithValue(analytics),
           ],
           child: const MaterialApp(

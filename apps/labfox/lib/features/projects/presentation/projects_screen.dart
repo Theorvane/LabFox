@@ -5,7 +5,6 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
-import '../../../core/entitlement/paywall.dart';
 import '../../../core/storage/local_projects_providers.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/projects_controller.dart';
@@ -64,9 +63,6 @@ class ProjectsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final favorites = ref.watch(favoriteProjectsProvider);
     final isFavorite = favorites.any((p) => p.id == project.id);
-    // Removing a favorite, and re-starring one already kept, always work; only
-    // growing the set past the free ceiling is the subscription.
-    final atLimit = !isFavorite && favorites.length >= freeFavoriteLimit;
     return ProjectTile(
       name: project.name,
       path: project.pathWithNamespace,
@@ -79,13 +75,8 @@ class ProjectsScreen extends ConsumerWidget {
         tooltip: isFavorite
             ? l10n.projectRemoveFavorite
             : l10n.projectAddFavorite,
-        onPressed: () async {
-          if (atLimit) {
-            await showPaywall(context, PaidFeature.favorites);
-            return;
-          }
-          await ref.read(favoriteProjectsProvider.notifier).toggle(project);
-        },
+        onPressed: () =>
+            ref.read(favoriteProjectsProvider.notifier).toggle(project),
       ),
       onTap: () => context.push(Routes.projectOverview(project.id)),
     );

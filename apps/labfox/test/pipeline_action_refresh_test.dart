@@ -7,8 +7,6 @@ import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 import 'package:labfox/core/analytics/analytics.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/features/pipelines/data/pipelines_repository.dart';
 import 'package:labfox/features/pipelines/presentation/controllers/pipelines_controllers.dart';
 import 'package:labfox/features/pipelines/presentation/pipeline_detail_screen.dart';
@@ -21,11 +19,6 @@ class _Analytics implements Analytics {
   Future<void> track(String name, [Map<String, Object?>? properties]) async {
     events.add((name, properties ?? {}));
   }
-}
-
-class _Subscribed extends EntitlementController {
-  @override
-  Entitlement build() => Entitlement.subscribed;
 }
 
 class _Repository extends PipelinesRepository {
@@ -322,7 +315,6 @@ void main() {
         overrides: [
           pipelinesRepositoryProvider.overrideWith((_) async => repository),
           analyticsProvider.overrideWithValue(analytics),
-          entitlementProvider.overrideWith(_Subscribed.new),
         ],
         child: MaterialApp.router(
           routerConfig: router,

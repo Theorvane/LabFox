@@ -46,19 +46,18 @@ often fast**. When a feature is proposed, first decide whether it serves the flo
 
 ### License and distribution model
 
-LabFox follows an **open core** model.
+LabFox is free and ad-free on every supported platform.
 
 ```
 Source code            Apache-2.0 open source (GitHub: theorvane/labfox)
 Windows                Direct download, free, full features
 macOS                  Mac App Store, free, full features
-Android / iOS          Free download, subscription for the paid features
+Android / iOS          Free download, full features
 ```
 
-The app is a free download everywhere; a single auto-renewing subscription is
-sold through store in-app purchase. There is no LabFox account and no LabFox
-server — entitlement comes from the store the app was installed from.
-Details, including the free/paid boundary: `.agents/docs/monetization.md`
+The app does not sell subscriptions, display ads, or require a LabFox account
+or server. GitLab instance permissions and GitLab server-tier restrictions still
+apply. Distribution details: `.agents/docs/monetization.md`.
 
 The intended improvement cycle:
 
@@ -90,7 +89,7 @@ So "do not build separate UIs per platform" (§10) is not taste — it is a **bu
 
 - **The "LabFox" name and logo are trademarks and are not covered by the license** (Apache-2.0 §6).
   Anyone may use the code, but nobody else may ship it to a store under the same name.
-  That is what sustains the paid model.
+  This protects the project's identity while keeping the code freely reusable.
 - Because outside contributions are accepted, **copyright becomes distributed.**
   Closing the license later is effectively impossible.
 - Never describe LabFox as affiliated with or endorsed by GitLab or GitHub, in code or docs.
@@ -485,5 +484,5 @@ Agent skills and detailed documentation live under `.agents/`, not `.claude/`.
 .agents/
 ├── skills/    per-task procedures (SKILL.md)
 └── docs/      architecture / conventions / api-reference / monetization /
-                billing / references / roadmap / workflow
+                references / roadmap / workflow
 ```

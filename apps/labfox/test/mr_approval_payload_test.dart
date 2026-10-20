@@ -9,8 +9,6 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/core/analytics/analytics.dart';
 import 'package:labfox/core/auth/auth_controller.dart';
 import 'package:labfox/core/auth/gitlab_client_provider.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/mr_actions_controller.dart';
 import 'package:labfox/features/merge_requests/presentation/widgets/mr_actions.dart';
@@ -46,11 +44,6 @@ class _Adapter implements HttpClientAdapter {
 
   @override
   void close({bool force = false}) {}
-}
-
-class _Entitlement extends EntitlementController {
-  @override
-  Entitlement build() => Entitlement.subscribed;
 }
 
 class _Analytics implements Analytics {
@@ -92,7 +85,6 @@ void main() {
                 overrides: [
                   currentAccountProvider.overrideWith((ref) => _account(7)),
                   gitLabClientProvider.overrideWith((ref) async => client),
-                  entitlementProvider.overrideWith(_Entitlement.new),
                   analyticsProvider.overrideWithValue(_Analytics()),
                 ],
                 child: MaterialApp(

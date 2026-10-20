@@ -2018,10 +2018,6 @@ class AppLocalizationsZh extends AppLocalizations {
       'LabFox checks your to-do list in the background and notifies you about new items. Android checks about every 15 minutes; iOS decides when, so this is a background check rather than instant push.';
 
   @override
-  String get paywallNotifications =>
-      'Background to-do checks are part of the subscription. The to-do inbox and manual refresh stay free.';
-
-  @override
   String get settingsNotificationsDenied =>
       'LabFox cannot show notifications until you allow them in system settings.';
 
@@ -2048,94 +2044,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get settingsLicenses => '开源许可';
-
-  @override
-  String get paywallTitle => 'A subscription unlocks this';
-
-  @override
-  String get paywallSubscribe => 'See the subscription';
-
-  @override
-  String get paywallNotNow => 'Not now';
-
-  @override
-  String get paywallMergeRequestActions =>
-      'Approving and merging are part of the subscription. Reading merge requests, diffs, and discussions stays free.';
-
-  @override
-  String get paywallPipelineActions =>
-      'Retrying, cancelling, and running manual jobs are part of the subscription. Watching pipelines and reading job logs stays free.';
-
-  @override
-  String get paywallAccounts =>
-      'One account is free. Connecting more instances is part of the subscription.';
-
-  @override
-  String paywallFavorites(int count) {
-    return 'Free keeps $count favorites. The subscription removes the limit.';
-  }
-
-  @override
-  String get subscriptionTitle => 'LabFox subscription';
-
-  @override
-  String get subscriptionActive => 'Subscribed';
-
-  @override
-  String get subscriptionInactive => 'Not subscribed';
-
-  @override
-  String get subscriptionPitch =>
-      'Approve and merge, retry pipelines, and connect more than one account.';
-
-  @override
-  String get subscriptionBenefitAccounts =>
-      'Connect multiple accounts and self-hosted instances';
-
-  @override
-  String get subscriptionBenefitActions =>
-      'Approve, merge, retry, cancel, and run manual jobs';
-
-  @override
-  String get subscriptionBenefitNotifications =>
-      'Background checks that notify you about new to-do items';
-
-  @override
-  String get subscriptionBenefitFavorites =>
-      'Unlimited favorites, instead of the free limit of three';
-
-  @override
-  String subscriptionSubscribe(String price) {
-    return 'Subscribe for $price';
-  }
-
-  @override
-  String get subscriptionRenewalTerms =>
-      'The subscription renews every month until you cancel it. Cancel any time in your store account; cancelling takes effect at the end of the paid month.';
-
-  @override
-  String get subscriptionTerms => 'Terms of Use';
-
-  @override
-  String get subscriptionPrivacy => 'Privacy Policy';
-
-  @override
-  String get subscriptionRestore => 'Restore purchases';
-
-  @override
-  String get subscriptionUnavailable =>
-      'The store is not available right now. Try again later.';
-
-  @override
-  String get subscriptionError =>
-      'That did not go through. Nothing was charged.';
-
-  @override
-  String get subscriptionRestored => 'Your subscription is active.';
-
-  @override
-  String get subscriptionNothingToRestore =>
-      'No subscription found for this store account.';
 
   @override
   String get navHome => '主页';

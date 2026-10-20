@@ -86,13 +86,6 @@ LicenseRegistry.addLicense(() async* {
 | url_launcher | ^6.3.0 | BSD-3-Clause | https://github.com/flutter/packages |
 | flutter_local_notifications | ^22.3.0 | BSD-3-Clause | https://github.com/MaikuB/flutter_local_notifications |
 | workmanager | ^0.10.9 | MIT | https://github.com/fluttercommunity/flutter_workmanager |
-| unity_levelplay_mediation | ^9.2.0 | Proprietary — Unity Advertising Terms of Service (vendor ad SDK; approved by the maintainer, outside the permissive list by design) | https://github.com/ironsource-mobile/flutter-sdk |
-| unityads-adapter / IronSourceUnityAdsAdapter | 4.3.55 (Android) / 5.9.0.0 (iOS) | Proprietary — Unity LevelPlay License (mediation adapter; same approval as the SDK above) | https://developers.is.com/ironsource-mobile/android/ |
-| unity-ads (Unity Ads SDK) | 4.15.0 (Android) / 4.19.0 (iOS, via the adapter) | Proprietary — Unity Advertising Terms of Service (the demand source behind the adapter) | https://unity.com/products/unity-ads |
-| in_app_purchase | ^3.3.0 | BSD-3-Clause | https://github.com/flutter/packages |
-| in_app_purchase_android | ^0.5.0 | BSD-3-Clause | https://github.com/flutter/packages |
-| in_app_purchase_storekit | ^0.4.11 | BSD-3-Clause | https://github.com/flutter/packages |
-| in_app_purchase_platform_interface | ^1.4.1 | BSD-3-Clause | https://github.com/flutter/packages |
 
 The app also uses the existing `crypto` package to verify GitLab diff endpoint filename hashes. Its BSD-3-Clause license permits commercial distribution; copyright and full license text are collected from the package LICENSE by Flutter's in-app license registry. No new package version is introduced.
 

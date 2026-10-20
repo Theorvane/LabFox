@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/ads/ads_providers.dart';
 import '../core/analytics/analytics.dart';
 import '../core/auth/auth_controller.dart';
 import '../core/auth/auth_state.dart';
@@ -66,7 +65,6 @@ import '../features/repository/presentation/repository_browser_screen.dart';
 import '../features/search/presentation/search_screen.dart';
 import '../features/settings/presentation/privacy_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
-import '../features/settings/presentation/subscription_screen.dart';
 import '../features/shell/presentation/app_shell.dart';
 import '../features/snippets/presentation/snippets_screen.dart';
 import '../features/tags/presentation/tags_screen.dart';
@@ -89,7 +87,6 @@ abstract final class Routes {
   static const String me = '/me';
   static const String settings = '/settings';
   static const String privacy = '/settings/privacy';
-  static const String subscription = '/settings/subscription';
   static const String groups = '/groups';
   static String group(int id) => '/groups/$id';
   static String groupMilestones(int id) => '/groups/$id/milestones';
@@ -219,7 +216,6 @@ final routerProvider = Provider<GoRouter>((ref) {
   // read, not watch: the tracker must survive this provider's rebuilds, since
   // it is what remembers which screen the user is already on.
   final routeTracker = ref.read(routeTrackerProvider);
-  final interstitials = ref.read(interstitialAdsProvider);
 
   final router = GoRouter(
     initialLocation: Routes.home,
@@ -287,10 +283,6 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: 'privacy',
             builder: (context, state) => const PrivacyScreen(),
-          ),
-          GoRoute(
-            path: 'subscription',
-            builder: (context, state) => const SubscriptionScreen(),
           ),
         ],
       ),
@@ -807,11 +799,6 @@ final routerProvider = Provider<GoRouter>((ref) {
   // never identifies a project or item.
   router.routerDelegate.addListener(() {
     routeTracker.visit(router.routerDelegate.currentConfiguration.uri.path);
-    // Interstitial pacing rides the same signal; the service checks the
-    // entitlement gate and its own policy before anything shows.
-    if (ref.read(adsEnabledProvider)) {
-      interstitials.onTransition();
-    }
   });
   return router;
 });

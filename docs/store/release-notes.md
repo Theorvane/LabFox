@@ -12,11 +12,31 @@ Rules, the same two the listing keeps:
 
 - Say what changed for the **user**, not what changed in the repository. Nobody
   reading a store update cares which provider was refactored.
-- Do not name what is not shipped. If a feature is behind a subscription that is
-  not live yet, or on the roadmap, it does not appear here.
+- Do not name what is not shipped. Roadmap features do not appear here.
 
 Translations live beside this file as `release-notes.<locale>.md`. English is
 the source: change this first, then carry it across.
+
+---
+
+## 0.1.10
+
+**Play** (500 characters max):
+
+```
+• Every LabFox feature is now free, including approve and merge, job actions,
+  multiple accounts, background to-do checks, and unlimited favorites.
+• Ads and in-app purchases have been removed.
+```
+
+**App Store**:
+
+```
+• Every LabFox feature is now free on iPhone and iPad, including approve and
+  merge, job actions, multiple accounts, background to-do checks, and unlimited
+  favorites.
+• Ads and in-app purchases have been removed.
+```
 
 ---
 

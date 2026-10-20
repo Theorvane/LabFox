@@ -6,7 +6,6 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../app/router.dart';
 import '../../../core/auth/auth_controller.dart';
-import '../../../core/entitlement/entitlement_providers.dart';
 import '../../../l10n/app_localizations.dart';
 
 /// The "Me" destination: who is signed in, and the account / settings actions.
@@ -18,8 +17,6 @@ class MeScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final account = ref.watch(currentAccountProvider);
     final user = account?.user;
-    final entitlement = ref.watch(entitlementProvider);
-    final freePlatform = ref.watch(freePlatformProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.meTitle)),
@@ -56,41 +53,10 @@ class MeScreen extends ConsumerWidget {
                       Uri.parse(account.instanceUrl).host,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                  // Subscribers should see that they are, without opening a
-                  // submenu to find out.
-                  if (!freePlatform && entitlement.isSubscribed) ...[
-                    const SizedBox(height: LabFoxSpacing.sm),
-                    StatusPill(
-                      label: l10n.subscriptionActive,
-                      colors: LabFoxStatusColors.of(context).merged,
-                      icon: LabFoxIcons.star,
-                    ),
-                  ],
                 ],
               ),
             ),
           const Divider(height: 1),
-          // The subscription leads, rather than hiding one level down in
-          // Settings: what you are paying for, or could, belongs on the
-          // profile. Hidden where the app ships free with every feature.
-          if (!freePlatform)
-            ListTile(
-              leading: Icon(
-                LabFoxIcons.star,
-                color: entitlement.isSubscribed
-                    ? LabFoxStatusColors.of(context).merged.foreground
-                    : null,
-              ),
-              title: Text(l10n.subscriptionTitle),
-              subtitle: Text(
-                entitlement.isSubscribed
-                    ? l10n.subscriptionActive
-                    : l10n.subscriptionPitch,
-              ),
-              trailing: const Icon(LabFoxIcons.chevron),
-              onTap: () => context.push(Routes.subscription),
-            ),
-          if (!freePlatform) const Divider(height: 1),
           ListTile(
             leading: const Icon(LabFoxIcons.switchAccount),
             title: Text(l10n.meAccounts),

@@ -77,10 +77,4 @@ flutter {
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
 
-    // LevelPlay's mediation-sdk is the auction, not a demand source. Without
-    // an adapter it has no network it can instantiate and every ad unit stays
-    // empty. The adapter declares no dependencies of its own, so the network
-    // SDK it wraps is asked for by name.
-    implementation("com.unity3d.ads-mediation:unityads-adapter:4.3.55")
-    implementation("com.unity3d.ads:unity-ads:4.15.0")
 }

@@ -51,8 +51,7 @@ class BackgroundNotificationsController extends Notifier<bool> {
       state = false;
       await prefs.setBool(backgroundNotificationsKey, false);
     }
-    // Records the refusal too: a permission people decline is worth knowing
-    // about before the feature is sold as one of the reasons to subscribe.
+    // Record refusals as well as successful scheduling.
     unawaited(
       ref.read(analyticsProvider).track('background_checks', {'on': granted}),
     );

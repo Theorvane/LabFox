@@ -8,7 +8,6 @@ import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:labfox/app/router.dart';
-import 'package:labfox/core/ads/ads_providers.dart';
 import 'package:labfox/core/analytics/analytics.dart';
 import 'package:labfox/core/auth/auth_controller.dart';
 import 'package:labfox/core/auth/auth_state.dart';
@@ -79,7 +78,6 @@ ProviderContainer _container(_Repository repository) {
       ),
       authControllerProvider.overrideWith(_Auth.new),
       analyticsProvider.overrideWithValue(_Analytics()),
-      adsEnabledProvider.overrideWithValue(false),
     ],
   );
   addTearDown(container.dispose);
