@@ -2,7 +2,6 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../core/ads/ads_providers.dart';
 import '../core/settings/app_settings_providers.dart';
 import '../l10n/app_localizations.dart';
 import 'app_lifecycle.dart';
@@ -29,8 +28,6 @@ class _LabFoxAppState extends ConsumerState<LabFoxApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
-    // Fire-and-forget: initializes LevelPlay on ad-gated builds only.
-    ref.watch(adsInitializerProvider);
 
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,

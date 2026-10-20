@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../app/router.dart';
-import '../../../core/entitlement/paywall.dart';
 import '../../../core/ui/ci_visual.dart';
 import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
@@ -517,27 +516,13 @@ class _PipelineActions extends ConsumerWidget {
     final buttons = <Widget>[
       if (pipeline.canRetry)
         OutlinedButton.icon(
-          onPressed: busy
-              ? null
-              : () => runSubscribed(
-                  context,
-                  ref,
-                  feature: PaidFeature.pipelineActions,
-                  action: () => _run(context, l10n, notifier.retry),
-                ),
+          onPressed: busy ? null : () => _run(context, l10n, notifier.retry),
           icon: const Icon(LabFoxIcons.refresh, size: 18),
           label: Text(l10n.pipelineActionRetry),
         ),
       if (pipeline.canCancel)
         OutlinedButton.icon(
-          onPressed: busy
-              ? null
-              : () => runSubscribed(
-                  context,
-                  ref,
-                  feature: PaidFeature.pipelineActions,
-                  action: () => _run(context, l10n, notifier.cancel),
-                ),
+          onPressed: busy ? null : () => _run(context, l10n, notifier.cancel),
           icon: const Icon(Icons.stop_circle_outlined, size: 18),
           label: Text(l10n.pipelineActionCancel),
         ),

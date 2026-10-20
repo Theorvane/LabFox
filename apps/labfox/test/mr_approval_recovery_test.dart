@@ -5,8 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/core/analytics/analytics.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/features/merge_requests/data/mr_actions_repository.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
 import 'package:labfox/features/merge_requests/presentation/controllers/mr_actions_controller.dart';
@@ -22,11 +20,6 @@ const _mr = MergeRequest(
   sourceBranch: 'feature',
   targetBranch: 'dev',
 );
-
-class _Entitlement extends EntitlementController {
-  @override
-  Entitlement build() => Entitlement.subscribed;
-}
 
 class _Analytics implements Analytics {
   @override
@@ -98,7 +91,6 @@ Future<AppLocalizations> _pump(
     ProviderScope(
       overrides: [
         mrActionsRepositoryProvider.overrideWith((ref) async => repo),
-        entitlementProvider.overrideWith(_Entitlement.new),
         analyticsProvider.overrideWithValue(_Analytics()),
       ],
       child: MaterialApp(
@@ -254,7 +246,6 @@ void main() {
         final next = _Repository()..approved = true;
         c.updateOverrides([
           mrActionsRepositoryProvider.overrideWith((ref) async => next),
-          entitlementProvider.overrideWith(_Entitlement.new),
           analyticsProvider.overrideWithValue(_Analytics()),
         ]);
         c.invalidate(mrActionsRepositoryProvider);

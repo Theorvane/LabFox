@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:go_router/go_router.dart';
 import 'package:labfox/app/router.dart';
-import 'package:labfox/core/ads/ads_providers.dart';
 import 'package:labfox/core/auth/auth_controller.dart';
 import 'package:labfox/core/auth/auth_providers.dart';
 import 'package:labfox/core/auth/auth_state.dart';
@@ -37,7 +36,6 @@ Future<GoRouter> _pump(WidgetTester tester, double width, bool dark) async {
       authControllerProvider.overrideWith(_Auth.new),
       currentAccountProvider.overrideWithValue(null),
       sharedPreferencesProvider.overrideWithValue(prefs),
-      adsEnabledProvider.overrideWithValue(false),
       inboxRepositoryProvider.overrideWith((ref) async => null),
       appVersionProvider.overrideWith((ref) async => '1.0.0'),
     ],

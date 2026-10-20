@@ -1435,10 +1435,6 @@
   "@settingsBackgroundChecksHelp": {
     "description": "Explains the platform-dependent timing of background checks"
   },
-  "paywallNotifications": "Background to-do checks are part of the subscription. The to-do inbox and manual refresh stay free.",
-  "@paywallNotifications": {
-    "description": "Paywall reason shown for background notifications"
-  },
   "settingsNotificationsDenied": "LabFox cannot show notifications until you allow them in system settings.",
   "@settingsNotificationsDenied": {
     "description": "Shown when the system refused the notification permission"
@@ -1474,113 +1470,6 @@
   "settingsLicenses": "Open source licenses",
   "@settingsLicenses": {
     "description": "Settings entry that opens the open-source license page"
-  },
-  "paywallTitle": "A subscription unlocks this",
-  "@paywallTitle": {
-    "description": "Heading of the sheet offered when a free user taps a paid action"
-  },
-  "paywallSubscribe": "See the subscription",
-  "@paywallSubscribe": {
-    "description": "Button on the paywall sheet that opens the subscription screen"
-  },
-  "paywallNotNow": "Not now",
-  "@paywallNotNow": {
-    "description": "Button that dismisses the paywall sheet"
-  },
-  "paywallMergeRequestActions": "Approving and merging are part of the subscription. Reading merge requests, diffs, and discussions stays free.",
-  "@paywallMergeRequestActions": {
-    "description": "Paywall reason shown for approve and merge"
-  },
-  "paywallPipelineActions": "Retrying, cancelling, and running manual jobs are part of the subscription. Watching pipelines and reading job logs stays free.",
-  "@paywallPipelineActions": {
-    "description": "Paywall reason shown for pipeline and job actions"
-  },
-  "paywallAccounts": "One account is free. Connecting more instances is part of the subscription.",
-  "@paywallAccounts": {
-    "description": "Paywall reason shown when adding a second account"
-  },
-  "paywallFavorites": "Free keeps {count} favorites. The subscription removes the limit.",
-  "@paywallFavorites": {
-    "description": "Paywall reason shown when the free favorite limit is reached",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "subscriptionTitle": "LabFox subscription",
-  "@subscriptionTitle": {
-    "description": "Title of the subscription screen"
-  },
-  "subscriptionActive": "Subscribed",
-  "@subscriptionActive": {
-    "description": "Shown when the user has an active subscription"
-  },
-  "subscriptionInactive": "Not subscribed",
-  "@subscriptionInactive": {
-    "description": "Shown when the user has no active subscription"
-  },
-  "subscriptionPitch": "Approve and merge, retry pipelines, and connect more than one account.",
-  "@subscriptionPitch": {
-    "description": "One-line summary of what the subscription unlocks"
-  },
-  "subscriptionBenefitAccounts": "Connect multiple accounts and self-hosted instances",
-  "@subscriptionBenefitAccounts": {
-    "description": "Subscription benefit: multiple accounts"
-  },
-  "subscriptionBenefitActions": "Approve, merge, retry, cancel, and run manual jobs",
-  "@subscriptionBenefitActions": {
-    "description": "Subscription benefit: write actions"
-  },
-  "subscriptionBenefitNotifications": "Background checks that notify you about new to-do items",
-  "@subscriptionBenefitNotifications": {
-    "description": "Subscription benefit: background to-do checks"
-  },
-  "subscriptionBenefitFavorites": "Unlimited favorites, instead of the free limit of three",
-  "@subscriptionBenefitFavorites": {
-    "description": "Subscription benefit: productivity limits lifted"
-  },
-  "subscriptionSubscribe": "Subscribe for {price}",
-  "@subscriptionSubscribe": {
-    "description": "Purchase button, with the price as the store formats it",
-    "placeholders": {
-      "price": {
-        "type": "String",
-        "example": "US$4.99"
-      }
-    }
-  },
-  "subscriptionRenewalTerms": "The subscription renews every month until you cancel it. Cancel any time in your store account; cancelling takes effect at the end of the paid month.",
-  "@subscriptionRenewalTerms": {
-    "description": "Auto-renewal terms shown at the point of purchase, required by App Store Review Guideline 3.1.2"
-  },
-  "subscriptionTerms": "Terms of Use",
-  "@subscriptionTerms": {
-    "description": "Link to the Terms of Use (EULA) shown at the point of purchase"
-  },
-  "subscriptionPrivacy": "Privacy Policy",
-  "@subscriptionPrivacy": {
-    "description": "Link to the privacy policy shown at the point of purchase"
-  },
-  "subscriptionRestore": "Restore purchases",
-  "@subscriptionRestore": {
-    "description": "Restores an existing subscription on a new device"
-  },
-  "subscriptionUnavailable": "The store is not available right now. Try again later.",
-  "@subscriptionUnavailable": {
-    "description": "Shown when the store returns no product to sell"
-  },
-  "subscriptionError": "That did not go through. Nothing was charged.",
-  "@subscriptionError": {
-    "description": "Shown when a purchase or restore fails"
-  },
-  "subscriptionRestored": "Your subscription is active.",
-  "@subscriptionRestored": {
-    "description": "Confirms a successful restore"
-  },
-  "subscriptionNothingToRestore": "No subscription found for this store account.",
-  "@subscriptionNothingToRestore": {
-    "description": "Shown when a restore finds nothing to restore"
   },
   "navHome": "Home",
   "@navHome": {

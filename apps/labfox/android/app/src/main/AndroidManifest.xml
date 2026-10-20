@@ -1,11 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Required by the LevelPlay ad SDK to use the advertising identifier
-         on Android 13+. Ads run only for the free tier; see PRIVACY.md. -->
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-    <!-- The Unity Ads SDK reads the connection type to pick a creative it can
-         actually deliver; without this it warns and assumes the worst. It is a
-         normal permission, so nothing is asked of the user. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Local notifications for the background to-do check. Android 13+ asks
          the user before any notification is shown. -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />

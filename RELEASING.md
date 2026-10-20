@@ -123,14 +123,12 @@ The keystore itself is never committed: `.gitignore` covers `*.jks`,
 
 ## The first release is manual
 
-The pipeline cannot bootstrap either store. The console side — app records,
-declarations, and the subscription product — is written up in
+The pipeline cannot bootstrap either store. The console side — app records and
+privacy declarations — is written up in
 [`docs/store/store-setup.md`](docs/store/store-setup.md).
 
-**Google Play** will not create a subscription product for an app with no
-uploaded build, and the API access needed for
-`GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` requires a working Play Console. So the first
-bundle goes up by hand:
+The API access needed for `GOOGLE_PLAY_SERVICE_ACCOUNT_JSON` requires a working
+Play Console. Upload the first bundle by hand:
 
 ```
 cd apps/labfox && flutter build appbundle --release
@@ -139,9 +137,8 @@ cd apps/labfox && flutter build appbundle --release
 Upload `build/app/outputs/bundle/release/app-release.aab` to the internal
 testing track.
 
-**App Store Connect** needs the app record, and Universal Purchase has to be
-enabled on it before the macOS platform is added — see
-`.agents/docs/monetization.md` §3.
+**App Store Connect** needs an app record for each shipped platform; see
+[`docs/store/store-setup.md`](docs/store/store-setup.md).
 
 Once both stores have an app and the pipeline's credentials exist, releases are
 the three steps at the top of this file.

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
-import '../../../core/ads/ad_banner.dart';
 import '../../../l10n/app_localizations.dart';
 
 /// The top-level navigation shell around the primary destinations.
@@ -56,14 +55,7 @@ class AppShell extends StatelessWidget {
 
     if (!wide) {
       return Scaffold(
-        body: Column(
-          children: [
-            Expanded(child: child),
-            // The free tier's banner sits between content and the bar;
-            // subscribers and desktop builds render nothing here.
-            const AdBanner(),
-          ],
-        ),
+        body: child,
         bottomNavigationBar: NavigationBar(
           selectedIndex: currentIndex,
           onDestinationSelected: (i) => _onSelect(context, i),
@@ -96,14 +88,7 @@ class AppShell extends StatelessWidget {
             ],
           ),
           const VerticalDivider(width: 1),
-          Expanded(
-            child: Column(
-              children: [
-                Expanded(child: child),
-                const AdBanner(),
-              ],
-            ),
-          ),
+          Expanded(child: child),
         ],
       ),
     );
