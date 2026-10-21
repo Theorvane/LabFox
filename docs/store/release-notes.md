@@ -24,6 +24,10 @@ the source: change this first, then carry it across.
 **Play** (500 characters max):
 
 ```
+• Review MRs with threaded discussions, diff comments, suggestions, and
+  private drafts.
+• Manage package and container registries, pipeline schedules, and branch,
+  tag, and environment protection rules.
 • Every LabFox feature is now free, including approve and merge, job actions,
   multiple accounts, background to-do checks, and unlimited favorites.
 • Ads and in-app purchases have been removed.
@@ -32,6 +36,10 @@ the source: change this first, then carry it across.
 **App Store**:
 
 ```
+• Review MRs with threaded discussions, diff comments, suggestions, and
+  private drafts.
+• Manage package and container registries, pipeline schedules, and branch,
+  tag, and environment protection rules.
 • Every LabFox feature is now free on iPhone and iPad, including approve and
   merge, job actions, multiple accounts, background to-do checks, and unlimited
   favorites.
