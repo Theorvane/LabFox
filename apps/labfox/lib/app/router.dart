@@ -795,10 +795,14 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
 
-  // One screen_view per navigation, with numeric ids collapsed so the route
-  // never identifies a project or item.
+  // Use go_router's matched path template so no dynamic path value reaches
+  // screen-view analytics, including names and tags in detail routes.
   router.routerDelegate.addListener(() {
-    routeTracker.visit(router.routerDelegate.currentConfiguration.uri.path);
+    final configuration = router.routerDelegate.currentConfiguration;
+    routeTracker.visit(
+      configuration.uri.toString(),
+      routeTemplate: configuration.fullPath,
+    );
   });
   return router;
 });

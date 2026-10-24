@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:labfox/app/router.dart';
 import 'package:labfox/core/analytics/analytics.dart';
 
 class _Adapter implements HttpClientAdapter {
@@ -62,13 +63,19 @@ void main() {
     await expectLater(analytics.track('app_open'), completes);
   });
 
-  test('numeric path segments collapse so routes stay anonymous', () {
+  test('matched route templates keep numeric and static paths anonymous', () {
     expect(
-      sanitizeRoute('/projects/42/merge_requests/7'),
-      '/projects/:id/merge_requests/:id',
+      sanitizeRoute(
+        '/projects/42/merge_requests/7',
+        routeTemplate: '/projects/:id/merge_requests/:iid',
+      ),
+      '/projects/:id/merge_requests/:iid',
     );
-    expect(sanitizeRoute('/dashboard/issues'), '/dashboard/issues');
-    expect(sanitizeRoute('/'), '/');
+    expect(
+      sanitizeRoute('/dashboard/issues', routeTemplate: '/dashboard/issues'),
+      '/dashboard/issues',
+    );
+    expect(sanitizeRoute('/', routeTemplate: '/'), '/');
   });
 
   test('private values in unmatched routes are never reported', () {
@@ -82,5 +89,67 @@ void main() {
     ]) {
       expect(sanitizeRoute(path), '/:unknown', reason: path);
     }
+  });
+
+  test('matched detail routes hide private path values', () {
+    final cases = <(String, String)>[
+      (
+        Routes.release(42, 'customer-secret'),
+        '/projects/:id/releases/:tagName',
+      ),
+      (
+        Routes.containerTag(42, 7, 'customer-secret'),
+        '/projects/:id/container_registry/:repositoryId/tags/:tagName',
+      ),
+      (
+        Routes.protectedBranch(42, 'customer-secret'),
+        '/projects/:id/protected_branches/:name',
+      ),
+      (
+        Routes.protectedTag(42, 'customer-secret'),
+        '/projects/:id/protected_tags/:name',
+      ),
+      (
+        Routes.protectedEnvironment(42, 'customer-secret'),
+        '/projects/:id/protected_environments/:name',
+      ),
+      (
+        Routes.groupProtectedEnvironment(42, 'customer-secret'),
+        '/groups/:id/protected_environments/:name',
+      ),
+      (
+        Routes.protectedBranch(42, 'release/secret'),
+        '/projects/:id/protected_branches/:name',
+      ),
+      (Routes.release(42, 'releases'), '/projects/:id/releases/:tagName'),
+      (Routes.wikiPage(42, 'customer-secret'), '/projects/:id/wikis/page'),
+    ];
+
+    for (final (location, routeTemplate) in cases) {
+      final route = sanitizeRoute(location, routeTemplate: routeTemplate);
+      expect(route, routeTemplate, reason: location);
+      expect(route, isNot(contains('customer-secret')));
+      expect(route, isNot(contains('release/secret')));
+    }
+  });
+
+  test('mismatched or invalid templates fail closed', () {
+    const location = '/projects/42/releases/customer-secret';
+    expect(
+      sanitizeRoute(location, routeTemplate: '/projects/:id/releases'),
+      '/:unknown',
+    );
+    expect(
+      sanitizeRoute(
+        location,
+        routeTemplate: '/projects/:id/protected_branches/:name',
+      ),
+      '/:unknown',
+    );
+    expect(sanitizeRoute(location, routeTemplate: ''), '/:unknown');
+    expect(
+      sanitizeRoute(location, routeTemplate: '/projects/42/releases/:tagName'),
+      '/:unknown',
+    );
   });
 }

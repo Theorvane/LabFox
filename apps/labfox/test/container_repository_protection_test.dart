@@ -222,7 +222,10 @@ void main() {
 
   test('protection route analytics contains no project ID or rule pattern', () {
     expect(
-      sanitizeRoute(Routes.containerRepositoryProtectionRules(7)),
+      sanitizeRoute(
+        Routes.containerRepositoryProtectionRules(7),
+        routeTemplate: '/projects/:id/container_registry/protection/repositories',
+      ),
       '/projects/:id/container_registry/protection/repositories',
     );
   });

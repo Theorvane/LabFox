@@ -164,11 +164,17 @@ void main() {
     'commit routes remove canonical and invalid commit values from analytics',
     () {
       expect(
-        sanitizeRoute('/projects/8/merge_requests/142/commits/${o.head}'),
-        '/projects/:id/merge_requests/:id/commits/:sha',
+        sanitizeRoute(
+          '/projects/8/merge_requests/142/commits/${o.head}',
+          routeTemplate: '/projects/:id/merge_requests/:iid/commits/:sha',
+        ),
+        '/projects/:id/merge_requests/:iid/commits/:sha',
       );
       expect(
-        sanitizeRoute('/projects/8/commit/private-value/changes'),
+        sanitizeRoute(
+          '/projects/8/commit/private-value/changes',
+          routeTemplate: '/projects/:id/commit/:sha/changes',
+        ),
         '/projects/:id/commit/:sha/changes',
       );
     },
@@ -266,12 +272,18 @@ void main() {
         '/projects/8/merge_requests/142/commits/${o.head}',
       );
       expect(
-        sanitizeRoute('/projects/8/merge_requests/142/commits/${o.head}'),
-        '/projects/:id/merge_requests/:id/commits/:sha',
+        sanitizeRoute(
+          '/projects/8/merge_requests/142/commits/${o.head}',
+          routeTemplate: '/projects/:id/merge_requests/:iid/commits/:sha',
+        ),
+        '/projects/:id/merge_requests/:iid/commits/:sha',
       );
       expect(
-        sanitizeRoute('/projects/8/merge_requests/142/commits/private-value'),
-        '/projects/:id/merge_requests/:id/commits/:sha',
+        sanitizeRoute(
+          '/projects/8/merge_requests/142/commits/private-value',
+          routeTemplate: '/projects/:id/merge_requests/:iid/commits/:sha',
+        ),
+        '/projects/:id/merge_requests/:iid/commits/:sha',
       );
     },
   );
