@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
@@ -30,6 +31,51 @@ class _FakeRepository extends ReleasesRepository {
   }
 }
 
+class _DeleteResponseRepository extends ReleasesRepository {
+  _DeleteResponseRepository() : super(_clientWithDeleteResponse());
+
+  final lists = <int, int>{};
+  int details = 0;
+
+  static GitLabClient _clientWithDeleteResponse() {
+    final dio = Dio();
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (request, handler) {
+          expect(request.method, 'DELETE');
+          expect(request.path, '/projects/7/releases/release%2F2');
+          handler.resolve(
+            Response<dynamic>(
+              requestOptions: request,
+              statusCode: 200,
+              data: {'tag_name': 'release/2', 'name': 'Version 2'},
+            ),
+          );
+        },
+      ),
+    );
+    return GitLabClient(
+      baseUrl: 'https://gitlab.example.com',
+      token: 'glpat-xxxxxxxxxxxx',
+      dio: dio,
+    );
+  }
+
+  @override
+  Future<Paginated<GitLabRelease>> list(int projectId, {int page = 1}) async {
+    lists.update(projectId, (count) => count + 1, ifAbsent: () => 1);
+    return const Paginated(
+      items: [GitLabRelease(name: 'Version 2', tagName: 'release/2')],
+    );
+  }
+
+  @override
+  Future<GitLabRelease> get(int projectId, String tagName) async {
+    details++;
+    return const GitLabRelease(name: 'Version 2', tagName: 'release/2');
+  }
+}
+
 void main() {
   test('appends each Release page once', () async {
     final repository = _FakeRepository();
@@ -50,5 +96,33 @@ void main() {
       container.read(provider).requireValue.items.map((item) => item.tagName),
       ['v1', 'v2'],
     );
+  });
+
+  test('200 OK deletion refreshes the affected release caches', () async {
+    final repository = _DeleteResponseRepository();
+    final container = ProviderContainer(
+      overrides: [
+        releasesRepositoryProvider.overrideWith((ref) async => repository),
+      ],
+    );
+    addTearDown(container.dispose);
+    const key = ReleaseRef(projectId: 7, tagName: 'release/2');
+    final affectedList = releaseListControllerProvider(7);
+    final otherList = releaseListControllerProvider(8);
+    final detail = releaseDetailProvider(key);
+    container.listen(affectedList, (_, _) {});
+    container.listen(otherList, (_, _) {});
+    container.listen(detail, (_, _) {});
+    await container.read(affectedList.future);
+    await container.read(otherList.future);
+    await container.read(detail.future);
+
+    await container.read(releaseDeleteControllerProvider(key).future);
+    await container.read(releaseDeleteControllerProvider(key).notifier).delete();
+    await container.read(affectedList.future);
+    await container.read(detail.future);
+
+    expect(repository.lists, {7: 2, 8: 1});
+    expect(repository.details, 2);
   });
 }

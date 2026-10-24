@@ -374,11 +374,15 @@ void main() {
     );
   });
 
-  test('deletes only the release at an encoded tag', () async {
+  test('accepts the deleted release returned with 200 OK', () async {
     late RequestOptions request;
     final client = _client((options) {
       request = options;
-      return (status: 204, headers: const <String, List<String>>{}, body: null);
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {'tag_name': 'release/2', 'name': 'Version 2'},
+      );
     });
     await client.releases.delete('team/app', 'release/2');
     expect(request.method, 'DELETE');
