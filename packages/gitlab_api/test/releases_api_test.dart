@@ -389,6 +389,13 @@ void main() {
     expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
   });
 
+  test('also accepts no-content release deletion', () async {
+    final client = _client(
+      (_) => (status: 204, headers: const {}, body: null),
+    );
+    await client.releases.delete(7, 'v2');
+  });
+
   test('maps forbidden release deletion', () async {
     final forbidden = _client(
       (_) => (status: 403, headers: const {}, body: const {}),
