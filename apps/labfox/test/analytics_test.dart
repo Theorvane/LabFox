@@ -70,4 +70,17 @@ void main() {
     expect(sanitizeRoute('/dashboard/issues'), '/dashboard/issues');
     expect(sanitizeRoute('/'), '/');
   });
+
+  test('private values in unmatched routes are never reported', () {
+    for (final path in [
+      '/projects/42/releases/customer-secret',
+      '/projects/42/container_registry/7/tags/customer-secret',
+      '/projects/42/protected_branches/customer-secret',
+      '/projects/42/protected_tags/customer-secret',
+      '/projects/42/protected_environments/customer-secret',
+      '/groups/42/protected_environments/customer-secret',
+    ]) {
+      expect(sanitizeRoute(path), '/:unknown', reason: path);
+    }
+  });
 }
