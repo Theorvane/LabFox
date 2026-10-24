@@ -224,7 +224,8 @@ void main() {
     expect(
       sanitizeRoute(
         Routes.containerRepositoryProtectionRules(7),
-        routeTemplate: '/projects/:id/container_registry/protection/repositories',
+        routeTemplate:
+            '/projects/:id/container_registry/protection/repositories',
       ),
       '/projects/:id/container_registry/protection/repositories',
     );
