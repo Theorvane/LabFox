@@ -118,7 +118,9 @@ void main() {
     await container.read(detail.future);
 
     await container.read(releaseDeleteControllerProvider(key).future);
-    await container.read(releaseDeleteControllerProvider(key).notifier).delete();
+    await container
+        .read(releaseDeleteControllerProvider(key).notifier)
+        .delete();
     await container.read(affectedList.future);
     await container.read(detail.future);
 
