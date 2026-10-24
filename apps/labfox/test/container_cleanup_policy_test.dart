@@ -207,7 +207,10 @@ void main() {
   );
   test('cleanup route analytics excludes the project and policy patterns', () {
     expect(
-      sanitizeRoute(Routes.containerCleanupPolicy(7)),
+      sanitizeRoute(
+        Routes.containerCleanupPolicy(7),
+        routeTemplate: '/projects/:id/container_registry/cleanup_policy',
+      ),
       '/projects/:id/container_registry/cleanup_policy',
     );
   });

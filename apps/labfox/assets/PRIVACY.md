@@ -31,9 +31,10 @@ OpenPanel):
   comment posted (on an issue or a merge request, never its text), pipeline
   retried or cancelled, job retried, cancelled, or run manually, to-do
   cleared, and background checks turned on or off.
-- Screen-view events carry only a **sanitized route** — numeric identifiers
-  are removed (`/projects/:id`), so no project, issue, or account can be
-  identified.
+- Screen-view events carry only a **matched route template**. Every path
+  parameter, including project IDs and branch, tag, or environment names, is
+  replaced by a placeholder (for example, `/projects/:id`). Unmatched paths
+  are reported as `/:unknown`.
 - Events contain **no personal data**: no usernames, names, email addresses,
   tokens, titles, content, or full URLs.
 - Analytics are never sold, shared with third parties, or used for
