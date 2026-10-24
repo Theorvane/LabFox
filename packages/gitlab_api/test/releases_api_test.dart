@@ -374,15 +374,24 @@ void main() {
     );
   });
 
-  test('deletes only the release at an encoded tag', () async {
+  test('accepts the deleted release returned with 200 OK', () async {
     late RequestOptions request;
     final client = _client((options) {
       request = options;
-      return (status: 204, headers: const <String, List<String>>{}, body: null);
+      return (
+        status: 200,
+        headers: const <String, List<String>>{},
+        body: {'tag_name': 'release/2', 'name': 'Version 2'},
+      );
     });
     await client.releases.delete('team/app', 'release/2');
     expect(request.method, 'DELETE');
     expect(request.path, '/projects/team%2Fapp/releases/release%2F2');
+  });
+
+  test('also accepts no-content release deletion', () async {
+    final client = _client((_) => (status: 204, headers: const {}, body: null));
+    await client.releases.delete(7, 'v2');
   });
 
   test('maps forbidden release deletion', () async {
