@@ -390,9 +390,7 @@ void main() {
   });
 
   test('also accepts no-content release deletion', () async {
-    final client = _client(
-      (_) => (status: 204, headers: const {}, body: null),
-    );
+    final client = _client((_) => (status: 204, headers: const {}, body: null));
     await client.releases.delete(7, 'v2');
   });
 
