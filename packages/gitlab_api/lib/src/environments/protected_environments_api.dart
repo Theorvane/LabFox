@@ -1,0 +1,916 @@
+import 'package:dio/dio.dart';
+import 'package:gitlab_models/gitlab_models.dart';
+
+import '../common/exceptions.dart';
+import '../common/paginated.dart';
+import '../gitlab_client.dart';
+
+/// Project protected environments (Premium/Ultimate).
+class ProtectedEnvironmentsApi {
+  const ProtectedEnvironmentsApi(this._dio);
+
+  final Dio _dio;
+
+  String _path(Object projectId) =>
+      '/projects/${Uri.encodeComponent(projectId.toString())}/protected_environments';
+
+  Future<void> removeApprovalRule(
+    Object projectId,
+    String name, {
+    required int ruleId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || ruleId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and approval rule ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, '_destroy': true},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing an environment approval rule',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['approval_rules'] is! List) {
+        throw const GitLabServerException('Unconfirmed approval rule removal');
+      }
+      final ids = <int>{};
+      for (final rule in raw['approval_rules'] as List) {
+        if (rule is! Map<String, dynamic> ||
+            rule['id'] is! int ||
+            (rule['id'] as int) <= 0 ||
+            rule['id'] == ruleId ||
+            !ids.add(rule['id'] as int)) {
+          throw const GitLabServerException(
+            'Unconfirmed approval rule removal',
+          );
+        }
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing an environment approval rule');
+    }
+  }
+
+  Future<void> editApprovalCount(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int requiredApprovals,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        requiredApprovals < 1 ||
+        requiredApprovals > 5) {
+      throw ArgumentError(
+        'Exact environment name, rule ID and supported approval count required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'required_approvals': requiredApprovals},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing an environment approval count',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['approval_rules'] is! List) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+      final rules = raw['approval_rules'] as List;
+      if (rules.any((rule) => rule is! Map<String, dynamic>)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+      final matches = rules.where((rule) => rule['id'] == ruleId).toList();
+      if (matches.length != 1 ||
+          matches.single['id'] is! int ||
+          matches.single['required_approvals'] is! int ||
+          matches.single['required_approvals'] != requiredApprovals) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval count',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'editing an environment approval count');
+    }
+  }
+
+  Future<void> editDeployRole(
+    Object projectId,
+    String name, {
+    required int grantId,
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        grantId <= 0 ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError(
+        'Exact environment name, grant ID and supported role required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, 'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+      final grants = raw['deploy_access_levels'] as List;
+      if (grants.any((grant) => grant is! Map<String, dynamic>)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+      final matches = grants.where((grant) => grant['id'] == grantId).toList();
+      if (matches.length != 1 ||
+          matches.single['id'] is! int ||
+          matches.single['access_level'] is! int ||
+          matches.single['access_level'] != accessLevel ||
+          matches.single['user_id'] != null ||
+          matches.single['group_id'] != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role edit',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'editing an environment deploy role');
+    }
+  }
+
+  /// Removes one deploy grant by its server-assigned record ID.
+  Future<ProtectedEnvironment> removeDeployGroup(
+    Object projectId,
+    String name, {
+    required int grantId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || grantId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and deploy grant ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, '_destroy': true},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing an environment deploy group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      if (updated.deployAccessLevels.any((grant) => grant.id == grantId)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy group removal',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing an environment deploy group');
+    }
+  }
+
+  Future<void> removeDeployRole(
+    Object projectId,
+    String name, {
+    required int grantId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || grantId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and deploy grant ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, '_destroy': true},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'removing an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List ||
+          (raw['deploy_access_levels'] as List).any(
+            (entry) => entry is Map<String, dynamic> && entry['id'] == grantId,
+          )) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role removal',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'removing an environment deploy role');
+    }
+  }
+
+  /// Adds one role-based deploy grant to an existing project rule.
+  Future<void> addDeployRole(
+    Object projectId,
+    String name, {
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError('Exact environment name and supported role required');
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment deploy role',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List ||
+          (raw['deploy_access_levels'] as List)
+                  .where(
+                    (entry) =>
+                        entry is Map<String, dynamic> &&
+                        entry['id'] is int &&
+                        (entry['id'] as int) > 0 &&
+                        entry['access_level'] == accessLevel &&
+                        entry['user_id'] == null &&
+                        entry['group_id'] == null,
+                  )
+                  .length !=
+              1) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy role update',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment deploy role');
+    }
+  }
+
+  /// Removes one project protection rule without deleting the environment.
+  Future<void> unprotect(Object projectId, String name) async {
+    if (name.trim().isEmpty) {
+      throw ArgumentError('Exact environment name required');
+    }
+    try {
+      final response = await _dio.delete<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 204) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'unprotecting an environment',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'unprotecting an environment');
+    }
+  }
+
+  /// Creates a project rule with one role-based deploy grant and no approvals.
+  Future<ProtectedEnvironment> createRoleOnly(
+    Object projectId,
+    String name, {
+    required int accessLevel,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        name.contains('*') ||
+        !{30, 40}.contains(accessLevel)) {
+      throw ArgumentError(
+        'Exact environment name and supported deploy role required',
+      );
+    }
+    try {
+      final response = await _dio.post<dynamic>(
+        _path(projectId),
+        data: {
+          'name': name,
+          'deploy_access_levels': [
+            {'access_level': accessLevel},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 201) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'protecting an environment',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> ||
+          raw['name'] != name ||
+          raw['deploy_access_levels'] is! List ||
+          raw['approval_rules'] is! List ||
+          raw['required_approval_count'] != 0) {
+        throw const GitLabServerException(
+          'Unconfirmed protected environment creation',
+        );
+      }
+      try {
+        final created = ProtectedEnvironment.fromJson(raw);
+        if (created.deployAccessLevels.length != 1 ||
+            created.deployAccessLevels.single.id == null ||
+            created.deployAccessLevels.single.id! <= 0 ||
+            created.deployAccessLevels.single.accessLevel != accessLevel ||
+            created.deployAccessLevels.single.userId != null ||
+            created.deployAccessLevels.single.groupId != null ||
+            created.approvalRules.isNotEmpty) {
+          throw const GitLabServerException(
+            'Unconfirmed protected environment creation',
+          );
+        }
+        return created;
+      } on TypeError {
+        throw const GitLabServerException(
+          'Malformed protected environment creation',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Malformed protected environment creation',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'protecting an environment');
+    }
+  }
+
+  Future<Paginated<ProtectedEnvironment>> list(
+    Object projectId, {
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        _path(projectId),
+        queryParameters: {'page': page, 'per_page': perPage},
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing protected environments',
+        );
+      }
+      final raw = response.data;
+      if (raw is! List ||
+          raw.any(
+            (entry) =>
+                entry is! Map<String, dynamic> ||
+                entry['name'] is! String ||
+                (entry['name'] as String).isEmpty,
+          )) {
+        throw const GitLabServerException(
+          'Incomplete protected environment list',
+        );
+      }
+      try {
+        return Paginated.fromHeaders(
+          raw
+              .cast<Map<String, dynamic>>()
+              .map(ProtectedEnvironment.fromJson)
+              .toList(growable: false),
+          response.headers.map,
+        );
+      } on TypeError {
+        throw const GitLabServerException(
+          'Malformed protected environment list',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Malformed protected environment list',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing protected environments');
+    }
+  }
+
+  Future<ProtectedEnvironment> getForApprovalGroupEdit(
+    Object projectId,
+    String name,
+  ) async {
+    if (name.trim().isEmpty || name != name.trim()) {
+      throw ArgumentError('Exact environment name required');
+    }
+    try {
+      final response = await _dio.get<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        options: Options(followRedirects: false),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'inspecting environment approval groups',
+        );
+      }
+      return _parseApprovalGroupRule(response.data, name);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'inspecting environment approval groups');
+    }
+  }
+
+  Future<ProtectedEnvironment> editApprovalGroupInheritance(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int groupInheritanceType,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        !{0, 1}.contains(groupInheritanceType)) {
+      throw ArgumentError(
+        'Exact environment name, rule ID and supported membership required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'group_inheritance_type': groupInheritanceType},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing environment approval group membership',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.id == ruleId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId == null ||
+          matches.single.groupId! <= 0 ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null ||
+          matches.single.groupInheritanceType != groupInheritanceType) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval membership',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'editing environment approval group membership',
+      );
+    }
+  }
+
+  Future<ProtectedEnvironment> addApprovalGroup(
+    Object projectId,
+    String name, {
+    required int groupId,
+    required int requiredApprovals,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        groupId <= 0 ||
+        requiredApprovals < 1 ||
+        requiredApprovals > 5) {
+      throw ArgumentError(
+        'Exact environment name, positive group ID and supported approval count required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {
+              'group_id': groupId,
+              'required_approvals': requiredApprovals,
+              'group_inheritance_type': 0,
+            },
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment approval group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.groupId == groupId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.requiredApprovals != requiredApprovals ||
+          matches.single.groupInheritanceType != 0 ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval group',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment approval group');
+    }
+  }
+
+  ProtectedEnvironment _parseApprovalGroupRule(Object? raw, String name) {
+    if (raw is! Map<String, dynamic> ||
+        raw['name'] != name ||
+        raw['required_approval_count'] is! int ||
+        (raw['required_approval_count'] as int) < 0) {
+      throw const GitLabServerException(
+        'Incomplete environment approval groups',
+      );
+    }
+    for (final field in ['deploy_access_levels', 'approval_rules']) {
+      final entries = raw[field];
+      if (entries is! List) {
+        throw const GitLabServerException(
+          'Incomplete environment approval groups',
+        );
+      }
+      final ids = <int>{};
+      for (final entry in entries) {
+        if (!_validAccess(entry) ||
+            entry is! Map<String, dynamic> ||
+            !ids.add(entry['id'] as int)) {
+          throw const GitLabServerException(
+            'Malformed environment approval records',
+          );
+        }
+        for (final key in [
+          'access_level',
+          'user_id',
+          'group_id',
+          'group_inheritance_type',
+          'required_approvals',
+        ]) {
+          if (entry[key] != null && entry[key] is! int) {
+            throw const GitLabServerException(
+              'Malformed environment approval records',
+            );
+          }
+        }
+        if (field == 'approval_rules' &&
+            (entry['required_approvals'] is! int ||
+                (entry['required_approvals'] as int) < 1)) {
+          throw const GitLabServerException(
+            'Incomplete environment approval counts',
+          );
+        }
+      }
+    }
+    try {
+      return ProtectedEnvironment.fromJson(raw);
+    } on TypeError {
+      throw const GitLabServerException(
+        'Malformed environment approval groups',
+      );
+    } on FormatException {
+      throw const GitLabServerException(
+        'Malformed environment approval groups',
+      );
+    }
+  }
+
+  Future<ProtectedEnvironment> editApprovalGroup(
+    Object projectId,
+    String name, {
+    required int ruleId,
+    required int groupId,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        ruleId <= 0 ||
+        groupId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and positive rule and group IDs required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'approval_rules': [
+            {'id': ruleId, 'group_id': groupId},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'replacing an environment approval group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.approvalRules
+          .where((rule) => rule.id == ruleId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId != groupId ||
+          matches.single.userId != null ||
+          matches.single.accessLevel != null ||
+          !{0, 1}.contains(matches.single.groupInheritanceType)) {
+        throw const GitLabServerException(
+          'Unconfirmed environment approval group replacement',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'replacing an environment approval group');
+    }
+  }
+
+  Future<ProtectedEnvironment> addDeployGroup(
+    Object projectId,
+    String name, {
+    required int groupId,
+  }) async {
+    if (name.trim().isEmpty || name != name.trim() || groupId <= 0) {
+      throw ArgumentError(
+        'Exact environment name and positive group ID required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'group_id': groupId, 'group_inheritance_type': 0},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding an environment deploy group',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.deployAccessLevels
+          .where((grant) => grant.groupId == groupId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupInheritanceType != 0 ||
+          matches.single.userId != null ||
+          matches.single.requiredApprovals != null) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy group',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding an environment deploy group');
+    }
+  }
+
+  Future<ProtectedEnvironment> getForDeployGroupEdit(
+    Object projectId,
+    String name,
+  ) => getForApprovalGroupEdit(projectId, name);
+
+  Future<ProtectedEnvironment> editDeployGroupInheritance(
+    Object projectId,
+    String name, {
+    required int grantId,
+    required int groupInheritanceType,
+  }) async {
+    if (name.trim().isEmpty ||
+        name != name.trim() ||
+        grantId <= 0 ||
+        !{0, 1}.contains(groupInheritanceType)) {
+      throw ArgumentError(
+        'Exact environment name, deploy grant ID and supported membership required',
+      );
+    }
+    try {
+      final response = await _dio.put<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+        data: {
+          'deploy_access_levels': [
+            {'id': grantId, 'group_inheritance_type': groupInheritanceType},
+          ],
+        },
+        options: Options(
+          followRedirects: false,
+          extra: {'labfox_no_auth_retry': true},
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'editing environment deploy group membership',
+        );
+      }
+      final updated = _parseApprovalGroupRule(response.data, name);
+      final matches = updated.deployAccessLevels
+          .where((grant) => grant.id == grantId)
+          .toList();
+      if (matches.length != 1 ||
+          matches.single.groupId == null ||
+          matches.single.groupId! <= 0 ||
+          matches.single.userId != null ||
+          matches.single.groupInheritanceType != groupInheritanceType) {
+        throw const GitLabServerException(
+          'Unconfirmed environment deploy membership',
+        );
+      }
+      return updated;
+    } on DioException catch (error) {
+      throw mapError(
+        error,
+        context: 'editing environment deploy group membership',
+      );
+    }
+  }
+
+  Future<ProtectedEnvironment> get(Object projectId, String name) =>
+      _get(projectId, name, requireComplete: false);
+
+  /// Requires the full rule before a permission-changing write.
+  Future<ProtectedEnvironment> getComplete(Object projectId, String name) =>
+      _get(projectId, name, requireComplete: true);
+
+  Future<ProtectedEnvironment> _get(
+    Object projectId,
+    String name, {
+    required bool requireComplete,
+  }) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '${_path(projectId)}/${Uri.encodeComponent(name)}',
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading a protected environment',
+        );
+      }
+      final raw = response.data;
+      if (raw is! Map<String, dynamic> || raw['name'] != name) {
+        throw const GitLabServerException(
+          'Incomplete protected environment detail',
+        );
+      }
+      if (requireComplete &&
+          (raw['deploy_access_levels'] is! List ||
+              raw['approval_rules'] is! List ||
+              raw['required_approval_count'] is! int ||
+              (raw['required_approval_count'] as int) < 0 ||
+              !(raw['deploy_access_levels'] as List).every(_validAccess) ||
+              !(raw['approval_rules'] as List).every(_validAccess))) {
+        throw const GitLabServerException(
+          'Incomplete protected environment grants',
+        );
+      }
+      try {
+        return ProtectedEnvironment.fromJson(raw);
+      } on TypeError {
+        throw const GitLabServerException(
+          'Malformed protected environment detail',
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Malformed protected environment detail',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading a protected environment');
+    }
+  }
+
+  bool _validAccess(Object? raw) =>
+      raw is Map<String, dynamic> &&
+      raw['id'] is int &&
+      (raw['id'] as int) > 0 &&
+      (raw['access_level'] is int ||
+          raw['user_id'] is int ||
+          raw['group_id'] is int);
+}

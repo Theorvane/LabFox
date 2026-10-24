@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 
@@ -9,6 +10,182 @@ class ProjectsApi {
   const ProjectsApi(this._dio);
 
   final Dio _dio;
+
+  /// Clears only the keep pattern with an explicit empty string.
+  Future<Project> clearCleanupPolicyKeepPattern(Object projectId) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'name_regex_keep': ''},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'clearing cleanup policy keep pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'clearing cleanup policy keep pattern');
+    }
+  }
+
+  /// Changes only the modern delete pattern, preserving exact RE2 input.
+  Future<Project> setCleanupPolicyDeletePattern(
+    Object projectId, {
+    required String nameRegexDelete,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'name_regex_delete': nameRegexDelete,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy delete pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy delete pattern');
+    }
+  }
+
+  /// Changes only the cleanup age threshold, preserving other policy settings.
+  Future<Project> setCleanupPolicyAge(
+    Object projectId, {
+    required String olderThan,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'older_than': olderThan},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy age limit',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy age limit');
+    }
+  }
+
+  /// Replaces only the keep pattern of an existing cleanup policy.
+  Future<Project> setCleanupPolicyKeepPattern(
+    Object projectId, {
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy keep pattern',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy keep pattern');
+    }
+  }
+
+  /// Changes only matching-tag retention count, preserving other policy settings.
+  Future<Project> setCleanupPolicyKeepCount(
+    Object projectId, {
+    required int keepN,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'keep_n': keepN},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy retention count',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy retention count');
+    }
+  }
+
+  /// Changes only cleanup policy activation, preserving all retention settings.
+  Future<Project> setCleanupPolicyEnabled(
+    Object projectId, {
+    required bool enabled,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'enabled': enabled},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy activation',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy activation');
+    }
+  }
+
+  /// Changes only cleanup cadence, preserving activation and retention criteria.
+  Future<Project> setCleanupPolicyCadence(
+    Object projectId, {
+    required String cadence,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {'cadence': cadence},
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating cleanup policy cadence',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating cleanup policy cadence');
+    }
+  }
 
   /// The projects the current user is a member of.
   ///
@@ -41,6 +218,112 @@ class ProjectsApi {
       return Paginated.fromHeaders(projects, response.headers.map);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading projects');
+    }
+  }
+
+  /// Reads policy presence separately from a reduced or omitted project field.
+  Future<ContainerCleanupPolicySnapshot> cleanupPolicySnapshot(
+    Object projectId,
+  ) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading cleanup policy presence',
+        );
+      }
+      final data = response.data as Map<String, dynamic>;
+      return ContainerCleanupPolicySnapshot.fromJson({
+        'reported': data.containsKey('container_expiration_policy'),
+        'policy': data['container_expiration_policy'],
+      });
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading cleanup policy presence');
+    }
+  }
+
+  /// Saves complete criteria with explicit activation, disabled by default.
+  Future<Project> createCleanupPolicy(
+    Object projectId, {
+    bool enabled = false,
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'enabled': enabled,
+            'cadence': cadence,
+            'keep_n': keepN,
+            'older_than': olderThan,
+            'name_regex_delete': nameRegexDelete,
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating cleanup policy',
+        );
+      }
+      try {
+        return Project.fromJson(response.data as Map<String, dynamic>);
+      } on TypeError {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      } on FormatException {
+        throw const GitLabServerException('Malformed cleanup policy response');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating cleanup policy');
+    }
+  }
+
+  /// Reads policy presence separately from a reduced or omitted project field.
+
+  /// Saves a complete policy draft disabled; activation is a separate action.
+  Future<Project> createDisabledCleanupPolicy(
+    Object projectId, {
+    required String cadence,
+    required int keepN,
+    required String olderThan,
+    required String nameRegexDelete,
+    required String nameRegexKeep,
+  }) async {
+    try {
+      final response = await _dio.put<dynamic>(
+        '/projects/${Uri.encodeComponent(projectId.toString())}',
+        data: {
+          'container_expiration_policy_attributes': {
+            'enabled': false,
+            'cadence': cadence,
+            'keep_n': keepN,
+            'older_than': olderThan,
+            'name_regex_delete': nameRegexDelete,
+            'name_regex_keep': nameRegexKeep,
+          },
+        },
+      );
+      if (response.statusCode != 200 || response.data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating disabled cleanup policy',
+        );
+      }
+      return Project.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating disabled cleanup policy');
     }
   }
 

@@ -11,6 +11,7 @@ abstract class Pipeline with _$Pipeline {
   const factory Pipeline({
     required int id,
     required String status,
+    @JsonKey(name: 'project_id') int? projectId,
     String? ref,
     String? sha,
 

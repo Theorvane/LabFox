@@ -21,6 +21,9 @@ abstract class CommitStats with _$CommitStats {
 abstract class Commit with _$Commit {
   const factory Commit({
     required String id,
+
+    /// Null means unreported; an empty list explicitly identifies a root commit.
+    @JsonKey(name: 'parent_ids') List<String>? parentIds,
     @JsonKey(name: 'short_id') String? rawShortId,
     required String title,
     String? message,

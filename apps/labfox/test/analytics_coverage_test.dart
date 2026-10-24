@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/core/analytics/analytics.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
-import 'package:labfox/core/entitlement/paywall.dart';
 import 'package:labfox/features/comments/data/comments_repository.dart';
 import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
 import 'package:labfox/features/jobs/data/job_repository.dart';
@@ -17,7 +13,6 @@ import 'package:labfox/features/merge_requests/presentation/controllers/merge_re
 import 'package:labfox/features/merge_requests/presentation/controllers/mr_actions_controller.dart';
 import 'package:labfox/features/pipelines/data/pipelines_repository.dart';
 import 'package:labfox/features/pipelines/presentation/controllers/pipelines_controllers.dart';
-import 'package:labfox/l10n/app_localizations.dart';
 
 /// Records the event names and their properties instead of posting anywhere.
 class _Recording implements Analytics {
@@ -95,6 +90,18 @@ class _FakeJobs extends JobRepository {
 const _pipeline = Pipeline(id: 4, status: 'success');
 
 class _FakePipelines extends PipelinesRepository {
+  @override
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async => null;
+
+  @override
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) async => const Paginated(items: []);
   _FakePipelines() : super(_client());
 
   @override
@@ -246,47 +253,4 @@ void main() {
     expect(posted.$2['target'], 'merge_request');
     expect(posted.$2.values.join(' '), isNot(contains('looks good')));
   });
-
-  testWidgets('a paywall records which feature was reached for', (
-    tester,
-  ) async {
-    final analytics = _Recording();
-    await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          analyticsProvider.overrideWithValue(analytics),
-          freePlatformProvider.overrideWithValue(false),
-          entitlementProvider.overrideWith(_FreeEntitlement.new),
-        ],
-        child: MaterialApp(
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          home: Consumer(
-            builder: (context, ref, _) => Scaffold(
-              body: TextButton(
-                onPressed: () => runSubscribed(
-                  context,
-                  ref,
-                  feature: PaidFeature.pipelineActions,
-                  action: () async {},
-                ),
-                child: const Text('go'),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    await tester.tap(find.text('go'));
-    await tester.pumpAndSettle();
-
-    final shown = analytics.events.firstWhere((e) => e.$1 == 'paywall_shown');
-    expect(shown.$2['feature'], 'pipelineActions');
-  });
-}
-
-class _FreeEntitlement extends EntitlementController {
-  @override
-  Entitlement build() => Entitlement.free;
 }

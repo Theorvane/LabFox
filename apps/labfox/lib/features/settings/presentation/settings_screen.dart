@@ -4,8 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
-import '../../../core/entitlement/entitlement_providers.dart';
-import '../../../core/entitlement/paywall.dart';
 import '../../../core/notifications/notifications_providers.dart';
 import '../../../core/settings/app_settings_providers.dart';
 import '../../../core/ui/link_opener.dart';
@@ -35,43 +33,11 @@ class SettingsScreen extends ConsumerWidget {
     final mobile = ref.watch(mobilePlatformProvider);
     final backgroundChecks = ref.watch(backgroundNotificationsProvider);
     final version = ref.watch(appVersionProvider);
-    final entitlement = ref.watch(entitlementProvider);
-    final freePlatform = ref.watch(freePlatformProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.settingsTitle),
-        // This route lives outside the navigation shell, so it carries its own
-        // way back; entered with context.go there is no stack to pop.
-        leading: BackButton(
-          onPressed: () =>
-              context.canPop() ? context.pop() : context.go(Routes.home),
-        ),
-      ),
+      appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
         children: [
-          // First, not buried: the subscription is the one row here a user
-          // may need to find in a hurry. Hidden where the app ships with
-          // every feature — an entry would sell what the user already has.
-          if (!freePlatform) ...[
-            ListTile(
-              leading: Icon(
-                LabFoxIcons.star,
-                color: entitlement.isSubscribed
-                    ? LabFoxStatusColors.of(context).merged.foreground
-                    : null,
-              ),
-              title: Text(l10n.subscriptionTitle),
-              subtitle: Text(
-                entitlement.isSubscribed
-                    ? l10n.subscriptionActive
-                    : l10n.subscriptionInactive,
-              ),
-              trailing: const Icon(LabFoxIcons.chevron),
-              onTap: () => context.push(Routes.subscription),
-            ),
-            const Divider(height: 1),
-          ],
           ListTile(
             leading: const Icon(LabFoxIcons.account),
             title: Text(l10n.settingsAccounts),
@@ -85,12 +51,7 @@ class SettingsScreen extends ConsumerWidget {
               value: backgroundChecks,
               title: Text(l10n.settingsBackgroundChecks),
               subtitle: Text(l10n.settingsBackgroundChecksHelp),
-              onChanged: (value) => runSubscribed(
-                context,
-                ref,
-                feature: PaidFeature.notifications,
-                action: () => _setBackgroundChecks(context, ref, value),
-              ),
+              onChanged: (value) => _setBackgroundChecks(context, ref, value),
             ),
             const Divider(height: 1),
           ],

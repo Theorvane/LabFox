@@ -1,7 +1,7 @@
 ; Inno Setup script for the LabFox Windows build.
 ;
-; Windows is a direct download rather than a store (`.agents/docs/monetization.md`
-; §1), so this installer is the whole install experience: it copies the release
+; Windows is a direct download rather than a store, so this installer is the
+; whole install experience: it copies the release
 ; build, makes the Start-menu entry, and registers an uninstaller. The portable
 ; zip still ships beside it.
 ;

@@ -174,6 +174,458 @@ void main() {
     });
   });
 
+  group('IssuesApi.update', () {
+    test('PUTs title and empty description by project issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'Updated', 'state': 'opened'},
+        );
+      });
+
+      final issue = await client.issues.update(
+        7,
+        iid: 5,
+        title: 'Updated',
+        description: '',
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/7/issues/5');
+      expect(captured.data, {'title': 'Updated', 'description': ''});
+      expect(issue.title, 'Updated');
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.update(7, iid: 5, title: 'New', description: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.updateLabels', () {
+    test('replaces labels by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'x',
+            'state': 'opened',
+            'labels': ['bug', 'review'],
+          },
+        );
+      });
+
+      final issue = await client.issues.updateLabels(
+        'team/project',
+        iid: 5,
+        labels: ['bug', 'review'],
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'labels': 'bug,review'});
+      expect(issue.labels.map((label) => label.name), ['bug', 'review']);
+    });
+
+    test('sends an empty string to clear all labels', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateLabels(7, iid: 5, labels: []);
+      expect(captured.data, {'labels': ''});
+    });
+
+    test('maps a forbidden response', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateLabels(7, iid: 5, labels: ['bug']),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.setDiscussionLocked', () {
+    test('updates discussion lock by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'discussion_locked': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setDiscussionLocked(
+        'team/project',
+        iid: 5,
+        locked: true,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'discussion_locked': true});
+      expect(issue.discussionLocked, isTrue);
+    });
+
+    test('maps permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setDiscussionLocked(7, iid: 5, locked: false),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.setConfidential', () {
+    test('updates confidentiality by issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'confidential': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setConfidential(
+        'team/project',
+        iid: 5,
+        confidential: true,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'confidential': true});
+      expect(issue.confidential, isTrue);
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setConfidential(7, iid: 5, confidential: false),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.updateMilestone', () {
+    test('uses global milestone id and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'milestone': {
+              'id': 17,
+              'iid': 2,
+              'title': 'v4.0',
+              'state': 'active',
+            },
+          },
+        );
+      });
+
+      final issue = await client.issues.updateMilestone(
+        'team/project',
+        iid: 5,
+        milestoneId: 17,
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'milestone_id': 17});
+      expect(issue.milestone?.id, 17);
+    });
+
+    test('sends zero to clear the milestone', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateMilestone(7, iid: 5, milestoneId: 0);
+      expect(captured.data, {'milestone_id': 0});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateMilestone(7, iid: 5, milestoneId: 0),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.updateDueDate', () {
+    test('sets a date by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Updated',
+            'state': 'opened',
+            'due_date': '2026-10-15',
+          },
+        );
+      });
+
+      final issue = await client.issues.updateDueDate(
+        'team/project',
+        iid: 5,
+        dueDate: '2026-10-15',
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {'due_date': '2026-10-15'});
+      expect(issue.dueDate, DateTime(2026, 10, 15));
+    });
+
+    test('sends an empty date to clear it', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateDueDate(7, iid: 5, dueDate: '');
+      expect(captured.data, {'due_date': ''});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateDueDate(7, iid: 5, dueDate: ''),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.updateAssignees', () {
+    test('replaces assignees by project path and issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'x',
+            'state': 'opened',
+            'assignees': [
+              {'id': 7, 'username': 'alice', 'name': 'Alice'},
+              {'id': 8, 'username': 'bob', 'name': 'Bob'},
+            ],
+          },
+        );
+      });
+
+      final issue = await client.issues.updateAssignees(
+        'team/project',
+        iid: 5,
+        assigneeIds: [7, 8],
+      );
+
+      expect(captured.method, 'PUT');
+      expect(captured.path, '/projects/team%2Fproject/issues/5');
+      expect(captured.data, {
+        'assignee_ids': [7, 8],
+      });
+      expect(issue.assignees.map((user) => user.id), [7, 8]);
+    });
+
+    test('sends an empty array to unassign everyone', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 123, 'iid': 5, 'title': 'x', 'state': 'opened'},
+        );
+      });
+
+      await client.issues.updateAssignees(7, iid: 5, assigneeIds: []);
+      expect(captured.data, {'assignee_ids': <int>[]});
+    });
+
+    test('maps a permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.updateAssignees(7, iid: 5, assigneeIds: [8]),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.setSubscription', () {
+    test('subscribes by issue iid and returns the updated issue', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 200,
+          headers: const {},
+          body: {
+            'id': 123,
+            'iid': 5,
+            'title': 'Issue',
+            'state': 'opened',
+            'subscribed': true,
+          },
+        );
+      });
+
+      final issue = await client.issues.setSubscription(
+        7,
+        iid: 5,
+        subscribed: true,
+      );
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/issues/5/subscribe');
+      expect(issue?.subscribed, isTrue);
+    });
+
+    test(
+      'treats an idempotent 304 as success without a response issue',
+      () async {
+        late RequestOptions captured;
+        final client = _client((o) {
+          captured = o;
+          return (status: 304, headers: const {}, body: null);
+        });
+
+        final issue = await client.issues.setSubscription(
+          7,
+          iid: 5,
+          subscribed: false,
+        );
+
+        expect(captured.path, '/projects/7/issues/5/unsubscribe');
+        expect(issue, isNull);
+      },
+    );
+
+    test('maps permission denial', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        client.issues.setSubscription(7, iid: 5, subscribed: true),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
+  group('IssuesApi.createTodo', () {
+    test('creates a to-do item using the project issue iid', () async {
+      late RequestOptions captured;
+      final client = _client((o) {
+        captured = o;
+        return (
+          status: 201,
+          headers: const {},
+          body: {'id': 112, 'state': 'pending', 'target_type': 'Issue'},
+        );
+      });
+
+      final todo = await client.issues.createTodo(7, iid: 5);
+
+      expect(captured.method, 'POST');
+      expect(captured.path, '/projects/7/issues/5/todo');
+      expect(todo?.id, 112);
+      expect(todo?.isPending, isTrue);
+    });
+
+    test('returns null when the issue is already in the to-do list', () async {
+      final client = _client(
+        (_) => (status: 304, headers: const {}, body: null),
+      );
+
+      expect(await client.issues.createTodo(7, iid: 5), isNull);
+    });
+
+    test('maps a forbidden response', () async {
+      final client = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+
+      await expectLater(
+        client.issues.createTodo(7, iid: 5),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
+
   group('IssuesApi.listAssignedToMe', () {
     test('lists open issues assigned to the current user', () async {
       late RequestOptions captured;

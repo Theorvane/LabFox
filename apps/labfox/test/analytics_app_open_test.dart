@@ -10,10 +10,14 @@ import 'package:labfox/core/auth/auth_state.dart';
 /// Records event names instead of posting anywhere.
 class _RecordingAnalytics implements Analytics {
   final List<String> events = [];
+  final List<String?> routes = [];
 
   @override
   Future<void> track(String name, [Map<String, Object?>? properties]) async {
     events.add(name);
+    if (name == 'screen_view') {
+      routes.add(properties?['route'] as String?);
+    }
   }
 }
 
@@ -91,7 +95,7 @@ void main() {
     container.read(routerProvider);
 
     final tracker = container.read(routeTrackerProvider);
-    tracker.visit('/inbox');
+    tracker.visit('/inbox', routeTemplate: '/inbox');
 
     // An auth change rebuilds the router. The tracker must not be rebuilt with
     // it, or the screen the user is already on is counted a second time.
@@ -102,8 +106,20 @@ void main() {
     final afterRebuild = container.read(routeTrackerProvider);
     expect(identical(tracker, afterRebuild), isTrue);
 
-    afterRebuild.visit('/inbox');
+    afterRebuild.visit('/inbox', routeTemplate: '/inbox');
 
     expect(analytics.events.where((e) => e == 'screen_view'), hasLength(1));
+  });
+
+  test('screen views send a template without private route values', () {
+    final analytics = _RecordingAnalytics();
+    final tracker = RouteTracker(analytics);
+
+    tracker.visit(
+      Routes.protectedBranch(42, 'customer-secret'),
+      routeTemplate: '/projects/:id/protected_branches/:name',
+    );
+
+    expect(analytics.routes, ['/projects/:id/protected_branches/:name']);
   });
 }

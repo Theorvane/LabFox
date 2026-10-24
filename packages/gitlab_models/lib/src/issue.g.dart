@@ -26,12 +26,21 @@ _Issue _$IssueFromJson(Map<String, dynamic> json) => _Issue(
       : Label.listFromJson(json['labels']),
   webUrl: json['web_url'] as String?,
   commentCount: (json['user_notes_count'] as num?)?.toInt() ?? 0,
+  subscribed: json['subscribed'] as bool?,
+  confidential: json['confidential'] as bool?,
+  discussionLocked: json['discussion_locked'] as bool?,
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
   updatedAt: json['updated_at'] == null
       ? null
       : DateTime.parse(json['updated_at'] as String),
+  dueDate: json['due_date'] == null
+      ? null
+      : DateTime.parse(json['due_date'] as String),
+  milestone: json['milestone'] == null
+      ? null
+      : GitLabMilestone.fromJson(json['milestone'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$IssueToJson(_Issue instance) => <String, dynamic>{
@@ -46,6 +55,11 @@ Map<String, dynamic> _$IssueToJson(_Issue instance) => <String, dynamic>{
   'labels': instance.labels.map((e) => e.toJson()).toList(),
   'web_url': instance.webUrl,
   'user_notes_count': instance.commentCount,
+  'subscribed': instance.subscribed,
+  'confidential': instance.confidential,
+  'discussion_locked': instance.discussionLocked,
   'created_at': instance.createdAt?.toIso8601String(),
   'updated_at': instance.updatedAt?.toIso8601String(),
+  'due_date': instance.dueDate?.toIso8601String(),
+  'milestone': instance.milestone?.toJson(),
 };

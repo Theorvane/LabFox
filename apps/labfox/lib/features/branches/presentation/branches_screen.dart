@@ -33,6 +33,11 @@ class BranchesScreen extends ConsumerWidget {
         title: Text(l10n.branchesTitle),
         actions: [
           IconButton(
+            icon: const Icon(LabFoxIcons.private),
+            tooltip: l10n.protectedBranchesTitle,
+            onPressed: () => context.push(Routes.protectedBranches(projectId)),
+          ),
+          IconButton(
             icon: const Icon(LabFoxIcons.add),
             tooltip: l10n.newBranchButton,
             onPressed: defaultBranch == null

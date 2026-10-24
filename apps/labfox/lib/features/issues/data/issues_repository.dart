@@ -52,4 +52,82 @@ class IssuesRepository {
   }) {
     return _client.issues.setOpen(projectId, iid: iid, open: open);
   }
+
+  Future<Issue> update({
+    required int projectId,
+    required int iid,
+    required String title,
+    required String description,
+  }) {
+    return _client.issues.update(
+      projectId,
+      iid: iid,
+      title: title,
+      description: description,
+    );
+  }
+
+  Future<Issue> updateLabels({
+    required int projectId,
+    required int iid,
+    required List<String> labels,
+  }) => _client.issues.updateLabels(projectId, iid: iid, labels: labels);
+
+  Future<Issue> updateDueDate({
+    required int projectId,
+    required int iid,
+    required String dueDate,
+  }) => _client.issues.updateDueDate(projectId, iid: iid, dueDate: dueDate);
+
+  Future<Issue> updateMilestone({
+    required int projectId,
+    required int iid,
+    required int milestoneId,
+  }) => _client.issues.updateMilestone(
+    projectId,
+    iid: iid,
+    milestoneId: milestoneId,
+  );
+
+  Future<Issue> setConfidential({
+    required int projectId,
+    required int iid,
+    required bool confidential,
+  }) => _client.issues.setConfidential(
+    projectId,
+    iid: iid,
+    confidential: confidential,
+  );
+
+  Future<Issue> setDiscussionLocked({
+    required int projectId,
+    required int iid,
+    required bool locked,
+  }) => _client.issues.setDiscussionLocked(projectId, iid: iid, locked: locked);
+
+  Future<Issue> updateAssignees({
+    required int projectId,
+    required int iid,
+    required List<int> assigneeIds,
+  }) => _client.issues.updateAssignees(
+    projectId,
+    iid: iid,
+    assigneeIds: assigneeIds,
+  );
+
+  Future<Issue?> setSubscription({
+    required int projectId,
+    required int iid,
+    required bool subscribed,
+  }) {
+    return _client.issues.setSubscription(
+      projectId,
+      iid: iid,
+      subscribed: subscribed,
+    );
+  }
+
+  Future<Todo?> createTodo({required int projectId, required int iid}) {
+    return _client.issues.createTodo(projectId, iid: iid);
+  }
 }

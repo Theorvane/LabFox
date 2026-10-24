@@ -7,8 +7,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 import 'package:labfox/core/auth/auth_controller.dart';
 import 'package:labfox/core/auth/auth_providers.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/core/storage/local_projects_providers.dart';
 import 'package:labfox/features/projects/presentation/controllers/projects_controller.dart';
 import 'package:labfox/features/projects/presentation/projects_screen.dart';
@@ -124,9 +122,7 @@ void main() {
     expect(find.widgetWithIcon(IconButton, Icons.star_border), findsOneWidget);
   });
 
-  testWidgets('a free user at the favorite limit is offered the subscription', (
-    tester,
-  ) async {
+  testWidgets('favorites can grow beyond the old limit', (tester) async {
     SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
     await tester.pumpWidget(
@@ -142,9 +138,6 @@ void main() {
               user: User(id: 1, username: 'jungwon', name: 'Jungwon'),
             ),
           ),
-          entitlementProvider.overrideWith(
-            () => _FixedEntitlement(Entitlement.free),
-          ),
           favoriteProjectsProvider.overrideWith(() => _FullFavorites()),
         ],
         child: const MaterialApp(
@@ -159,19 +152,12 @@ void main() {
     await tester.tap(find.widgetWithIcon(IconButton, Icons.star_border).first);
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('favorites'), findsWidgets);
-    expect(find.text('Not now'), findsOneWidget);
+    expect(find.widgetWithIcon(IconButton, Icons.star), findsOneWidget);
+    expect(find.text('Not now'), findsNothing);
   });
 }
 
-class _FixedEntitlement extends EntitlementController {
-  _FixedEntitlement(this.value);
-  final Entitlement value;
-  @override
-  Entitlement build() => value;
-}
-
-/// A free tier already at its favorite ceiling.
+/// Three existing favorites exercise the former free-tier ceiling.
 class _FullFavorites extends FavoriteProjectsController {
   @override
   List<Project> build() => const [

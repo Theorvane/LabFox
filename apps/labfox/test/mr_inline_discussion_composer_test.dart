@@ -1,0 +1,720 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:design_system/design_system.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:gitlab_api/gitlab_api.dart';
+import 'package:gitlab_models/gitlab_models.dart';
+import 'package:labfox/features/comments/data/comments_repository.dart';
+import 'package:labfox/features/comments/presentation/controllers/comments_controller.dart';
+import 'package:labfox/features/diff/data/diff_repository.dart';
+import 'package:labfox/features/diff/presentation/controllers/diff_controllers.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/merge_requests_controllers.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_discussions_controller.dart';
+import 'package:labfox/features/merge_requests/presentation/controllers/mr_review_snapshot_controller.dart';
+import 'package:labfox/features/merge_requests/presentation/mr_changes_screen.dart';
+import 'package:labfox/l10n/app_localizations.dart';
+
+const _arg = MergeRequestRef(projectId: 8, iid: 142);
+const _raw =
+    '@@ -27,2 +29,2 @@\n final count = items.length;\n-return count;\n+return pending.length;\n';
+MergeRequestDiffVersion _version({
+  List<MergeRequestVersionFile>? files,
+  String? head = 'head',
+  String? state = 'collected',
+}) => MergeRequestDiffVersion(
+  id: 110,
+  baseCommitSha: 'base',
+  startCommitSha: 'start',
+  headCommitSha: head,
+  state: state,
+  files:
+      files ??
+      [
+        const MergeRequestVersionFile(
+          oldPath: 'old.dart',
+          newPath: 'new.dart',
+          diff: _raw,
+          isRenamed: true,
+        ),
+      ],
+);
+
+class _Repo extends DiffRepository {
+  _Repo()
+    : this._(
+        GitLabClient(
+          baseUrl: 'https://gitlab.example.com',
+          token: 'glpat-xxxxxxxxxxxx',
+        ),
+      );
+  _Repo._(this.client) : super(client);
+  final GitLabClient client;
+  Object list = Paginated<MergeRequestDiffVersion>(items: [_version()]);
+  Object detail = _version();
+  final reads = <(int, int, int)>[];
+  final snapshots = <(int, int, int)>[];
+  @override
+  Future<Paginated<MergeRequestDiffVersion>> mergeRequestDiffVersions({
+    required int projectId,
+    required int iid,
+    int page = 1,
+  }) async {
+    reads.add((projectId, iid, page));
+    if (list is Paginated<MergeRequestDiffVersion>) {
+      return list as Paginated<MergeRequestDiffVersion>;
+    }
+    if (list is Future<Paginated<MergeRequestDiffVersion>>) {
+      return list as Future<Paginated<MergeRequestDiffVersion>>;
+    }
+    throw list;
+  }
+
+  @override
+  Future<MergeRequestDiffVersion> mergeRequestDiffVersion({
+    required int projectId,
+    required int iid,
+    required int versionId,
+  }) async {
+    snapshots.add((projectId, iid, versionId));
+    if (detail is MergeRequestDiffVersion) {
+      return detail as MergeRequestDiffVersion;
+    }
+    if (detail is Future<MergeRequestDiffVersion>) {
+      return detail as Future<MergeRequestDiffVersion>;
+    }
+    throw detail;
+  }
+
+  @override
+  Future<List<FileDiff>> mergeRequestDiff({
+    required int projectId,
+    required int iid,
+  }) async => throw StateError('No current diff fallback');
+}
+
+final _session = StateProvider<Future<DiffRepository?>>((ref) async => null);
+
+class _Comments extends CommentsRepository {
+  _Comments()
+    : this._(
+        GitLabClient(
+          baseUrl: 'https://gitlab.example.com',
+          token: 'glpat-xxxxxxxxxxxx',
+        ),
+      );
+  _Comments._(this.client) : super(client);
+  final GitLabClient client;
+  final creates = <(int, int, String, DiffNotePosition)>[];
+  final posts = <String>[];
+  int reads = 0;
+  Future<Discussion>? result;
+  Object? readError;
+  final pages = <int, Paginated<Discussion>>{};
+  @override
+  Future<Paginated<Discussion>> discussions({
+    required int projectId,
+    required int iid,
+    int page = 1,
+  }) async {
+    reads++;
+    if (readError != null) throw readError!;
+    return pages[page] ?? const Paginated(items: []);
+  }
+
+  @override
+  Future<Discussion> createPositionedDiscussion({
+    required int projectId,
+    required int iid,
+    required String body,
+    required DiffNotePosition position,
+  }) async {
+    creates.add((projectId, iid, body, position));
+    return result ??
+        Discussion(
+          id: 'created',
+          individualNote: false,
+          notes: [Note(id: 999, body: body, position: position)],
+        );
+  }
+
+  @override
+  Future<Note> post({
+    required NoteableType type,
+    required int projectId,
+    required int iid,
+    required String body,
+  }) async {
+    posts.add(body);
+    return Note(id: 888, body: body);
+  }
+}
+
+final _commentsSession = StateProvider<Future<CommentsRepository?>>(
+  (ref) async => null,
+);
+ProviderContainer _container(_Repo repo, _Comments comments) {
+  final c = ProviderContainer(
+    overrides: [
+      _session.overrideWith((ref) async => repo),
+      diffRepositoryProvider.overrideWith((ref) => ref.watch(_session)),
+      _commentsSession.overrideWith((ref) async => comments),
+      commentsRepositoryProvider.overrideWith(
+        (ref) => ref.watch(_commentsSession),
+      ),
+    ],
+  );
+  addTearDown(c.dispose);
+  addTearDown(repo.client.close);
+  addTearDown(comments.client.close);
+  return c;
+}
+
+Future<AppLocalizations> _pump(
+  WidgetTester tester,
+  ProviderContainer c, {
+  double width = 390,
+  double height = 1400,
+  ThemeData? theme,
+  bool dark = false,
+  Locale locale = const Locale('en'),
+  int iid = 142,
+  bool settle = true,
+}) async {
+  tester.view.physicalSize = Size(width, height);
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.resetPhysicalSize);
+  addTearDown(tester.view.resetDevicePixelRatio);
+  await tester.pumpWidget(
+    UncontrolledProviderScope(
+      container: c,
+      child: MaterialApp(
+        theme: theme ?? (dark ? LabFoxTheme.dark : LabFoxTheme.light),
+        locale: locale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: MrChangesScreen(projectId: 8, iid: iid),
+      ),
+    ),
+  );
+  if (settle) {
+    await tester.pumpAndSettle();
+  } else {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+  return AppLocalizations.of(tester.element(find.byType(MrChangesScreen)));
+}
+
+Finder get _draft => find.byKey(const ValueKey('mr-diff-discussion-draft'));
+Finder get _submit => find.byKey(const ValueKey('mr-diff-discussion-submit'));
+Future<void> _select(
+  WidgetTester tester,
+  int index, {
+  bool settle = true,
+}) async {
+  final action = find.byTooltip('Add discussion on this line').at(index);
+  await tester.ensureVisible(action);
+  await tester.tap(action);
+  if (settle) {
+    await tester.pumpAndSettle();
+  } else {
+    await tester.pump();
+  }
+}
+
+Future<void> _send(WidgetTester tester, {bool settle = true}) async {
+  await tester.pump();
+  await tester.ensureVisible(_submit);
+  await tester.tap(_submit);
+  if (settle) {
+    await tester.pumpAndSettle();
+  } else {
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 100));
+  }
+}
+
+void main() {
+  for (final locale in ['en', 'ko', 'ja', 'hi', 'zh']) {
+    for (final width in [320.0, 800.0, 1200.0]) {
+      for (final dark in [false, true]) {
+        testWidgets('select and create $locale width=$width dark=$dark', (
+          tester,
+        ) async {
+          final comments = _Comments(), repo = _Repo();
+          final c = _container(repo, comments);
+          final l10n = await _pump(
+            tester,
+            c,
+            width: width,
+            dark: dark,
+            locale: Locale(locale),
+          );
+          final action = find.byTooltip(l10n.mrDiffDiscussLineButton).first;
+          await tester.tap(action);
+          await tester.pumpAndSettle();
+          expect(find.byType(DiffViewer), findsOneWidget);
+          if (width >= 600) {
+            expect(
+              tester.getTopLeft(_draft).dx,
+              greaterThan(tester.getRect(find.byType(DiffViewer)).right),
+            );
+          }
+          await tester.enterText(
+            _draft,
+            '  **Inline review**\n\nKeep formatting.  ',
+          );
+          await _send(tester);
+          expect(comments.creates, hasLength(1));
+          final p = comments.creates.single.$4;
+          expect(p.oldLine, 27);
+          expect(p.newLine, 29);
+          expect(p.baseSha, 'base');
+          expect(p.headSha, 'head');
+          expect(p.startSha, 'start');
+          expect(p.oldPath, 'old.dart');
+          expect(p.newPath, 'new.dart');
+          expect(
+            comments.creates.single.$3,
+            '  **Inline review**\n\nKeep formatting.  ',
+          );
+          expect(_draft, findsNothing);
+          expect(find.text(l10n.mrDiffDiscussionCreated), findsOneWidget);
+          expect(tester.takeException(), isNull);
+        });
+      }
+    }
+  }
+  for (final index in [1, 2]) {
+    testWidgets('creates side coordinates at index $index', (tester) async {
+      final comments = _Comments();
+      final c = _container(_Repo(), comments);
+      await _pump(tester, c);
+      await _select(tester, index);
+      await tester.enterText(_draft, 'Review');
+      await _send(tester);
+      final p = comments.creates.single.$4;
+      expect(p.oldLine, index == 1 ? 28 : null);
+      expect(p.newLine, index == 2 ? 30 : null);
+    });
+  }
+  testWidgets('resize and theme preserve selection and unsent draft', (
+    tester,
+  ) async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    await _pump(tester, c);
+    await _select(tester, 0);
+    await tester.enterText(_draft, 'Unsent draft');
+    await _pump(tester, c, width: 1200, dark: true);
+    expect(tester.widget<TextField>(_draft).controller!.text, 'Unsent draft');
+    expect(
+      tester
+          .widget<DiffViewer>(find.byType(DiffViewer))
+          .highlightedLine!
+          .newLine,
+      29,
+    );
+    expect(comments.creates, isEmpty);
+  });
+  testWidgets(
+    'keyboard-constrained viewport retains editable draft without overflow',
+    (tester) async {
+      final comments = _Comments();
+      final c = _container(_Repo(), comments);
+      await _pump(tester, c, width: 320, height: 600);
+      await _select(tester, 0);
+      await tester.enterText(_draft, 'Keyboard draft');
+      tester.view.viewInsets = const FakeViewPadding(bottom: 280);
+      addTearDown(tester.view.resetViewInsets);
+      await tester.pumpAndSettle();
+      await tester.ensureVisible(_draft);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<TextField>(_draft).controller!.text,
+        'Keyboard draft',
+      );
+      expect(tester.takeException(), isNull);
+      expect(comments.creates, isEmpty);
+    },
+  );
+  testWidgets('cancel is explicit and empty drafts cannot submit', (
+    tester,
+  ) async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    final l = await _pump(tester, c);
+    await _select(tester, 0);
+    expect(tester.widget<FilledButton>(_submit).onPressed, isNull);
+    await tester.enterText(_draft, '  ');
+    expect(tester.widget<FilledButton>(_submit).onPressed, isNull);
+    await tester.enterText(_draft, 'Draft');
+    await tester.tap(find.text(l.mrDiffDiscussionCancel));
+    await tester.pumpAndSettle();
+    expect(_draft, findsNothing);
+    expect(comments.creates, isEmpty);
+  });
+  testWidgets('pending write blocks duplicate actions and draft dismissal', (
+    tester,
+  ) async {
+    final pending = Completer<Discussion>();
+    final comments = _Comments()..result = pending.future;
+    final c = _container(_Repo(), comments);
+    final l = await _pump(tester, c);
+    await _select(tester, 0);
+    await tester.enterText(_draft, 'Draft');
+    await _send(tester, settle: false);
+    expect(tester.widget<TextField>(_draft).enabled, false);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(
+      tester
+          .widget<TextButton>(
+            find.widgetWithText(TextButton, l.mrDiffDiscussionCancel),
+          )
+          .onPressed,
+      isNull,
+    );
+    expect(find.byTooltip(l.mrDiffDiscussLineButton), findsNothing);
+    await _send(tester, settle: false);
+    expect(comments.creates, hasLength(1));
+    pending.complete(
+      const Discussion(id: 'new', individualNote: false, notes: []),
+    );
+    await tester.pumpAndSettle();
+    expect(_draft, findsNothing);
+  });
+  for (final error in [
+    const GitLabForbiddenException('Forbidden'),
+    const GitLabServerException('Unconfirmed'),
+  ]) {
+    testWidgets(
+      'uncertain failure retains draft and requires fresh discussions $error',
+      (tester) async {
+        final pending = Completer<Discussion>();
+        final comments = _Comments()..result = pending.future;
+        final c = _container(_Repo(), comments);
+        final l = await _pump(tester, c);
+        await _select(tester, 0);
+        await tester.enterText(_draft, 'Retained draft');
+        await _send(tester, settle: false);
+        pending.completeError(error);
+        await tester.pumpAndSettle();
+        expect(
+          tester.widget<TextField>(_draft).controller!.text,
+          'Retained draft',
+        );
+        expect(tester.widget<FilledButton>(_submit).onPressed, isNull);
+        await _send(tester);
+        expect(comments.creates, hasLength(1));
+        comments.readError = const GitLabServerException('Read failure');
+        await tester.tap(find.text(l.mrDiffDiscussionReloadButton));
+        await tester.pumpAndSettle();
+        expect(tester.widget<FilledButton>(_submit).onPressed, isNull);
+        comments.readError = null;
+        comments.result = null;
+        await tester.tap(find.text(l.mrDiffDiscussionReloadButton));
+        await tester.pumpAndSettle();
+        await _send(tester);
+        expect(comments.creates, hasLength(2));
+        await _select(tester, 0);
+        expect(find.text(l.mrDiffDiscussionInspect), findsNothing);
+      },
+    );
+  }
+  for (final fail in [false, true]) {
+    testWidgets(
+      'account replacement resets composer and isolates late write fail=$fail',
+      (tester) async {
+        final pending = Completer<Discussion>();
+        final old = _Comments()..result = pending.future;
+        final c = _container(_Repo(), old);
+        await _pump(tester, c);
+        await _select(tester, 0);
+        await tester.enterText(_draft, 'Old draft');
+        await _send(tester, settle: false);
+        final next = _Comments();
+        addTearDown(next.client.close);
+        final nextRepo = _Repo();
+        addTearDown(nextRepo.client.close);
+        c.read(_commentsSession.notifier).state = Future.value(next);
+        c.read(_session.notifier).state = Future.value(nextRepo);
+        await tester.pumpAndSettle();
+        expect(_draft, findsNothing);
+        await _select(tester, 0);
+        await tester.enterText(_draft, 'New draft');
+        if (fail) {
+          pending.completeError(const GitLabServerException('Old failure'));
+        } else {
+          pending.complete(
+            const Discussion(id: 'old', individualNote: false, notes: []),
+          );
+        }
+        await tester.pumpAndSettle();
+        expect(tester.widget<TextField>(_draft).controller!.text, 'New draft');
+        expect(next.creates, isEmpty);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+  testWidgets('MR replacement resets composer', (tester) async {
+    final c = _container(_Repo(), _Comments());
+    await _pump(tester, c);
+    await _select(tester, 0);
+    await tester.enterText(_draft, 'Old MR draft');
+    await _pump(tester, c, iid: 143);
+    expect(_draft, findsNothing);
+  });
+  testWidgets('snapshot failure retry is read-only', (tester) async {
+    final repo = _Repo()..list = const GitLabServerException('Read failure');
+    final comments = _Comments();
+    final c = _container(repo, comments);
+    final l = await _pump(tester, c);
+    expect(find.text(l.retry), findsOneWidget);
+    expect(find.byTooltip(l.mrDiffDiscussLineButton), findsNothing);
+    repo.list = Paginated(items: [_version()]);
+    await tester.tap(find.text(l.retry));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip(l.mrDiffDiscussLineButton), findsNWidgets(3));
+    expect(comments.creates, isEmpty);
+  });
+  testWidgets(
+    'retry reveals accepted server discussion and pages before resubmission',
+    (tester) async {
+      final pending = Completer<Discussion>();
+      final comments = _Comments()..result = pending.future;
+      final c = _container(_Repo(), comments);
+      final l = await _pump(tester, c);
+      await _select(tester, 0);
+      await tester.enterText(_draft, 'Uncertain draft');
+      await _send(tester, settle: false);
+      final p = comments.creates.single.$4;
+      pending.completeError(
+        const GitLabServerException('Unconfirmed response'),
+      );
+      await tester.pumpAndSettle();
+      comments.pages[1] = Paginated(
+        items: [
+          Discussion(
+            id: 'accepted',
+            individualNote: false,
+            notes: [
+              Note(id: 301, body: 'Already accepted discussion', position: p),
+            ],
+          ),
+        ],
+        nextPage: 2,
+      );
+      comments.pages[2] = Paginated(
+        items: [
+          Discussion(
+            id: 'older',
+            individualNote: false,
+            notes: [Note(id: 302, body: 'Earlier discussion', position: p)],
+          ),
+        ],
+      );
+      await tester.tap(find.text(l.mrDiffDiscussionReloadButton));
+      await tester.pumpAndSettle();
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is MarkdownViewer && w.data == 'Already accepted discussion',
+        ),
+        findsOneWidget,
+      );
+      expect(
+        tester.widget<TextField>(_draft).controller!.text,
+        'Uncertain draft',
+      );
+      await tester.ensureVisible(find.text(l.mrDiscussionsLoadMore));
+      await tester.tap(find.text(l.mrDiscussionsLoadMore));
+      await tester.pumpAndSettle();
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is MarkdownViewer && w.data == 'Earlier discussion',
+        ),
+        findsOneWidget,
+      );
+      expect(comments.creates, hasLength(1));
+    },
+  );
+  test('positioned writes share root comment reservation', () async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    final subscription = c.listen(
+      mrReviewSnapshotControllerProvider(_arg),
+      (_, _) {},
+    );
+    addTearDown(subscription.close);
+    final snapshot = await c.read(
+      mrReviewSnapshotControllerProvider(_arg).future,
+    );
+    final f = snapshot.files.single;
+    final p = snapshot.positionFor(f, f.hunks.single.lines.first)!;
+    await c.read(mrDiscussionsControllerProvider(_arg).future);
+    final pending = Completer<Discussion>();
+    comments.result = pending.future;
+    final ctrl = c.read(mrDiscussionsControllerProvider(_arg).notifier);
+    final first = ctrl.createPositioned(body: 'Draft', position: p);
+    await Future<void>.delayed(Duration.zero);
+    expect(await ctrl.post('Other'), false);
+    expect(await ctrl.createPositioned(body: 'Other', position: p), false);
+    expect(comments.creates, hasLength(1));
+    expect(comments.posts, isEmpty);
+    pending.complete(
+      const Discussion(id: 'new', individualNote: false, notes: []),
+    );
+    expect(await first, true);
+  });
+  test('root note reserves before positioned submission', () async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    final sub = c.listen(mrReviewSnapshotControllerProvider(_arg), (_, _) {});
+    addTearDown(sub.close);
+    final snapshot = await c.read(
+      mrReviewSnapshotControllerProvider(_arg).future,
+    );
+    final f = snapshot.files.single,
+        p = snapshot.positionFor(
+          snapshot.files.single,
+          snapshot.files.single.hunks.single.lines.first,
+        )!;
+    expect(f.oldPath, 'old.dart');
+    await c.read(mrDiscussionsControllerProvider(_arg).future);
+    final ctrl = c.read(mrDiscussionsControllerProvider(_arg).notifier);
+    final first = ctrl.post('Root note');
+    expect(await ctrl.createPositioned(body: 'Inline', position: p), false);
+    expect(await first, true);
+    expect(comments.creates, isEmpty);
+    expect(comments.posts, ['Root note']);
+  });
+  test(
+    'account replacement before dispatch cancels positioned creation',
+    () async {
+      final comments = _Comments(), repo = _Repo();
+      final c = _container(repo, comments);
+      final sub = c.listen(mrReviewSnapshotControllerProvider(_arg), (_, _) {});
+      addTearDown(sub.close);
+      final snapshot = await c.read(
+        mrReviewSnapshotControllerProvider(_arg).future,
+      );
+      final f = snapshot.files.single;
+      final p = snapshot.positionFor(f, f.hunks.single.lines.first)!;
+      await c.read(mrDiscussionsControllerProvider(_arg).future);
+      final future = c
+          .read(mrDiscussionsControllerProvider(_arg).notifier)
+          .createPositioned(body: 'Old draft', position: p);
+      final next = _Comments(), nextRepo = _Repo();
+      addTearDown(next.client.close);
+      addTearDown(nextRepo.client.close);
+      c.read(_commentsSession.notifier).state = Future.value(next);
+      c.read(_session.notifier).state = Future.value(nextRepo);
+      expect(await future, false);
+      expect(comments.creates, isEmpty);
+      expect(next.creates, isEmpty);
+    },
+  );
+  test(
+    'real comments repository forwards positioned creation to the API',
+    () async {
+      late RequestOptions request;
+      const position = DiffNotePosition(
+        baseSha: 'base',
+        startSha: 'start',
+        headSha: 'head',
+        oldPath: 'old.dart',
+        newPath: 'new.dart',
+        positionType: 'text',
+        newLine: 30,
+      );
+      final dio = Dio()
+        ..httpClientAdapter = _CreatedAdapter((o) {
+          request = o;
+        });
+      final client = GitLabClient(
+        baseUrl: 'https://gitlab.example.com',
+        token: 'glpat-xxxxxxxxxxxx',
+        dio: dio,
+      );
+      addTearDown(client.close);
+      final result = await CommentsRepository(client)
+          .createPositionedDiscussion(
+            projectId: 8,
+            iid: 142,
+            body: '  Markdown draft  ',
+            position: position,
+          );
+      expect(request.path, '/projects/8/merge_requests/142/discussions');
+      expect(request.method, 'POST');
+      expect(request.data, {
+        'body': '  Markdown draft  ',
+        'position': position.toJson()..removeWhere((_, value) => value == null),
+      });
+      expect(result.notes.single.position, position);
+    },
+  );
+  test('forged positions are rejected without dispatch', () async {
+    final comments = _Comments();
+    final c = _container(_Repo(), comments);
+    final subscription = c.listen(
+      mrReviewSnapshotControllerProvider(_arg),
+      (_, _) {},
+    );
+    addTearDown(subscription.close);
+    final snapshot = await c.read(
+      mrReviewSnapshotControllerProvider(_arg).future,
+    );
+    final f = snapshot.files.single;
+    final p = snapshot.positionFor(f, f.hunks.single.lines.first)!;
+    await c.read(mrDiscussionsControllerProvider(_arg).future);
+    expect(
+      await c
+          .read(mrDiscussionsControllerProvider(_arg).notifier)
+          .createPositioned(
+            body: 'Draft',
+            position: p.copyWith(headSha: 'forged'),
+          ),
+      false,
+    );
+    expect(comments.creates, isEmpty);
+  });
+}
+
+class _CreatedAdapter implements HttpClientAdapter {
+  _CreatedAdapter(this.capture);
+  final void Function(RequestOptions) capture;
+  @override
+  Future<ResponseBody> fetch(
+    RequestOptions options,
+    Stream<Uint8List>? requestStream,
+    Future<void>? cancelFuture,
+  ) async {
+    capture(options);
+    return ResponseBody.fromString(
+      jsonEncode({
+        'id': 'created',
+        'individual_note': false,
+        'notes': [
+          {
+            'id': 301,
+            'body': 'Created',
+            'type': 'DiffNote',
+            'system': false,
+            'position': (options.data as Map)['position'],
+          },
+        ],
+      }),
+      201,
+      headers: {
+        Headers.contentTypeHeader: [Headers.jsonContentType],
+      },
+    );
+  }
+
+  @override
+  void close({bool force = false}) {}
+}

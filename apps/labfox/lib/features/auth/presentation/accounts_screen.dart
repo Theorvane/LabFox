@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
 import '../../../core/auth/auth_controller.dart';
-import '../../../core/entitlement/paywall.dart';
 import '../../../l10n/app_localizations.dart';
 
 /// Lists the connected accounts, marks the active one, and switches, adds, or
@@ -59,16 +58,7 @@ class AccountsScreen extends ConsumerWidget {
           ListTile(
             leading: const Icon(LabFoxIcons.add),
             title: Text(l10n.accountAdd),
-            // One account is free; connecting more is the subscription
-            // (monetization.md §2), so the row offers rather than refuses.
-            onTap: () => accounts.isEmpty
-                ? context.push(Routes.addAccount)
-                : runSubscribed(
-                    context,
-                    ref,
-                    feature: PaidFeature.multipleAccounts,
-                    action: () async => context.push(Routes.addAccount),
-                  ),
+            onTap: () => context.push(Routes.addAccount),
           ),
         ],
       ),

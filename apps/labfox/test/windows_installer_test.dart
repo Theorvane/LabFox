@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// Guards the Windows installer that ships beside the zip.
 ///
-/// Windows is a direct download, not a store (`.agents/docs/monetization.md`
-/// §1), so the release page is the whole install experience. A zip asks the
+/// Windows is a direct download, not a store, so the release page is the
+/// whole install experience. A zip asks the
 /// user to unpack it somewhere sensible and make their own shortcut; an
 /// installer is what a Windows user expects a download to be. Both ship: the
 /// zip stays for anyone who wants a portable copy.

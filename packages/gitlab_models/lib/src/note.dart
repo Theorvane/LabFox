@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'diff_note_position.dart';
+import 'suggestion.dart';
 import 'user.dart';
 
 part 'note.freezed.dart';
@@ -18,6 +20,14 @@ abstract class Note with _$Note {
     @JsonKey(name: 'system') @Default(false) bool isSystem,
     User? author,
     @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    String? type,
+    DiffNotePosition? position,
+    List<Suggestion>? suggestions,
+    bool? resolvable,
+    bool? resolved,
+    @JsonKey(name: 'resolved_by') User? resolvedBy,
+    @JsonKey(name: 'resolved_at') DateTime? resolvedAt,
   }) = _Note;
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);

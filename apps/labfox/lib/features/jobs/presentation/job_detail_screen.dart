@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-import '../../../core/entitlement/paywall.dart';
 import '../../../core/ui/ci_visual.dart';
 import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
@@ -229,14 +228,7 @@ class _ActionButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     return OutlinedButton.icon(
-      onPressed: busy
-          ? null
-          : () => runSubscribed(
-              context,
-              ref,
-              feature: PaidFeature.pipelineActions,
-              action: () => _run(context, l10n),
-            ),
+      onPressed: busy ? null : () => _run(context, l10n),
       icon: Icon(icon, size: 18),
       label: Text(label),
     );

@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../common/exceptions.dart';
+import '../common/offset_pagination.dart';
 import '../common/paginated.dart';
 import '../gitlab_client.dart';
 import 'repository_file.dart';
@@ -12,6 +15,89 @@ class RepositoryApi {
   const RepositoryApi(this._dio);
 
   final Dio _dio;
+
+  /// Lists repository tags, most recently updated first by GitLab default.
+  Future<Paginated<RepositoryTag>> tags(
+    Object projectId, {
+    int page = 1,
+    int perPage = 20,
+    String? search,
+  }) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/repository/tags',
+        queryParameters: {
+          'page': page,
+          'per_page': perPage,
+          if (search != null && search.isNotEmpty) 'search': search,
+        },
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'listing repository tags',
+        );
+      }
+      final items = (response.data as List<dynamic>? ?? const [])
+          .cast<Map<String, dynamic>>()
+          .map(RepositoryTag.fromJson)
+          .toList(growable: false);
+      return Paginated.fromHeaders(items, response.headers.map);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'listing repository tags');
+    }
+  }
+
+  /// Loads one tag. Names can contain slashes, so they remain one URL segment.
+  Future<RepositoryTag> tag(Object projectId, String name) async {
+    try {
+      final response = await _dio.get<dynamic>(
+        '/projects/${_enc(projectId)}/repository/tags/${Uri.encodeComponent(name)}',
+      );
+      if (response.statusCode != 200 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'loading a repository tag',
+        );
+      }
+      return RepositoryTag.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'loading a repository tag');
+    }
+  }
+
+  /// Creates a lightweight tag, or an annotated tag when [message] is set.
+  Future<RepositoryTag> createTag(
+    Object projectId, {
+    required String name,
+    required String ref,
+    String? message,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(
+        '/projects/${_enc(projectId)}/repository/tags',
+        queryParameters: {
+          'tag_name': name,
+          'ref': ref,
+          if (message != null && message.isNotEmpty) 'message': message,
+        },
+      );
+      if (response.statusCode != 201 ||
+          response.data is! Map<String, dynamic>) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'creating a repository tag',
+        );
+      }
+      return RepositoryTag.fromJson(response.data as Map<String, dynamic>);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'creating a repository tag');
+    }
+  }
 
   /// Lists a directory of the tree on a ref.
   ///
@@ -187,6 +273,146 @@ class RepositoryApi {
       return Commit.fromJson(data);
     } on DioException catch (error) {
       throw mapError(error, context: 'loading the commit');
+    }
+  }
+
+  /// Reads an exact commit identity and preserves ordered, nullable parents.
+  /// General branch/tag detail reads use [commit] instead. This method does not
+  /// choose original diff references or prove current MR membership.
+  Future<Commit> fixedCommit(
+    Object projectId, {
+    required String commitId,
+  }) async {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (!_validCommitId(commitId)) {
+      throw ArgumentError.value(commitId, 'commitId');
+    }
+    try {
+      final response = await _dio.get<String>(
+        '/projects/${_enc(projectId)}/repository/commits/$commitId',
+        queryParameters: {'stats': false},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'reading a fixed commit',
+        );
+      }
+      try {
+        final data = jsonDecode(response.data ?? '');
+        if (data is! Map<String, dynamic> || data['id'] != commitId) {
+          throw const FormatException();
+        }
+        final parents = data['parent_ids'];
+        if (parents != null &&
+            (parents is! List ||
+                parents.any((p) => !_validCommitId(p) || p == commitId) ||
+                parents.toSet().length != parents.length)) {
+          throw const FormatException();
+        }
+        return Commit.fromJson(data);
+      } on FormatException {
+        throw const GitLabServerException('Invalid fixed commit response.');
+      } on TypeError {
+        throw const GitLabServerException('Invalid fixed commit response.');
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'reading a fixed commit');
+    }
+  }
+
+  static bool _validCommitId(Object? value) =>
+      value is String &&
+      value.length == 40 &&
+      !RegExp(r'[^0-9a-f]').hasMatch(value);
+
+  /// Reads one page of literal original diff files for a fixed commit identity.
+  /// Preserves unknown text/omission metadata without inferring file coverage.
+  /// GitLab diff limits can stop pagination before every changed file is exposed.
+  /// This read supplies neither original position references nor write eligibility.
+  Future<Paginated<CommitDiffFile>> commitDiffPage(
+    Object projectId, {
+    required String commitId,
+    int page = 1,
+    int perPage = 20,
+  }) async {
+    if (!((projectId is int && projectId > 0) ||
+        (projectId is String && projectId.trim().isNotEmpty))) {
+      throw ArgumentError.value(projectId, 'projectId');
+    }
+    if (commitId.length != 40 || RegExp(r'[^0-9a-f]').hasMatch(commitId)) {
+      throw ArgumentError.value(commitId, 'commitId');
+    }
+    if (page < 1) throw ArgumentError.value(page, 'page');
+    if (perPage < 1 || perPage > 100) {
+      throw ArgumentError.value(perPage, 'perPage');
+    }
+    try {
+      final response = await _dio.get<String>(
+        '/projects/${_enc(projectId)}/repository/commits/$commitId/diff',
+        queryParameters: {'unidiff': true, 'page': page, 'per_page': perPage},
+        options: Options(
+          responseType: ResponseType.plain,
+          followRedirects: false,
+        ),
+      );
+      if (response.statusCode != 200) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'reading original commit diff',
+        );
+      }
+      try {
+        final payload = jsonDecode(response.data ?? '');
+        if (payload is! List) throw const FormatException();
+        final paths = <(String, String)>{};
+        final items = <CommitDiffFile>[];
+        for (final entry in payload) {
+          if (entry is! Map<String, dynamic>) throw const FormatException();
+          final file = CommitDiffFile.fromJson(entry);
+          if (file.oldPath.isEmpty ||
+              file.newPath.isEmpty ||
+              file.oldPath.contains('\u0000') ||
+              file.newPath.contains('\u0000') ||
+              !paths.add((file.oldPath, file.newPath))) {
+            throw const FormatException();
+          }
+          items.add(file);
+        }
+        final next = validatedOffsetNextPage(
+          response,
+          page: page,
+          perPage: perPage,
+          fixedQuery: {'unidiff': 'true'},
+          routeEchoes: {'id': '$projectId', 'sha': commitId},
+        );
+        final metadata = Paginated.fromHeaders(items, response.headers.map);
+        return Paginated(
+          items: List<CommitDiffFile>.unmodifiable(items),
+          nextPage: next,
+          total: metadata.total,
+          totalPages: metadata.totalPages,
+        );
+      } on FormatException {
+        throw const GitLabServerException(
+          'Invalid original commit diff response.',
+        );
+      } on TypeError {
+        throw const GitLabServerException(
+          'Invalid original commit diff response.',
+        );
+      }
+    } on DioException catch (error) {
+      throw mapError(error, context: 'reading original commit diff');
     }
   }
 

@@ -180,6 +180,232 @@ class IssuesApi {
     }
   }
 
+  /// Updates an issue's title and description. An empty description clears it.
+  Future<Issue> update(
+    Object projectId, {
+    required int iid,
+    required String title,
+    required String description,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'title': title, 'description': description},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue');
+    }
+  }
+
+  /// Replaces an issue's labels, including clearing them with an empty value.
+  Future<Issue> updateLabels(
+    Object projectId, {
+    required int iid,
+    required List<String> labels,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'labels': labels.join(',')},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue labels',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue labels');
+    }
+  }
+
+  /// Sets or clears an issue due date; an empty value clears the date.
+  Future<Issue> updateDueDate(
+    Object projectId, {
+    required int iid,
+    required String dueDate,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'due_date': dueDate},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue due date',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue due date');
+    }
+  }
+
+  /// Locks or unlocks an issue discussion.
+  Future<Issue> setDiscussionLocked(
+    Object projectId, {
+    required int iid,
+    required bool locked,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'discussion_locked': locked},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue discussion lock',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue discussion lock');
+    }
+  }
+
+  /// Sets or clears the issue's confidential flag.
+  Future<Issue> setConfidential(
+    Object projectId, {
+    required int iid,
+    required bool confidential,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'confidential': confidential},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue confidentiality',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue confidentiality');
+    }
+  }
+
+  /// Assigns a milestone by global ID; zero removes the current milestone.
+  Future<Issue> updateMilestone(
+    Object projectId, {
+    required int iid,
+    required int milestoneId,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'milestone_id': milestoneId},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating the issue milestone',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating the issue milestone');
+    }
+  }
+
+  /// Replaces issue assignees. An empty list removes every assignee.
+  Future<Issue> updateAssignees(
+    Object projectId, {
+    required int iid,
+    required List<int> assigneeIds,
+  }) async {
+    try {
+      final response = await _dio.put<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid',
+        data: {'assignee_ids': assigneeIds},
+      );
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue assignees',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue assignees');
+    }
+  }
+
+  /// Subscribes or unsubscribes the current user from issue notifications.
+  /// Returns null for GitLab's idempotent 304 (already in the requested state).
+  Future<Issue?> setSubscription(
+    Object projectId, {
+    required int iid,
+    required bool subscribed,
+  }) async {
+    try {
+      final action = subscribed ? 'subscribe' : 'unsubscribe';
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid/$action',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if (response.statusCode != 200 || data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'updating issue notifications',
+        );
+      }
+      return Issue.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'updating issue notifications');
+    }
+  }
+
+  /// Adds the issue to the current user's to-do list. Returns null when
+  /// GitLab reports 304 because a pending item already exists.
+  Future<Todo?> createTodo(Object projectId, {required int iid}) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/projects/${_enc(projectId)}/issues/$iid/todo',
+      );
+      if (response.statusCode == 304) return null;
+      final data = response.data;
+      if ((response.statusCode != 200 && response.statusCode != 201) ||
+          data == null) {
+        throw mapStatus(
+          response.statusCode,
+          response.headers.map,
+          context: 'adding the issue to your to-do list',
+        );
+      }
+      return Todo.fromJson(data);
+    } on DioException catch (error) {
+      throw mapError(error, context: 'adding the issue to your to-do list');
+    }
+  }
+
   /// A single issue by its `iid` — the per-project number a user sees, never
   /// the global `id`.
   Future<Issue> get(Object projectId, {required int iid}) async {

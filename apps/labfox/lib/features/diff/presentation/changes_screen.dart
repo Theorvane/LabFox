@@ -39,7 +39,7 @@ class ChangesScreen extends ConsumerWidget {
           }
           return ListView.builder(
             itemCount: files.length,
-            itemBuilder: (context, index) => _FileDiffCard(file: files[index]),
+            itemBuilder: (context, index) => DiffFileCard(file: files[index]),
           );
         },
       ),
@@ -47,10 +47,25 @@ class ChangesScreen extends ConsumerWidget {
   }
 }
 
-class _FileDiffCard extends StatelessWidget {
-  const _FileDiffCard({required this.file});
+class DiffFileCard extends StatelessWidget {
+  const DiffFileCard({
+    required this.file,
+    this.onLineSelected,
+    this.canSelectLine,
+    this.lineActionLabel,
+    this.highlightedLine,
+    this.highlightedLines = const [],
+    this.highlightedLineLabel,
+    super.key,
+  });
 
   final FileDiff file;
+  final ValueChanged<DiffLine>? onLineSelected;
+  final bool Function(DiffLine)? canSelectLine;
+  final String? lineActionLabel;
+  final DiffLine? highlightedLine;
+  final List<DiffLine> highlightedLines;
+  final String? highlightedLineLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +99,12 @@ class _FileDiffCard extends StatelessWidget {
         ),
         DiffViewer(
           file: file,
+          onLineSelected: onLineSelected,
+          canSelectLine: canSelectLine,
+          lineActionLabel: lineActionLabel,
+          highlightedLine: highlightedLine,
+          highlightedLines: highlightedLines,
+          highlightedLineLabel: highlightedLineLabel ?? lineActionLabel,
           binaryLabel: l10n.changesBinary,
           omittedLabel: l10n.changesOmitted,
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
+import '../tokens/icon_size.dart';
+import '../tokens/icons.dart';
 import '../tokens/spacing.dart';
 
 /// Renders one file's unified diff.
@@ -14,6 +16,13 @@ class DiffViewer extends StatelessWidget {
     required this.file,
     this.binaryLabel = 'Binary file',
     this.omittedLabel = 'Diff not shown',
+    this.highlightedLine,
+    this.highlightedLines = const [],
+    this.highlightedLineLabel,
+    this.focusOnHighlightedLine = false,
+    this.onLineSelected,
+    this.canSelectLine,
+    this.lineActionLabel,
     super.key,
   });
 
@@ -27,6 +36,21 @@ class DiffViewer extends StatelessWidget {
   /// mislabelled as binary.
   final String omittedLabel;
 
+  /// A line from this file to mark with a non-color, accessible indicator.
+  final DiffLine? highlightedLine;
+
+  /// Additional literal members from this file; foreign/duplicate lines are ignored.
+  final List<DiffLine> highlightedLines;
+  final String? highlightedLineLabel;
+
+  /// Show only containing hunks when supplied highlighted lines belong to this file.
+  final bool focusOnHighlightedLine;
+
+  /// Optional caller-localized action on eligible original lines.
+  final ValueChanged<DiffLine>? onLineSelected;
+  final bool Function(DiffLine)? canSelectLine;
+  final String? lineActionLabel;
+
   @override
   Widget build(BuildContext context) {
     if (file.isBinary || file.isOmitted) {
@@ -39,14 +63,14 @@ class DiffViewer extends StatelessWidget {
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        for (final hunk in file.hunks) ...[
-          _HunkHeader(header: hunk.header),
-          for (final line in hunk.lines) _DiffLineRow(line: line),
-        ],
-      ],
+    return DiffHunksViewer(
+      hunks: file.hunks,
+      highlightedLines: [?highlightedLine, ...highlightedLines],
+      highlightedLineLabel: highlightedLineLabel,
+      focusOnHighlightedLine: focusOnHighlightedLine,
+      onLineSelected: onLineSelected,
+      canSelectLine: canSelectLine,
+      lineActionLabel: lineActionLabel,
     );
   }
 }
@@ -79,9 +103,21 @@ class _HunkHeader extends StatelessWidget {
 }
 
 class _DiffLineRow extends StatelessWidget {
-  const _DiffLineRow({required this.line});
+  const _DiffLineRow({
+    required this.line,
+    this.showHighlightGutter = false,
+    this.highlighted = false,
+    this.highlightedLabel,
+    this.onSelected,
+    this.actionLabel,
+  });
 
   final DiffLine line;
+  final bool showHighlightGutter;
+  final bool highlighted;
+  final String? highlightedLabel;
+  final VoidCallback? onSelected;
+  final String? actionLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +134,43 @@ class _DiffLineRow extends StatelessWidget {
       DiffLineType.context => (Colors.transparent, ' '),
     };
 
-    return Container(
-      color: background,
+    final row = Container(
+      decoration: BoxDecoration(
+        color: background,
+        border: showHighlightGutter
+            ? Border(
+                left: BorderSide(
+                  color: highlighted
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
+                  width: LabFoxSpacing.xs,
+                ),
+              )
+            : null,
+      ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            if (showHighlightGutter)
+              SizedBox(
+                width: LabFoxIconSize.md,
+                child: highlighted
+                    ? Icon(
+                        LabFoxIcons.comment,
+                        size: LabFoxIconSize.sm,
+                        color: Theme.of(context).colorScheme.primary,
+                      )
+                    : null,
+              ),
+            if (onSelected != null)
+              IconButton(
+                onPressed: onSelected,
+                tooltip: actionLabel,
+                icon: const Icon(LabFoxIcons.comment, size: LabFoxIconSize.sm),
+                visualDensity: VisualDensity.standard,
+              ),
             _gutter(line.oldLine),
             _gutter(line.newLine),
             SizedBox(
@@ -120,6 +186,9 @@ class _DiffLineRow extends StatelessWidget {
         ),
       ),
     );
+    return highlighted
+        ? Semantics(label: highlightedLabel, selected: true, child: row)
+        : row;
   }
 
   Widget _gutter(int? number) => Container(
@@ -142,4 +211,54 @@ class _DiffLineRow extends StatelessWidget {
     height: 1.4,
     color: Theme.of(context).colorScheme.onSurface,
   );
+}
+
+/// Renders already validated diff hunks without reparsing their rows.
+class DiffHunksViewer extends StatelessWidget {
+  const DiffHunksViewer({
+    required this.hunks,
+    this.highlightedLines = const [],
+    this.highlightedLineLabel,
+    this.focusOnHighlightedLine = false,
+    this.onLineSelected,
+    this.canSelectLine,
+    this.lineActionLabel,
+    super.key,
+  });
+  final List<DiffHunk> hunks;
+  final List<DiffLine> highlightedLines;
+  final String? highlightedLineLabel, lineActionLabel;
+  final bool focusOnHighlightedLine;
+  final ValueChanged<DiffLine>? onLineSelected;
+  final bool Function(DiffLine)? canSelectLine;
+  @override
+  Widget build(BuildContext context) {
+    final marked = Set<DiffLine>.identity()..addAll(highlightedLines);
+    final matching = hunks.where((hunk) => hunk.lines.any(marked.contains));
+    final displayed = focusOnHighlightedLine && matching.isNotEmpty
+        ? matching
+        : hunks;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final hunk in displayed) ...[
+          _HunkHeader(header: hunk.header),
+          for (final line in hunk.lines)
+            _DiffLineRow(
+              line: line,
+              onSelected:
+                  onLineSelected != null &&
+                      lineActionLabel != null &&
+                      (canSelectLine?.call(line) ?? true)
+                  ? () => onLineSelected!(line)
+                  : null,
+              actionLabel: lineActionLabel,
+              showHighlightGutter: marked.isNotEmpty,
+              highlighted: marked.contains(line),
+              highlightedLabel: highlightedLineLabel,
+            ),
+        ],
+      ],
+    );
+  }
 }

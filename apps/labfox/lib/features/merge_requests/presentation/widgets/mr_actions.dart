@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
 
-import '../../../../core/entitlement/paywall.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../controllers/merge_requests_controllers.dart';
 import '../controllers/mr_actions_controller.dart';
@@ -36,11 +35,36 @@ class MrActions extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        approvals.maybeWhen(
+        approvals.when(
+          skipLoadingOnRefresh: false,
+          skipLoadingOnReload: false,
           data: (a) => a == null
               ? const SizedBox.shrink()
               : _ApprovalSummary(approvals: a),
-          orElse: () => const SizedBox.shrink(),
+          loading: () => Row(
+            children: [
+              const SizedBox(
+                width: LabFoxIconSize.sm,
+                height: LabFoxIconSize.sm,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+              const SizedBox(width: LabFoxSpacing.sm),
+              Expanded(child: Text(l10n.mrApprovalStatusLoading)),
+            ],
+          ),
+          error: (_, _) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l10n.mrApprovalStatusError),
+              TextButton(
+                key: const ValueKey('mr-approvals-retry'),
+                onPressed: busy
+                    ? null
+                    : () => ref.invalidate(mrApprovalsProvider(mrRef)),
+                child: Text(l10n.retry),
+              ),
+            ],
+          ),
         ),
         if (mr.isMergeable != null) ...[
           const SizedBox(height: LabFoxSpacing.xs),
@@ -51,15 +75,9 @@ class MrActions extends ConsumerWidget {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: busy
+                onPressed: busy || approvals.isLoading || approvals.hasError
                     ? null
-                    : () => runSubscribed(
-                        context,
-                        ref,
-                        feature: PaidFeature.mergeRequestActions,
-                        action: () =>
-                            _toggleApproval(context, ref, mrRef, approvals),
-                      ),
+                    : () => _toggleApproval(context, ref, mrRef),
                 icon: const Icon(LabFoxIcons.approval, size: 18),
                 label: Text(_approveLabel(l10n, approvals)),
               ),
@@ -67,14 +85,7 @@ class MrActions extends ConsumerWidget {
             const SizedBox(width: LabFoxSpacing.sm),
             Expanded(
               child: FilledButton.icon(
-                onPressed: busy
-                    ? null
-                    : () => runSubscribed(
-                        context,
-                        ref,
-                        feature: PaidFeature.mergeRequestActions,
-                        action: () => _startMerge(context, ref, mrRef),
-                      ),
+                onPressed: busy ? null : () => _startMerge(context, ref, mrRef),
                 icon: const Icon(LabFoxIcons.merged, size: 18),
                 label: Text(l10n.mrMerge),
               ),
@@ -149,8 +160,9 @@ class MrActions extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     MergeRequestRef mrRef,
-    AsyncValue<MergeRequestApprovals?> approvals,
   ) async {
+    final approvals = ref.read(mrApprovalsProvider(mrRef));
+    if (approvals.isLoading || approvals.hasError) return;
     final notifier = ref.read(mrActionsControllerProvider(mrRef).notifier);
     final approved = approvals.valueOrNull?.userHasApproved ?? false;
     final l10n = AppLocalizations.of(context);
