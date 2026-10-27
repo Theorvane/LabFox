@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_api/gitlab_api.dart';
 import 'package:gitlab_models/gitlab_models.dart';
+import 'package:labfox/core/auth/auth_controller.dart';
 import 'package:labfox/features/container_registry/data/container_registry_repository.dart';
 import 'package:labfox/features/container_registry/presentation/container_registry_screen.dart';
 import 'package:labfox/features/container_registry/presentation/controllers/container_registry_controllers.dart';
@@ -19,6 +20,15 @@ const _repository = RegistryRepository(
   projectId: 7,
 );
 const _tag = RegistryTag(name: 'v1', path: 'team/app/service:v1');
+const _firstAccount = Account(
+  instanceUrl: 'https://first.gitlab.example',
+  user: User(id: 23, username: 'developer', name: 'Developer'),
+);
+const _secondAccount = Account(
+  instanceUrl: 'https://second.gitlab.example',
+  user: User(id: 23, username: 'developer', name: 'Developer'),
+);
+final _activeAccount = StateProvider<Account?>((ref) => _firstAccount);
 
 class _Repository extends ContainerRegistryRepository {
   _Repository()
@@ -89,6 +99,25 @@ ProviderContainer _container(_Repository repository) {
   return container;
 }
 
+ProviderContainer _twoInstanceContainer(
+  _Repository first,
+  _Repository second,
+) {
+  final container = ProviderContainer(
+    overrides: [
+      currentAccountProvider.overrideWith((ref) => ref.watch(_activeAccount)),
+      containerRegistryRepositoryProvider.overrideWith((ref) async {
+        final account = ref.watch(currentAccountProvider);
+        return account?.instanceUrl == _firstAccount.instanceUrl
+            ? first
+            : second;
+      }),
+    ],
+  );
+  addTearDown(container.dispose);
+  return container;
+}
+
 Future<void> _pump(
   WidgetTester tester,
   _Repository repository, {
@@ -123,6 +152,54 @@ Future<void> _open(WidgetTester tester) async {
 }
 
 void main() {
+  test(
+    'scheduled deletion belongs only to the active GitLab instance',
+    () async {
+      final first = _Repository();
+      final second = _Repository();
+      final container = _twoInstanceContainer(first, second);
+      final provider = containerRepositoryDeleteControllerProvider(_target);
+      final subscription = container.listen(provider, (_, _) {});
+      addTearDown(subscription.close);
+
+      await container.read(provider.future);
+      await container.read(provider.notifier).delete();
+      expect(container.read(provider).requireValue, isTrue);
+
+      container.read(_activeAccount.notifier).state = _secondAccount;
+      await container.read(provider.future);
+      expect(container.read(provider).requireValue, isFalse);
+      await container.read(provider.notifier).delete();
+      expect(first.deletes, 1);
+      expect(second.deletes, 1);
+    },
+  );
+
+  test(
+    'old instance completion cannot mark the new instance scheduled',
+    () async {
+      final first = _Repository()..pending = Completer<void>();
+      final second = _Repository();
+      final container = _twoInstanceContainer(first, second);
+      final provider = containerRepositoryDeleteControllerProvider(_target);
+      final subscription = container.listen(provider, (_, _) {});
+      addTearDown(subscription.close);
+
+      await container.read(provider.future);
+      final oldDelete = container.read(provider.notifier).delete();
+      await Future<void>.delayed(Duration.zero);
+      container.read(_activeAccount.notifier).state = _secondAccount;
+      await Future<void>.delayed(Duration.zero);
+      first.pending!.complete();
+      await oldDelete;
+      await container.read(provider.future);
+      expect(container.read(provider).requireValue, isFalse);
+      await container.read(provider.notifier).delete();
+      expect(first.deletes, 1);
+      expect(second.deletes, 1);
+    },
+  );
+
   test(
     'acceptance refreshes only project and parent tags without claiming completion',
     () async {
