@@ -99,10 +99,7 @@ ProviderContainer _container(_Repository repository) {
   return container;
 }
 
-ProviderContainer _twoInstanceContainer(
-  _Repository first,
-  _Repository second,
-) {
+ProviderContainer _twoInstanceContainer(_Repository first, _Repository second) {
   final container = ProviderContainer(
     overrides: [
       currentAccountProvider.overrideWith((ref) => ref.watch(_activeAccount)),
