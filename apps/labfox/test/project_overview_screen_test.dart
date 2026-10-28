@@ -27,8 +27,16 @@ class _StubController extends ProjectOverviewController {
 
 Future<void> _pump(
   WidgetTester tester,
-  AsyncValue<ProjectOverview> value,
-) async {
+  AsyncValue<ProjectOverview> value, {
+  Size? size,
+  ThemeMode themeMode = ThemeMode.light,
+}) async {
+  if (size != null) {
+    tester.view.physicalSize = size;
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+  }
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
@@ -36,10 +44,12 @@ Future<void> _pump(
           () => _StubController(value),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        themeMode: themeMode,
+        darkTheme: ThemeData.dark(),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: ProjectOverviewScreen(projectId: 1),
+        home: const ProjectOverviewScreen(projectId: 1),
       ),
     ),
   );
@@ -81,6 +91,11 @@ void main() {
     expect(find.text('Issues'), findsOneWidget);
     expect(find.text('Merge requests'), findsOneWidget);
     expect(find.text('Pipelines'), findsOneWidget);
+    expect(find.text('Releases'), findsOneWidget);
+    expect(find.text('Members'), findsOneWidget);
+    expect(find.text('Wiki'), findsOneWidget);
+    expect(find.text('Package registry'), findsOneWidget);
+    expect(find.text('Milestones'), findsOneWidget);
   });
 
   testWidgets('shows a no-README message, not a blank, when there is none', (
@@ -148,5 +163,138 @@ void main() {
     expect(find.text('Issues'), findsOneWidget);
     expect(find.text('Browse code'), findsNothing);
     expect(find.text('0'), findsNothing);
+  });
+
+  testWidgets('hides container registry when GitLab disables it', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(
+        _overview(
+          project: const Project(
+            id: 1,
+            name: 'backend',
+            pathWithNamespace: 'youthpick/backend',
+            containerRegistryAccessLevel: 'disabled',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Container registry'), findsNothing);
+  });
+
+  testWidgets('hides the wiki entry when the project disables it', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(
+        _overview(
+          project: const Project(
+            id: 1,
+            name: 'backend',
+            pathWithNamespace: 'team/backend',
+            wikiAccessLevel: 'disabled',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Wiki'), findsNothing);
+  });
+
+  testWidgets('hides the package entry when the registry is disabled', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(
+        _overview(
+          project: const Project(
+            id: 1,
+            name: 'tools',
+            pathWithNamespace: 'team/tools',
+            packageRegistryAccessLevel: 'disabled',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Package registry'), findsNothing);
+  });
+
+  testWidgets('shows the project description beneath its identity', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(
+        _overview(
+          project: const Project(
+            id: 1,
+            name: 'backend',
+            pathWithNamespace: 'youthpick/backend',
+            description: 'Backend service',
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Backend service'), findsOneWidget);
+  });
+
+  testWidgets('stacks navigation above README on a phone', (tester) async {
+    await _pump(
+      tester,
+      AsyncData(_overview(readme: '# Backend')),
+      size: const Size(390, 1200),
+    );
+    await tester.pumpAndSettle();
+
+    expect(
+      tester.getTopLeft(find.byType(MarkdownViewer)).dy,
+      greaterThan(tester.getTopLeft(find.text('Issues')).dy),
+    );
+  });
+
+  testWidgets('places navigation beside README on a wide screen', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(_overview(readme: '# Backend')),
+      size: const Size(1200, 800),
+    );
+    await tester.pumpAndSettle();
+
+    final navigation = tester.getTopLeft(find.text('Issues'));
+    final readme = tester.getTopLeft(find.byType(MarkdownViewer));
+    expect(readme.dx, greaterThan(navigation.dx + 250));
+    expect((readme.dy - navigation.dy).abs(), lessThan(200));
+  });
+
+  testWidgets('fits the two-pane layout on a compact dark tablet', (
+    tester,
+  ) async {
+    await _pump(
+      tester,
+      AsyncData(_overview(readme: '# Backend')),
+      size: const Size(600, 800),
+      themeMode: ThemeMode.dark,
+    );
+    await tester.pumpAndSettle();
+
+    final navigation = tester.getRect(find.text('Issues'));
+    final readme = tester.getRect(find.byType(MarkdownViewer));
+    expect(readme.left, greaterThan(navigation.right));
+    expect(readme.width, greaterThan(260));
+    expect(readme.right, lessThanOrEqualTo(600));
+    expect(tester.takeException(), isNull);
   });
 }

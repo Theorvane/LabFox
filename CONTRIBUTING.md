@@ -13,7 +13,7 @@ Desktop (Win/macOS)    Free
 Mobile (Android/iOS)   Sold on the App Store / Play Store
 ```
 
-Code you contribute is published under Apache-2.0 and **will also ship in the paid mobile apps.**
+Code you contribute is published under Apache-2.0 and ships in the free mobile and desktop apps.
 Make sure you understand and accept that before contributing. If you don't, please don't contribute.
 
 The "LabFox" name and logo are trademarks and are not covered by the Apache-2.0 license.

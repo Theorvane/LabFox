@@ -4,14 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
-import '../../../core/ui/link_opener.dart';
 import '../../../l10n/app_localizations.dart';
 import 'controllers/groups_controller.dart';
 
 /// The groups the signed-in user belongs to.
 ///
-/// A row opens the group on GitLab — group browsing (its projects, epics,
-/// members) stays with the web UI for now; the list is the launcher.
+/// A row opens its group detail in the app.
 class GroupsScreen extends ConsumerWidget {
   const GroupsScreen({super.key});
 
@@ -19,7 +17,6 @@ class GroupsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final groups = ref.watch(groupsControllerProvider);
-    final open = ref.watch(linkOpenerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -65,14 +62,13 @@ class GroupsScreen extends ConsumerWidget {
               separatorBuilder: (context, index) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 final group = items[index];
-                final url = group.webUrl;
                 return ProjectTile(
                   name: group.name,
                   path: group.fullPath,
                   description: group.description,
                   avatarUrl: group.avatarUrl,
                   visibility: group.visibility,
-                  onTap: url == null ? null : () => open(Uri.parse(url)),
+                  onTap: () => context.push(Routes.group(group.id)),
                 );
               },
             ),

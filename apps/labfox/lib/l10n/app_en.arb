@@ -1,5 +1,369 @@
 {
+"protectedEnvironmentRemoveApprovalTitle": "Remove approval rule",
+"protectedEnvironmentRemoveApprovalWarning": "Removing this rule weakens the deployment approval gate. Removing the last rule can allow deployments without approval. Review all remaining rules before continuing.",
+"protectedEnvironmentRemoveApprovalAcknowledge": "I understand that removing this rule can allow deployments with fewer approvals or none.",
+"protectedEnvironmentRemoveApprovalSuccess": "Approval rule removed.",
+"protectedEnvironmentRemoveApprovalForbidden": "Maintainer or Owner permission and GitLab Premium/Ultimate are required to remove approval rules.",
+"protectedEnvironmentRemoveApprovalError": "The rule removal could not be confirmed. Reload and inspect the current rules before trying again.",
+"protectedEnvironmentApprovalCountTitle": "Edit required approvals",
+"protectedEnvironmentApprovalCountWarning": "Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.",
+"protectedEnvironmentApprovalCountAcknowledge": "I understand that this changes the approvals required to deploy.",
+"protectedEnvironmentApprovalCountSuccess": "Required approvals updated.",
+"protectedEnvironmentApprovalCountForbidden": "Maintainer or Owner permission and GitLab Premium/Ultimate are required to change approval rules.",
+"protectedEnvironmentApprovalCountError": "The approval change could not be confirmed. Reload and inspect the current rule before trying again.",
+"protectedEnvironmentApprovalCountLevel": "New required approvals",
+"protectedEnvironmentApprovalCountRuleLabel": "{approver} (rule {ruleId}, {count} required)",
+"@protectedEnvironmentApprovalCountRuleLabel": {"placeholders": {"approver": {"type": "String"}, "ruleId": {"type": "String"}, "count": {"type": "String"}}},
+"protectedEnvironmentEditRoleTitle": "Edit deploy role",
+"protectedEnvironmentEditRoleWarning": "Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.",
+"protectedEnvironmentEditRoleAcknowledge": "I understand that this changes who can deploy to this environment.",
+"protectedEnvironmentEditRoleSuccess": "Deploy role updated.",
+"protectedEnvironmentEditRoleForbidden": "Maintainer permission and GitLab Premium/Ultimate are required to change deploy roles.",
+"protectedEnvironmentEditRoleError": "The role change could not be confirmed. Reload and inspect the current rule before trying again.",
+"protectedEnvironmentEditRoleLevel": "New deploy role",
+  "pipelineScheduleExecutionEdit": "Edit execution settings",
+  "pipelineScheduleExecutionSave": "Save",
+  "pipelineScheduleExecutionActive": "Active",
+  "pipelineScheduleExecutionRefRequired": "Enter a ref.",
+  "pipelineScheduleExecutionHint": "GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.",
+  "pipelineScheduleExecutionError": "Could not update execution settings. Check your permissions and ref, then try again.",
+  "pipelineScheduleCreate": "Create schedule",
+  "pipelineScheduleCreateTitle": "New pipeline schedule",
+  "pipelineScheduleCreateDescription": "Description",
+  "pipelineScheduleCreateFieldRequired": "Enter a value.",
+  "pipelineScheduleCreateActive": "Active",
+  "pipelineScheduleCreateHint": "GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.",
+  "pipelineScheduleCreateError": "Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.",
+  "releaseCreationMilestoneTitle": "Milestone title (optional)",
+  "releaseCreationMilestoneAdd": "Add milestone",
+  "releaseCreationMilestoneRequired": "Enter a milestone title.",
+  "releaseCreationMilestoneDuplicate": "This milestone is already selected.",
+  "releaseCreationMilestoneRemove": "Remove milestone {title}",
+  "releaseCreationMilestoneHelp": "Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.",
+  "@releaseCreationMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
+  "releasePickerTitle": "Select project milestones",
+  "releasePickerSearch": "Search project milestones",
+  "releasePickerEmpty": "No project milestones found.",
+  "releasePickerError": "Could not load milestones.",
+  "releasePickerMore": "Load more milestones",
+  "releasePickerUse": "Use milestones",
+  "releasePickerRemove": "Remove milestone {title}",
+  "@releasePickerRemove": {"placeholders": {"title": {"type": "String"}}},
+  "releaseCreationDateLabel": "Publication date (optional)",
+  "releaseCreationDateDefault": "Publication time will be set by GitLab.",
+  "releaseCreationChooseDate": "Choose publication date",
+  "releaseCreationChooseTime": "Choose publication time",
+  "releaseCreationClearDate": "Use publication time from GitLab",
+  "releaseCreationDateHelp": "Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.",
+  "@releaseCreationDateHelp": {"placeholders": {"zone": {"type": "String"}}},
+  "pipelineScheduleDelete": "Delete schedule",
+  "pipelineScheduleDeleteConfirmTitle": "Delete this pipeline schedule?",
+  "pipelineScheduleDeleteConfirmBody": "The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.",
+  "pipelineScheduleDeleteError": "Could not delete this pipeline schedule. Check your permissions and try again.",
+  "@pipelineScheduleDeleteConfirmBody": {"placeholders": {"name": {"type": "String"}}},
+  "releaseScheduleEdit": "Edit release date",
+  "releaseScheduleChangeDate": "Change date",
+  "releaseScheduleChangeTime": "Change time",
+  "releaseScheduleSave": "Save release date",
+  "releaseScheduleError": "Could not update the release date.",
+  "releaseScheduleHelp": "Times use your device time zone ({zone}). A future date schedules an upcoming release.",
+  "@releaseScheduleHelp": {"placeholders": {"zone": {"type": "String"}}},
+  "pipelineScheduleEdit": "Edit schedule",
+  "pipelineScheduleSave": "Save",
+  "pipelineScheduleDescription": "Description",
+  "pipelineScheduleFieldRequired": "Enter a value.",
+  "pipelineScheduleEditHint": "GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.",
+  "pipelineScheduleEditError": "Could not update this pipeline schedule. Check your permissions, cron, and time zone.",
+  "pipelineScheduleTakeOwnership": "Take ownership",
+  "pipelineScheduleOwnershipConfirmTitle": "Take ownership of this schedule?",
+  "pipelineScheduleOwnershipConfirmBody": "You will become the owner of \"{name}\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.",
+  "pipelineScheduleOwnershipError": "Could not take ownership of this pipeline schedule. Check your permissions and try again.",
+  "@pipelineScheduleOwnershipConfirmBody": {"placeholders": {"name": {"type": "String"}}},
   "@@locale": "en",
+  "protectedTagProtectTitle": "Protect tag",
+  "protectedTagProtectName": "Rule name",
+  "protectedTagProtectRole": "Who can create matching tags?",
+  "protectedTagProtectNoOne": "No one",
+  "protectedTagProtectDevelopers": "Developers and Maintainers",
+  "protectedTagProtectMaintainers": "Maintainers",
+  "protectedTagProtectWarning": "This rule changes who can create matching tags and may affect tag pipelines and jobs across project {projectId}.",
+  "protectedTagProtectWildcard": "Wildcard rules can also affect future tags. Check the exact pattern and access level.",
+  "protectedTagProtectAcknowledge": "I understand the project-wide effect of this rule.",
+  "protectedTagProtectSubmit": "Protect tag",
+  "protectedTagProtectExisting": "Rule already exists. No change was made.",
+  "protectedTagProtectUncertain": "The result is uncertain. Reload all rules before trying again.",
+  "protectedTagProtectReload": "Reload rules",
+  "protectedTagProtectLoadError": "Could not verify the protected tag rules. Try reloading.",
+  "protectedTagProtectSessionChanged": "Your account changed. Close this draft and start again.",
+  "protectedTagProtectCreated": "Protected tag rule created.",
+  "protectedTagProtectCancel": "Cancel",
+  "@protectedTagProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
+  "protectedTagProtectForbidden": "You do not have permission to create this rule. Reload before trying again.",
+  "protectedTagProtectUnauthorized": "Your session has expired. Sign in again before creating a rule.",
+  "protectedTagProtectRateLimited": "GitLab is rate limiting requests. Wait, then reload the rules.",
+  "protectedTagProtectUnavailable": "This project or protected tag resource is unavailable. Reload before trying again.",
+  "protectedTagsTitle": "Protected tags",
+  "protectedTagsEmpty": "No protected tag rules found.",
+  "protectedTagsError": "Could not load protected tags.",
+  "protectedTagsLoadMore": "Load more",
+  "protectedTagCreateAccess": "Allowed to create",
+  "protectedEnvironmentsTitle": "Protected environments",
+  "protectedEnvironmentsEmpty": "No protected environment rules found.",
+  "protectedEnvironmentsError": "Could not load protected environments.",
+  "protectedEnvironmentsUnavailable": "Protected environments are unavailable or you don't have access.",
+  "protectedEnvironmentsLoadMore": "Load more",
+  "protectedEnvironmentDeployAccess": "Allowed to deploy",
+  "protectedEnvironmentApprovalRules": "Approval rules",
+  "protectedEnvironmentApprovalCount": "Required approvals: {count}",
+  "@protectedEnvironmentApprovalCount": {"placeholders": {"count": {"type": "int"}}},
+  "protectedBranchProtectTitle": "Protect branch",
+  "protectedBranchProtectName": "Rule name",
+  "protectedBranchProtectPush": "Allowed to push",
+  "protectedBranchProtectMerge": "Allowed to merge",
+  "protectedBranchProtectNoOne": "No one",
+  "protectedBranchProtectDevelopers": "Developers and Maintainers",
+  "protectedBranchProtectMaintainers": "Maintainers",
+  "protectedBranchProtectWarning": "This rule changes push and merge access in project {projectId}. It can affect merge requests, protected CI variables, and jobs.",
+  "protectedBranchProtectWildcard": "Wildcard rules may also affect future branches. Check the exact pattern and both permissions.",
+  "protectedBranchProtectAcknowledge": "I understand the project-wide effect of this rule.",
+  "protectedBranchProtectSubmit": "Protect branch",
+  "protectedBranchProtectExisting": "Rule already exists. No change was made.",
+  "protectedBranchProtectUncertain": "The result is uncertain. Reload all rules before trying again.",
+  "protectedBranchProtectReload": "Reload rules",
+  "protectedBranchProtectLoadError": "Could not verify protected branch rules. Try reloading.",
+  "protectedBranchProtectSessionChanged": "Your account changed. Close this draft and start again.",
+  "protectedBranchProtectCreated": "Protected branch rule created.",
+  "protectedBranchProtectCancel": "Cancel",
+  "protectedBranchProtectForbidden": "You do not have permission to create this rule. Reload before trying again.",
+  "protectedBranchProtectUnauthorized": "Your session has expired. Sign in again before creating a rule.",
+  "protectedBranchProtectRateLimited": "GitLab is rate limiting requests. Wait, then reload the rules.",
+  "protectedBranchProtectUnavailable": "This project or protected branch resource is unavailable. Reload before trying again.",
+  "@protectedBranchProtectWarning": {"placeholders": {"projectId": {"type": "String"}}},
+  "protectedBranchesTitle": "Protected branches",
+  "protectedBranchesEmpty": "No protected branch rules found.",
+  "protectedBranchesError": "Could not load protected branches.",
+  "protectedBranchesLoadMore": "Load more",
+  "protectedBranchPushAccess": "Allowed to push",
+  "protectedBranchMergeAccess": "Allowed to merge",
+  "protectedBranchForcePush": "Force push",
+  "protectedBranchCodeOwnerApproval": "Code owner approval",
+  "protectedBranchInherited": "Inherited from group",
+  "protectedBranchEnabled": "Enabled",
+  "protectedBranchDisabled": "Disabled",
+  "protectedBranchNoAccess": "No access rules",
+  "linkedIssuesTitle": "Linked issues",
+  "linkedIssuesError": "Could not load linked issues.",
+  "linkedIssuesLoadMore": "Load more",
+  "linkedIssuesRelatesTo": "Related to",
+  "linkedIssuesBlocks": "Blocks",
+  "linkedIssuesBlockedBy": "Blocked by",
+  "groupLabelsTitle": "Group labels",
+  "groupLabelsEmpty": "No group labels yet",
+  "groupLabelsError": "Couldn't load group labels.",
+  "groupMembersTitle": "Group members",
+  "groupMembersSearch": "Search group members",
+  "groupMembersEmpty": "No group members found.",
+  "groupMembersError": "Could not load group members.",
+  "pipelineSchedulesTitle": "Pipeline schedules",
+  "pipelineSchedulesAll": "All",
+  "pipelineSchedulesActive": "Active",
+  "pipelineSchedulesInactive": "Inactive",
+  "pipelineSchedulesEmpty": "No pipeline schedules found.",
+  "pipelineSchedulesError": "Could not load pipeline schedules.",
+  "pipelineSchedulesLoadMore": "Load more",
+  "pipelineScheduleDetailError": "Could not load this pipeline schedule.",
+  "pipelineScheduleNextRun": "Next run: {date}",
+  "pipelineScheduleNextRunLabel": "Next run",
+  "pipelineScheduleRef": "Ref",
+  "pipelineScheduleCron": "Schedule",
+  "pipelineScheduleTimezone": "Time zone",
+  "pipelineScheduleOwner": "Owner",
+  "pipelineScheduleRunNow": "Run now",
+  "pipelineScheduleRunSuccess": "Pipeline schedule started.",
+  "pipelineScheduleRunError": "Could not run this pipeline schedule.",
+  "pipelineScheduleLastPipeline": "Last pipeline",
+  "pipelineScheduleHistoryTitle": "Execution history",
+  "pipelineScheduleHistoryEmpty": "No pipelines have run for this schedule yet.",
+  "pipelineScheduleHistoryError": "Could not load execution history.",
+  "pipelineSchedulePipelineNumber": "Pipeline #{number}",
+  "@pipelineScheduleNextRun": {"placeholders": {"date": {"type": "String"}}},
+  "@pipelineSchedulePipelineNumber": {"placeholders": {"number": {"type": "int"}}},
+  "deploymentsTitle": "Deployments",
+  "deploymentsAll": "All",
+  "deploymentsSuccess": "Success",
+  "deploymentsFailed": "Failed",
+  "deploymentsRunning": "Running",
+  "deploymentsCanceled": "Canceled",
+  "deploymentsCreated": "Created",
+  "deploymentsBlocked": "Blocked",
+  "deploymentsUnknownStatus": "Unknown status",
+  "deploymentsEmpty": "No deployments found.",
+  "deploymentsError": "Could not load deployments.",
+  "deploymentsLoadMore": "Load more",
+  "deploymentsEnvironmentSearch": "Filter by environment name",
+  "deploymentsUnknownEnvironment": "Unknown environment",
+  "deploymentDetailError": "Could not load this deployment.",
+  "deploymentNumber": "Deployment #{number}",
+  "deploymentEnvironment": "Environment",
+  "deploymentRef": "Ref",
+  "deploymentCommit": "Commit",
+  "deploymentJob": "Job",
+  "deploymentPipeline": "Pipeline",
+  "deploymentCreatedAt": "Created",
+  "deploymentUpdatedAt": "Updated",
+  "deploymentUser": "Deployed by",
+  "@deploymentNumber": {"placeholders": {"number": {"type": "int"}}},
+  "releasesTitle": "Releases",
+  "releasesEmpty": "No releases yet.",
+  "releasesError": "Could not load releases.",
+  "releaseDetailError": "Could not load this release.",
+  "releaseAssetsTitle": "Assets",
+  "releaseLoadMore": "Load more",
+  "releaseUpcoming": "Upcoming",
+  "releaseEdit": "Edit release",
+  "releaseSave": "Save release",
+  "releaseEditName": "Release name",
+  "releaseEditDescription": "Description (Markdown)",
+  "releaseNameRequired": "Enter a release name.",
+  "releaseEditError": "Could not update the release.",
+  "releaseNew": "New release",
+  "releaseCreate": "Create release",
+  "releaseTagName": "Tag name",
+  "releaseRef": "Create tag from ref (optional)",
+  "releaseRefHelp": "Leave blank if the tag already exists.",
+  "releaseName": "Release name (optional)",
+  "releaseDescription": "Description (Markdown)",
+  "releaseTagRequired": "Enter a tag name.",
+  "releaseCreateError": "Could not create the release.",
+  "releaseAddAssetLink": "Add asset link",
+  "releaseAddLink": "Add link",
+  "releaseAssetName": "Link name",
+  "releaseAssetUrl": "Link URL",
+  "releaseAssetNameRequired": "Enter a link name.",
+  "releaseAssetUrlInvalid": "Enter an HTTP or HTTPS URL.",
+  "releaseAssetNameDuplicate": "A link with this name already exists.",
+  "releaseAssetCreateError": "Could not add the asset link.",
+  "releaseNoAssets": "No assets yet.",
+  "releaseDelete": "Delete release",
+  "releaseDeleteConfirmTitle": "Delete this release?",
+  "releaseDeleteConfirmBody": "The release and its notes will be deleted. The Git tag will remain.",
+  "releaseDeleteError": "Could not delete the release.",
+  "releaseDeleteAssetLink": "Delete asset link",
+  "releaseDeleteLink": "Delete link",
+  "releaseAssetDeleteConfirmTitle": "Delete this asset link?",
+  "releaseAssetDeleteConfirmBody": "This removes the link named {name}. The linked file will not be deleted.",
+  "@releaseAssetDeleteConfirmBody": {"placeholders": {"name": {"type": "String"}}},
+  "releaseAssetDeleteError": "Could not delete the asset link.",
+  "releaseEditAssetLink": "Edit asset link",
+  "releaseSaveLink": "Save link",
+  "releaseAssetEditError": "Could not update the asset link.",
+  "releaseMilestonesEdit": "Edit release milestones",
+  "releaseMilestonesTitle": "Milestones",
+  "releaseMilestonesHelp": "Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.",
+  "releaseMilestoneTitle": "Milestone title",
+  "releaseMilestoneAdd": "Add milestone",
+  "releaseMilestonesSave": "Save milestones",
+  "releaseMilestonesError": "Could not update release milestones.",
+  "releaseMilestoneTitleRequired": "Enter a milestone title.",
+  "releaseMilestoneDuplicate": "This milestone is already selected.",
+  "releaseMilestoneRemove": "Remove {title}",
+  "@releaseMilestoneRemove": {"placeholders": {"title": {"type": "String"}}},
+  "releaseAssetDirectPath": "New direct download path (optional)",
+  "releaseAssetDirectPathHelp": "Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.",
+  "releaseAssetDirectPathInvalid": "Enter a path starting with /, without a host, query, or fragment.",
+  "releaseAssetType": "Link type",
+  "releaseAssetKeepType": "Keep current type",
+  "releaseAssetTypeOther": "Other",
+  "releaseAssetTypeRunbook": "Runbook",
+  "releaseAssetTypeImage": "Image",
+  "releaseAssetTypePackage": "Package",
+  "activityTitle": "Activity",
+  "activityAll": "All",
+  "activityIssues": "Issues",
+  "activityMergeRequests": "Merge requests",
+  "activityEmpty": "No recent activity.",
+  "activityError": "Could not load project activity.",
+  "activityLoadMore": "Load more",
+  "activityUnknownActor": "Unknown user",
+  "activityPush": "Push",
+  "activityEvent": "Project activity",
+  "activityBy": "{actor} {action}",
+  "@activityBy": {"placeholders": {"actor": {"type": "String"}, "action": {"type": "String"}}},
+  "environmentsTitle": "Environments",
+  "environmentsAll": "All",
+  "environmentsAvailable": "Available",
+  "environmentsStopping": "Stopping",
+  "environmentsStopped": "Stopped",
+  "environmentsSearch": "Search environments",
+  "environmentsSearchLength": "Enter at least 3 characters.",
+  "environmentsEmpty": "No environments found.",
+  "environmentsError": "Could not load environments.",
+  "environmentsLoadMore": "Load more",
+  "environmentDetailError": "Could not load this environment.",
+  "environmentAutoStop": "Auto-stop",
+  "environmentOpenUrl": "Open environment",
+  "environmentLatestDeployment": "Latest deployment",
+  "environmentUnknownStatus": "Unknown status",
+  "projectMembersTitle": "Members",
+  "projectMembersSearch": "Search members",
+  "projectMembersClearSearch": "Clear search",
+  "projectMembersEmpty": "No members found.",
+  "projectMembersError": "Could not load members.",
+  "projectMembersLoadMore": "Load more",
+  "projectMembersExpiry": "Expires",
+  "memberRoleNoAccess": "No access",
+  "memberRoleMinimal": "Minimal access",
+  "memberRoleGuest": "Guest",
+  "memberRolePlanner": "Planner",
+  "memberRoleReporter": "Reporter",
+  "memberRoleSecurityManager": "Security manager",
+  "memberRoleDeveloper": "Developer",
+  "memberRoleMaintainer": "Maintainer",
+  "memberRoleOwner": "Owner",
+  "memberRoleUnknown": "Unknown role",
+  "containerRegistryTitle": "Container registry",
+  "containerRegistryEmpty": "No container images yet.",
+  "containerRegistryError": "Could not load container images.",
+  "containerTagsTitle": "Image tags",
+  "containerTagsEmpty": "No tags yet.",
+  "containerTagsError": "Could not load image tags.",
+  "containerTagError": "Could not load this tag.",
+  "containerTagDigest": "Digest",
+  "containerTagRevision": "Revision",
+  "containerTagSize": "Size (bytes)",
+  "containerLoadMore": "Load more",
+  "milestonesTitle": "Milestones",
+  "milestonesActive": "Active",
+  "milestonesClosed": "Closed",
+  "milestonesEmpty": "No milestones in this state.",
+  "milestonesError": "Could not load milestones.",
+  "milestoneDetailError": "Could not load this milestone.",
+  "milestoneStartDate": "Start date",
+  "milestoneDueDate": "Due date",
+  "milestoneLoadMore": "Load more",
+  "milestoneNew": "New milestone",
+  "milestoneCreate": "Create milestone",
+  "milestoneTitleField": "Title",
+  "milestoneDescriptionField": "Description",
+  "milestoneTitleRequired": "Enter a milestone title.",
+  "milestoneDateOrderError": "Start date must be on or before due date.",
+  "milestoneCreateError": "Could not create the milestone.",
+  "milestoneChooseDate": "Choose date",
+  "milestoneClearDate": "Clear date",
+  "milestoneEdit": "Edit milestone",
+  "milestoneSaveChanges": "Save changes",
+  "milestoneUpdateError": "Could not update the milestone.",
+  "milestoneClearStartDate": "Clear start date",
+  "milestoneClearDueDate": "Clear due date",
+  "milestoneClose": "Close milestone",
+  "milestoneReactivate": "Reactivate milestone",
+  "milestoneCloseConfirmTitle": "Close this milestone?",
+  "milestoneCloseConfirmBody": "You can reactivate it later.",
+  "milestoneStateError": "Could not change the milestone state.",
+  "milestoneDelete": "Delete milestone",
+  "milestoneDeleteConfirmTitle": "Delete this milestone?",
+  "milestoneDeleteConfirmBody": "This cannot be undone.",
+  "milestoneDeleteError": "Could not delete the milestone.",
   "appTitle": "LabFox",
   "@appTitle": {
     "description": "The application name, shown in the task switcher and app bar"
@@ -162,6 +526,34 @@
   "@groupsError": {
     "description": "Shown when the groups list fails to load"
   },
+  "groupDetailTitle": "Group",
+  "@groupDetailTitle": {
+    "description": "Fallback title while a group detail is loading"
+  },
+  "groupDetailError": "Could not load this group.",
+  "@groupDetailError": {
+    "description": "Shown when a group detail or its children fail to load"
+  },
+  "groupSubgroups": "Subgroups",
+  "@groupSubgroups": {
+    "description": "Section title for direct child groups"
+  },
+  "groupSubgroupsEmpty": "No subgroups.",
+  "@groupSubgroupsEmpty": {
+    "description": "Shown when a group has no visible direct subgroups"
+  },
+  "groupProjects": "Projects",
+  "@groupProjects": {
+    "description": "Section title for projects directly in a group"
+  },
+  "groupProjectsEmpty": "No projects in this group.",
+  "@groupProjectsEmpty": {
+    "description": "Shown when a group has no visible direct projects"
+  },
+  "groupLoadMore": "Load more",
+  "@groupLoadMore": {
+    "description": "Loads the next page of group projects or subgroups"
+  },
   "projectsTitle": "Projects",
   "@projectsTitle": {
     "description": "Title of the projects list screen"
@@ -251,6 +643,57 @@
     "description": "Tooltip for the create-issue action on the issues list"
   },
   "issueClose": "Close issue",
+  "issueEdit": "Edit issue",
+  "issueEditLabels": "Edit labels",
+  "issueSaveLabels": "Save labels",
+  "issueLabelsEmpty": "No labels available",
+  "issueLabelsLoadError": "Could not load labels.",
+  "issueLabelsSaveError": "Could not update labels. Please try again.",
+  "issueEditDueDate": "Edit due date",
+  "issueConfidential": "Confidential",
+  "issueMakeConfidential": "Make confidential",
+  "issueRemoveConfidentiality": "Remove confidentiality",
+  "issueMakeConfidentialExplanation": "Access to this issue will be restricted. Continue?",
+  "issueRemoveConfidentialityExplanation": "This issue will become visible to everyone who can see the project. Continue?",
+  "issueConfidentialityConfirm": "Confirm",
+  "issueConfidentialityError": "Could not update confidentiality. Check your permissions and try again.",
+  "issueDiscussionLocked": "Discussion locked",
+  "issueLockDiscussion": "Lock discussion",
+  "issueUnlockDiscussion": "Unlock discussion",
+  "issueLockDiscussionExplanation": "Only project members will be able to add or edit comments. Continue?",
+  "issueUnlockDiscussionExplanation": "Others with access to this issue will be able to comment again. Continue?",
+  "issueDiscussionLockConfirm": "Confirm",
+  "issueDiscussionLockError": "Could not change the discussion lock. Check your permissions and try again.",
+  "issueEditMilestone": "Edit milestone",
+  "issueEditAssignees": "Edit assignees",
+  "issueAssignees": "Assignees",
+  "issueSaveAssignees": "Save assignees",
+  "issueAssigneesSaveError": "Could not update assignees. Check your permissions and try again.",
+  "issueNoMilestone": "No milestone",
+  "issueMilestonesLoadError": "Could not load milestones.",
+  "issueMilestoneSaveError": "Could not update the milestone. Check your permissions and try again.",
+  "issueDueDate": "Due date",
+  "issueDueDateValue": "Due date: {date}",
+  "@issueDueDateValue": {"placeholders": {"date": {"type": "String"}}},
+  "issueSelectDueDate": "Select date",
+  "issueClearDueDate": "Clear due date",
+  "issueDueDateError": "Could not update the due date. Please try again.",
+  "issueSaveChanges": "Save changes",
+  "issueEditError": "Could not save the issue. Check your permissions and try again.",
+  "issueSubscribe": "Subscribe to notifications",
+  "issueUnsubscribe": "Unsubscribe from notifications",
+  "issueSubscriptionError": "Could not update issue notifications. Please try again.",
+  "mrSubscribe": "Subscribe to notifications",
+  "mrUnsubscribe": "Unsubscribe from notifications",
+  "mrSubscriptionError": "Could not update merge request notifications. Please try again.",
+  "issueAddTodo": "Add to To-Do",
+  "issueTodoAdded": "Added to your To-Do list.",
+  "issueTodoExists": "This issue is already in your To-Do list.",
+  "issueTodoError": "Could not add the issue to your To-Do list. Please try again.",
+  "mrAddTodo": "Add to To-Do",
+  "mrTodoAdded": "Added to your To-Do list.",
+  "mrTodoExists": "This merge request is already in your To-Do list.",
+  "mrTodoError": "Could not add the merge request to your To-Do list. Please try again.",
   "@issueClose": {
     "description": "Menu action that closes the issue"
   },
@@ -674,11 +1117,53 @@
   "@pipelinesTitle": {
     "description": "Title of the pipelines list screen"
   },
+  "pipelinesStatusAll": "All statuses",
+  "@pipelinesStatusAll": {
+    "description": "Project pipeline status filter option: All statuses"
+  },
+  "pipelinesStatusCreated": "Created",
+  "@pipelinesStatusCreated": {
+    "description": "Project pipeline status filter option: Created"
+  },
+  "pipelinesStatusPending": "Pending",
+  "@pipelinesStatusPending": {
+    "description": "Project pipeline status filter option: Pending"
+  },
+  "pipelinesStatusRunning": "Running",
+  "@pipelinesStatusRunning": {
+    "description": "Project pipeline status filter option: Running"
+  },
+  "pipelinesStatusSuccess": "Success",
+  "@pipelinesStatusSuccess": {
+    "description": "Project pipeline status filter option: Success"
+  },
+  "pipelinesStatusFailed": "Failed",
+  "@pipelinesStatusFailed": {
+    "description": "Project pipeline status filter option: Failed"
+  },
+  "pipelinesStatusCanceled": "Canceled",
+  "@pipelinesStatusCanceled": {
+    "description": "Project pipeline status filter option: Canceled"
+  },
+  "pipelinesStatusSkipped": "Skipped",
+  "@pipelinesStatusSkipped": {
+    "description": "Project pipeline status filter option: Skipped"
+  },
+  "pipelinesStatusManual": "Manual",
+  "@pipelinesStatusManual": {
+    "description": "Project pipeline status filter option: Manual"
+  },
+  "pipelinesFilteredEmpty": "No pipelines match these filters.",
+  "@pipelinesFilteredEmpty": {
+    "description": "Empty state when no pipelines match the selected server-side filters"
+  },
   "pipelinesError": "Could not load pipelines.",
   "@pipelinesError": {
     "description": "Shown when the pipelines list fails"
   },
   "pipelinesEmpty": "No pipelines yet.",
+  "pipelinesLoadMore": "Load more",
+  "pipelinesLoadMoreError": "Could not load more pipelines.",
   "@pipelinesEmpty": {
     "description": "Shown when there are no pipelines"
   },
@@ -950,10 +1435,6 @@
   "@settingsBackgroundChecksHelp": {
     "description": "Explains the platform-dependent timing of background checks"
   },
-  "paywallNotifications": "Background to-do checks are part of the subscription. The to-do inbox and manual refresh stay free.",
-  "@paywallNotifications": {
-    "description": "Paywall reason shown for background notifications"
-  },
   "settingsNotificationsDenied": "LabFox cannot show notifications until you allow them in system settings.",
   "@settingsNotificationsDenied": {
     "description": "Shown when the system refused the notification permission"
@@ -990,113 +1471,6 @@
   "@settingsLicenses": {
     "description": "Settings entry that opens the open-source license page"
   },
-  "paywallTitle": "A subscription unlocks this",
-  "@paywallTitle": {
-    "description": "Heading of the sheet offered when a free user taps a paid action"
-  },
-  "paywallSubscribe": "See the subscription",
-  "@paywallSubscribe": {
-    "description": "Button on the paywall sheet that opens the subscription screen"
-  },
-  "paywallNotNow": "Not now",
-  "@paywallNotNow": {
-    "description": "Button that dismisses the paywall sheet"
-  },
-  "paywallMergeRequestActions": "Approving and merging are part of the subscription. Reading merge requests, diffs, and discussions stays free.",
-  "@paywallMergeRequestActions": {
-    "description": "Paywall reason shown for approve and merge"
-  },
-  "paywallPipelineActions": "Retrying, cancelling, and running manual jobs are part of the subscription. Watching pipelines and reading job logs stays free.",
-  "@paywallPipelineActions": {
-    "description": "Paywall reason shown for pipeline and job actions"
-  },
-  "paywallAccounts": "One account is free. Connecting more instances is part of the subscription.",
-  "@paywallAccounts": {
-    "description": "Paywall reason shown when adding a second account"
-  },
-  "paywallFavorites": "Free keeps {count} favorites. The subscription removes the limit.",
-  "@paywallFavorites": {
-    "description": "Paywall reason shown when the free favorite limit is reached",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "subscriptionTitle": "LabFox subscription",
-  "@subscriptionTitle": {
-    "description": "Title of the subscription screen"
-  },
-  "subscriptionActive": "Subscribed",
-  "@subscriptionActive": {
-    "description": "Shown when the user has an active subscription"
-  },
-  "subscriptionInactive": "Not subscribed",
-  "@subscriptionInactive": {
-    "description": "Shown when the user has no active subscription"
-  },
-  "subscriptionPitch": "Approve and merge, retry pipelines, and connect more than one account.",
-  "@subscriptionPitch": {
-    "description": "One-line summary of what the subscription unlocks"
-  },
-  "subscriptionBenefitAccounts": "Connect multiple accounts and self-hosted instances",
-  "@subscriptionBenefitAccounts": {
-    "description": "Subscription benefit: multiple accounts"
-  },
-  "subscriptionBenefitActions": "Approve, merge, retry, cancel, and run manual jobs",
-  "@subscriptionBenefitActions": {
-    "description": "Subscription benefit: write actions"
-  },
-  "subscriptionBenefitNotifications": "Background checks that notify you about new to-do items",
-  "@subscriptionBenefitNotifications": {
-    "description": "Subscription benefit: background to-do checks"
-  },
-  "subscriptionBenefitFavorites": "Unlimited favorites, instead of the free limit of three",
-  "@subscriptionBenefitFavorites": {
-    "description": "Subscription benefit: productivity limits lifted"
-  },
-  "subscriptionSubscribe": "Subscribe for {price}",
-  "@subscriptionSubscribe": {
-    "description": "Purchase button, with the price as the store formats it",
-    "placeholders": {
-      "price": {
-        "type": "String",
-        "example": "US$4.99"
-      }
-    }
-  },
-  "subscriptionRenewalTerms": "The subscription renews every month until you cancel it. Cancel any time in your store account; cancelling takes effect at the end of the paid month.",
-  "@subscriptionRenewalTerms": {
-    "description": "Auto-renewal terms shown at the point of purchase, required by App Store Review Guideline 3.1.2"
-  },
-  "subscriptionTerms": "Terms of Use",
-  "@subscriptionTerms": {
-    "description": "Link to the Terms of Use (EULA) shown at the point of purchase"
-  },
-  "subscriptionPrivacy": "Privacy Policy",
-  "@subscriptionPrivacy": {
-    "description": "Link to the privacy policy shown at the point of purchase"
-  },
-  "subscriptionRestore": "Restore purchases",
-  "@subscriptionRestore": {
-    "description": "Restores an existing subscription on a new device"
-  },
-  "subscriptionUnavailable": "The store is not available right now. Try again later.",
-  "@subscriptionUnavailable": {
-    "description": "Shown when the store returns no product to sell"
-  },
-  "subscriptionError": "That did not go through. Nothing was charged.",
-  "@subscriptionError": {
-    "description": "Shown when a purchase or restore fails"
-  },
-  "subscriptionRestored": "Your subscription is active.",
-  "@subscriptionRestored": {
-    "description": "Confirms a successful restore"
-  },
-  "subscriptionNothingToRestore": "No subscription found for this store account.",
-  "@subscriptionNothingToRestore": {
-    "description": "Shown when a restore finds nothing to restore"
-  },
   "navHome": "Home",
   "@navHome": {
     "description": "Bottom navigation / rail label for the home destination"
@@ -1125,8 +1499,1499 @@
   "@meAccounts": {
     "description": "Profile entry that opens the account switcher"
   },
+  "projectLabelsTitle": "Labels",
+  "projectLabelsError": "Couldn't load labels.",
+  "projectLabelsEmpty": "No labels yet",
+  "projectLabelsNoMatch": "No matching labels",
+  "projectLabelSearch": "Search labels",
+  "projectLabelNew": "New label",
+  "projectLabelGroup": "Group label",
+  "projectLabelProject": "Project label",
+  "projectLabelError": "Couldn't load this label.",
+  "projectLabelOpenIssues": "Open issues",
+  "projectLabelClosedIssues": "Closed issues",
+  "projectLabelOpenMrs": "Open merge requests",
+  "projectLabelName": "Name",
+  "projectLabelColor": "Color (#RRGGBB)",
+  "projectLabelDescription": "Description (optional)",
+  "projectLabelRequired": "This field is required",
+  "projectLabelInvalidColor": "Enter a color like #5843AD",
+  "projectLabelCreate": "Create label",
+  "projectLabelCreateError": "Couldn't create the label. Check your permissions and input.",
+  "tagsTitle": "Tags",
+  "tagsEmpty": "No tags yet",
+  "tagsError": "Couldn't load tags.",
+  "tagsNoMatch": "No matching tags",
+  "tagSearchHint": "Search tags",
+  "tagError": "Couldn't load this tag.",
+  "tagProtected": "Protected tag",
+  "tagNew": "New tag",
+  "tagName": "Tag name",
+  "tagFromRef": "Create from branch, tag, or commit SHA",
+  "tagMessage": "Message (optional)",
+  "tagPipelineNotice": "Creating a tag may start a CI/CD pipeline.",
+  "tagFieldRequired": "This field is required",
+  "tagCreate": "Create tag",
+  "tagCreateError": "Couldn't create the tag. Check your permissions and the reference.",
+  "snippetsTitle": "Snippets",
+  "snippetsEmpty": "No snippets yet",
+  "snippetsError": "Couldn't load snippets.",
+  "snippetError": "Couldn't load this snippet.",
+  "snippetContent": "Content",
+  "snippetContentError": "Couldn't load snippet content.",
+  "snippetNew": "New snippet",
+  "snippetTitleField": "Title",
+  "snippetDescriptionField": "Description",
+  "snippetFilePathField": "File path",
+  "snippetContentField": "Content",
+  "snippetVisibilityField": "Visibility",
+  "snippetVisibilityUnchanged": "Keep current visibility",
+  "snippetPrivate": "Private",
+  "snippetPublic": "Public",
+  "snippetCreate": "Create snippet",
+  "snippetCreateValidationError": "Enter a title, file path, and content.",
+  "snippetCreateError": "Could not create the snippet.",
+  "snippetAddFile": "Add file",
+  "snippetFileAddValidationError": "Enter a unique relative file path and content.",
+  "snippetFileAddError": "Could not add the file.",
+  "snippetFileMoveAction": "Move file",
+  "snippetFileMoveTitle": "Move or rename file",
+  "snippetFileMovePathField": "New file path",
+  "snippetFileMoveValidationError": "Enter a different, unused relative file path.",
+  "snippetFileMoveError": "Could not move the file.",
+  "snippetEditAction": "Edit snippet",
+  "snippetEditTitle": "Edit snippet",
+  "snippetSaveChanges": "Save changes",
+  "snippetEditValidationError": "Enter a title.",
+  "snippetEditError": "Could not save the snippet.",
+  "snippetDeleteAction": "Delete snippet",
+  "snippetDeleteConfirmTitle": "Delete this snippet?",
+  "snippetDeleteConfirmMessage": "This permanently deletes the snippet and its files.",
+  "snippetDeleteButton": "Delete",
+  "snippetDeleteError": "Could not delete the snippet.",
+  "snippetFileDeleteAction": "Delete file",
+  "snippetFileDeleteConfirmTitle": "Delete this file?",
+  "snippetFileDeleteConfirmMessage": "This permanently deletes only this file from the snippet.",
+  "snippetFileDeleteError": "Could not delete the file.",
+  "snippetEditContent": "Edit content",
+  "snippetSaveContent": "Save content",
+  "snippetContentSaveError": "Could not save snippet content.",
   "homeRecents": "Recent",
   "@homeRecents": {
     "description": "Home section title for recently opened projects"
-  }
+  },
+  "wikiTitle": "Wiki",
+  "@wikiTitle": {
+    "description": "Title of the project wiki page list"
+  },
+  "wikiEmpty": "No wiki pages yet.",
+  "@wikiEmpty": {
+    "description": "Shown when a project wiki has no pages"
+  },
+  "wikiListError": "Could not load wiki pages.",
+  "@wikiListError": {
+    "description": "Shown when loading the project wiki fails"
+  },
+  "wikiPageError": "Could not load this wiki page.",
+  "@wikiPageError": {
+    "description": "Shown when reading a wiki page fails"
+  },
+  "wikiNewPage": "New page",
+  "wikiPagesSection": "Pages",
+  "wikiTemplatesSection": "Templates",
+  "wikiTemplateEmpty": "No templates yet.",
+  "wikiNewTemplate": "New template",
+  "wikiTemplateTitle": "Template title",
+  "wikiCreateTemplate": "Create template",
+  "wikiCreateTemplateError": "Could not create the template.",
+  "wikiPageTitle": "Title",
+  "wikiPageContent": "Content",
+  "wikiCreatePage": "Create page",
+  "wikiChooseTemplate": "Choose a template",
+  "wikiReplaceTemplateContent": "Replace the current content with this template?",
+  "wikiApplyTemplate": "Apply template",
+  "wikiTemplateLoadError": "Could not load the template.",
+  "wikiCreateValidationError": "Enter a title and content.",
+  "wikiCreateError": "Could not create the wiki page.",
+  "wikiEditPageAction": "Edit",
+  "wikiEditPage": "Edit wiki page",
+  "wikiEditTitle": "Title",
+  "wikiEditContent": "Content",
+  "wikiSaveChanges": "Save changes",
+  "wikiEditValidationError": "Enter a title and content.",
+  "wikiEditError": "Could not save the wiki page.",
+  "wikiEditConflict": "This page changed on GitLab. Reload it before editing again.",
+  "wikiDeletePageAction": "Delete page",
+  "wikiDeleteConfirmTitle": "Delete this wiki page?",
+  "wikiDeleteConfirmMessage": "This permanently deletes the page from the project wiki.",
+  "wikiDeleteError": "Could not delete the wiki page.",
+  "wikiDeleteConflict": "This page changed. Reload it before deleting.",
+  "wikiReloadPage": "Reload page",
+  "packageRegistryTitle": "Package registry",
+  "packageDelete": "Delete package",
+  "packageDeleteConfirmTitle": "Delete this package?",
+  "packageDeleteConfirmBody": "Delete {name} and all its files? This cannot be undone.",
+  "@packageDeleteConfirmBody": {"placeholders": {"name": {"type": "String"}}},
+  "packageDeleteForwardingWarning": "If request forwarding is enabled, deleting this package can create a dependency confusion risk.",
+  "packageDeleteError": "Could not delete this package. Please try again.",
+  "packageDeleteForbidden": "This package may be protected, or you may not have permission to delete it.",
+  "@packageRegistryTitle": {"description": "Project package registry title and entry"},
+  "packageRegistryEmpty": "No packages yet.",
+  "@packageRegistryEmpty": {"description": "Empty project package registry"},
+  "packageRegistryError": "Could not load packages.",
+  "@packageRegistryError": {"description": "Package list loading error"},
+  "packageDetailError": "Could not load this package.",
+  "@packageDetailError": {"description": "Package detail loading error"},
+  "packageFiles": "Files",
+  "@packageFiles": {"description": "Package files section title"},
+  "packageFilesEmpty": "This package has no files.",
+  "@packageFilesEmpty": {"description": "Empty package files section"},
+  "packageLoadMore": "Load more",
+  "@packageLoadMore": {"description": "Load the next page of packages or package files"},
+  "protectedTagUnprotectTitle": "Unprotect tag rule",
+  "protectedTagUnprotectTarget": "Project {projectId} — rule {name}",
+  "protectedTagUnprotectWarning": "Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.",
+  "protectedTagUnprotectAccess": "{description}\nRole level: {role}; user ID: {user}; group ID: {group}; deploy key ID: {key}",
+  "protectedTagUnprotectUnreported": "Not reported",
+  "protectedTagUnprotectName": "Re-enter the exact rule name or pattern",
+  "protectedTagUnprotectAcknowledge": "I understand the protection loss for all tags matching this rule and want to remove this rule.",
+  "protectedTagUnprotectAuth": "Your session was rejected. Sign in again before reviewing the rule.",
+  "protectedTagUnprotectForbidden": "GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.",
+  "protectedTagUnprotectUnavailable": "The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.",
+  "protectedTagUnprotectStale": "The rule changed. Reload and confirm the current permissions before removing it.",
+  "protectedTagUnprotectRateLimited": "GitLab is rate limiting requests. Wait, then reload and confirm the rule again.",
+  "protectedTagUnprotectError": "The request could not be confirmed. Reload the rule and confirm again before retrying.",
+  "protectedTagUnprotectReload": "Reload rule",
+  "protectedTagUnprotectSessionChanged": "The account changed. Close this dialog and reopen it to review the current project.",
+  "protectedTagUnprotectAccepted": "Tag protection rule removed. No tags were deleted.",
+  "@protectedTagUnprotectTarget": {"placeholders": {"projectId": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedTagUnprotectAccess": {"placeholders": {"description": {"type": "String"}, "role": {"type": "String"}, "user": {"type": "String"}, "group": {"type": "String"}, "key": {"type": "String"}}},
+  "protectedBranchForcePushEditTitle": "Edit force push",
+  "protectedBranchCodeOwnerEditTitle": "Edit Code Owner approval",
+  "protectedBranchCodeOwnerCurrentRequired": "Current rule: Code Owner approval is required.",
+  "protectedBranchCodeOwnerCurrentOptional": "Current rule: Code Owner approval is not required.",
+  "protectedBranchCodeOwnerRequire": "Require Code Owner approval",
+  "protectedBranchCodeOwnerEnableWarning": "This rule will require Code Owner approval for files covered by CODEOWNERS.",
+  "protectedBranchCodeOwnerDisableWarning": "This rule will no longer require Code Owner approval. Other approval rules may still apply.",
+  "protectedBranchCodeOwnerAcknowledge": "I understand this changes Code Owner approval requirements for this branch rule.",
+  "protectedBranchCodeOwnerError": "The Code Owner setting could not be confirmed. Check the rule before trying again.",
+  "protectedBranchCodeOwnerForbidden": "Permission to manage this rule and GitLab Premium/Ultimate are required.",
+  "protectedBranchCodeOwnerSuccess": "Code Owner approval requirement updated.",
+  "protectedBranchCodeOwnerInspect": "Check the rule to read its current Code Owner setting.",
+  "protectedBranchCodeOwnerContext": "A wildcard can affect multiple branches. CODEOWNERS coverage controls which files need approval. Direct pushes can bypass merge request approvals.",
+  "protectedBranchForcePushEditTarget": "Project {project}: {name}",
+  "@protectedBranchForcePushEditTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "protectedBranchForcePushCurrentAllowed": "Force push is currently allowed.",
+  "protectedBranchForcePushCurrentBlocked": "Force push is currently blocked.",
+  "protectedBranchForcePushAllow": "Allow force push",
+  "protectedBranchForcePushSave": "Save setting",
+  "protectedBranchForcePushEnableWarning": "Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.",
+  "protectedBranchForcePushDisableWarning": "Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.",
+  "protectedBranchForcePushAcknowledge": "I understand this change for matching branches.",
+  "protectedBranchForcePushReload": "Check rule again",
+  "protectedBranchForcePushSuccess": "Force-push setting updated.",
+  "protectedBranchForcePushAuth": "Sign in again before changing this rule.",
+  "protectedBranchForcePushForbidden": "You do not have permission to change this rule.",
+  "protectedBranchForcePushUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchForcePushStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchForcePushRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchForcePushError": "Could not confirm this change. Check the rule before trying again.",
+  "protectedBranchForcePushSessionChanged": "The account changed. Close this dialog and open the rule again.",
+  "protectedBranchMergeRoleEditTitle": "Edit merge access",
+  "protectedBranchMergeRoleTarget": "Project {project}: {name}",
+  "protectedBranchMergeRoleCurrent": "Current merge access: {role}",
+  "protectedBranchMergeRoleNone": "No one",
+  "protectedBranchMergeRoleDeveloper": "Developers + Maintainers",
+  "protectedBranchMergeRoleMaintainer": "Maintainers",
+  "protectedBranchMergeRoleWarning": "Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.",
+  "protectedBranchMergeRoleAcknowledge": "I understand the merge access change for matching branches.",
+  "protectedBranchMergeRoleSave": "Save merge access",
+  "protectedBranchMergeRoleReload": "Check rule again",
+  "protectedBranchMergeRoleSuccess": "Merge access updated.",
+  "protectedBranchMergeRoleAuth": "Sign in again before changing this rule.",
+  "protectedBranchMergeRoleForbidden": "You do not have permission to change merge access.",
+  "protectedBranchMergeRoleUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchMergeRoleStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchMergeRoleRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchMergeRoleError": "Could not confirm this change. Check the rule before trying again.",
+  "protectedBranchMergeRoleSessionChanged": "The account changed. Close this dialog and open the rule again.",
+  "@protectedBranchMergeRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchMergeRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedBranchPushRoleEditTitle": "Edit push access",
+  "protectedBranchPushRoleTarget": "Project {project}: {name}",
+  "protectedBranchPushRoleCurrent": "Current push access: {role}",
+  "protectedBranchPushRoleNone": "No one",
+  "protectedBranchPushRoleDeveloper": "Developers + Maintainers",
+  "protectedBranchPushRoleMaintainer": "Maintainers",
+  "protectedBranchPushRoleWarning": "Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.",
+  "protectedBranchPushRoleAcknowledge": "I understand the push access change for matching branches.",
+  "protectedBranchPushRoleSave": "Save push access",
+  "protectedBranchPushRoleReload": "Check rule again",
+  "protectedBranchPushRoleSuccess": "Push access updated.",
+  "protectedBranchPushRoleAuth": "Sign in again before changing this rule.",
+  "protectedBranchPushRoleForbidden": "You do not have permission to change push access.",
+  "protectedBranchPushRoleUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchPushRoleStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchPushRoleRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchPushRoleError": "Could not confirm this change. Check the rule before trying again.",
+  "protectedBranchPushRoleSessionChanged": "The account changed. Close this dialog and open the rule again.",
+  "@protectedBranchPushRoleTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "@protectedBranchPushRoleCurrent": {"placeholders": {"role": {"type": "String"}}},
+  "protectedEnvironmentCreateTitle": "Protect environment",
+  "protectedEnvironmentCreateName": "Environment name",
+  "protectedEnvironmentCreateDeveloper": "Developers + Maintainers",
+  "protectedEnvironmentCreateMaintainer": "Maintainers",
+  "protectedEnvironmentCreateWarning": "This protection changes who may deploy to the named environment. Approval rules are not added.",
+  "protectedEnvironmentCreateAcknowledge": "I understand the deployment access change.",
+  "protectedEnvironmentCreateSave": "Protect environment",
+  "protectedEnvironmentCreateReload": "Check environments again",
+  "protectedEnvironmentCreateDuplicate": "This environment is already protected. Check the list before continuing.",
+  "protectedEnvironmentCreateError": "Could not confirm protection. Check the list before trying again.",
+  "protectedEnvironmentCreateForbidden": "You do not have permission or this feature is unavailable.",
+  "protectedEnvironmentCreateSessionChanged": "The account changed. Close this dialog and open it again.",
+  "protectedEnvironmentCreateSuccess": "Environment protected.",
+  "protectedEnvironmentCreateInvalidName": "Enter an exact environment name without wildcards.",
+  "protectedEnvironmentRemoveRoleTitle": "Remove deploy role",
+  "protectedEnvironmentRemoveRoleWarning": "Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.",
+  "protectedEnvironmentRemoveRoleAcknowledge": "I understand this removes the selected deployment grant.",
+  "protectedEnvironmentRemoveRoleSuccess": "Deploy role removed.",
+  "protectedEnvironmentRemoveRoleForbidden": "You do not have permission to remove this deploy grant.",
+  "protectedEnvironmentRemoveRoleError": "Could not confirm the deploy grant removal. Check the rule before trying again.",
+  "protectedEnvironmentRemoveRoleGrantLabel": "{role} (grant {id})",
+  "@protectedEnvironmentRemoveRoleGrantLabel": {"placeholders": {"role": {"type": "String"}, "id": {"type": "String"}}},
+  "protectedEnvironmentDeployRoleTitle": "Add deploy role",
+  "protectedEnvironmentDeployInheritanceTitle": "Edit deploy group membership",
+  "protectedEnvironmentDeployGroupTitle": "Add deploy group",
+  "protectedEnvironmentRemoveDeployGroupTitle": "Remove deploy group",
+  "protectedEnvironmentRemoveDeployGroupWarning": "Removing this grant can block deployments for this group's members. Other grants may still allow access. Removing the last deploy grant can block deployment to this protected environment.",
+  "protectedEnvironmentRemoveDeployGroupAcknowledge": "I understand that this removes the selected group's deploy grant and can block deployments.",
+  "protectedEnvironmentRemoveDeployGroupSuccess": "Deploy group removed.",
+  "protectedEnvironmentRemoveDeployGroupGrantLabel": "{deployer} (grant {grantId}, group {groupId})",
+  "@protectedEnvironmentRemoveDeployGroupGrantLabel": {"placeholders": {"deployer": {"type": "String"}, "grantId": {"type": "String"}, "groupId": {"type": "String"}}},
+  "protectedEnvironmentDeployGroupWarning": "Adding a group can let its direct members deploy to this environment. Review existing deploy access and approval rules before continuing.",
+  "protectedEnvironmentDeployGroupAcknowledge": "I understand that this grants deployment access to the group's direct members.",
+  "protectedEnvironmentDeployGroupSuccess": "Deploy group added.",
+  "protectedEnvironmentDeployGroupId": "Group ID",
+  "protectedEnvironmentDeployGroupHint": "Enter the exact numeric ID of a group shared with this project. Only direct members are included.",
+  "protectedEnvironmentDeployGroupDuplicate": "This group already has deployment access.",
+  "protectedEnvironmentDeployInheritanceWarning": "Including inherited members can let more users deploy. Direct membership only can remove deployment access. Review all grants before continuing.",
+  "protectedEnvironmentDeployInheritanceAcknowledge": "I understand that this changes who can deploy to this environment.",
+  "protectedEnvironmentDeployInheritanceSuccess": "Deploy group membership updated.",
+  "protectedEnvironmentDeployInheritanceLevel": "Group membership",
+  "protectedEnvironmentDeployInheritanceDirect": "Direct members only",
+  "protectedEnvironmentDeployInheritanceInherited": "Include inherited members",
+  "protectedEnvironmentDeployInheritanceGrantLabel": "{deployer} (grant {grantId}, group {groupId})",
+  "@protectedEnvironmentDeployInheritanceGrantLabel": {"placeholders": {"deployer": {"type": "String"}, "grantId": {"type": "String"}, "groupId": {"type": "String"}}},
+  "protectedEnvironmentApprovalGroupTitle": "Add approval group",
+  "protectedEnvironmentApprovalInheritanceTitle": "Edit approver group membership",
+  "protectedEnvironmentApprovalInheritanceWarning": "Including inherited membership can let more users approve. Direct membership only can block deployments if too few approvers remain. Review all rules before continuing.",
+  "protectedEnvironmentApprovalInheritanceAcknowledge": "I understand that this changes who can approve deployments.",
+  "protectedEnvironmentApprovalInheritanceSuccess": "Approver group membership updated.",
+  "protectedEnvironmentApprovalInheritanceLevel": "Group membership",
+  "protectedEnvironmentApprovalInheritanceDirect": "Direct members only",
+  "protectedEnvironmentApprovalInheritanceInherited": "Include inherited members",
+  "protectedEnvironmentApprovalInheritanceGroupLabel": "Group {groupId}: {membership}",
+  "@protectedEnvironmentApprovalInheritanceGroupLabel": {"placeholders": {"groupId": {"type": "String"}, "membership": {"type": "String"}}},
+  "protectedEnvironmentApprovalGroupId": "Group ID",
+  "protectedEnvironmentApprovalGroupHint": "Enter the exact positive group ID without spaces.",
+  "protectedEnvironmentApprovalGroupDuplicate": "This group already has an approval rule.",
+  "protectedEnvironmentApprovalGroupWarning": "Only direct group members can approve under this rule. The group must be shared with this project. Too few eligible approvers can block deployments.",
+  "protectedEnvironmentApprovalGroupAcknowledge": "I understand that this adds a required approval rule for deployments.",
+  "protectedEnvironmentApprovalGroupSuccess": "Approval group added.",
+  "protectedEnvironmentApprovalGroupEditTitle": "Replace approval group",
+  "protectedEnvironmentApprovalGroupEditWarning": "The selected group will be replaced. The approval count and membership setting stay the same. The new group must be shared with this project. Too few eligible approvers can block deployments.",
+  "protectedEnvironmentApprovalGroupEditAcknowledge": "I understand that this changes which group can approve deployments.",
+  "protectedEnvironmentApprovalGroupEditSuccess": "Approval group replaced.",
+  "protectedEnvironmentApprovalGroupEditRuleLabel": "{approver} (rule {ruleId}, group {groupId}, {count} required)",
+  "protectedEnvironmentApprovalGroupEditDirect": "Direct members only",
+  "protectedEnvironmentApprovalGroupEditInherited": "Includes inherited members",
+  "protectedEnvironmentApprovalGroupEditId": "New group ID",
+  "@protectedEnvironmentApprovalGroupEditRuleLabel": {"placeholders": {"approver": {"type": "String"}, "ruleId": {"type": "String"}, "groupId": {"type": "String"}, "count": {"type": "String"}}},
+  "protectedEnvironmentDeployRoleWarning": "The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.",
+  "protectedEnvironmentDeployRoleAcknowledge": "I understand this expands deployment access.",
+  "protectedEnvironmentDeployRoleSuccess": "Deploy role added.",
+  "protectedEnvironmentDeployRoleForbidden": "You do not have permission to change deploy access.",
+  "protectedEnvironmentDeployRoleError": "Could not confirm the deploy role update. Check the rule before trying again.",
+  "protectedEnvironmentUnprotectTitle": "Unprotect environment",
+  "protectedEnvironmentUnprotectTarget": "Project {project}: {name}",
+  "protectedEnvironmentUnprotectWarning": "Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.",
+  "protectedEnvironmentUnprotectName": "Type the exact environment name",
+  "protectedEnvironmentUnprotectAcknowledge": "I understand that these deployment restrictions and approval rules will be removed.",
+  "protectedEnvironmentUnprotectReload": "Check rule again",
+  "protectedEnvironmentUnprotectAuth": "Sign in again before changing this rule.",
+  "protectedEnvironmentUnprotectForbidden": "You do not have permission to unprotect this environment.",
+  "protectedEnvironmentUnprotectUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedEnvironmentUnprotectStale": "The rule changed. Check it again before continuing.",
+  "protectedEnvironmentUnprotectRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedEnvironmentUnprotectError": "Could not confirm removal. Check the rule before trying again.",
+  "protectedEnvironmentUnprotectSessionChanged": "The account changed. Close this dialog and open the rule again.",
+  "protectedEnvironmentUnprotectSuccess": "Environment protection removed.",
+  "protectedEnvironmentUnprotectUnreported": "Access entry",
+  "@protectedEnvironmentUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "containerPolicyStatus": "Status",
+  "containerPolicyTitle": "Cleanup policy",
+  "containerPolicyAbsent": "GitLab did not report a cleanup policy.",
+  "containerPolicyHint": "Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.",
+  "containerPolicyNextRun": "Next run reported by GitLab (local time)",
+  "containerPolicyDays": "{count, plural, =1{1 day} other{{count} days}}",
+  "@containerPolicyDays": {"placeholders": {"count": {"type": "int", "format": "decimalPattern"}}},
+  "containerPolicyMonths": "{count, plural, =1{1 month} other{{count} months}}",
+  "@containerPolicyMonths": {"placeholders": {"count": {"type": "int", "format": "decimalPattern"}}},
+  "containerPolicyEnabled": "Enabled",
+  "containerPolicyDisabled": "Disabled",
+  "containerPolicyNotReported": "Not reported",
+  "containerPolicyCadence": "Run interval",
+  "containerCreateTitle": "Create cleanup policy",
+  "containerCreateSave": "Confirm disabled policy creation",
+  "containerCreateWarning": "Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.",
+  "containerCreateAcknowledge": "I have reviewed these criteria and understand that this policy will stay disabled.",
+  "containerCreateExisting": "This project already has a cleanup policy. Creation will not replace it; use its existing settings.",
+  "containerCreateUnknown": "GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.",
+  "containerCreateAccepted": "Cleanup policy creation accepted.",
+  "containerCreateInvalid": "GitLab rejected these policy settings. Review the criteria, then edit or retry.",
+  "containerCreateDaily": "Every day",
+  "containerCreateWeekly": "Every week",
+  "containerCreateFortnightly": "Every two weeks",
+  "containerCreateMonthly": "Every month",
+  "containerCreateQuarterly": "Every three months",
+  "containerCreateDays": "{days, plural, one{1 day} other{{days} days}}",
+  "@containerCreateDays": {"placeholders":{"days":{"type":"int"}}},
+  "containerPolicyKeepCount": "Matching tags to keep per image",
+  "containerCreateEnable": "Enable cleanup when creating",
+  "containerCreateEnabledWarning": "An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.",
+  "containerCreateEnabledAcknowledge": "I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.",
+  "containerCreateEnabledSave": "Confirm enabled policy creation",
+  "containerCreateSessionChanged": "The account changed. Close this dialog and reopen it to review the current project before creating a policy.",
+  "containerPolicyAge": "Remove tags older than",
+  "containerPolicyDeletePattern": "Delete pattern",
+  "containerPolicyLegacyPattern": "Delete pattern (legacy)",
+  "containerPolicyKeepPattern": "Keep pattern",
+  "containerPolicyEmptyPattern": "Empty pattern",
+  "containerPolicyError": "Could not load the cleanup policy.",
+  "containerPolicyForbidden": "You do not have permission to view this project cleanup policy.",
+  "containerPolicyUnavailable": "The project is not accessible, or cleanup policy information is unavailable.",
+  "containerPolicyEmptySetting": "Empty setting",
+  "containerActivationTarget": "Project {projectId} — all image repositories",
+  "containerActivationError": "Could not confirm the update. Reload the policy and try again.",
+  "containerActivationIncomplete": "To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.",
+  "containerActivationTitle": "Change cleanup policy status",
+  "containerActivationEnable": "Enable cleanup",
+  "containerActivationDisable": "Disable cleanup",
+  "containerActivationEnableWarning": "Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.",
+  "containerActivationDisableWarning": "Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.",
+  "containerActivationUnknown": "A known activation status is required. Review policy settings in GitLab.",
+  "containerActivationInvalid": "GitLab rejected this status change. Review the existing policy settings in GitLab.",
+  "containerActivationAccepted": "Cleanup policy status update accepted.",
+  "containerActivationForbidden": "You do not have permission to change this cleanup policy.",
+  "containerActivationStale": "The policy changed or is no longer reported. Reload and review it before saving.",
+  "containerActivationReload": "Reload policy",
+  "containerActivationRateLimited": "Too many requests. Wait and reload the policy before trying again.",
+  "@containerActivationTarget": {"placeholders": {"projectId": {"type": "String"}}},
+  "containerCadenceTitle": "Edit cleanup cadence",
+  "containerCadenceSave": "Confirm cadence change",
+  "containerCadenceSelect": "New cadence (GitLab API interval)",
+  "containerCadenceWarning": "Changing this project-wide cadence affects future scheduled tag cleanup in all image repositories. Review activation and deletion/retention criteria below. This does not change those settings or confirm cleanup completion.",
+  "containerCadenceUnknown": "Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerCadenceAccepted": "Cleanup cadence update accepted.",
+  "containerTagProtectionTitle": "Tag protection rules",
+  "containerTagProtectionCreateTitle": "Create tag protection rule",
+  "containerTagProtectionCreateSave": "Create rule",
+  "containerTagProtectionCreatePattern": "Tag name pattern",
+  "containerTagProtectionCreatePush": "Minimum push role",
+  "containerTagProtectionCreateDelete": "Minimum delete role",
+  "containerTagProtectionCreateUnset": "Select a role",
+  "containerTagProtectionCreateWarning": "This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.",
+  "containerTagProtectionCreateAcknowledge": "I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.",
+  "containerTagProtectionCreateProject": "Project {projectId}",
+  "containerTagProtectionCreateForbidden": "You do not have permission to create this rule.",
+  "containerTagProtectionCreateInvalid": "The tag pattern or roles were rejected. Review both required roles and retry.",
+  "containerTagProtectionCreateError": "Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionCreateSaved": "The tag rule was created.",
+  "containerTagProtectionCreateUnavailable": "Tag rule creation requires GitLab 18.8 or later and an accessible project.",
+  "containerTagProtectionCreateRateLimited": "Too many requests. Wait and retry.",
+  "@containerTagProtectionCreateProject": {"description":"Project whose matching container tags will be protected","placeholders":{"projectId":{"type":"String"}}},
+  "containerTagProtectionEmpty": "No tag protection rules.",
+  "containerTagProtectionError": "Could not load tag protection rules.",
+  "containerTagProtectionForbidden": "You do not have permission to view tag protection rules.",
+  "containerTagProtectionUnavailable": "Tag protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerTagProtectionPushRole": "Minimum push role: {role}",
+  "@containerTagProtectionPushRole": {"placeholders": {"role": {"type": "String"}}},
+  "containerTagProtectionPushRoleTitle": "Edit minimum push role",
+  "containerTagProtectionPushRoleSave": "Save push role",
+  "containerTagProtectionPushRoleWarning": "Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.",
+  "containerTagProtectionPushRoleAcknowledge": "I have reviewed the rule and new minimum push role and understand the access changes.",
+  "containerTagProtectionPushRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionPushRoleForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionPushRoleError": "Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionPushRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionPushRoleReload": "Reload rule",
+  "containerTagProtectionPushRoleSaved": "Minimum push role updated.",
+  "containerTagProtectionPushRoleMissing": "The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.",
+  "containerTagProtectionPushRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerTagProtectionPushRoleInvalid": "The push role was rejected. Choose a supported role and retry.",
+  "containerTagProtectionPushRoleDraft": "New minimum push role",
+  "containerTagProtectionPushRoleSelect": "Select a push role",
+  "containerTagProtectionPushRoleUnknown": "The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerTagProtectionPushRoleTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionDeleteRole": "Minimum delete role: {role}",
+  "@containerTagProtectionDeleteRole": {"placeholders": {"role": {"type": "String"}}},
+  "containerTagProtectionDeleteRoleTitle": "Edit minimum delete role",
+  "containerTagProtectionDeleteRoleSave": "Save delete role",
+  "containerTagProtectionDeleteRoleWarning": "Changing the minimum delete role changes who can delete matching container image tags across this project. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The tag pattern and minimum push role stay unchanged. Other rules and permissions still apply. Saving this rule does not delete tags or images, affect Git tags, or describe your current access.",
+  "containerTagProtectionDeleteRoleAcknowledge": "I have reviewed the rule and new minimum delete role and understand the access changes.",
+  "containerTagProtectionDeleteRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionDeleteRoleForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionDeleteRoleError": "Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionDeleteRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionDeleteRoleReload": "Reload rule",
+  "containerTagProtectionDeleteRoleSaved": "Minimum delete role updated.",
+  "containerTagProtectionDeleteRoleMissing": "The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.",
+  "containerTagProtectionDeleteRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerTagProtectionDeleteRoleInvalid": "The delete role was rejected. Choose a supported role and retry.",
+  "containerTagProtectionDeleteRoleDraft": "New minimum delete role",
+  "containerTagProtectionDeleteRoleSelect": "Select a delete role",
+  "containerTagProtectionDeleteRoleUnknown": "The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerTagProtectionDeleteRoleTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionRoleUnset": "Not specified by rule",
+  "containerTagProtectionRoleAdmin": "Administrator",
+  "containerTagProtectionHint": "Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later, creation requires 18.8 or later, and editing requires 18.9 or later.",
+  "containerTagProtectionPatternTitle": "Edit tag protection pattern",
+  "containerTagProtectionPatternSave": "Save pattern",
+  "containerTagProtectionPatternWarning": "Changing the pattern can remove protection from previously matching container image tags and apply it to others across this project. Wildcards (*) can affect multiple tags. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your access.",
+  "containerTagProtectionPatternAcknowledge": "I have reviewed the current rule and new pattern and understand the protection changes.",
+  "containerTagProtectionPatternTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionPatternForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionPatternError": "Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionPatternStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionPatternReload": "Reload rule",
+  "containerTagProtectionPatternSaved": "Tag protection pattern updated.",
+  "containerTagProtectionPatternMissing": "The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.",
+  "containerTagProtectionRemoveTitle": "Delete tag protection rule",
+  "containerTagProtectionRemoveSave": "Delete rule",
+  "containerTagProtectionRemoveWarning": "Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.",
+  "containerTagProtectionRemoveAcknowledge": "I understand and want to delete this exact rule.",
+  "containerTagProtectionRemoveTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionRemoveForbidden": "You do not have permission to delete this rule.",
+  "containerTagProtectionRemoveError": "The request failed and may have reached the server. Inspect the rule list before retrying.",
+  "containerTagProtectionRemoveStale": "This rule changed or is ambiguous. Reload it and confirm again.",
+  "containerTagProtectionRemoveReload": "Reload rule",
+  "containerTagProtectionRemoveSaved": "Tag protection rule deleted.",
+  "containerTagProtectionRemoveMissing": "This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.",
+  "containerTagProtectionRemoveRateLimited": "Too many requests. Wait before retrying.",
+  "@containerTagProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionPatternRateLimited": "Too many requests. Wait and retry.",
+  "containerTagProtectionPatternInvalid": "The pattern was rejected or is already taken. Edit the draft and retry.",
+  "containerTagProtectionPatternDraft": "New container tag pattern",
+  "@containerTagProtectionPatternTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagDelete": "Delete tag",
+  "containerTagDeleteConfirmTitle": "Delete container tag?",
+  "containerTagDeleteConfirmBody": "Delete tag “{tagName}” at “{path}”? This cannot be undone.",
+  "containerTagDeleteWarning": "This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.",
+  "containerCleanupTitle": "Clean up tags",
+  "containerCleanupTarget": "Project {projectId}, image repository {repositoryId}",
+  "@containerCleanupTarget": {"placeholders": {"projectId": {"type": "String"}, "repositoryId": {"type": "String"}}},
+  "containerCleanupWarning": "Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.",
+  "containerCleanupLimits": "Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.",
+  "containerCleanupDeletePattern": "Delete pattern (RE2, required)",
+  "containerCleanupKeepPattern": "Keep pattern (RE2, optional)",
+  "containerCleanupKeepCount": "Keep newest matching tags (optional)",
+  "containerCleanupAge": "Only remove tags older than",
+  "containerCleanupNoAge": "No age limit",
+  "containerCleanupDay": "1 day",
+  "containerCleanupWeek": "7 days",
+  "containerCleanupMonth": "1 month",
+  "containerCleanupRequired": "Enter an explicit delete pattern.",
+  "containerCleanupCountError": "Enter a non-negative whole number or leave blank.",
+  "containerCleanupSchedule": "Schedule cleanup",
+  "containerCleanupScheduled": "Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.",
+  "containerCleanupError": "Could not schedule cleanup. Check your connection and try again.",
+  "containerCleanupForbidden": "You do not have permission to clean up tags in this repository.",
+  "containerCleanupRateLimited": "Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.",
+  "containerCleanupInvalid": "GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.",
+  "containerTagDeleteForbidden": "You cannot delete this tag. It may be protected or you may not have permission.",
+  "containerTagDeleteError": "Could not delete this tag. Try again.",
+  "@containerTagDeleteConfirmBody": {"description": "Confirmation identifying a registry tag and its image path", "placeholders": {"tagName": {"type": "String"}, "path": {"type": "String"}}},
+  "containerImmutabilityTitle": "Immutable tag rules",
+  "containerImmutabilityEmpty": "No immutable tag rules.",
+  "containerImmutabilityError": "Could not load immutable tag rules. Check instance support and retry.",
+  "containerImmutabilityForbidden": "You do not have permission to view immutable tag rules.",
+  "containerImmutabilityUnavailable": "The project or rule connection is unavailable. Check access, subscription, and instance support.",
+  "containerImmutabilityHint": "Immutable tags require Ultimate and a supported registry. These patterns apply across the project's container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag's current protection. Changes may take time to propagate.",
+  "containerImmutabilityCreateTitle": "Create immutable rule",
+  "containerImmutabilityCreateButton": "Create rule",
+  "containerImmutabilityCreated": "Immutable rule created.",
+  "containerImmutabilityPattern": "Tag pattern",
+  "containerImmutabilityPatternHint": "Enter an RE2 pattern, up to 100 characters. Spaces are preserved; GitLab validates the syntax.",
+  "containerImmutabilityProject": "Project {projectId}",
+  "containerImmutabilityImpact": "This requires Owner access, Ultimate, and a supported registry. The pattern affects every container repository in this project. Matching tags cannot be overwritten or deleted, including by cleanup policies. Direct manifest deletion is blocked while any immutable rule exists. Rules cannot be edited; changes may take time to propagate.",
+  "containerImmutabilityAcknowledge": "I understand the project-wide protection and workflow impact.",
+  "containerImmutabilityUncertain": "Creation was not confirmed. Check current rules before trying again; the request may already have succeeded.",
+  "containerImmutabilityInspect": "Check current rules",
+  "containerImmutabilityRejected": "GitLab rejected the request, or an immutable rule already uses this pattern. Check current rules and review the pattern and project limits.",
+  "containerImmutabilityAuth": "Your session was rejected. Sign in again before creating a rule.",
+  "containerImmutabilityAccountChanged": "The account changed. Close this dialog and reopen it for the selected account.",
+  "@containerImmutabilityProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerImmutabilityDeleteTitle": "Delete immutable rule",
+  "containerImmutabilityDeleteButton": "Delete rule",
+  "containerImmutabilityDeleteDone": "Immutable rule deleted.",
+  "containerImmutabilityDeleteProject": "Project {projectId}",
+  "containerImmutabilityDeleteRuleId": "Rule ID",
+  "containerImmutabilityDeleteConfirm": "Type the exact pattern",
+  "containerImmutabilityDeleteImpact": "Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.",
+  "containerImmutabilityDeleteAcknowledge": "I understand the project-wide protection loss.",
+  "containerImmutabilityDeleteUncertain": "Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.",
+  "containerImmutabilityDeleteReload": "Reload rule",
+  "containerImmutabilityDeleteRejected": "The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.",
+  "containerImmutabilityDeleteAuth": "Your session was rejected. Sign in again before deleting a rule.",
+  "containerImmutabilityDeleteAccountChanged": "The account changed. Close this dialog and reopen it for the selected account.",
+  "@containerImmutabilityDeleteProject": {
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerTagProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionDeleteClearTarget": "Project {projectId} — rule {ruleId}",
+  "containerTagProtectionDeleteClearForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionDeleteClearStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionDeleteClearReload": "Reload rule",
+  "containerTagProtectionDeleteClearMissing": "The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.",
+  "containerTagProtectionDeleteClearRateLimited": "Too many requests. Wait and retry.",
+  "@containerTagProtectionDeleteClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionDeleteClearTitle": "Clear minimum delete role",
+  "containerTagProtectionDeleteClearSave": "Clear delete restriction",
+  "containerTagProtectionDeleteClearWarning": "This removes this rule's minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.",
+  "containerTagProtectionDeleteClearAcknowledge": "I have reviewed the rule and understand the loss of this delete restriction.",
+  "containerTagProtectionDeleteClearError": "Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionDeleteClearSaved": "Minimum delete-role restriction cleared.",
+  "containerTagProtectionDeleteClearInvalid": "The server rejected clearing this delete restriction. Check the rule and retry.",
+  "containerTagProtectionDeleteClearBlocked": "Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.",
+  "containerTagProtectionPushClearForbidden": "You do not have permission to change this rule.",
+  "containerTagProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerTagProtectionPushClearReload": "Reload rule",
+  "containerTagProtectionPushClearMissing": "The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.",
+  "containerTagProtectionPushClearRateLimited": "Too many requests. Wait and retry.",
+  "@containerTagProtectionPushClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerTagProtectionPushClearTitle": "Clear minimum push role",
+  "containerTagProtectionPushClearSave": "Clear push restriction",
+  "containerTagProtectionPushClearWarning": "This removes this rule's minimum push-role restriction for matching container image tags across the project and weakens push protection. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not grant everyone access, delete tags or images, or affect Git tags.",
+  "containerTagProtectionPushClearAcknowledge": "I have reviewed the rule and understand the loss of this push restriction.",
+  "containerTagProtectionPushClearError": "Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
+  "containerTagProtectionPushClearSaved": "Minimum push-role restriction cleared.",
+  "containerTagProtectionPushClearInvalid": "The server rejected clearing this push restriction. Check the rule and retry.",
+  "containerTagProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.",
+  "packageFileDelete": "Delete file",
+  "packageFileDeleteConfirmTitle": "Delete package file?",
+  "packageFileDeleteConfirmBody": "Delete “{fileName}” from “{packageName}”? This cannot be undone.",
+  "packageFileDeleteWarning": "Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.",
+  "packageFileDeleteForbidden": "You cannot delete this file. The package may be protected or you may not have permission.",
+  "packageFileDeleteError": "Could not delete this file. Try again.",
+  "@packageFileDeleteConfirmBody": {"description": "Confirmation identifying the file and its package", "placeholders": {"fileName": {"type": "String"}, "packageName": {"type": "String"}}},
+  "containerRepositoryDelete": "Delete repository",
+  "containerRepositoryDeleteConfirmTitle": "Delete image repository?",
+  "containerRepositoryDeleteConfirmBody": "Delete “{path}” and all its tags? This cannot be undone.",
+  "containerRepositoryDeleteWarning": "Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.",
+  "containerRepositoryDeleteForbidden": "You cannot delete this repository. Check your permissions and protection rules.",
+  "containerRepositoryDeleteError": "Could not schedule repository deletion. Try again.",
+  "containerRepositoryDeletionScheduled": "Deletion scheduled",
+  "containerRepositoryDeletionNotice": "Repository deletion has been scheduled. Refresh to check progress.",
+  "@containerRepositoryDeleteConfirmBody": {"description": "Confirmation identifying the complete image repository", "placeholders": {"path": {"type": "String"}}},
+  "containerKeepCountTitle": "Edit cleanup retention count",
+  "containerKeepCountSave": "Confirm retention change",
+  "containerKeepCountSelect": "New matching tags to keep per image",
+  "containerKeepCountWarning": "Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.",
+  "containerKeepCountUnknown": "Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerKeepCountAccepted": "Cleanup retention count update accepted.",
+  "protectedBranchUnprotectTitle": "Unprotect branch rule",
+  "protectedBranchUnprotectTarget": "Project {project}: {name}",
+  "@protectedBranchUnprotectTarget": {"placeholders": {"project": {"type": "String"}, "name": {"type": "String"}}},
+  "protectedBranchUnprotectWarning": "Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.",
+  "protectedBranchUnprotectName": "Type the exact rule name",
+  "protectedBranchUnprotectAcknowledge": "I understand the effect on matching branches.",
+  "protectedBranchUnprotectReload": "Check rule again",
+  "protectedBranchUnprotectSuccess": "Branch rule removed.",
+  "protectedBranchUnprotectAuth": "Sign in again before changing this rule.",
+  "protectedBranchUnprotectForbidden": "You do not have permission to remove this rule.",
+  "protectedBranchUnprotectUnavailable": "This rule is no longer available. Check the list before continuing.",
+  "protectedBranchUnprotectStale": "The rule changed. Check it again before continuing.",
+  "protectedBranchUnprotectRateLimited": "GitLab is limiting requests. Check the rule before trying again.",
+  "protectedBranchUnprotectError": "Could not confirm whether the rule was removed. Check it before trying again.",
+  "protectedBranchUnprotectSessionChanged": "The account changed. Close this dialog and open the rule again.",
+  "containerKeepPatternTitle": "Edit cleanup keep pattern",
+  "containerKeepPatternSave": "Confirm keep pattern change",
+  "containerKeepPatternSelect": "New keep pattern (GitLab RE2)",
+  "containerKeepPatternWarning": "Narrowing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. Review the current activation and deletion/retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Exact input is sent to GitLab for validation. Other settings are unchanged; acceptance does not confirm cleanup completion. Blank input does not clear the pattern.",
+  "containerKeepPatternUnknown": "Reported activation, cadence, count, age, effective delete pattern and keep pattern are required. A reported empty keep pattern can be replaced; an unreported value cannot. Review missing settings in GitLab. No policy will be created.",
+  "containerKeepPatternAccepted": "Cleanup keep pattern update accepted.",
+  "containerKeepPatternInvalid": "GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.",
+  "containerProtectionPatternTitle": "Edit repository protection pattern",
+  "containerProtectionPatternSave": "Save pattern",
+  "containerProtectionPatternWarning": "Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.",
+  "containerProtectionPatternAcknowledge": "I have reviewed the current rule and new pattern and understand the protection changes.",
+  "containerProtectionPatternTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionPatternForbidden": "You do not have permission to change this rule.",
+  "containerProtectionPatternError": "Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionPatternStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionPatternReload": "Reload rule",
+  "containerProtectionPatternSaved": "Repository protection pattern updated.",
+  "containerProtectionPatternMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionPatternRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionPatternInvalid": "The pattern was rejected or is already taken. Edit the draft and retry.",
+  "containerProtectionPatternDraft": "New repository path pattern",
+  "@containerProtectionPatternTarget": {
+    "description": "Exact project and repository protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerRepositoryProtectionTitle": "Repository protection rules",
+  "containerProtectionRemoveTitle": "Delete repository protection rule",
+  "containerProtectionRemoveSave": "Confirm rule deletion",
+  "containerProtectionRemoveWarning": "Removing this rule can reduce push or delete restrictions for repositories matching this path pattern. Other rules and permissions still apply. This deletes only the protection rule, not repositories, tags, or images. Review the exact target and minimum roles; these roles do not describe your permissions.",
+  "containerProtectionRemoveAcknowledge": "I understand that this rule's protection restrictions will be removed.",
+  "containerProtectionRemoveTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionRemoveForbidden": "You do not have permission to delete this repository protection rule.",
+  "containerProtectionRemoveError": "Could not confirm rule deletion. Reload or retry.",
+  "containerProtectionRemoveStale": "The rule changed since confirmation. Reload and review it before deleting.",
+  "containerProtectionRemoveReload": "Reload rule",
+  "containerProtectionRemoveDeleted": "Repository protection rule deleted.",
+  "containerProtectionRemoveMissing": "The rule was not found, is ambiguous, or is not accessible. Reload before confirming.",
+  "containerProtectionRemoveRateLimited": "Too many requests. Wait and retry.",
+  "@containerProtectionRemoveTarget": {"placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerRepositoryProtectionEmpty": "No repository protection rules.",
+  "containerProtectionCreateTitle": "Create repository protection rule",
+  "containerProtectionCreateSave": "Create rule",
+  "containerProtectionCreatePattern": "Repository path pattern",
+  "containerProtectionCreateProject": "Project {projectId}",
+  "containerProtectionCreateWarning": "This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.",
+  "containerProtectionCreateAcknowledge": "I have reviewed the pattern and minimum roles and understand their impact.",
+  "containerProtectionCreateUnset": "No restriction from this rule",
+  "containerProtectionCreateCreated": "The rule was created.",
+  "containerProtectionCreateForbidden": "You do not have permission to create this rule.",
+  "containerProtectionCreateInvalid": "The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.",
+  "containerProtectionCreateError": "Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.",
+  "@containerProtectionCreateProject": {
+    "description": "Project identifier for repository protection creation",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerProtectionCreatePush": "Minimum push role",
+  "containerProtectionCreateDelete": "Minimum delete role",
+  "containerRepositoryProtectionError": "Could not load repository protection rules.",
+  "containerRepositoryProtectionForbidden": "You do not have permission to view repository protection rules.",
+  "containerProtectionDeleteClearTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionDeleteClearForbidden": "You do not have permission to change this rule.",
+  "containerProtectionDeleteClearStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionDeleteClearReload": "Reload rule",
+  "containerProtectionDeleteClearMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionDeleteClearRateLimited": "Too many requests. Wait and retry.",
+  "@containerProtectionDeleteClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerProtectionDeleteRoleTitle": "Edit minimum delete role",
+  "containerProtectionDeleteRoleSave": "Save delete role",
+  "containerProtectionDeleteRoleWarning": "Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.",
+  "containerProtectionDeleteRoleAcknowledge": "I have reviewed the rule and new minimum delete role and understand the access changes.",
+  "containerProtectionDeleteRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionDeleteRoleForbidden": "You do not have permission to change this rule.",
+  "containerProtectionDeleteRoleError": "Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionDeleteRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionDeleteRoleReload": "Reload rule",
+  "containerProtectionDeleteRoleSaved": "Minimum delete role updated.",
+  "containerProtectionDeleteRoleMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionDeleteRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionDeleteRoleInvalid": "The delete role was rejected. Choose a supported role and retry.",
+  "containerProtectionDeleteRoleDraft": "New minimum delete role",
+  "containerProtectionDeleteRoleSelect": "Select a delete role",
+  "containerProtectionDeleteRoleUnknown": "The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerProtectionDeleteRoleTarget": {
+    "description": "Exact project and protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerProtectionDeleteClearTitle": "Clear minimum delete role",
+  "containerProtectionDeleteClearSave": "Clear delete restriction",
+  "containerProtectionDeleteClearWarning": "This removes this rule's minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.",
+  "containerProtectionDeleteClearAcknowledge": "I have reviewed the rule and understand the loss of this delete restriction.",
+  "containerProtectionDeleteClearError": "Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionDeleteClearSaved": "Minimum delete-role restriction cleared.",
+  "containerProtectionDeleteClearInvalid": "The server rejected clearing this delete restriction. Check the rule and retry.",
+  "containerProtectionDeleteClearBlocked": "Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.",
+  "containerRepositoryProtectionUnavailable": "Repository protection rules are unavailable on this instance, or the project is not accessible.",
+  "containerRepositoryProtectionPushRole": "Minimum push role: {role}",
+  "containerRepositoryProtectionDeleteRole": "Minimum delete role: {role}",
+  "containerRepositoryProtectionRoleUnset": "Not specified by rule",
+  "containerProtectionPushClearTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionPushClearForbidden": "You do not have permission to change this rule.",
+  "containerProtectionPushClearStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionPushClearReload": "Reload rule",
+  "containerProtectionPushClearMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionPushClearRateLimited": "Too many requests. Wait and retry.",
+  "@containerProtectionPushClearTarget": {"description":"Exact project and protection rule identifiers","placeholders":{"projectId":{"type":"String"},"ruleId":{"type":"String"}}},
+  "containerProtectionPushRoleTitle": "Edit minimum push role",
+  "containerProtectionPushRoleSave": "Save push role",
+  "containerProtectionPushRoleWarning": "Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.",
+  "containerProtectionPushRoleAcknowledge": "I have reviewed the rule and new minimum push role and understand the access changes.",
+  "containerProtectionPushRoleTarget": "Project {projectId} — rule {ruleId}",
+  "containerProtectionPushRoleForbidden": "You do not have permission to change this rule.",
+  "containerProtectionPushRoleError": "Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionPushRoleStale": "The rule changed since confirmation. Reload and review it before saving.",
+  "containerProtectionPushRoleReload": "Reload rule",
+  "containerProtectionPushRoleSaved": "Minimum push role updated.",
+  "containerProtectionPushRoleMissing": "The rule is missing, ambiguous, or inaccessible. Reload before confirming.",
+  "containerProtectionPushRoleRateLimited": "Too many requests. Wait and retry.",
+  "containerProtectionPushRoleInvalid": "The push role was rejected. Choose a supported role and retry.",
+  "containerProtectionPushRoleDraft": "New minimum push role",
+  "containerProtectionPushRoleSelect": "Select a push role",
+  "containerProtectionPushRoleUnknown": "The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.",
+  "@containerProtectionPushRoleTarget": {
+    "description": "Exact project and protection rule identifiers",
+    "placeholders": {
+      "projectId": {
+        "type": "String"
+      },
+      "ruleId": {
+        "type": "String"
+      }
+    }
+  },
+  "containerProtectionPushClearTitle": "Clear minimum push role",
+  "containerProtectionPushClearSave": "Clear push restriction",
+  "containerProtectionPushClearWarning": "This removes this rule's minimum push-role restriction for matching repositories and weakens push protection. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.",
+  "containerProtectionPushClearAcknowledge": "I have reviewed the rule and understand the loss of this push restriction.",
+  "containerProtectionPushClearError": "Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.",
+  "containerProtectionPushClearSaved": "Minimum push-role restriction cleared.",
+  "containerProtectionPushClearInvalid": "The server rejected clearing this push restriction. Check the rule and retry.",
+  "containerProtectionPushClearBlocked": "Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.",
+  "containerRepositoryProtectionRoleAdmin": "Administrator",
+  "@containerRepositoryProtectionPushRole": {"description": "Minimum push role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "@containerRepositoryProtectionDeleteRole": {"description": "Minimum delete role in a repository protection rule", "placeholders": {"role": {"type": "String"}}},
+  "containerAgeTitle": "Edit cleanup age limit",
+  "containerAgeSave": "Confirm age limit change",
+  "containerAgeSelect": "New age limit (GitLab API duration)",
+  "containerAgeWarning": "Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.",
+  "containerAgeUnknown": "Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerAgeAccepted": "Cleanup age limit update accepted.",
+  "containerDeletePatternTitle": "Edit cleanup delete pattern",
+  "containerDeletePatternSave": "Confirm delete pattern change",
+  "containerDeletePatternSelect": "New delete pattern (GitLab RE2)",
+  "containerDeletePatternWarning": "Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.",
+  "containerDeletePatternUnknown": "Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.",
+  "containerDeletePatternAccepted": "Cleanup delete pattern update accepted.",
+  "containerDeletePatternInvalid": "GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.",
+  "containerKeepPatternClearTitle": "Clear cleanup keep pattern",
+  "containerKeepPatternClearSave": "Confirm keep pattern removal",
+  "containerKeepPatternClearWarning": "Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.",
+  "containerKeepPatternClearAcknowledge": "I understand that previously preserved tags may become eligible for permanent deletion.",
+  "containerKeepPatternClearUnknown": "Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.",
+  "containerKeepPatternClearAccepted": "Keep pattern removal accepted.",
+  "containerKeepPatternClearInvalid": "GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.",
+  "pipelinesRefAll": "All refs",
+  "@pipelinesRefAll": {
+    "description": "Pipeline filter button when no branch or tag is selected"
+  },
+  "pipelinesRefTitle": "Branch or tag",
+  "@pipelinesRefTitle": {
+    "description": "Branch or tag filter dialog title and input label"
+  },
+  "pipelinesRefSelected": "Ref: {ref}",
+  "@pipelinesRefSelected": {
+    "description": "Pipeline filter button showing the selected branch or tag",
+    "placeholders": {
+      "ref": {
+        "type": "String"
+      }
+    }
+  },
+  "pipelinesRefApply": "Apply",
+  "@pipelinesRefApply": {
+    "description": "Apply the pipeline branch or tag filter"
+  },
+  "pipelinesRefClear": "Clear",
+  "@pipelinesRefClear": {
+    "description": "Remove the pipeline branch or tag filter"
+  },
+  "pipelinesRefHint": "Enter an exact branch or tag name.",
+  "@pipelinesRefHint": {
+    "description": "Exact-match branch or tag filter input hint"
+  },
+  "pipelinesSourceAll": "All top-level sources",
+  "@pipelinesSourceAll": {
+    "description": "Project pipeline source filter option: All top-level sources"
+  },
+  "pipelinesSourcePush": "Push",
+  "@pipelinesSourcePush": {
+    "description": "Project pipeline source filter option: Push"
+  },
+  "pipelinesSourceWeb": "Web",
+  "@pipelinesSourceWeb": {
+    "description": "Project pipeline source filter option: Web"
+  },
+  "pipelinesSourceApi": "API",
+  "@pipelinesSourceApi": {
+    "description": "Project pipeline source filter option: API"
+  },
+  "pipelinesSourceSchedule": "Schedule",
+  "@pipelinesSourceSchedule": {
+    "description": "Project pipeline source filter option: Schedule"
+  },
+  "pipelinesSourceTrigger": "Trigger",
+  "@pipelinesSourceTrigger": {
+    "description": "Project pipeline source filter option: Trigger"
+  },
+  "pipelinesSourcePipeline": "Multi-project pipelines",
+  "@pipelinesSourcePipeline": {
+    "description": "Project pipeline source filter option: Multi-project pipelines"
+  },
+  "pipelinesSourceMergeRequest": "Merge request",
+  "@pipelinesSourceMergeRequest": {
+    "description": "Project pipeline source filter option: Merge request"
+  },
+  "pipelinesSourceChild": "Child pipelines",
+  "@pipelinesSourceChild": {
+    "description": "Project pipeline source filter option: Child pipelines"
+  },
+  "pipelinesChildHint": "Child pipeline discovery requires GitLab 17.0 or later.",
+  "@pipelinesChildHint": {
+    "description": "GitLab 17.0 minimum-version hint for explicit child pipeline discovery"
+  },
+  "pipelineDownstreamTitle": "Downstream pipelines",
+  "@pipelineDownstreamTitle": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamTitle"
+  },
+  "pipelineDownstreamEmpty": "No pipeline triggers.",
+  "@pipelineDownstreamEmpty": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamEmpty"
+  },
+  "pipelineDownstreamError": "Could not load downstream pipelines.",
+  "@pipelineDownstreamError": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamError"
+  },
+  "pipelineDownstreamLoadMoreError": "Could not load more downstream pipelines.",
+  "@pipelineDownstreamLoadMoreError": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamLoadMoreError"
+  },
+  "pipelineDownstreamUnavailable": "Downstream pipeline unavailable to open.",
+  "@pipelineDownstreamUnavailable": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamUnavailable"
+  },
+  "pipelineDownstreamTarget": "Project {projectId} · Pipeline #{pipelineId}",
+  "@pipelineDownstreamTarget": {
+    "description": "Pipeline detail downstream section: pipelineDownstreamTarget",
+    "placeholders": {
+      "projectId": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "pipelineId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "pipelineUpstreamTitle": "Upstream pipeline",
+  "@pipelineUpstreamTitle": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamTitle"
+  },
+  "pipelineUpstreamEmpty": "No upstream pipeline available.",
+  "@pipelineUpstreamEmpty": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamEmpty"
+  },
+  "pipelineUpstreamError": "Could not load the upstream pipeline.",
+  "@pipelineUpstreamError": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamError"
+  },
+  "pipelineUpstreamUnavailable": "Upstream pipeline unavailable to open.",
+  "@pipelineUpstreamUnavailable": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamUnavailable"
+  },
+  "pipelineUpstreamTarget": "Project {projectId} · Pipeline #{pipelineId}",
+  "@pipelineUpstreamTarget": {
+    "description": "Pipeline detail immediate upstream relationship: pipelineUpstreamTarget",
+    "placeholders": {
+      "projectId": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "pipelineId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "pipelineJobsTitle": "Jobs",
+  "@pipelineJobsTitle": {
+    "description": "Pipeline detail job status filtering: pipelineJobsTitle"
+  },
+  "pipelineJobsStatusAll": "All job statuses",
+  "@pipelineJobsStatusAll": {
+    "description": "Pipeline detail job status filtering: pipelineJobsStatusAll"
+  },
+  "pipelineJobsFilteredEmpty": "No jobs match this status.",
+  "@pipelineJobsFilteredEmpty": {
+    "description": "Pipeline detail job status filtering: pipelineJobsFilteredEmpty"
+  },
+  "pipelineJobsAttemptsLatest": "Latest jobs",
+  "pipelineJobsAttemptsAll": "All attempts",
+  "pipelineJobIdentifier": "Job #{jobId}",
+  "@pipelineJobsAttemptsLatest": {
+    "description": "Job list option excluding superseded retry attempts."
+  },
+  "@pipelineJobsAttemptsAll": {
+    "description": "Job list option including latest and superseded retry attempts."
+  },
+  "@pipelineJobIdentifier": {
+    "description": "Immutable job ID distinguishing attempts with the same name.",
+    "placeholders": {
+      "jobId": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "pipelineJobsPartialList": "Only loaded jobs are shown. Load more to see the rest.",
+  "pipelineJobsLoadMoreError": "Could not load more jobs.",
+  "@pipelineJobsPartialList": {
+    "description": "Explains that stage groups and counts contain only loaded jobs while a continuation cursor remains."
+  },
+  "@pipelineJobsLoadMoreError": {
+    "description": "Sanitized inline error when loading the next pipeline jobs page fails."
+  },
+  "mrApprovalStatusLoading": "Loading approval status…",
+  "mrApprovalStatusError": "Could not load approval status.",
+  "@mrApprovalStatusLoading": {
+    "description": "Shown while the merge request approval state is being loaded."
+  },
+  "@mrApprovalStatusError": {
+    "description": "Sanitized merge request approval-state read failure."
+  },
+  "mrDiscussionResolved": "Resolved",
+  "mrDiscussionUnresolved": "Unresolved",
+  "mrDiscussionsLoadMore": "Load more discussions",
+  "mrDiscussionsMoreError": "Could not load more discussions.",
+  "mrDiscussionsPartial": "More discussions are available.",
+  "mrDiscussionReplyButton": "Reply",
+  "mrDiscussionReplyTitle": "Reply to discussion",
+  "mrDiscussionReplyHint": "Write a reply…",
+  "mrDiscussionResolveButton": "Resolve discussion",
+  "mrDiscussionReopenButton": "Reopen discussion",
+  "mrDiscussionResolveForbidden": "You cannot change this discussion. Check your account permissions.",
+  "mrDiscussionResolveError": "Could not update this discussion. Try again.",
+  "mrDiscussionContextViewButton": "View original diff",
+  "mrDiscussionContextHideButton": "Hide original diff",
+  "mrDiscussionContextTitle": "Original diff · version {version}",
+  "mrDiscussionContextUnavailable": "Original diff context is unavailable for this comment.",
+  "mrDiscussionContextError": "Could not load the original diff. Try again.",
+  "mrDiscussionContextOlderButton": "Look for older versions",
+  "mrDiscussionContextLineLabel": "Commented line",
+  "mrDiscussionContextLoading": "Loading original diff",
+  "@mrDiscussionContextTitle": {"placeholders": {"version": {"type": "String"}}},
+  "mrDiffDiscussLineButton": "Add discussion on this line",
+  "mrDiffDiscussionTitle": "Discuss {path} · version {version}",
+  "mrDiffDiscussionHint": "Write a review comment…",
+  "mrDiffDiscussionSubmit": "Start discussion",
+  "mrDiffDiscussionCancel": "Cancel",
+  "mrDiffDiscussionCreated": "Discussion created.",
+  "mrDiffDiscussionError": "Could not confirm the discussion was created.",
+  "mrDiffDiscussionPermissionError": "You do not have permission to create this discussion.",
+  "mrDiffDiscussionReloadButton": "Refresh discussions",
+  "mrDiffDiscussionReloadRequired": "Refresh discussions before submitting again. The previous request may have been accepted.",
+  "mrDiffDiscussionReloadFailed": "Could not refresh discussions. Try again.",
+  "mrReviewUnavailable": "This diff version is unavailable for inline review.",
+  "mrReviewVersionTitle": "Reviewing diff version {version}",
+  "@mrDiffDiscussionTitle": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrReviewVersionTitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "mrDiffDiscussionPending": "Creating discussion…",
+  "mrDiffDiscussionReloading": "Refreshing discussions…",
+  "mrDiffDiscussionInspect": "Inspect discussions at this selection before submitting again.",
+  "mrDiffDiscussionNoMatches": "No discussions at this selection in the loaded pages.",
+  "mrSuggestionTitle": "Suggestion {number}",
+  "@mrSuggestionTitle": {
+    "description": "MR code suggestion preview Title",
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "mrSuggestionRange": "Original lines {from}–{to}",
+  "@mrSuggestionRange": {
+    "description": "MR code suggestion preview Range",
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "mrSuggestionRangeUnknown": "Original line range unavailable",
+  "@mrSuggestionRangeUnknown": {
+    "description": "MR code suggestion preview RangeUnknown"
+  },
+  "mrSuggestionApplied": "Applied",
+  "@mrSuggestionApplied": {
+    "description": "MR code suggestion preview Applied"
+  },
+  "mrSuggestionNotApplied": "Not applied",
+  "@mrSuggestionNotApplied": {
+    "description": "MR code suggestion preview NotApplied"
+  },
+  "mrSuggestionAppliedUnknown": "Application status unknown",
+  "@mrSuggestionAppliedUnknown": {
+    "description": "MR code suggestion preview AppliedUnknown"
+  },
+  "mrSuggestionApplicable": "Patch applicable",
+  "@mrSuggestionApplicable": {
+    "description": "MR code suggestion preview Applicable"
+  },
+  "mrSuggestionNotApplicable": "Patch not applicable",
+  "@mrSuggestionNotApplicable": {
+    "description": "MR code suggestion preview NotApplicable"
+  },
+  "mrSuggestionApplicableUnknown": "Patch applicability unknown",
+  "@mrSuggestionApplicableUnknown": {
+    "description": "MR code suggestion preview ApplicableUnknown"
+  },
+  "mrSuggestionOriginal": "Original code",
+  "@mrSuggestionOriginal": {
+    "description": "MR code suggestion preview Original"
+  },
+  "mrSuggestionReplacement": "Suggested code",
+  "@mrSuggestionReplacement": {
+    "description": "MR code suggestion preview Replacement"
+  },
+  "mrSuggestionContentUnknown": "Content unavailable",
+  "@mrSuggestionContentUnknown": {
+    "description": "MR code suggestion preview ContentUnknown"
+  },
+  "mrSuggestionContentEmpty": "Empty content",
+  "@mrSuggestionContentEmpty": {
+    "description": "MR code suggestion preview ContentEmpty"
+  },
+  "mrSuggestionViewButton": "View suggestion",
+  "@mrSuggestionViewButton": {
+    "description": "MR code suggestion preview ViewButton"
+  },
+  "mrSuggestionHideButton": "Hide suggestion",
+  "@mrSuggestionHideButton": {
+    "description": "MR code suggestion preview HideButton"
+  },
+  "mrSuggestionApplyButton": "Apply suggestion",
+  "mrSuggestionApplyTitle": "Apply suggestion {suggestionId}?",
+  "mrSuggestionApplyImpact": "This creates a commit on the merge request source branch. Review the replacement code before applying.",
+  "mrSuggestionCommitMessageLabel": "Commit message (optional)",
+  "mrSuggestionCommitMessageHint": "Leave empty to use GitLab’s default message.",
+  "mrSuggestionApplyProgress": "Checking and applying suggestion…",
+  "mrSuggestionApplySuccess": "Suggestion applied.",
+  "mrSuggestionApplyError": "The application could not be confirmed. Reload the discussion to check its current state before trying again.",
+  "mrSuggestionApplyForbidden": "GitLab denied this operation. Check your access, then reload before trying again.",
+  "mrSuggestionApplyChanged": "The suggestion changed. Reload and review its current code before applying.",
+  "mrSuggestionReloadButton": "Reload discussion",
+  "mrSuggestionReloadProgress": "Reloading discussion…",
+  "mrSuggestionReloadError": "The discussion could not be reloaded. Try reloading again.",
+  "mrSuggestionUnavailable": "This suggestion is unavailable for application.",
+  "mrSuggestionSessionChanged": "The account or merge request changed. Close this dialog and reopen the suggestion.",
+  "@mrSuggestionApplyTitle": {
+    "placeholders": {
+      "suggestionId": {
+        "type": "String"
+      }
+    }
+  },
+  "mrSuggestionsBatchButton": "Apply multiple suggestions",
+  "mrSuggestionsSelectTitle": "Select suggestions",
+  "mrSuggestionsSelectHint": "Select at least two suggestions from the loaded discussions.",
+  "mrSuggestionsReviewButton": "Review selected",
+  "mrSuggestionsReviewTitle": "Apply {count} suggestions?",
+  "mrSuggestionsApplyButton": "Apply selected",
+  "mrSuggestionsApplyImpact": "These changes will be sent together to the merge request source branch. Review every replacement before applying.",
+  "mrSuggestionsApplyProgress": "Checking and applying suggestions…",
+  "mrSuggestionsApplySuccess": "Selected suggestions applied.",
+  "mrSuggestionsApplyError": "The batch could not be confirmed. Reload every selected discussion before trying again.",
+  "mrSuggestionsApplyChanged": "One or more suggestions changed. Reload and review every selected patch.",
+  "mrSuggestionsReloadButton": "Reload selected discussions",
+  "mrSuggestionsReloadProgress": "Reloading selected discussions…",
+  "mrSuggestionsReloadError": "Not all discussions could be reloaded. Reload again before applying.",
+  "mrSuggestionsApplyForbidden": "GitLab denied this operation. Check your access and reload every selected discussion before trying again.",
+  "mrSuggestionsBackButton": "Back to selection",
+  "@mrSuggestionsReviewTitle": {
+    "description": "Confirmation title for the selected suggestion batch.",
+    "placeholders": {
+      "count": {
+        "type": "String"
+      }
+    }
+  },
+  "mrDiscussionContextRangeLabel": "Commented lines {start}–{end}",
+  "mrDiscussionContextRangeLineLabel": "Line in commented range",
+  "@mrDiscussionContextRangeLabel": {
+    "description": "Inclusive original commented range. Minus denotes old-side coordinates; plus denotes new-side coordinates.",
+    "placeholders": {
+      "start": {
+        "type": "String"
+      },
+      "end": {
+        "type": "String"
+      }
+    }
+  },
+  "mrDiffSelectRangeButton": "Select a range",
+  "@mrDiffSelectRangeButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffRangeEndButton": "End range on this line",
+  "@mrDiffRangeEndButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffRangeChooseEnd": "Choose the last line in this file. Only complete ranges after the first line are available.",
+  "@mrDiffRangeChooseEnd": {"description": "Multiline diff discussion selection."},
+  "mrDiffSingleLineButton": "Use single line",
+  "@mrDiffSingleLineButton": {"description": "Multiline diff discussion selection."},
+  "mrDiffSelectedRangeLabel": "Selected range: {start} to {end}",
+  "@mrDiffSelectedRangeLabel": {"description": "Multiline diff discussion selection.", "placeholders": {"start": {"type": "String"}, "end": {"type": "String"}}},
+  "mrDiffSelectedLineLabel": "Selected discussion line",
+  "@mrDiffSelectedLineLabel": {"description": "Multiline diff discussion selection."},
+  "mrPendingReviewTitle": "Your pending review",
+  "mrPendingReviewPrivate": "Only you can see these notes until you publish them.",
+  "mrPendingReviewLoading": "Loading pending review notes…",
+  "mrPendingReviewEmpty": "You have no pending review notes.",
+  "mrPendingReviewError": "Could not load pending review notes. Retry to reload the list.",
+  "mrPendingReviewRefresh": "Refresh pending review notes",
+  "mrPendingReviewLoadMore": "Load more notes",
+  "mrPendingReviewMore": "More notes are available. Load the next page to continue.",
+  "mrPendingReviewCount": "{count, plural, =0{No notes loaded} =1{1 note loaded} other{{count} notes loaded}}",
+  "mrPendingReviewGeneralNote": "General note",
+  "mrPendingReviewReplyNote": "Discussion reply",
+  "mrPendingReviewCommitNote": "Commit note",
+  "mrPendingReviewTextNote": "Diff note",
+  "mrPendingReviewMultilineNote": "Multiline diff note",
+  "mrPendingReviewImageNote": "Image note",
+  "mrPendingReviewFileNote": "File note",
+  "mrPendingReviewPositionedNote": "Positioned note",
+  "mrPendingReviewResolve": "Will resolve the discussion when published",
+  "mrPendingReviewOldPath": "Before: {path}",
+  "mrPendingReviewNewPath": "After: {path}",
+  "mrPendingReviewOldLine": "Old line {line}",
+  "mrPendingReviewNewLine": "New line {line}",
+  "mrPendingReviewCommit": "Commit: {sha}",
+  "@mrPendingReviewTitle": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewPrivate": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewLoading": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewEmpty": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewError": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewRefresh": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewLoadMore": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewMore": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewCount": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "@mrPendingReviewGeneralNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewReplyNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewCommitNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewTextNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewMultilineNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewImageNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewFileNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewPositionedNote": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewResolve": {
+    "description": "Private pending MR review list."
+  },
+  "@mrPendingReviewOldPath": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewNewPath": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewOldLine": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "line": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewNewLine": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "line": {
+        "type": "String"
+      }
+    }
+  },
+  "@mrPendingReviewCommit": {
+    "description": "Private pending MR review list.",
+    "placeholders": {
+      "sha": {
+        "type": "String"
+      }
+    }
+  },
+  "mrPendingComposeOpen": "Add review note",
+  "@mrPendingComposeOpen": {
+    "description": "Private regular MR review composer open."
+  },
+  "mrPendingComposeTitle": "New review note",
+  "@mrPendingComposeTitle": {
+    "description": "Private regular MR review composer title."
+  },
+  "mrPendingComposeLabel": "Review note",
+  "@mrPendingComposeLabel": {
+    "description": "Private regular MR review composer label."
+  },
+  "mrPendingComposeHint": "This note stays private until you publish your review.",
+  "@mrPendingComposeHint": {
+    "description": "Private regular MR review composer hint."
+  },
+  "mrPendingComposeSave": "Save pending note",
+  "@mrPendingComposeSave": {
+    "description": "Private regular MR review composer save."
+  },
+  "mrPendingComposeSaved": "Review note saved to your pending review.",
+  "@mrPendingComposeSaved": {
+    "description": "Private regular MR review composer saved."
+  },
+  "mrPendingComposeSaving": "Saving review note…",
+  "@mrPendingComposeSaving": {
+    "description": "Private regular MR review composer saving."
+  },
+  "mrPendingComposePrepare": "Preparing review notes…",
+  "@mrPendingComposePrepare": {
+    "description": "Private regular MR review composer prepare."
+  },
+  "mrPendingComposePrepareError": "Review notes are unavailable. Your text is still here.",
+  "@mrPendingComposePrepareError": {
+    "description": "Private regular MR review composer prepareerror."
+  },
+  "mrPendingComposeSaveError": "We couldn't confirm this save. Your text is still here.",
+  "@mrPendingComposeSaveError": {
+    "description": "Private regular MR review composer saveerror."
+  },
+  "mrPendingComposeUncertain": "Your note may already be saved. Check your pending review before saving again.",
+  "@mrPendingComposeUncertain": {
+    "description": "Private regular MR review composer uncertain."
+  },
+  "mrPendingComposeInspect": "Check pending review",
+  "@mrPendingComposeInspect": {
+    "description": "Private regular MR review composer inspect."
+  },
+  "mrPendingComposeInspecting": "Checking all pending review notes…",
+  "@mrPendingComposeInspecting": {
+    "description": "Private regular MR review composer inspecting."
+  },
+  "mrPendingComposeInspectError": "Couldn't check your pending review. Your text is still here.",
+  "@mrPendingComposeInspectError": {
+    "description": "Private regular MR review composer inspecterror."
+  },
+  "mrPendingComposeInspectionTitle": "Current pending review",
+  "@mrPendingComposeInspectionTitle": {
+    "description": "Private regular MR review composer inspectiontitle."
+  },
+  "mrPendingComposeInspectionHint": "These are your current saved notes. An identical note does not prove which save created it.",
+  "@mrPendingComposeInspectionHint": {
+    "description": "Private regular MR review composer inspectionhint."
+  },
+  "mrPendingComposeAcknowledge": "I checked these notes and want to save another note.",
+  "@mrPendingComposeAcknowledge": {
+    "description": "Private regular MR review composer acknowledge."
+  },
+  "mrPendingComposeChanged": "The review session changed. Close this dialog and start again.",
+  "@mrPendingComposeChanged": {
+    "description": "Private regular MR review composer changed."
+  },
+  "mrPendingEdit": "Edit note",
+  "@mrPendingEdit": {
+    "description": "Private pending review note maintenance: Edit."
+  },
+  "mrPendingDelete": "Delete note",
+  "@mrPendingDelete": {
+    "description": "Private pending review note maintenance: Delete."
+  },
+  "mrPendingUpdate": "Save changes",
+  "@mrPendingUpdate": {
+    "description": "Private pending review note maintenance: Update."
+  },
+  "mrPendingEditTitle": "Edit pending review note",
+  "@mrPendingEditTitle": {
+    "description": "Private pending review note maintenance: EditTitle."
+  },
+  "mrPendingDeleteTitle": "Delete pending review note",
+  "@mrPendingDeleteTitle": {
+    "description": "Private pending review note maintenance: DeleteTitle."
+  },
+  "mrPendingEditHint": "Your changes stay private. The original note location is preserved.",
+  "@mrPendingEditHint": {
+    "description": "Private pending review note maintenance: EditHint."
+  },
+  "mrPendingDeleteHint": "This removes only this private saved note from your pending review.",
+  "@mrPendingDeleteHint": {
+    "description": "Private pending review note maintenance: DeleteHint."
+  },
+  "mrPendingDeleteConfirm": "I want to delete the note shown above.",
+  "@mrPendingDeleteConfirm": {
+    "description": "Private pending review note maintenance: DeleteConfirm."
+  },
+  "mrPendingUpdated": "Your private review note was updated.",
+  "@mrPendingUpdated": {
+    "description": "Private pending review note maintenance: Updated."
+  },
+  "mrPendingDeleted": "Your private review note was deleted.",
+  "@mrPendingDeleted": {
+    "description": "Private pending review note maintenance: Deleted."
+  },
+  "mrPendingMaintenanceError": "We couldn't confirm this change. Check the current pending review before trying again.",
+  "@mrPendingMaintenanceError": {
+    "description": "Private pending review note maintenance: MaintenanceError."
+  },
+  "mrPendingMaintenanceUncertain": "A change may already have been applied. Check your saved notes before making another change.",
+  "@mrPendingMaintenanceUncertain": {
+    "description": "Private pending review note maintenance: MaintenanceUncertain."
+  },
+  "mrPendingMaintenanceInspectionHint": "These are all currently readable saved notes. Check the selected note above before changing it again.",
+  "@mrPendingMaintenanceInspectionHint": {
+    "description": "Private pending review note maintenance: MaintenanceInspectionHint."
+  },
+  "mrPendingMaintenanceAcknowledge": "I checked the current selected note and want to apply this change.",
+  "@mrPendingMaintenanceAcknowledge": {
+    "description": "Private pending review note maintenance: MaintenanceAcknowledge."
+  },
+  "mrPendingTargetMissing": "The selected note is no longer available. Close this dialog and refresh your pending review.",
+  "@mrPendingTargetMissing": {
+    "description": "Private pending review note maintenance: TargetMissing."
+  },
+  "mrPendingDeleting": "Deleting review note…",
+  "@mrPendingDeleting": {
+    "description": "Progress while deleting one private pending review note."
+  },
+  "mrPendingPublishOpen": "Publish pending review",
+  "mrPendingPublishTitle": "Publish pending review",
+  "mrPendingPublishHint": "All your saved notes on this merge request will become visible to others. Publishing does not approve or merge the merge request.",
+  "mrPendingPublishRaceHint": "Notes saved from another client before publication may also be included.",
+  "mrPendingPublishConsent": "I have checked all the notes and want to publish my entire pending review.",
+  "mrPendingPublishButton": "Publish all notes",
+  "mrPendingPublished": "Pending review published",
+  "mrPendingPublishUncertain": "The review changed or publication could not be confirmed. Check saved notes and public discussions before deciding whether to try again.",
+  "mrPendingPublishInspect": "Check notes and discussions",
+  "mrPendingPublishPublicTitle": "Current public discussions",
+  "mrPendingPublishRecoveryHint": "These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.",
+  "mrPendingPublishRecoveryRequired": "Open Publish pending review to check both saved notes and public discussions before changing private notes.",
+  "mrPendingInlineOpen": "Save private inline note",
+  "mrPendingInlineTitle": "Private inline review note",
+  "mrPendingInlineHint": "Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.",
+  "mrPendingPublishNoteButton": "Publish this note",
+  "mrPendingPublishNoteTitle": "Publish this private note?",
+  "mrPendingPublishNoteHint": "This saved note will become visible to others in this merge request. Your other pending notes stay private.",
+  "mrPendingPublishNoteRaceHint": "The selected note is checked again before publishing. Changes from another client after that check may be included.",
+  "mrPendingPublishNoteConsent": "I want to make this saved note public.",
+  "mrPendingNotePublished": "Review note published.",
+  "mrReviewSummaryLabel": "Public review summary (optional)",
+  "mrReviewOutcomeLabel": "Review outcome",
+  "mrReviewKeepState": "Keep current state",
+  "mrReviewReviewed": "Reviewed",
+  "mrReviewRequestChanges": "Request changes",
+  "mrReviewCurrentState": "Your current reviewer state",
+  "mrReviewUnassigned": "Not assigned as a reviewer",
+  "mrReviewUnreviewed": "Not reviewed",
+  "mrReviewStarted": "Review started",
+  "mrReviewApproved": "Formally approved",
+  "mrReviewUnknownState": "Unrecognized reviewer state",
+  "mrReviewStateUnavailable": "Reviewer state could not be read. You can still publish notes and a public summary.",
+  "mrReviewReviewedHint": "Reviewed does not approve this merge request. It may clear your previous change request.",
+  "mrReviewChangesHint": "Requesting changes may block merging and remove your existing approval.",
+  "mrReviewPartialHint": "Notes, the summary, and reviewer state may have been applied separately. Inspect all three before deciding whether to submit again.",
+  "mrReviewSubmissionConsent": "Publish the displayed pending notes and public summary, and apply the selected review outcome.",
+  "mrReviewUnapproved": "Approval withdrawn",
+  "mrReviewSubmitButton": "Submit review",
+  "mrReviewInspectButton": "Inspect review",
+  "mrPendingReplyButton": "Save private reply",
+  "mrPendingReplyTitle": "Private reply draft",
+  "mrPendingReplyHint": "This reply stays private until you publish it. Saving does not resolve the discussion.",
+  "mrPendingReplyTargetTitle": "Discussion context",
+  "mrPendingReplyTargetUnavailable": "This discussion is missing or no longer accepts a private reply.",
+  "mrPendingReplyInspectionHint": "Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.",
+  "mrPendingReplyAcknowledge": "I checked the discussion and pending notes and want to save this reply.",
+  "mrCommitsEmpty": "No commits in this merge request.",
+  "mrOriginalReviewTitle": "Original commit changes",
+  "mrOriginalReviewReadOnly": "Inline review requires a validated text diff with one reported parent.",
+  "mrOriginalReviewDiffUnavailable": "This original file diff is unavailable for inline review.",
+  "mrOriginalReviewPrivateHint": "This note stays private until you publish your review. The selected commit's original diff is checked again before saving."
 }

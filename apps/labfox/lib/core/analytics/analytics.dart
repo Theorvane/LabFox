@@ -71,13 +71,42 @@ class Analytics {
   }
 }
 
-/// Collapses numeric path segments (`/projects/42` → `/projects/:id`) so a
-/// screen-view route never carries an identifying or high-cardinality value.
-String sanitizeRoute(String path) {
-  return path
-      .split('/')
-      .map((segment) => int.tryParse(segment) == null ? segment : ':id')
-      .join('/');
+/// Reports only the matched route template, never values from the location.
+/// An absent or mismatched template fails closed, including invalid deep links.
+String sanitizeRoute(String location, {String? routeTemplate}) {
+  const unknownRoute = '/:unknown';
+  if (routeTemplate == null || !routeTemplate.startsWith('/')) {
+    return unknownRoute;
+  }
+
+  final uri = Uri.tryParse(location);
+  if (uri == null ||
+      uri.hasScheme ||
+      uri.hasAuthority ||
+      !location.startsWith('/')) {
+    return unknownRoute;
+  }
+  if (routeTemplate == '/') {
+    return uri.path == '/' ? '/' : unknownRoute;
+  }
+
+  final templateSegments = routeTemplate.substring(1).split('/');
+  final actualSegments = uri.pathSegments;
+  if (templateSegments.length != actualSegments.length) {
+    return unknownRoute;
+  }
+  final parameter = RegExp(r'^:[A-Za-z][A-Za-z0-9_]*$');
+  final literal = RegExp(r'^[a-z][a-z0-9_-]*$');
+  for (var i = 0; i < templateSegments.length; i++) {
+    final segment = templateSegments[i];
+    if (parameter.hasMatch(segment)) {
+      continue;
+    }
+    if (!literal.hasMatch(segment) || segment != actualSegments[i]) {
+      return unknownRoute;
+    }
+  }
+  return routeTemplate;
 }
 
 final analyticsProvider = Provider<Analytics>((ref) {
@@ -95,12 +124,16 @@ class RouteTracker {
   final Analytics _analytics;
   String? _lastPath;
 
-  void visit(String path) {
-    if (path == _lastPath) {
+  void visit(String location, {String? routeTemplate}) {
+    if (location == _lastPath) {
       return;
     }
-    _lastPath = path;
-    unawaited(_analytics.track('screen_view', {'route': sanitizeRoute(path)}));
+    _lastPath = location;
+    unawaited(
+      _analytics.track('screen_view', {
+        'route': sanitizeRoute(location, routeTemplate: routeTemplate),
+      }),
+    );
   }
 }
 

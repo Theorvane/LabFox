@@ -84,26 +84,74 @@ class _ProjectOverviewScreenState extends ConsumerState<ProjectOverviewScreen> {
           onRefresh: () => ref
               .read(projectOverviewControllerProvider(projectId).notifier)
               .refresh(),
-          child: ListView(
-            padding: const EdgeInsets.symmetric(vertical: LabFoxSpacing.md),
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: LabFoxSpacing.md,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final wide = constraints.maxWidth >= LabFoxBreakpoints.tablet;
+              final navigation = Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (data.project.defaultBranch != null) ...[
+                    Card.outlined(
+                      margin: EdgeInsets.zero,
+                      child: _CodeSection(project: data.project),
+                    ),
+                    const SizedBox(height: LabFoxSpacing.md),
+                  ],
+                  Card.outlined(
+                    margin: EdgeInsets.zero,
+                    child: _Categories(project: data.project),
+                  ),
+                ],
+              );
+              final readme = Card.outlined(
+                margin: EdgeInsets.zero,
+                child: Padding(
+                  padding: const EdgeInsets.all(LabFoxSpacing.md),
+                  child: _Readme(overview: data),
                 ),
-                child: _Header(project: data.project),
-              ),
-              const SizedBox(height: LabFoxSpacing.md),
-              _Categories(project: data.project),
-              _CodeSection(project: data.project),
-              const SizedBox(height: LabFoxSpacing.lg),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: LabFoxSpacing.md,
-                ),
-                child: _Readme(overview: data),
-              ),
-            ],
+              );
+              return ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  Center(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 1120),
+                      child: Padding(
+                        padding: const EdgeInsets.all(LabFoxSpacing.md),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _Header(project: data.project),
+                            const SizedBox(height: LabFoxSpacing.lg),
+                            if (wide)
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        constraints.maxWidth >=
+                                            LabFoxBreakpoints.desktop
+                                        ? 320
+                                        : 240,
+                                    child: navigation,
+                                  ),
+                                  const SizedBox(width: LabFoxSpacing.md),
+                                  Expanded(child: readme),
+                                ],
+                              )
+                            else ...[
+                              navigation,
+                              const SizedBox(height: LabFoxSpacing.md),
+                              readme,
+                            ],
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -111,9 +159,7 @@ class _ProjectOverviewScreenState extends ConsumerState<ProjectOverviewScreen> {
   }
 }
 
-/// The project's sections as flat colour-tiled launcher rows — the repository
-/// shape GitHub Mobile uses, kept in LabFox's own tokens. The open-issue count
-/// rides on the Issues row when the payload carries it.
+/// Quick access to project work areas, retaining the available issue count.
 class _Categories extends StatelessWidget {
   const _Categories({required this.project});
 
@@ -147,6 +193,82 @@ class _Categories extends StatelessWidget {
           label: l10n.projectOverviewPipelines,
           onTap: () => context.push(Routes.pipelines(project.id)),
         ),
+        LauncherTile(
+          icon: LabFoxIcons.pipeline,
+          color: status.pending.foreground,
+          label: l10n.pipelineSchedulesTitle,
+          onTap: () => context.push(Routes.pipelineSchedules(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.history,
+          color: status.pending.foreground,
+          label: l10n.activityTitle,
+          onTap: () => context.push(Routes.projectActivity(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.release,
+          color: status.pending.foreground,
+          label: l10n.releasesTitle,
+          onTap: () => context.push(Routes.releases(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.code,
+          color: status.pending.foreground,
+          label: l10n.snippetsTitle,
+          onTap: () => context.push(Routes.snippets(project.id)),
+        ),
+        if (project.containerRegistryAccessLevel != 'disabled')
+          LauncherTile(
+            icon: LabFoxIcons.containerRegistry,
+            color: status.pending.foreground,
+            label: l10n.containerRegistryTitle,
+            onTap: () => context.push(Routes.containerRegistry(project.id)),
+          ),
+        if (project.wikiAccessLevel != 'disabled' &&
+            project.wikiEnabled != false)
+          LauncherTile(
+            icon: LabFoxIcons.document,
+            color: status.pending.foreground,
+            label: l10n.wikiTitle,
+            onTap: () => context.push(Routes.wiki(project.id)),
+          ),
+        if (project.packageRegistryAccessLevel != 'disabled')
+          LauncherTile(
+            icon: LabFoxIcons.packageRegistry,
+            color: status.pending.foreground,
+            label: l10n.packageRegistryTitle,
+            onTap: () => context.push(Routes.packages(project.id)),
+          ),
+        LauncherTile(
+          icon: LabFoxIcons.label,
+          color: status.pending.foreground,
+          label: l10n.projectLabelsTitle,
+          onTap: () => context.push(Routes.projectLabels(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.person,
+          color: status.pending.foreground,
+          label: l10n.projectMembersTitle,
+          onTap: () => context.push(Routes.projectMembers(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.milestone,
+          color: status.pending.foreground,
+          label: l10n.milestonesTitle,
+          onTap: () => context.push(Routes.milestones(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.environment,
+          color: status.running.foreground,
+          label: l10n.environmentsTitle,
+          onTap: () => context.push(Routes.environments(project.id)),
+        ),
+        LauncherTile(
+          icon: LabFoxIcons.pipeline,
+          color: status.running.foreground,
+          label: l10n.deploymentsTitle,
+          onTap: () => context.push(Routes.deployments(project.id)),
+        ),
         if (branch != null)
           LauncherTile(
             icon: LabFoxIcons.history,
@@ -159,9 +281,7 @@ class _Categories extends StatelessWidget {
   }
 }
 
-/// The code section: the current (default) branch, opening the branch list,
-/// and a browse entry into the file tree — GitHub Mobile's code block. Hidden
-/// entirely for an empty repository, which has no branch to browse.
+/// Code access for the current default branch. Hidden for an empty repository.
 class _CodeSection extends StatelessWidget {
   const _CodeSection({required this.project});
 
@@ -203,6 +323,12 @@ class _CodeSection extends StatelessWidget {
           label: l10n.projectOverviewBrowseCode,
           onTap: () => context.push(Routes.repository(project.id, branch)),
         ),
+        LauncherTile(
+          icon: LabFoxIcons.branch,
+          color: status.pending.foreground,
+          label: l10n.tagsTitle,
+          onTap: () => context.push(Routes.tags(project.id)),
+        ),
       ],
     );
   }
@@ -216,49 +342,88 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(project.name, style: theme.textTheme.headlineSmall),
-        const SizedBox(height: LabFoxSpacing.xs),
-        Text(project.pathWithNamespace, style: theme.textTheme.bodySmall),
-        const SizedBox(height: LabFoxSpacing.sm),
-        Row(
-          children: [
-            if (project.visibility != null) ...[
-              Icon(
-                project.visibility == 'private'
-                    ? LabFoxIcons.private
-                    : LabFoxIcons.public,
-                size: LabFoxIconSize.sm,
-                color: LabFoxColors.pending,
+        Container(
+          width: 48,
+          height: 48,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(LabFoxRadius.md),
+            image: project.avatarUrl == null
+                ? null
+                : DecorationImage(
+                    image: NetworkImage(project.avatarUrl!),
+                    fit: BoxFit.cover,
+                  ),
+          ),
+          child: project.avatarUrl == null
+              ? const Icon(LabFoxIcons.project)
+              : null,
+        ),
+        const SizedBox(width: LabFoxSpacing.md),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(project.name, style: theme.textTheme.headlineSmall),
+              const SizedBox(height: LabFoxSpacing.xs),
+              Text(
+                project.pathWithNamespace,
+                style: LabFoxTextRoles.of(context).meta,
               ),
-              const SizedBox(width: LabFoxSpacing.xs),
-              Text(project.visibility!, style: theme.textTheme.labelMedium),
-              const SizedBox(width: LabFoxSpacing.md),
-            ],
-            const Icon(
-              LabFoxIcons.starBorder,
-              size: LabFoxIconSize.sm,
-              color: LabFoxColors.pending,
-            ),
-            const SizedBox(width: LabFoxSpacing.xs),
-            Text('${project.starCount}', style: theme.textTheme.labelMedium),
-            if (project.forksCount != null) ...[
-              const SizedBox(width: LabFoxSpacing.md),
-              const Icon(
-                LabFoxIcons.fork,
-                size: LabFoxIconSize.sm,
-                color: LabFoxColors.pending,
+              if (project.description?.trim().isNotEmpty == true) ...[
+                const SizedBox(height: LabFoxSpacing.sm),
+                Text(project.description!),
+              ],
+              const SizedBox(height: LabFoxSpacing.sm),
+              Wrap(
+                spacing: LabFoxSpacing.md,
+                runSpacing: LabFoxSpacing.xs,
+                children: [
+                  if (project.visibility != null)
+                    _HeaderStat(
+                      icon: project.visibility == 'private'
+                          ? LabFoxIcons.private
+                          : LabFoxIcons.public,
+                      label: project.visibility!,
+                    ),
+                  _HeaderStat(
+                    icon: LabFoxIcons.starBorder,
+                    label: '${project.starCount}',
+                  ),
+                  if (project.forksCount != null)
+                    _HeaderStat(
+                      icon: LabFoxIcons.fork,
+                      label: '${project.forksCount}',
+                    ),
+                ],
               ),
-              const SizedBox(width: LabFoxSpacing.xs),
-              Text('${project.forksCount}', style: theme.textTheme.labelMedium),
             ],
-          ],
+          ),
         ),
       ],
     );
   }
+}
+
+class _HeaderStat extends StatelessWidget {
+  const _HeaderStat({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: LabFoxIconSize.sm, color: LabFoxColors.pending),
+      const SizedBox(width: LabFoxSpacing.xs),
+      Text(label, style: Theme.of(context).textTheme.labelMedium),
+    ],
+  );
 }
 
 class _Readme extends ConsumerWidget {

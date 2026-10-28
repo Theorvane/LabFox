@@ -154,19 +154,23 @@ void main() {
     expect(find.text('Me'), findsWidgets);
   });
 
-  testWidgets('settings back returns to me', (tester) async {
+  testWidgets('the Me settings shortcut selects the primary destination', (
+    tester,
+  ) async {
     await _pump(tester);
-
     await tester.tap(find.text('Me'));
     await tester.pumpAndSettle();
-    await tester.tap(find.byIcon(Icons.settings_outlined));
+    await tester.tap(find.widgetWithText(ListTile, 'Settings'));
     await tester.pumpAndSettle();
     expect(find.text('Settings'), findsWidgets);
-
-    expect(find.byType(BackButton), findsOneWidget);
-    await tester.tap(find.byType(BackButton));
+    expect(find.byType(BackButton), findsNothing);
+    expect(
+      tester.widget<NavigationRail>(find.byType(NavigationRail)).selectedIndex,
+      1,
+    );
+    await tester.tap(find.text('Home'));
     await tester.pumpAndSettle();
-    expect(find.text('Me'), findsWidgets);
+    expect(find.text('My work'), findsOneWidget);
   });
 
   testWidgets('accounts back returns to me', (tester) async {

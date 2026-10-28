@@ -7,17 +7,84 @@ class PipelinesRepository {
 
   final GitLabClient _client;
 
-  Future<List<Pipeline>> list(int projectId) async {
-    final page = await _client.pipelines.list(projectId);
-    return page.items;
+  Future<Paginated<Pipeline>> list(
+    int projectId, {
+    int page = 1,
+    PipelineStatusFilter? status,
+    String? ref,
+    PipelineSourceFilter? source,
+  }) => _client.pipelines.list(
+    projectId,
+    page: page,
+    status: status,
+    ref: ref,
+    source: source,
+  );
+
+  Future<Paginated<PipelineTriggerJob>> triggerJobs({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+  }) => _client.pipelines.triggerJobs(
+    projectId,
+    pipelineId: pipelineId,
+    page: page,
+  );
+
+  Future<PipelineUpstream?> upstream({
+    required int projectId,
+    required int pipelineId,
+  }) async {
+    if (projectId <= 0 || pipelineId <= 0) {
+      throw ArgumentError('Positive source IDs are required');
+    }
+    try {
+      final project = await _client.projects.get(projectId);
+      if (project.id != projectId || project.pathWithNamespace.trim().isEmpty) {
+        throw const GitLabServerException('Invalid source project identity');
+      }
+      return _client.pipelineRelations.upstream(
+        project.pathWithNamespace,
+        projectId: projectId,
+        pipelineId: pipelineId,
+      );
+    } on TypeError {
+      throw const GitLabServerException('Invalid source project response');
+    } on FormatException {
+      throw const GitLabServerException('Invalid source project response');
+    }
   }
 
   Future<Pipeline> get({required int projectId, required int pipelineId}) {
     return _client.pipelines.get(projectId, pipelineId: pipelineId);
   }
 
-  Future<List<Job>> jobs({required int projectId, required int pipelineId}) {
-    return _client.pipelines.jobs(projectId, pipelineId: pipelineId);
+  Future<Paginated<Job>> jobsPage({
+    required int projectId,
+    required int pipelineId,
+    int page = 1,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) => _client.pipelines.jobsPage(
+    projectId,
+    pipelineId: pipelineId,
+    page: page,
+    status: status,
+    includeRetried: includeRetried,
+  );
+
+  Future<List<Job>> jobs({
+    required int projectId,
+    required int pipelineId,
+    PipelineJobStatusFilter? status,
+    bool includeRetried = false,
+  }) {
+    return _client.pipelines.jobs(
+      projectId,
+      pipelineId: pipelineId,
+      status: status,
+      includeRetried: includeRetried,
+    );
   }
 
   Future<Pipeline> retry({required int projectId, required int pipelineId}) =>

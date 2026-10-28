@@ -9,6 +9,1127 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([String locale = 'ko']) : super(locale);
 
   @override
+  String get protectedEnvironmentRemoveApprovalTitle => '승인 규칙 제거';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalWarning =>
+      '이 규칙을 제거하면 배포 승인 조건이 완화됩니다. 마지막 규칙을 제거하면 승인 없이 배포할 수 있습니다. 계속하기 전에 남은 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalAcknowledge =>
+      '이 규칙을 제거하면 더 적은 승인 또는 승인 없이 배포할 수 있다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalSuccess => '승인 규칙을 제거했습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalForbidden =>
+      '승인 규칙을 제거하려면 Maintainer 또는 Owner 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveApprovalError =>
+      '규칙 제거를 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalCountTitle => '필수 승인 수 변경';
+
+  @override
+  String get protectedEnvironmentApprovalCountWarning =>
+      '이 규칙에 필요한 승인 수를 변경합니다. 수를 줄이면 배포 승인 조건이 완화됩니다. 가능한 승인자보다 많은 수를 설정하면 배포가 차단될 수 있습니다. 계속하기 전에 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalCountAcknowledge =>
+      '배포에 필요한 승인 수가 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountSuccess => '필수 승인 수를 변경했습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountForbidden =>
+      '승인 규칙을 변경하려면 Maintainer 또는 Owner 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalCountError =>
+      '승인 수 변경을 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalCountLevel => '새 필수 승인 수';
+
+  @override
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  ) {
+    return '$approver (규칙 $ruleId, $count명 필요)';
+  }
+
+  @override
+  String get protectedEnvironmentEditRoleTitle => '배포 역할 변경';
+
+  @override
+  String get protectedEnvironmentEditRoleWarning =>
+      '역할 기반 배포 권한 하나를 변경합니다. Developers로 바꾸면 더 많은 프로젝트 구성원이 배포할 수 있습니다. 계속하기 전에 모든 권한과 승인 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentEditRoleAcknowledge =>
+      '이 환경에 배포할 수 있는 사용자가 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleSuccess => '배포 역할을 변경했습니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleForbidden =>
+      '배포 역할을 변경하려면 Maintainer 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedEnvironmentEditRoleError =>
+      '역할 변경을 확인하지 못했습니다. 다시 시도하기 전에 새로고침하여 현재 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentEditRoleLevel => '새 배포 역할';
+
+  @override
+  String get pipelineScheduleExecutionEdit => '실행 설정 편집';
+
+  @override
+  String get pipelineScheduleExecutionSave => '저장';
+
+  @override
+  String get pipelineScheduleExecutionActive => '활성';
+
+  @override
+  String get pipelineScheduleExecutionRefRequired => 'ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleExecutionHint =>
+      'GitLab에서 ref를 검증합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요. 저장하면 향후 실행 일정이 다시 계산되며 cron, 시간대, 변수 및 입력값은 변경되지 않습니다.';
+
+  @override
+  String get pipelineScheduleExecutionError =>
+      '실행 설정을 수정하지 못했습니다. 권한과 ref를 확인하고 다시 시도하세요.';
+
+  @override
+  String get pipelineScheduleCreate => '스케줄 생성';
+
+  @override
+  String get pipelineScheduleCreateTitle => '새 파이프라인 스케줄';
+
+  @override
+  String get pipelineScheduleCreateDescription => '설명';
+
+  @override
+  String get pipelineScheduleCreateFieldRequired => '값을 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateActive => '활성';
+
+  @override
+  String get pipelineScheduleCreateHint =>
+      'GitLab에서 실행 대상, cron 식 및 시간대를 검증합니다. 시간대를 비워 두면 UTC를 사용합니다. 브랜치와 태그 이름이 같으면 전체 ref를 입력하세요.';
+
+  @override
+  String get pipelineScheduleCreateError =>
+      '파이프라인 스케줄을 생성하지 못했습니다. 권한, 실행 대상, cron 식 및 시간대를 확인하세요.';
+
+  @override
+  String get releaseCreationMilestoneTitle => '마일스톤 제목(선택 사항)';
+
+  @override
+  String get releaseCreationMilestoneAdd => '마일스톤 추가';
+
+  @override
+  String get releaseCreationMilestoneRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get releaseCreationMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
+
+  @override
+  String releaseCreationMilestoneRemove(String title) {
+    return '마일스톤 $title 제거';
+  }
+
+  @override
+  String get releaseCreationMilestoneHelp =>
+      '기존 제목을 하나씩 정확히 입력하세요. 그룹 마일스톤 사용 여부는 GitLab 요금제에 따라 다릅니다.';
+
+  @override
+  String get releasePickerTitle => '프로젝트 마일스톤 선택';
+
+  @override
+  String get releasePickerSearch => '프로젝트 마일스톤 검색';
+
+  @override
+  String get releasePickerEmpty => '프로젝트 마일스톤이 없습니다.';
+
+  @override
+  String get releasePickerError => '마일스톤을 불러오지 못했습니다.';
+
+  @override
+  String get releasePickerMore => '마일스톤 더 불러오기';
+
+  @override
+  String get releasePickerUse => '마일스톤 사용';
+
+  @override
+  String releasePickerRemove(String title) {
+    return '마일스톤 $title 제거';
+  }
+
+  @override
+  String get releaseCreationDateLabel => '공개 날짜(선택 사항)';
+
+  @override
+  String get releaseCreationDateDefault => '공개 시간은 GitLab에서 설정합니다.';
+
+  @override
+  String get releaseCreationChooseDate => '공개 날짜 선택';
+
+  @override
+  String get releaseCreationChooseTime => '공개 시간 선택';
+
+  @override
+  String get releaseCreationClearDate => 'GitLab 공개 시간 사용';
+
+  @override
+  String releaseCreationDateHelp(String zone) {
+    return '시간대: $zone. 미래 날짜는 예정된 릴리스, 과거 날짜는 과거 릴리스를 생성합니다.';
+  }
+
+  @override
+  String get pipelineScheduleDelete => '스케줄 삭제';
+
+  @override
+  String get pipelineScheduleDeleteConfirmTitle => '이 파이프라인 스케줄을 삭제하시겠습니까?';
+
+  @override
+  String pipelineScheduleDeleteConfirmBody(String name) {
+    return '파이프라인 스케줄 \"$name\"이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get pipelineScheduleDeleteError =>
+      '파이프라인 스케줄을 삭제하지 못했습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get releaseScheduleEdit => '릴리스 날짜 편집';
+
+  @override
+  String get releaseScheduleChangeDate => '날짜 변경';
+
+  @override
+  String get releaseScheduleChangeTime => '시간 변경';
+
+  @override
+  String get releaseScheduleSave => '릴리스 날짜 저장';
+
+  @override
+  String get releaseScheduleError => '릴리스 날짜를 업데이트하지 못했습니다.';
+
+  @override
+  String releaseScheduleHelp(String zone) {
+    return '시간은 기기 시간대($zone)를 사용합니다. 미래 날짜를 선택하면 예정된 릴리스로 설정됩니다.';
+  }
+
+  @override
+  String get pipelineScheduleEdit => '스케줄 편집';
+
+  @override
+  String get pipelineScheduleSave => '저장';
+
+  @override
+  String get pipelineScheduleDescription => '설명';
+
+  @override
+  String get pipelineScheduleFieldRequired => '값을 입력하세요.';
+
+  @override
+  String get pipelineScheduleEditHint =>
+      'GitLab에서 cron 식과 시간대를 검증합니다. 저장하면 향후 실행 일정이 변경되며 실행 대상, 활성 상태, 변수 및 입력은 유지됩니다.';
+
+  @override
+  String get pipelineScheduleEditError =>
+      '파이프라인 스케줄을 수정하지 못했습니다. 권한, cron 식 및 시간대를 확인하세요.';
+
+  @override
+  String get pipelineScheduleTakeOwnership => '소유권 가져오기';
+
+  @override
+  String get pipelineScheduleOwnershipConfirmTitle => '이 스케줄의 소유권을 가져오시겠습니까?';
+
+  @override
+  String pipelineScheduleOwnershipConfirmBody(String name) {
+    return '\"$name\"의 소유자가 됩니다. 예약 파이프라인은 내 권한으로 실행됩니다. Maintainer 또는 Owner 역할이 필요합니다.';
+  }
+
+  @override
+  String get pipelineScheduleOwnershipError =>
+      '파이프라인 스케줄의 소유권을 가져오지 못했습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get protectedTagProtectTitle => '태그 보호';
+
+  @override
+  String get protectedTagProtectName => '규칙 이름';
+
+  @override
+  String get protectedTagProtectRole => '일치하는 태그를 생성할 수 있는 사용자';
+
+  @override
+  String get protectedTagProtectNoOne => '아무도 없음';
+
+  @override
+  String get protectedTagProtectDevelopers => '개발자 및 관리자';
+
+  @override
+  String get protectedTagProtectMaintainers => '관리자';
+
+  @override
+  String protectedTagProtectWarning(String projectId) {
+    return '이 규칙은 프로젝트 $projectId에서 일치하는 태그의 생성 권한을 변경하며 태그 파이프라인과 작업에 영향을 줄 수 있습니다.';
+  }
+
+  @override
+  String get protectedTagProtectWildcard =>
+      '와일드카드 규칙은 앞으로 생성할 태그에도 적용될 수 있습니다. 정확한 패턴과 권한을 확인하세요.';
+
+  @override
+  String get protectedTagProtectAcknowledge => '이 규칙이 프로젝트 전체에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedTagProtectSubmit => '태그 보호';
+
+  @override
+  String get protectedTagProtectExisting => '규칙이 이미 있습니다. 변경 사항이 없습니다.';
+
+  @override
+  String get protectedTagProtectUncertain =>
+      '결과를 확인할 수 없습니다. 다시 시도하기 전에 모든 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectReload => '규칙 새로고침';
+
+  @override
+  String get protectedTagProtectLoadError => '보호 태그 규칙을 확인할 수 없습니다. 다시 불러오세요.';
+
+  @override
+  String get protectedTagProtectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get protectedTagProtectCreated => '보호 태그 규칙이 생성되었습니다.';
+
+  @override
+  String get protectedTagProtectCancel => '취소';
+
+  @override
+  String get protectedTagProtectForbidden =>
+      '이 규칙을 생성할 권한이 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectUnauthorized =>
+      '세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.';
+
+  @override
+  String get protectedTagProtectRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedTagProtectUnavailable =>
+      '프로젝트 또는 보호 태그 리소스에 접근할 수 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedTagsTitle => '보호 태그';
+
+  @override
+  String get protectedTagsEmpty => '보호 태그 규칙이 없습니다.';
+
+  @override
+  String get protectedTagsError => '보호 태그를 불러올 수 없습니다.';
+
+  @override
+  String get protectedTagsLoadMore => '더 보기';
+
+  @override
+  String get protectedTagCreateAccess => '생성 권한';
+
+  @override
+  String get protectedEnvironmentsTitle => '보호 환경';
+
+  @override
+  String get protectedEnvironmentsEmpty => '보호 환경 규칙이 없습니다.';
+
+  @override
+  String get protectedEnvironmentsError => '보호 환경을 불러올 수 없습니다.';
+
+  @override
+  String get protectedEnvironmentsUnavailable =>
+      '보호 환경을 사용할 수 없거나 접근 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentsLoadMore => '더 보기';
+
+  @override
+  String get protectedEnvironmentDeployAccess => '배포 권한';
+
+  @override
+  String get protectedEnvironmentApprovalRules => '승인 규칙';
+
+  @override
+  String protectedEnvironmentApprovalCount(int count) {
+    return '필요한 승인: $count';
+  }
+
+  @override
+  String get protectedBranchProtectTitle => '브랜치 보호';
+
+  @override
+  String get protectedBranchProtectName => '규칙 이름';
+
+  @override
+  String get protectedBranchProtectPush => '푸시 허용';
+
+  @override
+  String get protectedBranchProtectMerge => '병합 허용';
+
+  @override
+  String get protectedBranchProtectNoOne => '아무도 없음';
+
+  @override
+  String get protectedBranchProtectDevelopers => '개발자 및 관리자';
+
+  @override
+  String get protectedBranchProtectMaintainers => '관리자';
+
+  @override
+  String protectedBranchProtectWarning(String projectId) {
+    return '이 규칙은 프로젝트 $projectId의 푸시 및 병합 권한을 변경합니다. 병합 요청, 보호된 CI 변수 및 작업에 영향을 줄 수 있습니다.';
+  }
+
+  @override
+  String get protectedBranchProtectWildcard =>
+      '와일드카드 규칙은 앞으로 생성할 브랜치에도 적용될 수 있습니다. 정확한 패턴과 두 권한을 확인하세요.';
+
+  @override
+  String get protectedBranchProtectAcknowledge =>
+      '이 규칙이 프로젝트 전체에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchProtectSubmit => '브랜치 보호';
+
+  @override
+  String get protectedBranchProtectExisting => '규칙이 이미 있습니다. 변경 사항이 없습니다.';
+
+  @override
+  String get protectedBranchProtectUncertain =>
+      '결과를 확인할 수 없습니다. 다시 시도하기 전에 모든 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectReload => '규칙 새로고침';
+
+  @override
+  String get protectedBranchProtectLoadError =>
+      '보호 브랜치 규칙을 확인할 수 없습니다. 다시 불러오세요.';
+
+  @override
+  String get protectedBranchProtectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get protectedBranchProtectCreated => '보호 브랜치 규칙이 생성되었습니다.';
+
+  @override
+  String get protectedBranchProtectCancel => '취소';
+
+  @override
+  String get protectedBranchProtectForbidden =>
+      '이 규칙을 생성할 권한이 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectUnauthorized =>
+      '세션이 만료되었습니다. 다시 로그인한 후 규칙을 생성하세요.';
+
+  @override
+  String get protectedBranchProtectRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 잠시 기다린 뒤 규칙을 새로고침하세요.';
+
+  @override
+  String get protectedBranchProtectUnavailable =>
+      '프로젝트 또는 보호 브랜치 리소스에 접근할 수 없습니다. 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get protectedBranchesTitle => '보호 브랜치';
+
+  @override
+  String get protectedBranchesEmpty => '보호 브랜치 규칙이 없습니다.';
+
+  @override
+  String get protectedBranchesError => '보호 브랜치를 불러올 수 없습니다.';
+
+  @override
+  String get protectedBranchesLoadMore => '더 보기';
+
+  @override
+  String get protectedBranchPushAccess => '푸시 권한';
+
+  @override
+  String get protectedBranchMergeAccess => '병합 권한';
+
+  @override
+  String get protectedBranchForcePush => '강제 푸시';
+
+  @override
+  String get protectedBranchCodeOwnerApproval => '코드 소유자 승인';
+
+  @override
+  String get protectedBranchInherited => '그룹에서 상속됨';
+
+  @override
+  String get protectedBranchEnabled => '사용';
+
+  @override
+  String get protectedBranchDisabled => '사용 안 함';
+
+  @override
+  String get protectedBranchNoAccess => '권한 규칙 없음';
+
+  @override
+  String get linkedIssuesTitle => '연결된 이슈';
+
+  @override
+  String get linkedIssuesError => '연결된 이슈를 불러올 수 없습니다.';
+
+  @override
+  String get linkedIssuesLoadMore => '더 보기';
+
+  @override
+  String get linkedIssuesRelatesTo => '관련됨';
+
+  @override
+  String get linkedIssuesBlocks => '차단함';
+
+  @override
+  String get linkedIssuesBlockedBy => '차단됨';
+
+  @override
+  String get groupLabelsTitle => '그룹 라벨';
+
+  @override
+  String get groupLabelsEmpty => '그룹 라벨이 아직 없습니다';
+
+  @override
+  String get groupLabelsError => '그룹 라벨을 불러올 수 없습니다.';
+
+  @override
+  String get groupMembersTitle => '그룹 멤버';
+
+  @override
+  String get groupMembersSearch => '그룹 멤버 검색';
+
+  @override
+  String get groupMembersEmpty => '그룹 멤버를 찾을 수 없습니다.';
+
+  @override
+  String get groupMembersError => '그룹 멤버를 불러올 수 없습니다.';
+
+  @override
+  String get pipelineSchedulesTitle => '파이프라인 일정';
+
+  @override
+  String get pipelineSchedulesAll => '전체';
+
+  @override
+  String get pipelineSchedulesActive => '활성';
+
+  @override
+  String get pipelineSchedulesInactive => '비활성';
+
+  @override
+  String get pipelineSchedulesEmpty => '파이프라인 일정이 없습니다.';
+
+  @override
+  String get pipelineSchedulesError => '파이프라인 일정을 불러올 수 없습니다.';
+
+  @override
+  String get pipelineSchedulesLoadMore => '더 보기';
+
+  @override
+  String get pipelineScheduleDetailError => '이 파이프라인 일정을 불러올 수 없습니다.';
+
+  @override
+  String pipelineScheduleNextRun(String date) {
+    return '다음 실행: $date';
+  }
+
+  @override
+  String get pipelineScheduleNextRunLabel => '다음 실행';
+
+  @override
+  String get pipelineScheduleRef => '참조';
+
+  @override
+  String get pipelineScheduleCron => '일정';
+
+  @override
+  String get pipelineScheduleTimezone => '시간대';
+
+  @override
+  String get pipelineScheduleOwner => '소유자';
+
+  @override
+  String get pipelineScheduleRunNow => '지금 실행';
+
+  @override
+  String get pipelineScheduleRunSuccess => '파이프라인 일정을 실행했습니다.';
+
+  @override
+  String get pipelineScheduleRunError => '파이프라인 일정을 실행할 수 없습니다.';
+
+  @override
+  String get pipelineScheduleLastPipeline => '마지막 파이프라인';
+
+  @override
+  String get pipelineScheduleHistoryTitle => '실행 이력';
+
+  @override
+  String get pipelineScheduleHistoryEmpty => '이 일정에서 실행된 파이프라인이 아직 없습니다.';
+
+  @override
+  String get pipelineScheduleHistoryError => '실행 이력을 불러올 수 없습니다.';
+
+  @override
+  String pipelineSchedulePipelineNumber(int number) {
+    return '파이프라인 #$number';
+  }
+
+  @override
+  String get deploymentsTitle => '배포';
+
+  @override
+  String get deploymentsAll => '전체';
+
+  @override
+  String get deploymentsSuccess => '성공';
+
+  @override
+  String get deploymentsFailed => '실패';
+
+  @override
+  String get deploymentsRunning => '진행 중';
+
+  @override
+  String get deploymentsCanceled => '취소됨';
+
+  @override
+  String get deploymentsCreated => '생성됨';
+
+  @override
+  String get deploymentsBlocked => '차단됨';
+
+  @override
+  String get deploymentsUnknownStatus => '알 수 없는 상태';
+
+  @override
+  String get deploymentsEmpty => '배포 내역이 없습니다.';
+
+  @override
+  String get deploymentsError => '배포 내역을 불러올 수 없습니다.';
+
+  @override
+  String get deploymentsLoadMore => '더 보기';
+
+  @override
+  String get deploymentsEnvironmentSearch => '환경 이름으로 필터';
+
+  @override
+  String get deploymentsUnknownEnvironment => '알 수 없는 환경';
+
+  @override
+  String get deploymentDetailError => '이 배포를 불러올 수 없습니다.';
+
+  @override
+  String deploymentNumber(int number) {
+    return '배포 #$number';
+  }
+
+  @override
+  String get deploymentEnvironment => '환경';
+
+  @override
+  String get deploymentRef => '참조';
+
+  @override
+  String get deploymentCommit => '커밋';
+
+  @override
+  String get deploymentJob => '작업';
+
+  @override
+  String get deploymentPipeline => '파이프라인';
+
+  @override
+  String get deploymentCreatedAt => '생성';
+
+  @override
+  String get deploymentUpdatedAt => '업데이트';
+
+  @override
+  String get deploymentUser => '배포자';
+
+  @override
+  String get releasesTitle => '릴리스';
+
+  @override
+  String get releasesEmpty => '릴리스가 아직 없습니다.';
+
+  @override
+  String get releasesError => '릴리스를 불러올 수 없습니다.';
+
+  @override
+  String get releaseDetailError => '이 릴리스를 불러올 수 없습니다.';
+
+  @override
+  String get releaseAssetsTitle => '에셋';
+
+  @override
+  String get releaseLoadMore => '더 보기';
+
+  @override
+  String get releaseUpcoming => '예정';
+
+  @override
+  String get releaseEdit => '릴리스 편집';
+
+  @override
+  String get releaseSave => '릴리스 저장';
+
+  @override
+  String get releaseEditName => '릴리스 이름';
+
+  @override
+  String get releaseEditDescription => '설명 (Markdown)';
+
+  @override
+  String get releaseNameRequired => '릴리스 이름을 입력하세요.';
+
+  @override
+  String get releaseEditError => '릴리스를 수정할 수 없습니다.';
+
+  @override
+  String get releaseNew => '새 릴리스';
+
+  @override
+  String get releaseCreate => '릴리스 만들기';
+
+  @override
+  String get releaseTagName => '태그 이름';
+
+  @override
+  String get releaseRef => '태그를 만들 기준 ref (선택 사항)';
+
+  @override
+  String get releaseRefHelp => '태그가 이미 있으면 비워 두세요.';
+
+  @override
+  String get releaseName => '릴리스 이름 (선택 사항)';
+
+  @override
+  String get releaseDescription => '설명 (Markdown)';
+
+  @override
+  String get releaseTagRequired => '태그 이름을 입력하세요.';
+
+  @override
+  String get releaseCreateError => '릴리스를 만들 수 없습니다.';
+
+  @override
+  String get releaseAddAssetLink => '자산 링크 추가';
+
+  @override
+  String get releaseAddLink => '링크 추가';
+
+  @override
+  String get releaseAssetName => '링크 이름';
+
+  @override
+  String get releaseAssetUrl => '링크 URL';
+
+  @override
+  String get releaseAssetNameRequired => '링크 이름을 입력하세요.';
+
+  @override
+  String get releaseAssetUrlInvalid => 'HTTP 또는 HTTPS URL을 입력하세요.';
+
+  @override
+  String get releaseAssetNameDuplicate => '같은 이름의 링크가 이미 있습니다.';
+
+  @override
+  String get releaseAssetCreateError => '자산 링크를 추가할 수 없습니다.';
+
+  @override
+  String get releaseNoAssets => '아직 자산이 없습니다.';
+
+  @override
+  String get releaseDelete => '릴리스 삭제';
+
+  @override
+  String get releaseDeleteConfirmTitle => '이 릴리스를 삭제할까요?';
+
+  @override
+  String get releaseDeleteConfirmBody => '릴리스와 릴리스 노트가 삭제됩니다. Git 태그는 유지됩니다.';
+
+  @override
+  String get releaseDeleteError => '릴리스를 삭제할 수 없습니다.';
+
+  @override
+  String get releaseDeleteAssetLink => '자산 링크 삭제';
+
+  @override
+  String get releaseDeleteLink => '링크 삭제';
+
+  @override
+  String get releaseAssetDeleteConfirmTitle => '이 자산 링크를 삭제할까요?';
+
+  @override
+  String releaseAssetDeleteConfirmBody(String name) {
+    return '$name 링크를 제거합니다. 연결된 파일은 삭제되지 않습니다.';
+  }
+
+  @override
+  String get releaseAssetDeleteError => '자산 링크를 삭제할 수 없습니다.';
+
+  @override
+  String get releaseEditAssetLink => '자산 링크 편집';
+
+  @override
+  String get releaseSaveLink => '링크 저장';
+
+  @override
+  String get releaseAssetEditError => '자산 링크를 수정할 수 없습니다.';
+
+  @override
+  String get releaseMilestonesEdit => '릴리스 마일스톤 편집';
+
+  @override
+  String get releaseMilestonesTitle => '마일스톤';
+
+  @override
+  String get releaseMilestonesHelp =>
+      '정확한 마일스톤 제목을 입력하세요. 그룹 마일스톤 지원 여부는 GitLab 요금제와 프로젝트 그룹에 따라 달라집니다.';
+
+  @override
+  String get releaseMilestoneTitle => '마일스톤 제목';
+
+  @override
+  String get releaseMilestoneAdd => '마일스톤 추가';
+
+  @override
+  String get releaseMilestonesSave => '마일스톤 저장';
+
+  @override
+  String get releaseMilestonesError => '릴리스 마일스톤을 업데이트하지 못했습니다.';
+
+  @override
+  String get releaseMilestoneTitleRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get releaseMilestoneDuplicate => '이미 선택된 마일스톤입니다.';
+
+  @override
+  String releaseMilestoneRemove(String title) {
+    return '$title 제거';
+  }
+
+  @override
+  String get releaseAssetDirectPath => '새 직접 다운로드 경로 (선택 사항)';
+
+  @override
+  String get releaseAssetDirectPathHelp =>
+      '비워두면 현재 직접 다운로드 경로를 유지합니다. 변경하려면 /bin/app.zip 같은 경로를 입력하세요.';
+
+  @override
+  String get releaseAssetDirectPathInvalid =>
+      '호스트, 쿼리, 프래그먼트 없이 /로 시작하는 경로를 입력하세요.';
+
+  @override
+  String get releaseAssetType => '링크 유형';
+
+  @override
+  String get releaseAssetKeepType => '현재 유형 유지';
+
+  @override
+  String get releaseAssetTypeOther => '기타';
+
+  @override
+  String get releaseAssetTypeRunbook => '런북';
+
+  @override
+  String get releaseAssetTypeImage => '이미지';
+
+  @override
+  String get releaseAssetTypePackage => '패키지';
+
+  @override
+  String get activityTitle => '활동';
+
+  @override
+  String get activityAll => '전체';
+
+  @override
+  String get activityIssues => '이슈';
+
+  @override
+  String get activityMergeRequests => '병합 요청';
+
+  @override
+  String get activityEmpty => '최근 활동이 없습니다.';
+
+  @override
+  String get activityError => '프로젝트 활동을 불러올 수 없습니다.';
+
+  @override
+  String get activityLoadMore => '더 보기';
+
+  @override
+  String get activityUnknownActor => '알 수 없는 사용자';
+
+  @override
+  String get activityPush => '푸시';
+
+  @override
+  String get activityEvent => '프로젝트 활동';
+
+  @override
+  String activityBy(String actor, String action) {
+    return '$actor님이 $action';
+  }
+
+  @override
+  String get environmentsTitle => '환경';
+
+  @override
+  String get environmentsAll => '전체';
+
+  @override
+  String get environmentsAvailable => '사용 가능';
+
+  @override
+  String get environmentsStopping => '중지 중';
+
+  @override
+  String get environmentsStopped => '중지됨';
+
+  @override
+  String get environmentsSearch => '환경 검색';
+
+  @override
+  String get environmentsSearchLength => '3자 이상 입력하세요.';
+
+  @override
+  String get environmentsEmpty => '환경을 찾을 수 없습니다.';
+
+  @override
+  String get environmentsError => '환경을 불러올 수 없습니다.';
+
+  @override
+  String get environmentsLoadMore => '더 보기';
+
+  @override
+  String get environmentDetailError => '이 환경을 불러올 수 없습니다.';
+
+  @override
+  String get environmentAutoStop => '자동 중지';
+
+  @override
+  String get environmentOpenUrl => '환경 열기';
+
+  @override
+  String get environmentLatestDeployment => '최근 배포';
+
+  @override
+  String get environmentUnknownStatus => '알 수 없는 상태';
+
+  @override
+  String get projectMembersTitle => '멤버';
+
+  @override
+  String get projectMembersSearch => '멤버 검색';
+
+  @override
+  String get projectMembersClearSearch => '검색 지우기';
+
+  @override
+  String get projectMembersEmpty => '멤버를 찾을 수 없습니다.';
+
+  @override
+  String get projectMembersError => '멤버를 불러올 수 없습니다.';
+
+  @override
+  String get projectMembersLoadMore => '더 보기';
+
+  @override
+  String get projectMembersExpiry => '만료일';
+
+  @override
+  String get memberRoleNoAccess => '접근 권한 없음';
+
+  @override
+  String get memberRoleMinimal => '최소 접근 권한';
+
+  @override
+  String get memberRoleGuest => '게스트';
+
+  @override
+  String get memberRolePlanner => '플래너';
+
+  @override
+  String get memberRoleReporter => '리포터';
+
+  @override
+  String get memberRoleSecurityManager => '보안 관리자';
+
+  @override
+  String get memberRoleDeveloper => '개발자';
+
+  @override
+  String get memberRoleMaintainer => '메인테이너';
+
+  @override
+  String get memberRoleOwner => '소유자';
+
+  @override
+  String get memberRoleUnknown => '알 수 없는 역할';
+
+  @override
+  String get containerRegistryTitle => '컨테이너 레지스트리';
+
+  @override
+  String get containerRegistryEmpty => '컨테이너 이미지가 아직 없습니다.';
+
+  @override
+  String get containerRegistryError => '컨테이너 이미지를 불러올 수 없습니다.';
+
+  @override
+  String get containerTagsTitle => '이미지 태그';
+
+  @override
+  String get containerTagsEmpty => '태그가 아직 없습니다.';
+
+  @override
+  String get containerTagsError => '이미지 태그를 불러올 수 없습니다.';
+
+  @override
+  String get containerTagError => '이 태그를 불러올 수 없습니다.';
+
+  @override
+  String get containerTagDigest => '다이제스트';
+
+  @override
+  String get containerTagRevision => '리비전';
+
+  @override
+  String get containerTagSize => '크기(바이트)';
+
+  @override
+  String get containerLoadMore => '더 보기';
+
+  @override
+  String get milestonesTitle => '마일스톤';
+
+  @override
+  String get milestonesActive => '진행 중';
+
+  @override
+  String get milestonesClosed => '종료됨';
+
+  @override
+  String get milestonesEmpty => '이 상태의 마일스톤이 없습니다.';
+
+  @override
+  String get milestonesError => '마일스톤을 불러올 수 없습니다.';
+
+  @override
+  String get milestoneDetailError => '이 마일스톤을 불러올 수 없습니다.';
+
+  @override
+  String get milestoneStartDate => '시작일';
+
+  @override
+  String get milestoneDueDate => '마감일';
+
+  @override
+  String get milestoneLoadMore => '더 보기';
+
+  @override
+  String get milestoneNew => '새 마일스톤';
+
+  @override
+  String get milestoneCreate => '마일스톤 만들기';
+
+  @override
+  String get milestoneTitleField => '제목';
+
+  @override
+  String get milestoneDescriptionField => '설명';
+
+  @override
+  String get milestoneTitleRequired => '마일스톤 제목을 입력하세요.';
+
+  @override
+  String get milestoneDateOrderError => '시작일은 마감일보다 늦을 수 없습니다.';
+
+  @override
+  String get milestoneCreateError => '마일스톤을 만들 수 없습니다.';
+
+  @override
+  String get milestoneChooseDate => '날짜 선택';
+
+  @override
+  String get milestoneClearDate => '날짜 지우기';
+
+  @override
+  String get milestoneEdit => '마일스톤 편집';
+
+  @override
+  String get milestoneSaveChanges => '변경사항 저장';
+
+  @override
+  String get milestoneUpdateError => '마일스톤을 수정할 수 없습니다.';
+
+  @override
+  String get milestoneClearStartDate => '시작일 지우기';
+
+  @override
+  String get milestoneClearDueDate => '마감일 지우기';
+
+  @override
+  String get milestoneClose => '마일스톤 닫기';
+
+  @override
+  String get milestoneReactivate => '마일스톤 다시 활성화';
+
+  @override
+  String get milestoneCloseConfirmTitle => '이 마일스톤을 닫을까요?';
+
+  @override
+  String get milestoneCloseConfirmBody => '나중에 다시 활성화할 수 있습니다.';
+
+  @override
+  String get milestoneStateError => '마일스톤 상태를 변경할 수 없습니다.';
+
+  @override
+  String get milestoneDelete => '마일스톤 삭제';
+
+  @override
+  String get milestoneDeleteConfirmTitle => '이 마일스톤을 삭제할까요?';
+
+  @override
+  String get milestoneDeleteConfirmBody => '이 작업은 되돌릴 수 없습니다.';
+
+  @override
+  String get milestoneDeleteError => '마일스톤을 삭제할 수 없습니다.';
+
+  @override
   String get appTitle => 'LabFox';
 
   @override
@@ -131,6 +1252,27 @@ class AppLocalizationsKo extends AppLocalizations {
   String get groupsError => 'Could not load your groups.';
 
   @override
+  String get groupDetailTitle => '그룹';
+
+  @override
+  String get groupDetailError => '이 그룹을 불러오지 못했습니다.';
+
+  @override
+  String get groupSubgroups => '하위 그룹';
+
+  @override
+  String get groupSubgroupsEmpty => '하위 그룹이 없습니다.';
+
+  @override
+  String get groupProjects => '프로젝트';
+
+  @override
+  String get groupProjectsEmpty => '이 그룹에 프로젝트가 없습니다.';
+
+  @override
+  String get groupLoadMore => '더 보기';
+
+  @override
   String get projectsTitle => '프로젝트';
 
   @override
@@ -198,6 +1340,164 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get issueClose => 'Close issue';
+
+  @override
+  String get issueEdit => '이슈 수정';
+
+  @override
+  String get issueEditLabels => '라벨 수정';
+
+  @override
+  String get issueSaveLabels => '라벨 저장';
+
+  @override
+  String get issueLabelsEmpty => '사용 가능한 라벨이 없습니다';
+
+  @override
+  String get issueLabelsLoadError => '라벨을 불러올 수 없습니다.';
+
+  @override
+  String get issueLabelsSaveError => '라벨을 변경할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get issueEditDueDate => '마감일 수정';
+
+  @override
+  String get issueConfidential => '기밀';
+
+  @override
+  String get issueMakeConfidential => '기밀로 설정';
+
+  @override
+  String get issueRemoveConfidentiality => '기밀 해제';
+
+  @override
+  String get issueMakeConfidentialExplanation =>
+      '이 이슈의 접근 권한이 제한됩니다. 계속하시겠습니까?';
+
+  @override
+  String get issueRemoveConfidentialityExplanation =>
+      '프로젝트를 볼 수 있는 모든 사람에게 이 이슈가 표시됩니다. 계속하시겠습니까?';
+
+  @override
+  String get issueConfidentialityConfirm => '확인';
+
+  @override
+  String get issueConfidentialityError =>
+      '기밀 상태를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueDiscussionLocked => '토론 잠김';
+
+  @override
+  String get issueLockDiscussion => '토론 잠그기';
+
+  @override
+  String get issueUnlockDiscussion => '토론 잠금 해제';
+
+  @override
+  String get issueLockDiscussionExplanation =>
+      '프로젝트 멤버만 댓글을 추가하거나 수정할 수 있습니다. 계속하시겠습니까?';
+
+  @override
+  String get issueUnlockDiscussionExplanation =>
+      '이 이슈에 접근할 수 있는 사용자가 다시 댓글을 남길 수 있습니다. 계속하시겠습니까?';
+
+  @override
+  String get issueDiscussionLockConfirm => '확인';
+
+  @override
+  String get issueDiscussionLockError =>
+      '토론 잠금 상태를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueEditMilestone => '마일스톤 편집';
+
+  @override
+  String get issueEditAssignees => '담당자 편집';
+
+  @override
+  String get issueAssignees => '담당자';
+
+  @override
+  String get issueSaveAssignees => '담당자 저장';
+
+  @override
+  String get issueAssigneesSaveError => '담당자를 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueNoMilestone => '마일스톤 없음';
+
+  @override
+  String get issueMilestonesLoadError => '마일스톤을 불러올 수 없습니다.';
+
+  @override
+  String get issueMilestoneSaveError => '마일스톤을 변경할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueDueDate => '마감일';
+
+  @override
+  String issueDueDateValue(String date) {
+    return '마감일: $date';
+  }
+
+  @override
+  String get issueSelectDueDate => '날짜 선택';
+
+  @override
+  String get issueClearDueDate => '마감일 지우기';
+
+  @override
+  String get issueDueDateError => '마감일을 변경할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get issueSaveChanges => '변경 사항 저장';
+
+  @override
+  String get issueEditError => '이슈를 저장할 수 없습니다. 권한을 확인하고 다시 시도하세요.';
+
+  @override
+  String get issueSubscribe => '알림 구독';
+
+  @override
+  String get issueUnsubscribe => '알림 구독 해제';
+
+  @override
+  String get issueSubscriptionError => '이슈 알림을 변경할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get mrSubscribe => '알림 구독';
+
+  @override
+  String get mrUnsubscribe => '알림 구독 해제';
+
+  @override
+  String get mrSubscriptionError => '병합 요청 알림을 변경할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get issueAddTodo => '할 일에 추가';
+
+  @override
+  String get issueTodoAdded => '할 일 목록에 추가했습니다.';
+
+  @override
+  String get issueTodoExists => '이 이슈는 이미 할 일 목록에 있습니다.';
+
+  @override
+  String get issueTodoError => '이슈를 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get mrAddTodo => '할 일에 추가';
+
+  @override
+  String get mrTodoAdded => '할 일 목록에 추가했습니다.';
+
+  @override
+  String get mrTodoExists => '이 병합 요청은 이미 할 일 목록에 있습니다.';
+
+  @override
+  String get mrTodoError => '병합 요청을 할 일 목록에 추가할 수 없습니다. 다시 시도하세요.';
 
   @override
   String get issueReopen => 'Reopen issue';
@@ -509,10 +1809,46 @@ class AppLocalizationsKo extends AppLocalizations {
   String get pipelinesTitle => '파이프라인';
 
   @override
+  String get pipelinesStatusAll => '모든 상태';
+
+  @override
+  String get pipelinesStatusCreated => '생성됨';
+
+  @override
+  String get pipelinesStatusPending => '대기 중';
+
+  @override
+  String get pipelinesStatusRunning => '실행 중';
+
+  @override
+  String get pipelinesStatusSuccess => '성공';
+
+  @override
+  String get pipelinesStatusFailed => '실패';
+
+  @override
+  String get pipelinesStatusCanceled => '취소됨';
+
+  @override
+  String get pipelinesStatusSkipped => '건너뜀';
+
+  @override
+  String get pipelinesStatusManual => '수동';
+
+  @override
+  String get pipelinesFilteredEmpty => '이 필터와 일치하는 파이프라인이 없습니다.';
+
+  @override
   String get pipelinesError => '파이프라인을 불러올 수 없습니다.';
 
   @override
   String get pipelinesEmpty => '아직 파이프라인이 없습니다.';
+
+  @override
+  String get pipelinesLoadMore => '더 보기';
+
+  @override
+  String get pipelinesLoadMoreError => '파이프라인을 더 불러올 수 없습니다.';
 
   @override
   String get pipelineError => '이 파이프라인을 불러올 수 없습니다.';
@@ -717,10 +2053,6 @@ class AppLocalizationsKo extends AppLocalizations {
       'LabFox checks your to-do list in the background and notifies you about new items. Android checks about every 15 minutes; iOS decides when, so this is a background check rather than instant push.';
 
   @override
-  String get paywallNotifications =>
-      'Background to-do checks are part of the subscription. The to-do inbox and manual refresh stay free.';
-
-  @override
   String get settingsNotificationsDenied =>
       'LabFox cannot show notifications until you allow them in system settings.';
 
@@ -749,94 +2081,6 @@ class AppLocalizationsKo extends AppLocalizations {
   String get settingsLicenses => '오픈소스 라이선스';
 
   @override
-  String get paywallTitle => 'A subscription unlocks this';
-
-  @override
-  String get paywallSubscribe => 'See the subscription';
-
-  @override
-  String get paywallNotNow => 'Not now';
-
-  @override
-  String get paywallMergeRequestActions =>
-      'Approving and merging are part of the subscription. Reading merge requests, diffs, and discussions stays free.';
-
-  @override
-  String get paywallPipelineActions =>
-      'Retrying, cancelling, and running manual jobs are part of the subscription. Watching pipelines and reading job logs stays free.';
-
-  @override
-  String get paywallAccounts =>
-      'One account is free. Connecting more instances is part of the subscription.';
-
-  @override
-  String paywallFavorites(int count) {
-    return 'Free keeps $count favorites. The subscription removes the limit.';
-  }
-
-  @override
-  String get subscriptionTitle => 'LabFox subscription';
-
-  @override
-  String get subscriptionActive => 'Subscribed';
-
-  @override
-  String get subscriptionInactive => 'Not subscribed';
-
-  @override
-  String get subscriptionPitch =>
-      'Approve and merge, retry pipelines, and connect more than one account.';
-
-  @override
-  String get subscriptionBenefitAccounts =>
-      'Connect multiple accounts and self-hosted instances';
-
-  @override
-  String get subscriptionBenefitActions =>
-      'Approve, merge, retry, cancel, and run manual jobs';
-
-  @override
-  String get subscriptionBenefitNotifications =>
-      'Background checks that notify you about new to-do items';
-
-  @override
-  String get subscriptionBenefitFavorites =>
-      'Unlimited favorites, instead of the free limit of three';
-
-  @override
-  String subscriptionSubscribe(String price) {
-    return 'Subscribe for $price';
-  }
-
-  @override
-  String get subscriptionRenewalTerms =>
-      'The subscription renews every month until you cancel it. Cancel any time in your store account; cancelling takes effect at the end of the paid month.';
-
-  @override
-  String get subscriptionTerms => 'Terms of Use';
-
-  @override
-  String get subscriptionPrivacy => 'Privacy Policy';
-
-  @override
-  String get subscriptionRestore => 'Restore purchases';
-
-  @override
-  String get subscriptionUnavailable =>
-      'The store is not available right now. Try again later.';
-
-  @override
-  String get subscriptionError =>
-      'That did not go through. Nothing was charged.';
-
-  @override
-  String get subscriptionRestored => 'Your subscription is active.';
-
-  @override
-  String get subscriptionNothingToRestore =>
-      'No subscription found for this store account.';
-
-  @override
   String get navHome => '홈';
 
   @override
@@ -858,5 +2102,3267 @@ class AppLocalizationsKo extends AppLocalizations {
   String get meAccounts => '계정 전환';
 
   @override
+  String get projectLabelsTitle => '라벨';
+
+  @override
+  String get projectLabelsError => '라벨을 불러올 수 없습니다.';
+
+  @override
+  String get projectLabelsEmpty => '라벨이 없습니다';
+
+  @override
+  String get projectLabelsNoMatch => '일치하는 라벨이 없습니다';
+
+  @override
+  String get projectLabelSearch => '라벨 검색';
+
+  @override
+  String get projectLabelNew => '새 라벨';
+
+  @override
+  String get projectLabelGroup => '그룹 라벨';
+
+  @override
+  String get projectLabelProject => '프로젝트 라벨';
+
+  @override
+  String get projectLabelError => '이 라벨을 불러올 수 없습니다.';
+
+  @override
+  String get projectLabelOpenIssues => '열린 이슈';
+
+  @override
+  String get projectLabelClosedIssues => '닫힌 이슈';
+
+  @override
+  String get projectLabelOpenMrs => '열린 머지 리퀘스트';
+
+  @override
+  String get projectLabelName => '이름';
+
+  @override
+  String get projectLabelColor => '색상 (#RRGGBB)';
+
+  @override
+  String get projectLabelDescription => '설명 (선택 사항)';
+
+  @override
+  String get projectLabelRequired => '필수 입력 항목입니다';
+
+  @override
+  String get projectLabelInvalidColor => '#5843AD와 같은 색상을 입력하세요';
+
+  @override
+  String get projectLabelCreate => '라벨 만들기';
+
+  @override
+  String get projectLabelCreateError => '라벨을 만들 수 없습니다. 권한과 입력값을 확인하세요.';
+
+  @override
+  String get tagsTitle => '태그';
+
+  @override
+  String get tagsEmpty => '태그가 없습니다';
+
+  @override
+  String get tagsError => '태그를 불러올 수 없습니다.';
+
+  @override
+  String get tagsNoMatch => '일치하는 태그가 없습니다';
+
+  @override
+  String get tagSearchHint => '태그 검색';
+
+  @override
+  String get tagError => '이 태그를 불러올 수 없습니다.';
+
+  @override
+  String get tagProtected => '보호된 태그';
+
+  @override
+  String get tagNew => '새 태그';
+
+  @override
+  String get tagName => '태그 이름';
+
+  @override
+  String get tagFromRef => '브랜치, 태그 또는 커밋 SHA에서 만들기';
+
+  @override
+  String get tagMessage => '메시지 (선택 사항)';
+
+  @override
+  String get tagPipelineNotice => '태그를 만들면 CI/CD 파이프라인이 시작될 수 있습니다.';
+
+  @override
+  String get tagFieldRequired => '필수 입력 항목입니다';
+
+  @override
+  String get tagCreate => '태그 만들기';
+
+  @override
+  String get tagCreateError => '태그를 만들 수 없습니다. 권한과 기준 ref를 확인하세요.';
+
+  @override
+  String get snippetsTitle => '스니펫';
+
+  @override
+  String get snippetsEmpty => '스니펫이 없습니다';
+
+  @override
+  String get snippetsError => '스니펫을 불러올 수 없습니다.';
+
+  @override
+  String get snippetError => '스니펫을 불러올 수 없습니다.';
+
+  @override
+  String get snippetContent => '내용';
+
+  @override
+  String get snippetContentError => '스니펫 내용을 불러올 수 없습니다.';
+
+  @override
+  String get snippetNew => '새 스니펫';
+
+  @override
+  String get snippetTitleField => '제목';
+
+  @override
+  String get snippetDescriptionField => '설명';
+
+  @override
+  String get snippetFilePathField => '파일 경로';
+
+  @override
+  String get snippetContentField => '내용';
+
+  @override
+  String get snippetVisibilityField => '공개 범위';
+
+  @override
+  String get snippetVisibilityUnchanged => '현재 공개 범위 유지';
+
+  @override
+  String get snippetPrivate => '비공개';
+
+  @override
+  String get snippetPublic => '공개';
+
+  @override
+  String get snippetCreate => '스니펫 만들기';
+
+  @override
+  String get snippetCreateValidationError => '제목, 파일 경로, 내용을 입력하세요.';
+
+  @override
+  String get snippetCreateError => '스니펫을 만들 수 없습니다.';
+
+  @override
+  String get snippetAddFile => '파일 추가';
+
+  @override
+  String get snippetFileAddValidationError => '중복되지 않는 상대 파일 경로와 내용을 입력하세요.';
+
+  @override
+  String get snippetFileAddError => '파일을 추가할 수 없습니다.';
+
+  @override
+  String get snippetFileMoveAction => '파일 이동';
+
+  @override
+  String get snippetFileMoveTitle => '파일 이동 또는 이름 변경';
+
+  @override
+  String get snippetFileMovePathField => '새 파일 경로';
+
+  @override
+  String get snippetFileMoveValidationError => '중복되지 않는 다른 상대 파일 경로를 입력하세요.';
+
+  @override
+  String get snippetFileMoveError => '파일을 이동할 수 없습니다.';
+
+  @override
+  String get snippetEditAction => '스니펫 편집';
+
+  @override
+  String get snippetEditTitle => '스니펫 편집';
+
+  @override
+  String get snippetSaveChanges => '변경 사항 저장';
+
+  @override
+  String get snippetEditValidationError => '제목을 입력하세요.';
+
+  @override
+  String get snippetEditError => '스니펫을 저장할 수 없습니다.';
+
+  @override
+  String get snippetDeleteAction => '스니펫 삭제';
+
+  @override
+  String get snippetDeleteConfirmTitle => '이 스니펫을 삭제할까요?';
+
+  @override
+  String get snippetDeleteConfirmMessage => '스니펫과 파일이 영구적으로 삭제됩니다.';
+
+  @override
+  String get snippetDeleteButton => '삭제';
+
+  @override
+  String get snippetDeleteError => '스니펫을 삭제할 수 없습니다.';
+
+  @override
+  String get snippetFileDeleteAction => '파일 삭제';
+
+  @override
+  String get snippetFileDeleteConfirmTitle => '이 파일을 삭제할까요?';
+
+  @override
+  String get snippetFileDeleteConfirmMessage => '스니펫에서 이 파일만 영구적으로 삭제됩니다.';
+
+  @override
+  String get snippetFileDeleteError => '파일을 삭제할 수 없습니다.';
+
+  @override
+  String get snippetEditContent => '내용 편집';
+
+  @override
+  String get snippetSaveContent => '내용 저장';
+
+  @override
+  String get snippetContentSaveError => '스니펫 내용을 저장할 수 없습니다.';
+
+  @override
   String get homeRecents => '최근';
+
+  @override
+  String get wikiTitle => '위키';
+
+  @override
+  String get wikiEmpty => '아직 위키 페이지가 없습니다.';
+
+  @override
+  String get wikiListError => '위키 페이지를 불러올 수 없습니다.';
+
+  @override
+  String get wikiPageError => '이 위키 페이지를 불러올 수 없습니다.';
+
+  @override
+  String get wikiNewPage => '새 페이지';
+
+  @override
+  String get wikiPagesSection => '페이지';
+
+  @override
+  String get wikiTemplatesSection => '템플릿';
+
+  @override
+  String get wikiTemplateEmpty => '아직 템플릿이 없습니다.';
+
+  @override
+  String get wikiNewTemplate => '새 템플릿';
+
+  @override
+  String get wikiTemplateTitle => '템플릿 제목';
+
+  @override
+  String get wikiCreateTemplate => '템플릿 만들기';
+
+  @override
+  String get wikiCreateTemplateError => '템플릿을 만들 수 없습니다.';
+
+  @override
+  String get wikiPageTitle => '제목';
+
+  @override
+  String get wikiPageContent => '내용';
+
+  @override
+  String get wikiCreatePage => '페이지 만들기';
+
+  @override
+  String get wikiChooseTemplate => '템플릿 선택';
+
+  @override
+  String get wikiReplaceTemplateContent => '현재 내용을 이 템플릿으로 바꾸시겠습니까?';
+
+  @override
+  String get wikiApplyTemplate => '템플릿 적용';
+
+  @override
+  String get wikiTemplateLoadError => '템플릿을 불러올 수 없습니다.';
+
+  @override
+  String get wikiCreateValidationError => '제목과 내용을 입력하세요.';
+
+  @override
+  String get wikiCreateError => '위키 페이지를 만들 수 없습니다.';
+
+  @override
+  String get wikiEditPageAction => '편집';
+
+  @override
+  String get wikiEditPage => '위키 페이지 편집';
+
+  @override
+  String get wikiEditTitle => '제목';
+
+  @override
+  String get wikiEditContent => '내용';
+
+  @override
+  String get wikiSaveChanges => '변경 사항 저장';
+
+  @override
+  String get wikiEditValidationError => '제목과 내용을 입력하세요.';
+
+  @override
+  String get wikiEditError => '위키 페이지를 저장할 수 없습니다.';
+
+  @override
+  String get wikiEditConflict =>
+      'GitLab에서 이 페이지가 변경되었습니다. 다시 편집하기 전에 페이지를 새로고침하세요.';
+
+  @override
+  String get wikiDeletePageAction => '페이지 삭제';
+
+  @override
+  String get wikiDeleteConfirmTitle => '이 위키 페이지를 삭제할까요?';
+
+  @override
+  String get wikiDeleteConfirmMessage => '프로젝트 위키에서 이 페이지가 영구적으로 삭제됩니다.';
+
+  @override
+  String get wikiDeleteError => '위키 페이지를 삭제할 수 없습니다.';
+
+  @override
+  String get wikiDeleteConflict => '페이지가 변경되었습니다. 삭제하기 전에 새로고침하세요.';
+
+  @override
+  String get wikiReloadPage => '페이지 새로고침';
+
+  @override
+  String get packageRegistryTitle => '패키지 레지스트리';
+
+  @override
+  String get packageDelete => '패키지 삭제';
+
+  @override
+  String get packageDeleteConfirmTitle => '이 패키지를 삭제할까요?';
+
+  @override
+  String packageDeleteConfirmBody(String name) {
+    return '$name 및 모든 파일을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageDeleteForwardingWarning =>
+      '요청 전달이 활성화된 경우, 이 패키지를 삭제하면 의존성 혼동 공격 위험이 생길 수 있습니다.';
+
+  @override
+  String get packageDeleteError => '이 패키지를 삭제할 수 없습니다. 다시 시도해 주세요.';
+
+  @override
+  String get packageDeleteForbidden => '이 패키지가 보호되고 있거나 삭제 권한이 없을 수 있습니다.';
+
+  @override
+  String get packageRegistryEmpty => '아직 패키지가 없습니다.';
+
+  @override
+  String get packageRegistryError => '패키지를 불러올 수 없습니다.';
+
+  @override
+  String get packageDetailError => '이 패키지를 불러올 수 없습니다.';
+
+  @override
+  String get packageFiles => '파일';
+
+  @override
+  String get packageFilesEmpty => '이 패키지에는 파일이 없습니다.';
+
+  @override
+  String get packageLoadMore => '더 보기';
+
+  @override
+  String get protectedTagUnprotectTitle => '태그 보호 규칙 해제';
+
+  @override
+  String protectedTagUnprotectTarget(String projectId, String name) {
+    return '프로젝트 $projectId — 규칙 $name';
+  }
+
+  @override
+  String get protectedTagUnprotectWarning =>
+      '저장소 태그 보호 규칙을 제거합니다. 태그는 삭제되지 않습니다. 와일드카드는 현재 및 향후 여러 태그에 영향을 줄 수 있습니다. 보호 해제로 더 많은 사용자가 일치하는 태그를 만들거나 삭제할 수 있으며 태그 파이프라인과 작업의 접근 권한도 바뀔 수 있습니다. 다른 일치 규칙이 태그를 계속 보호할 수 있으며 실제 접근 권한은 GitLab이 결정합니다. 아래의 현재 생성 권한을 검토하세요.';
+
+  @override
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  ) {
+    return '$description\n역할 수준: $role; 사용자 ID: $user; 그룹 ID: $group; 배포 키 ID: $key';
+  }
+
+  @override
+  String get protectedTagUnprotectUnreported => '보고되지 않음';
+
+  @override
+  String get protectedTagUnprotectName => '정확한 규칙 이름 또는 패턴을 다시 입력하세요';
+
+  @override
+  String get protectedTagUnprotectAcknowledge =>
+      '이 규칙에 일치하는 모든 태그의 보호가 해제됨을 이해하며 이 규칙을 제거하겠습니다.';
+
+  @override
+  String get protectedTagUnprotectAuth => '세션이 거부되었습니다. 다시 로그인한 뒤 규칙을 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectForbidden =>
+      'GitLab이 보호 해제 권한을 거부했습니다. Maintainer 또는 Owner 역할이 필요합니다.';
+
+  @override
+  String get protectedTagUnprotectUnavailable =>
+      '규칙이 없거나 비공개이거나 이 인스턴스에서 사용할 수 없습니다. 새로 불러와 확인하세요. 다른 규칙은 제거되지 않습니다.';
+
+  @override
+  String get protectedTagUnprotectStale =>
+      '규칙이 변경되었습니다. 새로 불러와 현재 권한을 확인한 뒤 제거하세요.';
+
+  @override
+  String get protectedTagUnprotectRateLimited =>
+      'GitLab이 요청 횟수를 제한하고 있습니다. 잠시 기다린 뒤 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectError =>
+      '요청 결과를 확인할 수 없습니다. 재시도 전에 규칙을 다시 불러와 확인하세요.';
+
+  @override
+  String get protectedTagUnprotectReload => '규칙 다시 불러오기';
+
+  @override
+  String get protectedTagUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토하세요.';
+
+  @override
+  String get protectedTagUnprotectAccepted =>
+      '태그 보호 규칙이 제거되었습니다. 태그는 삭제되지 않았습니다.';
+
+  @override
+  String get protectedBranchForcePushEditTitle => '강제 푸시 수정';
+
+  @override
+  String get protectedBranchCodeOwnerEditTitle => 'Code Owner 승인 설정 변경';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentRequired =>
+      '현재 규칙: Code Owner 승인이 필요합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerCurrentOptional =>
+      '현재 규칙: Code Owner 승인이 필수가 아닙니다.';
+
+  @override
+  String get protectedBranchCodeOwnerRequire => 'Code Owner 승인 필수';
+
+  @override
+  String get protectedBranchCodeOwnerEnableWarning =>
+      '이 규칙은 CODEOWNERS에 해당하는 파일에 Code Owner 승인을 요구합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerDisableWarning =>
+      '이 규칙에서 Code Owner 승인을 더 이상 요구하지 않습니다. 다른 승인 규칙은 계속 적용될 수 있습니다.';
+
+  @override
+  String get protectedBranchCodeOwnerAcknowledge =>
+      '이 브랜치 규칙의 Code Owner 승인 요건이 변경된다는 점을 이해합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerError =>
+      'Code Owner 설정을 확인하지 못했습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchCodeOwnerForbidden =>
+      '이 규칙을 관리할 권한과 GitLab Premium/Ultimate가 필요합니다.';
+
+  @override
+  String get protectedBranchCodeOwnerSuccess => 'Code Owner 승인 요건을 변경했습니다.';
+
+  @override
+  String get protectedBranchCodeOwnerInspect =>
+      '규칙을 확인하여 현재 Code Owner 설정을 읽으세요.';
+
+  @override
+  String get protectedBranchCodeOwnerContext =>
+      '와일드카드는 여러 브랜치에 적용될 수 있습니다. 승인 대상 파일은 CODEOWNERS 설정에 따라 결정됩니다. 직접 푸시하면 Merge Request 승인을 건너뛸 수 있습니다.';
+
+  @override
+  String protectedBranchForcePushEditTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedBranchForcePushCurrentAllowed => '현재 강제 푸시가 허용됩니다.';
+
+  @override
+  String get protectedBranchForcePushCurrentBlocked => '현재 강제 푸시가 차단됩니다.';
+
+  @override
+  String get protectedBranchForcePushAllow => '강제 푸시 허용';
+
+  @override
+  String get protectedBranchForcePushSave => '설정 저장';
+
+  @override
+  String get protectedBranchForcePushEnableWarning =>
+      '강제 푸시를 허용하면 일치하는 브랜치의 기록을 다시 쓸 수 있습니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushDisableWarning =>
+      '강제 푸시를 차단하면 일치하는 브랜치에서 구성원의 작업 방식이 바뀝니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchForcePushAcknowledge =>
+      '일치하는 브랜치에 미치는 이 변경의 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchForcePushReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchForcePushSuccess => '강제 푸시 설정을 변경했습니다.';
+
+  @override
+  String get protectedBranchForcePushAuth => '이 규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchForcePushForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchForcePushUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushError =>
+      '변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchForcePushSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchMergeRoleEditTitle => '병합 권한 편집';
+
+  @override
+  String protectedBranchMergeRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchMergeRoleCurrent(String role) {
+    return '현재 병합 권한: $role';
+  }
+
+  @override
+  String get protectedBranchMergeRoleNone => '없음';
+
+  @override
+  String get protectedBranchMergeRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchMergeRoleWarning =>
+      '병합 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 와일드카드는 여러 브랜치와 병합 요청 작업에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAcknowledge =>
+      '일치하는 브랜치의 병합 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleSave => '병합 권한 저장';
+
+  @override
+  String get protectedBranchMergeRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchMergeRoleSuccess => '병합 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchMergeRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleForbidden => '병합 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchMergeRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchMergeRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedBranchPushRoleEditTitle => '푸시 권한 편집';
+
+  @override
+  String protectedBranchPushRoleTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String protectedBranchPushRoleCurrent(String role) {
+    return '현재 푸시 권한: $role';
+  }
+
+  @override
+  String get protectedBranchPushRoleNone => '없음';
+
+  @override
+  String get protectedBranchPushRoleDeveloper => '개발자 및 유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleMaintainer => '유지 관리자';
+
+  @override
+  String get protectedBranchPushRoleWarning =>
+      '푸시 권한을 변경하면 이 규칙과 일치하는 모든 브랜치에 영향을 줍니다. 직접 커밋할 수 있는 사람이 달라지고, 강제 푸시가 허용된 경우 기록을 다시 쓸 수 있는 사람도 달라질 수 있습니다. 와일드카드는 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchPushRoleAcknowledge =>
+      '일치하는 브랜치의 푸시 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedBranchPushRoleSave => '푸시 권한 저장';
+
+  @override
+  String get protectedBranchPushRoleReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchPushRoleSuccess => '푸시 권한을 변경했습니다.';
+
+  @override
+  String get protectedBranchPushRoleAuth => '규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchPushRoleForbidden => '푸시 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchPushRoleUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleRateLimited =>
+      'GitLab이 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleError =>
+      '변경 결과를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchPushRoleSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateTitle => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateName => '환경 이름';
+
+  @override
+  String get protectedEnvironmentCreateDeveloper => '개발자 + 유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateMaintainer => '유지관리자';
+
+  @override
+  String get protectedEnvironmentCreateWarning =>
+      '이 보호 규칙은 지정한 환경에 배포할 수 있는 사람을 변경합니다. 승인 규칙은 추가되지 않습니다.';
+
+  @override
+  String get protectedEnvironmentCreateAcknowledge => '배포 권한 변경을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSave => '환경 보호';
+
+  @override
+  String get protectedEnvironmentCreateReload => '환경 목록 다시 확인';
+
+  @override
+  String get protectedEnvironmentCreateDuplicate =>
+      '이 환경은 이미 보호되어 있습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateError =>
+      '보호 설정을 확인할 수 없습니다. 다시 시도하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentCreateForbidden => '권한이 없거나 이 기능을 사용할 수 없습니다.';
+
+  @override
+  String get protectedEnvironmentCreateSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentCreateSuccess => '환경이 보호되었습니다.';
+
+  @override
+  String get protectedEnvironmentCreateInvalidName =>
+      '와일드카드가 없는 정확한 환경 이름을 입력하세요.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleTitle => '배포 역할 제거';
+
+  @override
+  String get protectedEnvironmentRemoveRoleWarning =>
+      '이 권한을 제거하면 선택한 역할이 배포하지 못할 수 있습니다. 다른 배포 권한과 승인 규칙은 유지되며 환경은 계속 보호됩니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleAcknowledge =>
+      '선택한 배포 권한이 제거되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleSuccess => '배포 역할이 제거되었습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleForbidden =>
+      '이 배포 권한을 제거할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveRoleError =>
+      '배포 권한 제거를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id) {
+    return '$role (권한 $id)';
+  }
+
+  @override
+  String get protectedEnvironmentDeployRoleTitle => '배포 역할 추가';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceTitle => '배포 그룹 멤버십 편집';
+
+  @override
+  String get protectedEnvironmentDeployGroupTitle => '배포 그룹 추가';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupTitle => '배포 그룹 제거';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupWarning =>
+      '이 권한을 제거하면 해당 그룹 멤버의 배포가 차단될 수 있습니다. 다른 권한으로는 계속 접근할 수 있습니다. 마지막 배포 권한을 제거하면 이 보호 환경에 대한 배포가 차단될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge =>
+      '선택한 그룹의 배포 권한이 제거되고 배포가 차단될 수 있음을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentRemoveDeployGroupSuccess => '배포 그룹을 제거했습니다.';
+
+  @override
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (권한 $grantId, 그룹 $groupId)';
+  }
+
+  @override
+  String get protectedEnvironmentDeployGroupWarning =>
+      '그룹을 추가하면 해당 그룹의 직접 멤버가 이 환경에 배포할 수 있습니다. 계속하기 전에 기존 배포 권한과 승인 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentDeployGroupAcknowledge =>
+      '이 작업이 그룹의 직접 멤버에게 배포 권한을 부여함을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupSuccess => '배포 그룹을 추가했습니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupId => '그룹 ID';
+
+  @override
+  String get protectedEnvironmentDeployGroupHint =>
+      '이 프로젝트와 공유된 그룹의 정확한 숫자 ID를 입력하세요. 직접 멤버만 포함됩니다.';
+
+  @override
+  String get protectedEnvironmentDeployGroupDuplicate =>
+      '이 그룹에는 이미 배포 권한이 있습니다.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceWarning =>
+      '상속된 구성원을 포함하면 더 많은 사용자가 배포할 수 있습니다. 직접 가입한 구성원만 허용하면 배포 권한이 사라질 수 있습니다. 계속하기 전에 모든 권한을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceAcknowledge =>
+      '이 환경에 배포할 수 있는 사용자가 변경됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceSuccess =>
+      '배포 그룹 멤버십이 업데이트되었습니다.';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceLevel => '그룹 멤버십';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceDirect => '직접 가입한 구성원만';
+
+  @override
+  String get protectedEnvironmentDeployInheritanceInherited => '상속된 구성원 포함';
+
+  @override
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  ) {
+    return '$deployer (권한 $grantId, 그룹 $groupId)';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupTitle => '승인 그룹 추가';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceTitle => '승인 그룹 멤버십 편집';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceWarning =>
+      '상속 멤버십을 포함하면 더 많은 사용자가 승인할 수 있습니다. 직접 가입한 구성원만 허용하면 승인자가 부족할 경우 배포가 차단될 수 있습니다. 계속하기 전에 모든 규칙을 검토하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceAcknowledge =>
+      '배포를 승인할 수 있는 사용자가 변경됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceSuccess =>
+      '승인 그룹 멤버십이 업데이트되었습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceLevel => '그룹 멤버십';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceDirect => '직접 가입한 구성원만';
+
+  @override
+  String get protectedEnvironmentApprovalInheritanceInherited => '상속된 구성원 포함';
+
+  @override
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  ) {
+    return '그룹 $groupId: $membership';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupId => '그룹 ID';
+
+  @override
+  String get protectedEnvironmentApprovalGroupHint =>
+      '공백 없이 정확한 양의 정수 그룹 ID를 입력하세요.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupDuplicate =>
+      '이 그룹의 승인 규칙이 이미 있습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupWarning =>
+      '이 규칙에서는 그룹에 직접 가입한 구성원만 승인할 수 있습니다. 그룹이 이 프로젝트와 공유되어 있어야 합니다. 승인 가능한 구성원이 부족하면 배포가 차단될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupAcknowledge =>
+      '배포에 필요한 승인 규칙이 추가됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupSuccess => '승인 그룹이 추가되었습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditTitle => '승인 그룹 교체';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditWarning =>
+      '선택한 그룹이 교체됩니다. 승인 수와 멤버십 설정은 유지됩니다. 새 그룹이 이 프로젝트와 공유되어 있어야 합니다. 승인 가능한 구성원이 부족하면 배포가 차단될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditAcknowledge =>
+      '배포를 승인할 수 있는 그룹이 변경됨을 이해합니다.';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditSuccess => '승인 그룹이 교체되었습니다.';
+
+  @override
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  ) {
+    return '$approver (규칙 $ruleId, 그룹 $groupId, $count명 승인 필요)';
+  }
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditDirect => '직접 가입한 구성원만';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditInherited => '상속된 구성원 포함';
+
+  @override
+  String get protectedEnvironmentApprovalGroupEditId => '새 그룹 ID';
+
+  @override
+  String get protectedEnvironmentDeployRoleWarning =>
+      '선택한 역할에 배포 권한이 부여됩니다. 기존 배포 권한과 승인 규칙은 유지됩니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleAcknowledge =>
+      '배포 권한이 확대되는 것을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleSuccess => '배포 역할이 추가되었습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleForbidden => '배포 권한을 변경할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentDeployRoleError =>
+      '배포 역할 변경을 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectTitle => '환경 보호 해제';
+
+  @override
+  String protectedEnvironmentUnprotectTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedEnvironmentUnprotectWarning =>
+      '이 프로젝트 보호 규칙을 해제하면 아래의 모든 배포 허용 항목과 승인 규칙이 제거됩니다. 환경과 이전 배포는 유지됩니다. 그룹 보호 규칙은 계속 적용될 수 있습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectName => '정확한 환경 이름 입력';
+
+  @override
+  String get protectedEnvironmentUnprotectAcknowledge =>
+      '이 배포 제한과 승인 규칙이 제거됨을 이해했습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectReload => '규칙 다시 확인';
+
+  @override
+  String get protectedEnvironmentUnprotectAuth => '규칙을 변경하기 전에 다시 로그인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectForbidden =>
+      '이 환경의 보호를 해제할 권한이 없습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectStale =>
+      '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectError =>
+      '보호 해제를 확인할 수 없습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get protectedEnvironmentUnprotectSuccess => '환경 보호가 해제되었습니다.';
+
+  @override
+  String get protectedEnvironmentUnprotectUnreported => '접근 항목';
+
+  @override
+  String get containerPolicyStatus => '상태';
+
+  @override
+  String get containerPolicyTitle => '정리 정책';
+
+  @override
+  String get containerPolicyAbsent => 'GitLab이 정리 정책을 보고하지 않았습니다.';
+
+  @override
+  String get containerPolicyHint =>
+      '이 프로젝트의 모든 컨테이너 이미지 저장소에 적용되는 읽기 전용 설정입니다. 정리는 일치하는 태그를 비동기로 제거하며 보존 규칙, latest, 보호된 태그 및 변경 불가능한 태그는 유지합니다. 여러 번 실행해야 할 수 있으며 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerPolicyNextRun => 'GitLab이 보고한 다음 실행 시간 (현지 시간)';
+
+  @override
+  String containerPolicyDays(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString일',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String containerPolicyMonths(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString개월',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get containerPolicyEnabled => '활성화';
+
+  @override
+  String get containerPolicyDisabled => '비활성화';
+
+  @override
+  String get containerPolicyNotReported => '보고되지 않음';
+
+  @override
+  String get containerPolicyCadence => '실행 주기';
+
+  @override
+  String get containerCreateTitle => '정리 정책 만들기';
+
+  @override
+  String get containerCreateSave => '비활성 정책 생성 확인';
+
+  @override
+  String get containerCreateWarning =>
+      '모든 이미지 저장소의 정리 기준을 저장합니다. 활성화를 선택하지 않으면 정리는 비활성 상태로 유지됩니다. 기본 보존 패턴 .*는 모든 태그를 보존하며, 빈 보존 패턴은 패턴에 따른 보존을 제공하지 않습니다. 패턴은 입력한 그대로 전송되고 GitLab RE2 전체 태그 일치를 사용합니다. 비활성 상태에서는 검증이 나중으로 미뤄질 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateAcknowledge =>
+      '기준을 검토했으며 이 정책이 비활성 상태로 유지됨을 이해합니다.';
+
+  @override
+  String get containerCreateExisting =>
+      '프로젝트에 정리 정책이 이미 있습니다. 생성으로 덮어쓰지 않습니다. 기존 설정을 사용하세요.';
+
+  @override
+  String get containerCreateUnknown =>
+      'GitLab이 정책 존재 여부를 보고하지 않았습니다. GitLab에서 확인하세요. 생성할 수 없습니다.';
+
+  @override
+  String get containerCreateAccepted => '정리 정책 생성 요청이 수락되었습니다.';
+
+  @override
+  String get containerCreateInvalid =>
+      'GitLab이 정책 설정을 거부했습니다. 조건을 확인한 후 수정하거나 재시도하세요.';
+
+  @override
+  String get containerCreateDaily => '매일';
+
+  @override
+  String get containerCreateWeekly => '매주';
+
+  @override
+  String get containerCreateFortnightly => '2주마다';
+
+  @override
+  String get containerCreateMonthly => '매월';
+
+  @override
+  String get containerCreateQuarterly => '3개월마다';
+
+  @override
+  String containerCreateDays(int days) {
+    return '$days일';
+  }
+
+  @override
+  String get containerPolicyKeepCount => '이미지당 보존할 일치 태그 개수';
+
+  @override
+  String get containerCreateEnable => '생성 시 정리 활성화';
+
+  @override
+  String get containerCreateEnabledWarning =>
+      '활성 정책은 일정에 따라 이 프로젝트의 모든 이미지 저장소에서 일치하는 태그를 영구 삭제할 수 있습니다. 실행 주기, 보존 수, 보존 기간, 두 패턴을 검토하세요. 보호되거나 변경 불가능한 태그의 제외 여부는 GitLab이 결정합니다. 저장은 삭제 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerCreateEnabledAcknowledge =>
+      '모든 기준을 검토했으며 프로젝트 전체의 일치하는 태그가 일정에 따라 영구 삭제되는 것에 동의합니다.';
+
+  @override
+  String get containerCreateEnabledSave => '활성 정책 생성 확인';
+
+  @override
+  String get containerCreateSessionChanged =>
+      '계정이 변경되었습니다. 이 창을 닫고 다시 열어 현재 프로젝트를 검토한 후 정책을 만드세요.';
+
+  @override
+  String get containerPolicyAge => '제거할 태그의 최소 나이';
+
+  @override
+  String get containerPolicyDeletePattern => '삭제 패턴';
+
+  @override
+  String get containerPolicyLegacyPattern => '삭제 패턴 (구형)';
+
+  @override
+  String get containerPolicyKeepPattern => '보존 패턴';
+
+  @override
+  String get containerPolicyEmptyPattern => '빈 패턴';
+
+  @override
+  String get containerPolicyError => '정리 정책을 불러오지 못했습니다.';
+
+  @override
+  String get containerPolicyForbidden => '이 프로젝트의 정리 정책을 볼 권한이 없습니다.';
+
+  @override
+  String get containerPolicyUnavailable =>
+      '프로젝트에 접근할 수 없거나 정리 정책 정보를 사용할 수 없습니다.';
+
+  @override
+  String get containerPolicyEmptySetting => '빈 설정값';
+
+  @override
+  String containerActivationTarget(String projectId) {
+    return '프로젝트 $projectId — 모든 이미지 저장소';
+  }
+
+  @override
+  String get containerActivationError => '변경을 확인하지 못했습니다. 정책을 다시 불러오고 재시도하세요.';
+
+  @override
+  String get containerActivationIncomplete =>
+      '정리를 활성화하려면 주기, 보존 개수, 나이 제한 및 삭제 패턴이 보고되어야 합니다. GitLab에서 정책을 확인하세요.';
+
+  @override
+  String get containerActivationTitle => '정리 정책 상태 변경';
+
+  @override
+  String get containerActivationEnable => '정리 활성화';
+
+  @override
+  String get containerActivationDisable => '정리 비활성화';
+
+  @override
+  String get containerActivationEnableWarning =>
+      '이 프로젝트 전체 정책을 활성화하면 예약 실행에서 일치하는 태그가 영구 삭제될 수 있습니다. 표시된 보존 설정과 패턴은 변경되지 않습니다. 태그 제거만으로 이미지 저장 공간이 회수되지 않습니다.';
+
+  @override
+  String get containerActivationDisableWarning =>
+      '보존 설정이나 패턴을 변경하지 않고 이 프로젝트의 향후 예약 정리를 비활성화합니다. 이미 실행 중인 정리 작업이 취소된다고 가정하지 마세요.';
+
+  @override
+  String get containerActivationUnknown =>
+      '확인된 활성 상태가 필요합니다. GitLab에서 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationInvalid =>
+      'GitLab이 상태 변경을 거부했습니다. GitLab에서 기존 정책 설정을 확인하세요.';
+
+  @override
+  String get containerActivationAccepted => '정리 정책 상태 변경이 접수되었습니다.';
+
+  @override
+  String get containerActivationForbidden => '이 정리 정책을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerActivationStale =>
+      '정책이 변경되었거나 더 이상 보고되지 않습니다. 저장하기 전에 다시 불러와 확인하세요.';
+
+  @override
+  String get containerActivationReload => '정책 다시 불러오기';
+
+  @override
+  String get containerActivationRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 정책을 다시 불러와 재시도하세요.';
+
+  @override
+  String get containerCadenceTitle => '정리 주기 편집';
+
+  @override
+  String get containerCadenceSave => '주기 변경 확인';
+
+  @override
+  String get containerCadenceSelect => '새 주기 (GitLab API 간격)';
+
+  @override
+  String get containerCadenceWarning =>
+      '프로젝트 전체 주기를 변경하면 모든 이미지 저장소의 향후 예약된 태그 정리에 영향을 줍니다. 아래 활성화 상태와 삭제·보관 기준을 확인하세요. 해당 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerCadenceUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerCadenceAccepted => '정리 주기 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerTagProtectionTitle => '태그 보호 규칙';
+
+  @override
+  String get containerTagProtectionCreateTitle => '태그 보호 규칙 생성';
+
+  @override
+  String get containerTagProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerTagProtectionCreatePattern => '태그 이름 패턴';
+
+  @override
+  String get containerTagProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerTagProtectionCreateDelete => '최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionCreateUnset => '역할 선택';
+
+  @override
+  String get containerTagProtectionCreateWarning =>
+      '이 프로젝트 전체 규칙은 정확한 glob 패턴과 일치하는 태그의 푸시와 삭제를 제한합니다. 와일드카드는 많은 태그에 영향을 주고 기존 릴리스나 정리 작업을 막을 수 있습니다. 두 역할 모두 필수입니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionCreateAcknowledge =>
+      '정확한 태그 패턴과 두 역할을 검토했으며 일치하는 태그에 미치는 영향을 이해했습니다.';
+
+  @override
+  String containerTagProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerTagProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionCreateInvalid =>
+      '태그 패턴 또는 역할이 거부되었습니다. 두 필수 역할을 검토하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionCreateError =>
+      '태그 규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionCreateSaved => '태그 규칙이 생성되었습니다.';
+
+  @override
+  String get containerTagProtectionCreateUnavailable =>
+      '태그 규칙 생성에는 GitLab 18.8 이상과 접근 가능한 프로젝트가 필요합니다.';
+
+  @override
+  String get containerTagProtectionCreateRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionEmpty => '태그 보호 규칙이 없습니다.';
+
+  @override
+  String get containerTagProtectionError => '태그 보호 규칙을 불러오지 못했습니다.';
+
+  @override
+  String get containerTagProtectionForbidden => '태그 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionUnavailable =>
+      '이 인스턴스에서 태그 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerTagProtectionPushRole(String role) {
+    return '푸시 최소 역할: $role';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleTitle => '최소 푸시 역할 수정';
+
+  @override
+  String get containerTagProtectionPushRoleSave => '푸시 역할 저장';
+
+  @override
+  String get containerTagProtectionPushRoleWarning =>
+      '최소 푸시 역할을 변경하면 프로젝트에서 일치하는 컨테이너 이미지 태그를 푸시할 수 있는 대상이 바뀝니다. 역할을 낮추면 보호가 약해지고 높이면 기존 작업 흐름이 차단될 수 있습니다. 태그 패턴과 최소 삭제 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 태그나 이미지를 삭제하거나 Git 태그에 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleAcknowledge =>
+      '규칙과 새 최소 푸시 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPushRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleError =>
+      '푸시 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPushRoleSaved => '최소 푸시 역할이 변경되었습니다.';
+
+  @override
+  String get containerTagProtectionPushRoleMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleInvalid =>
+      '푸시 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushRoleDraft => '새 최소 푸시 역할';
+
+  @override
+  String get containerTagProtectionPushRoleSelect => '푸시 역할 선택';
+
+  @override
+  String get containerTagProtectionPushRoleUnknown =>
+      '현재 푸시 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
+  String containerTagProtectionDeleteRole(String role) {
+    return '삭제 최소 역할: $role';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerTagProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerTagProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 변경하면 프로젝트에서 일치하는 컨테이너 이미지 태그를 삭제할 수 있는 대상이 바뀝니다. 역할을 낮추면 삭제 보호가 약해지고 높이면 기존 정리 작업이 차단될 수 있습니다. 태그 패턴과 최소 푸시 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 규칙을 저장해도 태그나 이미지는 삭제되지 않습니다. Git 태그에는 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerTagProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerTagProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
+  String get containerTagProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String get containerTagProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerTagProtectionHint =>
+      'Git 태그가 아닌 컨테이너 이미지 태그의 규칙입니다. 최소 역할은 현재 사용자의 접근 권한을 확정하지 않습니다. 조회에는 GitLab 18.7 이상, 생성에는 18.8 이상, 수정에는 18.9 이상이 필요합니다.';
+
+  @override
+  String get containerTagProtectionPatternTitle => '태그 보호 패턴 수정';
+
+  @override
+  String get containerTagProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerTagProtectionPatternWarning =>
+      '패턴을 변경하면 프로젝트에서 기존에 일치하던 컨테이너 이미지 태그의 보호가 해제되고 다른 태그에 적용될 수 있습니다. 와일드카드(*)는 여러 태그에 영향을 줍니다. 두 최소 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 태그나 이미지를 삭제하거나 Git 태그에 영향을 주지 않으며 현재 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerTagProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerTagProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPatternError =>
+      '패턴 변경을 확인할 수 없습니다. 서버에서 요청을 처리했을 수 있으니 재시도 전에 규칙 목록을 확인하세요.';
+
+  @override
+  String get containerTagProtectionPatternStale =>
+      '확인 후 규칙이 변경되었습니다. 저장 전에 다시 불러와 검토하세요.';
+
+  @override
+  String get containerTagProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPatternSaved => '태그 보호 패턴을 변경했습니다.';
+
+  @override
+  String get containerTagProtectionPatternMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionRemoveTitle => '태그 보호 규칙 삭제';
+
+  @override
+  String get containerTagProtectionRemoveSave => '규칙 삭제';
+
+  @override
+  String get containerTagProtectionRemoveWarning =>
+      '이 규칙을 삭제하면 프로젝트에서 일치하는 컨테이너 이미지 태그의 푸시 및 삭제 보호가 해제됩니다. 다른 규칙과 권한은 계속 적용됩니다. 태그나 이미지를 삭제하지 않으며 Git 태그에는 영향을 주지 않습니다.';
+
+  @override
+  String get containerTagProtectionRemoveAcknowledge =>
+      '이 내용을 이해했으며 이 규칙을 삭제하겠습니다.';
+
+  @override
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionRemoveForbidden => '이 규칙을 삭제할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionRemoveError =>
+      '요청이 실패했지만 서버에 전달되었을 수 있습니다. 재시도 전에 규칙 목록을 확인하세요.';
+
+  @override
+  String get containerTagProtectionRemoveStale =>
+      '규칙이 변경되었거나 중복됩니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionRemoveReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionRemoveSaved => '태그 보호 규칙을 삭제했습니다.';
+
+  @override
+  String get containerTagProtectionRemoveMissing =>
+      '규칙이 없거나 접근할 수 없거나 지원되지 않습니다. 삭제에는 GitLab 18.9 이상이 필요합니다. 계속하려면 다시 불러오세요.';
+
+  @override
+  String get containerTagProtectionRemoveRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 초안을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPatternDraft => '새 컨테이너 태그 패턴';
+
+  @override
+  String get containerTagDelete => '태그 삭제';
+
+  @override
+  String get containerTagDeleteConfirmTitle => '컨테이너 태그를 삭제할까요?';
+
+  @override
+  String containerTagDeleteConfirmBody(String tagName, String path) {
+    return '“$path”의 “$tagName” 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerTagDeleteWarning =>
+      '태그만 삭제되며 이미지 블롭은 삭제되지 않습니다. 태그를 삭제해도 디스크 공간은 확보되지 않습니다.';
+
+  @override
+  String get containerCleanupTitle => '태그 정리';
+
+  @override
+  String containerCleanupTarget(String projectId, String repositoryId) {
+    return '프로젝트 $projectId, 이미지 저장소 $repositoryId';
+  }
+
+  @override
+  String get containerCleanupWarning =>
+      '조건에 맞는 태그가 영구 삭제됩니다. latest 및 보호된 태그는 제외됩니다. 보존 패턴은 삭제 패턴보다 우선합니다.';
+
+  @override
+  String get containerCleanupLimits =>
+      '정리는 저장소당 시간당 최대 한 번 비동기로 실행되며 일부 태그만 제거될 수 있습니다. 나이와 순서는 푸시 시간이 아닌 매니페스트 생성 시간을 기준으로 합니다. 태그를 제거해도 이미지 저장 공간은 회수되지 않습니다.';
+
+  @override
+  String get containerCleanupDeletePattern => '삭제 패턴 (RE2, 필수)';
+
+  @override
+  String get containerCleanupKeepPattern => '보존 패턴 (RE2, 선택)';
+
+  @override
+  String get containerCleanupKeepCount => '최신 일치 태그 보존 개수 (선택)';
+
+  @override
+  String get containerCleanupAge => '다음 기간보다 오래된 태그만 제거';
+
+  @override
+  String get containerCleanupNoAge => '나이 제한 없음';
+
+  @override
+  String get containerCleanupDay => '1일';
+
+  @override
+  String get containerCleanupWeek => '7일';
+
+  @override
+  String get containerCleanupMonth => '1개월';
+
+  @override
+  String get containerCleanupRequired => '삭제 패턴을 명시적으로 입력하세요.';
+
+  @override
+  String get containerCleanupCountError => '0 이상의 정수를 입력하거나 비워 두세요.';
+
+  @override
+  String get containerCleanupSchedule => '정리 예약';
+
+  @override
+  String get containerCleanupScheduled =>
+      '정리가 예약되었습니다. 처리가 완료될 때까지 태그가 남아 있을 수 있으니 나중에 새로고침하세요.';
+
+  @override
+  String get containerCleanupError => '정리를 예약하지 못했습니다. 연결을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerCleanupForbidden => '이 저장소의 태그를 정리할 권한이 없습니다.';
+
+  @override
+  String get containerCleanupRateLimited =>
+      '정리 요청이 제한되었습니다. 저장소당 시간당 최대 한 번 실행할 수 있습니다. 나중에 다시 시도하세요.';
+
+  @override
+  String get containerCleanupInvalid =>
+      'GitLab이 정리 조건을 거부했습니다. RE2 패턴과 보존 설정을 확인하세요.';
+
+  @override
+  String get containerTagDeleteForbidden =>
+      '이 태그를 삭제할 수 없습니다. 보호된 태그이거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get containerTagDeleteError => '태그를 삭제할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityTitle => '불변 태그 규칙';
+
+  @override
+  String get containerImmutabilityEmpty => '불변 태그 규칙이 없습니다.';
+
+  @override
+  String get containerImmutabilityError =>
+      '불변 태그 규칙을 불러오지 못했습니다. 인스턴스 지원 여부를 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerImmutabilityForbidden => '불변 태그 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String get containerImmutabilityUnavailable =>
+      '프로젝트 또는 규칙 목록을 사용할 수 없습니다. 접근 권한, 구독 및 인스턴스 지원 여부를 확인하세요.';
+
+  @override
+  String get containerImmutabilityHint =>
+      '불변 태그에는 Ultimate와 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용되며 정리 정책을 포함하여 일치하는 태그의 덮어쓰기와 삭제를 방지합니다. 규칙 조회만으로 개별 태그의 현재 보호 상태를 확인할 수 없습니다. 변경 사항이 반영되기까지 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityCreateTitle => 'Immutable 규칙 생성';
+
+  @override
+  String get containerImmutabilityCreateButton => '규칙 생성';
+
+  @override
+  String get containerImmutabilityCreated => 'Immutable 규칙을 생성했습니다.';
+
+  @override
+  String get containerImmutabilityPattern => '태그 패턴';
+
+  @override
+  String get containerImmutabilityPatternHint =>
+      '100자 이내의 RE2 패턴을 입력하세요. 공백은 유지되며 문법은 GitLab이 검증합니다.';
+
+  @override
+  String containerImmutabilityProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityImpact =>
+      'Owner 권한, Ultimate 및 지원되는 레지스트리가 필요합니다. 이 패턴은 프로젝트의 모든 컨테이너 저장소에 적용됩니다. 일치하는 태그는 정리 정책을 포함하여 덮어쓰거나 삭제할 수 없습니다. Immutable 규칙이 하나라도 있으면 매니페스트 직접 삭제도 차단됩니다. 규칙은 수정할 수 없으며 변경 적용에 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityAcknowledge =>
+      '프로젝트 전체의 보호 및 워크플로 영향을 이해했습니다.';
+
+  @override
+  String get containerImmutabilityUncertain =>
+      '생성 결과를 확인하지 못했습니다. 요청이 이미 성공했을 수 있으므로 재시도 전에 현재 규칙을 확인하세요.';
+
+  @override
+  String get containerImmutabilityInspect => '현재 규칙 확인';
+
+  @override
+  String get containerImmutabilityRejected =>
+      'GitLab이 요청을 거부했거나 같은 패턴의 Immutable 규칙이 이미 있습니다. 현재 규칙, 패턴 및 프로젝트 제한을 확인하세요.';
+
+  @override
+  String get containerImmutabilityAuth => '세션이 거부되었습니다. 규칙 생성 전에 다시 로그인하세요.';
+
+  @override
+  String get containerImmutabilityAccountChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 선택한 계정에서 다시 여세요.';
+
+  @override
+  String get containerImmutabilityDeleteTitle => 'Immutable 규칙 삭제';
+
+  @override
+  String get containerImmutabilityDeleteButton => '규칙 삭제';
+
+  @override
+  String get containerImmutabilityDeleteDone => 'Immutable 규칙을 삭제했습니다.';
+
+  @override
+  String containerImmutabilityDeleteProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerImmutabilityDeleteRuleId => '규칙 ID';
+
+  @override
+  String get containerImmutabilityDeleteConfirm => '정확한 패턴을 입력하세요';
+
+  @override
+  String get containerImmutabilityDeleteImpact =>
+      '이 규칙을 삭제하면 프로젝트의 모든 컨테이너 저장소에서 해당 보호가 해제됩니다. 일치하는 태그를 덮어쓰거나 정리 정책을 통해 삭제할 수 있게 될 수 있습니다. 마지막 Immutable 규칙을 제거하면 매니페스트 직접 삭제가 허용될 수 있습니다. 다른 규칙 및 권한은 계속 적용될 수 있습니다. 이미지나 태그 자체를 삭제하지는 않습니다. Owner 권한이 필요하며 변경 적용에 시간이 걸릴 수 있습니다.';
+
+  @override
+  String get containerImmutabilityDeleteAcknowledge =>
+      '프로젝트 전체에서 보호가 해제되는 영향을 이해했습니다.';
+
+  @override
+  String get containerImmutabilityDeleteUncertain =>
+      '삭제 결과를 확인하지 못했습니다. 요청이 이미 성공했을 수 있으므로 재시도 전에 규칙을 다시 불러오세요.';
+
+  @override
+  String get containerImmutabilityDeleteReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerImmutabilityDeleteRejected =>
+      '규칙이 변경되었거나 GitLab이 요청을 거부했습니다. 재시도 전에 현재 규칙을 다시 불러오고 확인하세요.';
+
+  @override
+  String get containerImmutabilityDeleteAuth =>
+      '세션이 거부되었습니다. 규칙 삭제 전에 다시 로그인하세요.';
+
+  @override
+  String get containerImmutabilityDeleteAccountChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 선택한 계정에서 다시 여세요.';
+
+  @override
+  String containerTagProtectionPushClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  ) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerTagProtectionDeleteClearForbidden =>
+      '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없거나 이 인스턴스가 업데이트를 지원하지 않습니다(GitLab 18.9 이상). 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerTagProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 프로젝트 전체에서 일치하는 컨테이너 태그의 삭제 보호가 약해집니다. 태그 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 태그 또는 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerTagProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get containerTagProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerTagProtectionPushClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerTagProtectionPushClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerTagProtectionPushClearMissing =>
+      '규칙이 없거나 중복되거나 접근할 수 없거나 지원되지 않습니다. 수정에는 GitLab 18.9 이상이 필요합니다. 다시 불러와 확인하세요.';
+
+  @override
+  String get containerTagProtectionPushClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushClearTitle => '최소 푸시 역할 해제';
+
+  @override
+  String get containerTagProtectionPushClearSave => '푸시 제한 해제';
+
+  @override
+  String get containerTagProtectionPushClearWarning =>
+      '이 규칙의 최소 푸시 역할 제한을 해제하면 프로젝트에서 일치하는 컨테이너 이미지 태그의 푸시 보호가 약해집니다. 태그 패턴과 최소 삭제 역할은 유지되며 다른 규칙과 권한도 계속 적용됩니다. 모든 사용자에게 접근 권한을 부여하거나 태그 또는 이미지를 삭제하지 않으며 Git 태그에는 영향을 주지 않습니다.';
+
+  @override
+  String get containerTagProtectionPushClearAcknowledge =>
+      '규칙을 검토했으며 이 푸시 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerTagProtectionPushClearError =>
+      '푸시 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerTagProtectionPushClearSaved => '최소 푸시 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerTagProtectionPushClearInvalid =>
+      '서버가 푸시 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerTagProtectionPushClearBlocked =>
+      '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get packageFileDelete => '파일 삭제';
+
+  @override
+  String get packageFileDeleteConfirmTitle => '패키지 파일을 삭제할까요?';
+
+  @override
+  String packageFileDeleteConfirmBody(String fileName, String packageName) {
+    return '“$packageName”에서 “$fileName”을 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get packageFileDeleteWarning =>
+      '파일을 삭제하면 패키지가 손상되어 사용할 수 없거나 패키지 관리자로 가져올 수 없게 될 수 있습니다.';
+
+  @override
+  String get packageFileDeleteForbidden =>
+      '이 파일을 삭제할 수 없습니다. 패키지가 보호되어 있거나 권한이 없을 수 있습니다.';
+
+  @override
+  String get packageFileDeleteError => '파일을 삭제할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerRepositoryDelete => '저장소 삭제';
+
+  @override
+  String get containerRepositoryDeleteConfirmTitle => '이미지 저장소를 삭제할까요?';
+
+  @override
+  String containerRepositoryDeleteConfirmBody(String path) {
+    return '“$path”와 모든 태그를 삭제할까요? 이 작업은 되돌릴 수 없습니다.';
+  }
+
+  @override
+  String get containerRepositoryDeleteWarning =>
+      '삭제는 비동기로 예약되며 시간이 걸릴 수 있습니다. 레지스트리를 새로고침해 진행 상태를 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteForbidden =>
+      '이 저장소를 삭제할 수 없습니다. 권한과 보호 규칙을 확인하세요.';
+
+  @override
+  String get containerRepositoryDeleteError => '저장소 삭제를 예약할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get containerRepositoryDeletionScheduled => '삭제 예약됨';
+
+  @override
+  String get containerRepositoryDeletionNotice =>
+      '저장소 삭제가 예약되었습니다. 새로고침해 진행 상태를 확인하세요.';
+
+  @override
+  String get containerKeepCountTitle => '정리 보관 개수 편집';
+
+  @override
+  String get containerKeepCountSave => '보관 개수 변경 확인';
+
+  @override
+  String get containerKeepCountSelect => '이미지별로 보관할 새 일치 태그 개수';
+
+  @override
+  String get containerKeepCountWarning =>
+      '프로젝트 전체 보관 개수를 줄이면 예약된 정리 실행 시 모든 이미지 저장소에서 더 많은 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 삭제 기준을 확인하세요. 다른 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerKeepCountUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerKeepCountAccepted => '정리 보관 개수 변경 요청이 수락되었습니다.';
+
+  @override
+  String get protectedBranchUnprotectTitle => '브랜치 규칙 보호 해제';
+
+  @override
+  String protectedBranchUnprotectTarget(String project, String name) {
+    return '프로젝트 $project: $name';
+  }
+
+  @override
+  String get protectedBranchUnprotectWarning =>
+      '이 규칙을 제거하면 푸시나 병합이 허용되고 CI 동작이 달라질 수 있습니다. 와일드카드 규칙은 여러 브랜치에 영향을 줄 수 있습니다.';
+
+  @override
+  String get protectedBranchUnprotectName => '정확한 규칙 이름 입력';
+
+  @override
+  String get protectedBranchUnprotectAcknowledge => '일치하는 브랜치에 미치는 영향을 이해했습니다.';
+
+  @override
+  String get protectedBranchUnprotectReload => '규칙 다시 확인';
+
+  @override
+  String get protectedBranchUnprotectSuccess => '브랜치 규칙을 제거했습니다.';
+
+  @override
+  String get protectedBranchUnprotectAuth => '이 규칙을 변경하려면 다시 로그인하세요.';
+
+  @override
+  String get protectedBranchUnprotectForbidden => '이 규칙을 제거할 권한이 없습니다.';
+
+  @override
+  String get protectedBranchUnprotectUnavailable =>
+      '이 규칙을 더 이상 사용할 수 없습니다. 계속하기 전에 목록을 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectStale => '규칙이 변경되었습니다. 계속하기 전에 다시 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectRateLimited =>
+      'GitLab에서 요청을 제한하고 있습니다. 다시 시도하기 전에 규칙을 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectError =>
+      '규칙이 제거되었는지 확인할 수 없습니다. 다시 시도하기 전에 확인하세요.';
+
+  @override
+  String get protectedBranchUnprotectSessionChanged =>
+      '계정이 변경되었습니다. 대화상자를 닫고 규칙을 다시 여세요.';
+
+  @override
+  String get containerKeepPatternTitle => '정리 보관 패턴 편집';
+
+  @override
+  String get containerKeepPatternSave => '보관 패턴 변경 확인';
+
+  @override
+  String get containerKeepPatternSelect => '새 보관 패턴 (GitLab RE2)';
+
+  @override
+  String get containerKeepPatternWarning =>
+      '프로젝트 전체 보관 패턴의 범위를 좁히면 예약된 정리 실행 시 모든 이미지 저장소에서 이전에 보관되던 태그가 영구 삭제 대상이 될 수 있습니다. 아래 활성화 상태와 삭제·보관 기준을 확인하세요. GitLab은 RE2를 사용하며 태그 이름 전체에 패턴을 적용합니다. 입력은 그대로 전송되고 GitLab이 검증합니다. 다른 설정은 변경되지 않으며 수락은 정리 완료를 의미하지 않습니다. 빈 입력은 패턴을 지우지 않습니다.';
+
+  @override
+  String get containerKeepPatternUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 유효 삭제 패턴과 보관 패턴이 보고되어야 합니다. 보고된 빈 보관 패턴은 변경할 수 있지만 미보고 값은 변경할 수 없습니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerKeepPatternAccepted => '정리 보관 패턴 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerKeepPatternInvalid =>
+      'GitLab이 보관 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
+
+  @override
+  String get containerProtectionPatternTitle => '저장소 보호 패턴 수정';
+
+  @override
+  String get containerProtectionPatternSave => '패턴 저장';
+
+  @override
+  String get containerProtectionPatternWarning =>
+      '패턴 변경은 기존에 일치하던 저장소의 보호를 해제하고 다른 저장소에 적용할 수 있습니다. 와일드카드(*)는 여러 저장소에 영향을 줍니다. 두 최소 역할은 변경되지 않으며 다른 규칙과 권한은 계속 적용됩니다. 이미지를 삭제하거나 내 접근 권한을 나타내지 않습니다.';
+
+  @override
+  String get containerProtectionPatternAcknowledge =>
+      '현재 규칙과 새 패턴을 검토했으며 보호 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionPatternTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPatternForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPatternError =>
+      '패턴 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPatternStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPatternReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPatternSaved => '저장소 보호 패턴이 변경되었습니다.';
+
+  @override
+  String get containerProtectionPatternMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPatternRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternInvalid =>
+      '패턴이 거부되었거나 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPatternDraft => '새 저장소 경로 패턴';
+
+  @override
+  String get containerRepositoryProtectionTitle => '저장소 보호 규칙';
+
+  @override
+  String get containerProtectionRemoveTitle => '저장소 보호 규칙 삭제';
+
+  @override
+  String get containerProtectionRemoveSave => '규칙 삭제 확인';
+
+  @override
+  String get containerProtectionRemoveWarning =>
+      '이 규칙을 제거하면 경로 패턴에 일치하는 저장소의 푸시 또는 삭제 제한이 줄어들 수 있습니다. 다른 규칙과 권한은 계속 적용됩니다. 보호 규칙만 삭제하며 저장소, 태그, 이미지는 삭제하지 않습니다. 정확한 대상과 최소 역할을 확인하세요. 표시된 역할은 사용자의 권한을 의미하지 않습니다.';
+
+  @override
+  String get containerProtectionRemoveAcknowledge =>
+      '이 규칙의 보호 제한이 제거된다는 점을 이해했습니다.';
+
+  @override
+  String containerProtectionRemoveTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionRemoveForbidden => '이 저장소 보호 규칙을 삭제할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionRemoveError =>
+      '규칙 삭제를 확인할 수 없습니다. 새로 불러오거나 재시도하세요.';
+
+  @override
+  String get containerProtectionRemoveStale =>
+      '확인 이후 규칙이 변경되었습니다. 삭제 전에 새로 불러와 확인하세요.';
+
+  @override
+  String get containerProtectionRemoveReload => '규칙 새로 불러오기';
+
+  @override
+  String get containerProtectionRemoveDeleted => '저장소 보호 규칙이 삭제되었습니다.';
+
+  @override
+  String get containerProtectionRemoveMissing =>
+      '규칙을 찾을 수 없거나 대상이 모호하거나 접근할 수 없습니다. 확인 전에 새로 불러오세요.';
+
+  @override
+  String get containerProtectionRemoveRateLimited =>
+      '요청이 너무 많습니다. 잠시 후 재시도하세요.';
+
+  @override
+  String get containerRepositoryProtectionEmpty => '저장소 보호 규칙이 없습니다.';
+
+  @override
+  String get containerProtectionCreateTitle => '저장소 보호 규칙 생성';
+
+  @override
+  String get containerProtectionCreateSave => '규칙 생성';
+
+  @override
+  String get containerProtectionCreatePattern => '저장소 경로 패턴';
+
+  @override
+  String containerProtectionCreateProject(String projectId) {
+    return '프로젝트 $projectId';
+  }
+
+  @override
+  String get containerProtectionCreateWarning =>
+      '이 규칙은 정확한 패턴과 일치하는 저장소의 선택된 푸시 및 삭제 작업을 제한합니다. 와일드카드(*)는 여러 저장소에 영향을 줄 수 있습니다. 역할을 선택하지 않은 작업은 이 규칙으로 제한되지 않습니다. 다른 규칙과 권한은 계속 적용됩니다. 이 설정은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionCreateAcknowledge =>
+      '패턴과 최소 역할을 검토했으며 적용 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionCreateUnset => '이 규칙에 의한 제한 없음';
+
+  @override
+  String get containerProtectionCreateCreated => '규칙이 생성되었습니다.';
+
+  @override
+  String get containerProtectionCreateForbidden => '이 규칙을 생성할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionCreateInvalid =>
+      '패턴이나 역할이 거부되었거나 패턴이 이미 사용 중입니다. 입력을 수정하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionCreateError =>
+      '규칙 생성을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionCreatePush => '최소 푸시 역할';
+
+  @override
+  String get containerProtectionCreateDelete => '최소 삭제 역할';
+
+  @override
+  String get containerRepositoryProtectionError => '저장소 보호 규칙을 불러올 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionForbidden => '저장소 보호 규칙을 볼 권한이 없습니다.';
+
+  @override
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleTitle => '최소 삭제 역할 수정';
+
+  @override
+  String get containerProtectionDeleteRoleSave => '삭제 역할 저장';
+
+  @override
+  String get containerProtectionDeleteRoleWarning =>
+      '최소 삭제 역할을 바꾸면 일치하는 저장소의 이미지를 삭제할 수 있는 사람이 달라집니다. 낮은 역할은 삭제 보호를 약화하고 높은 역할은 기존 정리 작업을 막을 수 있습니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내지 않습니다. 이 규칙을 저장해도 이미지는 삭제되지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleAcknowledge =>
+      '규칙과 새 최소 삭제 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionDeleteRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleError =>
+      '삭제 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionDeleteRoleSaved => '최소 삭제 역할이 변경되었습니다.';
+
+  @override
+  String get containerProtectionDeleteRoleMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionDeleteRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleInvalid =>
+      '삭제 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteRoleDraft => '새 최소 삭제 역할';
+
+  @override
+  String get containerProtectionDeleteRoleSelect => '삭제 역할 선택';
+
+  @override
+  String get containerProtectionDeleteRoleUnknown =>
+      '현재 삭제 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
+  String get containerProtectionDeleteClearTitle => '최소 삭제 역할 해제';
+
+  @override
+  String get containerProtectionDeleteClearSave => '삭제 제한 해제';
+
+  @override
+  String get containerProtectionDeleteClearWarning =>
+      '이 규칙의 최소 삭제 역할 제한을 해제하여 일치하는 저장소의 삭제 보호가 약해집니다. 경로 패턴과 최소 푸시 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionDeleteClearAcknowledge =>
+      '규칙을 검토했으며 이 삭제 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionDeleteClearError =>
+      '삭제 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionDeleteClearSaved => '최소 삭제 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionDeleteClearInvalid =>
+      '서버가 삭제 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionDeleteClearBlocked =>
+      '해제하려면 지원되는 현재 삭제 역할과 비어 있지 않은 푸시 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionUnavailable =>
+      '이 인스턴스에서 저장소 보호 규칙을 사용할 수 없거나 프로젝트에 접근할 수 없습니다.';
+
+  @override
+  String containerRepositoryProtectionPushRole(String role) {
+    return '최소 push 역할: $role';
+  }
+
+  @override
+  String containerRepositoryProtectionDeleteRole(String role) {
+    return '최소 삭제 역할: $role';
+  }
+
+  @override
+  String get containerRepositoryProtectionRoleUnset => '규칙에 지정되지 않음';
+
+  @override
+  String containerProtectionPushClearTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushClearForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPushClearStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPushClearReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPushClearMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPushClearRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushRoleTitle => '최소 푸시 역할 수정';
+
+  @override
+  String get containerProtectionPushRoleSave => '푸시 역할 저장';
+
+  @override
+  String get containerProtectionPushRoleWarning =>
+      '최소 푸시 역할을 바꾸면 일치하는 저장소에 푸시할 수 있는 사람이 달라집니다. 낮은 역할은 보호를 약화하고 높은 역할은 기존 작업 흐름을 막을 수 있습니다. 경로 패턴과 최소 삭제 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 이 값은 내 접근 권한을 나타내거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionPushRoleAcknowledge =>
+      '규칙과 새 최소 푸시 역할을 검토했으며 접근 변경을 이해했습니다.';
+
+  @override
+  String containerProtectionPushRoleTarget(String projectId, String ruleId) {
+    return '프로젝트 $projectId — 규칙 $ruleId';
+  }
+
+  @override
+  String get containerProtectionPushRoleForbidden => '이 규칙을 변경할 권한이 없습니다.';
+
+  @override
+  String get containerProtectionPushRoleError =>
+      '푸시 역할 변경을 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPushRoleStale =>
+      '확인 이후 규칙이 변경되었습니다. 다시 불러와 검토한 뒤 저장하세요.';
+
+  @override
+  String get containerProtectionPushRoleReload => '규칙 다시 불러오기';
+
+  @override
+  String get containerProtectionPushRoleSaved => '최소 푸시 역할이 변경되었습니다.';
+
+  @override
+  String get containerProtectionPushRoleMissing =>
+      '규칙이 없거나 중복되었거나 접근할 수 없습니다. 확인 전에 다시 불러오세요.';
+
+  @override
+  String get containerProtectionPushRoleRateLimited =>
+      '요청이 너무 많습니다. 잠시 기다린 후 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushRoleInvalid =>
+      '푸시 역할이 거부되었습니다. 지원하는 역할을 선택하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushRoleDraft => '새 최소 푸시 역할';
+
+  @override
+  String get containerProtectionPushRoleSelect => '푸시 역할 선택';
+
+  @override
+  String get containerProtectionPushRoleUnknown =>
+      '현재 푸시 역할을 알 수 없습니다. 지원하지 않는 설정을 덮어쓰지 않도록 수정을 차단했습니다.';
+
+  @override
+  String get containerProtectionPushClearTitle => '최소 푸시 역할 해제';
+
+  @override
+  String get containerProtectionPushClearSave => '푸시 제한 해제';
+
+  @override
+  String get containerProtectionPushClearWarning =>
+      '이 규칙의 최소 푸시 역할 제한을 해제하여 일치하는 저장소의 푸시 보호가 약해집니다. 경로 패턴과 최소 삭제 역할은 유지됩니다. 다른 규칙과 권한은 계속 적용되며 모든 사람에게 접근 권한을 부여하거나 이미지를 삭제하지 않습니다.';
+
+  @override
+  String get containerProtectionPushClearAcknowledge =>
+      '규칙을 검토했으며 이 푸시 제한 해제의 영향을 이해했습니다.';
+
+  @override
+  String get containerProtectionPushClearError =>
+      '푸시 제한 해제를 확인하지 못했습니다. 재시도 전에 규칙 목록을 확인하세요. 서버가 요청을 수락했을 수 있습니다.';
+
+  @override
+  String get containerProtectionPushClearSaved => '최소 푸시 역할 제한이 해제되었습니다.';
+
+  @override
+  String get containerProtectionPushClearInvalid =>
+      '서버가 푸시 제한 해제를 거부했습니다. 규칙을 확인하고 다시 시도하세요.';
+
+  @override
+  String get containerProtectionPushClearBlocked =>
+      '해제하려면 지원되는 현재 푸시 역할과 비어 있지 않은 삭제 역할이 필요합니다. 이미 해제되었거나 알 수 없는 설정은 해제할 수 없습니다.';
+
+  @override
+  String get containerRepositoryProtectionRoleAdmin => '관리자';
+
+  @override
+  String get containerAgeTitle => '정리 보관 기간 편집';
+
+  @override
+  String get containerAgeSave => '보관 기간 변경 확인';
+
+  @override
+  String get containerAgeSelect => '새 보관 기간 (GitLab API 기간)';
+
+  @override
+  String get containerAgeWarning =>
+      '프로젝트 전체 보관 기간을 줄이면 예약된 정리 실행 시 모든 이미지 저장소에서 더 최근의 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 삭제 기준을 확인하세요. 다른 설정은 변경되지 않으며 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerAgeUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간, 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerAgeAccepted => '정리 보관 기간 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternTitle => '정리 삭제 패턴 편집';
+
+  @override
+  String get containerDeletePatternSave => '삭제 패턴 변경 확인';
+
+  @override
+  String get containerDeletePatternSelect => '새 삭제 패턴 (GitLab RE2)';
+
+  @override
+  String get containerDeletePatternWarning =>
+      '프로젝트 전체 삭제 패턴의 범위를 넓히면 예약된 정리 실행 시 모든 이미지 저장소에서 더 많은 일치 태그가 영구 삭제될 수 있습니다. 아래 활성화 상태와 보관 기준을 확인하세요. GitLab은 RE2를 사용하며 태그 이름 전체에 패턴을 적용합니다. 입력은 그대로 전송되고 GitLab이 검증합니다. 다른 설정은 변경되지 않으며 수락은 정리 완료를 의미하지 않습니다.';
+
+  @override
+  String get containerDeletePatternUnknown =>
+      '활성화 상태, 주기, 보관 개수·기간과 유효 삭제 패턴이 보고되어야 합니다. 누락된 설정을 GitLab에서 확인하세요. 정책을 새로 만들지 않습니다.';
+
+  @override
+  String get containerDeletePatternAccepted => '정리 삭제 패턴 변경 요청이 수락되었습니다.';
+
+  @override
+  String get containerDeletePatternInvalid =>
+      'GitLab이 패턴을 거부했습니다. RE2 구문과 기존 정책을 확인한 후 수정하거나 재시도하세요.';
+
+  @override
+  String get containerKeepPatternClearTitle => '정리 보관 패턴 제거';
+
+  @override
+  String get containerKeepPatternClearSave => '보관 패턴 제거 확인';
+
+  @override
+  String get containerKeepPatternClearWarning =>
+      '프로젝트 전체의 보관 패턴을 제거하면 모든 이미지 저장소에서 기존 보호 태그가 예약 정리 시 영구 삭제 대상이 될 수 있습니다. latest 태그와 다른 보관·보호 규칙은 계속 적용되며 즉시 태그를 삭제하지는 않습니다. 아래 현재 조건을 확인하세요. 빈 보관 패턴 문자열만 전송합니다. 다른 정책 필드는 변경하지 않지만 GitLab이 다음 실행 시각을 재설정할 수 있습니다. 요청 수락은 정리 완료나 저장 공간 확보를 의미하지 않습니다.';
+
+  @override
+  String get containerKeepPatternClearAcknowledge =>
+      '기존 보호 태그가 영구 삭제 대상이 될 수 있음을 이해했습니다.';
+
+  @override
+  String get containerKeepPatternClearUnknown =>
+      '활성화 상태, 실행 간격, 보관 개수, 보관 기간, 유효한 삭제 패턴 및 비어 있지 않은 보관 패턴이 보고되어야 합니다. 비어 있거나 보고되지 않은 보관 패턴은 여기서 제거할 수 없습니다. 정책을 생성하지 않습니다.';
+
+  @override
+  String get containerKeepPatternClearAccepted => '보관 패턴 제거 요청이 수락되었습니다.';
+
+  @override
+  String get containerKeepPatternClearInvalid =>
+      'GitLab이 보관 패턴 제거를 거부했습니다. 기존 정책을 확인한 후 재시도하거나 새로 불러오세요.';
+
+  @override
+  String get pipelinesRefAll => '모든 참조';
+
+  @override
+  String get pipelinesRefTitle => '브랜치 또는 태그';
+
+  @override
+  String pipelinesRefSelected(String ref) {
+    return '참조: $ref';
+  }
+
+  @override
+  String get pipelinesRefApply => '적용';
+
+  @override
+  String get pipelinesRefClear => '해제';
+
+  @override
+  String get pipelinesRefHint => '정확한 브랜치 또는 태그 이름을 입력하세요.';
+
+  @override
+  String get pipelinesSourceAll => '모든 최상위 실행 원인';
+
+  @override
+  String get pipelinesSourcePush => '푸시';
+
+  @override
+  String get pipelinesSourceWeb => '웹';
+
+  @override
+  String get pipelinesSourceApi => 'API';
+
+  @override
+  String get pipelinesSourceSchedule => '스케줄';
+
+  @override
+  String get pipelinesSourceTrigger => '트리거';
+
+  @override
+  String get pipelinesSourcePipeline => '다중 프로젝트 파이프라인';
+
+  @override
+  String get pipelinesSourceMergeRequest => '병합 요청';
+
+  @override
+  String get pipelinesSourceChild => '하위 파이프라인';
+
+  @override
+  String get pipelinesChildHint => '하위 파이프라인 조회에는 GitLab 17.0 이상이 필요합니다.';
+
+  @override
+  String get pipelineDownstreamTitle => '연결된 하위 파이프라인';
+
+  @override
+  String get pipelineDownstreamEmpty => '파이프라인 트리거가 없습니다.';
+
+  @override
+  String get pipelineDownstreamError => '연결된 하위 파이프라인을 불러오지 못했습니다.';
+
+  @override
+  String get pipelineDownstreamLoadMoreError => '연결된 하위 파이프라인을 더 불러오지 못했습니다.';
+
+  @override
+  String get pipelineDownstreamUnavailable => '연결된 하위 파이프라인을 열 수 없습니다.';
+
+  @override
+  String pipelineDownstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
+  }
+
+  @override
+  String get pipelineUpstreamTitle => '상위 파이프라인';
+
+  @override
+  String get pipelineUpstreamEmpty => '조회 가능한 상위 파이프라인이 없습니다.';
+
+  @override
+  String get pipelineUpstreamError => '상위 파이프라인을 불러오지 못했습니다.';
+
+  @override
+  String get pipelineUpstreamUnavailable => '상위 파이프라인을 열 수 없습니다.';
+
+  @override
+  String pipelineUpstreamTarget(int projectId, int pipelineId) {
+    final intl.NumberFormat projectIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String projectIdString = projectIdNumberFormat.format(projectId);
+    final intl.NumberFormat pipelineIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String pipelineIdString = pipelineIdNumberFormat.format(pipelineId);
+
+    return '프로젝트 $projectIdString · 파이프라인 #$pipelineIdString';
+  }
+
+  @override
+  String get pipelineJobsTitle => '작업';
+
+  @override
+  String get pipelineJobsStatusAll => '모든 작업 상태';
+
+  @override
+  String get pipelineJobsFilteredEmpty => '이 상태에 해당하는 작업이 없습니다.';
+
+  @override
+  String get pipelineJobsAttemptsLatest => '최신 작업';
+
+  @override
+  String get pipelineJobsAttemptsAll => '모든 실행 이력';
+
+  @override
+  String pipelineJobIdentifier(int jobId) {
+    final intl.NumberFormat jobIdNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String jobIdString = jobIdNumberFormat.format(jobId);
+
+    return '작업 #$jobIdString';
+  }
+
+  @override
+  String get pipelineJobsPartialList => '불러온 작업만 표시됩니다. 나머지 작업을 보려면 더 불러오세요.';
+
+  @override
+  String get pipelineJobsLoadMoreError => '추가 작업을 불러오지 못했습니다.';
+
+  @override
+  String get mrApprovalStatusLoading => '승인 상태를 불러오는 중…';
+
+  @override
+  String get mrApprovalStatusError => '승인 상태를 불러오지 못했습니다.';
+
+  @override
+  String get mrDiscussionResolved => '해결됨';
+
+  @override
+  String get mrDiscussionUnresolved => '미해결';
+
+  @override
+  String get mrDiscussionsLoadMore => '토론 더 불러오기';
+
+  @override
+  String get mrDiscussionsMoreError => '토론을 더 불러오지 못했습니다.';
+
+  @override
+  String get mrDiscussionsPartial => '더 많은 토론이 있습니다.';
+
+  @override
+  String get mrDiscussionReplyButton => '답글';
+
+  @override
+  String get mrDiscussionReplyTitle => '토론에 답글 작성';
+
+  @override
+  String get mrDiscussionReplyHint => '답글을 작성하세요…';
+
+  @override
+  String get mrDiscussionResolveButton => '토론 해결';
+
+  @override
+  String get mrDiscussionReopenButton => '토론 다시 열기';
+
+  @override
+  String get mrDiscussionResolveForbidden => '이 토론을 변경할 수 없습니다. 계정 권한을 확인하세요.';
+
+  @override
+  String get mrDiscussionResolveError => '토론을 변경하지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get mrDiscussionContextViewButton => '원본 diff 보기';
+
+  @override
+  String get mrDiscussionContextHideButton => '원본 diff 숨기기';
+
+  @override
+  String mrDiscussionContextTitle(String version) {
+    return '원본 diff · 버전 $version';
+  }
+
+  @override
+  String get mrDiscussionContextUnavailable => '이 댓글의 원본 diff 문맥을 확인할 수 없습니다.';
+
+  @override
+  String get mrDiscussionContextError => '원본 diff를 불러오지 못했습니다. 다시 시도하세요.';
+
+  @override
+  String get mrDiscussionContextOlderButton => '이전 버전 찾기';
+
+  @override
+  String get mrDiscussionContextLineLabel => '댓글이 달린 줄';
+
+  @override
+  String get mrDiscussionContextLoading => '원본 diff 불러오는 중';
+
+  @override
+  String get mrDiffDiscussLineButton => '이 줄에 토론 추가';
+
+  @override
+  String mrDiffDiscussionTitle(String path, String version) {
+    return '$path 토론 · 버전 $version';
+  }
+
+  @override
+  String get mrDiffDiscussionHint => '리뷰 댓글 작성…';
+
+  @override
+  String get mrDiffDiscussionSubmit => '토론 시작';
+
+  @override
+  String get mrDiffDiscussionCancel => '취소';
+
+  @override
+  String get mrDiffDiscussionCreated => '토론이 생성되었습니다.';
+
+  @override
+  String get mrDiffDiscussionError => '토론 생성 여부를 확인할 수 없습니다.';
+
+  @override
+  String get mrDiffDiscussionPermissionError => '이 토론을 생성할 권한이 없습니다.';
+
+  @override
+  String get mrDiffDiscussionReloadButton => '토론 새로고침';
+
+  @override
+  String get mrDiffDiscussionReloadRequired =>
+      '다시 제출하기 전에 토론을 새로고침하세요. 이전 요청이 처리되었을 수 있습니다.';
+
+  @override
+  String get mrDiffDiscussionReloadFailed => '토론을 새로고침할 수 없습니다. 다시 시도하세요.';
+
+  @override
+  String get mrReviewUnavailable => '이 diff 버전에서는 인라인 리뷰를 사용할 수 없습니다.';
+
+  @override
+  String mrReviewVersionTitle(String version) {
+    return 'diff 버전 $version 리뷰 중';
+  }
+
+  @override
+  String get mrDiffDiscussionPending => '토론 생성 중…';
+
+  @override
+  String get mrDiffDiscussionReloading => '토론 새로고침 중…';
+
+  @override
+  String get mrDiffDiscussionInspect => '다시 제출하기 전에 선택한 위치의 토론을 확인하세요.';
+
+  @override
+  String get mrDiffDiscussionNoMatches => '불러온 페이지에 선택한 위치의 토론이 없습니다.';
+
+  @override
+  String mrSuggestionTitle(String number) {
+    return '제안 $number';
+  }
+
+  @override
+  String mrSuggestionRange(String from, String to) {
+    return '원본 줄 $from–$to';
+  }
+
+  @override
+  String get mrSuggestionRangeUnknown => '원본 줄 범위를 확인할 수 없음';
+
+  @override
+  String get mrSuggestionApplied => '적용됨';
+
+  @override
+  String get mrSuggestionNotApplied => '적용되지 않음';
+
+  @override
+  String get mrSuggestionAppliedUnknown => '적용 상태 알 수 없음';
+
+  @override
+  String get mrSuggestionApplicable => '패치 적용 가능';
+
+  @override
+  String get mrSuggestionNotApplicable => '패치 적용 불가';
+
+  @override
+  String get mrSuggestionApplicableUnknown => '패치 적용 가능 여부 알 수 없음';
+
+  @override
+  String get mrSuggestionOriginal => '원본 코드';
+
+  @override
+  String get mrSuggestionReplacement => '제안 코드';
+
+  @override
+  String get mrSuggestionContentUnknown => '내용을 확인할 수 없음';
+
+  @override
+  String get mrSuggestionContentEmpty => '빈 내용';
+
+  @override
+  String get mrSuggestionViewButton => '제안 보기';
+
+  @override
+  String get mrSuggestionHideButton => '제안 숨기기';
+
+  @override
+  String get mrSuggestionApplyButton => '제안 적용';
+
+  @override
+  String mrSuggestionApplyTitle(String suggestionId) {
+    return '제안 $suggestionId을(를) 적용할까요?';
+  }
+
+  @override
+  String get mrSuggestionApplyImpact =>
+      '병합 요청의 소스 브랜치에 커밋이 생성됩니다. 적용 전에 교체 코드를 확인하세요.';
+
+  @override
+  String get mrSuggestionCommitMessageLabel => '커밋 메시지 (선택 사항)';
+
+  @override
+  String get mrSuggestionCommitMessageHint => '비워 두면 GitLab 기본 메시지가 사용됩니다.';
+
+  @override
+  String get mrSuggestionApplyProgress => '제안을 확인하고 적용하는 중…';
+
+  @override
+  String get mrSuggestionApplySuccess => '제안이 적용되었습니다.';
+
+  @override
+  String get mrSuggestionApplyError =>
+      '적용 결과를 확인하지 못했습니다. 다시 시도하기 전에 토론을 새로고침하여 현재 상태를 확인하세요.';
+
+  @override
+  String get mrSuggestionApplyForbidden =>
+      'GitLab이 이 작업을 거부했습니다. 접근 권한을 확인한 후 다시 시도하기 전에 새로고침하세요.';
+
+  @override
+  String get mrSuggestionApplyChanged =>
+      '제안이 변경되었습니다. 새로고침한 후 현재 코드를 검토하고 적용하세요.';
+
+  @override
+  String get mrSuggestionReloadButton => '토론 새로고침';
+
+  @override
+  String get mrSuggestionReloadProgress => '토론을 새로고침하는 중…';
+
+  @override
+  String get mrSuggestionReloadError => '토론을 새로고침하지 못했습니다. 다시 새로고침하세요.';
+
+  @override
+  String get mrSuggestionUnavailable => '이 제안은 적용할 수 없습니다.';
+
+  @override
+  String get mrSuggestionSessionChanged =>
+      '계정 또는 병합 요청이 변경되었습니다. 이 창을 닫고 제안을 다시 여세요.';
+
+  @override
+  String get mrSuggestionsBatchButton => '여러 제안 적용';
+
+  @override
+  String get mrSuggestionsSelectTitle => '제안 선택';
+
+  @override
+  String get mrSuggestionsSelectHint => '불러온 토론에서 제안을 두 개 이상 선택하세요.';
+
+  @override
+  String get mrSuggestionsReviewButton => '선택한 제안 검토';
+
+  @override
+  String mrSuggestionsReviewTitle(String count) {
+    return '제안 $count개를 적용할까요?';
+  }
+
+  @override
+  String get mrSuggestionsApplyButton => '선택한 제안 적용';
+
+  @override
+  String get mrSuggestionsApplyImpact =>
+      '이 변경 사항은 머지 리퀘스트의 소스 브랜치에 함께 전송됩니다. 적용하기 전에 모든 대체 내용을 검토하세요.';
+
+  @override
+  String get mrSuggestionsApplyProgress => '제안 확인 및 적용 중…';
+
+  @override
+  String get mrSuggestionsApplySuccess => '선택한 제안을 적용했습니다.';
+
+  @override
+  String get mrSuggestionsApplyError =>
+      '일괄 적용을 확인하지 못했습니다. 다시 시도하기 전에 선택한 모든 토론을 새로 불러오세요.';
+
+  @override
+  String get mrSuggestionsApplyChanged =>
+      '하나 이상의 제안이 변경되었습니다. 선택한 모든 패치를 새로 불러와 검토하세요.';
+
+  @override
+  String get mrSuggestionsReloadButton => '선택한 토론 새로 불러오기';
+
+  @override
+  String get mrSuggestionsReloadProgress => '선택한 토론 불러오는 중…';
+
+  @override
+  String get mrSuggestionsReloadError => '일부 토론을 불러오지 못했습니다. 적용하기 전에 다시 불러오세요.';
+
+  @override
+  String get mrSuggestionsApplyForbidden =>
+      'GitLab에서 이 작업을 거부했습니다. 접근 권한을 확인하고 선택한 모든 토론을 새로 불러온 후 다시 시도하세요.';
+
+  @override
+  String get mrSuggestionsBackButton => '선택으로 돌아가기';
+
+  @override
+  String mrDiscussionContextRangeLabel(String start, String end) {
+    return '댓글이 달린 줄 $start–$end';
+  }
+
+  @override
+  String get mrDiscussionContextRangeLineLabel => '댓글 범위에 포함된 줄';
+
+  @override
+  String get mrDiffSelectRangeButton => '범위 선택';
+
+  @override
+  String get mrDiffRangeEndButton => '이 줄에서 범위 끝내기';
+
+  @override
+  String get mrDiffRangeChooseEnd =>
+      '이 파일에서 마지막 줄을 선택하세요. 첫 줄 뒤의 완전한 범위만 선택할 수 있습니다.';
+
+  @override
+  String get mrDiffSingleLineButton => '한 줄 사용';
+
+  @override
+  String mrDiffSelectedRangeLabel(String start, String end) {
+    return '선택한 범위: $start~$end';
+  }
+
+  @override
+  String get mrDiffSelectedLineLabel => '선택한 토론 줄';
+
+  @override
+  String get mrPendingReviewTitle => '내 미게시 리뷰';
+
+  @override
+  String get mrPendingReviewPrivate => '이 노트는 게시하기 전까지 나만 볼 수 있습니다.';
+
+  @override
+  String get mrPendingReviewLoading => '미게시 리뷰 노트 불러오는 중…';
+
+  @override
+  String get mrPendingReviewEmpty => '미게시 리뷰 노트가 없습니다.';
+
+  @override
+  String get mrPendingReviewError =>
+      '미게시 리뷰 노트를 불러오지 못했습니다. 다시 시도하여 목록을 새로 불러오세요.';
+
+  @override
+  String get mrPendingReviewRefresh => '미게시 리뷰 노트 새로고침';
+
+  @override
+  String get mrPendingReviewLoadMore => '노트 더 불러오기';
+
+  @override
+  String get mrPendingReviewMore => '노트가 더 있습니다. 다음 페이지를 불러와 계속 확인하세요.';
+
+  @override
+  String mrPendingReviewCount(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '노트 $countString개 불러옴';
+  }
+
+  @override
+  String get mrPendingReviewGeneralNote => '일반 노트';
+
+  @override
+  String get mrPendingReviewReplyNote => '토론 답글';
+
+  @override
+  String get mrPendingReviewCommitNote => '커밋 노트';
+
+  @override
+  String get mrPendingReviewTextNote => 'diff 노트';
+
+  @override
+  String get mrPendingReviewMultilineNote => '여러 줄 diff 노트';
+
+  @override
+  String get mrPendingReviewImageNote => '이미지 노트';
+
+  @override
+  String get mrPendingReviewFileNote => '파일 노트';
+
+  @override
+  String get mrPendingReviewPositionedNote => '위치가 지정된 노트';
+
+  @override
+  String get mrPendingReviewResolve => '게시하면 토론이 해결됨';
+
+  @override
+  String mrPendingReviewOldPath(String path) {
+    return '변경 전: $path';
+  }
+
+  @override
+  String mrPendingReviewNewPath(String path) {
+    return '변경 후: $path';
+  }
+
+  @override
+  String mrPendingReviewOldLine(String line) {
+    return '이전 줄 $line';
+  }
+
+  @override
+  String mrPendingReviewNewLine(String line) {
+    return '새 줄 $line';
+  }
+
+  @override
+  String mrPendingReviewCommit(String sha) {
+    return '커밋: $sha';
+  }
+
+  @override
+  String get mrPendingComposeOpen => '리뷰 노트 추가';
+
+  @override
+  String get mrPendingComposeTitle => '새 리뷰 노트';
+
+  @override
+  String get mrPendingComposeLabel => '리뷰 노트';
+
+  @override
+  String get mrPendingComposeHint => '리뷰를 게시하기 전까지 이 노트는 본인만 볼 수 있습니다.';
+
+  @override
+  String get mrPendingComposeSave => '미게시 노트 저장';
+
+  @override
+  String get mrPendingComposeSaved => '노트를 미게시 리뷰에 저장했습니다.';
+
+  @override
+  String get mrPendingComposeSaving => '리뷰 노트 저장 중…';
+
+  @override
+  String get mrPendingComposePrepare => '리뷰 노트 준비 중…';
+
+  @override
+  String get mrPendingComposePrepareError =>
+      '리뷰 노트를 사용할 수 없습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeSaveError => '저장을 확인하지 못했습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeUncertain =>
+      '노트가 이미 저장되었을 수 있습니다. 다시 저장하기 전에 미게시 리뷰를 확인하세요.';
+
+  @override
+  String get mrPendingComposeInspect => '미게시 리뷰 확인';
+
+  @override
+  String get mrPendingComposeInspecting => '모든 미게시 리뷰 노트 확인 중…';
+
+  @override
+  String get mrPendingComposeInspectError =>
+      '미게시 리뷰를 확인하지 못했습니다. 입력한 내용은 유지됩니다.';
+
+  @override
+  String get mrPendingComposeInspectionTitle => '현재 미게시 리뷰';
+
+  @override
+  String get mrPendingComposeInspectionHint =>
+      '현재 저장된 노트입니다. 내용이 같아도 어느 저장 요청으로 생성되었는지는 알 수 없습니다.';
+
+  @override
+  String get mrPendingComposeAcknowledge => '이 노트들을 확인했으며 다른 노트를 저장하겠습니다.';
+
+  @override
+  String get mrPendingComposeChanged => '리뷰 세션이 변경되었습니다. 이 창을 닫고 다시 시작하세요.';
+
+  @override
+  String get mrPendingEdit => '메모 수정';
+
+  @override
+  String get mrPendingDelete => '메모 삭제';
+
+  @override
+  String get mrPendingUpdate => '변경 사항 저장';
+
+  @override
+  String get mrPendingEditTitle => '대기 중인 리뷰 메모 수정';
+
+  @override
+  String get mrPendingDeleteTitle => '대기 중인 리뷰 메모 삭제';
+
+  @override
+  String get mrPendingEditHint => '변경 사항은 비공개로 유지됩니다. 원래 메모 위치는 그대로 유지됩니다.';
+
+  @override
+  String get mrPendingDeleteHint => '대기 중인 리뷰에서 이 비공개 저장 메모만 삭제합니다.';
+
+  @override
+  String get mrPendingDeleteConfirm => '위에 표시된 메모를 삭제하겠습니다.';
+
+  @override
+  String get mrPendingUpdated => '비공개 리뷰 메모를 수정했습니다.';
+
+  @override
+  String get mrPendingDeleted => '비공개 리뷰 메모를 삭제했습니다.';
+
+  @override
+  String get mrPendingMaintenanceError =>
+      '변경 결과를 확인하지 못했습니다. 다시 시도하기 전에 현재 대기 중인 리뷰를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceUncertain =>
+      '변경 사항이 이미 적용되었을 수 있습니다. 다른 변경 전에 저장된 메모를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceInspectionHint =>
+      '현재 읽을 수 있는 저장 메모 전체입니다. 다시 변경하기 전에 위에서 선택한 메모를 확인하세요.';
+
+  @override
+  String get mrPendingMaintenanceAcknowledge =>
+      '현재 선택된 메모를 확인했으며 이 변경을 적용하겠습니다.';
+
+  @override
+  String get mrPendingTargetMissing =>
+      '선택한 메모를 더 이상 사용할 수 없습니다. 창을 닫고 대기 중인 리뷰를 새로고침하세요.';
+
+  @override
+  String get mrPendingDeleting => '리뷰 메모 삭제 중…';
+
+  @override
+  String get mrPendingPublishOpen => '대기 중인 리뷰 게시';
+
+  @override
+  String get mrPendingPublishTitle => '대기 중인 리뷰 게시';
+
+  @override
+  String get mrPendingPublishHint =>
+      '이 머지 리퀘스트에 저장한 내 메모 전체가 다른 사용자에게 공개됩니다. 게시해도 머지 리퀘스트가 승인되거나 머지되지 않습니다.';
+
+  @override
+  String get mrPendingPublishRaceHint => '게시 전에 다른 클라이언트에서 저장한 메모도 포함될 수 있습니다.';
+
+  @override
+  String get mrPendingPublishConsent => '모든 메모를 확인했으며 대기 중인 내 리뷰 전체를 게시하겠습니다.';
+
+  @override
+  String get mrPendingPublishButton => '모든 메모 게시';
+
+  @override
+  String get mrPendingPublished => '대기 중인 리뷰가 게시되었습니다';
+
+  @override
+  String get mrPendingPublishUncertain =>
+      '리뷰가 변경되었거나 게시 결과를 확인하지 못했습니다. 재시도를 결정하기 전에 저장된 메모와 공개 토론을 확인하세요.';
+
+  @override
+  String get mrPendingPublishInspect => '메모와 토론 확인';
+
+  @override
+  String get mrPendingPublishPublicTitle => '현재 공개 토론';
+
+  @override
+  String get mrPendingPublishRecoveryHint =>
+      '현재 저장된 메모와 공개 토론입니다. 내용이나 부재만으로 이전 시도의 성공 여부를 판단할 수 없습니다. 다시 게시하기 전에 두 목록을 확인하세요.';
+
+  @override
+  String get mrPendingPublishRecoveryRequired =>
+      '비공개 메모를 변경하기 전에 대기 중인 리뷰 게시를 열어 저장된 메모와 공개 토론을 모두 확인하세요.';
+
+  @override
+  String get mrPendingInlineOpen => '비공개 인라인 메모 저장';
+
+  @override
+  String get mrPendingInlineTitle => '비공개 인라인 리뷰 메모';
+
+  @override
+  String get mrPendingInlineHint =>
+      '선택한 줄이나 범위에 비공개 메모를 저장합니다. 대기 중인 리뷰를 게시하기 전까지는 본인만 볼 수 있습니다. 저장 전에 최신 diff를 다시 확인합니다.';
+
+  @override
+  String get mrPendingPublishNoteButton => '이 초안 게시';
+
+  @override
+  String get mrPendingPublishNoteTitle => '이 비공개 초안을 게시할까요?';
+
+  @override
+  String get mrPendingPublishNoteHint =>
+      '저장된 이 초안이 머지 리퀘스트의 다른 사람에게 공개됩니다. 다른 초안은 비공개로 유지됩니다.';
+
+  @override
+  String get mrPendingPublishNoteRaceHint =>
+      '게시 전에 선택한 초안을 다시 확인합니다. 확인 이후 다른 클라이언트에서 변경한 내용이 포함될 수 있습니다.';
+
+  @override
+  String get mrPendingPublishNoteConsent => '저장된 이 초안을 공개하겠습니다.';
+
+  @override
+  String get mrPendingNotePublished => '리뷰 초안을 게시했습니다.';
+
+  @override
+  String get mrReviewSummaryLabel => '공개 리뷰 요약(선택 사항)';
+
+  @override
+  String get mrReviewOutcomeLabel => '리뷰 결과';
+
+  @override
+  String get mrReviewKeepState => '현재 상태 유지';
+
+  @override
+  String get mrReviewReviewed => '검토 완료';
+
+  @override
+  String get mrReviewRequestChanges => '변경 요청';
+
+  @override
+  String get mrReviewCurrentState => '내 현재 리뷰어 상태';
+
+  @override
+  String get mrReviewUnassigned => '리뷰어로 지정되지 않음';
+
+  @override
+  String get mrReviewUnreviewed => '아직 검토하지 않음';
+
+  @override
+  String get mrReviewStarted => '검토 시작됨';
+
+  @override
+  String get mrReviewApproved => '정식 승인됨';
+
+  @override
+  String get mrReviewUnknownState => '알 수 없는 리뷰어 상태';
+
+  @override
+  String get mrReviewStateUnavailable =>
+      '리뷰어 상태를 읽을 수 없습니다. 초안과 공개 요약은 게시할 수 있습니다.';
+
+  @override
+  String get mrReviewReviewedHint =>
+      '검토 완료는 이 머지 리퀘스트의 승인이 아닙니다. 이전 변경 요청을 해제할 수 있습니다.';
+
+  @override
+  String get mrReviewChangesHint => '변경 요청은 머지를 막고 기존 승인을 취소할 수 있습니다.';
+
+  @override
+  String get mrReviewPartialHint =>
+      '초안, 요약, 리뷰어 상태가 각각 적용되었을 수 있습니다. 다시 제출할지 결정하기 전에 세 항목을 모두 확인하세요.';
+
+  @override
+  String get mrReviewSubmissionConsent =>
+      '표시된 초안과 공개 요약을 게시하고 선택한 리뷰 결과를 적용합니다.';
+
+  @override
+  String get mrReviewUnapproved => '승인 취소됨';
+
+  @override
+  String get mrReviewSubmitButton => '리뷰 제출';
+
+  @override
+  String get mrReviewInspectButton => '리뷰 확인';
+
+  @override
+  String get mrPendingReplyButton => '비공개 답글 저장';
+
+  @override
+  String get mrPendingReplyTitle => '비공개 답글 초안';
+
+  @override
+  String get mrPendingReplyHint => '게시하기 전까지 이 답글은 비공개입니다. 저장해도 토론이 해결되지 않습니다.';
+
+  @override
+  String get mrPendingReplyTargetTitle => '토론 내용';
+
+  @override
+  String get mrPendingReplyTargetUnavailable =>
+      '이 토론이 없거나 더 이상 비공개 답글을 받을 수 없습니다.';
+
+  @override
+  String get mrPendingReplyInspectionHint =>
+      '이미 저장된 답글이 있는지 현재 토론과 모든 초안을 확인하세요. 다시 저장하면 중복될 수 있습니다.';
+
+  @override
+  String get mrPendingReplyAcknowledge => '토론과 초안을 확인했으며 이 답글을 저장하겠습니다.';
+
+  @override
+  String get mrCommitsEmpty => '이 머지 리퀘스트에 커밋이 없습니다.';
+
+  @override
+  String get mrOriginalReviewTitle => '원본 커밋 변경 사항';
+
+  @override
+  String get mrOriginalReviewReadOnly =>
+      '인라인 리뷰에는 부모가 하나로 보고된 검증된 텍스트 diff가 필요합니다.';
+
+  @override
+  String get mrOriginalReviewDiffUnavailable =>
+      '이 파일의 원본 diff는 인라인 리뷰에 사용할 수 없습니다.';
+
+  @override
+  String get mrOriginalReviewPrivateHint =>
+      '이 노트는 리뷰를 게시하기 전까지 비공개로 유지됩니다. 저장하기 전에 선택한 커밋의 원본 diff를 다시 확인합니다.';
 }

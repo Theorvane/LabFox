@@ -48,6 +48,11 @@ OAuth, Self-hosted, Multi Account, Inbox (To-do), Search, Local Cache, Offline, 
 Wiki · Packages · Container Registry · Infrastructure · Kubernetes ·
 Security Dashboard · GitLab Analytics · Admin Area · Runner Administration
 
+The later maintainer-approved mobile-web parity expansion includes these areas.
+Track its shipped slices and remaining work in
+[`docs/mobile-web-parity.md`](../../docs/mobile-web-parity.md); the list above
+remains the original 1.0 boundary, not a prohibition on approved parity issues.
+
 These are GitLab feature areas, not a rule about LabFox's own instrumentation —
 anonymous product telemetry is in scope for 1.0. See `AGENTS.md` §9.
 
@@ -71,5 +76,5 @@ Home
 └── To-do
 ```
 
-Mobile navigation: Bottom Navigation — `Home · Inbox · Search · Me`
+Mobile navigation: Bottom Navigation — `Home · Settings · Search · Me`
 Desktop: Navigation Rail + Multi-pane + Command Palette (⌘K / Ctrl+K)

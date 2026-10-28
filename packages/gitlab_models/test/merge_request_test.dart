@@ -93,5 +93,28 @@ void main() {
       expect(mr.isDraft, isFalse);
       expect(mr.labels, isEmpty);
     });
+
+    test('distinguishes subscribed from an absent subscription field', () {
+      final subscribed = MergeRequest.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+        'source_branch': 'a',
+        'target_branch': 'b',
+        'subscribed': true,
+      });
+      final absent = MergeRequest.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+        'source_branch': 'a',
+        'target_branch': 'b',
+      });
+
+      expect(subscribed.subscribed, isTrue);
+      expect(absent.subscribed, isNull);
+    });
   });
 }

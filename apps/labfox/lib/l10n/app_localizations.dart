@@ -104,6 +104,2098 @@ abstract class AppLocalizations {
     Locale('zh'),
   ];
 
+  /// No description provided for @protectedEnvironmentRemoveApprovalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove approval rule'**
+  String get protectedEnvironmentRemoveApprovalTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule weakens the deployment approval gate. Removing the last rule can allow deployments without approval. Review all remaining rules before continuing.'**
+  String get protectedEnvironmentRemoveApprovalWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that removing this rule can allow deployments with fewer approvals or none.'**
+  String get protectedEnvironmentRemoveApprovalAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval rule removed.'**
+  String get protectedEnvironmentRemoveApprovalSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer or Owner permission and GitLab Premium/Ultimate are required to remove approval rules.'**
+  String get protectedEnvironmentRemoveApprovalForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveApprovalError.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule removal could not be confirmed. Reload and inspect the current rules before trying again.'**
+  String get protectedEnvironmentRemoveApprovalError;
+
+  /// No description provided for @protectedEnvironmentApprovalCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit required approvals'**
+  String get protectedEnvironmentApprovalCountTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalCountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Change how many approvals this rule requires. Reducing the count weakens the deployment gate. A count above the available approvers can block deployments. Review every rule before continuing.'**
+  String get protectedEnvironmentApprovalCountWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalCountAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes the approvals required to deploy.'**
+  String get protectedEnvironmentApprovalCountAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalCountSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Required approvals updated.'**
+  String get protectedEnvironmentApprovalCountSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalCountForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer or Owner permission and GitLab Premium/Ultimate are required to change approval rules.'**
+  String get protectedEnvironmentApprovalCountForbidden;
+
+  /// No description provided for @protectedEnvironmentApprovalCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'The approval change could not be confirmed. Reload and inspect the current rule before trying again.'**
+  String get protectedEnvironmentApprovalCountError;
+
+  /// No description provided for @protectedEnvironmentApprovalCountLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'New required approvals'**
+  String get protectedEnvironmentApprovalCountLevel;
+
+  /// No description provided for @protectedEnvironmentApprovalCountRuleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{approver} (rule {ruleId}, {count} required)'**
+  String protectedEnvironmentApprovalCountRuleLabel(
+    String approver,
+    String ruleId,
+    String count,
+  );
+
+  /// No description provided for @protectedEnvironmentEditRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deploy role'**
+  String get protectedEnvironmentEditRoleTitle;
+
+  /// No description provided for @protectedEnvironmentEditRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Change one role-based deploy permission. Switching to Developers allows more project members to deploy. Review all grants and approval rules before continuing.'**
+  String get protectedEnvironmentEditRoleWarning;
+
+  /// No description provided for @protectedEnvironmentEditRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can deploy to this environment.'**
+  String get protectedEnvironmentEditRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentEditRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role updated.'**
+  String get protectedEnvironmentEditRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentEditRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer permission and GitLab Premium/Ultimate are required to change deploy roles.'**
+  String get protectedEnvironmentEditRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentEditRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'The role change could not be confirmed. Reload and inspect the current rule before trying again.'**
+  String get protectedEnvironmentEditRoleError;
+
+  /// No description provided for @protectedEnvironmentEditRoleLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'New deploy role'**
+  String get protectedEnvironmentEditRoleLevel;
+
+  /// No description provided for @pipelineScheduleExecutionEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit execution settings'**
+  String get pipelineScheduleExecutionEdit;
+
+  /// No description provided for @pipelineScheduleExecutionSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleExecutionSave;
+
+  /// No description provided for @pipelineScheduleExecutionActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineScheduleExecutionActive;
+
+  /// No description provided for @pipelineScheduleExecutionRefRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a ref.'**
+  String get pipelineScheduleExecutionRefRequired;
+
+  /// No description provided for @pipelineScheduleExecutionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the ref. Use a full ref if a branch and tag share a name. Saving reschedules future runs; cron, time zone, variables, and inputs are not changed.'**
+  String get pipelineScheduleExecutionHint;
+
+  /// No description provided for @pipelineScheduleExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update execution settings. Check your permissions and ref, then try again.'**
+  String get pipelineScheduleExecutionError;
+
+  /// No description provided for @pipelineScheduleCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create schedule'**
+  String get pipelineScheduleCreate;
+
+  /// No description provided for @pipelineScheduleCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New pipeline schedule'**
+  String get pipelineScheduleCreateTitle;
+
+  /// No description provided for @pipelineScheduleCreateDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get pipelineScheduleCreateDescription;
+
+  /// No description provided for @pipelineScheduleCreateFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value.'**
+  String get pipelineScheduleCreateFieldRequired;
+
+  /// No description provided for @pipelineScheduleCreateActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineScheduleCreateActive;
+
+  /// No description provided for @pipelineScheduleCreateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the ref, cron, and time zone. Leave the time zone blank to use UTC. Use a full ref if a branch and tag share a name.'**
+  String get pipelineScheduleCreateHint;
+
+  /// No description provided for @pipelineScheduleCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create this pipeline schedule. Check your permissions, ref, cron, and time zone.'**
+  String get pipelineScheduleCreateError;
+
+  /// No description provided for @releaseCreationMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title (optional)'**
+  String get releaseCreationMilestoneTitle;
+
+  /// No description provided for @releaseCreationMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseCreationMilestoneAdd;
+
+  /// No description provided for @releaseCreationMilestoneRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseCreationMilestoneRequired;
+
+  /// No description provided for @releaseCreationMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseCreationMilestoneDuplicate;
+
+  /// No description provided for @releaseCreationMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releaseCreationMilestoneRemove(String title);
+
+  /// No description provided for @releaseCreationMilestoneHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact existing titles, one at a time. Group milestone availability depends on your GitLab plan.'**
+  String get releaseCreationMilestoneHelp;
+
+  /// No description provided for @releasePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select project milestones'**
+  String get releasePickerTitle;
+
+  /// No description provided for @releasePickerSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search project milestones'**
+  String get releasePickerSearch;
+
+  /// No description provided for @releasePickerEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No project milestones found.'**
+  String get releasePickerEmpty;
+
+  /// No description provided for @releasePickerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get releasePickerError;
+
+  /// No description provided for @releasePickerMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more milestones'**
+  String get releasePickerMore;
+
+  /// No description provided for @releasePickerUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use milestones'**
+  String get releasePickerUse;
+
+  /// No description provided for @releasePickerRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove milestone {title}'**
+  String releasePickerRemove(String title);
+
+  /// No description provided for @releaseCreationDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication date (optional)'**
+  String get releaseCreationDateLabel;
+
+  /// No description provided for @releaseCreationDateDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Publication time will be set by GitLab.'**
+  String get releaseCreationDateDefault;
+
+  /// No description provided for @releaseCreationChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication date'**
+  String get releaseCreationChooseDate;
+
+  /// No description provided for @releaseCreationChooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose publication time'**
+  String get releaseCreationChooseTime;
+
+  /// No description provided for @releaseCreationClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Use publication time from GitLab'**
+  String get releaseCreationClearDate;
+
+  /// No description provided for @releaseCreationDateHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone: {zone}. Future dates create upcoming releases; past dates create historical releases.'**
+  String releaseCreationDateHelp(String zone);
+
+  /// No description provided for @pipelineScheduleDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete schedule'**
+  String get pipelineScheduleDelete;
+
+  /// No description provided for @pipelineScheduleDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this pipeline schedule?'**
+  String get pipelineScheduleDeleteConfirmTitle;
+
+  /// No description provided for @pipelineScheduleDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The pipeline schedule \"{name}\" will be permanently deleted. This cannot be undone.'**
+  String pipelineScheduleDeleteConfirmBody(String name);
+
+  /// No description provided for @pipelineScheduleDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleDeleteError;
+
+  /// No description provided for @releaseScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release date'**
+  String get releaseScheduleEdit;
+
+  /// No description provided for @releaseScheduleChangeDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Change date'**
+  String get releaseScheduleChangeDate;
+
+  /// No description provided for @releaseScheduleChangeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Change time'**
+  String get releaseScheduleChangeTime;
+
+  /// No description provided for @releaseScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release date'**
+  String get releaseScheduleSave;
+
+  /// No description provided for @releaseScheduleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release date.'**
+  String get releaseScheduleError;
+
+  /// No description provided for @releaseScheduleHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Times use your device time zone ({zone}). A future date schedules an upcoming release.'**
+  String releaseScheduleHelp(String zone);
+
+  /// No description provided for @pipelineScheduleEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit schedule'**
+  String get pipelineScheduleEdit;
+
+  /// No description provided for @pipelineScheduleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get pipelineScheduleSave;
+
+  /// No description provided for @pipelineScheduleDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get pipelineScheduleDescription;
+
+  /// No description provided for @pipelineScheduleFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a value.'**
+  String get pipelineScheduleFieldRequired;
+
+  /// No description provided for @pipelineScheduleEditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab validates the cron expression and time zone. Saving reschedules future runs; ref, active state, variables, and inputs are preserved.'**
+  String get pipelineScheduleEditHint;
+
+  /// No description provided for @pipelineScheduleEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update this pipeline schedule. Check your permissions, cron, and time zone.'**
+  String get pipelineScheduleEditError;
+
+  /// No description provided for @pipelineScheduleTakeOwnership.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership'**
+  String get pipelineScheduleTakeOwnership;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Take ownership of this schedule?'**
+  String get pipelineScheduleOwnershipConfirmTitle;
+
+  /// No description provided for @pipelineScheduleOwnershipConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You will become the owner of \"{name}\". Scheduled pipelines will run with your permissions. This requires the Maintainer or Owner role.'**
+  String pipelineScheduleOwnershipConfirmBody(String name);
+
+  /// No description provided for @pipelineScheduleOwnershipError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not take ownership of this pipeline schedule. Check your permissions and try again.'**
+  String get pipelineScheduleOwnershipError;
+
+  /// No description provided for @protectedTagProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectTitle;
+
+  /// No description provided for @protectedTagProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedTagProtectName;
+
+  /// No description provided for @protectedTagProtectRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Who can create matching tags?'**
+  String get protectedTagProtectRole;
+
+  /// No description provided for @protectedTagProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedTagProtectNoOne;
+
+  /// No description provided for @protectedTagProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedTagProtectDevelopers;
+
+  /// No description provided for @protectedTagProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedTagProtectMaintainers;
+
+  /// No description provided for @protectedTagProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes who can create matching tags and may affect tag pipelines and jobs across project {projectId}.'**
+  String protectedTagProtectWarning(String projectId);
+
+  /// No description provided for @protectedTagProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules can also affect future tags. Check the exact pattern and access level.'**
+  String get protectedTagProtectWildcard;
+
+  /// No description provided for @protectedTagProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedTagProtectAcknowledge;
+
+  /// No description provided for @protectedTagProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect tag'**
+  String get protectedTagProtectSubmit;
+
+  /// No description provided for @protectedTagProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedTagProtectExisting;
+
+  /// No description provided for @protectedTagProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedTagProtectUncertain;
+
+  /// No description provided for @protectedTagProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedTagProtectReload;
+
+  /// No description provided for @protectedTagProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify the protected tag rules. Try reloading.'**
+  String get protectedTagProtectLoadError;
+
+  /// No description provided for @protectedTagProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedTagProtectSessionChanged;
+
+  /// No description provided for @protectedTagProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected tag rule created.'**
+  String get protectedTagProtectCreated;
+
+  /// No description provided for @protectedTagProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedTagProtectCancel;
+
+  /// No description provided for @protectedTagProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedTagProtectForbidden;
+
+  /// No description provided for @protectedTagProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedTagProtectUnauthorized;
+
+  /// No description provided for @protectedTagProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedTagProtectRateLimited;
+
+  /// No description provided for @protectedTagProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected tag resource is unavailable. Reload before trying again.'**
+  String get protectedTagProtectUnavailable;
+
+  /// No description provided for @protectedTagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected tags'**
+  String get protectedTagsTitle;
+
+  /// No description provided for @protectedTagsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No protected tag rules found.'**
+  String get protectedTagsEmpty;
+
+  /// No description provided for @protectedTagsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load protected tags.'**
+  String get protectedTagsError;
+
+  /// No description provided for @protectedTagsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get protectedTagsLoadMore;
+
+  /// No description provided for @protectedTagCreateAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to create'**
+  String get protectedTagCreateAccess;
+
+  /// No description provided for @protectedEnvironmentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected environments'**
+  String get protectedEnvironmentsTitle;
+
+  /// No description provided for @protectedEnvironmentsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No protected environment rules found.'**
+  String get protectedEnvironmentsEmpty;
+
+  /// No description provided for @protectedEnvironmentsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load protected environments.'**
+  String get protectedEnvironmentsError;
+
+  /// No description provided for @protectedEnvironmentsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected environments are unavailable or you don\'t have access.'**
+  String get protectedEnvironmentsUnavailable;
+
+  /// No description provided for @protectedEnvironmentsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get protectedEnvironmentsLoadMore;
+
+  /// No description provided for @protectedEnvironmentDeployAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to deploy'**
+  String get protectedEnvironmentDeployAccess;
+
+  /// No description provided for @protectedEnvironmentApprovalRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval rules'**
+  String get protectedEnvironmentApprovalRules;
+
+  /// No description provided for @protectedEnvironmentApprovalCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Required approvals: {count}'**
+  String protectedEnvironmentApprovalCount(int count);
+
+  /// No description provided for @protectedBranchProtectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectTitle;
+
+  /// No description provided for @protectedBranchProtectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule name'**
+  String get protectedBranchProtectName;
+
+  /// No description provided for @protectedBranchProtectPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to push'**
+  String get protectedBranchProtectPush;
+
+  /// No description provided for @protectedBranchProtectMerge.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to merge'**
+  String get protectedBranchProtectMerge;
+
+  /// No description provided for @protectedBranchProtectNoOne.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchProtectNoOne;
+
+  /// No description provided for @protectedBranchProtectDevelopers.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers and Maintainers'**
+  String get protectedBranchProtectDevelopers;
+
+  /// No description provided for @protectedBranchProtectMaintainers.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchProtectMaintainers;
+
+  /// No description provided for @protectedBranchProtectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changes push and merge access in project {projectId}. It can affect merge requests, protected CI variables, and jobs.'**
+  String protectedBranchProtectWarning(String projectId);
+
+  /// No description provided for @protectedBranchProtectWildcard.
+  ///
+  /// In en, this message translates to:
+  /// **'Wildcard rules may also affect future branches. Check the exact pattern and both permissions.'**
+  String get protectedBranchProtectWildcard;
+
+  /// No description provided for @protectedBranchProtectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide effect of this rule.'**
+  String get protectedBranchProtectAcknowledge;
+
+  /// No description provided for @protectedBranchProtectSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect branch'**
+  String get protectedBranchProtectSubmit;
+
+  /// No description provided for @protectedBranchProtectExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule already exists. No change was made.'**
+  String get protectedBranchProtectExisting;
+
+  /// No description provided for @protectedBranchProtectUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The result is uncertain. Reload all rules before trying again.'**
+  String get protectedBranchProtectUncertain;
+
+  /// No description provided for @protectedBranchProtectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rules'**
+  String get protectedBranchProtectReload;
+
+  /// No description provided for @protectedBranchProtectLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not verify protected branch rules. Try reloading.'**
+  String get protectedBranchProtectLoadError;
+
+  /// No description provided for @protectedBranchProtectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account changed. Close this draft and start again.'**
+  String get protectedBranchProtectSessionChanged;
+
+  /// No description provided for @protectedBranchProtectCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected branch rule created.'**
+  String get protectedBranchProtectCreated;
+
+  /// No description provided for @protectedBranchProtectCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get protectedBranchProtectCancel;
+
+  /// No description provided for @protectedBranchProtectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule. Reload before trying again.'**
+  String get protectedBranchProtectForbidden;
+
+  /// No description provided for @protectedBranchProtectUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session has expired. Sign in again before creating a rule.'**
+  String get protectedBranchProtectUnauthorized;
+
+  /// No description provided for @protectedBranchProtectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload the rules.'**
+  String get protectedBranchProtectRateLimited;
+
+  /// No description provided for @protectedBranchProtectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This project or protected branch resource is unavailable. Reload before trying again.'**
+  String get protectedBranchProtectUnavailable;
+
+  /// No description provided for @protectedBranchesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected branches'**
+  String get protectedBranchesTitle;
+
+  /// No description provided for @protectedBranchesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No protected branch rules found.'**
+  String get protectedBranchesEmpty;
+
+  /// No description provided for @protectedBranchesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load protected branches.'**
+  String get protectedBranchesError;
+
+  /// No description provided for @protectedBranchesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get protectedBranchesLoadMore;
+
+  /// No description provided for @protectedBranchPushAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to push'**
+  String get protectedBranchPushAccess;
+
+  /// No description provided for @protectedBranchMergeAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed to merge'**
+  String get protectedBranchMergeAccess;
+
+  /// No description provided for @protectedBranchForcePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push'**
+  String get protectedBranchForcePush;
+
+  /// No description provided for @protectedBranchCodeOwnerApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Code owner approval'**
+  String get protectedBranchCodeOwnerApproval;
+
+  /// No description provided for @protectedBranchInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Inherited from group'**
+  String get protectedBranchInherited;
+
+  /// No description provided for @protectedBranchEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get protectedBranchEnabled;
+
+  /// No description provided for @protectedBranchDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get protectedBranchDisabled;
+
+  /// No description provided for @protectedBranchNoAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'No access rules'**
+  String get protectedBranchNoAccess;
+
+  /// No description provided for @linkedIssuesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked issues'**
+  String get linkedIssuesTitle;
+
+  /// No description provided for @linkedIssuesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load linked issues.'**
+  String get linkedIssuesError;
+
+  /// No description provided for @linkedIssuesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get linkedIssuesLoadMore;
+
+  /// No description provided for @linkedIssuesRelatesTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Related to'**
+  String get linkedIssuesRelatesTo;
+
+  /// No description provided for @linkedIssuesBlocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocks'**
+  String get linkedIssuesBlocks;
+
+  /// No description provided for @linkedIssuesBlockedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked by'**
+  String get linkedIssuesBlockedBy;
+
+  /// No description provided for @groupLabelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Group labels'**
+  String get groupLabelsTitle;
+
+  /// No description provided for @groupLabelsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No group labels yet'**
+  String get groupLabelsEmpty;
+
+  /// No description provided for @groupLabelsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load group labels.'**
+  String get groupLabelsError;
+
+  /// No description provided for @groupMembersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Group members'**
+  String get groupMembersTitle;
+
+  /// No description provided for @groupMembersSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search group members'**
+  String get groupMembersSearch;
+
+  /// No description provided for @groupMembersEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No group members found.'**
+  String get groupMembersEmpty;
+
+  /// No description provided for @groupMembersError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load group members.'**
+  String get groupMembersError;
+
+  /// No description provided for @pipelineSchedulesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline schedules'**
+  String get pipelineSchedulesTitle;
+
+  /// No description provided for @pipelineSchedulesAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get pipelineSchedulesAll;
+
+  /// No description provided for @pipelineSchedulesActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get pipelineSchedulesActive;
+
+  /// No description provided for @pipelineSchedulesInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get pipelineSchedulesInactive;
+
+  /// No description provided for @pipelineSchedulesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No pipeline schedules found.'**
+  String get pipelineSchedulesEmpty;
+
+  /// No description provided for @pipelineSchedulesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load pipeline schedules.'**
+  String get pipelineSchedulesError;
+
+  /// No description provided for @pipelineSchedulesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get pipelineSchedulesLoadMore;
+
+  /// No description provided for @pipelineScheduleDetailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this pipeline schedule.'**
+  String get pipelineScheduleDetailError;
+
+  /// No description provided for @pipelineScheduleNextRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run: {date}'**
+  String pipelineScheduleNextRun(String date);
+
+  /// No description provided for @pipelineScheduleNextRunLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run'**
+  String get pipelineScheduleNextRunLabel;
+
+  /// No description provided for @pipelineScheduleRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref'**
+  String get pipelineScheduleRef;
+
+  /// No description provided for @pipelineScheduleCron.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get pipelineScheduleCron;
+
+  /// No description provided for @pipelineScheduleTimezone.
+  ///
+  /// In en, this message translates to:
+  /// **'Time zone'**
+  String get pipelineScheduleTimezone;
+
+  /// No description provided for @pipelineScheduleOwner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get pipelineScheduleOwner;
+
+  /// No description provided for @pipelineScheduleRunNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Run now'**
+  String get pipelineScheduleRunNow;
+
+  /// No description provided for @pipelineScheduleRunSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline schedule started.'**
+  String get pipelineScheduleRunSuccess;
+
+  /// No description provided for @pipelineScheduleRunError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not run this pipeline schedule.'**
+  String get pipelineScheduleRunError;
+
+  /// No description provided for @pipelineScheduleLastPipeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Last pipeline'**
+  String get pipelineScheduleLastPipeline;
+
+  /// No description provided for @pipelineScheduleHistoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution history'**
+  String get pipelineScheduleHistoryTitle;
+
+  /// No description provided for @pipelineScheduleHistoryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines have run for this schedule yet.'**
+  String get pipelineScheduleHistoryEmpty;
+
+  /// No description provided for @pipelineScheduleHistoryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load execution history.'**
+  String get pipelineScheduleHistoryError;
+
+  /// No description provided for @pipelineSchedulePipelineNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline #{number}'**
+  String pipelineSchedulePipelineNumber(int number);
+
+  /// No description provided for @deploymentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Deployments'**
+  String get deploymentsTitle;
+
+  /// No description provided for @deploymentsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get deploymentsAll;
+
+  /// No description provided for @deploymentsSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get deploymentsSuccess;
+
+  /// No description provided for @deploymentsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get deploymentsFailed;
+
+  /// No description provided for @deploymentsRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get deploymentsRunning;
+
+  /// No description provided for @deploymentsCanceled.
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get deploymentsCanceled;
+
+  /// No description provided for @deploymentsCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get deploymentsCreated;
+
+  /// No description provided for @deploymentsBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked'**
+  String get deploymentsBlocked;
+
+  /// No description provided for @deploymentsUnknownStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown status'**
+  String get deploymentsUnknownStatus;
+
+  /// No description provided for @deploymentsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No deployments found.'**
+  String get deploymentsEmpty;
+
+  /// No description provided for @deploymentsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load deployments.'**
+  String get deploymentsError;
+
+  /// No description provided for @deploymentsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get deploymentsLoadMore;
+
+  /// No description provided for @deploymentsEnvironmentSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by environment name'**
+  String get deploymentsEnvironmentSearch;
+
+  /// No description provided for @deploymentsUnknownEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown environment'**
+  String get deploymentsUnknownEnvironment;
+
+  /// No description provided for @deploymentDetailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this deployment.'**
+  String get deploymentDetailError;
+
+  /// No description provided for @deploymentNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Deployment #{number}'**
+  String deploymentNumber(int number);
+
+  /// No description provided for @deploymentEnvironment.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment'**
+  String get deploymentEnvironment;
+
+  /// No description provided for @deploymentRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Ref'**
+  String get deploymentRef;
+
+  /// No description provided for @deploymentCommit.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit'**
+  String get deploymentCommit;
+
+  /// No description provided for @deploymentJob.
+  ///
+  /// In en, this message translates to:
+  /// **'Job'**
+  String get deploymentJob;
+
+  /// No description provided for @deploymentPipeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline'**
+  String get deploymentPipeline;
+
+  /// No description provided for @deploymentCreatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get deploymentCreatedAt;
+
+  /// No description provided for @deploymentUpdatedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated'**
+  String get deploymentUpdatedAt;
+
+  /// No description provided for @deploymentUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Deployed by'**
+  String get deploymentUser;
+
+  /// No description provided for @releasesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Releases'**
+  String get releasesTitle;
+
+  /// No description provided for @releasesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No releases yet.'**
+  String get releasesEmpty;
+
+  /// No description provided for @releasesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load releases.'**
+  String get releasesError;
+
+  /// No description provided for @releaseDetailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this release.'**
+  String get releaseDetailError;
+
+  /// No description provided for @releaseAssetsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets'**
+  String get releaseAssetsTitle;
+
+  /// No description provided for @releaseLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get releaseLoadMore;
+
+  /// No description provided for @releaseUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get releaseUpcoming;
+
+  /// No description provided for @releaseEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release'**
+  String get releaseEdit;
+
+  /// No description provided for @releaseSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save release'**
+  String get releaseSave;
+
+  /// No description provided for @releaseEditName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name'**
+  String get releaseEditName;
+
+  /// No description provided for @releaseEditDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseEditDescription;
+
+  /// No description provided for @releaseNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a release name.'**
+  String get releaseNameRequired;
+
+  /// No description provided for @releaseEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the release.'**
+  String get releaseEditError;
+
+  /// No description provided for @releaseNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New release'**
+  String get releaseNew;
+
+  /// No description provided for @releaseCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create release'**
+  String get releaseCreate;
+
+  /// No description provided for @releaseTagName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name'**
+  String get releaseTagName;
+
+  /// No description provided for @releaseRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag from ref (optional)'**
+  String get releaseRef;
+
+  /// No description provided for @releaseRefHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank if the tag already exists.'**
+  String get releaseRefHelp;
+
+  /// No description provided for @releaseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Release name (optional)'**
+  String get releaseName;
+
+  /// No description provided for @releaseDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Markdown)'**
+  String get releaseDescription;
+
+  /// No description provided for @releaseTagRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a tag name.'**
+  String get releaseTagRequired;
+
+  /// No description provided for @releaseCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the release.'**
+  String get releaseCreateError;
+
+  /// No description provided for @releaseAddAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add asset link'**
+  String get releaseAddAssetLink;
+
+  /// No description provided for @releaseAddLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get releaseAddLink;
+
+  /// No description provided for @releaseAssetName.
+  ///
+  /// In en, this message translates to:
+  /// **'Link name'**
+  String get releaseAssetName;
+
+  /// No description provided for @releaseAssetUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Link URL'**
+  String get releaseAssetUrl;
+
+  /// No description provided for @releaseAssetNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a link name.'**
+  String get releaseAssetNameRequired;
+
+  /// No description provided for @releaseAssetUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an HTTP or HTTPS URL.'**
+  String get releaseAssetUrlInvalid;
+
+  /// No description provided for @releaseAssetNameDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'A link with this name already exists.'**
+  String get releaseAssetNameDuplicate;
+
+  /// No description provided for @releaseAssetCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the asset link.'**
+  String get releaseAssetCreateError;
+
+  /// No description provided for @releaseNoAssets.
+  ///
+  /// In en, this message translates to:
+  /// **'No assets yet.'**
+  String get releaseNoAssets;
+
+  /// No description provided for @releaseDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete release'**
+  String get releaseDelete;
+
+  /// No description provided for @releaseDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this release?'**
+  String get releaseDeleteConfirmTitle;
+
+  /// No description provided for @releaseDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The release and its notes will be deleted. The Git tag will remain.'**
+  String get releaseDeleteConfirmBody;
+
+  /// No description provided for @releaseDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the release.'**
+  String get releaseDeleteError;
+
+  /// No description provided for @releaseDeleteAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete asset link'**
+  String get releaseDeleteAssetLink;
+
+  /// No description provided for @releaseDeleteLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete link'**
+  String get releaseDeleteLink;
+
+  /// No description provided for @releaseAssetDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this asset link?'**
+  String get releaseAssetDeleteConfirmTitle;
+
+  /// No description provided for @releaseAssetDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the link named {name}. The linked file will not be deleted.'**
+  String releaseAssetDeleteConfirmBody(String name);
+
+  /// No description provided for @releaseAssetDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the asset link.'**
+  String get releaseAssetDeleteError;
+
+  /// No description provided for @releaseEditAssetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit asset link'**
+  String get releaseEditAssetLink;
+
+  /// No description provided for @releaseSaveLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Save link'**
+  String get releaseSaveLink;
+
+  /// No description provided for @releaseAssetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the asset link.'**
+  String get releaseAssetEditError;
+
+  /// No description provided for @releaseMilestonesEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit release milestones'**
+  String get releaseMilestonesEdit;
+
+  /// No description provided for @releaseMilestonesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get releaseMilestonesTitle;
+
+  /// No description provided for @releaseMilestonesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter exact milestone titles. Group milestone availability depends on your GitLab plan and project group.'**
+  String get releaseMilestonesHelp;
+
+  /// No description provided for @releaseMilestoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestone title'**
+  String get releaseMilestoneTitle;
+
+  /// No description provided for @releaseMilestoneAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add milestone'**
+  String get releaseMilestoneAdd;
+
+  /// No description provided for @releaseMilestonesSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save milestones'**
+  String get releaseMilestonesSave;
+
+  /// No description provided for @releaseMilestonesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update release milestones.'**
+  String get releaseMilestonesError;
+
+  /// No description provided for @releaseMilestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get releaseMilestoneTitleRequired;
+
+  /// No description provided for @releaseMilestoneDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This milestone is already selected.'**
+  String get releaseMilestoneDuplicate;
+
+  /// No description provided for @releaseMilestoneRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {title}'**
+  String releaseMilestoneRemove(String title);
+
+  /// No description provided for @releaseAssetDirectPath.
+  ///
+  /// In en, this message translates to:
+  /// **'New direct download path (optional)'**
+  String get releaseAssetDirectPath;
+
+  /// No description provided for @releaseAssetDirectPathHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave blank to keep the current direct download path. Enter a path such as /bin/app.zip to replace it.'**
+  String get releaseAssetDirectPathHelp;
+
+  /// No description provided for @releaseAssetDirectPathInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a path starting with /, without a host, query, or fragment.'**
+  String get releaseAssetDirectPathInvalid;
+
+  /// No description provided for @releaseAssetType.
+  ///
+  /// In en, this message translates to:
+  /// **'Link type'**
+  String get releaseAssetType;
+
+  /// No description provided for @releaseAssetKeepType.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current type'**
+  String get releaseAssetKeepType;
+
+  /// No description provided for @releaseAssetTypeOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get releaseAssetTypeOther;
+
+  /// No description provided for @releaseAssetTypeRunbook.
+  ///
+  /// In en, this message translates to:
+  /// **'Runbook'**
+  String get releaseAssetTypeRunbook;
+
+  /// No description provided for @releaseAssetTypeImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get releaseAssetTypeImage;
+
+  /// No description provided for @releaseAssetTypePackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get releaseAssetTypePackage;
+
+  /// No description provided for @activityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity'**
+  String get activityTitle;
+
+  /// No description provided for @activityAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get activityAll;
+
+  /// No description provided for @activityIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues'**
+  String get activityIssues;
+
+  /// No description provided for @activityMergeRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge requests'**
+  String get activityMergeRequests;
+
+  /// No description provided for @activityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent activity.'**
+  String get activityEmpty;
+
+  /// No description provided for @activityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load project activity.'**
+  String get activityError;
+
+  /// No description provided for @activityLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get activityLoadMore;
+
+  /// No description provided for @activityUnknownActor.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown user'**
+  String get activityUnknownActor;
+
+  /// No description provided for @activityPush.
+  ///
+  /// In en, this message translates to:
+  /// **'Push'**
+  String get activityPush;
+
+  /// No description provided for @activityEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Project activity'**
+  String get activityEvent;
+
+  /// No description provided for @activityBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{actor} {action}'**
+  String activityBy(String actor, String action);
+
+  /// No description provided for @environmentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Environments'**
+  String get environmentsTitle;
+
+  /// No description provided for @environmentsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get environmentsAll;
+
+  /// No description provided for @environmentsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get environmentsAvailable;
+
+  /// No description provided for @environmentsStopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopping'**
+  String get environmentsStopping;
+
+  /// No description provided for @environmentsStopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get environmentsStopped;
+
+  /// No description provided for @environmentsSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search environments'**
+  String get environmentsSearch;
+
+  /// No description provided for @environmentsSearchLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter at least 3 characters.'**
+  String get environmentsSearchLength;
+
+  /// No description provided for @environmentsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No environments found.'**
+  String get environmentsEmpty;
+
+  /// No description provided for @environmentsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load environments.'**
+  String get environmentsError;
+
+  /// No description provided for @environmentsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get environmentsLoadMore;
+
+  /// No description provided for @environmentDetailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this environment.'**
+  String get environmentDetailError;
+
+  /// No description provided for @environmentAutoStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-stop'**
+  String get environmentAutoStop;
+
+  /// No description provided for @environmentOpenUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Open environment'**
+  String get environmentOpenUrl;
+
+  /// No description provided for @environmentLatestDeployment.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest deployment'**
+  String get environmentLatestDeployment;
+
+  /// No description provided for @environmentUnknownStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown status'**
+  String get environmentUnknownStatus;
+
+  /// No description provided for @projectMembersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Members'**
+  String get projectMembersTitle;
+
+  /// No description provided for @projectMembersSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search members'**
+  String get projectMembersSearch;
+
+  /// No description provided for @projectMembersClearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get projectMembersClearSearch;
+
+  /// No description provided for @projectMembersEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No members found.'**
+  String get projectMembersEmpty;
+
+  /// No description provided for @projectMembersError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load members.'**
+  String get projectMembersError;
+
+  /// No description provided for @projectMembersLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get projectMembersLoadMore;
+
+  /// No description provided for @projectMembersExpiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires'**
+  String get projectMembersExpiry;
+
+  /// No description provided for @memberRoleNoAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'No access'**
+  String get memberRoleNoAccess;
+
+  /// No description provided for @memberRoleMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal access'**
+  String get memberRoleMinimal;
+
+  /// No description provided for @memberRoleGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get memberRoleGuest;
+
+  /// No description provided for @memberRolePlanner.
+  ///
+  /// In en, this message translates to:
+  /// **'Planner'**
+  String get memberRolePlanner;
+
+  /// No description provided for @memberRoleReporter.
+  ///
+  /// In en, this message translates to:
+  /// **'Reporter'**
+  String get memberRoleReporter;
+
+  /// No description provided for @memberRoleSecurityManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Security manager'**
+  String get memberRoleSecurityManager;
+
+  /// No description provided for @memberRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get memberRoleDeveloper;
+
+  /// No description provided for @memberRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainer'**
+  String get memberRoleMaintainer;
+
+  /// No description provided for @memberRoleOwner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get memberRoleOwner;
+
+  /// No description provided for @memberRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown role'**
+  String get memberRoleUnknown;
+
+  /// No description provided for @containerRegistryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Container registry'**
+  String get containerRegistryTitle;
+
+  /// No description provided for @containerRegistryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No container images yet.'**
+  String get containerRegistryEmpty;
+
+  /// No description provided for @containerRegistryError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load container images.'**
+  String get containerRegistryError;
+
+  /// No description provided for @containerTagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Image tags'**
+  String get containerTagsTitle;
+
+  /// No description provided for @containerTagsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags yet.'**
+  String get containerTagsEmpty;
+
+  /// No description provided for @containerTagsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load image tags.'**
+  String get containerTagsError;
+
+  /// No description provided for @containerTagError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this tag.'**
+  String get containerTagError;
+
+  /// No description provided for @containerTagDigest.
+  ///
+  /// In en, this message translates to:
+  /// **'Digest'**
+  String get containerTagDigest;
+
+  /// No description provided for @containerTagRevision.
+  ///
+  /// In en, this message translates to:
+  /// **'Revision'**
+  String get containerTagRevision;
+
+  /// No description provided for @containerTagSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size (bytes)'**
+  String get containerTagSize;
+
+  /// No description provided for @containerLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get containerLoadMore;
+
+  /// No description provided for @milestonesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Milestones'**
+  String get milestonesTitle;
+
+  /// No description provided for @milestonesActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get milestonesActive;
+
+  /// No description provided for @milestonesClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get milestonesClosed;
+
+  /// No description provided for @milestonesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No milestones in this state.'**
+  String get milestonesEmpty;
+
+  /// No description provided for @milestonesError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get milestonesError;
+
+  /// No description provided for @milestoneDetailError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this milestone.'**
+  String get milestoneDetailError;
+
+  /// No description provided for @milestoneStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date'**
+  String get milestoneStartDate;
+
+  /// No description provided for @milestoneDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get milestoneDueDate;
+
+  /// No description provided for @milestoneLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get milestoneLoadMore;
+
+  /// No description provided for @milestoneNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New milestone'**
+  String get milestoneNew;
+
+  /// No description provided for @milestoneCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create milestone'**
+  String get milestoneCreate;
+
+  /// No description provided for @milestoneTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get milestoneTitleField;
+
+  /// No description provided for @milestoneDescriptionField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get milestoneDescriptionField;
+
+  /// No description provided for @milestoneTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a milestone title.'**
+  String get milestoneTitleRequired;
+
+  /// No description provided for @milestoneDateOrderError.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date must be on or before due date.'**
+  String get milestoneDateOrderError;
+
+  /// No description provided for @milestoneCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the milestone.'**
+  String get milestoneCreateError;
+
+  /// No description provided for @milestoneChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose date'**
+  String get milestoneChooseDate;
+
+  /// No description provided for @milestoneClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get milestoneClearDate;
+
+  /// No description provided for @milestoneEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit milestone'**
+  String get milestoneEdit;
+
+  /// No description provided for @milestoneSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get milestoneSaveChanges;
+
+  /// No description provided for @milestoneUpdateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the milestone.'**
+  String get milestoneUpdateError;
+
+  /// No description provided for @milestoneClearStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear start date'**
+  String get milestoneClearStartDate;
+
+  /// No description provided for @milestoneClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get milestoneClearDueDate;
+
+  /// No description provided for @milestoneClose.
+  ///
+  /// In en, this message translates to:
+  /// **'Close milestone'**
+  String get milestoneClose;
+
+  /// No description provided for @milestoneReactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactivate milestone'**
+  String get milestoneReactivate;
+
+  /// No description provided for @milestoneCloseConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Close this milestone?'**
+  String get milestoneCloseConfirmTitle;
+
+  /// No description provided for @milestoneCloseConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can reactivate it later.'**
+  String get milestoneCloseConfirmBody;
+
+  /// No description provided for @milestoneStateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the milestone state.'**
+  String get milestoneStateError;
+
+  /// No description provided for @milestoneDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete milestone'**
+  String get milestoneDelete;
+
+  /// No description provided for @milestoneDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this milestone?'**
+  String get milestoneDeleteConfirmTitle;
+
+  /// No description provided for @milestoneDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone.'**
+  String get milestoneDeleteConfirmBody;
+
+  /// No description provided for @milestoneDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the milestone.'**
+  String get milestoneDeleteError;
+
   /// The application name, shown in the task switcher and app bar
   ///
   /// In en, this message translates to:
@@ -338,6 +2430,48 @@ abstract class AppLocalizations {
   /// **'Could not load your groups.'**
   String get groupsError;
 
+  /// Fallback title while a group detail is loading
+  ///
+  /// In en, this message translates to:
+  /// **'Group'**
+  String get groupDetailTitle;
+
+  /// Shown when a group detail or its children fail to load
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this group.'**
+  String get groupDetailError;
+
+  /// Section title for direct child groups
+  ///
+  /// In en, this message translates to:
+  /// **'Subgroups'**
+  String get groupSubgroups;
+
+  /// Shown when a group has no visible direct subgroups
+  ///
+  /// In en, this message translates to:
+  /// **'No subgroups.'**
+  String get groupSubgroupsEmpty;
+
+  /// Section title for projects directly in a group
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get groupProjects;
+
+  /// Shown when a group has no visible direct projects
+  ///
+  /// In en, this message translates to:
+  /// **'No projects in this group.'**
+  String get groupProjectsEmpty;
+
+  /// Loads the next page of group projects or subgroups
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get groupLoadMore;
+
   /// Title of the projects list screen
   ///
   /// In en, this message translates to:
@@ -475,6 +2609,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close issue'**
   String get issueClose;
+
+  /// No description provided for @issueEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit issue'**
+  String get issueEdit;
+
+  /// No description provided for @issueEditLabels.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit labels'**
+  String get issueEditLabels;
+
+  /// No description provided for @issueSaveLabels.
+  ///
+  /// In en, this message translates to:
+  /// **'Save labels'**
+  String get issueSaveLabels;
+
+  /// No description provided for @issueLabelsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No labels available'**
+  String get issueLabelsEmpty;
+
+  /// No description provided for @issueLabelsLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load labels.'**
+  String get issueLabelsLoadError;
+
+  /// No description provided for @issueLabelsSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update labels. Please try again.'**
+  String get issueLabelsSaveError;
+
+  /// No description provided for @issueEditDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit due date'**
+  String get issueEditDueDate;
+
+  /// No description provided for @issueConfidential.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidential'**
+  String get issueConfidential;
+
+  /// No description provided for @issueMakeConfidential.
+  ///
+  /// In en, this message translates to:
+  /// **'Make confidential'**
+  String get issueMakeConfidential;
+
+  /// No description provided for @issueRemoveConfidentiality.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove confidentiality'**
+  String get issueRemoveConfidentiality;
+
+  /// No description provided for @issueMakeConfidentialExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Access to this issue will be restricted. Continue?'**
+  String get issueMakeConfidentialExplanation;
+
+  /// No description provided for @issueRemoveConfidentialityExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'This issue will become visible to everyone who can see the project. Continue?'**
+  String get issueRemoveConfidentialityExplanation;
+
+  /// No description provided for @issueConfidentialityConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get issueConfidentialityConfirm;
+
+  /// No description provided for @issueConfidentialityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update confidentiality. Check your permissions and try again.'**
+  String get issueConfidentialityError;
+
+  /// No description provided for @issueDiscussionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion locked'**
+  String get issueDiscussionLocked;
+
+  /// No description provided for @issueLockDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock discussion'**
+  String get issueLockDiscussion;
+
+  /// No description provided for @issueUnlockDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock discussion'**
+  String get issueUnlockDiscussion;
+
+  /// No description provided for @issueLockDiscussionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Only project members will be able to add or edit comments. Continue?'**
+  String get issueLockDiscussionExplanation;
+
+  /// No description provided for @issueUnlockDiscussionExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Others with access to this issue will be able to comment again. Continue?'**
+  String get issueUnlockDiscussionExplanation;
+
+  /// No description provided for @issueDiscussionLockConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get issueDiscussionLockConfirm;
+
+  /// No description provided for @issueDiscussionLockError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not change the discussion lock. Check your permissions and try again.'**
+  String get issueDiscussionLockError;
+
+  /// No description provided for @issueEditMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit milestone'**
+  String get issueEditMilestone;
+
+  /// No description provided for @issueEditAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit assignees'**
+  String get issueEditAssignees;
+
+  /// No description provided for @issueAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignees'**
+  String get issueAssignees;
+
+  /// No description provided for @issueSaveAssignees.
+  ///
+  /// In en, this message translates to:
+  /// **'Save assignees'**
+  String get issueSaveAssignees;
+
+  /// No description provided for @issueAssigneesSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update assignees. Check your permissions and try again.'**
+  String get issueAssigneesSaveError;
+
+  /// No description provided for @issueNoMilestone.
+  ///
+  /// In en, this message translates to:
+  /// **'No milestone'**
+  String get issueNoMilestone;
+
+  /// No description provided for @issueMilestonesLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load milestones.'**
+  String get issueMilestonesLoadError;
+
+  /// No description provided for @issueMilestoneSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the milestone. Check your permissions and try again.'**
+  String get issueMilestoneSaveError;
+
+  /// No description provided for @issueDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get issueDueDate;
+
+  /// No description provided for @issueDueDateValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date: {date}'**
+  String issueDueDateValue(String date);
+
+  /// No description provided for @issueSelectDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get issueSelectDueDate;
+
+  /// No description provided for @issueClearDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear due date'**
+  String get issueClearDueDate;
+
+  /// No description provided for @issueDueDateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the due date. Please try again.'**
+  String get issueDueDateError;
+
+  /// No description provided for @issueSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get issueSaveChanges;
+
+  /// No description provided for @issueEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the issue. Check your permissions and try again.'**
+  String get issueEditError;
+
+  /// No description provided for @issueSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to notifications'**
+  String get issueSubscribe;
+
+  /// No description provided for @issueUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe from notifications'**
+  String get issueUnsubscribe;
+
+  /// No description provided for @issueSubscriptionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update issue notifications. Please try again.'**
+  String get issueSubscriptionError;
+
+  /// No description provided for @mrSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to notifications'**
+  String get mrSubscribe;
+
+  /// No description provided for @mrUnsubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsubscribe from notifications'**
+  String get mrUnsubscribe;
+
+  /// No description provided for @mrSubscriptionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update merge request notifications. Please try again.'**
+  String get mrSubscriptionError;
+
+  /// No description provided for @issueAddTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to To-Do'**
+  String get issueAddTodo;
+
+  /// No description provided for @issueTodoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your To-Do list.'**
+  String get issueTodoAdded;
+
+  /// No description provided for @issueTodoExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This issue is already in your To-Do list.'**
+  String get issueTodoExists;
+
+  /// No description provided for @issueTodoError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the issue to your To-Do list. Please try again.'**
+  String get issueTodoError;
+
+  /// No description provided for @mrAddTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to To-Do'**
+  String get mrAddTodo;
+
+  /// No description provided for @mrTodoAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to your To-Do list.'**
+  String get mrTodoAdded;
+
+  /// No description provided for @mrTodoExists.
+  ///
+  /// In en, this message translates to:
+  /// **'This merge request is already in your To-Do list.'**
+  String get mrTodoExists;
+
+  /// No description provided for @mrTodoError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the merge request to your To-Do list. Please try again.'**
+  String get mrTodoError;
 
   /// Menu action that reopens the issue
   ///
@@ -1076,6 +3510,66 @@ abstract class AppLocalizations {
   /// **'Pipelines'**
   String get pipelinesTitle;
 
+  /// Project pipeline status filter option: All statuses
+  ///
+  /// In en, this message translates to:
+  /// **'All statuses'**
+  String get pipelinesStatusAll;
+
+  /// Project pipeline status filter option: Created
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get pipelinesStatusCreated;
+
+  /// Project pipeline status filter option: Pending
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pipelinesStatusPending;
+
+  /// Project pipeline status filter option: Running
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get pipelinesStatusRunning;
+
+  /// Project pipeline status filter option: Success
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get pipelinesStatusSuccess;
+
+  /// Project pipeline status filter option: Failed
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get pipelinesStatusFailed;
+
+  /// Project pipeline status filter option: Canceled
+  ///
+  /// In en, this message translates to:
+  /// **'Canceled'**
+  String get pipelinesStatusCanceled;
+
+  /// Project pipeline status filter option: Skipped
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get pipelinesStatusSkipped;
+
+  /// Project pipeline status filter option: Manual
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get pipelinesStatusManual;
+
+  /// Empty state when no pipelines match the selected server-side filters
+  ///
+  /// In en, this message translates to:
+  /// **'No pipelines match these filters.'**
+  String get pipelinesFilteredEmpty;
+
   /// Shown when the pipelines list fails
   ///
   /// In en, this message translates to:
@@ -1087,6 +3581,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No pipelines yet.'**
   String get pipelinesEmpty;
+
+  /// No description provided for @pipelinesLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get pipelinesLoadMore;
+
+  /// No description provided for @pipelinesLoadMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more pipelines.'**
+  String get pipelinesLoadMoreError;
 
   /// Shown when a pipeline fails to load
   ///
@@ -1490,12 +3996,6 @@ abstract class AppLocalizations {
   /// **'LabFox checks your to-do list in the background and notifies you about new items. Android checks about every 15 minutes; iOS decides when, so this is a background check rather than instant push.'**
   String get settingsBackgroundChecksHelp;
 
-  /// Paywall reason shown for background notifications
-  ///
-  /// In en, this message translates to:
-  /// **'Background to-do checks are part of the subscription. The to-do inbox and manual refresh stay free.'**
-  String get paywallNotifications;
-
   /// Shown when the system refused the notification permission
   ///
   /// In en, this message translates to:
@@ -1550,150 +4050,6 @@ abstract class AppLocalizations {
   /// **'Open source licenses'**
   String get settingsLicenses;
 
-  /// Heading of the sheet offered when a free user taps a paid action
-  ///
-  /// In en, this message translates to:
-  /// **'A subscription unlocks this'**
-  String get paywallTitle;
-
-  /// Button on the paywall sheet that opens the subscription screen
-  ///
-  /// In en, this message translates to:
-  /// **'See the subscription'**
-  String get paywallSubscribe;
-
-  /// Button that dismisses the paywall sheet
-  ///
-  /// In en, this message translates to:
-  /// **'Not now'**
-  String get paywallNotNow;
-
-  /// Paywall reason shown for approve and merge
-  ///
-  /// In en, this message translates to:
-  /// **'Approving and merging are part of the subscription. Reading merge requests, diffs, and discussions stays free.'**
-  String get paywallMergeRequestActions;
-
-  /// Paywall reason shown for pipeline and job actions
-  ///
-  /// In en, this message translates to:
-  /// **'Retrying, cancelling, and running manual jobs are part of the subscription. Watching pipelines and reading job logs stays free.'**
-  String get paywallPipelineActions;
-
-  /// Paywall reason shown when adding a second account
-  ///
-  /// In en, this message translates to:
-  /// **'One account is free. Connecting more instances is part of the subscription.'**
-  String get paywallAccounts;
-
-  /// Paywall reason shown when the free favorite limit is reached
-  ///
-  /// In en, this message translates to:
-  /// **'Free keeps {count} favorites. The subscription removes the limit.'**
-  String paywallFavorites(int count);
-
-  /// Title of the subscription screen
-  ///
-  /// In en, this message translates to:
-  /// **'LabFox subscription'**
-  String get subscriptionTitle;
-
-  /// Shown when the user has an active subscription
-  ///
-  /// In en, this message translates to:
-  /// **'Subscribed'**
-  String get subscriptionActive;
-
-  /// Shown when the user has no active subscription
-  ///
-  /// In en, this message translates to:
-  /// **'Not subscribed'**
-  String get subscriptionInactive;
-
-  /// One-line summary of what the subscription unlocks
-  ///
-  /// In en, this message translates to:
-  /// **'Approve and merge, retry pipelines, and connect more than one account.'**
-  String get subscriptionPitch;
-
-  /// Subscription benefit: multiple accounts
-  ///
-  /// In en, this message translates to:
-  /// **'Connect multiple accounts and self-hosted instances'**
-  String get subscriptionBenefitAccounts;
-
-  /// Subscription benefit: write actions
-  ///
-  /// In en, this message translates to:
-  /// **'Approve, merge, retry, cancel, and run manual jobs'**
-  String get subscriptionBenefitActions;
-
-  /// Subscription benefit: background to-do checks
-  ///
-  /// In en, this message translates to:
-  /// **'Background checks that notify you about new to-do items'**
-  String get subscriptionBenefitNotifications;
-
-  /// Subscription benefit: productivity limits lifted
-  ///
-  /// In en, this message translates to:
-  /// **'Unlimited favorites, instead of the free limit of three'**
-  String get subscriptionBenefitFavorites;
-
-  /// Purchase button, with the price as the store formats it
-  ///
-  /// In en, this message translates to:
-  /// **'Subscribe for {price}'**
-  String subscriptionSubscribe(String price);
-
-  /// Auto-renewal terms shown at the point of purchase, required by App Store Review Guideline 3.1.2
-  ///
-  /// In en, this message translates to:
-  /// **'The subscription renews every month until you cancel it. Cancel any time in your store account; cancelling takes effect at the end of the paid month.'**
-  String get subscriptionRenewalTerms;
-
-  /// Link to the Terms of Use (EULA) shown at the point of purchase
-  ///
-  /// In en, this message translates to:
-  /// **'Terms of Use'**
-  String get subscriptionTerms;
-
-  /// Link to the privacy policy shown at the point of purchase
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy Policy'**
-  String get subscriptionPrivacy;
-
-  /// Restores an existing subscription on a new device
-  ///
-  /// In en, this message translates to:
-  /// **'Restore purchases'**
-  String get subscriptionRestore;
-
-  /// Shown when the store returns no product to sell
-  ///
-  /// In en, this message translates to:
-  /// **'The store is not available right now. Try again later.'**
-  String get subscriptionUnavailable;
-
-  /// Shown when a purchase or restore fails
-  ///
-  /// In en, this message translates to:
-  /// **'That did not go through. Nothing was charged.'**
-  String get subscriptionError;
-
-  /// Confirms a successful restore
-  ///
-  /// In en, this message translates to:
-  /// **'Your subscription is active.'**
-  String get subscriptionRestored;
-
-  /// Shown when a restore finds nothing to restore
-  ///
-  /// In en, this message translates to:
-  /// **'No subscription found for this store account.'**
-  String get subscriptionNothingToRestore;
-
   /// Bottom navigation / rail label for the home destination
   ///
   /// In en, this message translates to:
@@ -1736,11 +4092,5607 @@ abstract class AppLocalizations {
   /// **'Switch account'**
   String get meAccounts;
 
+  /// No description provided for @projectLabelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Labels'**
+  String get projectLabelsTitle;
+
+  /// No description provided for @projectLabelsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load labels.'**
+  String get projectLabelsError;
+
+  /// No description provided for @projectLabelsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No labels yet'**
+  String get projectLabelsEmpty;
+
+  /// No description provided for @projectLabelsNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching labels'**
+  String get projectLabelsNoMatch;
+
+  /// No description provided for @projectLabelSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search labels'**
+  String get projectLabelSearch;
+
+  /// No description provided for @projectLabelNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New label'**
+  String get projectLabelNew;
+
+  /// No description provided for @projectLabelGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Group label'**
+  String get projectLabelGroup;
+
+  /// No description provided for @projectLabelProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project label'**
+  String get projectLabelProject;
+
+  /// No description provided for @projectLabelError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load this label.'**
+  String get projectLabelError;
+
+  /// No description provided for @projectLabelOpenIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Open issues'**
+  String get projectLabelOpenIssues;
+
+  /// No description provided for @projectLabelClosedIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed issues'**
+  String get projectLabelClosedIssues;
+
+  /// No description provided for @projectLabelOpenMrs.
+  ///
+  /// In en, this message translates to:
+  /// **'Open merge requests'**
+  String get projectLabelOpenMrs;
+
+  /// No description provided for @projectLabelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get projectLabelName;
+
+  /// No description provided for @projectLabelColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Color (#RRGGBB)'**
+  String get projectLabelColor;
+
+  /// No description provided for @projectLabelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (optional)'**
+  String get projectLabelDescription;
+
+  /// No description provided for @projectLabelRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get projectLabelRequired;
+
+  /// No description provided for @projectLabelInvalidColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a color like #5843AD'**
+  String get projectLabelInvalidColor;
+
+  /// No description provided for @projectLabelCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create label'**
+  String get projectLabelCreate;
+
+  /// No description provided for @projectLabelCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t create the label. Check your permissions and input.'**
+  String get projectLabelCreateError;
+
+  /// No description provided for @tagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tagsTitle;
+
+  /// No description provided for @tagsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tags yet'**
+  String get tagsEmpty;
+
+  /// No description provided for @tagsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load tags.'**
+  String get tagsError;
+
+  /// No description provided for @tagsNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching tags'**
+  String get tagsNoMatch;
+
+  /// No description provided for @tagSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search tags'**
+  String get tagSearchHint;
+
+  /// No description provided for @tagError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load this tag.'**
+  String get tagError;
+
+  /// No description provided for @tagProtected.
+  ///
+  /// In en, this message translates to:
+  /// **'Protected tag'**
+  String get tagProtected;
+
+  /// No description provided for @tagNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New tag'**
+  String get tagNew;
+
+  /// No description provided for @tagName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name'**
+  String get tagName;
+
+  /// No description provided for @tagFromRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Create from branch, tag, or commit SHA'**
+  String get tagFromRef;
+
+  /// No description provided for @tagMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message (optional)'**
+  String get tagMessage;
+
+  /// No description provided for @tagPipelineNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating a tag may start a CI/CD pipeline.'**
+  String get tagPipelineNotice;
+
+  /// No description provided for @tagFieldRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get tagFieldRequired;
+
+  /// No description provided for @tagCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag'**
+  String get tagCreate;
+
+  /// No description provided for @tagCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t create the tag. Check your permissions and the reference.'**
+  String get tagCreateError;
+
+  /// No description provided for @snippetsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Snippets'**
+  String get snippetsTitle;
+
+  /// No description provided for @snippetsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No snippets yet'**
+  String get snippetsEmpty;
+
+  /// No description provided for @snippetsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load snippets.'**
+  String get snippetsError;
+
+  /// No description provided for @snippetError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load this snippet.'**
+  String get snippetError;
+
+  /// No description provided for @snippetContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get snippetContent;
+
+  /// No description provided for @snippetContentError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load snippet content.'**
+  String get snippetContentError;
+
+  /// No description provided for @snippetNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New snippet'**
+  String get snippetNew;
+
+  /// No description provided for @snippetTitleField.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get snippetTitleField;
+
+  /// No description provided for @snippetDescriptionField.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get snippetDescriptionField;
+
+  /// No description provided for @snippetFilePathField.
+  ///
+  /// In en, this message translates to:
+  /// **'File path'**
+  String get snippetFilePathField;
+
+  /// No description provided for @snippetContentField.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get snippetContentField;
+
+  /// No description provided for @snippetVisibilityField.
+  ///
+  /// In en, this message translates to:
+  /// **'Visibility'**
+  String get snippetVisibilityField;
+
+  /// No description provided for @snippetVisibilityUnchanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current visibility'**
+  String get snippetVisibilityUnchanged;
+
+  /// No description provided for @snippetPrivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
+  String get snippetPrivate;
+
+  /// No description provided for @snippetPublic.
+  ///
+  /// In en, this message translates to:
+  /// **'Public'**
+  String get snippetPublic;
+
+  /// No description provided for @snippetCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create snippet'**
+  String get snippetCreate;
+
+  /// No description provided for @snippetCreateValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title, file path, and content.'**
+  String get snippetCreateValidationError;
+
+  /// No description provided for @snippetCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the snippet.'**
+  String get snippetCreateError;
+
+  /// No description provided for @snippetAddFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add file'**
+  String get snippetAddFile;
+
+  /// No description provided for @snippetFileAddValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a unique relative file path and content.'**
+  String get snippetFileAddValidationError;
+
+  /// No description provided for @snippetFileAddError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not add the file.'**
+  String get snippetFileAddError;
+
+  /// No description provided for @snippetFileMoveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Move file'**
+  String get snippetFileMoveAction;
+
+  /// No description provided for @snippetFileMoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Move or rename file'**
+  String get snippetFileMoveTitle;
+
+  /// No description provided for @snippetFileMovePathField.
+  ///
+  /// In en, this message translates to:
+  /// **'New file path'**
+  String get snippetFileMovePathField;
+
+  /// No description provided for @snippetFileMoveValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a different, unused relative file path.'**
+  String get snippetFileMoveValidationError;
+
+  /// No description provided for @snippetFileMoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not move the file.'**
+  String get snippetFileMoveError;
+
+  /// No description provided for @snippetEditAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit snippet'**
+  String get snippetEditAction;
+
+  /// No description provided for @snippetEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit snippet'**
+  String get snippetEditTitle;
+
+  /// No description provided for @snippetSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get snippetSaveChanges;
+
+  /// No description provided for @snippetEditValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title.'**
+  String get snippetEditValidationError;
+
+  /// No description provided for @snippetEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the snippet.'**
+  String get snippetEditError;
+
+  /// No description provided for @snippetDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete snippet'**
+  String get snippetDeleteAction;
+
+  /// No description provided for @snippetDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this snippet?'**
+  String get snippetDeleteConfirmTitle;
+
+  /// No description provided for @snippetDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes the snippet and its files.'**
+  String get snippetDeleteConfirmMessage;
+
+  /// No description provided for @snippetDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get snippetDeleteButton;
+
+  /// No description provided for @snippetDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the snippet.'**
+  String get snippetDeleteError;
+
+  /// No description provided for @snippetFileDeleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get snippetFileDeleteAction;
+
+  /// No description provided for @snippetFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this file?'**
+  String get snippetFileDeleteConfirmTitle;
+
+  /// No description provided for @snippetFileDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes only this file from the snippet.'**
+  String get snippetFileDeleteConfirmMessage;
+
+  /// No description provided for @snippetFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the file.'**
+  String get snippetFileDeleteError;
+
+  /// No description provided for @snippetEditContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit content'**
+  String get snippetEditContent;
+
+  /// No description provided for @snippetSaveContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save content'**
+  String get snippetSaveContent;
+
+  /// No description provided for @snippetContentSaveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save snippet content.'**
+  String get snippetContentSaveError;
+
   /// Home section title for recently opened projects
   ///
   /// In en, this message translates to:
   /// **'Recent'**
   String get homeRecents;
+
+  /// Title of the project wiki page list
+  ///
+  /// In en, this message translates to:
+  /// **'Wiki'**
+  String get wikiTitle;
+
+  /// Shown when a project wiki has no pages
+  ///
+  /// In en, this message translates to:
+  /// **'No wiki pages yet.'**
+  String get wikiEmpty;
+
+  /// Shown when loading the project wiki fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load wiki pages.'**
+  String get wikiListError;
+
+  /// Shown when reading a wiki page fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this wiki page.'**
+  String get wikiPageError;
+
+  /// No description provided for @wikiNewPage.
+  ///
+  /// In en, this message translates to:
+  /// **'New page'**
+  String get wikiNewPage;
+
+  /// No description provided for @wikiPagesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Pages'**
+  String get wikiPagesSection;
+
+  /// No description provided for @wikiTemplatesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates'**
+  String get wikiTemplatesSection;
+
+  /// No description provided for @wikiTemplateEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No templates yet.'**
+  String get wikiTemplateEmpty;
+
+  /// No description provided for @wikiNewTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'New template'**
+  String get wikiNewTemplate;
+
+  /// No description provided for @wikiTemplateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Template title'**
+  String get wikiTemplateTitle;
+
+  /// No description provided for @wikiCreateTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create template'**
+  String get wikiCreateTemplate;
+
+  /// No description provided for @wikiCreateTemplateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the template.'**
+  String get wikiCreateTemplateError;
+
+  /// No description provided for @wikiPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get wikiPageTitle;
+
+  /// No description provided for @wikiPageContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get wikiPageContent;
+
+  /// No description provided for @wikiCreatePage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create page'**
+  String get wikiCreatePage;
+
+  /// No description provided for @wikiChooseTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a template'**
+  String get wikiChooseTemplate;
+
+  /// No description provided for @wikiReplaceTemplateContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the current content with this template?'**
+  String get wikiReplaceTemplateContent;
+
+  /// No description provided for @wikiApplyTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply template'**
+  String get wikiApplyTemplate;
+
+  /// No description provided for @wikiTemplateLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the template.'**
+  String get wikiTemplateLoadError;
+
+  /// No description provided for @wikiCreateValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title and content.'**
+  String get wikiCreateValidationError;
+
+  /// No description provided for @wikiCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not create the wiki page.'**
+  String get wikiCreateError;
+
+  /// No description provided for @wikiEditPageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get wikiEditPageAction;
+
+  /// No description provided for @wikiEditPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit wiki page'**
+  String get wikiEditPage;
+
+  /// No description provided for @wikiEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get wikiEditTitle;
+
+  /// No description provided for @wikiEditContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get wikiEditContent;
+
+  /// No description provided for @wikiSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get wikiSaveChanges;
+
+  /// No description provided for @wikiEditValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a title and content.'**
+  String get wikiEditValidationError;
+
+  /// No description provided for @wikiEditError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the wiki page.'**
+  String get wikiEditError;
+
+  /// No description provided for @wikiEditConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This page changed on GitLab. Reload it before editing again.'**
+  String get wikiEditConflict;
+
+  /// No description provided for @wikiDeletePageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete page'**
+  String get wikiDeletePageAction;
+
+  /// No description provided for @wikiDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this wiki page?'**
+  String get wikiDeleteConfirmTitle;
+
+  /// No description provided for @wikiDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently deletes the page from the project wiki.'**
+  String get wikiDeleteConfirmMessage;
+
+  /// No description provided for @wikiDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete the wiki page.'**
+  String get wikiDeleteError;
+
+  /// No description provided for @wikiDeleteConflict.
+  ///
+  /// In en, this message translates to:
+  /// **'This page changed. Reload it before deleting.'**
+  String get wikiDeleteConflict;
+
+  /// No description provided for @wikiReloadPage.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload page'**
+  String get wikiReloadPage;
+
+  /// Project package registry title and entry
+  ///
+  /// In en, this message translates to:
+  /// **'Package registry'**
+  String get packageRegistryTitle;
+
+  /// No description provided for @packageDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package'**
+  String get packageDelete;
+
+  /// No description provided for @packageDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this package?'**
+  String get packageDeleteConfirmTitle;
+
+  /// No description provided for @packageDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name} and all its files? This cannot be undone.'**
+  String packageDeleteConfirmBody(String name);
+
+  /// No description provided for @packageDeleteForwardingWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'If request forwarding is enabled, deleting this package can create a dependency confusion risk.'**
+  String get packageDeleteForwardingWarning;
+
+  /// No description provided for @packageDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this package. Please try again.'**
+  String get packageDeleteError;
+
+  /// No description provided for @packageDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'This package may be protected, or you may not have permission to delete it.'**
+  String get packageDeleteForbidden;
+
+  /// Empty project package registry
+  ///
+  /// In en, this message translates to:
+  /// **'No packages yet.'**
+  String get packageRegistryEmpty;
+
+  /// Package list loading error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load packages.'**
+  String get packageRegistryError;
+
+  /// Package detail loading error
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load this package.'**
+  String get packageDetailError;
+
+  /// Package files section title
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get packageFiles;
+
+  /// Empty package files section
+  ///
+  /// In en, this message translates to:
+  /// **'This package has no files.'**
+  String get packageFilesEmpty;
+
+  /// Load the next page of packages or package files
+  ///
+  /// In en, this message translates to:
+  /// **'Load more'**
+  String get packageLoadMore;
+
+  /// No description provided for @protectedTagUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect tag rule'**
+  String get protectedTagUnprotectTitle;
+
+  /// No description provided for @protectedTagUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {name}'**
+  String protectedTagUnprotectTarget(String projectId, String name);
+
+  /// No description provided for @protectedTagUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this repository tag protection rule. No tags are deleted. A wildcard can affect many existing and future tags. Removing protection may allow more users to create or delete matching tags and change access to tag pipelines and jobs. Other matching rules may still protect tags; GitLab decides effective access. Review the current creation permissions below.'**
+  String get protectedTagUnprotectWarning;
+
+  /// No description provided for @protectedTagUnprotectAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{description}\nRole level: {role}; user ID: {user}; group ID: {group}; deploy key ID: {key}'**
+  String protectedTagUnprotectAccess(
+    String description,
+    String role,
+    String user,
+    String group,
+    String key,
+  );
+
+  /// No description provided for @protectedTagUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get protectedTagUnprotectUnreported;
+
+  /// No description provided for @protectedTagUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter the exact rule name or pattern'**
+  String get protectedTagUnprotectName;
+
+  /// No description provided for @protectedTagUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the protection loss for all tags matching this rule and want to remove this rule.'**
+  String get protectedTagUnprotectAcknowledge;
+
+  /// No description provided for @protectedTagUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before reviewing the rule.'**
+  String get protectedTagUnprotectAuth;
+
+  /// No description provided for @protectedTagUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied permission to unprotect this rule. A Maintainer or Owner role is required.'**
+  String get protectedTagUnprotectForbidden;
+
+  /// No description provided for @protectedTagUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, private, or unavailable on this instance. Reload to check; no other rule will be removed.'**
+  String get protectedTagUnprotectUnavailable;
+
+  /// No description provided for @protectedTagUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Reload and confirm the current permissions before removing it.'**
+  String get protectedTagUnprotectStale;
+
+  /// No description provided for @protectedTagUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is rate limiting requests. Wait, then reload and confirm the rule again.'**
+  String get protectedTagUnprotectRateLimited;
+
+  /// No description provided for @protectedTagUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request could not be confirmed. Reload the rule and confirm again before retrying.'**
+  String get protectedTagUnprotectError;
+
+  /// No description provided for @protectedTagUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get protectedTagUnprotectReload;
+
+  /// No description provided for @protectedTagUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project.'**
+  String get protectedTagUnprotectSessionChanged;
+
+  /// No description provided for @protectedTagUnprotectAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule removed. No tags were deleted.'**
+  String get protectedTagUnprotectAccepted;
+
+  /// No description provided for @protectedBranchForcePushEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit force push'**
+  String get protectedBranchForcePushEditTitle;
+
+  /// No description provided for @protectedBranchCodeOwnerEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Code Owner approval'**
+  String get protectedBranchCodeOwnerEditTitle;
+
+  /// No description provided for @protectedBranchCodeOwnerCurrentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rule: Code Owner approval is required.'**
+  String get protectedBranchCodeOwnerCurrentRequired;
+
+  /// No description provided for @protectedBranchCodeOwnerCurrentOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rule: Code Owner approval is not required.'**
+  String get protectedBranchCodeOwnerCurrentOptional;
+
+  /// No description provided for @protectedBranchCodeOwnerRequire.
+  ///
+  /// In en, this message translates to:
+  /// **'Require Code Owner approval'**
+  String get protectedBranchCodeOwnerRequire;
+
+  /// No description provided for @protectedBranchCodeOwnerEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule will require Code Owner approval for files covered by CODEOWNERS.'**
+  String get protectedBranchCodeOwnerEnableWarning;
+
+  /// No description provided for @protectedBranchCodeOwnerDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule will no longer require Code Owner approval. Other approval rules may still apply.'**
+  String get protectedBranchCodeOwnerDisableWarning;
+
+  /// No description provided for @protectedBranchCodeOwnerAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this changes Code Owner approval requirements for this branch rule.'**
+  String get protectedBranchCodeOwnerAcknowledge;
+
+  /// No description provided for @protectedBranchCodeOwnerError.
+  ///
+  /// In en, this message translates to:
+  /// **'The Code Owner setting could not be confirmed. Check the rule before trying again.'**
+  String get protectedBranchCodeOwnerError;
+
+  /// No description provided for @protectedBranchCodeOwnerForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission to manage this rule and GitLab Premium/Ultimate are required.'**
+  String get protectedBranchCodeOwnerForbidden;
+
+  /// No description provided for @protectedBranchCodeOwnerSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Code Owner approval requirement updated.'**
+  String get protectedBranchCodeOwnerSuccess;
+
+  /// No description provided for @protectedBranchCodeOwnerInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the rule to read its current Code Owner setting.'**
+  String get protectedBranchCodeOwnerInspect;
+
+  /// No description provided for @protectedBranchCodeOwnerContext.
+  ///
+  /// In en, this message translates to:
+  /// **'A wildcard can affect multiple branches. CODEOWNERS coverage controls which files need approval. Direct pushes can bypass merge request approvals.'**
+  String get protectedBranchCodeOwnerContext;
+
+  /// No description provided for @protectedBranchForcePushEditTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchForcePushEditTarget(String project, String name);
+
+  /// No description provided for @protectedBranchForcePushCurrentAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently allowed.'**
+  String get protectedBranchForcePushCurrentAllowed;
+
+  /// No description provided for @protectedBranchForcePushCurrentBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Force push is currently blocked.'**
+  String get protectedBranchForcePushCurrentBlocked;
+
+  /// No description provided for @protectedBranchForcePushAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow force push'**
+  String get protectedBranchForcePushAllow;
+
+  /// No description provided for @protectedBranchForcePushSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save setting'**
+  String get protectedBranchForcePushSave;
+
+  /// No description provided for @protectedBranchForcePushEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowing force pushes can rewrite history on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushEnableWarning;
+
+  /// No description provided for @protectedBranchForcePushDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocking force pushes changes how members work on matching branches. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchForcePushDisableWarning;
+
+  /// No description provided for @protectedBranchForcePushAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this change for matching branches.'**
+  String get protectedBranchForcePushAcknowledge;
+
+  /// No description provided for @protectedBranchForcePushReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchForcePushReload;
+
+  /// No description provided for @protectedBranchForcePushSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Force-push setting updated.'**
+  String get protectedBranchForcePushSuccess;
+
+  /// No description provided for @protectedBranchForcePushAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchForcePushAuth;
+
+  /// No description provided for @protectedBranchForcePushForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get protectedBranchForcePushForbidden;
+
+  /// No description provided for @protectedBranchForcePushUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchForcePushUnavailable;
+
+  /// No description provided for @protectedBranchForcePushStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchForcePushStale;
+
+  /// No description provided for @protectedBranchForcePushRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchForcePushRateLimited;
+
+  /// No description provided for @protectedBranchForcePushError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchForcePushError;
+
+  /// No description provided for @protectedBranchForcePushSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchForcePushSessionChanged;
+
+  /// No description provided for @protectedBranchMergeRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit merge access'**
+  String get protectedBranchMergeRoleEditTitle;
+
+  /// No description provided for @protectedBranchMergeRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchMergeRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchMergeRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current merge access: {role}'**
+  String protectedBranchMergeRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchMergeRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchMergeRoleNone;
+
+  /// No description provided for @protectedBranchMergeRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchMergeRoleDeveloper;
+
+  /// No description provided for @protectedBranchMergeRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchMergeRoleMaintainer;
+
+  /// No description provided for @protectedBranchMergeRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing merge access affects all branches matching this rule. A wildcard can affect multiple branches and merge request workflows.'**
+  String get protectedBranchMergeRoleWarning;
+
+  /// No description provided for @protectedBranchMergeRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the merge access change for matching branches.'**
+  String get protectedBranchMergeRoleAcknowledge;
+
+  /// No description provided for @protectedBranchMergeRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save merge access'**
+  String get protectedBranchMergeRoleSave;
+
+  /// No description provided for @protectedBranchMergeRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchMergeRoleReload;
+
+  /// No description provided for @protectedBranchMergeRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Merge access updated.'**
+  String get protectedBranchMergeRoleSuccess;
+
+  /// No description provided for @protectedBranchMergeRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchMergeRoleAuth;
+
+  /// No description provided for @protectedBranchMergeRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change merge access.'**
+  String get protectedBranchMergeRoleForbidden;
+
+  /// No description provided for @protectedBranchMergeRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchMergeRoleUnavailable;
+
+  /// No description provided for @protectedBranchMergeRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchMergeRoleStale;
+
+  /// No description provided for @protectedBranchMergeRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleRateLimited;
+
+  /// No description provided for @protectedBranchMergeRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchMergeRoleError;
+
+  /// No description provided for @protectedBranchMergeRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchMergeRoleSessionChanged;
+
+  /// No description provided for @protectedBranchPushRoleEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit push access'**
+  String get protectedBranchPushRoleEditTitle;
+
+  /// No description provided for @protectedBranchPushRoleTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchPushRoleTarget(String project, String name);
+
+  /// No description provided for @protectedBranchPushRoleCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current push access: {role}'**
+  String protectedBranchPushRoleCurrent(String role);
+
+  /// No description provided for @protectedBranchPushRoleNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one'**
+  String get protectedBranchPushRoleNone;
+
+  /// No description provided for @protectedBranchPushRoleDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedBranchPushRoleDeveloper;
+
+  /// No description provided for @protectedBranchPushRoleMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedBranchPushRoleMaintainer;
+
+  /// No description provided for @protectedBranchPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing push access affects all branches matching this rule. It can change who may commit directly; if force push is enabled, it may also change who can rewrite history. A wildcard can affect multiple branches.'**
+  String get protectedBranchPushRoleWarning;
+
+  /// No description provided for @protectedBranchPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the push access change for matching branches.'**
+  String get protectedBranchPushRoleAcknowledge;
+
+  /// No description provided for @protectedBranchPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push access'**
+  String get protectedBranchPushRoleSave;
+
+  /// No description provided for @protectedBranchPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchPushRoleReload;
+
+  /// No description provided for @protectedBranchPushRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Push access updated.'**
+  String get protectedBranchPushRoleSuccess;
+
+  /// No description provided for @protectedBranchPushRoleAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchPushRoleAuth;
+
+  /// No description provided for @protectedBranchPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change push access.'**
+  String get protectedBranchPushRoleForbidden;
+
+  /// No description provided for @protectedBranchPushRoleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchPushRoleUnavailable;
+
+  /// No description provided for @protectedBranchPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchPushRoleStale;
+
+  /// No description provided for @protectedBranchPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchPushRoleRateLimited;
+
+  /// No description provided for @protectedBranchPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm this change. Check the rule before trying again.'**
+  String get protectedBranchPushRoleError;
+
+  /// No description provided for @protectedBranchPushRoleSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchPushRoleSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateTitle;
+
+  /// No description provided for @protectedEnvironmentCreateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment name'**
+  String get protectedEnvironmentCreateName;
+
+  /// No description provided for @protectedEnvironmentCreateDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developers + Maintainers'**
+  String get protectedEnvironmentCreateDeveloper;
+
+  /// No description provided for @protectedEnvironmentCreateMaintainer.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintainers'**
+  String get protectedEnvironmentCreateMaintainer;
+
+  /// No description provided for @protectedEnvironmentCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This protection changes who may deploy to the named environment. Approval rules are not added.'**
+  String get protectedEnvironmentCreateWarning;
+
+  /// No description provided for @protectedEnvironmentCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the deployment access change.'**
+  String get protectedEnvironmentCreateAcknowledge;
+
+  /// No description provided for @protectedEnvironmentCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Protect environment'**
+  String get protectedEnvironmentCreateSave;
+
+  /// No description provided for @protectedEnvironmentCreateReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check environments again'**
+  String get protectedEnvironmentCreateReload;
+
+  /// No description provided for @protectedEnvironmentCreateDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This environment is already protected. Check the list before continuing.'**
+  String get protectedEnvironmentCreateDuplicate;
+
+  /// No description provided for @protectedEnvironmentCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm protection. Check the list before trying again.'**
+  String get protectedEnvironmentCreateError;
+
+  /// No description provided for @protectedEnvironmentCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission or this feature is unavailable.'**
+  String get protectedEnvironmentCreateForbidden;
+
+  /// No description provided for @protectedEnvironmentCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open it again.'**
+  String get protectedEnvironmentCreateSessionChanged;
+
+  /// No description provided for @protectedEnvironmentCreateSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protected.'**
+  String get protectedEnvironmentCreateSuccess;
+
+  /// No description provided for @protectedEnvironmentCreateInvalidName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact environment name without wildcards.'**
+  String get protectedEnvironmentCreateInvalidName;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy role'**
+  String get protectedEnvironmentRemoveRoleTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant may prevent the selected role from deploying. Other deploy grants and approval rules remain. The environment stays protected.'**
+  String get protectedEnvironmentRemoveRoleWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this removes the selected deployment grant.'**
+  String get protectedEnvironmentRemoveRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role removed.'**
+  String get protectedEnvironmentRemoveRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this deploy grant.'**
+  String get protectedEnvironmentRemoveRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy grant removal. Check the rule before trying again.'**
+  String get protectedEnvironmentRemoveRoleError;
+
+  /// No description provided for @protectedEnvironmentRemoveRoleGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} (grant {id})'**
+  String protectedEnvironmentRemoveRoleGrantLabel(String role, String id);
+
+  /// No description provided for @protectedEnvironmentDeployRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy role'**
+  String get protectedEnvironmentDeployRoleTitle;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deploy group membership'**
+  String get protectedEnvironmentDeployInheritanceTitle;
+
+  /// No description provided for @protectedEnvironmentDeployGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add deploy group'**
+  String get protectedEnvironmentDeployGroupTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove deploy group'**
+  String get protectedEnvironmentRemoveDeployGroupTitle;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this grant can block deployments for this group\'s members. Other grants may still allow access. Removing the last deploy grant can block deployment to this protected environment.'**
+  String get protectedEnvironmentRemoveDeployGroupWarning;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this removes the selected group\'s deploy grant and can block deployments.'**
+  String get protectedEnvironmentRemoveDeployGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group removed.'**
+  String get protectedEnvironmentRemoveDeployGroupSuccess;
+
+  /// No description provided for @protectedEnvironmentRemoveDeployGroupGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{deployer} (grant {grantId}, group {groupId})'**
+  String protectedEnvironmentRemoveDeployGroupGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  );
+
+  /// No description provided for @protectedEnvironmentDeployGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding a group can let its direct members deploy to this environment. Review existing deploy access and approval rules before continuing.'**
+  String get protectedEnvironmentDeployGroupWarning;
+
+  /// No description provided for @protectedEnvironmentDeployGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this grants deployment access to the group\'s direct members.'**
+  String get protectedEnvironmentDeployGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group added.'**
+  String get protectedEnvironmentDeployGroupSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployGroupId.
+  ///
+  /// In en, this message translates to:
+  /// **'Group ID'**
+  String get protectedEnvironmentDeployGroupId;
+
+  /// No description provided for @protectedEnvironmentDeployGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the exact numeric ID of a group shared with this project. Only direct members are included.'**
+  String get protectedEnvironmentDeployGroupHint;
+
+  /// No description provided for @protectedEnvironmentDeployGroupDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This group already has deployment access.'**
+  String get protectedEnvironmentDeployGroupDuplicate;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Including inherited members can let more users deploy. Direct membership only can remove deployment access. Review all grants before continuing.'**
+  String get protectedEnvironmentDeployInheritanceWarning;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can deploy to this environment.'**
+  String get protectedEnvironmentDeployInheritanceAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy group membership updated.'**
+  String get protectedEnvironmentDeployInheritanceSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group membership'**
+  String get protectedEnvironmentDeployInheritanceLevel;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentDeployInheritanceDirect;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Include inherited members'**
+  String get protectedEnvironmentDeployInheritanceInherited;
+
+  /// No description provided for @protectedEnvironmentDeployInheritanceGrantLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{deployer} (grant {grantId}, group {groupId})'**
+  String protectedEnvironmentDeployInheritanceGrantLabel(
+    String deployer,
+    String grantId,
+    String groupId,
+  );
+
+  /// No description provided for @protectedEnvironmentApprovalGroupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add approval group'**
+  String get protectedEnvironmentApprovalGroupTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit approver group membership'**
+  String get protectedEnvironmentApprovalInheritanceTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Including inherited membership can let more users approve. Direct membership only can block deployments if too few approvers remain. Review all rules before continuing.'**
+  String get protectedEnvironmentApprovalInheritanceWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes who can approve deployments.'**
+  String get protectedEnvironmentApprovalInheritanceAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approver group membership updated.'**
+  String get protectedEnvironmentApprovalInheritanceSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group membership'**
+  String get protectedEnvironmentApprovalInheritanceLevel;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentApprovalInheritanceDirect;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Include inherited members'**
+  String get protectedEnvironmentApprovalInheritanceInherited;
+
+  /// No description provided for @protectedEnvironmentApprovalInheritanceGroupLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Group {groupId}: {membership}'**
+  String protectedEnvironmentApprovalInheritanceGroupLabel(
+    String groupId,
+    String membership,
+  );
+
+  /// No description provided for @protectedEnvironmentApprovalGroupId.
+  ///
+  /// In en, this message translates to:
+  /// **'Group ID'**
+  String get protectedEnvironmentApprovalGroupId;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the exact positive group ID without spaces.'**
+  String get protectedEnvironmentApprovalGroupHint;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'This group already has an approval rule.'**
+  String get protectedEnvironmentApprovalGroupDuplicate;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Only direct group members can approve under this rule. The group must be shared with this project. Too few eligible approvers can block deployments.'**
+  String get protectedEnvironmentApprovalGroupWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this adds a required approval rule for deployments.'**
+  String get protectedEnvironmentApprovalGroupAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval group added.'**
+  String get protectedEnvironmentApprovalGroupSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace approval group'**
+  String get protectedEnvironmentApprovalGroupEditTitle;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected group will be replaced. The approval count and membership setting stay the same. The new group must be shared with this project. Too few eligible approvers can block deployments.'**
+  String get protectedEnvironmentApprovalGroupEditWarning;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this changes which group can approve deployments.'**
+  String get protectedEnvironmentApprovalGroupEditAcknowledge;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval group replaced.'**
+  String get protectedEnvironmentApprovalGroupEditSuccess;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditRuleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{approver} (rule {ruleId}, group {groupId}, {count} required)'**
+  String protectedEnvironmentApprovalGroupEditRuleLabel(
+    String approver,
+    String ruleId,
+    String groupId,
+    String count,
+  );
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditDirect.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct members only'**
+  String get protectedEnvironmentApprovalGroupEditDirect;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditInherited.
+  ///
+  /// In en, this message translates to:
+  /// **'Includes inherited members'**
+  String get protectedEnvironmentApprovalGroupEditInherited;
+
+  /// No description provided for @protectedEnvironmentApprovalGroupEditId.
+  ///
+  /// In en, this message translates to:
+  /// **'New group ID'**
+  String get protectedEnvironmentApprovalGroupEditId;
+
+  /// No description provided for @protectedEnvironmentDeployRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected role will be allowed to deploy. Existing deploy grants and approval rules remain.'**
+  String get protectedEnvironmentDeployRoleWarning;
+
+  /// No description provided for @protectedEnvironmentDeployRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand this expands deployment access.'**
+  String get protectedEnvironmentDeployRoleAcknowledge;
+
+  /// No description provided for @protectedEnvironmentDeployRoleSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deploy role added.'**
+  String get protectedEnvironmentDeployRoleSuccess;
+
+  /// No description provided for @protectedEnvironmentDeployRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change deploy access.'**
+  String get protectedEnvironmentDeployRoleForbidden;
+
+  /// No description provided for @protectedEnvironmentDeployRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the deploy role update. Check the rule before trying again.'**
+  String get protectedEnvironmentDeployRoleError;
+
+  /// No description provided for @protectedEnvironmentUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect environment'**
+  String get protectedEnvironmentUnprotectTitle;
+
+  /// No description provided for @protectedEnvironmentUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedEnvironmentUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedEnvironmentUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotecting this project rule removes every deploy grant and approval rule shown below. The environment and past deployments remain. Any group protection may still apply.'**
+  String get protectedEnvironmentUnprotectWarning;
+
+  /// No description provided for @protectedEnvironmentUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact environment name'**
+  String get protectedEnvironmentUnprotectName;
+
+  /// No description provided for @protectedEnvironmentUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that these deployment restrictions and approval rules will be removed.'**
+  String get protectedEnvironmentUnprotectAcknowledge;
+
+  /// No description provided for @protectedEnvironmentUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedEnvironmentUnprotectReload;
+
+  /// No description provided for @protectedEnvironmentUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedEnvironmentUnprotectAuth;
+
+  /// No description provided for @protectedEnvironmentUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to unprotect this environment.'**
+  String get protectedEnvironmentUnprotectForbidden;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedEnvironmentUnprotectUnavailable;
+
+  /// No description provided for @protectedEnvironmentUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedEnvironmentUnprotectStale;
+
+  /// No description provided for @protectedEnvironmentUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectRateLimited;
+
+  /// No description provided for @protectedEnvironmentUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm removal. Check the rule before trying again.'**
+  String get protectedEnvironmentUnprotectError;
+
+  /// No description provided for @protectedEnvironmentUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedEnvironmentUnprotectSessionChanged;
+
+  /// No description provided for @protectedEnvironmentUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment protection removed.'**
+  String get protectedEnvironmentUnprotectSuccess;
+
+  /// No description provided for @protectedEnvironmentUnprotectUnreported.
+  ///
+  /// In en, this message translates to:
+  /// **'Access entry'**
+  String get protectedEnvironmentUnprotectUnreported;
+
+  /// No description provided for @containerPolicyStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get containerPolicyStatus;
+
+  /// No description provided for @containerPolicyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy'**
+  String get containerPolicyTitle;
+
+  /// No description provided for @containerPolicyAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report a cleanup policy.'**
+  String get containerPolicyAbsent;
+
+  /// No description provided for @containerPolicyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read-only settings for all container image repositories in this project. Cleanup removes matching tags asynchronously, preserving keep rules, latest, protected and immutable tags. Some tags may require multiple runs; image storage is not reclaimed by tag removal.'**
+  String get containerPolicyHint;
+
+  /// No description provided for @containerPolicyNextRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Next run reported by GitLab (local time)'**
+  String get containerPolicyNextRun;
+
+  /// No description provided for @containerPolicyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String containerPolicyDays(int count);
+
+  /// No description provided for @containerPolicyMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month} other{{count} months}}'**
+  String containerPolicyMonths(int count);
+
+  /// No description provided for @containerPolicyEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get containerPolicyEnabled;
+
+  /// No description provided for @containerPolicyDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Disabled'**
+  String get containerPolicyDisabled;
+
+  /// No description provided for @containerPolicyNotReported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reported'**
+  String get containerPolicyNotReported;
+
+  /// No description provided for @containerPolicyCadence.
+  ///
+  /// In en, this message translates to:
+  /// **'Run interval'**
+  String get containerPolicyCadence;
+
+  /// No description provided for @containerCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create cleanup policy'**
+  String get containerCreateTitle;
+
+  /// No description provided for @containerCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm disabled policy creation'**
+  String get containerCreateSave;
+
+  /// No description provided for @containerCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Save cleanup criteria for all image repositories. Cleanup stays disabled unless you select activation. The default keep pattern .* preserves all tags by pattern; a blank keep pattern provides no pattern-based retention. Patterns are sent exactly as entered and use GitLab RE2 full-tag matching. Validation may be deferred while disabled. Acceptance does not confirm cleanup completion or reclaimed storage.'**
+  String get containerCreateWarning;
+
+  /// No description provided for @containerCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed these criteria and understand that this policy will stay disabled.'**
+  String get containerCreateAcknowledge;
+
+  /// No description provided for @containerCreateExisting.
+  ///
+  /// In en, this message translates to:
+  /// **'This project already has a cleanup policy. Creation will not replace it; use its existing settings.'**
+  String get containerCreateExisting;
+
+  /// No description provided for @containerCreateUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab did not report whether a policy exists. Review it in GitLab; creation is blocked.'**
+  String get containerCreateUnknown;
+
+  /// No description provided for @containerCreateAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy creation accepted.'**
+  String get containerCreateAccepted;
+
+  /// No description provided for @containerCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected these policy settings. Review the criteria, then edit or retry.'**
+  String get containerCreateInvalid;
+
+  /// No description provided for @containerCreateDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get containerCreateDaily;
+
+  /// No description provided for @containerCreateWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week'**
+  String get containerCreateWeekly;
+
+  /// No description provided for @containerCreateFortnightly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every two weeks'**
+  String get containerCreateFortnightly;
+
+  /// No description provided for @containerCreateMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every month'**
+  String get containerCreateMonthly;
+
+  /// No description provided for @containerCreateQuarterly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every three months'**
+  String get containerCreateQuarterly;
+
+  /// No description provided for @containerCreateDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, one{1 day} other{{days} days}}'**
+  String containerCreateDays(int days);
+
+  /// No description provided for @containerPolicyKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags to keep per image'**
+  String get containerPolicyKeepCount;
+
+  /// No description provided for @containerCreateEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup when creating'**
+  String get containerCreateEnable;
+
+  /// No description provided for @containerCreateEnabledWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'An enabled policy can permanently delete matching tags across all image repositories in this project on its schedule. Review cadence, retention count, age, and both patterns. GitLab controls protected or immutable tag exclusions; saving does not confirm deletion or reclaimed storage.'**
+  String get containerCreateEnabledWarning;
+
+  /// No description provided for @containerCreateEnabledAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed every criterion and accept scheduled, permanent deletion of matching tags across this project.'**
+  String get containerCreateEnabledAcknowledge;
+
+  /// No description provided for @containerCreateEnabledSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm enabled policy creation'**
+  String get containerCreateEnabledSave;
+
+  /// No description provided for @containerCreateSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it to review the current project before creating a policy.'**
+  String get containerCreateSessionChanged;
+
+  /// No description provided for @containerPolicyAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove tags older than'**
+  String get containerPolicyAge;
+
+  /// No description provided for @containerPolicyDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern'**
+  String get containerPolicyDeletePattern;
+
+  /// No description provided for @containerPolicyLegacyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (legacy)'**
+  String get containerPolicyLegacyPattern;
+
+  /// No description provided for @containerPolicyKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern'**
+  String get containerPolicyKeepPattern;
+
+  /// No description provided for @containerPolicyEmptyPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty pattern'**
+  String get containerPolicyEmptyPattern;
+
+  /// No description provided for @containerPolicyError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the cleanup policy.'**
+  String get containerPolicyError;
+
+  /// No description provided for @containerPolicyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view this project cleanup policy.'**
+  String get containerPolicyForbidden;
+
+  /// No description provided for @containerPolicyUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project is not accessible, or cleanup policy information is unavailable.'**
+  String get containerPolicyUnavailable;
+
+  /// No description provided for @containerPolicyEmptySetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty setting'**
+  String get containerPolicyEmptySetting;
+
+  /// No description provided for @containerActivationTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — all image repositories'**
+  String containerActivationTarget(String projectId);
+
+  /// No description provided for @containerActivationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the update. Reload the policy and try again.'**
+  String get containerActivationError;
+
+  /// No description provided for @containerActivationIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'To enable cleanup, cadence, retention count, age limit and delete pattern must be reported. Review the policy in GitLab.'**
+  String get containerActivationIncomplete;
+
+  /// No description provided for @containerActivationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change cleanup policy status'**
+  String get containerActivationTitle;
+
+  /// No description provided for @containerActivationEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable cleanup'**
+  String get containerActivationEnable;
+
+  /// No description provided for @containerActivationDisable.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable cleanup'**
+  String get containerActivationDisable;
+
+  /// No description provided for @containerActivationEnableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabling this project-wide policy can permanently remove matching tags on scheduled runs. The shown retention settings and patterns will not be changed. Tag removal does not reclaim image storage.'**
+  String get containerActivationEnableWarning;
+
+  /// No description provided for @containerActivationDisableWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable future scheduled cleanup for this project without changing retention settings or patterns. Do not assume cleanup jobs already running are cancelled.'**
+  String get containerActivationDisableWarning;
+
+  /// No description provided for @containerActivationUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'A known activation status is required. Review policy settings in GitLab.'**
+  String get containerActivationUnknown;
+
+  /// No description provided for @containerActivationInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this status change. Review the existing policy settings in GitLab.'**
+  String get containerActivationInvalid;
+
+  /// No description provided for @containerActivationAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup policy status update accepted.'**
+  String get containerActivationAccepted;
+
+  /// No description provided for @containerActivationForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this cleanup policy.'**
+  String get containerActivationForbidden;
+
+  /// No description provided for @containerActivationStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The policy changed or is no longer reported. Reload and review it before saving.'**
+  String get containerActivationStale;
+
+  /// No description provided for @containerActivationReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload policy'**
+  String get containerActivationReload;
+
+  /// No description provided for @containerActivationRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and reload the policy before trying again.'**
+  String get containerActivationRateLimited;
+
+  /// No description provided for @containerCadenceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup cadence'**
+  String get containerCadenceTitle;
+
+  /// No description provided for @containerCadenceSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm cadence change'**
+  String get containerCadenceSave;
+
+  /// No description provided for @containerCadenceSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New cadence (GitLab API interval)'**
+  String get containerCadenceSelect;
+
+  /// No description provided for @containerCadenceWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing this project-wide cadence affects future scheduled tag cleanup in all image repositories. Review activation and deletion/retention criteria below. This does not change those settings or confirm cleanup completion.'**
+  String get containerCadenceWarning;
+
+  /// No description provided for @containerCadenceUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerCadenceUnknown;
+
+  /// No description provided for @containerCadenceAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup cadence update accepted.'**
+  String get containerCadenceAccepted;
+
+  /// No description provided for @containerTagProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules'**
+  String get containerTagProtectionTitle;
+
+  /// No description provided for @containerTagProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tag protection rule'**
+  String get containerTagProtectionCreateTitle;
+
+  /// No description provided for @containerTagProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerTagProtectionCreateSave;
+
+  /// No description provided for @containerTagProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag name pattern'**
+  String get containerTagProtectionCreatePattern;
+
+  /// No description provided for @containerTagProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerTagProtectionCreatePush;
+
+  /// No description provided for @containerTagProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerTagProtectionCreateDelete;
+
+  /// No description provided for @containerTagProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a role'**
+  String get containerTagProtectionCreateUnset;
+
+  /// No description provided for @containerTagProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This project-wide rule restricts pushing and deleting tags matching the exact glob pattern. Wildcards can affect many tags and block existing release or cleanup workflows. Both roles are required. Other rules and permissions still apply; these values do not describe your access or delete images.'**
+  String get containerTagProtectionCreateWarning;
+
+  /// No description provided for @containerTagProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the exact tag pattern and both roles and understand the impact on matching tags.'**
+  String get containerTagProtectionCreateAcknowledge;
+
+  /// Project whose matching container tags will be protected
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerTagProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerTagProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerTagProtectionCreateForbidden;
+
+  /// No description provided for @containerTagProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag pattern or roles were rejected. Review both required roles and retry.'**
+  String get containerTagProtectionCreateInvalid;
+
+  /// No description provided for @containerTagProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm tag rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionCreateError;
+
+  /// No description provided for @containerTagProtectionCreateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'The tag rule was created.'**
+  String get containerTagProtectionCreateSaved;
+
+  /// No description provided for @containerTagProtectionCreateUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag rule creation requires GitLab 18.8 or later and an accessible project.'**
+  String get containerTagProtectionCreateUnavailable;
+
+  /// No description provided for @containerTagProtectionCreateRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionCreateRateLimited;
+
+  /// No description provided for @containerTagProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tag protection rules.'**
+  String get containerTagProtectionEmpty;
+
+  /// No description provided for @containerTagProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load tag protection rules.'**
+  String get containerTagProtectionError;
+
+  /// No description provided for @containerTagProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view tag protection rules.'**
+  String get containerTagProtectionForbidden;
+
+  /// No description provided for @containerTagProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerTagProtectionUnavailable;
+
+  /// No description provided for @containerTagProtectionPushRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerTagProtectionPushRole(String role);
+
+  /// No description provided for @containerTagProtectionPushRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum push role'**
+  String get containerTagProtectionPushRoleTitle;
+
+  /// No description provided for @containerTagProtectionPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push role'**
+  String get containerTagProtectionPushRoleSave;
+
+  /// No description provided for @containerTagProtectionPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum push role changes who can push matching container image tags across this project. A lower role weakens protection; a higher role can block existing workflows. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your current access.'**
+  String get containerTagProtectionPushRoleWarning;
+
+  /// No description provided for @containerTagProtectionPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum push role and understand the access changes.'**
+  String get containerTagProtectionPushRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPushRoleTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPushRoleForbidden;
+
+  /// No description provided for @containerTagProtectionPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPushRoleError;
+
+  /// No description provided for @containerTagProtectionPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPushRoleStale;
+
+  /// No description provided for @containerTagProtectionPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPushRoleReload;
+
+  /// No description provided for @containerTagProtectionPushRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role updated.'**
+  String get containerTagProtectionPushRoleSaved;
+
+  /// No description provided for @containerTagProtectionPushRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPushRoleMissing;
+
+  /// No description provided for @containerTagProtectionPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPushRoleRateLimited;
+
+  /// No description provided for @containerTagProtectionPushRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The push role was rejected. Choose a supported role and retry.'**
+  String get containerTagProtectionPushRoleInvalid;
+
+  /// No description provided for @containerTagProtectionPushRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum push role'**
+  String get containerTagProtectionPushRoleDraft;
+
+  /// No description provided for @containerTagProtectionPushRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a push role'**
+  String get containerTagProtectionPushRoleSelect;
+
+  /// No description provided for @containerTagProtectionPushRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerTagProtectionPushRoleUnknown;
+
+  /// No description provided for @containerTagProtectionDeleteRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerTagProtectionDeleteRole(String role);
+
+  /// No description provided for @containerTagProtectionDeleteRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum delete role'**
+  String get containerTagProtectionDeleteRoleTitle;
+
+  /// No description provided for @containerTagProtectionDeleteRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save delete role'**
+  String get containerTagProtectionDeleteRoleSave;
+
+  /// No description provided for @containerTagProtectionDeleteRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum delete role changes who can delete matching container image tags across this project. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The tag pattern and minimum push role stay unchanged. Other rules and permissions still apply. Saving this rule does not delete tags or images, affect Git tags, or describe your current access.'**
+  String get containerTagProtectionDeleteRoleWarning;
+
+  /// No description provided for @containerTagProtectionDeleteRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum delete role and understand the access changes.'**
+  String get containerTagProtectionDeleteRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionDeleteRoleTarget(
+    String projectId,
+    String ruleId,
+  );
+
+  /// No description provided for @containerTagProtectionDeleteRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionDeleteRoleForbidden;
+
+  /// No description provided for @containerTagProtectionDeleteRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionDeleteRoleError;
+
+  /// No description provided for @containerTagProtectionDeleteRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionDeleteRoleStale;
+
+  /// No description provided for @containerTagProtectionDeleteRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionDeleteRoleReload;
+
+  /// No description provided for @containerTagProtectionDeleteRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role updated.'**
+  String get containerTagProtectionDeleteRoleSaved;
+
+  /// No description provided for @containerTagProtectionDeleteRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionDeleteRoleMissing;
+
+  /// No description provided for @containerTagProtectionDeleteRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionDeleteRoleRateLimited;
+
+  /// No description provided for @containerTagProtectionDeleteRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The delete role was rejected. Choose a supported role and retry.'**
+  String get containerTagProtectionDeleteRoleInvalid;
+
+  /// No description provided for @containerTagProtectionDeleteRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum delete role'**
+  String get containerTagProtectionDeleteRoleDraft;
+
+  /// No description provided for @containerTagProtectionDeleteRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a delete role'**
+  String get containerTagProtectionDeleteRoleSelect;
+
+  /// No description provided for @containerTagProtectionDeleteRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerTagProtectionDeleteRoleUnknown;
+
+  /// No description provided for @containerTagProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerTagProtectionRoleUnset;
+
+  /// No description provided for @containerTagProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerTagProtectionRoleAdmin;
+
+  /// No description provided for @containerTagProtectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules for container image tags, not Git tags. Minimum roles do not confirm your current access. Listing requires GitLab 18.7 or later, creation requires 18.8 or later, and editing requires 18.9 or later.'**
+  String get containerTagProtectionHint;
+
+  /// No description provided for @containerTagProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit tag protection pattern'**
+  String get containerTagProtectionPatternTitle;
+
+  /// No description provided for @containerTagProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerTagProtectionPatternSave;
+
+  /// No description provided for @containerTagProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching container image tags and apply it to others across this project. Wildcards (*) can affect multiple tags. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete tags or images, affect Git tags, or describe your access.'**
+  String get containerTagProtectionPatternWarning;
+
+  /// No description provided for @containerTagProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerTagProtectionPatternAcknowledge;
+
+  /// No description provided for @containerTagProtectionPatternTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPatternForbidden;
+
+  /// No description provided for @containerTagProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPatternError;
+
+  /// No description provided for @containerTagProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPatternStale;
+
+  /// No description provided for @containerTagProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPatternReload;
+
+  /// No description provided for @containerTagProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection pattern updated.'**
+  String get containerTagProtectionPatternSaved;
+
+  /// No description provided for @containerTagProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPatternMissing;
+
+  /// No description provided for @containerTagProtectionRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag protection rule'**
+  String get containerTagProtectionRemoveTitle;
+
+  /// No description provided for @containerTagProtectionRemoveSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerTagProtectionRemoveSave;
+
+  /// No description provided for @containerTagProtectionRemoveWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its push and delete protection for matching container image tags across this project. Other rules and permissions still apply. It does not delete tags or images, and does not affect Git tags.'**
+  String get containerTagProtectionRemoveWarning;
+
+  /// No description provided for @containerTagProtectionRemoveAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand and want to delete this exact rule.'**
+  String get containerTagProtectionRemoveAcknowledge;
+
+  /// No description provided for @containerTagProtectionRemoveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionRemoveTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerTagProtectionRemoveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to delete this rule.'**
+  String get containerTagProtectionRemoveForbidden;
+
+  /// No description provided for @containerTagProtectionRemoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'The request failed and may have reached the server. Inspect the rule list before retrying.'**
+  String get containerTagProtectionRemoveError;
+
+  /// No description provided for @containerTagProtectionRemoveStale.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule changed or is ambiguous. Reload it and confirm again.'**
+  String get containerTagProtectionRemoveStale;
+
+  /// No description provided for @containerTagProtectionRemoveReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionRemoveReload;
+
+  /// No description provided for @containerTagProtectionRemoveSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag protection rule deleted.'**
+  String get containerTagProtectionRemoveSaved;
+
+  /// No description provided for @containerTagProtectionRemoveMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is missing, inaccessible, or unsupported. Deletion requires GitLab 18.9 or later. Reload before continuing.'**
+  String get containerTagProtectionRemoveMissing;
+
+  /// No description provided for @containerTagProtectionRemoveRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait before retrying.'**
+  String get containerTagProtectionRemoveRateLimited;
+
+  /// No description provided for @containerTagProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPatternRateLimited;
+
+  /// No description provided for @containerTagProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerTagProtectionPatternInvalid;
+
+  /// No description provided for @containerTagProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New container tag pattern'**
+  String get containerTagProtectionPatternDraft;
+
+  /// No description provided for @containerTagDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag'**
+  String get containerTagDelete;
+
+  /// No description provided for @containerTagDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete container tag?'**
+  String get containerTagDeleteConfirmTitle;
+
+  /// Confirmation identifying a registry tag and its image path
+  ///
+  /// In en, this message translates to:
+  /// **'Delete tag “{tagName}” at “{path}”? This cannot be undone.'**
+  String containerTagDeleteConfirmBody(String tagName, String path);
+
+  /// No description provided for @containerTagDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the tag, not the underlying image blobs. Deleting a tag does not reclaim disk space.'**
+  String get containerTagDeleteWarning;
+
+  /// No description provided for @containerCleanupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean up tags'**
+  String get containerCleanupTitle;
+
+  /// No description provided for @containerCleanupTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}, image repository {repositoryId}'**
+  String containerCleanupTarget(String projectId, String repositoryId);
+
+  /// No description provided for @containerCleanupWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching tags will be permanently removed. The latest tag and protected tags are excluded. A keep pattern overrides the delete pattern.'**
+  String get containerCleanupWarning;
+
+  /// No description provided for @containerCleanupLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup runs asynchronously, at most once per hour per repository, and may remove only some matching tags. Age and ordering use manifest creation time, not push time. Removing tags does not reclaim image storage.'**
+  String get containerCleanupLimits;
+
+  /// No description provided for @containerCleanupDeletePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pattern (RE2, required)'**
+  String get containerCleanupDeletePattern;
+
+  /// No description provided for @containerCleanupKeepPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern (RE2, optional)'**
+  String get containerCleanupKeepPattern;
+
+  /// No description provided for @containerCleanupKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep newest matching tags (optional)'**
+  String get containerCleanupKeepCount;
+
+  /// No description provided for @containerCleanupAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Only remove tags older than'**
+  String get containerCleanupAge;
+
+  /// No description provided for @containerCleanupNoAge.
+  ///
+  /// In en, this message translates to:
+  /// **'No age limit'**
+  String get containerCleanupNoAge;
+
+  /// No description provided for @containerCleanupDay.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day'**
+  String get containerCleanupDay;
+
+  /// No description provided for @containerCleanupWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'7 days'**
+  String get containerCleanupWeek;
+
+  /// No description provided for @containerCleanupMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'1 month'**
+  String get containerCleanupMonth;
+
+  /// No description provided for @containerCleanupRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an explicit delete pattern.'**
+  String get containerCleanupRequired;
+
+  /// No description provided for @containerCleanupCountError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a non-negative whole number or leave blank.'**
+  String get containerCleanupCountError;
+
+  /// No description provided for @containerCleanupSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule cleanup'**
+  String get containerCleanupSchedule;
+
+  /// No description provided for @containerCleanupScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup scheduled. Tags may remain until processing completes; refresh later to check progress.'**
+  String get containerCleanupScheduled;
+
+  /// No description provided for @containerCleanupError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule cleanup. Check your connection and try again.'**
+  String get containerCleanupError;
+
+  /// No description provided for @containerCleanupForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to clean up tags in this repository.'**
+  String get containerCleanupForbidden;
+
+  /// No description provided for @containerCleanupRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup is rate limited. A repository can be cleaned up at most once per hour. Try again later.'**
+  String get containerCleanupRateLimited;
+
+  /// No description provided for @containerCleanupInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected the cleanup criteria. Check the RE2 patterns and retention settings.'**
+  String get containerCleanupInvalid;
+
+  /// No description provided for @containerTagDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this tag. It may be protected or you may not have permission.'**
+  String get containerTagDeleteForbidden;
+
+  /// No description provided for @containerTagDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this tag. Try again.'**
+  String get containerTagDeleteError;
+
+  /// No description provided for @containerImmutabilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tag rules'**
+  String get containerImmutabilityTitle;
+
+  /// No description provided for @containerImmutabilityEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No immutable tag rules.'**
+  String get containerImmutabilityEmpty;
+
+  /// No description provided for @containerImmutabilityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load immutable tag rules. Check instance support and retry.'**
+  String get containerImmutabilityError;
+
+  /// No description provided for @containerImmutabilityForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view immutable tag rules.'**
+  String get containerImmutabilityForbidden;
+
+  /// No description provided for @containerImmutabilityUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The project or rule connection is unavailable. Check access, subscription, and instance support.'**
+  String get containerImmutabilityUnavailable;
+
+  /// No description provided for @containerImmutabilityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable tags require Ultimate and a supported registry. These patterns apply across the project\'s container repositories and prevent matching tags from being overwritten or deleted, including by cleanup policies. Listing rules does not confirm an individual tag\'s current protection. Changes may take time to propagate.'**
+  String get containerImmutabilityHint;
+
+  /// No description provided for @containerImmutabilityCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create immutable rule'**
+  String get containerImmutabilityCreateTitle;
+
+  /// No description provided for @containerImmutabilityCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerImmutabilityCreateButton;
+
+  /// No description provided for @containerImmutabilityCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable rule created.'**
+  String get containerImmutabilityCreated;
+
+  /// No description provided for @containerImmutabilityPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag pattern'**
+  String get containerImmutabilityPattern;
+
+  /// No description provided for @containerImmutabilityPatternHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an RE2 pattern, up to 100 characters. Spaces are preserved; GitLab validates the syntax.'**
+  String get containerImmutabilityPatternHint;
+
+  /// No description provided for @containerImmutabilityProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerImmutabilityProject(String projectId);
+
+  /// No description provided for @containerImmutabilityImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'This requires Owner access, Ultimate, and a supported registry. The pattern affects every container repository in this project. Matching tags cannot be overwritten or deleted, including by cleanup policies. Direct manifest deletion is blocked while any immutable rule exists. Rules cannot be edited; changes may take time to propagate.'**
+  String get containerImmutabilityImpact;
+
+  /// No description provided for @containerImmutabilityAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide protection and workflow impact.'**
+  String get containerImmutabilityAcknowledge;
+
+  /// No description provided for @containerImmutabilityUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Creation was not confirmed. Check current rules before trying again; the request may already have succeeded.'**
+  String get containerImmutabilityUncertain;
+
+  /// No description provided for @containerImmutabilityInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check current rules'**
+  String get containerImmutabilityInspect;
+
+  /// No description provided for @containerImmutabilityRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected the request, or an immutable rule already uses this pattern. Check current rules and review the pattern and project limits.'**
+  String get containerImmutabilityRejected;
+
+  /// No description provided for @containerImmutabilityAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before creating a rule.'**
+  String get containerImmutabilityAuth;
+
+  /// No description provided for @containerImmutabilityAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it for the selected account.'**
+  String get containerImmutabilityAccountChanged;
+
+  /// No description provided for @containerImmutabilityDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete immutable rule'**
+  String get containerImmutabilityDeleteTitle;
+
+  /// No description provided for @containerImmutabilityDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete rule'**
+  String get containerImmutabilityDeleteButton;
+
+  /// No description provided for @containerImmutabilityDeleteDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable rule deleted.'**
+  String get containerImmutabilityDeleteDone;
+
+  /// No description provided for @containerImmutabilityDeleteProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerImmutabilityDeleteProject(String projectId);
+
+  /// No description provided for @containerImmutabilityDeleteRuleId.
+  ///
+  /// In en, this message translates to:
+  /// **'Rule ID'**
+  String get containerImmutabilityDeleteRuleId;
+
+  /// No description provided for @containerImmutabilityDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact pattern'**
+  String get containerImmutabilityDeleteConfirm;
+
+  /// No description provided for @containerImmutabilityDeleteImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting this rule removes its protection across every container repository in this project. Matching tags may become overwritable or deletable, including by cleanup policies. Removing the last immutable rule may allow direct manifest deletion. Other rules and permissions can still apply. This does not delete images or tags. Owner access is required, and changes may take time to propagate.'**
+  String get containerImmutabilityDeleteImpact;
+
+  /// No description provided for @containerImmutabilityDeleteAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the project-wide protection loss.'**
+  String get containerImmutabilityDeleteAcknowledge;
+
+  /// No description provided for @containerImmutabilityDeleteUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion was not confirmed. The request may already have succeeded. Reload the rule before trying again.'**
+  String get containerImmutabilityDeleteUncertain;
+
+  /// No description provided for @containerImmutabilityDeleteReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerImmutabilityDeleteReload;
+
+  /// No description provided for @containerImmutabilityDeleteRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed or GitLab rejected the request. Reload and confirm the current rule before trying again.'**
+  String get containerImmutabilityDeleteRejected;
+
+  /// No description provided for @containerImmutabilityDeleteAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your session was rejected. Sign in again before deleting a rule.'**
+  String get containerImmutabilityDeleteAuth;
+
+  /// No description provided for @containerImmutabilityDeleteAccountChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and reopen it for the selected account.'**
+  String get containerImmutabilityDeleteAccountChanged;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionPushClearTarget(String projectId, String ruleId);
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerTagProtectionDeleteClearTarget(
+    String projectId,
+    String ruleId,
+  );
+
+  /// No description provided for @containerTagProtectionDeleteClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionDeleteClearForbidden;
+
+  /// No description provided for @containerTagProtectionDeleteClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionDeleteClearStale;
+
+  /// No description provided for @containerTagProtectionDeleteClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionDeleteClearReload;
+
+  /// No description provided for @containerTagProtectionDeleteClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible, or this instance does not support updates (GitLab 18.9+). Reload before confirming.'**
+  String get containerTagProtectionDeleteClearMissing;
+
+  /// No description provided for @containerTagProtectionDeleteClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionDeleteClearRateLimited;
+
+  /// No description provided for @containerTagProtectionDeleteClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum delete role'**
+  String get containerTagProtectionDeleteClearTitle;
+
+  /// No description provided for @containerTagProtectionDeleteClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear delete restriction'**
+  String get containerTagProtectionDeleteClearSave;
+
+  /// No description provided for @containerTagProtectionDeleteClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum delete-role restriction for matching container tags throughout the project and weakens deletion protection. The tag glob and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete tags or images.'**
+  String get containerTagProtectionDeleteClearWarning;
+
+  /// No description provided for @containerTagProtectionDeleteClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
+  String get containerTagProtectionDeleteClearAcknowledge;
+
+  /// No description provided for @containerTagProtectionDeleteClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionDeleteClearError;
+
+  /// No description provided for @containerTagProtectionDeleteClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete-role restriction cleared.'**
+  String get containerTagProtectionDeleteClearSaved;
+
+  /// No description provided for @containerTagProtectionDeleteClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
+  String get containerTagProtectionDeleteClearInvalid;
+
+  /// No description provided for @containerTagProtectionDeleteClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerTagProtectionDeleteClearBlocked;
+
+  /// No description provided for @containerTagProtectionPushClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerTagProtectionPushClearForbidden;
+
+  /// No description provided for @containerTagProtectionPushClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerTagProtectionPushClearStale;
+
+  /// No description provided for @containerTagProtectionPushClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerTagProtectionPushClearReload;
+
+  /// No description provided for @containerTagProtectionPushClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, inaccessible, or unsupported. Editing requires GitLab 18.9 or later. Reload before confirming.'**
+  String get containerTagProtectionPushClearMissing;
+
+  /// No description provided for @containerTagProtectionPushClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerTagProtectionPushClearRateLimited;
+
+  /// No description provided for @containerTagProtectionPushClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum push role'**
+  String get containerTagProtectionPushClearTitle;
+
+  /// No description provided for @containerTagProtectionPushClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear push restriction'**
+  String get containerTagProtectionPushClearSave;
+
+  /// No description provided for @containerTagProtectionPushClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum push-role restriction for matching container image tags across the project and weakens push protection. The tag pattern and minimum delete role stay unchanged. Other rules and permissions still apply. This does not grant everyone access, delete tags or images, or affect Git tags.'**
+  String get containerTagProtectionPushClearWarning;
+
+  /// No description provided for @containerTagProtectionPushClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this push restriction.'**
+  String get containerTagProtectionPushClearAcknowledge;
+
+  /// No description provided for @containerTagProtectionPushClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerTagProtectionPushClearError;
+
+  /// No description provided for @containerTagProtectionPushClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push-role restriction cleared.'**
+  String get containerTagProtectionPushClearSaved;
+
+  /// No description provided for @containerTagProtectionPushClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this push restriction. Check the rule and retry.'**
+  String get containerTagProtectionPushClearInvalid;
+
+  /// No description provided for @containerTagProtectionPushClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerTagProtectionPushClearBlocked;
+
+  /// No description provided for @packageFileDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete file'**
+  String get packageFileDelete;
+
+  /// No description provided for @packageFileDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete package file?'**
+  String get packageFileDeleteConfirmTitle;
+
+  /// Confirmation identifying the file and its package
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{fileName}” from “{packageName}”? This cannot be undone.'**
+  String packageFileDeleteConfirmBody(String fileName, String packageName);
+
+  /// No description provided for @packageFileDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting a file may corrupt this package, making it unusable or unavailable to your package manager.'**
+  String get packageFileDeleteWarning;
+
+  /// No description provided for @packageFileDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this file. The package may be protected or you may not have permission.'**
+  String get packageFileDeleteForbidden;
+
+  /// No description provided for @packageFileDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not delete this file. Try again.'**
+  String get packageFileDeleteError;
+
+  /// No description provided for @containerRepositoryDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete repository'**
+  String get containerRepositoryDelete;
+
+  /// No description provided for @containerRepositoryDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete image repository?'**
+  String get containerRepositoryDeleteConfirmTitle;
+
+  /// Confirmation identifying the complete image repository
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{path}” and all its tags? This cannot be undone.'**
+  String containerRepositoryDeleteConfirmBody(String path);
+
+  /// No description provided for @containerRepositoryDeleteWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removal is scheduled asynchronously and may take time. Refresh the registry to check progress.'**
+  String get containerRepositoryDeleteWarning;
+
+  /// No description provided for @containerRepositoryDeleteForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot delete this repository. Check your permissions and protection rules.'**
+  String get containerRepositoryDeleteForbidden;
+
+  /// No description provided for @containerRepositoryDeleteError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not schedule repository deletion. Try again.'**
+  String get containerRepositoryDeleteError;
+
+  /// No description provided for @containerRepositoryDeletionScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion scheduled'**
+  String get containerRepositoryDeletionScheduled;
+
+  /// No description provided for @containerRepositoryDeletionNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository deletion has been scheduled. Refresh to check progress.'**
+  String get containerRepositoryDeletionNotice;
+
+  /// No description provided for @containerKeepCountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup retention count'**
+  String get containerKeepCountTitle;
+
+  /// No description provided for @containerKeepCountSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm retention change'**
+  String get containerKeepCountSave;
+
+  /// No description provided for @containerKeepCountSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New matching tags to keep per image'**
+  String get containerKeepCountSelect;
+
+  /// No description provided for @containerKeepCountWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowering this project-wide retention count can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerKeepCountWarning;
+
+  /// No description provided for @containerKeepCountUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerKeepCountUnknown;
+
+  /// No description provided for @containerKeepCountAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup retention count update accepted.'**
+  String get containerKeepCountAccepted;
+
+  /// No description provided for @protectedBranchUnprotectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unprotect branch rule'**
+  String get protectedBranchUnprotectTitle;
+
+  /// No description provided for @protectedBranchUnprotectTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {project}: {name}'**
+  String protectedBranchUnprotectTarget(String project, String name);
+
+  /// No description provided for @protectedBranchUnprotectWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule may allow pushes or merges and change CI behavior. A wildcard rule can affect multiple branches.'**
+  String get protectedBranchUnprotectWarning;
+
+  /// No description provided for @protectedBranchUnprotectName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the exact rule name'**
+  String get protectedBranchUnprotectName;
+
+  /// No description provided for @protectedBranchUnprotectAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand the effect on matching branches.'**
+  String get protectedBranchUnprotectAcknowledge;
+
+  /// No description provided for @protectedBranchUnprotectReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Check rule again'**
+  String get protectedBranchUnprotectReload;
+
+  /// No description provided for @protectedBranchUnprotectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch rule removed.'**
+  String get protectedBranchUnprotectSuccess;
+
+  /// No description provided for @protectedBranchUnprotectAuth.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in again before changing this rule.'**
+  String get protectedBranchUnprotectAuth;
+
+  /// No description provided for @protectedBranchUnprotectForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to remove this rule.'**
+  String get protectedBranchUnprotectForbidden;
+
+  /// No description provided for @protectedBranchUnprotectUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule is no longer available. Check the list before continuing.'**
+  String get protectedBranchUnprotectUnavailable;
+
+  /// No description provided for @protectedBranchUnprotectStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed. Check it again before continuing.'**
+  String get protectedBranchUnprotectStale;
+
+  /// No description provided for @protectedBranchUnprotectRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab is limiting requests. Check the rule before trying again.'**
+  String get protectedBranchUnprotectRateLimited;
+
+  /// No description provided for @protectedBranchUnprotectError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm whether the rule was removed. Check it before trying again.'**
+  String get protectedBranchUnprotectError;
+
+  /// No description provided for @protectedBranchUnprotectSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account changed. Close this dialog and open the rule again.'**
+  String get protectedBranchUnprotectSessionChanged;
+
+  /// No description provided for @containerKeepPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup keep pattern'**
+  String get containerKeepPatternTitle;
+
+  /// No description provided for @containerKeepPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm keep pattern change'**
+  String get containerKeepPatternSave;
+
+  /// No description provided for @containerKeepPatternSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New keep pattern (GitLab RE2)'**
+  String get containerKeepPatternSelect;
+
+  /// No description provided for @containerKeepPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Narrowing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. Review the current activation and deletion/retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Exact input is sent to GitLab for validation. Other settings are unchanged; acceptance does not confirm cleanup completion. Blank input does not clear the pattern.'**
+  String get containerKeepPatternWarning;
+
+  /// No description provided for @containerKeepPatternUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, count, age, effective delete pattern and keep pattern are required. A reported empty keep pattern can be replaced; an unreported value cannot. Review missing settings in GitLab. No policy will be created.'**
+  String get containerKeepPatternUnknown;
+
+  /// No description provided for @containerKeepPatternAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup keep pattern update accepted.'**
+  String get containerKeepPatternAccepted;
+
+  /// No description provided for @containerKeepPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this keep pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
+  String get containerKeepPatternInvalid;
+
+  /// No description provided for @containerProtectionPatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit repository protection pattern'**
+  String get containerProtectionPatternTitle;
+
+  /// No description provided for @containerProtectionPatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pattern'**
+  String get containerProtectionPatternSave;
+
+  /// No description provided for @containerProtectionPatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the pattern can remove protection from previously matching repositories and apply it to others. Wildcards (*) can affect multiple repositories. Both minimum roles remain unchanged; other rules and permissions still apply. This does not delete images or describe your access.'**
+  String get containerProtectionPatternWarning;
+
+  /// No description provided for @containerProtectionPatternAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the current rule and new pattern and understand the protection changes.'**
+  String get containerProtectionPatternAcknowledge;
+
+  /// Exact project and repository protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPatternTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPatternForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPatternForbidden;
+
+  /// No description provided for @containerProtectionPatternError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the pattern update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPatternError;
+
+  /// No description provided for @containerProtectionPatternStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPatternStale;
+
+  /// No description provided for @containerProtectionPatternReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPatternReload;
+
+  /// No description provided for @containerProtectionPatternSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection pattern updated.'**
+  String get containerProtectionPatternSaved;
+
+  /// No description provided for @containerProtectionPatternMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPatternMissing;
+
+  /// No description provided for @containerProtectionPatternRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPatternRateLimited;
+
+  /// No description provided for @containerProtectionPatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern was rejected or is already taken. Edit the draft and retry.'**
+  String get containerProtectionPatternInvalid;
+
+  /// No description provided for @containerProtectionPatternDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New repository path pattern'**
+  String get containerProtectionPatternDraft;
+
+  /// No description provided for @containerRepositoryProtectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules'**
+  String get containerRepositoryProtectionTitle;
+
+  /// No description provided for @containerProtectionRemoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete repository protection rule'**
+  String get containerProtectionRemoveTitle;
+
+  /// No description provided for @containerProtectionRemoveSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm rule deletion'**
+  String get containerProtectionRemoveSave;
+
+  /// No description provided for @containerProtectionRemoveWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this rule can reduce push or delete restrictions for repositories matching this path pattern. Other rules and permissions still apply. This deletes only the protection rule, not repositories, tags, or images. Review the exact target and minimum roles; these roles do not describe your permissions.'**
+  String get containerProtectionRemoveWarning;
+
+  /// No description provided for @containerProtectionRemoveAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that this rule\'s protection restrictions will be removed.'**
+  String get containerProtectionRemoveAcknowledge;
+
+  /// No description provided for @containerProtectionRemoveTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionRemoveTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionRemoveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to delete this repository protection rule.'**
+  String get containerProtectionRemoveForbidden;
+
+  /// No description provided for @containerProtectionRemoveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm rule deletion. Reload or retry.'**
+  String get containerProtectionRemoveError;
+
+  /// No description provided for @containerProtectionRemoveStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before deleting.'**
+  String get containerProtectionRemoveStale;
+
+  /// No description provided for @containerProtectionRemoveReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionRemoveReload;
+
+  /// No description provided for @containerProtectionRemoveDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rule deleted.'**
+  String get containerProtectionRemoveDeleted;
+
+  /// No description provided for @containerProtectionRemoveMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was not found, is ambiguous, or is not accessible. Reload before confirming.'**
+  String get containerProtectionRemoveMissing;
+
+  /// No description provided for @containerProtectionRemoveRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionRemoveRateLimited;
+
+  /// No description provided for @containerRepositoryProtectionEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository protection rules.'**
+  String get containerRepositoryProtectionEmpty;
+
+  /// No description provided for @containerProtectionCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create repository protection rule'**
+  String get containerProtectionCreateTitle;
+
+  /// No description provided for @containerProtectionCreateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Create rule'**
+  String get containerProtectionCreateSave;
+
+  /// No description provided for @containerProtectionCreatePattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository path pattern'**
+  String get containerProtectionCreatePattern;
+
+  /// Project identifier for repository protection creation
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId}'**
+  String containerProtectionCreateProject(String projectId);
+
+  /// No description provided for @containerProtectionCreateWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This rule restricts selected push and delete operations for repositories matching the exact pattern. A wildcard (*) can affect multiple repositories. An unselected role adds no restriction for that operation from this rule. Other rules and permissions still apply; these settings do not describe your access or delete images.'**
+  String get containerProtectionCreateWarning;
+
+  /// No description provided for @containerProtectionCreateAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the pattern and minimum roles and understand their impact.'**
+  String get containerProtectionCreateAcknowledge;
+
+  /// No description provided for @containerProtectionCreateUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'No restriction from this rule'**
+  String get containerProtectionCreateUnset;
+
+  /// No description provided for @containerProtectionCreateCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was created.'**
+  String get containerProtectionCreateCreated;
+
+  /// No description provided for @containerProtectionCreateForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this rule.'**
+  String get containerProtectionCreateForbidden;
+
+  /// No description provided for @containerProtectionCreateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The pattern or roles were rejected, or the pattern is already taken. Edit the draft and retry.'**
+  String get containerProtectionCreateInvalid;
+
+  /// No description provided for @containerProtectionCreateError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm rule creation. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionCreateError;
+
+  /// No description provided for @containerProtectionCreatePush.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role'**
+  String get containerProtectionCreatePush;
+
+  /// No description provided for @containerProtectionCreateDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role'**
+  String get containerProtectionCreateDelete;
+
+  /// No description provided for @containerRepositoryProtectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load repository protection rules.'**
+  String get containerRepositoryProtectionError;
+
+  /// No description provided for @containerRepositoryProtectionForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to view repository protection rules.'**
+  String get containerRepositoryProtectionForbidden;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionDeleteClearTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionDeleteClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionDeleteClearForbidden;
+
+  /// No description provided for @containerProtectionDeleteClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionDeleteClearStale;
+
+  /// No description provided for @containerProtectionDeleteClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionDeleteClearReload;
+
+  /// No description provided for @containerProtectionDeleteClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionDeleteClearMissing;
+
+  /// No description provided for @containerProtectionDeleteClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionDeleteClearRateLimited;
+
+  /// No description provided for @containerProtectionDeleteRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum delete role'**
+  String get containerProtectionDeleteRoleTitle;
+
+  /// No description provided for @containerProtectionDeleteRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save delete role'**
+  String get containerProtectionDeleteRoleSave;
+
+  /// No description provided for @containerProtectionDeleteRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum delete role changes who can delete images in matching repositories. A lower role weakens deletion protection; a higher role can block existing cleanup workflows. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; these values do not describe your access. Saving this rule does not delete images.'**
+  String get containerProtectionDeleteRoleWarning;
+
+  /// No description provided for @containerProtectionDeleteRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum delete role and understand the access changes.'**
+  String get containerProtectionDeleteRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionDeleteRoleTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionDeleteRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionDeleteRoleForbidden;
+
+  /// No description provided for @containerProtectionDeleteRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the delete role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionDeleteRoleError;
+
+  /// No description provided for @containerProtectionDeleteRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionDeleteRoleStale;
+
+  /// No description provided for @containerProtectionDeleteRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionDeleteRoleReload;
+
+  /// No description provided for @containerProtectionDeleteRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role updated.'**
+  String get containerProtectionDeleteRoleSaved;
+
+  /// No description provided for @containerProtectionDeleteRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionDeleteRoleMissing;
+
+  /// No description provided for @containerProtectionDeleteRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionDeleteRoleRateLimited;
+
+  /// No description provided for @containerProtectionDeleteRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The delete role was rejected. Choose a supported role and retry.'**
+  String get containerProtectionDeleteRoleInvalid;
+
+  /// No description provided for @containerProtectionDeleteRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum delete role'**
+  String get containerProtectionDeleteRoleDraft;
+
+  /// No description provided for @containerProtectionDeleteRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a delete role'**
+  String get containerProtectionDeleteRoleSelect;
+
+  /// No description provided for @containerProtectionDeleteRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current delete role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerProtectionDeleteRoleUnknown;
+
+  /// No description provided for @containerProtectionDeleteClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum delete role'**
+  String get containerProtectionDeleteClearTitle;
+
+  /// No description provided for @containerProtectionDeleteClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear delete restriction'**
+  String get containerProtectionDeleteClearSave;
+
+  /// No description provided for @containerProtectionDeleteClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum delete-role restriction for matching repositories and weakens deletion protection. The path pattern and minimum push role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.'**
+  String get containerProtectionDeleteClearWarning;
+
+  /// No description provided for @containerProtectionDeleteClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this delete restriction.'**
+  String get containerProtectionDeleteClearAcknowledge;
+
+  /// No description provided for @containerProtectionDeleteClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the delete restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionDeleteClearError;
+
+  /// No description provided for @containerProtectionDeleteClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete-role restriction cleared.'**
+  String get containerProtectionDeleteClearSaved;
+
+  /// No description provided for @containerProtectionDeleteClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this delete restriction. Check the rule and retry.'**
+  String get containerProtectionDeleteClearInvalid;
+
+  /// No description provided for @containerProtectionDeleteClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current delete role and a supported nonempty push role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerProtectionDeleteClearBlocked;
+
+  /// No description provided for @containerRepositoryProtectionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository protection rules are unavailable on this instance, or the project is not accessible.'**
+  String get containerRepositoryProtectionUnavailable;
+
+  /// Minimum push role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role: {role}'**
+  String containerRepositoryProtectionPushRole(String role);
+
+  /// Minimum delete role in a repository protection rule
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum delete role: {role}'**
+  String containerRepositoryProtectionDeleteRole(String role);
+
+  /// No description provided for @containerRepositoryProtectionRoleUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not specified by rule'**
+  String get containerRepositoryProtectionRoleUnset;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPushClearTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPushClearForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPushClearForbidden;
+
+  /// No description provided for @containerProtectionPushClearStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPushClearStale;
+
+  /// No description provided for @containerProtectionPushClearReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPushClearReload;
+
+  /// No description provided for @containerProtectionPushClearMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPushClearMissing;
+
+  /// No description provided for @containerProtectionPushClearRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPushClearRateLimited;
+
+  /// No description provided for @containerProtectionPushRoleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit minimum push role'**
+  String get containerProtectionPushRoleTitle;
+
+  /// No description provided for @containerProtectionPushRoleSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save push role'**
+  String get containerProtectionPushRoleSave;
+
+  /// No description provided for @containerProtectionPushRoleWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the minimum push role changes who can push to matching repositories. A lower role weakens protection; a higher role can block existing workflows. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; these values do not describe your access or delete images.'**
+  String get containerProtectionPushRoleWarning;
+
+  /// No description provided for @containerProtectionPushRoleAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and new minimum push role and understand the access changes.'**
+  String get containerProtectionPushRoleAcknowledge;
+
+  /// Exact project and protection rule identifiers
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} — rule {ruleId}'**
+  String containerProtectionPushRoleTarget(String projectId, String ruleId);
+
+  /// No description provided for @containerProtectionPushRoleForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to change this rule.'**
+  String get containerProtectionPushRoleForbidden;
+
+  /// No description provided for @containerProtectionPushRoleError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the push role update. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPushRoleError;
+
+  /// No description provided for @containerProtectionPushRoleStale.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule changed since confirmation. Reload and review it before saving.'**
+  String get containerProtectionPushRoleStale;
+
+  /// No description provided for @containerProtectionPushRoleReload.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload rule'**
+  String get containerProtectionPushRoleReload;
+
+  /// No description provided for @containerProtectionPushRoleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push role updated.'**
+  String get containerProtectionPushRoleSaved;
+
+  /// No description provided for @containerProtectionPushRoleMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule is missing, ambiguous, or inaccessible. Reload before confirming.'**
+  String get containerProtectionPushRoleMissing;
+
+  /// No description provided for @containerProtectionPushRoleRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Wait and retry.'**
+  String get containerProtectionPushRoleRateLimited;
+
+  /// No description provided for @containerProtectionPushRoleInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The push role was rejected. Choose a supported role and retry.'**
+  String get containerProtectionPushRoleInvalid;
+
+  /// No description provided for @containerProtectionPushRoleDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'New minimum push role'**
+  String get containerProtectionPushRoleDraft;
+
+  /// No description provided for @containerProtectionPushRoleSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a push role'**
+  String get containerProtectionPushRoleSelect;
+
+  /// No description provided for @containerProtectionPushRoleUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The current push role is unknown. Editing is blocked to avoid replacing unsupported settings.'**
+  String get containerProtectionPushRoleUnknown;
+
+  /// No description provided for @containerProtectionPushClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear minimum push role'**
+  String get containerProtectionPushClearTitle;
+
+  /// No description provided for @containerProtectionPushClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear push restriction'**
+  String get containerProtectionPushClearSave;
+
+  /// No description provided for @containerProtectionPushClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes this rule\'s minimum push-role restriction for matching repositories and weakens push protection. The path pattern and minimum delete role stay unchanged. Other rules and permissions still apply; this does not grant everyone access or delete images.'**
+  String get containerProtectionPushClearWarning;
+
+  /// No description provided for @containerProtectionPushClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I have reviewed the rule and understand the loss of this push restriction.'**
+  String get containerProtectionPushClearAcknowledge;
+
+  /// No description provided for @containerProtectionPushClearError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm that the push restriction was cleared. Check the rule list before retrying; the server may have accepted the request.'**
+  String get containerProtectionPushClearError;
+
+  /// No description provided for @containerProtectionPushClearSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum push-role restriction cleared.'**
+  String get containerProtectionPushClearSaved;
+
+  /// No description provided for @containerProtectionPushClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'The server rejected clearing this push restriction. Check the rule and retry.'**
+  String get containerProtectionPushClearInvalid;
+
+  /// No description provided for @containerProtectionPushClearBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Clearing requires a supported current push role and a supported nonempty delete role. Already-unset or unknown settings cannot be cleared.'**
+  String get containerProtectionPushClearBlocked;
+
+  /// No description provided for @containerRepositoryProtectionRoleAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Administrator'**
+  String get containerRepositoryProtectionRoleAdmin;
+
+  /// No description provided for @containerAgeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup age limit'**
+  String get containerAgeTitle;
+
+  /// No description provided for @containerAgeSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm age limit change'**
+  String get containerAgeSave;
+
+  /// No description provided for @containerAgeSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New age limit (GitLab API duration)'**
+  String get containerAgeSelect;
+
+  /// No description provided for @containerAgeWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortening this project-wide age limit can permanently remove newer matching tags from every image repository on scheduled cleanup runs. Review the current activation and deletion criteria below. Other settings are unchanged; this does not confirm cleanup completion.'**
+  String get containerAgeWarning;
+
+  /// No description provided for @containerAgeUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerAgeUnknown;
+
+  /// No description provided for @containerAgeAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup age limit update accepted.'**
+  String get containerAgeAccepted;
+
+  /// No description provided for @containerDeletePatternTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cleanup delete pattern'**
+  String get containerDeletePatternTitle;
+
+  /// No description provided for @containerDeletePatternSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm delete pattern change'**
+  String get containerDeletePatternSave;
+
+  /// No description provided for @containerDeletePatternSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'New delete pattern (GitLab RE2)'**
+  String get containerDeletePatternSelect;
+
+  /// No description provided for @containerDeletePatternWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Broadening this project-wide delete pattern can permanently remove more matching tags from every image repository on scheduled cleanup runs. Review the current activation and retention criteria below. GitLab uses RE2 and automatically anchors patterns to the full tag name. Input is sent exactly as entered; GitLab validates it. Other settings are unchanged; acceptance does not confirm cleanup completion.'**
+  String get containerDeletePatternWarning;
+
+  /// No description provided for @containerDeletePatternUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, retention count, age limit and effective delete pattern are required. Review missing settings in GitLab. No policy will be created.'**
+  String get containerDeletePatternUnknown;
+
+  /// No description provided for @containerDeletePatternAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup delete pattern update accepted.'**
+  String get containerDeletePatternAccepted;
+
+  /// No description provided for @containerDeletePatternInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected this pattern. Review its RE2 syntax and the existing policy, then edit or retry.'**
+  String get containerDeletePatternInvalid;
+
+  /// No description provided for @containerKeepPatternClearTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear cleanup keep pattern'**
+  String get containerKeepPatternClearTitle;
+
+  /// No description provided for @containerKeepPatternClearSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm keep pattern removal'**
+  String get containerKeepPatternClearSave;
+
+  /// No description provided for @containerKeepPatternClearWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Removing this project-wide keep pattern can expose previously preserved tags to permanent deletion in every image repository on scheduled cleanup runs. The latest tag and other retention/protection rules still apply; this does not delete tags immediately. Review the current criteria below. Only an empty keep-pattern string is sent. Other policy fields are unchanged, but GitLab may reschedule the next run. Acceptance does not confirm cleanup completion or storage reclamation.'**
+  String get containerKeepPatternClearWarning;
+
+  /// No description provided for @containerKeepPatternClearAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand that previously preserved tags may become eligible for permanent deletion.'**
+  String get containerKeepPatternClearAcknowledge;
+
+  /// No description provided for @containerKeepPatternClearUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Reported activation, cadence, count, age, effective delete pattern and a nonempty keep pattern are required. An empty or unreported keep pattern cannot be cleared here. No policy will be created.'**
+  String get containerKeepPatternClearUnknown;
+
+  /// No description provided for @containerKeepPatternClearAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep pattern removal accepted.'**
+  String get containerKeepPatternClearAccepted;
+
+  /// No description provided for @containerKeepPatternClearInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab rejected keep pattern removal. Review the existing policy and retry or reload it.'**
+  String get containerKeepPatternClearInvalid;
+
+  /// Pipeline filter button when no branch or tag is selected
+  ///
+  /// In en, this message translates to:
+  /// **'All refs'**
+  String get pipelinesRefAll;
+
+  /// Branch or tag filter dialog title and input label
+  ///
+  /// In en, this message translates to:
+  /// **'Branch or tag'**
+  String get pipelinesRefTitle;
+
+  /// Pipeline filter button showing the selected branch or tag
+  ///
+  /// In en, this message translates to:
+  /// **'Ref: {ref}'**
+  String pipelinesRefSelected(String ref);
+
+  /// Apply the pipeline branch or tag filter
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get pipelinesRefApply;
+
+  /// Remove the pipeline branch or tag filter
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get pipelinesRefClear;
+
+  /// Exact-match branch or tag filter input hint
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an exact branch or tag name.'**
+  String get pipelinesRefHint;
+
+  /// Project pipeline source filter option: All top-level sources
+  ///
+  /// In en, this message translates to:
+  /// **'All top-level sources'**
+  String get pipelinesSourceAll;
+
+  /// Project pipeline source filter option: Push
+  ///
+  /// In en, this message translates to:
+  /// **'Push'**
+  String get pipelinesSourcePush;
+
+  /// Project pipeline source filter option: Web
+  ///
+  /// In en, this message translates to:
+  /// **'Web'**
+  String get pipelinesSourceWeb;
+
+  /// Project pipeline source filter option: API
+  ///
+  /// In en, this message translates to:
+  /// **'API'**
+  String get pipelinesSourceApi;
+
+  /// Project pipeline source filter option: Schedule
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get pipelinesSourceSchedule;
+
+  /// Project pipeline source filter option: Trigger
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger'**
+  String get pipelinesSourceTrigger;
+
+  /// Project pipeline source filter option: Multi-project pipelines
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-project pipelines'**
+  String get pipelinesSourcePipeline;
+
+  /// Project pipeline source filter option: Merge request
+  ///
+  /// In en, this message translates to:
+  /// **'Merge request'**
+  String get pipelinesSourceMergeRequest;
+
+  /// Project pipeline source filter option: Child pipelines
+  ///
+  /// In en, this message translates to:
+  /// **'Child pipelines'**
+  String get pipelinesSourceChild;
+
+  /// GitLab 17.0 minimum-version hint for explicit child pipeline discovery
+  ///
+  /// In en, this message translates to:
+  /// **'Child pipeline discovery requires GitLab 17.0 or later.'**
+  String get pipelinesChildHint;
+
+  /// Pipeline detail downstream section: pipelineDownstreamTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Downstream pipelines'**
+  String get pipelineDownstreamTitle;
+
+  /// Pipeline detail downstream section: pipelineDownstreamEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No pipeline triggers.'**
+  String get pipelineDownstreamEmpty;
+
+  /// Pipeline detail downstream section: pipelineDownstreamError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load downstream pipelines.'**
+  String get pipelineDownstreamError;
+
+  /// Pipeline detail downstream section: pipelineDownstreamLoadMoreError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more downstream pipelines.'**
+  String get pipelineDownstreamLoadMoreError;
+
+  /// Pipeline detail downstream section: pipelineDownstreamUnavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Downstream pipeline unavailable to open.'**
+  String get pipelineDownstreamUnavailable;
+
+  /// Pipeline detail downstream section: pipelineDownstreamTarget
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} · Pipeline #{pipelineId}'**
+  String pipelineDownstreamTarget(int projectId, int pipelineId);
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Upstream pipeline'**
+  String get pipelineUpstreamTitle;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No upstream pipeline available.'**
+  String get pipelineUpstreamEmpty;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamError
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the upstream pipeline.'**
+  String get pipelineUpstreamError;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamUnavailable
+  ///
+  /// In en, this message translates to:
+  /// **'Upstream pipeline unavailable to open.'**
+  String get pipelineUpstreamUnavailable;
+
+  /// Pipeline detail immediate upstream relationship: pipelineUpstreamTarget
+  ///
+  /// In en, this message translates to:
+  /// **'Project {projectId} · Pipeline #{pipelineId}'**
+  String pipelineUpstreamTarget(int projectId, int pipelineId);
+
+  /// Pipeline detail job status filtering: pipelineJobsTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Jobs'**
+  String get pipelineJobsTitle;
+
+  /// Pipeline detail job status filtering: pipelineJobsStatusAll
+  ///
+  /// In en, this message translates to:
+  /// **'All job statuses'**
+  String get pipelineJobsStatusAll;
+
+  /// Pipeline detail job status filtering: pipelineJobsFilteredEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'No jobs match this status.'**
+  String get pipelineJobsFilteredEmpty;
+
+  /// Job list option excluding superseded retry attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest jobs'**
+  String get pipelineJobsAttemptsLatest;
+
+  /// Job list option including latest and superseded retry attempts.
+  ///
+  /// In en, this message translates to:
+  /// **'All attempts'**
+  String get pipelineJobsAttemptsAll;
+
+  /// Immutable job ID distinguishing attempts with the same name.
+  ///
+  /// In en, this message translates to:
+  /// **'Job #{jobId}'**
+  String pipelineJobIdentifier(int jobId);
+
+  /// Explains that stage groups and counts contain only loaded jobs while a continuation cursor remains.
+  ///
+  /// In en, this message translates to:
+  /// **'Only loaded jobs are shown. Load more to see the rest.'**
+  String get pipelineJobsPartialList;
+
+  /// Sanitized inline error when loading the next pipeline jobs page fails.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more jobs.'**
+  String get pipelineJobsLoadMoreError;
+
+  /// Shown while the merge request approval state is being loaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading approval status…'**
+  String get mrApprovalStatusLoading;
+
+  /// Sanitized merge request approval-state read failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load approval status.'**
+  String get mrApprovalStatusError;
+
+  /// No description provided for @mrDiscussionResolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolved'**
+  String get mrDiscussionResolved;
+
+  /// No description provided for @mrDiscussionUnresolved.
+  ///
+  /// In en, this message translates to:
+  /// **'Unresolved'**
+  String get mrDiscussionUnresolved;
+
+  /// No description provided for @mrDiscussionsLoadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more discussions'**
+  String get mrDiscussionsLoadMore;
+
+  /// No description provided for @mrDiscussionsMoreError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more discussions.'**
+  String get mrDiscussionsMoreError;
+
+  /// No description provided for @mrDiscussionsPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'More discussions are available.'**
+  String get mrDiscussionsPartial;
+
+  /// No description provided for @mrDiscussionReplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get mrDiscussionReplyButton;
+
+  /// No description provided for @mrDiscussionReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply to discussion'**
+  String get mrDiscussionReplyTitle;
+
+  /// No description provided for @mrDiscussionReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a reply…'**
+  String get mrDiscussionReplyHint;
+
+  /// No description provided for @mrDiscussionResolveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolve discussion'**
+  String get mrDiscussionResolveButton;
+
+  /// No description provided for @mrDiscussionReopenButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen discussion'**
+  String get mrDiscussionReopenButton;
+
+  /// No description provided for @mrDiscussionResolveForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'You cannot change this discussion. Check your account permissions.'**
+  String get mrDiscussionResolveForbidden;
+
+  /// No description provided for @mrDiscussionResolveError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update this discussion. Try again.'**
+  String get mrDiscussionResolveError;
+
+  /// No description provided for @mrDiscussionContextViewButton.
+  ///
+  /// In en, this message translates to:
+  /// **'View original diff'**
+  String get mrDiscussionContextViewButton;
+
+  /// No description provided for @mrDiscussionContextHideButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide original diff'**
+  String get mrDiscussionContextHideButton;
+
+  /// No description provided for @mrDiscussionContextTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Original diff · version {version}'**
+  String mrDiscussionContextTitle(String version);
+
+  /// No description provided for @mrDiscussionContextUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Original diff context is unavailable for this comment.'**
+  String get mrDiscussionContextUnavailable;
+
+  /// No description provided for @mrDiscussionContextError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the original diff. Try again.'**
+  String get mrDiscussionContextError;
+
+  /// No description provided for @mrDiscussionContextOlderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Look for older versions'**
+  String get mrDiscussionContextOlderButton;
+
+  /// No description provided for @mrDiscussionContextLineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Commented line'**
+  String get mrDiscussionContextLineLabel;
+
+  /// No description provided for @mrDiscussionContextLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading original diff'**
+  String get mrDiscussionContextLoading;
+
+  /// No description provided for @mrDiffDiscussLineButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add discussion on this line'**
+  String get mrDiffDiscussLineButton;
+
+  /// No description provided for @mrDiffDiscussionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discuss {path} · version {version}'**
+  String mrDiffDiscussionTitle(String path, String version);
+
+  /// No description provided for @mrDiffDiscussionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a review comment…'**
+  String get mrDiffDiscussionHint;
+
+  /// No description provided for @mrDiffDiscussionSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Start discussion'**
+  String get mrDiffDiscussionSubmit;
+
+  /// No description provided for @mrDiffDiscussionCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get mrDiffDiscussionCancel;
+
+  /// No description provided for @mrDiffDiscussionCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion created.'**
+  String get mrDiffDiscussionCreated;
+
+  /// No description provided for @mrDiffDiscussionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the discussion was created.'**
+  String get mrDiffDiscussionError;
+
+  /// No description provided for @mrDiffDiscussionPermissionError.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not have permission to create this discussion.'**
+  String get mrDiffDiscussionPermissionError;
+
+  /// No description provided for @mrDiffDiscussionReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh discussions'**
+  String get mrDiffDiscussionReloadButton;
+
+  /// No description provided for @mrDiffDiscussionReloadRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh discussions before submitting again. The previous request may have been accepted.'**
+  String get mrDiffDiscussionReloadRequired;
+
+  /// No description provided for @mrDiffDiscussionReloadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not refresh discussions. Try again.'**
+  String get mrDiffDiscussionReloadFailed;
+
+  /// No description provided for @mrReviewUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This diff version is unavailable for inline review.'**
+  String get mrReviewUnavailable;
+
+  /// No description provided for @mrReviewVersionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewing diff version {version}'**
+  String mrReviewVersionTitle(String version);
+
+  /// No description provided for @mrDiffDiscussionPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Creating discussion…'**
+  String get mrDiffDiscussionPending;
+
+  /// No description provided for @mrDiffDiscussionReloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing discussions…'**
+  String get mrDiffDiscussionReloading;
+
+  /// No description provided for @mrDiffDiscussionInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect discussions at this selection before submitting again.'**
+  String get mrDiffDiscussionInspect;
+
+  /// No description provided for @mrDiffDiscussionNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No discussions at this selection in the loaded pages.'**
+  String get mrDiffDiscussionNoMatches;
+
+  /// MR code suggestion preview Title
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion {number}'**
+  String mrSuggestionTitle(String number);
+
+  /// MR code suggestion preview Range
+  ///
+  /// In en, this message translates to:
+  /// **'Original lines {from}–{to}'**
+  String mrSuggestionRange(String from, String to);
+
+  /// MR code suggestion preview RangeUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Original line range unavailable'**
+  String get mrSuggestionRangeUnknown;
+
+  /// MR code suggestion preview Applied
+  ///
+  /// In en, this message translates to:
+  /// **'Applied'**
+  String get mrSuggestionApplied;
+
+  /// MR code suggestion preview NotApplied
+  ///
+  /// In en, this message translates to:
+  /// **'Not applied'**
+  String get mrSuggestionNotApplied;
+
+  /// MR code suggestion preview AppliedUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Application status unknown'**
+  String get mrSuggestionAppliedUnknown;
+
+  /// MR code suggestion preview Applicable
+  ///
+  /// In en, this message translates to:
+  /// **'Patch applicable'**
+  String get mrSuggestionApplicable;
+
+  /// MR code suggestion preview NotApplicable
+  ///
+  /// In en, this message translates to:
+  /// **'Patch not applicable'**
+  String get mrSuggestionNotApplicable;
+
+  /// MR code suggestion preview ApplicableUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Patch applicability unknown'**
+  String get mrSuggestionApplicableUnknown;
+
+  /// MR code suggestion preview Original
+  ///
+  /// In en, this message translates to:
+  /// **'Original code'**
+  String get mrSuggestionOriginal;
+
+  /// MR code suggestion preview Replacement
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested code'**
+  String get mrSuggestionReplacement;
+
+  /// MR code suggestion preview ContentUnknown
+  ///
+  /// In en, this message translates to:
+  /// **'Content unavailable'**
+  String get mrSuggestionContentUnknown;
+
+  /// MR code suggestion preview ContentEmpty
+  ///
+  /// In en, this message translates to:
+  /// **'Empty content'**
+  String get mrSuggestionContentEmpty;
+
+  /// MR code suggestion preview ViewButton
+  ///
+  /// In en, this message translates to:
+  /// **'View suggestion'**
+  String get mrSuggestionViewButton;
+
+  /// MR code suggestion preview HideButton
+  ///
+  /// In en, this message translates to:
+  /// **'Hide suggestion'**
+  String get mrSuggestionHideButton;
+
+  /// No description provided for @mrSuggestionApplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply suggestion'**
+  String get mrSuggestionApplyButton;
+
+  /// No description provided for @mrSuggestionApplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply suggestion {suggestionId}?'**
+  String mrSuggestionApplyTitle(String suggestionId);
+
+  /// No description provided for @mrSuggestionApplyImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'This creates a commit on the merge request source branch. Review the replacement code before applying.'**
+  String get mrSuggestionApplyImpact;
+
+  /// No description provided for @mrSuggestionCommitMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit message (optional)'**
+  String get mrSuggestionCommitMessageLabel;
+
+  /// No description provided for @mrSuggestionCommitMessageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to use GitLab’s default message.'**
+  String get mrSuggestionCommitMessageHint;
+
+  /// No description provided for @mrSuggestionApplyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking and applying suggestion…'**
+  String get mrSuggestionApplyProgress;
+
+  /// No description provided for @mrSuggestionApplySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestion applied.'**
+  String get mrSuggestionApplySuccess;
+
+  /// No description provided for @mrSuggestionApplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'The application could not be confirmed. Reload the discussion to check its current state before trying again.'**
+  String get mrSuggestionApplyError;
+
+  /// No description provided for @mrSuggestionApplyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied this operation. Check your access, then reload before trying again.'**
+  String get mrSuggestionApplyForbidden;
+
+  /// No description provided for @mrSuggestionApplyChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The suggestion changed. Reload and review its current code before applying.'**
+  String get mrSuggestionApplyChanged;
+
+  /// No description provided for @mrSuggestionReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload discussion'**
+  String get mrSuggestionReloadButton;
+
+  /// No description provided for @mrSuggestionReloadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Reloading discussion…'**
+  String get mrSuggestionReloadProgress;
+
+  /// No description provided for @mrSuggestionReloadError.
+  ///
+  /// In en, this message translates to:
+  /// **'The discussion could not be reloaded. Try reloading again.'**
+  String get mrSuggestionReloadError;
+
+  /// No description provided for @mrSuggestionUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This suggestion is unavailable for application.'**
+  String get mrSuggestionUnavailable;
+
+  /// No description provided for @mrSuggestionSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'The account or merge request changed. Close this dialog and reopen the suggestion.'**
+  String get mrSuggestionSessionChanged;
+
+  /// No description provided for @mrSuggestionsBatchButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply multiple suggestions'**
+  String get mrSuggestionsBatchButton;
+
+  /// No description provided for @mrSuggestionsSelectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select suggestions'**
+  String get mrSuggestionsSelectTitle;
+
+  /// No description provided for @mrSuggestionsSelectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least two suggestions from the loaded discussions.'**
+  String get mrSuggestionsSelectHint;
+
+  /// No description provided for @mrSuggestionsReviewButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Review selected'**
+  String get mrSuggestionsReviewButton;
+
+  /// Confirmation title for the selected suggestion batch.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply {count} suggestions?'**
+  String mrSuggestionsReviewTitle(String count);
+
+  /// No description provided for @mrSuggestionsApplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply selected'**
+  String get mrSuggestionsApplyButton;
+
+  /// No description provided for @mrSuggestionsApplyImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'These changes will be sent together to the merge request source branch. Review every replacement before applying.'**
+  String get mrSuggestionsApplyImpact;
+
+  /// No description provided for @mrSuggestionsApplyProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking and applying suggestions…'**
+  String get mrSuggestionsApplyProgress;
+
+  /// No description provided for @mrSuggestionsApplySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected suggestions applied.'**
+  String get mrSuggestionsApplySuccess;
+
+  /// No description provided for @mrSuggestionsApplyError.
+  ///
+  /// In en, this message translates to:
+  /// **'The batch could not be confirmed. Reload every selected discussion before trying again.'**
+  String get mrSuggestionsApplyError;
+
+  /// No description provided for @mrSuggestionsApplyChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'One or more suggestions changed. Reload and review every selected patch.'**
+  String get mrSuggestionsApplyChanged;
+
+  /// No description provided for @mrSuggestionsReloadButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reload selected discussions'**
+  String get mrSuggestionsReloadButton;
+
+  /// No description provided for @mrSuggestionsReloadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Reloading selected discussions…'**
+  String get mrSuggestionsReloadProgress;
+
+  /// No description provided for @mrSuggestionsReloadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Not all discussions could be reloaded. Reload again before applying.'**
+  String get mrSuggestionsReloadError;
+
+  /// No description provided for @mrSuggestionsApplyForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'GitLab denied this operation. Check your access and reload every selected discussion before trying again.'**
+  String get mrSuggestionsApplyForbidden;
+
+  /// No description provided for @mrSuggestionsBackButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to selection'**
+  String get mrSuggestionsBackButton;
+
+  /// Inclusive original commented range. Minus denotes old-side coordinates; plus denotes new-side coordinates.
+  ///
+  /// In en, this message translates to:
+  /// **'Commented lines {start}–{end}'**
+  String mrDiscussionContextRangeLabel(String start, String end);
+
+  /// No description provided for @mrDiscussionContextRangeLineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Line in commented range'**
+  String get mrDiscussionContextRangeLineLabel;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a range'**
+  String get mrDiffSelectRangeButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'End range on this line'**
+  String get mrDiffRangeEndButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the last line in this file. Only complete ranges after the first line are available.'**
+  String get mrDiffRangeChooseEnd;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Use single line'**
+  String get mrDiffSingleLineButton;
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected range: {start} to {end}'**
+  String mrDiffSelectedRangeLabel(String start, String end);
+
+  /// Multiline diff discussion selection.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected discussion line'**
+  String get mrDiffSelectedLineLabel;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pending review'**
+  String get mrPendingReviewTitle;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Only you can see these notes until you publish them.'**
+  String get mrPendingReviewPrivate;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading pending review notes…'**
+  String get mrPendingReviewLoading;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no pending review notes.'**
+  String get mrPendingReviewEmpty;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load pending review notes. Retry to reload the list.'**
+  String get mrPendingReviewError;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh pending review notes'**
+  String get mrPendingReviewRefresh;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more notes'**
+  String get mrPendingReviewLoadMore;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'More notes are available. Load the next page to continue.'**
+  String get mrPendingReviewMore;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No notes loaded} =1{1 note loaded} other{{count} notes loaded}}'**
+  String mrPendingReviewCount(int count);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'General note'**
+  String get mrPendingReviewGeneralNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion reply'**
+  String get mrPendingReviewReplyNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit note'**
+  String get mrPendingReviewCommitNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Diff note'**
+  String get mrPendingReviewTextNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiline diff note'**
+  String get mrPendingReviewMultilineNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Image note'**
+  String get mrPendingReviewImageNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'File note'**
+  String get mrPendingReviewFileNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Positioned note'**
+  String get mrPendingReviewPositionedNote;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Will resolve the discussion when published'**
+  String get mrPendingReviewResolve;
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Before: {path}'**
+  String mrPendingReviewOldPath(String path);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'After: {path}'**
+  String mrPendingReviewNewPath(String path);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Old line {line}'**
+  String mrPendingReviewOldLine(String line);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'New line {line}'**
+  String mrPendingReviewNewLine(String line);
+
+  /// Private pending MR review list.
+  ///
+  /// In en, this message translates to:
+  /// **'Commit: {sha}'**
+  String mrPendingReviewCommit(String sha);
+
+  /// Private regular MR review composer open.
+  ///
+  /// In en, this message translates to:
+  /// **'Add review note'**
+  String get mrPendingComposeOpen;
+
+  /// Private regular MR review composer title.
+  ///
+  /// In en, this message translates to:
+  /// **'New review note'**
+  String get mrPendingComposeTitle;
+
+  /// Private regular MR review composer label.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note'**
+  String get mrPendingComposeLabel;
+
+  /// Private regular MR review composer hint.
+  ///
+  /// In en, this message translates to:
+  /// **'This note stays private until you publish your review.'**
+  String get mrPendingComposeHint;
+
+  /// Private regular MR review composer save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save pending note'**
+  String get mrPendingComposeSave;
+
+  /// Private regular MR review composer saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note saved to your pending review.'**
+  String get mrPendingComposeSaved;
+
+  /// Private regular MR review composer saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving review note…'**
+  String get mrPendingComposeSaving;
+
+  /// Private regular MR review composer prepare.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing review notes…'**
+  String get mrPendingComposePrepare;
+
+  /// Private regular MR review composer prepareerror.
+  ///
+  /// In en, this message translates to:
+  /// **'Review notes are unavailable. Your text is still here.'**
+  String get mrPendingComposePrepareError;
+
+  /// Private regular MR review composer saveerror.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm this save. Your text is still here.'**
+  String get mrPendingComposeSaveError;
+
+  /// Private regular MR review composer uncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'Your note may already be saved. Check your pending review before saving again.'**
+  String get mrPendingComposeUncertain;
+
+  /// Private regular MR review composer inspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check pending review'**
+  String get mrPendingComposeInspect;
+
+  /// Private regular MR review composer inspecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking all pending review notes…'**
+  String get mrPendingComposeInspecting;
+
+  /// Private regular MR review composer inspecterror.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t check your pending review. Your text is still here.'**
+  String get mrPendingComposeInspectError;
+
+  /// Private regular MR review composer inspectiontitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current pending review'**
+  String get mrPendingComposeInspectionTitle;
+
+  /// Private regular MR review composer inspectionhint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are your current saved notes. An identical note does not prove which save created it.'**
+  String get mrPendingComposeInspectionHint;
+
+  /// Private regular MR review composer acknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked these notes and want to save another note.'**
+  String get mrPendingComposeAcknowledge;
+
+  /// Private regular MR review composer changed.
+  ///
+  /// In en, this message translates to:
+  /// **'The review session changed. Close this dialog and start again.'**
+  String get mrPendingComposeChanged;
+
+  /// Private pending review note maintenance: Edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit note'**
+  String get mrPendingEdit;
+
+  /// Private pending review note maintenance: Delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete note'**
+  String get mrPendingDelete;
+
+  /// Private pending review note maintenance: Update.
+  ///
+  /// In en, this message translates to:
+  /// **'Save changes'**
+  String get mrPendingUpdate;
+
+  /// Private pending review note maintenance: EditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit pending review note'**
+  String get mrPendingEditTitle;
+
+  /// Private pending review note maintenance: DeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete pending review note'**
+  String get mrPendingDeleteTitle;
+
+  /// Private pending review note maintenance: EditHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your changes stay private. The original note location is preserved.'**
+  String get mrPendingEditHint;
+
+  /// Private pending review note maintenance: DeleteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes only this private saved note from your pending review.'**
+  String get mrPendingDeleteHint;
+
+  /// Private pending review note maintenance: DeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to delete the note shown above.'**
+  String get mrPendingDeleteConfirm;
+
+  /// Private pending review note maintenance: Updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Your private review note was updated.'**
+  String get mrPendingUpdated;
+
+  /// Private pending review note maintenance: Deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your private review note was deleted.'**
+  String get mrPendingDeleted;
+
+  /// Private pending review note maintenance: MaintenanceError.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t confirm this change. Check the current pending review before trying again.'**
+  String get mrPendingMaintenanceError;
+
+  /// Private pending review note maintenance: MaintenanceUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'A change may already have been applied. Check your saved notes before making another change.'**
+  String get mrPendingMaintenanceUncertain;
+
+  /// Private pending review note maintenance: MaintenanceInspectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are all currently readable saved notes. Check the selected note above before changing it again.'**
+  String get mrPendingMaintenanceInspectionHint;
+
+  /// Private pending review note maintenance: MaintenanceAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked the current selected note and want to apply this change.'**
+  String get mrPendingMaintenanceAcknowledge;
+
+  /// Private pending review note maintenance: TargetMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected note is no longer available. Close this dialog and refresh your pending review.'**
+  String get mrPendingTargetMissing;
+
+  /// Progress while deleting one private pending review note.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting review note…'**
+  String get mrPendingDeleting;
+
+  /// No description provided for @mrPendingPublishOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish pending review'**
+  String get mrPendingPublishOpen;
+
+  /// No description provided for @mrPendingPublishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish pending review'**
+  String get mrPendingPublishTitle;
+
+  /// No description provided for @mrPendingPublishHint.
+  ///
+  /// In en, this message translates to:
+  /// **'All your saved notes on this merge request will become visible to others. Publishing does not approve or merge the merge request.'**
+  String get mrPendingPublishHint;
+
+  /// No description provided for @mrPendingPublishRaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes saved from another client before publication may also be included.'**
+  String get mrPendingPublishRaceHint;
+
+  /// No description provided for @mrPendingPublishConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I have checked all the notes and want to publish my entire pending review.'**
+  String get mrPendingPublishConsent;
+
+  /// No description provided for @mrPendingPublishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish all notes'**
+  String get mrPendingPublishButton;
+
+  /// No description provided for @mrPendingPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending review published'**
+  String get mrPendingPublished;
+
+  /// No description provided for @mrPendingPublishUncertain.
+  ///
+  /// In en, this message translates to:
+  /// **'The review changed or publication could not be confirmed. Check saved notes and public discussions before deciding whether to try again.'**
+  String get mrPendingPublishUncertain;
+
+  /// No description provided for @mrPendingPublishInspect.
+  ///
+  /// In en, this message translates to:
+  /// **'Check notes and discussions'**
+  String get mrPendingPublishInspect;
+
+  /// No description provided for @mrPendingPublishPublicTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current public discussions'**
+  String get mrPendingPublishPublicTitle;
+
+  /// No description provided for @mrPendingPublishRecoveryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'These are the current saved notes and public discussions. Their text or absence does not prove which earlier attempt succeeded. Check both lists before a new publication.'**
+  String get mrPendingPublishRecoveryHint;
+
+  /// No description provided for @mrPendingPublishRecoveryRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Publish pending review to check both saved notes and public discussions before changing private notes.'**
+  String get mrPendingPublishRecoveryRequired;
+
+  /// No description provided for @mrPendingInlineOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Save private inline note'**
+  String get mrPendingInlineOpen;
+
+  /// No description provided for @mrPendingInlineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private inline review note'**
+  String get mrPendingInlineTitle;
+
+  /// No description provided for @mrPendingInlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save a private note on this selected line or range. It stays visible only to you until you publish your pending review. The latest diff is checked again before saving.'**
+  String get mrPendingInlineHint;
+
+  /// No description provided for @mrPendingPublishNoteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish this note'**
+  String get mrPendingPublishNoteButton;
+
+  /// No description provided for @mrPendingPublishNoteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish this private note?'**
+  String get mrPendingPublishNoteTitle;
+
+  /// No description provided for @mrPendingPublishNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This saved note will become visible to others in this merge request. Your other pending notes stay private.'**
+  String get mrPendingPublishNoteHint;
+
+  /// No description provided for @mrPendingPublishNoteRaceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The selected note is checked again before publishing. Changes from another client after that check may be included.'**
+  String get mrPendingPublishNoteRaceHint;
+
+  /// No description provided for @mrPendingPublishNoteConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I want to make this saved note public.'**
+  String get mrPendingPublishNoteConsent;
+
+  /// No description provided for @mrPendingNotePublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Review note published.'**
+  String get mrPendingNotePublished;
+
+  /// No description provided for @mrReviewSummaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Public review summary (optional)'**
+  String get mrReviewSummaryLabel;
+
+  /// No description provided for @mrReviewOutcomeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Review outcome'**
+  String get mrReviewOutcomeLabel;
+
+  /// No description provided for @mrReviewKeepState.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep current state'**
+  String get mrReviewKeepState;
+
+  /// No description provided for @mrReviewReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed'**
+  String get mrReviewReviewed;
+
+  /// No description provided for @mrReviewRequestChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Request changes'**
+  String get mrReviewRequestChanges;
+
+  /// No description provided for @mrReviewCurrentState.
+  ///
+  /// In en, this message translates to:
+  /// **'Your current reviewer state'**
+  String get mrReviewCurrentState;
+
+  /// No description provided for @mrReviewUnassigned.
+  ///
+  /// In en, this message translates to:
+  /// **'Not assigned as a reviewer'**
+  String get mrReviewUnassigned;
+
+  /// No description provided for @mrReviewUnreviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not reviewed'**
+  String get mrReviewUnreviewed;
+
+  /// No description provided for @mrReviewStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Review started'**
+  String get mrReviewStarted;
+
+  /// No description provided for @mrReviewApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Formally approved'**
+  String get mrReviewApproved;
+
+  /// No description provided for @mrReviewUnknownState.
+  ///
+  /// In en, this message translates to:
+  /// **'Unrecognized reviewer state'**
+  String get mrReviewUnknownState;
+
+  /// No description provided for @mrReviewStateUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewer state could not be read. You can still publish notes and a public summary.'**
+  String get mrReviewStateUnavailable;
+
+  /// No description provided for @mrReviewReviewedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviewed does not approve this merge request. It may clear your previous change request.'**
+  String get mrReviewReviewedHint;
+
+  /// No description provided for @mrReviewChangesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Requesting changes may block merging and remove your existing approval.'**
+  String get mrReviewChangesHint;
+
+  /// No description provided for @mrReviewPartialHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes, the summary, and reviewer state may have been applied separately. Inspect all three before deciding whether to submit again.'**
+  String get mrReviewPartialHint;
+
+  /// No description provided for @mrReviewSubmissionConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish the displayed pending notes and public summary, and apply the selected review outcome.'**
+  String get mrReviewSubmissionConsent;
+
+  /// No description provided for @mrReviewUnapproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval withdrawn'**
+  String get mrReviewUnapproved;
+
+  /// No description provided for @mrReviewSubmitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit review'**
+  String get mrReviewSubmitButton;
+
+  /// No description provided for @mrReviewInspectButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect review'**
+  String get mrReviewInspectButton;
+
+  /// No description provided for @mrPendingReplyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save private reply'**
+  String get mrPendingReplyButton;
+
+  /// No description provided for @mrPendingReplyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Private reply draft'**
+  String get mrPendingReplyTitle;
+
+  /// No description provided for @mrPendingReplyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This reply stays private until you publish it. Saving does not resolve the discussion.'**
+  String get mrPendingReplyHint;
+
+  /// No description provided for @mrPendingReplyTargetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion context'**
+  String get mrPendingReplyTargetTitle;
+
+  /// No description provided for @mrPendingReplyTargetUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This discussion is missing or no longer accepts a private reply.'**
+  String get mrPendingReplyTargetUnavailable;
+
+  /// No description provided for @mrPendingReplyInspectionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the current discussion and all pending notes for a reply that may already have saved. Saving again may create a duplicate.'**
+  String get mrPendingReplyInspectionHint;
+
+  /// No description provided for @mrPendingReplyAcknowledge.
+  ///
+  /// In en, this message translates to:
+  /// **'I checked the discussion and pending notes and want to save this reply.'**
+  String get mrPendingReplyAcknowledge;
+
+  /// No description provided for @mrCommitsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No commits in this merge request.'**
+  String get mrCommitsEmpty;
+
+  /// No description provided for @mrOriginalReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Original commit changes'**
+  String get mrOriginalReviewTitle;
+
+  /// No description provided for @mrOriginalReviewReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Inline review requires a validated text diff with one reported parent.'**
+  String get mrOriginalReviewReadOnly;
+
+  /// No description provided for @mrOriginalReviewDiffUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This original file diff is unavailable for inline review.'**
+  String get mrOriginalReviewDiffUnavailable;
+
+  /// No description provided for @mrOriginalReviewPrivateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'This note stays private until you publish your review. The selected commit\'s original diff is checked again before saving.'**
+  String get mrOriginalReviewPrivateHint;
 }
 
 class _AppLocalizationsDelegate

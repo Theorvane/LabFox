@@ -14,7 +14,7 @@ Features and business logic are fully shared; only the layout differs.
 
 | Width | Mode | Layout |
 |---|---|---|
-| < 600 | Mobile | Bottom Navigation (`Home · Inbox · Search · Me`), single pane, push navigation |
+| < 600 | Mobile | Bottom Navigation (`Home · Settings · Search · Me`), single pane, push navigation |
 | 600–1000 | Tablet / Compact Desktop | Navigation Rail, 2 panes |
 | > 1000 | Desktop | Navigation Rail + Multi-pane, Command Palette, Split Diff |
 

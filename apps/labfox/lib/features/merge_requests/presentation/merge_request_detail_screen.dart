@@ -9,10 +9,11 @@ import '../../../app/router.dart';
 import '../../../core/ui/share_link_button.dart';
 import '../../../core/ui/work_meta.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../comments/presentation/widgets/comment_thread.dart';
 import 'controllers/merge_requests_controllers.dart';
 import 'controllers/mr_actions_controller.dart';
 import 'widgets/mr_actions.dart';
+import 'widgets/mr_discussion_thread.dart';
+import 'widgets/mr_pending_review_panel.dart';
 
 /// One merge request: an identity header, the description and discussion, with
 /// the approve / merge actions pinned to a sticky bar so they never scroll away.
@@ -76,6 +77,13 @@ class MergeRequestDetailScreen extends ConsumerWidget {
               icon: const Icon(LabFoxIcons.diff, size: 18),
               label: Text(l10n.mrViewChanges),
             ),
+            const SizedBox(height: LabFoxSpacing.sm),
+            OutlinedButton.icon(
+              onPressed: () =>
+                  context.push(Routes.mergeRequestCommits(projectId, iid)),
+              icon: const Icon(LabFoxIcons.commit),
+              label: Text(l10n.commitsTitle),
+            ),
             if (data.labels.isNotEmpty) ...[
               const SizedBox(height: LabFoxSpacing.md),
               Wrap(
@@ -96,11 +104,9 @@ class MergeRequestDetailScreen extends ConsumerWidget {
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             const SizedBox(height: LabFoxSpacing.xl),
-            CommentThread(
-              type: NoteableType.mergeRequest,
-              projectId: projectId,
-              iid: iid,
-            ),
+            MrPendingReviewPanel(mergeRequest: mrRef),
+            const SizedBox(height: LabFoxSpacing.xl),
+            MrDiscussionThread(projectId: projectId, iid: iid),
           ],
         ),
       ),
@@ -108,7 +114,15 @@ class MergeRequestDetailScreen extends ConsumerWidget {
   }
 }
 
-enum _MrAction { close, reopen, rebase, toggleDraft }
+enum _MrAction {
+  close,
+  reopen,
+  rebase,
+  toggleDraft,
+  subscribe,
+  unsubscribe,
+  addTodo,
+}
 
 /// The overflow menu on a merge request: close/reopen, rebase, and toggle draft
 /// — the state edits GitLab exposes, offered by the MR's current state.
@@ -122,6 +136,12 @@ class _MrMenu extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final items = <PopupMenuEntry<_MrAction>>[
+      PopupMenuItem(value: _MrAction.addTodo, child: Text(l10n.mrAddTodo)),
+      if (mr.subscribed case final subscribed?)
+        PopupMenuItem(
+          value: subscribed ? _MrAction.unsubscribe : _MrAction.subscribe,
+          child: Text(subscribed ? l10n.mrUnsubscribe : l10n.mrSubscribe),
+        ),
       if (mr.isOpen) ...[
         PopupMenuItem(
           value: _MrAction.toggleDraft,
@@ -158,12 +178,34 @@ class _MrMenu extends ConsumerWidget {
           await notifier.rebase();
         case _MrAction.toggleDraft:
           await notifier.setDraft(draft: !mr.isDraft, title: mr.title);
+        case _MrAction.subscribe:
+          await notifier.setSubscription(true);
+        case _MrAction.unsubscribe:
+          await notifier.setSubscription(false);
+        case _MrAction.addTodo:
+          final created = await notifier.createTodo();
+          if (created == null) return;
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(created ? l10n.mrTodoAdded : l10n.mrTodoExists),
+              ),
+            );
+          }
       }
     } on GitLabException {
       if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.mrActionError)));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              action == _MrAction.subscribe || action == _MrAction.unsubscribe
+                  ? l10n.mrSubscriptionError
+                  : action == _MrAction.addTodo
+                  ? l10n.mrTodoError
+                  : l10n.mrActionError,
+            ),
+          ),
+        );
       }
     }
   }

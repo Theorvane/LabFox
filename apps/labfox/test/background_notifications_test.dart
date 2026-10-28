@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:labfox/core/auth/auth_providers.dart';
-import 'package:labfox/core/entitlement/entitlement.dart';
-import 'package:labfox/core/entitlement/entitlement_providers.dart';
 import 'package:labfox/core/notifications/background_notifications.dart';
 import 'package:labfox/core/notifications/notifications_providers.dart';
 import 'package:labfox/core/settings/app_settings_providers.dart';
@@ -11,13 +9,6 @@ import 'package:labfox/core/ui/link_opener.dart';
 import 'package:labfox/features/settings/presentation/settings_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-class _FixedEntitlement extends EntitlementController {
-  _FixedEntitlement(this.value);
-  final Entitlement value;
-  @override
-  Entitlement build() => value;
-}
 
 /// Records the scheduling calls instead of touching a platform channel.
 class _RecordingChecks implements BackgroundChecks {
@@ -39,7 +30,6 @@ class _RecordingChecks implements BackgroundChecks {
 
 Future<({_RecordingChecks checks, SharedPreferences prefs})> _pump(
   WidgetTester tester, {
-  required Entitlement entitlement,
   bool granted = true,
 }) async {
   SharedPreferences.setMockInitialValues({});
@@ -51,9 +41,7 @@ Future<({_RecordingChecks checks, SharedPreferences prefs})> _pump(
         sharedPreferencesProvider.overrideWithValue(prefs),
         appVersionProvider.overrideWith((ref) async => '1.0.0 (1)'),
         linkOpenerProvider.overrideWithValue((uri) async {}),
-        freePlatformProvider.overrideWithValue(false),
         mobilePlatformProvider.overrideWithValue(true),
-        entitlementProvider.overrideWith(() => _FixedEntitlement(entitlement)),
         backgroundChecksProvider.overrideWithValue(checks),
       ],
       child: const MaterialApp(
@@ -68,8 +56,10 @@ Future<({_RecordingChecks checks, SharedPreferences prefs})> _pump(
 }
 
 void main() {
-  testWidgets('a subscriber can turn background checks on', (tester) async {
-    final r = await _pump(tester, entitlement: Entitlement.subscribed);
+  testWidgets('background checks can be turned on without a purchase', (
+    tester,
+  ) async {
+    final r = await _pump(tester);
 
     await tester.tap(find.text('Background to-do checks'));
     await tester.pumpAndSettle();
@@ -78,28 +68,17 @@ void main() {
     expect(r.prefs.getBool(backgroundNotificationsKey), isTrue);
   });
 
-  testWidgets('a free user is offered the subscription and nothing schedules', (
-    tester,
-  ) async {
-    final r = await _pump(tester, entitlement: Entitlement.free);
+  testWidgets('background checks stay off until enabled', (tester) async {
+    final r = await _pump(tester);
 
-    await tester.tap(find.text('Background to-do checks'));
-    await tester.pumpAndSettle();
-
-    // Nothing is scheduled on their battery until they subscribe.
     expect(r.checks.calls, isEmpty);
     expect(r.prefs.getBool(backgroundNotificationsKey), isNot(true));
-    expect(find.text('Not now'), findsOneWidget);
   });
 
   testWidgets('refusing the notification permission turns the switch back off', (
     tester,
   ) async {
-    final r = await _pump(
-      tester,
-      entitlement: Entitlement.subscribed,
-      granted: false,
-    );
+    final r = await _pump(tester, granted: false);
 
     await tester.tap(find.text('Background to-do checks'));
     await tester.pumpAndSettle();

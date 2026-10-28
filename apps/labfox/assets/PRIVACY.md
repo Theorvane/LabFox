@@ -1,10 +1,9 @@
-<!-- Synced copy of /PRIVACY.md at the repository root - update both together. -->
 # Privacy Policy
 
 **LabFox** is developed by **sloki9637** (https://www.sloki9637.com).
 This policy explains what the app processes and what leaves your device.
 
-_Last updated: 2026-08-21_
+_Last updated: 2026-10-20_
 
 ## What LabFox processes
 
@@ -31,34 +30,25 @@ OpenPanel):
   approved, unapproved, merged, closed, reopened, rebased, draft changed,
   comment posted (on an issue or a merge request, never its text), pipeline
   retried or cancelled, job retried, cancelled, or run manually, to-do
-  cleared, background checks turned on or off, the subscription sheet reached
-  and its outcome.
-- Screen-view events carry only a **sanitized route** — numeric identifiers
-  are removed (`/projects/:id`), so no project, issue, or account can be
-  identified.
+  cleared, and background checks turned on or off.
+- Screen-view events carry only a **matched route template**. Every path
+  parameter, including project IDs and branch, tag, or environment names, is
+  replaced by a placeholder (for example, `/projects/:id`). Unmatched paths
+  are reported as `/:unknown`.
 - Events contain **no personal data**: no usernames, names, email addresses,
   tokens, titles, content, or full URLs.
 - Analytics are never sold, shared with third parties, or used for
   advertising.
 
-## Advertising
+## Advertising and purchases
 
-The free tier on Android and iOS shows ads served through **Unity LevelPlay
-(ironSource) mediation**. Subscribers and the desktop builds see no ads and the
-ad SDK does nothing for them.
-
-- To serve and measure ads, the LevelPlay SDK may process device information
-  such as the advertising identifier, under Unity's own privacy policy:
-  https://unity.com/legal/privacy-policy
-- LabFox passes it no account data — no GitLab usernames, tokens, or content.
-- On iOS you can decline tracking in the system prompt; ads still show, less
-  personalized. On Android you can reset or delete the advertising ID in
-  system settings.
+LabFox does not show ads, access the advertising identifier, or offer in-app
+purchases. Every LabFox feature is available without a subscription.
 
 ## Background checks
 
-If you turn on background to-do checks (a subscription feature, off by
-default), LabFox asks **your own GitLab instance** for your pending to-do list
+If you turn on background to-do checks (off by default), LabFox asks **your own
+GitLab instance** for your pending to-do list
 on a schedule the operating system controls, and shows a local notification for
 anything new.
 

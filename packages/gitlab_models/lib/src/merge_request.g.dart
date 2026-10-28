@@ -15,6 +15,8 @@ _MergeRequest _$MergeRequestFromJson(Map<String, dynamic> json) =>
       sourceBranch: json['source_branch'] as String,
       targetBranch: json['target_branch'] as String,
       projectId: (json['project_id'] as num?)?.toInt(),
+      sourceProjectId: (json['source_project_id'] as num?)?.toInt(),
+      targetProjectId: (json['target_project_id'] as num?)?.toInt(),
       description: json['description'] as String?,
       author: json['author'] == null
           ? null
@@ -31,6 +33,7 @@ _MergeRequest _$MergeRequestFromJson(Map<String, dynamic> json) =>
       mergeStatus: json['merge_status'] as String?,
       detailedMergeStatus: json['detailed_merge_status'] as String?,
       commentCount: (json['user_notes_count'] as num?)?.toInt() ?? 0,
+      subscribed: json['subscribed'] as bool?,
       webUrl: json['web_url'] as String?,
       createdAt: json['created_at'] == null
           ? null
@@ -49,6 +52,8 @@ Map<String, dynamic> _$MergeRequestToJson(_MergeRequest instance) =>
       'source_branch': instance.sourceBranch,
       'target_branch': instance.targetBranch,
       'project_id': instance.projectId,
+      'source_project_id': instance.sourceProjectId,
+      'target_project_id': instance.targetProjectId,
       'description': instance.description,
       'author': instance.author?.toJson(),
       'assignees': instance.assignees.map((e) => e.toJson()).toList(),
@@ -57,6 +62,7 @@ Map<String, dynamic> _$MergeRequestToJson(_MergeRequest instance) =>
       'merge_status': instance.mergeStatus,
       'detailed_merge_status': instance.detailedMergeStatus,
       'user_notes_count': instance.commentCount,
+      'subscribed': instance.subscribed,
       'web_url': instance.webUrl,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

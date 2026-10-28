@@ -31,19 +31,13 @@ void main() {
     );
   }
 
-  void expectRequiredSubscriptionLinks(String label, String text) {
-    expect(
-      text,
-      contains(
-        'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/',
-      ),
-      reason: '$label must include the Apple standard EULA URL',
-    );
+  void expectFreeListing(String label, String text) {
     expect(
       text,
       contains('https://www.sloki9637.com/privacy'),
       reason: '$label must include the privacy policy URL',
     );
+    expect(text.toLowerCase(), isNot(contains('subscription')));
   }
 
   group('release notes', () {
@@ -72,7 +66,7 @@ void main() {
       expectWithin('subtitle', blocks[1], 30);
       expectWithin('short description', blocks[2], 80);
       expectWithin('full description', blocks[3], 4000);
-      expectRequiredSubscriptionLinks('English full description', blocks[3]);
+      expectFreeListing('English full description', blocks[3]);
     });
 
     test('Korean fields fit', () {
@@ -81,7 +75,7 @@ void main() {
       expectWithin('subtitle', blocks[1], 30);
       expectWithin('short description', blocks[2], 80);
       expectWithin('full description', blocks[3], 4000);
-      expectRequiredSubscriptionLinks('Korean full description', blocks[3]);
+      expectFreeListing('Korean full description', blocks[3]);
     });
   });
 }

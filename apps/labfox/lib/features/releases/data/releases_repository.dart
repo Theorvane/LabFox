@@ -1,0 +1,98 @@
+import 'package:gitlab_api/gitlab_api.dart';
+import 'package:gitlab_models/gitlab_models.dart';
+
+/// Project Releases data for one authenticated GitLab client.
+class ReleasesRepository {
+  const ReleasesRepository(this.client);
+
+  final GitLabClient client;
+
+  Future<Paginated<GitLabMilestone>> listMilestones(
+    int projectId, {
+    String search = '',
+    int page = 1,
+  }) => client.milestones.list(
+    projectId,
+    search: search.isEmpty ? null : search,
+    page: page,
+  );
+
+  Future<Paginated<GitLabRelease>> list(int projectId, {int page = 1}) =>
+      client.releases.list(projectId, page: page);
+
+  Future<GitLabRelease> get(int projectId, String tagName) =>
+      client.releases.get(projectId, tagName);
+
+  Future<GitLabRelease> updateMilestones(
+    int projectId,
+    String tagName,
+    List<String> titles,
+  ) => client.releases.updateMilestones(projectId, tagName, titles);
+
+  Future<GitLabRelease> update(
+    int projectId,
+    String tagName, {
+    required String name,
+    required String description,
+  }) => client.releases.update(
+    projectId,
+    tagName,
+    name: name,
+    description: description,
+  );
+
+  Future<GitLabRelease> updateReleasedAt(
+    int projectId,
+    String tagName,
+    DateTime releasedAt,
+  ) => client.releases.updateReleasedAt(projectId, tagName, releasedAt);
+
+  Future<GitLabRelease> create(
+    int projectId, {
+    required String tagName,
+    String? ref,
+    String? name,
+    String? description,
+    List<String>? milestones,
+    DateTime? releasedAt,
+  }) => client.releases.create(
+    projectId,
+    tagName: tagName,
+    ref: ref,
+    name: name,
+    description: description,
+    milestones: milestones,
+    releasedAt: releasedAt,
+  );
+
+  Future<ReleaseAssetLink> createAssetLink(
+    int projectId,
+    String tagName, {
+    required String name,
+    required String url,
+  }) =>
+      client.releases.createAssetLink(projectId, tagName, name: name, url: url);
+
+  Future<void> delete(int projectId, String tagName) =>
+      client.releases.delete(projectId, tagName);
+
+  Future<ReleaseAssetLink> updateAssetLink(
+    int projectId,
+    String tagName,
+    int linkId, {
+    required String name,
+    required String url,
+    String? directAssetPath,
+    String? linkType,
+  }) => client.releases.updateAssetLink(
+    projectId,
+    tagName,
+    linkId,
+    name: name,
+    url: url,
+    directAssetPath: directAssetPath,
+    linkType: linkType,
+  );
+  Future<void> deleteAssetLink(int projectId, String tagName, int linkId) =>
+      client.releases.deleteAssetLink(projectId, tagName, linkId);
+}

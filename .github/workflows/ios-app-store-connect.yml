@@ -17,8 +17,7 @@ jobs:
     environment: app-store
     env:
       # Named once: the signing check, the export options and the app itself
-      # all have to agree on it. Keep it equal to the macOS bundle id — that is
-      # what Universal Purchase requires (.agents/docs/monetization.md §3).
+      # all have to agree on it. Keep the existing bundle identity stable.
       BUNDLE_ID: com.sloki9637.labfox
       APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
       ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}

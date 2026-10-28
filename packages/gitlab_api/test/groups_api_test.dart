@@ -43,6 +43,76 @@ void main() {
       );
     });
   });
+
+  group('GroupsApi browsing', () {
+    test('loads a group without deprecated embedded projects', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: {'id': 42, 'name': 'Team', 'full_path': 'parent/team'},
+        );
+      });
+      final group = await client.groups.get('parent/team');
+      expect(captured.path, '/groups/parent%2Fteam');
+      expect(captured.queryParameters['with_projects'], false);
+      expect(group.fullPath, 'parent/team');
+    });
+
+    test('lists direct projects and carries the next page', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {
+            'x-next-page': ['3'],
+          },
+          body: [
+            {'id': 10, 'name': 'App', 'path_with_namespace': 'parent/team/app'},
+          ],
+        );
+      });
+
+      final page = await client.groups.listProjects(groupId: 42, page: 2);
+
+      expect(captured.path, '/groups/42/projects');
+      expect(captured.queryParameters['page'], 2);
+      expect(captured.queryParameters['include_subgroups'], false);
+      expect(page.items.single.name, 'App');
+      expect(page.nextPage, 3);
+    });
+
+    test('lists direct subgroups and maps permission failures', () async {
+      late RequestOptions captured;
+      final client = _client((options) {
+        captured = options;
+        return (
+          status: 200,
+          headers: const {},
+          body: [
+            {'id': 9, 'name': 'Infra', 'full_path': 'parent/team/infra'},
+          ],
+        );
+      });
+
+      final page = await client.groups.listSubgroups(groupId: 42);
+
+      expect(captured.path, '/groups/42/subgroups');
+      expect(page.items.single.fullPath, 'parent/team/infra');
+      expect(page.hasMore, isFalse);
+
+      final denied = _client(
+        (_) => (status: 403, headers: const {}, body: const {}),
+      );
+      await expectLater(
+        denied.groups.listSubgroups(groupId: 42),
+        throwsA(isA<GitLabForbiddenException>()),
+      );
+    });
+  });
 }
 
 GitLabClient _client(

@@ -1,19 +1,43 @@
 import 'package:dio/dio.dart';
 
 import 'common/exceptions.dart';
+import 'container_registry/container_immutability_api.dart';
+import 'container_registry/container_registry_api.dart';
+import 'deployments/deployments_api.dart';
+import 'environments/environments_api.dart';
+import 'environments/protected_environments_api.dart';
+import 'events/events_api.dart';
+import 'graphql/graphql_api.dart';
+import 'groups/group_protected_environments_api.dart';
 import 'groups/groups_api.dart';
+import 'issues/issue_links_api.dart';
 import 'issues/issues_api.dart';
 import 'jobs/jobs_api.dart';
+import 'labels/group_labels_api.dart';
+import 'labels/project_labels_api.dart';
+import 'members/group_members_api.dart';
+import 'members/project_members_api.dart';
 import 'merge_requests/merge_requests_api.dart';
+import 'milestones/group_milestones_api.dart';
+import 'milestones/milestones_api.dart';
 import 'notes/notes_api.dart';
+import 'packages/packages_api.dart';
+import 'pipeline_schedules/pipeline_schedules_api.dart';
+import 'pipelines/pipeline_relations_api.dart';
 import 'pipelines/pipelines_api.dart';
 import 'projects/projects_api.dart';
+import 'releases/releases_api.dart';
+import 'repository/protected_branches_api.dart';
+import 'repository/protected_tags_api.dart';
 import 'repository/repository_api.dart';
 import 'search/search_api.dart';
+import 'snippets/snippets_api.dart';
+import 'suggestions/suggestions_api.dart';
 import 'todos/todos_api.dart';
 import 'users/users_api.dart';
+import 'wikis/wikis_api.dart';
 
-/// Entry point for every GitLab REST call.
+/// Account-bound entry point for GitLab REST and selected GraphQL operations.
 ///
 /// One client is bound to one account: a base URL and a token. Switching
 /// accounts means building a new client, never mutating this one, so a request
@@ -40,21 +64,61 @@ class GitLabClient {
       // and turned into domain exceptions rather than raw transport errors.
       ..validateStatus = (status) => status != null && status < 500;
 
+    final graphqlEndpoint = graphqlApiUrl(baseUrl);
+    // GitLab documents PAT header authentication using Bearer as well as
+    // OAuth. Convert only this endpoint's request copy, never REST defaults.
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (request, handler) {
+          if (request.uri.toString() == graphqlEndpoint) {
+            final pat = request.headers['PRIVATE-TOKEN'];
+            request.headers.remove('PRIVATE-TOKEN');
+            if (pat != null) request.headers['Authorization'] = 'Bearer $pat';
+          }
+          handler.next(request);
+        },
+      ),
+    );
+    graphql = GraphQLApi(_dio, endpoint: graphqlEndpoint);
+    containerImmutability = ContainerImmutabilityApi(graphql);
+
     if (bearer && onUnauthorized != null) {
       _installRefreshRetry(onUnauthorized);
     }
 
     users = UsersApi(_dio);
     groups = GroupsApi(_dio);
+    groupProtectedEnvironments = GroupProtectedEnvironmentsApi(_dio);
+    containerRegistry = ContainerRegistryApi(_dio);
+    deployments = DeploymentsApi(_dio);
+    environments = EnvironmentsApi(_dio);
+    protectedEnvironments = ProtectedEnvironmentsApi(_dio);
+    events = EventsApi(_dio);
     projects = ProjectsApi(_dio);
     repository = RepositoryApi(_dio);
+    protectedBranches = ProtectedBranchesApi(_dio);
+    protectedTags = ProtectedTagsApi(_dio);
+    releases = ReleasesApi(_dio);
     issues = IssuesApi(_dio);
+    issueLinks = IssueLinksApi(_dio);
     mergeRequests = MergeRequestsApi(_dio);
+    groupLabels = GroupLabelsApi(_dio);
+    groupMembers = GroupMembersApi(_dio);
+    projectMembers = ProjectMembersApi(_dio);
+    milestones = MilestonesApi(_dio);
+    groupMilestones = GroupMilestonesApi(_dio);
     notes = NotesApi(_dio);
+    packages = PackagesApi(_dio);
+    pipelineSchedules = PipelineSchedulesApi(_dio);
     pipelines = PipelinesApi(_dio);
+    pipelineRelations = PipelineRelationsApi(graphql);
     jobs = JobsApi(_dio);
+    projectLabels = ProjectLabelsApi(_dio);
     todos = TodosApi(_dio);
     search = SearchApi(_dio);
+    snippets = SnippetsApi(_dio);
+    suggestions = SuggestionsApi(_dio);
+    wikis = WikisApi(_dio);
   }
 
   final Dio _dio;
@@ -72,7 +136,8 @@ class GitLabClient {
         onResponse: (response, handler) async {
           final request = response.requestOptions;
           if (response.statusCode != 401 ||
-              request.extra['labfox_retried'] == true) {
+              request.extra['labfox_retried'] == true ||
+              request.extra['labfox_no_auth_retry'] == true) {
             return handler.next(response);
           }
 
@@ -112,16 +177,40 @@ class GitLabClient {
   }
 
   late final UsersApi users;
+  late final GraphQLApi graphql;
+  late final ContainerImmutabilityApi containerImmutability;
   late final GroupsApi groups;
+  late final GroupProtectedEnvironmentsApi groupProtectedEnvironments;
+  late final ContainerRegistryApi containerRegistry;
+  late final DeploymentsApi deployments;
+  late final EnvironmentsApi environments;
+  late final ProtectedEnvironmentsApi protectedEnvironments;
+  late final EventsApi events;
   late final ProjectsApi projects;
   late final RepositoryApi repository;
+  late final ProtectedBranchesApi protectedBranches;
+  late final ProtectedTagsApi protectedTags;
+  late final ReleasesApi releases;
   late final IssuesApi issues;
+  late final IssueLinksApi issueLinks;
   late final MergeRequestsApi mergeRequests;
+  late final ProjectMembersApi projectMembers;
+  late final GroupMembersApi groupMembers;
+  late final MilestonesApi milestones;
+  late final GroupMilestonesApi groupMilestones;
   late final NotesApi notes;
+  late final PackagesApi packages;
   late final PipelinesApi pipelines;
+  late final PipelineRelationsApi pipelineRelations;
+  late final PipelineSchedulesApi pipelineSchedules;
   late final JobsApi jobs;
+  late final ProjectLabelsApi projectLabels;
+  late final GroupLabelsApi groupLabels;
   late final TodosApi todos;
   late final SearchApi search;
+  late final SnippetsApi snippets;
+  late final SuggestionsApi suggestions;
+  late final WikisApi wikis;
 
   /// Derives the REST endpoint from an instance URL.
   ///
@@ -141,6 +230,12 @@ class GitLabClient {
       return trimmed;
     }
     return '$trimmed/api/v4';
+  }
+
+  /// Derives the sibling GraphQL endpoint without losing a subpath install.
+  static String graphqlApiUrl(String instanceUrl) {
+    final rest = apiBaseUrl(instanceUrl);
+    return '${rest.substring(0, rest.length - '/api/v4'.length)}/api/graphql';
   }
 
   void close() => _dio.close();

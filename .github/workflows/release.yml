@@ -91,7 +91,7 @@ jobs:
           flutter build windows --release
 
       # Windows is distributed as a direct download rather than through a store
-      # (.agents/docs/monetization.md §1), so the release page is the whole
+      # (see .agents/docs/monetization.md), so the release page is the whole
       # install experience. Two assets ship: an installer for the usual case,
       # and the zip for anyone who wants a portable copy. Both are unsigned —
       # SmartScreen warns on first run until a code-signing certificate exists,

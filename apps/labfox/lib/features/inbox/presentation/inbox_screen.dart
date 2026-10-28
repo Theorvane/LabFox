@@ -39,6 +39,10 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.inboxTitle),
+        leading: BackButton(
+          onPressed: () =>
+              context.canPop() ? context.pop() : context.go(Routes.home),
+        ),
         actions: [
           if (_pending && (todos.valueOrNull?.isNotEmpty ?? false))
             IconButton(

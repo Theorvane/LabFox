@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/router.dart';
-import '../../../core/ads/ad_banner.dart';
 import '../../../l10n/app_localizations.dart';
 
 /// The top-level navigation shell around the primary destinations.
@@ -22,7 +21,11 @@ class AppShell extends StatelessWidget {
 
   static const _destinations = [
     (route: Routes.home, icon: Icons.home_outlined, selected: Icons.home),
-    (route: Routes.inbox, icon: LabFoxIcons.inbox, selected: Icons.inbox),
+    (
+      route: Routes.settings,
+      icon: Icons.settings_outlined,
+      selected: LabFoxIcons.settings,
+    ),
     (
       route: Routes.search,
       icon: LabFoxIcons.search,
@@ -33,7 +36,7 @@ class AppShell extends StatelessWidget {
 
   List<String> _labels(AppLocalizations l10n) => [
     l10n.navHome,
-    l10n.navInbox,
+    l10n.settingsTitle,
     l10n.navSearch,
     l10n.navMe,
   ];
@@ -52,14 +55,7 @@ class AppShell extends StatelessWidget {
 
     if (!wide) {
       return Scaffold(
-        body: Column(
-          children: [
-            Expanded(child: child),
-            // The free tier's banner sits between content and the bar;
-            // subscribers and desktop builds render nothing here.
-            const AdBanner(),
-          ],
-        ),
+        body: child,
         bottomNavigationBar: NavigationBar(
           selectedIndex: currentIndex,
           onDestinationSelected: (i) => _onSelect(context, i),
@@ -92,14 +88,7 @@ class AppShell extends StatelessWidget {
             ],
           ),
           const VerticalDivider(width: 1),
-          Expanded(
-            child: Column(
-              children: [
-                Expanded(child: child),
-                const AdBanner(),
-              ],
-            ),
-          ),
+          Expanded(child: child),
         ],
       ),
     );

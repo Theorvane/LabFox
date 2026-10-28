@@ -1,0 +1,987 @@
+import 'dart:async';
+
+import 'package:design_system/design_system.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gitlab_models/gitlab_models.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../core/auth/auth_controller.dart';
+import '../../../../core/auth/gitlab_client_provider.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../../comments/data/discussion_resolution.dart';
+import '../../../comments/presentation/controllers/comments_controller.dart';
+import '../../../diff/presentation/controllers/diff_controllers.dart';
+import '../../data/mr_draft_notes_repository.dart';
+import '../controllers/merge_requests_controllers.dart';
+import '../controllers/mr_discussions_controller.dart';
+import '../controllers/mr_draft_notes_provider.dart';
+import '../controllers/mr_original_review_controller.dart';
+import '../controllers/mr_review_snapshot_controller.dart';
+import 'mr_pending_review_note.dart';
+
+/// The originating view stays mounted during the controller's own detail refresh.
+class MrPendingReviewComposer extends ConsumerStatefulWidget {
+  const MrPendingReviewComposer({required this.mergeRequest, super.key});
+  final MergeRequestRef mergeRequest;
+  @override
+  ConsumerState<MrPendingReviewComposer> createState() => _EntryState();
+}
+
+class _EntryState extends ConsumerState<MrPendingReviewComposer> {
+  bool _opening = false;
+  ValueNotifier<bool>? _view;
+  @override
+  void dispose() {
+    _view?.value = false;
+    super.dispose();
+  }
+
+  Future<void> _open() async {
+    if (_opening) return;
+    final account = ref.read(currentAccountProvider);
+    final drafts = ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious();
+    final source = ref.read(mergeRequestsRepositoryProvider).unwrapPrevious();
+    if (account == null ||
+        drafts.valueOrNull == null ||
+        source.valueOrNull == null) {
+      return;
+    }
+    final active = ValueNotifier(true);
+    _view = active;
+    setState(() => _opening = true);
+    try {
+      final saved = await showDialog<bool>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => _ComposeDialog(
+          resource: widget.mergeRequest,
+          account: account,
+          draftSession: drafts.value!,
+          detailSession: source.value!,
+          viewActive: active,
+          isCurrent: () => mounted,
+        ),
+      );
+      if (mounted &&
+          active.value &&
+          saved == true &&
+          ref.read(currentAccountProvider) == account &&
+          identical(
+            ref
+                .read(mrDraftNotesRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            drafts.valueOrNull,
+          ) &&
+          identical(
+            ref
+                .read(mergeRequestsRepositoryProvider)
+                .unwrapPrevious()
+                .valueOrNull,
+            source.valueOrNull,
+          )) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context).mrPendingComposeSaved),
+          ),
+        );
+      }
+    } finally {
+      _view = null;
+      active.dispose();
+      if (mounted) setState(() => _opening = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final account = ref.watch(currentAccountProvider);
+    final drafts = ref.watch(mrDraftNotesRepositoryProvider).unwrapPrevious();
+    final source = ref.watch(mergeRequestsRepositoryProvider).unwrapPrevious();
+    final detail = ref
+        .watch(mergeRequestControllerProvider(widget.mergeRequest))
+        .unwrapPrevious();
+    final mr = detail.valueOrNull;
+    final ready =
+        account != null &&
+        !drafts.isLoading &&
+        !drafts.hasError &&
+        drafts.valueOrNull != null &&
+        !source.isLoading &&
+        !source.hasError &&
+        source.valueOrNull != null &&
+        !detail.isLoading &&
+        !detail.hasError &&
+        mr != null &&
+        mr.id > 0 &&
+        mr.iid == widget.mergeRequest.iid &&
+        (mr.projectId == null || mr.projectId == widget.mergeRequest.projectId);
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: OutlinedButton(
+        key: const ValueKey('mr-pending-compose-open'),
+        onPressed: ready && !_opening ? _open : null,
+        child: Text(AppLocalizations.of(context).mrPendingComposeOpen),
+      ),
+    );
+  }
+}
+
+/// Shares private input and recovery guards with regular draft creation.
+Future<bool?> showMrPendingReviewMaintenanceDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+  required MergeRequestDraftNote draft,
+  required bool deleting,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+    draft: draft,
+    deleting: deleting,
+  ),
+);
+
+/// Keeps private input separate from the public inline composer.
+Future<bool?> showMrPendingReviewPositionDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object diffSession,
+  required Object clientSession,
+  required MrReviewSelection selection,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    diffSession: diffSession,
+    clientSession: clientSession,
+    selection: selection,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
+/// Reuses private-note input and inspection for a captured original commit.
+Future<bool?> showMrPendingOriginalReviewDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required MrOriginalReviewRef original,
+  required MrOriginalReviewSelection selection,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object clientSession,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    original: original,
+    originalSelection: selection,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    clientSession: clientSession,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
+/// Keeps private reply input bound to the original public discussion and client.
+Future<bool?> showMrPendingReviewReplyDialog({
+  required BuildContext context,
+  required MergeRequestRef resource,
+  required Account account,
+  required Object draftSession,
+  required Object detailSession,
+  required Object clientSession,
+  required Discussion discussion,
+  required ValueNotifier<bool> viewActive,
+  required bool Function() isCurrent,
+}) => showDialog<bool>(
+  context: context,
+  barrierDismissible: false,
+  builder: (_) => _ComposeDialog(
+    resource: resource,
+    account: account,
+    draftSession: draftSession,
+    detailSession: detailSession,
+    clientSession: clientSession,
+    discussion: discussion,
+    viewActive: viewActive,
+    isCurrent: isCurrent,
+  ),
+);
+
+class _ComposeDialog extends ConsumerStatefulWidget {
+  const _ComposeDialog({
+    required this.resource,
+    required this.account,
+    required this.draftSession,
+    required this.detailSession,
+    required this.viewActive,
+    required this.isCurrent,
+    this.discussion,
+    this.selection,
+    this.original,
+    this.originalSelection,
+    this.diffSession,
+    this.clientSession,
+    this.draft,
+    this.deleting = false,
+  });
+  final MergeRequestRef resource;
+  final Account account;
+  final Object draftSession;
+  final Object detailSession;
+  final ValueNotifier<bool> viewActive;
+  final bool Function() isCurrent;
+  final Discussion? discussion;
+  final MrReviewSelection? selection;
+  final MrOriginalReviewRef? original;
+  final MrOriginalReviewSelection? originalSelection;
+  final Object? diffSession, clientSession;
+  final MergeRequestDraftNote? draft;
+  final bool deleting;
+  @override
+  ConsumerState<_ComposeDialog> createState() => _ComposeState();
+}
+
+class _ComposeState extends ConsumerState<_ComposeDialog> {
+  final _text = TextEditingController();
+  Discussion? _replyTarget;
+  bool get _reply => widget.discussion != null;
+  MergeRequestDraftNote? _target;
+  bool get _maintenance => widget.draft != null;
+  Object? _commentsSession;
+  bool _obsolete = false, _busy = false, _inspecting = false;
+  bool _needsInspection = false,
+      _acknowledged = false,
+      _inspectionError = false,
+      _saveError = false;
+  List<MergeRequestDraftNote>? _inspection;
+  @override
+  void initState() {
+    super.initState();
+    _target = widget.draft;
+    _replyTarget = widget.discussion;
+    if (_maintenance && !widget.deleting) _text.text = _target!.note;
+    widget.viewActive.addListener(_observe);
+    _text.addListener(_edited);
+  }
+
+  @override
+  void dispose() {
+    widget.viewActive.removeListener(_observe);
+    _text.dispose();
+    super.dispose();
+  }
+
+  bool _selectionCurrent() {
+    if (widget.originalSelection case final original?) {
+      final snapshot = ref.read(
+        mrOriginalReviewControllerProvider(widget.original!),
+      );
+      return identical(
+            ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+            widget.clientSession,
+          ) &&
+          (snapshot.isLoading ||
+              snapshot.hasError ||
+              !snapshot.hasValue ||
+              original.matches(snapshot.value!));
+    }
+    final selection = widget.selection;
+    if (selection == null) {
+      return !_reply ||
+          identical(
+            ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+            widget.clientSession,
+          );
+    }
+    final snapshot = ref.read(
+      mrReviewSnapshotControllerProvider(widget.resource),
+    );
+    return identical(
+          ref.read(diffRepositoryProvider).unwrapPrevious().valueOrNull,
+          widget.diffSession,
+        ) &&
+        identical(
+          ref.read(gitLabClientProvider).unwrapPrevious().valueOrNull,
+          widget.clientSession,
+        ) &&
+        (snapshot.isLoading ||
+            snapshot.hasError ||
+            !snapshot.hasValue ||
+            selection.matches(snapshot.value!));
+  }
+
+  bool _current() =>
+      mounted &&
+      !_obsolete &&
+      widget.viewActive.value &&
+      widget.isCurrent() &&
+      _selectionCurrent() &&
+      ref.read(currentAccountProvider) == widget.account &&
+      identical(
+        ref.read(mrDraftNotesRepositoryProvider).unwrapPrevious().valueOrNull,
+        widget.draftSession,
+      ) &&
+      identical(
+        ref.read(mergeRequestsRepositoryProvider).unwrapPrevious().valueOrNull,
+        widget.detailSession,
+      ) &&
+      (_commentsSession == null ||
+          identical(
+            ref.read(commentsRepositoryProvider).unwrapPrevious().valueOrNull,
+            _commentsSession,
+          ));
+  void _observe() {
+    if (_current()) return;
+    // Origin disposal can occur during tree finalization. Hide immediately in
+    // build, then permanently discard local private state outside that frame.
+    scheduleMicrotask(() {
+      if (!mounted || _obsolete) return;
+      _obsolete = true;
+      _text.clear();
+      setState(() {
+        _inspection = null;
+        _target = null;
+        _replyTarget = null;
+        _acknowledged = false;
+      });
+    });
+  }
+
+  void _edited() {
+    if (mounted && !_obsolete) setState(() => _acknowledged = false);
+  }
+
+  Future<void> _save() async {
+    if (_busy ||
+        !_current() ||
+        (!widget.deleting && _text.text.trim().isEmpty) ||
+        (_maintenance && _target == null) ||
+        (_reply &&
+            (_replyTarget == null ||
+                !MrDiscussionsController.canSavePendingReply(_replyTarget!))) ||
+        (widget.deleting && !_acknowledged)) {
+      return;
+    }
+    final controller = ref.read(
+      mrDiscussionsControllerProvider(widget.resource).notifier,
+    );
+    if (controller.pendingSaveNeedsInspection ||
+        (_needsInspection && (_inspection == null || !_acknowledged))) {
+      return;
+    }
+    setState(() {
+      _busy = true;
+      _inspection = null;
+      _acknowledged = false;
+      _saveError = false;
+      _inspectionError = false;
+    });
+    try {
+      final saved = _maintenance
+          ? widget.deleting
+                ? (await controller.deletePendingNote(
+                        _target!,
+                        isCurrent: _current,
+                      )
+                      ? true
+                      : null)
+                : await controller.updatePendingNote(
+                    _target!,
+                    _text.text,
+                    isCurrent: _current,
+                  )
+          : _reply
+          ? await controller.savePendingReply(
+              _replyTarget!,
+              _text.text,
+              isCurrent: _current,
+            )
+          : widget.originalSelection != null
+          ? await controller.savePendingCommitNote(
+              _text.text,
+              original: widget.original!,
+              position: widget.originalSelection!.position,
+              isCurrent: _current,
+            )
+          : await controller.savePendingNote(
+              _text.text,
+              position: widget.selection?.position,
+              isCurrent: _current,
+            );
+      if (!mounted || !_current()) return;
+      if (saved != null) {
+        Navigator.of(context).pop(true);
+      } else {
+        setState(() {
+          _saveError = true;
+          _needsInspection =
+              _maintenance || _reply || controller.pendingSaveNeedsInspection;
+        });
+      }
+    } catch (_) {
+      if (_current()) {
+        setState(() {
+          _saveError = true;
+          _needsInspection =
+              _maintenance || _reply || controller.pendingSaveNeedsInspection;
+        });
+      }
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  Future<void> _inspect() async {
+    if (_busy || !_current()) return;
+    setState(() {
+      _busy = true;
+      _inspecting = true;
+      _inspection = null;
+      _acknowledged = false;
+      _inspectionError = false;
+    });
+    try {
+      final controller = ref.read(
+        mrDiscussionsControllerProvider(widget.resource).notifier,
+      );
+      final replyInspection = _reply
+          ? await controller.inspectPendingReply(
+              widget.discussion!,
+              isCurrent: _current,
+            )
+          : null;
+      final notes = _reply
+          ? replyInspection?.notes
+          : await controller.inspectPendingNotes(isCurrent: _current);
+      if (!mounted || !_current()) return;
+      setState(() {
+        _inspection = notes;
+        if (_reply && replyInspection != null) {
+          _replyTarget = replyInspection.target;
+        }
+        _inspectionError = notes == null;
+        if (_maintenance && notes != null) {
+          final matches = notes.where((note) => note.id == widget.draft!.id);
+          _target = matches.length == 1 ? matches.single : null;
+        }
+      });
+    } catch (_) {
+      if (_current()) setState(() => _inspectionError = true);
+    } finally {
+      if (mounted) {
+        setState(() {
+          _busy = false;
+          _inspecting = false;
+        });
+      }
+    }
+  }
+
+  void _retryPreparation() {
+    if (_busy || !_current()) return;
+    final comments = ref.read(commentsRepositoryProvider).unwrapPrevious();
+    if (_commentsSession == null &&
+        (comments.hasError || comments.valueOrNull == null)) {
+      ref.invalidate(commentsRepositoryProvider);
+    }
+    if (widget.selection != null) {
+      ref.invalidate(mrReviewSnapshotControllerProvider(widget.resource));
+    }
+    if (widget.original != null) {
+      ref.invalidate(mrOriginalReviewControllerProvider(widget.original!));
+    }
+    ref.invalidate(mrDiscussionsControllerProvider(widget.resource));
+    ref.invalidate(mergeRequestControllerProvider(widget.resource));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    ref.watch(currentAccountProvider);
+    ref.watch(mrDraftNotesRepositoryProvider);
+    ref.watch(mergeRequestsRepositoryProvider);
+    final review = widget.selection == null
+        ? null
+        : ref
+              .watch(mrReviewSnapshotControllerProvider(widget.resource))
+              .unwrapPrevious();
+    final originalReview = widget.original == null
+        ? null
+        : ref
+              .watch(mrOriginalReviewControllerProvider(widget.original!))
+              .unwrapPrevious();
+    if (widget.original != null) {
+      ref.watch(gitLabClientProvider);
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+      ref.listen(
+        mrOriginalReviewControllerProvider(widget.original!),
+        (_, _) => _observe(),
+      );
+    }
+    if (_reply) {
+      ref.watch(gitLabClientProvider);
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+    }
+    if (widget.selection != null) {
+      ref.watch(diffRepositoryProvider);
+      ref.watch(gitLabClientProvider);
+      ref.listen(diffRepositoryProvider, (_, _) => _observe());
+      ref.listen(gitLabClientProvider, (_, _) => _observe());
+      ref.listen(
+        mrReviewSnapshotControllerProvider(widget.resource),
+        (_, _) => _observe(),
+      );
+    }
+    final comments = ref.watch(commentsRepositoryProvider).unwrapPrevious();
+    ref.listen(currentAccountProvider, (_, _) => _observe());
+    ref.listen(mrDraftNotesRepositoryProvider, (_, _) => _observe());
+    ref.listen(mergeRequestsRepositoryProvider, (_, _) => _observe());
+    ref.listen(commentsRepositoryProvider, (_, _) => _observe());
+    if (_current() &&
+        _commentsSession == null &&
+        !comments.isLoading &&
+        !comments.hasError) {
+      _commentsSession = comments.valueOrNull;
+    }
+    final current = _current();
+    if (!current) _observe();
+    final discussions = current
+        ? ref
+              .watch(mrDiscussionsControllerProvider(widget.resource))
+              .unwrapPrevious()
+        : null;
+    final detail = current
+        ? ref
+              .watch(mergeRequestControllerProvider(widget.resource))
+              .unwrapPrevious()
+        : null;
+    final controller = current
+        ? ref.read(mrDiscussionsControllerProvider(widget.resource).notifier)
+        : null;
+    final gated = controller?.pendingSaveNeedsInspection ?? true;
+    if (current && gated) _needsInspection = true;
+    final mr = detail?.valueOrNull;
+    final preparing =
+        current &&
+        (comments.isLoading ||
+            discussions!.isLoading ||
+            detail!.isLoading ||
+            review?.isLoading == true ||
+            originalReview?.isLoading == true);
+    final ready =
+        current &&
+        !preparing &&
+        (widget.selection == null ||
+            (review != null &&
+                !review.hasError &&
+                review.hasValue &&
+                widget.selection!.matches(review.value!))) &&
+        (widget.originalSelection == null ||
+            (originalReview != null &&
+                !originalReview.hasError &&
+                originalReview.hasValue &&
+                widget.originalSelection!.matches(originalReview.value!))) &&
+        !comments.hasError &&
+        comments.valueOrNull != null &&
+        !discussions!.hasError &&
+        discussions.hasValue &&
+        !detail!.hasError &&
+        mr != null &&
+        mr.id > 0 &&
+        mr.iid == widget.resource.iid &&
+        (mr.projectId == null || mr.projectId == widget.resource.projectId);
+    final canSave =
+        ready &&
+        !_busy &&
+        (widget.deleting
+            ? _acknowledged
+            : _text.text.trim().isNotEmpty &&
+                  (!_maintenance ||
+                      (_target != null &&
+                          MrDraftNotesRepository.canUpdate(_target!) &&
+                          _text.text != _target!.note))) &&
+        (!_maintenance || _target != null) &&
+        (!_reply ||
+            (_replyTarget != null &&
+                MrDiscussionsController.canSavePendingReply(_replyTarget!))) &&
+        !gated &&
+        (!_needsInspection || (_inspection != null && _acknowledged));
+    return PopScope(
+      canPop: !_busy,
+      child: AlertDialog(
+        scrollable: true,
+        insetPadding: const EdgeInsets.all(LabFoxSpacing.md),
+        title: Text(
+          _maintenance
+              ? (widget.deleting
+                    ? l.mrPendingDeleteTitle
+                    : l.mrPendingEditTitle)
+              : _reply
+              ? l.mrPendingReplyTitle
+              : widget.selection != null || widget.originalSelection != null
+              ? l.mrPendingInlineTitle
+              : l.mrPendingComposeTitle,
+        ),
+        content: SizedBox(
+          width: LabFoxBreakpoints.tablet,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (!current)
+                Text(l.mrPendingComposeChanged)
+              else ...[
+                Text(
+                  _maintenance
+                      ? (widget.deleting
+                            ? l.mrPendingDeleteHint
+                            : l.mrPendingEditHint)
+                      : _reply
+                      ? l.mrPendingReplyHint
+                      : widget.selection != null ||
+                            widget.originalSelection != null
+                      ? (widget.originalSelection != null
+                            ? l.mrOriginalReviewPrivateHint
+                            : l.mrPendingInlineHint)
+                      : l.mrPendingComposeHint,
+                ),
+                if (_reply) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(
+                    l.mrPendingReplyTargetTitle,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  if (_replyTarget == null ||
+                      !MrDiscussionsController.canSavePendingReply(
+                        _replyTarget!,
+                      ))
+                    Text(l.mrPendingReplyTargetUnavailable)
+                  else ...[
+                    if (discussionResolution(_replyTarget!)
+                        case final resolved?)
+                      Text(
+                        resolved
+                            ? l.mrDiscussionResolved
+                            : l.mrDiscussionUnresolved,
+                      ),
+                    SizedBox(
+                      height: LabFoxSpacing.minTouchTarget * 3,
+                      child: ListView.separated(
+                        primary: false,
+                        itemCount: _replyTarget!.notes.length,
+                        separatorBuilder: (_, _) => const Divider(),
+                        itemBuilder: (_, index) {
+                          final note = _replyTarget!.notes[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (note.author != null)
+                                Text(
+                                  note.author!.username,
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              SelectableText(note.body),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ],
+                if (widget.selection case final selection?) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(
+                    l.mrReviewVersionTitle(
+                      NumberFormat.decimalPattern(
+                        l.localeName,
+                      ).format(selection.versionId),
+                    ),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewOldPath(selection.position.oldPath!),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewNewPath(selection.position.newPath!),
+                  ),
+                  if (selection.position.lineRange case final range?)
+                    Text(
+                      l.mrDiscussionContextRangeLabel(
+                        _rangeLabel(range.start!, l.localeName),
+                        _rangeLabel(range.end!, l.localeName),
+                      ),
+                    )
+                  else ...[
+                    if (selection.position.oldLine case final line?)
+                      Text(
+                        l.mrPendingReviewOldLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                    if (selection.position.newLine case final line?)
+                      Text(
+                        l.mrPendingReviewNewLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                  ],
+                ],
+                if (widget.originalSelection case final original?) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(l.mrOriginalReviewTitle),
+                  SelectableText(widget.original!.commitId),
+                  SelectableText(
+                    l.mrPendingReviewOldPath(original.position.oldPath!),
+                  ),
+                  SelectableText(
+                    l.mrPendingReviewNewPath(original.position.newPath!),
+                  ),
+                  if (original.position.lineRange case final range?)
+                    Text(
+                      l.mrDiscussionContextRangeLabel(
+                        _rangeLabel(range.start!, l.localeName),
+                        _rangeLabel(range.end!, l.localeName),
+                      ),
+                    )
+                  else ...[
+                    if (original.position.oldLine case final line?)
+                      Text(
+                        l.mrPendingReviewOldLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                    if (original.position.newLine case final line?)
+                      Text(
+                        l.mrPendingReviewNewLine(
+                          NumberFormat.decimalPattern(
+                            l.localeName,
+                          ).format(line),
+                        ),
+                      ),
+                  ],
+                ],
+                if (controller?.pendingPublicationNeedsInspection ?? false) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  Text(l.mrPendingPublishRecoveryRequired),
+                ],
+                if (_maintenance && _target != null) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  MrPendingReviewNote(draft: _target!),
+                ],
+                if (_maintenance && _target == null && _inspection != null)
+                  Text(l.mrPendingTargetMissing),
+                const SizedBox(height: LabFoxSpacing.md),
+                if (!widget.deleting)
+                  TextField(
+                    key: const ValueKey('mr-pending-compose-input'),
+                    controller: _text,
+                    enabled: !_busy,
+                    minLines: 3,
+                    maxLines: 6,
+                    decoration: InputDecoration(
+                      labelText: l.mrPendingComposeLabel,
+                    ),
+                  ),
+                if (preparing && !_busy) ...[
+                  const SizedBox(height: LabFoxSpacing.sm),
+                  LinearProgressIndicator(
+                    semanticsLabel: l.mrPendingComposePrepare,
+                  ),
+                  Text(l.mrPendingComposePrepare),
+                ],
+                if (!ready && !preparing && !_busy) ...[
+                  Text(l.mrPendingComposePrepareError),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextButton(
+                      key: const ValueKey('mr-pending-compose-prepare-retry'),
+                      onPressed: _retryPreparation,
+                      child: Text(l.retry),
+                    ),
+                  ),
+                ],
+                if (_saveError)
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceError
+                        : l.mrPendingComposeSaveError,
+                  ),
+                if (widget.deleting && !_needsInspection)
+                  CheckboxListTile(
+                    key: const ValueKey('mr-pending-compose-acknowledge'),
+                    contentPadding: EdgeInsets.zero,
+                    value: _acknowledged,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(l.mrPendingDeleteConfirm),
+                    onChanged: _busy
+                        ? null
+                        : (value) =>
+                              setState(() => _acknowledged = value ?? false),
+                  ),
+                if (_needsInspection) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceUncertain
+                        : l.mrPendingComposeUncertain,
+                  ),
+                ],
+                if (_inspectionError) Text(l.mrPendingComposeInspectError),
+                if (_inspection case final notes?) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  Text(
+                    l.mrPendingComposeInspectionTitle,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    _maintenance
+                        ? l.mrPendingMaintenanceInspectionHint
+                        : _reply
+                        ? l.mrPendingReplyInspectionHint
+                        : l.mrPendingComposeInspectionHint,
+                  ),
+                  Text(l.mrPendingReviewCount(notes.length)),
+                  if (notes.isEmpty)
+                    Text(l.mrPendingReviewEmpty)
+                  else
+                    SizedBox(
+                      height:
+                          LabFoxSpacing.minTouchTarget *
+                          (notes.length == 1 ? 4 : 8),
+                      child: ListView.separated(
+                        primary: false,
+                        itemCount: notes.length,
+                        separatorBuilder: (_, _) =>
+                            const Divider(height: LabFoxSpacing.xl),
+                        itemBuilder: (_, index) => MrPendingReviewNote(
+                          key: ValueKey(notes[index].id),
+                          draft: notes[index],
+                        ),
+                      ),
+                    ),
+                  if ((!_reply ||
+                          (_replyTarget != null &&
+                              MrDiscussionsController.canSavePendingReply(
+                                _replyTarget!,
+                              ))) &&
+                      (!_maintenance ||
+                          (_target != null &&
+                              (widget.deleting ||
+                                  MrDraftNotesRepository.canUpdate(_target!)))))
+                    CheckboxListTile(
+                      key: const ValueKey('mr-pending-compose-acknowledge'),
+                      contentPadding: EdgeInsets.zero,
+                      value: _acknowledged,
+                      controlAffinity: ListTileControlAffinity.leading,
+                      title: Text(
+                        _maintenance
+                            ? l.mrPendingMaintenanceAcknowledge
+                            : _reply
+                            ? l.mrPendingReplyAcknowledge
+                            : l.mrPendingComposeAcknowledge,
+                      ),
+                      onChanged: _busy
+                          ? null
+                          : (value) =>
+                                setState(() => _acknowledged = value ?? false),
+                    ),
+                ],
+                if (_busy) ...[
+                  const SizedBox(height: LabFoxSpacing.md),
+                  LinearProgressIndicator(
+                    semanticsLabel: _inspecting
+                        ? l.mrPendingComposeInspecting
+                        : widget.deleting
+                        ? l.mrPendingDeleting
+                        : l.mrPendingComposeSaving,
+                  ),
+                  Text(
+                    _inspecting
+                        ? l.mrPendingComposeInspecting
+                        : widget.deleting
+                        ? l.mrPendingDeleting
+                        : l.mrPendingComposeSaving,
+                  ),
+                ],
+              ],
+              const SizedBox(height: LabFoxSpacing.md),
+              // Keep actions in the same scroll surface so large translated
+              // labels cannot consume the entire dialog above a keyboard.
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: LabFoxSpacing.sm,
+                children: [
+                  TextButton(
+                    key: const ValueKey('mr-pending-compose-cancel'),
+                    onPressed: _busy
+                        ? null
+                        : () => Navigator.of(context).pop(false),
+                    child: Text(l.cancel),
+                  ),
+                  if (current && _needsInspection)
+                    TextButton(
+                      key: const ValueKey('mr-pending-compose-inspect'),
+                      onPressed: ready && !_busy ? _inspect : null,
+                      child: Text(l.mrPendingComposeInspect),
+                    ),
+                  TextButton(
+                    key: const ValueKey('mr-pending-compose-save'),
+                    onPressed: canSave ? _save : null,
+                    child: Text(
+                      _maintenance
+                          ? (widget.deleting
+                                ? l.mrPendingDelete
+                                : l.mrPendingUpdate)
+                          : l.mrPendingComposeSave,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+String _rangeLabel(DiffNoteRangeEndpoint endpoint, String locale) {
+  final old = endpoint.type == 'old';
+  return (old ? '-' : '+') +
+      NumberFormat.decimalPattern(
+        locale,
+      ).format(old ? endpoint.oldLine : endpoint.newLine);
+}

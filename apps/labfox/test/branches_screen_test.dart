@@ -55,7 +55,14 @@ void main() {
     expect(find.textContaining('Default branch'), findsOneWidget);
     // Rows use the shared WorkTile shape, and the protected branch shows a lock.
     expect(find.byType(WorkTile), findsNWidgets(2));
-    expect(find.byIcon(Icons.lock_outline), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byType(WorkTile),
+        matching: find.byIcon(Icons.lock_outline),
+      ),
+      findsOneWidget,
+    );
+    expect(find.byTooltip('Protected branches'), findsOneWidget);
   });
 
   testWidgets('the create action is disabled while branches load', (

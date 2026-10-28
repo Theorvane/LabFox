@@ -3,6 +3,66 @@ import 'package:test/test.dart';
 
 void main() {
   group('Issue', () {
+    test('distinguishes locked, unlocked, and absent discussions', () {
+      const base = {'id': 1, 'iid': 5, 'title': 'x', 'state': 'opened'};
+      expect(
+        Issue.fromJson({...base, 'discussion_locked': true}).discussionLocked,
+        isTrue,
+      );
+      expect(
+        Issue.fromJson({...base, 'discussion_locked': false}).discussionLocked,
+        isFalse,
+      );
+      expect(Issue.fromJson(base).discussionLocked, isNull);
+    });
+
+    test('distinguishes confidential, public, and absent values', () {
+      const base = {'id': 1, 'iid': 5, 'title': 'x', 'state': 'opened'};
+      expect(
+        Issue.fromJson({...base, 'confidential': true}).confidential,
+        isTrue,
+      );
+      expect(
+        Issue.fromJson({...base, 'confidential': false}).confidential,
+        isFalse,
+      );
+      expect(Issue.fromJson(base).confidential, isNull);
+    });
+
+    test('parses an assigned milestone and preserves its global id', () {
+      final issue = Issue.fromJson(const {
+        'id': 1,
+        'iid': 5,
+        'title': 'x',
+        'state': 'opened',
+        'milestone': {'id': 17, 'iid': 2, 'title': 'v4.0', 'state': 'active'},
+      });
+
+      expect(issue.milestone?.id, 17);
+      expect(issue.milestone?.iid, 2);
+      expect(issue.milestone?.title, 'v4.0');
+    });
+
+    test('parses an optional issue due date', () {
+      final dated = Issue.fromJson(const {
+        'id': 1,
+        'iid': 5,
+        'title': 'x',
+        'state': 'opened',
+        'due_date': '2026-10-15',
+      });
+      final undated = Issue.fromJson(const {
+        'id': 1,
+        'iid': 6,
+        'title': 'y',
+        'state': 'opened',
+        'due_date': null,
+      });
+
+      expect(dated.dueDate, DateTime(2026, 10, 15));
+      expect(undated.dueDate, isNull);
+    });
+
     test('keeps iid and id distinct', () {
       // The number a user sees (#282) is the iid; id is the global identifier.
       // Flattening them would route to the wrong resource.
@@ -104,6 +164,25 @@ void main() {
         'state': 'opened',
       });
       expect(issue.labels, isEmpty);
+    });
+
+    test('keeps subscription state distinct from an absent field', () {
+      final subscribed = Issue.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+        'subscribed': true,
+      });
+      final absent = Issue.fromJson(const {
+        'id': 1,
+        'iid': 1,
+        'title': 'x',
+        'state': 'opened',
+      });
+
+      expect(subscribed.subscribed, isTrue);
+      expect(absent.subscribed, isNull);
     });
   });
 }

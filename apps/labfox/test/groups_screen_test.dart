@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gitlab_models/gitlab_models.dart';
-import 'package:labfox/core/ui/link_opener.dart';
+import 'package:go_router/go_router.dart';
 import 'package:labfox/features/groups/presentation/controllers/groups_controller.dart';
 import 'package:labfox/features/groups/presentation/groups_screen.dart';
 import 'package:labfox/l10n/app_localizations.dart';
@@ -24,26 +24,35 @@ class _StubController extends GroupsController {
   }
 }
 
-Future<List<Uri>> _pump(
+Future<GoRouter> _pump(
   WidgetTester tester,
   AsyncValue<List<Group>> value,
 ) async {
-  final opened = <Uri>[];
+  final router = GoRouter(
+    initialLocation: '/groups',
+    routes: [
+      GoRoute(path: '/groups', builder: (_, _) => const GroupsScreen()),
+      GoRoute(
+        path: '/groups/:id',
+        builder: (_, state) =>
+            Scaffold(body: Text('Group ${state.pathParameters['id']}')),
+      ),
+    ],
+  );
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
         groupsControllerProvider.overrideWith(() => _StubController(value)),
-        linkOpenerProvider.overrideWithValue((uri) async => opened.add(uri)),
       ],
-      child: const MaterialApp(
+      child: MaterialApp.router(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: GroupsScreen(),
+        routerConfig: router,
       ),
     ),
   );
   await tester.pump();
-  return opened;
+  return router;
 }
 
 const _groups = [
@@ -75,14 +84,14 @@ void main() {
     expect(find.text('youthpick/infra'), findsOneWidget);
   });
 
-  testWidgets('a group opens on GitLab', (tester) async {
-    final opened = await _pump(tester, const AsyncData(_groups));
+  testWidgets('a group opens its in-app route', (tester) async {
+    await _pump(tester, const AsyncData(_groups));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('YouthPick'));
     await tester.pumpAndSettle();
 
-    expect(opened, [Uri.parse('https://gitlab.com/groups/youthpick')]);
+    expect(find.text('Group 42'), findsOneWidget);
   });
 
   testWidgets('shows an empty message', (tester) async {

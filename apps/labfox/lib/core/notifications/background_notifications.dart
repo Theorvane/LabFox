@@ -10,7 +10,6 @@ import 'package:workmanager/workmanager.dart';
 
 import '../auth/account_store.dart';
 import '../auth/auth_repository.dart';
-import '../entitlement/entitlement_store.dart';
 import '../storage/local_projects_store.dart';
 import 'todo_digest.dart';
 
@@ -58,12 +57,8 @@ Future<bool> runTodoCheck() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.reload();
 
-    // Both gates re-checked here, not just where the task is registered: the
-    // subscription can lapse, or the setting be turned off, while a scheduled
-    // task is still queued.
-    if (prefs.getString(entitlementPrefsKey) != 'subscribed') {
-      return true;
-    }
+    // Recheck the setting because a scheduled task can remain queued after
+    // the user turns background checks off.
     if (prefs.getBool(backgroundNotificationsKey) != true) {
       return true;
     }

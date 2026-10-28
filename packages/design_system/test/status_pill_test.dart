@@ -13,6 +13,38 @@ Future<void> _pump(WidgetTester tester, Widget child) {
 
 void main() {
   group('StatusPill', () {
+    for (final dark in [false, true]) {
+      testWidgets(
+        'long status fits a bounded width and retains its full semantic label dark=$dark',
+        (tester) async {
+          final semantics = tester.ensureSemantics();
+          const label = 'Waiting_for_callback';
+          await tester.pumpWidget(
+            MaterialApp(
+              theme: dark ? LabFoxTheme.dark : LabFoxTheme.light,
+              home: Scaffold(
+                body: Center(
+                  child: SizedBox(
+                    width: 160,
+                    child: StatusPill(
+                      label: label,
+                      colors: dark
+                          ? LabFoxStatusColors.dark.pending
+                          : LabFoxStatusColors.light.pending,
+                      dot: true,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+          expect(tester.takeException(), isNull);
+          expect(tester.getSemantics(find.text(label)).label, label);
+          semantics.dispose();
+        },
+      );
+    }
+
     testWidgets('filled renders the label on the status colour itself', (
       tester,
     ) async {
