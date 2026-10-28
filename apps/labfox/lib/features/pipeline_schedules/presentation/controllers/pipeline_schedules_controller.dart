@@ -52,9 +52,12 @@ class PipelineScheduleListController
           PipelineScheduleListRef
         > {
   bool _loadingMore = false;
+  int _generation = 0;
 
   @override
   Future<Paginated<PipelineSchedule>> build(PipelineScheduleListRef arg) async {
+    _generation++;
+    _loadingMore = false;
     final repository = await ref.watch(
       pipelineSchedulesRepositoryProvider.future,
     );
@@ -63,21 +66,24 @@ class PipelineScheduleListController
   }
 
   Future<void> loadMore() async {
-    if (_loadingMore) return;
+    if (_loadingMore || state.isLoading) return;
     final current = state.valueOrNull;
     final page = current?.nextPage;
     if (current == null || page == null) return;
+    final generation = _generation;
     _loadingMore = true;
     try {
       final repository = await ref.read(
         pipelineSchedulesRepositoryProvider.future,
       );
+      if (generation != _generation) return;
       if (repository == null) throw StateError('No authenticated account');
       final next = await repository.list(
         arg.projectId,
         active: arg.active,
         page: page,
       );
+      if (generation != _generation) return;
       state = AsyncData(
         Paginated(
           items: [...current.items, ...next.items],
@@ -87,9 +93,9 @@ class PipelineScheduleListController
         ),
       );
     } catch (error, stackTrace) {
-      state = AsyncError(error, stackTrace);
+      if (generation == _generation) state = AsyncError(error, stackTrace);
     } finally {
-      _loadingMore = false;
+      if (generation == _generation) _loadingMore = false;
     }
   }
 }
